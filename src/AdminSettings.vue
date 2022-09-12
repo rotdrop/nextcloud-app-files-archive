@@ -1,0 +1,117 @@
+<script>
+/**
+ * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ *
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ *
+ * @license AGPL-3.0-or-later
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+</script>
+<template>
+  <SettingsSection :title="t(appName, 'Archive Manager, Admin Settings')">
+    <AppSettingsSection :title="t(appName, 'Archive Extraction')">
+      <SettingsInputText
+        v-model="archiveSizeLimit"
+        :label="t(appName, 'Archive Size Limit')"
+        :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
+        :disabled="loading"
+        @update="saveTextInput(...arguments, 'archiveSizeLimit')"
+      />
+    </AppSettingsSection>
+  </SettingsSection>
+</template>
+
+<script>
+import { appName } from './config.js'
+import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
+import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
+import SettingsInputText from './components/SettingsInputText'
+import ListItem from './components/ListItem'
+import { generateUrl } from '@nextcloud/router'
+import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
+import axios from '@nextcloud/axios'
+import settingsSync from './mixins/settings-sync'
+
+export default {
+  name: 'AdminSettings',
+  components: {
+    AppSettingsSection,
+    ListItem,
+    SettingsSection,
+    SettingsInputText,
+  },
+  data() {
+    return {
+      archiveSizeLimit: '',
+      loading: true,
+    }
+  },
+  mixins: [
+    settingsSync,
+  ],
+  created() {
+    this.getData()
+  },
+  computed: {
+    builtinConvertersDisabled() {
+      return !!this.disableBuiltinConverters
+    },
+  },
+  watch: {
+  },
+  methods: {
+    async getData() {
+      // slurp in all settings
+      this.fetchSettings('admin');
+      this.loading = false
+    },
+    async saveTextInput(value, settingsKey, force) {
+      if (await this.saveConfirmedSetting(value, 'admin', settingsKey, force)) {
+        this.fetchSetting('converters', 'admin')
+      }
+    },
+    async saveSetting(setting) {
+      console.info('SAVE SETTING', setting)
+      if (await this.saveSimpleSetting(setting, 'admin')) {
+        this.fetchSetting('converters', 'admin')
+      }
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
+.settings-section {
+  .flex-container {
+    display:flex;
+    &.flex-center {
+      align-items:center;
+    }
+  }
+  :deep(&__title) {
+    padding-left:60px;
+    background-image:url('../img/app.svg');
+    background-repeat:no-repeat;
+    background-origin:border-box;
+    background-size:45px;
+    background-position:left center;
+    height:30px;
+  }
+  :deep(.app-settings-section) {
+    margin-bottom: 40px;
+  }
+}
+</style>

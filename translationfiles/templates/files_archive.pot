@@ -1,0 +1,764 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Nextcloud package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Nextcloud 3.14159\n"
+"Report-Msgid-Bugs-To: translations\\@example.com\n"
+"POT-Creation-Date: 2022-09-03 12:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Controller/CatchAllController.php:55
+#, php-format
+msgid "Post to end-point \"%s\" not implemented."
+msgstr ""
+
+#: lib/Controller/CatchAllController.php:58
+#, php-format
+msgid "Post to base-url of app \"%s\" not allowed."
+msgstr ""
+
+#: lib/Controller/CatchAllController.php:71
+#, php-format
+msgid "Get from end-point \"%s\" not implemented."
+msgstr ""
+
+#: lib/Controller/MultiPdfDownloadController.php:167
+msgid "unknown"
+msgstr ""
+
+#: lib/Controller/SettingsController.php:127
+#: lib/Controller/SettingsController.php:233
+#: lib/Controller/SettingsController.php:285
+#: lib/Controller/SettingsController.php:327
+#, php-format
+msgid "Unknown personal setting: \"%1$s\""
+msgstr ""
+
+#: lib/Controller/SettingsController.php:130
+#, php-format
+msgid "The personal setting \"%1$s\" is read-only"
+msgstr ""
+
+#: lib/Controller/SettingsController.php:138
+#: lib/Controller/SettingsController.php:244
+#, php-format
+msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
+msgstr ""
+
+#: lib/Controller/SettingsController.php:154
+#: lib/Controller/SettingsController.php:213
+#, php-format
+msgid "Unknown admin setting: \"%1$s\""
+msgstr ""
+
+#: lib/Controller/SettingsController.php:236
+#, php-format
+msgid "Thge personal setting \"%1$s\" is read-only"
+msgstr ""
+
+#: lib/Controller/SettingsController.php:263
+#, php-format
+msgid "Unknown personal setting: \"%s\"."
+msgstr ""
+
+#: lib/Controller/SettingsController.php:350
+#, php-format
+msgid "Unable to parse memory size limit \"%s\""
+msgstr ""
+
+#: lib/Service/AnyToPdf.php:163
+#: lib/Service/AnyToPdf.php:187
+#: lib/Service/AnyToPdf.php:196
+msgid "not found"
+msgstr ""
+
+#: lib/Service/AnyToPdf.php:179
+msgid "pass through"
+msgstr ""
+
+#: lib/Service/AnyToPdf.php:223
+#, php-format
+msgid ""
+"Universal converter \"%1$s\" fas failed trying to convert mime-type \"%2$s\""
+msgstr ""
+
+#: lib/Service/AnyToPdf.php:257
+#, php-format
+msgid "Converter \"%1$s\" has failed trying to convert mime-type \"%2$s\""
+msgstr ""
+
+#: lib/Service/AnyToPdf.php:386
+#, php-format
+msgid "Please install the \"%s\" program on the server."
+msgstr ""
+
+#: lib/Service/ArchiveService.php:97
+#: lib/Service/ArchiveService.php:103
+#, php-format
+msgid "Unable to open archive file %s (%s)"
+msgstr ""
+
+#: lib/Service/ArchiveService.php:113
+#, php-format
+msgid "Uncompressed size of archive \"%1$s\" is too large: %2$d > %3$d"
+msgstr ""
+
+#: lib/Service/ArchiveService.php:120
+#, php-format
+msgid "Archive \"%1$s\" is a potential zip bomp, size %2$d > %3$d"
+msgstr ""
+
+#: lib/Service/ArchiveService.php:170
+#: lib/Service/ArchiveService.php:179
+msgid "There is no archive file associated with this archiver instance."
+msgstr ""
+
+#: lib/Service/AssetService.php:75
+#, php-format
+msgid ""
+"Installation problem; the required %s-resource \"%s\" is not installed on "
+"the server, please contact the system administrator!"
+msgstr ""
+
+#: lib/Service/PdfCombiner.php:332
+#: lib/Service/PdfCombiner.php:355
+msgid "Combining PDFs failed"
+msgstr ""
+
+#: lib/Settings/AdminSection.php:69
+#: lib/Settings/PersonalSection.php:69
+#: specialAppInfoFakeDummyForL10nScript.php:2
+msgid "PDF Downloader"
+msgstr ""
+
+#: lib/Traits/ResponseTrait.php:73
+msgid "Error, caught an exception."
+msgstr ""
+
+#: lib/Traits/ResponseTrait.php:74
+msgid "Caused by previous exception"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:25
+#: specialAppInfoFakeDummyForL10nScript.php:3
+#: specialVueFakeDummyForL10nScript.js:2
+msgid "Recursive PDF Downloader"
+msgstr ""
+
+#: specialAppInfoFakeDummyForL10nScript.php:4
+msgid ""
+"Recusively convert entire directory trees to PDF and provide the resulting "
+"document as download"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:26
+#. TRANSLATORS src/PersonalSettings.vue:125
+#: specialVueFakeDummyForL10nScript.js:4
+#: specialVueFakeDummyForL10nScript.js:58
+msgid "Archive Extraction"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:35
+#: specialVueFakeDummyForL10nScript.js:6
+msgid ""
+"On-the-fly extraction of archive files. If enabled users can control this "
+"setting on a per-user basis."
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:40
+#. TRANSLATORS src/PersonalSettings.vue:143
+#: specialVueFakeDummyForL10nScript.js:8
+#: specialVueFakeDummyForL10nScript.js:64
+msgid "Archive Size Limit"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:41
+#. TRANSLATORS src/PersonalSettings.vue:144
+#: specialVueFakeDummyForL10nScript.js:10
+#: specialVueFakeDummyForL10nScript.js:66
+msgid ""
+"Disallow archive extraction for archives with decompressed size larger than "
+"this limit."
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:46
+#: specialVueFakeDummyForL10nScript.js:12
+msgid "Custom Converter Scripts"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:55
+#: specialVueFakeDummyForL10nScript.js:14
+msgid "Disable the builtin-converters."
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:60
+#: specialVueFakeDummyForL10nScript.js:16
+msgid "Universal Converter"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:61
+#: specialVueFakeDummyForL10nScript.js:18
+msgid ""
+"Full path to a filter-program to be executed first for all files. If it "
+"fails, the other converters will be tried in turn."
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:67
+#: specialVueFakeDummyForL10nScript.js:20
+msgid "Fallback Converter"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:68
+#: specialVueFakeDummyForL10nScript.js:22
+msgid ""
+"Full path to a filter-program to be run when all other filters have failed. "
+"If it fails an error page will be substituted for the failing document."
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:73
+#: specialVueFakeDummyForL10nScript.js:24
+msgid "Converters"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:75
+#: specialVueFakeDummyForL10nScript.js:26
+msgid "Status of the configured Converters"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:80
+#: specialVueFakeDummyForL10nScript.js:28
+msgid "converter chain"
+msgstr ""
+
+#: specialVueFakeDummyForL10nScript.js:28
+msgid "single converter"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:87
+#: specialVueFakeDummyForL10nScript.js:30
+msgid "alternatives"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:95
+#: specialVueFakeDummyForL10nScript.js:30
+#: specialVueFakeDummyForL10nScript.js:32
+msgid "converter"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:22
+#: specialVueFakeDummyForL10nScript.js:34
+msgid "Recursive Pdf Downloader, Personal Settings"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:23
+#: specialVueFakeDummyForL10nScript.js:36
+msgid "Decorations and Fonts"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:32
+#: specialVueFakeDummyForL10nScript.js:38
+msgid "Label output pages with file-name and page-number"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:36
+#: specialVueFakeDummyForL10nScript.js:40
+msgid "Format of the page-label: BASENAME_CURRENT_FILE PAGE/FILE_PAGES"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:40
+#: specialVueFakeDummyForL10nScript.js:42
+msgid "Font for generated PDF page-annotations"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:47
+#: specialVueFakeDummyForL10nScript.js:44
+#: specialVueFakeDummyForL10nScript.js:50
+msgid "Select a Font"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:75
+#: specialVueFakeDummyForL10nScript.js:46
+msgid "The font to use for the page-labels: {pageLabelsFont}"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:80
+#: specialVueFakeDummyForL10nScript.js:48
+msgid "Font for generated PDF (error-)pages"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:115
+#: specialVueFakeDummyForL10nScript.js:52
+msgid "The font to use for generated pages: {generatedPagesFont}"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:121
+#: specialVueFakeDummyForL10nScript.js:54
+msgid "Test Input"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:122
+#: specialVueFakeDummyForL10nScript.js:56
+msgid "Test Hint"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:134
+#: specialVueFakeDummyForL10nScript.js:60
+msgid "On-the-fly extraction of archive files."
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:137
+#: specialVueFakeDummyForL10nScript.js:62
+msgid ""
+"On-the-fly extraction of archive files is disabled by the administrator."
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:149
+#: specialVueFakeDummyForL10nScript.js:68
+msgid "Administrative size limit: {archiveSizeLimit}"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:238
+#: specialVueFakeDummyForL10nScript.js:70
+#: src/mixins/settings-sync.js:40
+#: src/mixins/settings-sync.js:60
+#: src/mixins/settings-sync.js:87
+#: src/mixins/settings-sync.js:137
+msgid "reason unknown"
+msgstr ""
+
+#. TRANSLATORS src/PersonalSettings.vue:242
+#: specialVueFakeDummyForL10nScript.js:72
+msgid "Unable to obtain the list of available fonts: {message}"
+msgstr ""
+
+#: src/files-action.js:41
+#: src/files-action.js:42
+msgid "Download PDF"
+msgstr ""
+
+#: src/mixins/settings-sync.js:44
+msgid "Unable to query the initial value of all settings: {message}"
+msgstr ""
+
+#: src/mixins/settings-sync.js:64
+msgid "Unable to query the initial value of {setting}: {message}"
+msgstr ""
+
+#: src/mixins/settings-sync.js:75
+msgid "true"
+msgstr ""
+
+#: src/mixins/settings-sync.js:80
+msgid "Successfully set \"{setting}\" to {value}."
+msgstr ""
+
+#: src/mixins/settings-sync.js:82
+#: src/mixins/settings-sync.js:131
+msgid "Setting \"{setting}\" has been unset successfully."
+msgstr ""
+
+#: src/mixins/settings-sync.js:92
+msgid "Unable to set \"{setting}\" to {value}: {message}."
+msgstr ""
+
+#: src/mixins/settings-sync.js:100
+msgid "false"
+msgstr ""
+
+#: src/mixins/settings-sync.js:98
+msgid "Unable to unset \"{setting}\": {message}"
+msgstr ""
+
+#: src/mixins/settings-sync.js:117
+msgid "Confirmation Required"
+msgstr ""
+
+#: src/mixins/settings-sync.js:122
+msgid "Unconfirmed, reverting to old value."
+msgstr ""
+
+#: src/mixins/settings-sync.js:129
+msgid "Successfully set value for \"{settingsKey}\" to \"{value}\""
+msgstr ""
+
+#: src/mixins/settings-sync.js:142
+msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
+msgstr ""
+
+#: src/util/ajax.js:35
+msgid "OK"
+msgstr ""
+
+#: src/util/ajax.js:36
+msgid "Created"
+msgstr ""
+
+#: src/util/ajax.js:37
+msgid "Accepted"
+msgstr ""
+
+#: src/util/ajax.js:38
+msgid "Non-Authoritative Information"
+msgstr ""
+
+#: src/util/ajax.js:39
+msgid "No Content"
+msgstr ""
+
+#: src/util/ajax.js:40
+msgid "Reset Content"
+msgstr ""
+
+#: src/util/ajax.js:41
+msgid "Partial Content"
+msgstr ""
+
+#: src/util/ajax.js:42
+msgid "Multi-Status (WebDAV)"
+msgstr ""
+
+#: src/util/ajax.js:43
+msgid "Already Reported (WebDAV)"
+msgstr ""
+
+#: src/util/ajax.js:44
+msgid "IM Used"
+msgstr ""
+
+#: src/util/ajax.js:45
+msgid "Multiple Choices"
+msgstr ""
+
+#: src/util/ajax.js:46
+msgid "Moved Permanently"
+msgstr ""
+
+#: src/util/ajax.js:47
+msgid "Found"
+msgstr ""
+
+#: src/util/ajax.js:48
+msgid "See Other"
+msgstr ""
+
+#: src/util/ajax.js:49
+msgid "Not Modified"
+msgstr ""
+
+#: src/util/ajax.js:50
+msgid "Use Proxy"
+msgstr ""
+
+#: src/util/ajax.js:51
+msgid "(Unused)"
+msgstr ""
+
+#: src/util/ajax.js:52
+msgid "Temporary Redirect"
+msgstr ""
+
+#: src/util/ajax.js:53
+msgid "Permanent Redirect (experimental)"
+msgstr ""
+
+#: src/util/ajax.js:54
+msgid "Bad Request"
+msgstr ""
+
+#: src/util/ajax.js:55
+msgid "Unauthorized"
+msgstr ""
+
+#: src/util/ajax.js:56
+msgid "Payment Required"
+msgstr ""
+
+#: src/util/ajax.js:57
+msgid "Forbidden"
+msgstr ""
+
+#: src/util/ajax.js:58
+msgid "Not Found"
+msgstr ""
+
+#: src/util/ajax.js:59
+msgid "Method Not Allowed"
+msgstr ""
+
+#: src/util/ajax.js:60
+msgid "Not Acceptable"
+msgstr ""
+
+#: src/util/ajax.js:61
+msgid "Proxy Authentication Required"
+msgstr ""
+
+#: src/util/ajax.js:62
+msgid "Request Timeout"
+msgstr ""
+
+#: src/util/ajax.js:63
+msgid "Conflict"
+msgstr ""
+
+#: src/util/ajax.js:64
+msgid "Gone"
+msgstr ""
+
+#: src/util/ajax.js:65
+msgid "Length Required"
+msgstr ""
+
+#: src/util/ajax.js:66
+msgid "Precondition Failed"
+msgstr ""
+
+#: src/util/ajax.js:67
+msgid "Request Entity Too Large"
+msgstr ""
+
+#: src/util/ajax.js:68
+msgid "Request-URI Too Long"
+msgstr ""
+
+#: src/util/ajax.js:69
+msgid "Unsupported Media Type"
+msgstr ""
+
+#: src/util/ajax.js:70
+msgid "Requested Range Not Satisfiable"
+msgstr ""
+
+#: src/util/ajax.js:71
+msgid "Expectation Failed"
+msgstr ""
+
+#: src/util/ajax.js:72
+msgid "I'm a teapot (RFC 2324)"
+msgstr ""
+
+#: src/util/ajax.js:73
+msgid "Enhance Your Calm (Twitter)"
+msgstr ""
+
+#: src/util/ajax.js:74
+msgid "Unprocessable Entity (WebDAV)"
+msgstr ""
+
+#: src/util/ajax.js:75
+msgid "Locked (WebDAV)"
+msgstr ""
+
+#: src/util/ajax.js:76
+msgid "Failed Dependency (WebDAV)"
+msgstr ""
+
+#: src/util/ajax.js:77
+msgid "Reserved for WebDAV"
+msgstr ""
+
+#: src/util/ajax.js:78
+msgid "Upgrade Required"
+msgstr ""
+
+#: src/util/ajax.js:79
+msgid "Precondition Required"
+msgstr ""
+
+#: src/util/ajax.js:80
+msgid "Too Many Requests"
+msgstr ""
+
+#: src/util/ajax.js:81
+msgid "Request Header Fields Too Large"
+msgstr ""
+
+#: src/util/ajax.js:82
+msgid "No Response (Nginx)"
+msgstr ""
+
+#: src/util/ajax.js:83
+msgid "Retry With (Microsoft)"
+msgstr ""
+
+#: src/util/ajax.js:84
+msgid "Blocked by Windows Parental Controls (Microsoft)"
+msgstr ""
+
+#: src/util/ajax.js:85
+msgid "Unavailable For Legal Reasons"
+msgstr ""
+
+#: src/util/ajax.js:86
+msgid "Client Closed Request (Nginx)"
+msgstr ""
+
+#: src/util/ajax.js:87
+msgid "Internal Server Error"
+msgstr ""
+
+#: src/util/ajax.js:88
+msgid "Not Implemented"
+msgstr ""
+
+#: src/util/ajax.js:89
+msgid "Bad Gateway"
+msgstr ""
+
+#: src/util/ajax.js:90
+msgid "Service Unavailable"
+msgstr ""
+
+#: src/util/ajax.js:91
+msgid "Gateway Timeout"
+msgstr ""
+
+#: src/util/ajax.js:92
+msgid "HTTP Version Not Supported"
+msgstr ""
+
+#: src/util/ajax.js:93
+msgid "Variant Also Negotiates (Experimental)"
+msgstr ""
+
+#: src/util/ajax.js:94
+msgid "Insufficient Storage (WebDAV)"
+msgstr ""
+
+#: src/util/ajax.js:95
+msgid "Loop Detected (WebDAV)"
+msgstr ""
+
+#: src/util/ajax.js:96
+msgid "Bandwidth Limit Exceeded (Apache)"
+msgstr ""
+
+#: src/util/ajax.js:97
+msgid "Not Extended"
+msgstr ""
+
+#: src/util/ajax.js:98
+msgid "Network Authentication Required"
+msgstr ""
+
+#: src/util/ajax.js:99
+msgid "Network read timeout error"
+msgstr ""
+
+#: src/util/ajax.js:100
+msgid "Network connect timeout error"
+msgstr ""
+
+#: src/util/ajax.js:157
+msgid "Operation cancelled by user."
+msgstr ""
+
+#: src/util/ajax.js:160
+msgid "Aborted"
+msgstr ""
+
+#: src/util/ajax.js:173
+#: src/util/ajax.js:356
+msgid "Error"
+msgstr ""
+
+#: src/util/ajax.js:198
+msgid "System Administrator"
+msgstr ""
+
+#: src/util/ajax.js:223
+msgid "Feedback email: {AutoReport}"
+msgstr ""
+
+#: src/util/ajax.js:247
+msgid "Something went wrong."
+msgstr ""
+
+#: src/util/ajax.js:249
+msgid ""
+"If it should be the case that you are already logged in for a long time "
+"without interacting with the web-app, then the reason for this error is "
+"probably a simple timeout."
+msgstr ""
+
+#: src/util/ajax.js:254
+msgid ""
+"I any case it may help to logoff and logon again, as a temporary work-"
+"around. You will be redirected to the log-in page when you close this window."
+msgstr ""
+
+#: src/util/ajax.js:304
+msgid ""
+"Unrecoverable unknown internal error, no further information available, "
+"sorry."
+msgstr ""
+
+#: src/util/ajax.js:306
+msgid "Internal Error"
+msgstr ""
+
+#: src/util/ajax.js:313
+msgid "Field {RequiredField} not present in AJAX response."
+msgstr ""
+
+#: src/util/ajax.js:322
+msgid "Missing data"
+msgstr ""
+
+#: src/util/ajax.js:334
+msgid ""
+"The submitted data \"{stringValue}\" seems to be a plain string, but we need "
+"an object where the data is provided through above listed properties."
+msgstr ""
+
+#: src/util/ajax.js:337
+msgid "Error: plain string received"
+msgstr ""
+
+#: src/util/ajax.js:342
+msgid ""
+"The submitted data is not a plain object, and does not provide the "
+"properties listed above."
+msgstr ""
+
+#: src/util/ajax.js:345
+msgid "Error: not a plain object"
+msgstr ""
+
+#: src/util/ajax.js:384
+msgid "Unknown JSON error response to AJAX call: {status} / {error}"
+msgstr ""
+
+#: src/util/ajax.js:391
+msgid "HTTP error response to AJAX call: {code} / {error}"
+msgstr ""
+
+#: src/util/dialogs.js:69
+msgid "No"
+msgstr ""
+
+#: src/util/dialogs.js:70
+msgid "Yes"
+msgstr ""
+
+#: src/util/dialogs.js:105
+msgid "Debug Information"
+msgstr ""
+
+#: src/util/file-download.js:50
+msgid "unknown error"
+msgstr ""
+
+#: src/util/file-download.js:53
+msgid "Unable to download data from \"{url}\": {message}"
+msgstr ""

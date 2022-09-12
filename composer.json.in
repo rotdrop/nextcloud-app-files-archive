@@ -1,0 +1,40 @@
+{
+  "name": "rotdrop/nextcloud-app-files-archive",
+    "description": "Inspect, mount and extract file-archives",
+  "type": "project",
+  "license": "AGPL",
+  "authors": [
+    {
+      "name": "Claus-Justus Heine",
+      "email": "himself@claus-justus-heine.de"
+    }
+  ],
+  "require": {
+    "wapmorgan/cab-archive": "^0.0.7",
+    "wapmorgan/unified-archive": "^1.1",
+    "gemorroj/archive7z": "^5.4",
+    "phpclasses/php-iso-file": "^0.5.1",
+    "pear/archive_tar": "^1.4",
+    "alchemy/zippy": "^1.0",
+    "nelexa/zip": "^4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "nextcloud/coding-standard": "*",
+    "phpmd/phpmd" : "@stable",
+    "squizlabs/php_codesniffer": "3.*"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "platform": {
+      "php": "8.0.2"
+    }
+  },
+  "repositories": [],
+  "scripts": {
+    "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
+    "cs:check": "php-cs-fixer fix --dry-run --diff",
+    "cs:fix": "php-cs-fixer fix"
+  }
+}

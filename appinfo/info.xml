@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+  <id>files_archive</id>
+  <name>PDF Downloader</name>
+  <summary>Archive Manager for Nextcloud</summary>
+  <description><![CDATA[Inspect, mount and extract archive files (zip, tar, etc.)]]></description>
+  <version>1.0.0</version>
+  <licence>agpl</licence>
+  <author mail="himself@claus-justus-heine.de" >Claus-Justus Heine</author>
+  <namespace>FilesArchive</namespace>
+  <category>office</category>
+  <bugs>https://github.com/rotdrop/nextcloud-app-files-archive.git</bugs>
+  <dependencies>
+    <nextcloud min-version="23" max-version="24"/>
+    <php min-version="7.4" max-version="8.1" />
+  </dependencies>
+  <settings>
+    <admin>OCA\FilesArchive\Settings\Admin</admin>
+    <admin-section>OCA\FilesArchive\Settings\AdminSection</admin-section>
+    <personal>OCA\FilesArchive\Settings\Personal</personal>
+    <personal-section>OCA\FilesArchive\Settings\PersonalSection</personal-section>
+  </settings>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/admin-settings.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/personal-settings.png</screenshot>
+</info>
