@@ -69,7 +69,7 @@ class PersonalSection implements IIconSection
    */
   public function getName()
   {
-    return $this->l->t('PDF Downloader');
+    return $this->l->t('Archive Explorer');
   }
 
   /**
