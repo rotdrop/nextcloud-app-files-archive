@@ -23,6 +23,7 @@
 namespace OCA\FilesArchive\Service;
 
 use wapmorgan\UnifiedArchive\UnifiedArchive as ArchiveBackend;
+use wapmorgan\UnifiedArchive\ArchiveEntry;
 
 use OCP\IL10N;
 use Psr\Log\LoggerInterface as ILogger;
@@ -57,7 +58,7 @@ class ArchiveService
   /* @var array */
   private static $mimeTypes;
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
+  // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ILogger $logger,
     IL10N $l,
@@ -69,6 +70,7 @@ class ArchiveService
     $this->archiver = null;
     $this->fileNode = null;
   }
+  // phpcs:enable
 
   /**
    * Set the size limit for the uncompressed size of the archives. Archives
@@ -94,6 +96,13 @@ class ArchiveService
     return $this->sizeLimit;
   }
 
+  /**
+   * Return the local operating system path of the given file-node.
+   *
+   * @param File $fileNode
+   *
+   * @return string
+   */
   private static function getLocalPath(File $fileNode):string
   {
     return $fileNode->getStorage()->getLocalFile($fileNode->getInternalPath());
@@ -214,10 +223,7 @@ class ArchiveService
   }
 
   /**
-   * Get a flat array of all files contained in the archive with their full
-   * archive-relative path.
-   *
-   * @return array
+   * @return array<string, ArchiveEntry>
    */
   public function getFiles():array
   {
@@ -225,7 +231,9 @@ class ArchiveService
       throw new Exceptions\ArchiveNotOpenException(
         $this->l->t('There is no archive file associated with this archiver instance.'));
     }
-    $this->archiveFiles = $this->archiver->getFileNames();
+    foreach ($this->archiver->getFileNames() as $fileName) {
+      $this->archiveFiles[$fileName] = $this->archiver->getFileData($fileName);
+    }
     return $this->archiveFiles;
   }
 
@@ -253,7 +261,7 @@ class ArchiveService
     if (empty(self::$mimeTypes)) {
       $formats = ArchiveFormats::getSupportedDriverFormats();
       self::$mimeTypes = [];
-      foreach ($formats as $format => $status) {
+      foreach (array_keys($formats) as $format) {
         $formatMimeTypes = ArchiveFormats::getFormatMimeTypes($format);
         self::$mimeTypes = array_merge(self::$mimeTypes, $formatMimeTypes);
       }
