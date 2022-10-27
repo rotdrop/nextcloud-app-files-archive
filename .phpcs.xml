@@ -2,11 +2,14 @@
 <ruleset name="CJH">
   <description>CJH Custom Code-Sniffer Standard</description>
 
+  <arg name="bootstrap" value="vendor/zebra-north/phpcs-short-types/short-types.php"/>
+
   <rule ref="PSR2">
     <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
     <exclude name="PSR2.Methods.FunctionCallSignature.CloseBracketLine"/>
     <exclude name="PSR2.Methods.FunctionCallSignature.MultipleArguments"/>
     <exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent"/>
+    <exclude name="PSR2.ControlStructures.SwitchDeclaration.BodyOnNextLineCASE"/>
     <properties>
       <property name="indent" value="2"/>
     </properties>
@@ -15,6 +18,13 @@
   <rule ref="PEAR.WhiteSpace.ScopeClosingBrace">
     <properties>
       <property name="indent" value="2"/>
+    </properties>
+  </rule>
+
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="192"/>
+      <property name="absoluteLineLimit" value="0"/>
     </properties>
   </rule>
 
@@ -35,6 +45,7 @@
   </rule>
 PEAR.Commenting.FunctionComment.ParamCommentAlignment
   <rule ref="PEAR.Commenting">
+    <exclude name="PEAR.Commenting.FileComment.IncompleteCopyright"/>
     <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag"/>
     <exclude name="PEAR.Commenting.FileComment.MissingPackageTag"/>
     <exclude name="PEAR.Commenting.FileComment.MissingLinkTag"/>
@@ -49,6 +60,16 @@ PEAR.Commenting.FunctionComment.ParamCommentAlignment
     <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamType"/>
     <exclude name="PEAR.Commenting.FunctionComment.ParamCommentAlignment"/>
     <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamName"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamTag"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingReturn"/>
+    <exclude name="PEAR.Commenting.FunctionComment.ParamNameNoMatch"/>
+    <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.Line"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamType"/>
+    <exclude name="PEAR.Commenting.FunctionComment.WrongStyle"/>
+
+    <!-- already included by Squiz -->
+    <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
+
     <properties>
       <property name="indent" value="2"/>
       <property name="minimumVisibility" value="protected"/>
@@ -63,4 +84,25 @@ PEAR.Commenting.FunctionComment.ParamCommentAlignment
     </properties>
   </rule>
 
+  <rule ref="Squiz.Commenting.FunctionComment">
+    <properties>
+      <property name="skipIfInheritdoc" value="true"/>
+    </properties>
+    <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
+    <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+    <!-- The following would be just anoying. -->
+    <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+    <!-- Too much noise. Also, this produces boiler-plate documentation for setter/getter functions -->
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+    <!-- We should rather use named exceptions than document each throw instruction -->
+    <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+  </rule>
+
+  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
+    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterFunction"/>
+  </rule>
+  <rule ref="Squiz.WhiteSpace.ControlStructureSpacing">
+    <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingAfterOpen"/>
+    <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose"/>
+  </rule>
 </ruleset>
