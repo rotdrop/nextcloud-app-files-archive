@@ -46,7 +46,7 @@ trait UtilTrait
    *
    * @return string
    */
-  protected static function dashesToCamelCase($string, $capitalizeFirstCharacter = false, $dashes = '_-'):string
+  protected static function dashesToCamelCase(string $string, bool $capitalizeFirstCharacter = false, string $dashes = '_-'):string
   {
     $str = str_replace(str_split($dashes), '', ucwords($string, $dashes));
 
@@ -68,7 +68,7 @@ trait UtilTrait
    *
    * @return string
    */
-  protected static function camelCaseToDashes($string, $separator = '-'):string
+  protected static function camelCaseToDashes(string $string, string $separator = '-'):string
   {
     return strtolower(preg_replace('/([A-Z])/', $separator.'$1', lcfirst($string)));
   }
@@ -204,5 +204,26 @@ trait UtilTrait
     } else {
       return null;
     }
+  }
+
+  /**
+   * Unset all array elements with value $value.
+   *
+   * @param array $hayStack The array to modify.
+   *
+   * @param mixed $value The value to remove.
+   *
+   * @return int The number of array slots that have been unset. As
+   * the values need not be unique this can be any non-negative
+   * integer.
+   */
+  protected static function unsetValue(array &$hayStack, mixed $value):int
+  {
+    $numUnset = 0;
+    while (($key = array_search($value, $hayStack)) !== false) {
+      unset($hayStack[$key]);
+      ++$numUnset;
+    }
+    return $numUnset;
   }
 }

@@ -35,6 +35,8 @@ use Psr\Container\ContainerInterface;
 use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
 use OCA\FilesArchive\Exceptions;
 
+use OCP\Files\Config\IMountProviderCollection;
+use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 /**
  * App entry point.
  */
@@ -63,6 +65,9 @@ class Application extends App implements IBootstrap
    */
   public function boot(IBootContext $context): void
   {
+    $context->injectFn(function(IMountProviderCollection $mountProviderCollection, ArchiveMountProvider $mountProvider) {
+      $mountProviderCollection->registerProvider($mountProvider, PHP_INT_MAX - 1);
+    });
   }
 
   /**

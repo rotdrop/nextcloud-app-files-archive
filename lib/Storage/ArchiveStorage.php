@@ -22,9 +22,15 @@ namespace OCA\FilesArchive\Storage;
 
 use wapmorgan\UnifiedArchive\ArchiveEntry;
 
+use Psr\Log\LoggerInterface;
+
 // F I X M E: those are not public, but ...
 use OC\Files\Storage\Common as AbstractStorage;
 use OC\Files\Storage\PolyFill\CopyDirectory;
+
+use Icewind\Streams\CallbackWrapper;
+use Icewind\Streams\CountWrapper;
+use Icewind\Streams\IteratorDirectory;
 
 use OCP\AppFramework\IAppContainer;
 
@@ -40,6 +46,8 @@ use OCA\FilesArchive\Constants;
 /** Virtual storage mapping an archive file into the user file-space. */
 class ArchiveStorage extends AbstractStorage
 {
+  use \OCA\FilesArchive\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Traits\UtilTrait;
   use CopyDirectory;
 
   public const PATH_SEPARATOR = Constants::PATH_SEPARATOR;
@@ -63,30 +71,41 @@ class ArchiveStorage extends AbstractStorage
   protected $files = [];
 
   /**
-   * @param string $appName
-   *
-   * @param IAppContainer $appContainer
-   *
-   * @param ArchiveService $archiveService
-   *
-   * @param File $archiveFile
+   * @param array $parameters
    */
-  public function __construct(
-    string $appName,
-    IAppContainer $appContainer,
-    ArchiveService $archiveService,
-    File $archiveFile,
-  ) {
-    parent::__construct([]);
-    $this->appName = $appName;
-    $this->appContainer = $appContainer;
-    $this->archiveService = $archiveService;
-    $this->archiveFile = $archiveFile;
+  public function __construct($parameters)
+  {
+    parent::__construct($parameters);
+    $this->archiveFile = $parameters['archiveFile'];
+    $this->appContainer = $parameters['appContainer'];
+    $this->appName = $this->appContainer->get('appName');
+    $this->archiveService = $this->appContainer->get(ArchiveService::class);
+    $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     try {
       $this->archiveService->open($this->archiveFile);
-      $this->files = $this->archiveService->getFiles();
-      $this->dirNames = array_unique(array_map(fn(ArchiveEntry $entry) => dirname($entry->path), $this->files));
+      $files = $this->archiveService->getFiles();
+      $this->files = [];
+      $this->dirNames = [];
+      foreach ($files as $path => $fileInfo) {
+        $normalizedPath = trim($this->buildPath($path), Constants::PATH_SEPARATOR);
+        $this->files[$normalizedPath] = $fileInfo;
+        $dirName = dirname($normalizedPath);
+        if (!empty($dirName)) {
+          $pathChain = explode(Constants::PATH_SEPARATOR, dirname($normalizedPath));
+          $dirPath = array_shift($pathChain);
+          $this->dirNames[$dirPath] = true;
+          foreach ($pathChain as $pathComponent) {
+            $dirPath .= Constants::PATH_SEPARATOR . $pathComponent;
+            $this->dirNames[$dirPath] = true;
+          }
+        }
+      }
+      $this->dirNames = array_keys($this->dirNames);
+
+      // $this->logInfo('FILES ' . print_r($this->files, true));
+      // $this->logInfo('DIRS ' . print_r($this->dirNames, true));
+
     } catch (Throwable $t) {
       $this->files = [];
       $this->dirNames = [];
@@ -178,6 +197,8 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function filemtime($path)
   {
+    $path = trim($path, self::PATH_SEPARATOR);
+    // $this->logInfo('PATH ' . $path);
     if ($this->is_dir($path)) {
       return $this->archiveFile->getMTime();
     } elseif ($this->is_file($path)) {
@@ -196,6 +217,8 @@ class ArchiveStorage extends AbstractStorage
    */
   public function hasUpdated($path, $time)
   {
+    // $this->logInfo('PATH TIME ' . $path . ' ' . $time);
+    return true;
     $mtime = $this->filemtime($path);
     return $mtime === false || ($mtime > $time);
   }
@@ -203,6 +226,8 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function filesize($path)
   {
+    $path = trim($path, self::PATH_SEPARATOR);
+    // $this->logInfo('PATH ' . $path);
     if ($this->is_dir($path)) {
       return 0;
     }
@@ -255,15 +280,23 @@ class ArchiveStorage extends AbstractStorage
       return false;
     }
 
-    // @todo do we need basenames here?
-    $fileNames = array_filter(
-      array_map(
-        fn(string $name) => dirname($name) == $path ? $name : null,
+    $fileNames = array_map(
+      function(string $memberPath) use ($path) {
+        $memberPath = trim(str_replace($path, '', $memberPath), Constants::PATH_SEPARATOR);
+        $slashPos = strpos($memberPath, Constants::PATH_SEPARATOR);
+        if ($slashPos === false) {
+          return $memberPath;
+        }
+        return substr($memberPath, 0, $slashPos + 1);
+      },
+      array_filter(
         array_keys($this->files),
+        fn(string $memberPath) => str_starts_with($memberPath, $path),
       )
     );
-    Util::unsetValue($fileNames, '.');
-    Util::unsetValue($fileNames, '..');
+    $fileNames = array_unique($fileNames);
+
+    // $this->logInfo('DIRLISTING ' . print_r($fileNames, true));
 
     return IteratorDirectory::wrap(array_values($fileNames));
   }
@@ -277,15 +310,22 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function is_dir($path)
   {
-    if ($path === '' || $path == self::PATH_SEPARATOR) {
+    $path = trim($path, self::PATH_SEPARATOR);
+    if ($path === '') {
       return true;
     }
-    return array_search($path, $this->dirNames) !== false;
+    $result = array_search($path, $this->dirNames) !== false;
+
+    // $this->logInfo('PATH ' . $path . '  ' . (int)$result);
+
+    return $result;
   }
 
   /** {@inheritdoc} */
   public function is_file($path)
   {
+    $path = trim($path, self::PATH_SEPARATOR);
+    // $this->logInfo('PATH ' . $path);
     return !empty($this->files[$path]);
   }
 
@@ -360,15 +400,9 @@ class ArchiveStorage extends AbstractStorage
     if (!$this->is_file($path)) {
       return false;
     }
+    $path = trim($path, self::PATH_SEPARATOR);
 
-    $stream = fopen('php://temp', 'w+');
-    $result = fwrite($stream, $file->getFileData()->getData());
-    rewind($stream);
-    if ($result === false) {
-      fclose($stream);
-      return false;
-    }
-    return $stream;
+    return $this->archiveService->getFileStream($path);
   }
 
   /** {@inheritdoc} */

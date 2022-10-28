@@ -252,6 +252,20 @@ class ArchiveService
   }
 
   /**
+   * @param string $fileName
+   *
+   * @return null|resource
+   */
+  public function getFileStream(string $fileName)
+  {
+    if (empty($this->archiver)) {
+      throw new Exceptions\ArchiveNotOpenException(
+        $this->l->t('There is no archive file associated with this archiver instance.'));
+    }
+    return $this->archiver->getFileStream($fileName);
+  }
+
+  /**
    * Return a list of mime-types we can handle.
    *
    * @return array

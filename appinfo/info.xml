@@ -15,6 +15,10 @@
     <nextcloud min-version="23" max-version="24"/>
     <php min-version="7.4" max-version="8.1" />
   </dependencies>
+  <types>
+    <filesystem/><!-- required for catching dav events, otherwise app is not loaded -->
+    <dav/>
+  </types>
   <settings>
     <admin>OCA\FilesArchive\Settings\Admin</admin>
     <admin-section>OCA\FilesArchive\Settings\AdminSection</admin-section>

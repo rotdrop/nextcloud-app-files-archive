@@ -24,4 +24,5 @@ namespace OCA\FilesArchive;
 class Constants
 {
   public const PATH_SEPARATOR = '/';
+  public const APP_NAME = 'files_archive';
 }
