@@ -54,11 +54,12 @@ class FilesActionListener implements IEventListener
   /** @var bool */
   private $handled = false;
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
+  // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(IAppContainer $appContainer)
   {
     $this->appContainer = $appContainer;
   }
+  // phpcs:enable
 
   /**
    * @param Event $event
@@ -88,12 +89,7 @@ class FilesActionListener implements IEventListener
       return;
     }
 
-    $userId = $user->getUID();
-
     $appName = $this->appContainer->get('appName');
-
-    /** @var CloudConfig $cloudConfig */
-    $cloudConfig = $this->appContainer->get(CloudConfig::class);
 
     /** @var IInitialState $initialState */
     $initialState = $this->appContainer->get(IInitialState::class);

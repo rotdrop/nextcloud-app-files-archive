@@ -60,6 +60,27 @@ return [
       'verb' => 'GET',
       'postfix' => '.all',
     ],
+    // mount the given archive file
+    [
+      'name' => 'mount#mount',
+      'url' => '/archive/mount/{archiveFile}/{mountPoint}',
+      'verb' => 'POST',
+      'defaults' => [
+        'mountPoint' => null,
+      ],
+    ],
+    // unmount the given mount point
+    [
+      'name' => 'mount#unmount',
+      'url' => '/archive/unmount/{archiveFile}',
+      'verb' => 'POST',
+    ],
+    // get the status of the given archive file
+    [
+      'name' => 'mount#mount_status',
+      'url' => '/archive/mount/{archiveFile}',
+      'verb' => 'GET',
+    ],
     /**
      * Attempt a catch all ...
      */
