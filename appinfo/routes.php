@@ -63,7 +63,7 @@ return [
     // mount the given archive file
     [
       'name' => 'mount#mount',
-      'url' => '/archive/mount/{archiveFile}/{mountPoint}',
+      'url' => '/archive/mount/{archivePath}/{mountPoint}',
       'verb' => 'POST',
       'defaults' => [
         'mountPoint' => null,
@@ -72,13 +72,13 @@ return [
     // unmount the given mount point
     [
       'name' => 'mount#unmount',
-      'url' => '/archive/unmount/{archiveFile}',
+      'url' => '/archive/unmount/{archivePath}',
       'verb' => 'POST',
     ],
     // get the status of the given archive file
     [
       'name' => 'mount#mount_status',
-      'url' => '/archive/mount/{archiveFile}',
+      'url' => '/archive/mount/{archivePath}',
       'verb' => 'GET',
     ],
     /**

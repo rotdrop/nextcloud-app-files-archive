@@ -19,6 +19,8 @@ use OCP\IUser;
 use OCP\IL10N;
 use OCP\AppFramework\IAppContainer;
 
+use OCA\FilesArchive\Db\ArchiveMount;
+use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
@@ -36,6 +38,9 @@ class MountProvider implements IMountProvider
   /** @var int */
   private static $recursionLevel = 0;
 
+  /** @var ArchiveMountMapper */
+  private $mountMapper;
+
   /** @var IAppContainer */
   private $appContainer;
 
@@ -52,12 +57,14 @@ class MountProvider implements IMountProvider
     IL10N $l10n,
     IAppContainer $appContainer,
     IRootFolder $rootFolder,
+    ArchiveMountMapper $mountMapper,
   ) {
     $this->appName = $appName;
     $this->logger = $logger;
     $this->l = $l10n;
     $this->appContainer = $appContainer;
     $this->rootFolder = $rootFolder;
+    $this->mountMapper = $mountMapper;
   }
   // phpcs:enable
 
@@ -92,62 +99,61 @@ class MountProvider implements IMountProvider
       return [];
     }
 
-    // hack for now: just look for a specific test archive
-
-    $archivePath = 'test-archive.zip';
-    $archivePathInfo = pathinfo($archivePath);
-
-    try {
-      $archiveFile = $userFolder->get($archivePath);
-    } catch (FileNotFoundException $e) {
-      return [];
-    }
-
-    $storage = new ArchiveStorage([
-      'appContainer' => $this->appContainer,
-      'archiveFile' => $archiveFile,
-    ]);
-
-    // hack
-
     $mounts = [];
+    $mountMapping = $this->mountMapper->findAll($userId);
 
-    $mountDirectory = $archivePathInfo['filename'];
+    /** @var ArchiveMount $mount */
+    foreach ($mountMapping as $mount) {
 
-    try {
-      $mountFolder = $userFolder->get($mountDirectory);
-    } catch (FileNotFoundException $e) {
+      $archivePath = $mount->getArchiveFilePath();
       try {
-        $mountFolder = $userFolder->newFolder($mountDirectory);
-      } catch (Throwable $t) {
-        //
+        $archiveFile = $userFolder->get($archivePath);
+      } catch (FileNotFoundException $e) {
+        continue;
       }
-    }
-    if (empty($mountFolder)) {
-      return [];
-    }
-    $mountPath = $mountFolder->getPath();
 
-    $mounts[] = new class(
-      $storage,
-      $mountPath,
-      null,
-      $loader,
-      [
-        'filesystem_check_changes' => 1,
-        'readonly' => true,
-        'previews' => true,
-        'enable_sharing' => false, // cannot work, mount needs DB access
-        'authenticated' => true,
-      ]
-    ) extends MountPoint
-    {
-      /** {@inheritdoc} */
-      public function getMountType()
-      {
-        return 'external'; // Constants::APP_NAME;
+      $mountDirectory = $mount->getMountPointPath();
+      try {
+        $mountFolder = $userFolder->get($mountDirectory);
+      } catch (FileNotFoundException $e) {
+        try {
+          $mountFolder = $userFolder->newFolder($mountDirectory);
+        } catch (Throwable $t) {
+          //
+        }
       }
-    };
+      if (empty($mountFolder)) {
+        continue;
+      }
+
+      $mountPath = $mountFolder->getPath();
+
+      $storage = new ArchiveStorage([
+        'appContainer' => $this->appContainer,
+        'archiveFile' => $archiveFile,
+      ]);
+
+      $mounts[] = new class(
+        $storage,
+        $mountPath,
+        null,
+        $loader,
+        [
+          'filesystem_check_changes' => 1,
+          'readonly' => true,
+          'previews' => true,
+          'enable_sharing' => false, // cannot work, mount needs DB access
+          'authenticated' => true,
+        ]
+      ) extends MountPoint
+      {
+        /** {@inheritdoc} */
+        public function getMountType()
+        {
+          return 'external'; // Constants::APP_NAME;
+        }
+      };
+    }
 
     return $mounts;
   }

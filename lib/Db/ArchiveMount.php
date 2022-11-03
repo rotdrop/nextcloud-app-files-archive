@@ -20,13 +20,14 @@
 
 namespace OCA\FilesArchive\Db;
 
-use OCP\IDBConnection;
-use OCP\AppFramework\Db\QBMapper;
+use JsonSerializable;
+
+use OCP\AppFramework\Db\Entity;
 
 /** Entity class for mounts table. */
 class ArchiveMount extends Entity implements JsonSerializable
 {
-  protected $id;
+  public $id;
   protected $userId;
 
   protected $mountPointId;

@@ -68,9 +68,13 @@ const fileActionTemplate = {
 
     $.get(mountUrl)
       .fail((xhr, textStatus, errorThrown) => {
-        Ajax.handleError(xhr, textStatus, errorThrown, disableLoadingState);
+        if (xhr.status === 404) {
+          console.info('ERROR', xhr, textStatus, errorThrown);
+          Ajax.handleError(xhr, textStatus, errorThrown, disableLoadingState);
+        }
       })
       .done((data) => {
+        console.info('DATA', data);
         const url = data.mounted ? unmountUrl : mountUrl;
         $.post(url)
           .fail((xhr, textStatus, errorThrown) => {
