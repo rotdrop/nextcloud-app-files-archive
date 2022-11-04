@@ -215,8 +215,6 @@ class ArchiveStorage extends AbstractStorage
    */
   public function hasUpdated($path, $time)
   {
-    // $this->logInfo('PATH TIME ' . $path . ' ' . $time);
-    return true;
     $mtime = $this->filemtime($path);
     return $mtime === false || ($mtime > $time);
   }
@@ -278,6 +276,8 @@ class ArchiveStorage extends AbstractStorage
       return false;
     }
 
+    $path = ltrim($path, Constants::PATH_SEPARATOR);
+
     $fileNames = array_map(
       function(string $memberPath) use ($path) {
         $memberPath = trim(str_replace($path, '', $memberPath), Constants::PATH_SEPARATOR);
@@ -285,7 +285,7 @@ class ArchiveStorage extends AbstractStorage
         if ($slashPos === false) {
           return $memberPath;
         }
-        return substr($memberPath, 0, $slashPos + 1);
+        return substr($memberPath, 0, $slashPos);
       },
       array_filter(
         array_keys($this->files),
@@ -294,7 +294,7 @@ class ArchiveStorage extends AbstractStorage
     );
     $fileNames = array_unique($fileNames);
 
-    // $this->logInfo('DIRLISTING ' . print_r($fileNames, true));
+    // $this->logInfo('DIRLISTING ' . $path . ': ' . print_r($fileNames, true));
 
     return IteratorDirectory::wrap(array_values($fileNames));
   }
