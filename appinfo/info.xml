@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
   <id>files_archive</id>
   <name>Archive Manager</name>
-  <summary>On-the-fly archive inspector for for Nextcloud</summary>
+  <summary>On-the-fly archive inspector for Nextcloud</summary>
   <description><![CDATA[Inspect, mount and extract archive files (zip, tar, etc.)]]></description>
   <version>1.0.0</version>
   <licence>agpl</licence>
