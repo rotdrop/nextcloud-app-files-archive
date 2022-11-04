@@ -22,6 +22,10 @@
 
 namespace OCA\FilesArchive\Controller;
 
+use Throwable;
+
+use OC\Files\Storage\Wrapper\Wrapper as WrapperStorage;
+
 use Psr\Log\LoggerInterface;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
@@ -31,6 +35,8 @@ use OCP\AppFramework\IAppContainer;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\Files\Mount\IMountPoint;
+use OCP\Files\Mount\IMountManager;
 use OCP\Files\IRootFolder;
 use OCP\Files\FileInfo;
 use OCP\Files\Node;
@@ -38,6 +44,7 @@ use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
+use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Constants;
@@ -57,6 +64,9 @@ class MountController extends Controller
   /** @var ArchiveMountMapper */
   private $mountMapper;
 
+  /** @var IMountManager */
+  private $mountManager;
+
   /** @var IRootFolder */
   private $rootFolder;
 
@@ -69,6 +79,7 @@ class MountController extends Controller
     IL10N $l10n,
     IConfig $config,
     IAppContainer $appContainer,
+    IMountManager $mountManager,
     IRootFolder $rootFolder,
     ArchiveMountMapper $mountMapper,
   ) {
@@ -79,6 +90,7 @@ class MountController extends Controller
     $this->userId = $userId;
     $this->appContainer = $appContainer;
     $this->mountMapper = $mountMapper;
+    $this->mountManager = $mountManager;
     $this->rootFolder = $rootFolder;
   }
   // phpcs:enable
@@ -107,6 +119,15 @@ class MountController extends Controller
     if (empty($userFolder)) {
       return self::grumble($this->l->t('The user folder for user "%s" could not be opened.', $this->userId));
     }
+
+    $mounts = $this->mountMapper->findByArchivePath($archivePath);
+    if (!empty($mounts)) {
+      $mount = array_shift($mounts);
+      return self::grumble($this->l->t('"%1$s" is already mounted on "%2$s".', [
+        $archivePath, $mount->getMountPointPath(),
+      ]));
+    }
+
     try {
       /** @var File $archiveFile */
       $archiveFile = $userFolder->get($archivePath);
@@ -160,7 +181,72 @@ class MountController extends Controller
    */
   public function unmount(string $archivePath)
   {
-    return self::grumble($this->l->t('UNIMPLEMENTED'));
+    $archivePath = urldecode($archivePath);
+
+    $mounts = $this->mountMapper->findByArchivePath($archivePath);
+    if (empty($mounts)) {
+      return self::grumble($this->l->t('"%s" is not mounted.', $archivePath));
+    }
+
+    $userFolder = $this->rootFolder->getUserFolder($this->userId);
+    if (empty($userFolder)) {
+      return self::grumble($this->l->t('The user folder for user "%s" could not be opened.', $this->userId));
+    }
+
+    $unMountCount = 0;
+    $messages = [];
+    $errorMessages = [];
+    foreach ($mounts as $mount) {
+      $mountPointPath = $mount->getMountPointPath();
+
+      /** @var IMountPoint $mountPoint */
+      $mountPoint = $this->mountManager->find($mountPointPath);
+      if (empty($mountPoint)) {
+        $errorMessages[] = $this->l->t('Directory "%s" should be a mount point, but it is not.', $mountPointPath);
+        continue;
+      }
+
+      try {
+        /** @var Folder $mountPointFolder */
+        $mountPointFolder = $userFolder->get($mountPointPath);
+      } catch (Throwable $t) {
+        $errorMessages[] = $this->l->t('Unable to open the top-level folder "%s" of the mounted archive.', $mountPointPath);
+        continue;
+      }
+
+      $storage = $mountPointFolder->getStorage();
+      // $storage = $mountPoint->getStorage();
+      if (empty($storage)) {
+        $errorMessages[] = $this->l->t('There is no storage behind the mount-point "%s".', $mountPointPath);
+        continue;
+      }
+      while ($storage instanceof WrapperStorage) {
+        $storage = $storage->getWrapperStorage();
+      }
+      if (!($storage instanceof ArchiveStorage)) {
+        $errorMessages[] = $this->l->t('"%1$s" is a mount-point, but is not a mounted archive file, storage is "%2$s".', [
+          $mountPointPath, $storage->getId(),
+        ]);
+        continue;
+      }
+
+      $this->mountManager->removeMount($mountPointPath);
+      $mountPointFolder->delete();
+
+      $this->mountMapper->delete($mount);
+
+      $messages[] = $this->l->t('Archive "%1$s" has been unmounted from "%2$s".', [
+        $archivePath, $mountPointPath
+      ]);
+
+      ++$unMountCount;
+    }
+
+    return self::dataResponse([
+      'errorMessages' => $errorMessages,
+      'messages' => $messages,
+      'count' => $unMountCount,
+    ], count($errorMessages) > 0 ? Http::STATUS_BAD_REQUEST : Http::STATUS_OK);
   }
 
   /**
