@@ -133,6 +133,7 @@ class MountProvider implements IMountProvider
 
       $mounts[] = new class(
         $storage,
+        $userFolderPath,
         $mountDirectory,
         $loader,
         $this->mountManager,
@@ -153,10 +154,12 @@ class MountProvider implements IMountProvider
         private $mountEntity;
 
         /** @var string */
-        private $mountPointPath;
+        private $userFolderPath;
 
         /**
          * @param ArchiveStorage $storage
+         *
+         * @param string $userFolderPath
          *
          * @param string $mountPointPath
          *
@@ -172,6 +175,7 @@ class MountProvider implements IMountProvider
          */
         public function __construct(
           ArchiveStorage $storage,
+          string $userFolderPath,
           string $mountPointPath,
           IStorageFactory $loader,
           IMountManager $mountManager,
@@ -191,10 +195,10 @@ class MountProvider implements IMountProvider
               'authenticated' => true,
             ]
           );
+          $this->userFolderPath = $userFolderPath;
           $this->mountManager = $mountManager;
           $this->mountMapper = $mountMapper;
           $this->mountEntity = $mountEntity;
-          $this->mountPointPath = $mountPointPath;
           $this->logger = $logger;
         }
 
@@ -207,16 +211,14 @@ class MountProvider implements IMountProvider
         /** {@inheritdoc} */
         public function moveMount($target)
         {
-          $userFolderPath = $this->userFolder->getPath();
-          if (!str_starts_with($target, $userFolderPath)) {
+          if (!str_starts_with($target, $this->userFolderPath)) {
             return false;
           }
-          $relativeTarget = substr($target, strlen($userFolderPath));
+          $relativeTarget = substr($target, strlen($this->userFolderPath));
 
           $this->mountEntity->setMountPointPath($relativeTarget);
           $this->mountEntity->setMountPointPathHash(md5($relativeTarget));
           $this->mountMapper->update($this->mountEntity);
-
 
           return true;
         }
@@ -225,7 +227,7 @@ class MountProvider implements IMountProvider
         public function removeMount()
         {
           $this->mountMapper->delete($this->mountEntity);
-          $this->mountManager->removeMount($this->mountPointPath);
+          $this->mountManager->removeMount($this->getMountPoint()); // neccessary?
           return true;
         }
       };
