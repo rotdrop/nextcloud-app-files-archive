@@ -211,13 +211,23 @@ const ajaxHandleError = function(xhr, textStatus, errorThrown, callbacks) {
         + t(appName, failData.error)
         + '</span>';
     }
+    const messages = [];
     if (failData.message) {
       if (!Array.isArray(failData.message)) {
-        failData.message = [failData.message];
+        messages.push(failData.message);
+      } else {
+        messages.splice(messages.length, 0, ...failData.message);
       }
-      for (const msg of failData.message) {
-        info += '<div class="' + appName + ' error toastify">' + msg + '</div>';
-      }
+    }
+    if (failData.messages) {
+      messages.splice(messages.length, 0, ...failData.messages);
+    }
+    if (failData.errorMessages) {
+      messages.splice(messages.length, 0, ...failData.errorMessages);
+    }
+
+    for (const msg of messages) {
+      info += '<div class="' + appName + ' error toastify">' + msg + '</div>';
     }
     info += '<div class="error toastify feedback-link">'
       + t(appName, 'Feedback email: {AutoReport}', { AutoReport: autoReport }, -1, { escape: false })
