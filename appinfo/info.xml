@@ -2,8 +2,8 @@
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
   <id>files_archive</id>
-  <name>PDF Downloader</name>
-  <summary>Archive Manager for Nextcloud</summary>
+  <name>Archive Manager</name>
+  <summary>On-the-fly archive inspector for for Nextcloud</summary>
   <description><![CDATA[Inspect, mount and extract archive files (zip, tar, etc.)]]></description>
   <version>1.0.0</version>
   <licence>agpl</licence>
