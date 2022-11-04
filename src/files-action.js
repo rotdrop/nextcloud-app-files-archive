@@ -83,6 +83,7 @@ const fileActionTemplate = {
           .done((data) => {
             console.info('DONE');
             disableLoadingState();
+            context.fileList.reload();
           });
       });
   },
