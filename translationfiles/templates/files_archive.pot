@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-09-03 12:46+0200\n"
+"POT-Creation-Date: 2022-11-04 09:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,381 +17,251 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Controller/CatchAllController.php:55
+#: lib/Controller/CatchAllController.php:70
 #, php-format
 msgid "Post to end-point \"%s\" not implemented."
 msgstr ""
 
-#: lib/Controller/CatchAllController.php:58
+#: lib/Controller/CatchAllController.php:73
 #, php-format
 msgid "Post to base-url of app \"%s\" not allowed."
 msgstr ""
 
-#: lib/Controller/CatchAllController.php:71
+#: lib/Controller/CatchAllController.php:90
 #, php-format
 msgid "Get from end-point \"%s\" not implemented."
 msgstr ""
 
-#: lib/Controller/MultiPdfDownloadController.php:167
-msgid "unknown"
+#: lib/Controller/MountController.php:120
+#: lib/Controller/MountController.php:169
+#, php-format
+msgid "The user folder for user \"%s\" could not be opened."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:127
-#: lib/Controller/SettingsController.php:233
-#: lib/Controller/SettingsController.php:285
-#: lib/Controller/SettingsController.php:327
+#: lib/Controller/MountController.php:126
+#, php-format
+msgid "\"%1$s\" is already mounted on \"%2$s\"."
+msgstr ""
+
+#: lib/Controller/MountController.php:135
+#, php-format
+msgid "Unable to open the archive file \"%s\"."
+msgstr ""
+
+#: lib/Controller/MountController.php:164
+#, php-format
+msgid "\"%s\" is not mounted."
+msgstr ""
+
+#: lib/Controller/MountController.php:181
+#, php-format
+msgid "Directory \"%s\" should be a mount point, but it is not."
+msgstr ""
+
+#: lib/Controller/MountController.php:188
+#, php-format
+msgid "Archive \"%1$s\" has been unmounted from \"%2$s\"."
+msgstr ""
+
+#: lib/Controller/SettingsController.php:108
+#: lib/Controller/SettingsController.php:187
+#: lib/Controller/SettingsController.php:227
+#: lib/Controller/SettingsController.php:244
 #, php-format
 msgid "Unknown personal setting: \"%1$s\""
 msgstr ""
 
-#: lib/Controller/SettingsController.php:130
+#: lib/Controller/SettingsController.php:111
 #, php-format
 msgid "The personal setting \"%1$s\" is read-only"
 msgstr ""
 
-#: lib/Controller/SettingsController.php:138
-#: lib/Controller/SettingsController.php:244
-#, php-format
-msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
-msgstr ""
-
-#: lib/Controller/SettingsController.php:154
-#: lib/Controller/SettingsController.php:213
+#: lib/Controller/SettingsController.php:119
+#: lib/Controller/SettingsController.php:147
+#: lib/Controller/SettingsController.php:159
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
 msgstr ""
 
-#: lib/Controller/SettingsController.php:236
+#: lib/Controller/SettingsController.php:190
 #, php-format
 msgid "Thge personal setting \"%1$s\" is read-only"
 msgstr ""
 
-#: lib/Controller/SettingsController.php:263
+#: lib/Controller/SettingsController.php:198
 #, php-format
 msgid "Unknown personal setting: \"%s\"."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:350
+#: lib/Controller/SettingsController.php:267
 #, php-format
 msgid "Unable to parse memory size limit \"%s\""
 msgstr ""
 
-#: lib/Service/AnyToPdf.php:163
-#: lib/Service/AnyToPdf.php:187
-#: lib/Service/AnyToPdf.php:196
-msgid "not found"
-msgstr ""
-
-#: lib/Service/AnyToPdf.php:179
-msgid "pass through"
-msgstr ""
-
-#: lib/Service/AnyToPdf.php:223
-#, php-format
-msgid ""
-"Universal converter \"%1$s\" fas failed trying to convert mime-type \"%2$s\""
-msgstr ""
-
-#: lib/Service/AnyToPdf.php:257
-#, php-format
-msgid "Converter \"%1$s\" has failed trying to convert mime-type \"%2$s\""
-msgstr ""
-
-#: lib/Service/AnyToPdf.php:386
-#, php-format
-msgid "Please install the \"%s\" program on the server."
-msgstr ""
-
-#: lib/Service/ArchiveService.php:97
-#: lib/Service/ArchiveService.php:103
+#: lib/Service/ArchiveService.php:146
+#: lib/Service/ArchiveService.php:152
 #, php-format
 msgid "Unable to open archive file %s (%s)"
 msgstr ""
 
-#: lib/Service/ArchiveService.php:113
+#: lib/Service/ArchiveService.php:163
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$d > %3$d"
 msgstr ""
 
-#: lib/Service/ArchiveService.php:120
+#: lib/Service/ArchiveService.php:170
 #, php-format
 msgid "Archive \"%1$s\" is a potential zip bomp, size %2$d > %3$d"
 msgstr ""
 
-#: lib/Service/ArchiveService.php:170
-#: lib/Service/ArchiveService.php:179
+#: lib/Service/ArchiveService.php:232
+#: lib/Service/ArchiveService.php:249
+#: lib/Service/ArchiveService.php:263
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 
-#: lib/Service/AssetService.php:75
+#: lib/Service/AssetService.php:87
 #, php-format
 msgid ""
 "Installation problem; the required %s-resource \"%s\" is not installed on "
-"the server, please contact the system administrator!"
+"the server,\n"
+" please contact the system administrator!"
 msgstr ""
 
-#: lib/Service/PdfCombiner.php:332
-#: lib/Service/PdfCombiner.php:355
-msgid "Combining PDFs failed"
+#: lib/Settings/AdminSection.php:72
+#: lib/Settings/PersonalSection.php:72
+msgid "Archive Explorer"
 msgstr ""
 
-#: lib/Settings/AdminSection.php:69
-#: lib/Settings/PersonalSection.php:69
-#: specialAppInfoFakeDummyForL10nScript.php:2
-msgid "PDF Downloader"
-msgstr ""
-
-#: lib/Traits/ResponseTrait.php:73
+#: lib/Traits/ResponseTrait.php:79
 msgid "Error, caught an exception."
 msgstr ""
 
-#: lib/Traits/ResponseTrait.php:74
+#: lib/Traits/ResponseTrait.php:80
 msgid "Caused by previous exception"
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:25
+#: specialAppInfoFakeDummyForL10nScript.php:2
+msgid "Archive Manager"
+msgstr ""
+
 #: specialAppInfoFakeDummyForL10nScript.php:3
-#: specialVueFakeDummyForL10nScript.js:2
-msgid "Recursive PDF Downloader"
+msgid "On-the-fly archive inspector for Nextcloud"
 msgstr ""
 
 #: specialAppInfoFakeDummyForL10nScript.php:4
-msgid ""
-"Recusively convert entire directory trees to PDF and provide the resulting "
-"document as download"
+msgid "Inspect, mount and extract archive files (zip, tar, etc.)"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:25
+#: specialVueFakeDummyForL10nScript.js:2
+msgid "Archive Manager, Admin Settings"
 msgstr ""
 
 #. TRANSLATORS src/AdminSettings.vue:26
-#. TRANSLATORS src/PersonalSettings.vue:125
+#. TRANSLATORS src/PersonalSettings.vue:23
 #: specialVueFakeDummyForL10nScript.js:4
-#: specialVueFakeDummyForL10nScript.js:58
+#: specialVueFakeDummyForL10nScript.js:12
 msgid "Archive Extraction"
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:35
+#. TRANSLATORS src/AdminSettings.vue:29
+#. TRANSLATORS src/PersonalSettings.vue:26
 #: specialVueFakeDummyForL10nScript.js:6
-msgid ""
-"On-the-fly extraction of archive files. If enabled users can control this "
-"setting on a per-user basis."
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:40
-#. TRANSLATORS src/PersonalSettings.vue:143
-#: specialVueFakeDummyForL10nScript.js:8
-#: specialVueFakeDummyForL10nScript.js:64
+#: specialVueFakeDummyForL10nScript.js:14
 msgid "Archive Size Limit"
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:41
-#. TRANSLATORS src/PersonalSettings.vue:144
-#: specialVueFakeDummyForL10nScript.js:10
-#: specialVueFakeDummyForL10nScript.js:66
+#. TRANSLATORS src/AdminSettings.vue:30
+#. TRANSLATORS src/PersonalSettings.vue:27
+#: specialVueFakeDummyForL10nScript.js:8
+#: specialVueFakeDummyForL10nScript.js:16
 msgid ""
 "Disallow archive extraction for archives with decompressed size larger than "
 "this limit."
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:46
-#: specialVueFakeDummyForL10nScript.js:12
-msgid "Custom Converter Scripts"
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:55
-#: specialVueFakeDummyForL10nScript.js:14
-msgid "Disable the builtin-converters."
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:60
-#: specialVueFakeDummyForL10nScript.js:16
-msgid "Universal Converter"
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:61
-#: specialVueFakeDummyForL10nScript.js:18
-msgid ""
-"Full path to a filter-program to be executed first for all files. If it "
-"fails, the other converters will be tried in turn."
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:67
-#: specialVueFakeDummyForL10nScript.js:20
-msgid "Fallback Converter"
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:68
-#: specialVueFakeDummyForL10nScript.js:22
-msgid ""
-"Full path to a filter-program to be run when all other filters have failed. "
-"If it fails an error page will be substituted for the failing document."
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:73
-#: specialVueFakeDummyForL10nScript.js:24
-msgid "Converters"
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:75
-#: specialVueFakeDummyForL10nScript.js:26
-msgid "Status of the configured Converters"
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:80
-#: specialVueFakeDummyForL10nScript.js:28
-msgid "converter chain"
-msgstr ""
-
-#: specialVueFakeDummyForL10nScript.js:28
-msgid "single converter"
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:87
-#: specialVueFakeDummyForL10nScript.js:30
-msgid "alternatives"
-msgstr ""
-
-#. TRANSLATORS src/AdminSettings.vue:95
-#: specialVueFakeDummyForL10nScript.js:30
-#: specialVueFakeDummyForL10nScript.js:32
-msgid "converter"
-msgstr ""
-
 #. TRANSLATORS src/PersonalSettings.vue:22
-#: specialVueFakeDummyForL10nScript.js:34
-msgid "Recursive Pdf Downloader, Personal Settings"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:23
-#: specialVueFakeDummyForL10nScript.js:36
-msgid "Decorations and Fonts"
+#: specialVueFakeDummyForL10nScript.js:10
+msgid "Archive Manager, Personal Settings"
 msgstr ""
 
 #. TRANSLATORS src/PersonalSettings.vue:32
-#: specialVueFakeDummyForL10nScript.js:38
-msgid "Label output pages with file-name and page-number"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:36
-#: specialVueFakeDummyForL10nScript.js:40
-msgid "Format of the page-label: BASENAME_CURRENT_FILE PAGE/FILE_PAGES"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:40
-#: specialVueFakeDummyForL10nScript.js:42
-msgid "Font for generated PDF page-annotations"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:47
-#: specialVueFakeDummyForL10nScript.js:44
-#: specialVueFakeDummyForL10nScript.js:50
-msgid "Select a Font"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:75
-#: specialVueFakeDummyForL10nScript.js:46
-msgid "The font to use for the page-labels: {pageLabelsFont}"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:80
-#: specialVueFakeDummyForL10nScript.js:48
-msgid "Font for generated PDF (error-)pages"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:115
-#: specialVueFakeDummyForL10nScript.js:52
-msgid "The font to use for generated pages: {generatedPagesFont}"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:121
-#: specialVueFakeDummyForL10nScript.js:54
-msgid "Test Input"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:122
-#: specialVueFakeDummyForL10nScript.js:56
-msgid "Test Hint"
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:134
-#: specialVueFakeDummyForL10nScript.js:60
-msgid "On-the-fly extraction of archive files."
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:137
-#: specialVueFakeDummyForL10nScript.js:62
-msgid ""
-"On-the-fly extraction of archive files is disabled by the administrator."
-msgstr ""
-
-#. TRANSLATORS src/PersonalSettings.vue:149
-#: specialVueFakeDummyForL10nScript.js:68
+#: specialVueFakeDummyForL10nScript.js:18
 msgid "Administrative size limit: {archiveSizeLimit}"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:238
-#: specialVueFakeDummyForL10nScript.js:70
-#: src/mixins/settings-sync.js:40
-#: src/mixins/settings-sync.js:60
-#: src/mixins/settings-sync.js:87
-#: src/mixins/settings-sync.js:137
-msgid "reason unknown"
+#: src/files-action.js:35
+#: src/files-action.js:36
+msgid "Mount Archive"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:242
-#: specialVueFakeDummyForL10nScript.js:72
-msgid "Unable to obtain the list of available fonts: {message}"
+#: src/files-action.js:74
+msgid "Unable to obtain mount-status for archive-file \"{archivePath}\"."
 msgstr ""
 
-#: src/files-action.js:41
-#: src/files-action.js:42
-msgid "Download PDF"
+#: src/files-action.js:82
+msgid ""
+"The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"."
+msgstr ""
+
+#: src/files-action.js:94
+msgid "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"."
 msgstr ""
 
 #: src/mixins/settings-sync.js:44
+#: src/mixins/settings-sync.js:74
+#: src/mixins/settings-sync.js:112
+#: src/mixins/settings-sync.js:177
+msgid "reason unknown"
+msgstr ""
+
+#: src/mixins/settings-sync.js:48
 msgid "Unable to query the initial value of all settings: {message}"
 msgstr ""
 
-#: src/mixins/settings-sync.js:64
+#: src/mixins/settings-sync.js:78
 msgid "Unable to query the initial value of {setting}: {message}"
 msgstr ""
 
-#: src/mixins/settings-sync.js:75
+#: src/mixins/settings-sync.js:97
 msgid "true"
 msgstr ""
 
-#: src/mixins/settings-sync.js:80
+#: src/mixins/settings-sync.js:105
 msgid "Successfully set \"{setting}\" to {value}."
 msgstr ""
 
-#: src/mixins/settings-sync.js:82
-#: src/mixins/settings-sync.js:131
+#: src/mixins/settings-sync.js:107
+#: src/mixins/settings-sync.js:171
 msgid "Setting \"{setting}\" has been unset successfully."
 msgstr ""
 
-#: src/mixins/settings-sync.js:92
+#: src/mixins/settings-sync.js:117
 msgid "Unable to set \"{setting}\" to {value}: {message}."
 msgstr ""
 
-#: src/mixins/settings-sync.js:100
+#: src/mixins/settings-sync.js:125
 msgid "false"
 msgstr ""
 
-#: src/mixins/settings-sync.js:98
+#: src/mixins/settings-sync.js:123
 msgid "Unable to unset \"{setting}\": {message}"
 msgstr ""
 
-#: src/mixins/settings-sync.js:117
+#: src/mixins/settings-sync.js:154
 msgid "Confirmation Required"
 msgstr ""
 
-#: src/mixins/settings-sync.js:122
+#: src/mixins/settings-sync.js:159
 msgid "Unconfirmed, reverting to old value."
 msgstr ""
 
-#: src/mixins/settings-sync.js:129
+#: src/mixins/settings-sync.js:169
 msgid "Successfully set value for \"{settingsKey}\" to \"{value}\""
 msgstr ""
 
-#: src/mixins/settings-sync.js:142
+#: src/mixins/settings-sync.js:182
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 
@@ -668,7 +538,7 @@ msgid "Aborted"
 msgstr ""
 
 #: src/util/ajax.js:173
-#: src/util/ajax.js:356
+#: src/util/ajax.js:366
 msgid "Error"
 msgstr ""
 
@@ -676,70 +546,70 @@ msgstr ""
 msgid "System Administrator"
 msgstr ""
 
-#: src/util/ajax.js:223
+#: src/util/ajax.js:233
 msgid "Feedback email: {AutoReport}"
 msgstr ""
 
-#: src/util/ajax.js:247
+#: src/util/ajax.js:257
 msgid "Something went wrong."
 msgstr ""
 
-#: src/util/ajax.js:249
+#: src/util/ajax.js:259
 msgid ""
 "If it should be the case that you are already logged in for a long time "
 "without interacting with the web-app, then the reason for this error is "
 "probably a simple timeout."
 msgstr ""
 
-#: src/util/ajax.js:254
+#: src/util/ajax.js:264
 msgid ""
 "I any case it may help to logoff and logon again, as a temporary work-"
 "around. You will be redirected to the log-in page when you close this window."
 msgstr ""
 
-#: src/util/ajax.js:304
+#: src/util/ajax.js:314
 msgid ""
 "Unrecoverable unknown internal error, no further information available, "
 "sorry."
 msgstr ""
 
-#: src/util/ajax.js:306
+#: src/util/ajax.js:316
 msgid "Internal Error"
 msgstr ""
 
-#: src/util/ajax.js:313
+#: src/util/ajax.js:323
 msgid "Field {RequiredField} not present in AJAX response."
 msgstr ""
 
-#: src/util/ajax.js:322
+#: src/util/ajax.js:332
 msgid "Missing data"
 msgstr ""
 
-#: src/util/ajax.js:334
+#: src/util/ajax.js:344
 msgid ""
 "The submitted data \"{stringValue}\" seems to be a plain string, but we need "
 "an object where the data is provided through above listed properties."
 msgstr ""
 
-#: src/util/ajax.js:337
+#: src/util/ajax.js:347
 msgid "Error: plain string received"
 msgstr ""
 
-#: src/util/ajax.js:342
+#: src/util/ajax.js:352
 msgid ""
 "The submitted data is not a plain object, and does not provide the "
 "properties listed above."
 msgstr ""
 
-#: src/util/ajax.js:345
+#: src/util/ajax.js:355
 msgid "Error: not a plain object"
 msgstr ""
 
-#: src/util/ajax.js:384
+#: src/util/ajax.js:394
 msgid "Unknown JSON error response to AJAX call: {status} / {error}"
 msgstr ""
 
-#: src/util/ajax.js:391
+#: src/util/ajax.js:401
 msgid "HTTP error response to AJAX call: {code} / {error}"
 msgstr ""
 
@@ -753,12 +623,4 @@ msgstr ""
 
 #: src/util/dialogs.js:105
 msgid "Debug Information"
-msgstr ""
-
-#: src/util/file-download.js:50
-msgid "unknown error"
-msgstr ""
-
-#: src/util/file-download.js:53
-msgid "Unable to download data from \"{url}\": {message}"
 msgstr ""

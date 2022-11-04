@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-09-03 12:46+0200\n"
-"PO-Revision-Date: 2022-09-03 12:46+0200\n"
+"POT-Creation-Date: 2022-11-04 09:48+0100\n"
+"PO-Revision-Date: 2022-11-04 09:49+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -15,182 +15,167 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Controller/CatchAllController.php:55
+#: lib/Controller/CatchAllController.php:70
 #, php-format
 msgid "Post to end-point \"%s\" not implemented."
 msgstr "POST-Anfragen an \"%s\" sind nicht implementiert."
 
-#: lib/Controller/CatchAllController.php:58
+#: lib/Controller/CatchAllController.php:73
 #, php-format
 msgid "Post to base-url of app \"%s\" not allowed."
 msgstr "POST-Anfragen an die Basis-Adresse der App \"%s\" sind nicht erlaubt."
 
-#: lib/Controller/CatchAllController.php:71
+#: lib/Controller/CatchAllController.php:90
 #, php-format
 msgid "Get from end-point \"%s\" not implemented."
 msgstr "GET-Anfragen an \"%s\" sind nicht implementiert."
 
-#: lib/Controller/MultiPdfDownloadController.php:167
-msgid "unknown"
-msgstr "unbekannt"
+#: lib/Controller/MountController.php:120
+#: lib/Controller/MountController.php:169
+#, php-format
+msgid "The user folder for user \"%s\" could not be opened."
+msgstr "Das Wurzel-Verzeichnis für \"%s\" konnte nicht geöffnet werden."
 
-#: lib/Controller/SettingsController.php:127
-#: lib/Controller/SettingsController.php:233
-#: lib/Controller/SettingsController.php:285
-#: lib/Controller/SettingsController.php:327
+#: lib/Controller/MountController.php:126
+#, php-format
+msgid "\"%1$s\" is already mounted on \"%2$s\"."
+msgstr "\"%1$s\" ist bereits an der Stelle \"%2$s\" eingehängt."
+
+#: lib/Controller/MountController.php:135
+#, php-format
+msgid "Unable to open the archive file \"%s\"."
+msgstr "Kann die Archiv-Datei \"%s\" nicht öffnen."
+
+#: lib/Controller/MountController.php:164
+#, php-format
+msgid "\"%s\" is not mounted."
+msgstr "\"%s\" ist nicht eingehängt."
+
+#: lib/Controller/MountController.php:181
+#, php-format
+msgid "Directory \"%s\" should be a mount point, but it is not."
+msgstr ""
+"An der Stelle \"%s\" sollte ein Speicher eingehängt sein, aber das ist nicht "
+"der Fall."
+
+#: lib/Controller/MountController.php:188
+#, php-format
+msgid "Archive \"%1$s\" has been unmounted from \"%2$s\"."
+msgstr "Das Archiv \"%1$s\" wurden von Einhängepunkt \"%2$s\" abgetrennt."
+
+#: lib/Controller/SettingsController.php:108
+#: lib/Controller/SettingsController.php:187
+#: lib/Controller/SettingsController.php:227
+#: lib/Controller/SettingsController.php:244
 #, php-format
 msgid "Unknown personal setting: \"%1$s\""
 msgstr "Unbekannte persönliche Einstellung: \"%1$s\""
 
-#: lib/Controller/SettingsController.php:130
+#: lib/Controller/SettingsController.php:111
 #, php-format
 msgid "The personal setting \"%1$s\" is read-only"
 msgstr "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden."
 
-#: lib/Controller/SettingsController.php:138
-#: lib/Controller/SettingsController.php:244
-#, php-format
-msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
-msgstr ""
-"Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen "
-"Wahrheitswert konvertiert werden."
-
-#: lib/Controller/SettingsController.php:154
-#: lib/Controller/SettingsController.php:213
+#: lib/Controller/SettingsController.php:119
+#: lib/Controller/SettingsController.php:147
+#: lib/Controller/SettingsController.php:159
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
 msgstr "Unbekannte Administrator-Einstellung: \"%1$s\""
 
-#: lib/Controller/SettingsController.php:236
+#: lib/Controller/SettingsController.php:190
 #, php-format
 msgid "Thge personal setting \"%1$s\" is read-only"
 msgstr "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden."
 
-#: lib/Controller/SettingsController.php:263
+#: lib/Controller/SettingsController.php:198
 #, php-format
 msgid "Unknown personal setting: \"%s\"."
 msgstr "Unbekannte perönliche Einstellung: \"%1$s\""
 
-#: lib/Controller/SettingsController.php:350
+#: lib/Controller/SettingsController.php:267
 #, php-format
 msgid "Unable to parse memory size limit \"%s\""
 msgstr "Kann das Speicher-Limit nicht interpretieren: \"%s\""
 
-#: lib/Service/AnyToPdf.php:163 lib/Service/AnyToPdf.php:187
-#: lib/Service/AnyToPdf.php:196
-msgid "not found"
-msgstr "unauffindbar"
-
-#: lib/Service/AnyToPdf.php:179
-msgid "pass through"
-msgstr "durchwinken"
-
-#: lib/Service/AnyToPdf.php:223
-#, php-format
-msgid ""
-"Universal converter \"%1$s\" fas failed trying to convert mime-type \"%2$s\""
-msgstr ""
-"Das Umwandlungsprogramm \"%1$s\" konnte eine Datei mit Mime-Typ \"%2$s\" "
-"nicht konvertieren"
-
-#: lib/Service/AnyToPdf.php:257
-#, php-format
-msgid "Converter \"%1$s\" has failed trying to convert mime-type \"%2$s\""
-msgstr ""
-"Das Umwandlungsprogramm \"%1$s\" konnte eine Datei mit Mime-Typ \"%2$s\" "
-"nicht konvertieren"
-
-#: lib/Service/AnyToPdf.php:386
-#, php-format
-msgid "Please install the \"%s\" program on the server."
-msgstr "Bitte das \"%s\"-Programm auf dem Server installieren."
-
-#: lib/Service/ArchiveService.php:97 lib/Service/ArchiveService.php:103
+#: lib/Service/ArchiveService.php:146 lib/Service/ArchiveService.php:152
 #, php-format
 msgid "Unable to open archive file %s (%s)"
 msgstr "Kann die Archive Datei %s (%s) nicht öffnen"
 
-#: lib/Service/ArchiveService.php:113
+#: lib/Service/ArchiveService.php:163
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$d > %3$d"
 msgstr ""
 "Die Größe des dekomprimierten Archivs \"%1$s\" ist zo groß:  %2$d > %3$d"
 
-#: lib/Service/ArchiveService.php:120
+#: lib/Service/ArchiveService.php:170
 #, php-format
 msgid "Archive \"%1$s\" is a potential zip bomp, size %2$d > %3$d"
 msgstr "Das Archiv \"%1$s\" ist eine potentielle ZIP-Bombe, Größe  %2$d > %3$d"
 
-#: lib/Service/ArchiveService.php:170 lib/Service/ArchiveService.php:179
+#: lib/Service/ArchiveService.php:232 lib/Service/ArchiveService.php:249
+#: lib/Service/ArchiveService.php:263
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 "Mit dieser Archivierungs-Service-Instanz ist keine Archiv-Datei assoziiert."
 
-#: lib/Service/AssetService.php:75
+#: lib/Service/AssetService.php:87
 #, php-format
 msgid ""
 "Installation problem; the required %s-resource \"%s\" is not installed on "
-"the server, please contact the system administrator!"
+"the server,\n"
+" please contact the system administrator!"
 msgstr ""
 "Installationsproblem; die benötigte %s-Ressource \"%s\" ist auf dem Server "
 "nicht installiert, bitte den System-Administrator kontaktiern."
 
-#: lib/Service/PdfCombiner.php:332 lib/Service/PdfCombiner.php:355
-msgid "Combining PDFs failed"
-msgstr "Das Zusammenfügen der PDFs ist fehlgeschlagen"
+#: lib/Settings/AdminSection.php:72 lib/Settings/PersonalSection.php:72
+msgid "Archive Explorer"
+msgstr "Archiv-Betrachter"
 
-#: lib/Settings/AdminSection.php:69 lib/Settings/PersonalSection.php:69
-#: specialAppInfoFakeDummyForL10nScript.php:2
-msgid "PDF Downloader"
-msgstr "PDF Download-App"
-
-#: lib/Traits/ResponseTrait.php:73
+#: lib/Traits/ResponseTrait.php:79
 msgid "Error, caught an exception."
 msgstr "Fehler, \"Ausnahme\" \"aufgefangen\"."
 
-#: lib/Traits/ResponseTrait.php:74
+#: lib/Traits/ResponseTrait.php:80
 msgid "Caused by previous exception"
 msgstr "Verursacht durch eine vorhergehende Ausnahme"
 
-#. TRANSLATORS src/AdminSettings.vue:25
+#: specialAppInfoFakeDummyForL10nScript.php:2
+msgid "Archive Manager"
+msgstr "Archiv-Betrachter"
+
 #: specialAppInfoFakeDummyForL10nScript.php:3
-#: specialVueFakeDummyForL10nScript.js:2
-msgid "Recursive PDF Downloader"
-msgstr "Rekursive PDF-Download Anwendung"
+msgid "On-the-fly archive inspector for Nextcloud"
+msgstr "Virtueller Archiv-Betrachter für Nextcloud"
 
 #: specialAppInfoFakeDummyForL10nScript.php:4
-msgid ""
-"Recusively convert entire directory trees to PDF and provide the resulting "
-"document as download"
+msgid "Inspect, mount and extract archive files (zip, tar, etc.)"
 msgstr ""
-"Konvertiert die Dateien ganzer Verzeichnisbäume in das PDF-Format und "
-"präsentiert das Ergebnis als PDF-Download."
+"Archiv-Dateien (zip, tar, ...) als virtuelle Speicher einhängen und optional "
+"entpacken."
+
+#. TRANSLATORS src/AdminSettings.vue:25
+#: specialVueFakeDummyForL10nScript.js:2
+msgid "Archive Manager, Admin Settings"
+msgstr "Archiv-Betrachter, Administrator-Einstellungen"
 
 #. TRANSLATORS src/AdminSettings.vue:26
-#. TRANSLATORS src/PersonalSettings.vue:125
-#: specialVueFakeDummyForL10nScript.js:4 specialVueFakeDummyForL10nScript.js:58
+#. TRANSLATORS src/PersonalSettings.vue:23
+#: specialVueFakeDummyForL10nScript.js:4 specialVueFakeDummyForL10nScript.js:12
 msgid "Archive Extraction"
 msgstr "Archiv-Dateien-Behandlung"
 
-#. TRANSLATORS src/AdminSettings.vue:35
-#: specialVueFakeDummyForL10nScript.js:6
-msgid ""
-"On-the-fly extraction of archive files. If enabled users can control this "
-"setting on a per-user basis."
-msgstr ""
-"Transparentes extrahieren von Archiv-Dateien. Falls aktiviert, können die "
-"einzelnen Benutzer die Einstellung für sich selbst ändern."
-
-#. TRANSLATORS src/AdminSettings.vue:40
-#. TRANSLATORS src/PersonalSettings.vue:143
-#: specialVueFakeDummyForL10nScript.js:8 specialVueFakeDummyForL10nScript.js:64
+#. TRANSLATORS src/AdminSettings.vue:29
+#. TRANSLATORS src/PersonalSettings.vue:26
+#: specialVueFakeDummyForL10nScript.js:6 specialVueFakeDummyForL10nScript.js:14
 msgid "Archive Size Limit"
 msgstr "Archiv-Größen-Limitierung"
 
-#. TRANSLATORS src/AdminSettings.vue:41
-#. TRANSLATORS src/PersonalSettings.vue:144
-#: specialVueFakeDummyForL10nScript.js:10
-#: specialVueFakeDummyForL10nScript.js:66
+#. TRANSLATORS src/AdminSettings.vue:30
+#. TRANSLATORS src/PersonalSettings.vue:27
+#: specialVueFakeDummyForL10nScript.js:8 specialVueFakeDummyForL10nScript.js:16
 msgid ""
 "Disallow archive extraction for archives with decompressed size larger than "
 "this limit."
@@ -198,219 +183,96 @@ msgstr ""
 "Verbiete das Entpacken für Archivdateien, deren Größe nach Dekomprimierung "
 "größer als diese Grenze ist."
 
-#. TRANSLATORS src/AdminSettings.vue:46
-#: specialVueFakeDummyForL10nScript.js:12
-msgid "Custom Converter Scripts"
-msgstr "Eigene Konvertierungs-Skripte"
-
-#. TRANSLATORS src/AdminSettings.vue:55
-#: specialVueFakeDummyForL10nScript.js:14
-msgid "Disable the builtin-converters."
-msgstr "Voreingestellte Konverter deaktivieren"
-
-#. TRANSLATORS src/AdminSettings.vue:60
-#: specialVueFakeDummyForL10nScript.js:16
-msgid "Universal Converter"
-msgstr "Universeller Konverter"
-
-#. TRANSLATORS src/AdminSettings.vue:61
-#: specialVueFakeDummyForL10nScript.js:18
-msgid ""
-"Full path to a filter-program to be executed first for all files. If it "
-"fails, the other converters will be tried in turn."
-msgstr ""
-"Der vollständige Dateisystempfad zu einem Filter-Programm, dass zuerst auf "
-"jede Datei angewendet wird. Falls das fehlschlägt, werden die internen "
-"Konverter ausgeführt."
-
-#. TRANSLATORS src/AdminSettings.vue:67
-#: specialVueFakeDummyForL10nScript.js:20
-msgid "Fallback Converter"
-msgstr "Rückfall-Konverter"
-
-#. TRANSLATORS src/AdminSettings.vue:68
-#: specialVueFakeDummyForL10nScript.js:22
-msgid ""
-"Full path to a filter-program to be run when all other filters have failed. "
-"If it fails an error page will be substituted for the failing document."
-msgstr ""
-"Der vollständige Dateisystempfad zu einem Filter-Programm, das\n"
-"ausgeführt wird, wenn kein anderer Konverter passt. Falls das\n"
-"fehlschägt, wird eine Fehlerseite angezeit."
-
-#. TRANSLATORS src/AdminSettings.vue:73
-#: specialVueFakeDummyForL10nScript.js:24
-msgid "Converters"
-msgstr "Konverter"
-
-#. TRANSLATORS src/AdminSettings.vue:75
-#: specialVueFakeDummyForL10nScript.js:26
-msgid "Status of the configured Converters"
-msgstr "Status der konfigurierten Konverter"
-
-#. TRANSLATORS src/AdminSettings.vue:80
-#: specialVueFakeDummyForL10nScript.js:28
-msgid "converter chain"
-msgstr "Konvertierungs-Pipeline"
-
-#: specialVueFakeDummyForL10nScript.js:28
-msgid "single converter"
-msgstr "Einzelkonverter"
-
-#. TRANSLATORS src/AdminSettings.vue:87
-#: specialVueFakeDummyForL10nScript.js:30
-msgid "alternatives"
-msgstr "Alternativen"
-
-#. TRANSLATORS src/AdminSettings.vue:95
-#: specialVueFakeDummyForL10nScript.js:30
-#: specialVueFakeDummyForL10nScript.js:32
-msgid "converter"
-msgstr "Konverter"
-
 #. TRANSLATORS src/PersonalSettings.vue:22
-#: specialVueFakeDummyForL10nScript.js:34
-msgid "Recursive Pdf Downloader, Personal Settings"
-msgstr "Rekursiver PDF Lader, Persönliche Einstellungen"
-
-#. TRANSLATORS src/PersonalSettings.vue:23
-#: specialVueFakeDummyForL10nScript.js:36
-msgid "Decorations and Fonts"
-msgstr "Seiten-Dekorierung und Schriftarten"
+#: specialVueFakeDummyForL10nScript.js:10
+msgid "Archive Manager, Personal Settings"
+msgstr "Archiv-Betrachter, Persönliche Einstellungen"
 
 #. TRANSLATORS src/PersonalSettings.vue:32
-#: specialVueFakeDummyForL10nScript.js:38
-msgid "Label output pages with file-name and page-number"
-msgstr "Kopfzeile mit ursprünglichem Dateinamen und Seitennummer einfügen."
-
-#. TRANSLATORS src/PersonalSettings.vue:36
-#: specialVueFakeDummyForL10nScript.js:40
-msgid "Format of the page-label: BASENAME_CURRENT_FILE PAGE/FILE_PAGES"
-msgstr ""
-"Format der Seiten-Paginierung: DATEINAME_OHNE_ENDUNG #SEITE/#DATEI_SEITEN"
-
-#. TRANSLATORS src/PersonalSettings.vue:40
-#: specialVueFakeDummyForL10nScript.js:42
-msgid "Font for generated PDF page-annotations"
-msgstr "Schriftart für die Paginierung"
-
-#. TRANSLATORS src/PersonalSettings.vue:47
-#: specialVueFakeDummyForL10nScript.js:44
-#: specialVueFakeDummyForL10nScript.js:50
-msgid "Select a Font"
-msgstr "Wähle eine Schriftart!"
-
-#. TRANSLATORS src/PersonalSettings.vue:75
-#: specialVueFakeDummyForL10nScript.js:46
-msgid "The font to use for the page-labels: {pageLabelsFont}"
-msgstr "Schriftart für die Paginierung: {pageLabelsFont}"
-
-#. TRANSLATORS src/PersonalSettings.vue:80
-#: specialVueFakeDummyForL10nScript.js:48
-msgid "Font for generated PDF (error-)pages"
-msgstr "Schriftart für die erzeugten PDF-(Fehler-)Seiten"
-
-#. TRANSLATORS src/PersonalSettings.vue:115
-#: specialVueFakeDummyForL10nScript.js:52
-msgid "The font to use for generated pages: {generatedPagesFont}"
-msgstr "Akutelle Schriftart für erzeugte PDF-Seiten: {generatedPagesFont}"
-
-#. TRANSLATORS src/PersonalSettings.vue:121
-#: specialVueFakeDummyForL10nScript.js:54
-msgid "Test Input"
-msgstr "Test-Eingabe"
-
-#. TRANSLATORS src/PersonalSettings.vue:122
-#: specialVueFakeDummyForL10nScript.js:56
-msgid "Test Hint"
-msgstr "Test-Hinweis"
-
-#. TRANSLATORS src/PersonalSettings.vue:134
-#: specialVueFakeDummyForL10nScript.js:60
-msgid "On-the-fly extraction of archive files."
-msgstr "Transparentes extrahieren von Archiv-Dateien."
-
-#. TRANSLATORS src/PersonalSettings.vue:137
-#: specialVueFakeDummyForL10nScript.js:62
-msgid ""
-"On-the-fly extraction of archive files is disabled by the administrator."
-msgstr ""
-"Transparentes extrahieren von Archiv-Dateien wurde von Administrator*innen "
-"deaktiviert."
-
-#. TRANSLATORS src/PersonalSettings.vue:149
-#: specialVueFakeDummyForL10nScript.js:68
+#: specialVueFakeDummyForL10nScript.js:18
 msgid "Administrative size limit: {archiveSizeLimit}"
 msgstr "Größenbegrenzen durch Administrator*innen: {archiveSizeLimit}"
 
-#. TRANSLATORS src/PersonalSettings.vue:238
-#: specialVueFakeDummyForL10nScript.js:70 src/mixins/settings-sync.js:40
-#: src/mixins/settings-sync.js:60 src/mixins/settings-sync.js:87
-#: src/mixins/settings-sync.js:137
+#: src/files-action.js:35 src/files-action.js:36
+msgid "Mount Archive"
+msgstr "Archiv einhängen"
+
+#: src/files-action.js:74
+msgid "Unable to obtain mount-status for archive-file \"{archivePath}\"."
+msgstr ""
+"Kann den Einhänge-Status für die Archiv-Datei \"{archivePath}\" nicht "
+"ermitteln.\""
+
+#: src/files-action.js:82
+msgid ""
+"The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"."
+msgstr ""
+"Die Archiv-Datei \"{archivePath}\" ist bereits an der Stelle "
+"\"{mountPointPath}\" eingehängt."
+
+#: src/files-action.js:94
+msgid "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"."
+msgstr ""
+"Die Archiv-Datei \"{archivePath}\" wurde an der Stelle \"{mountPointPath}\" "
+"eingehängt."
+
+#: src/mixins/settings-sync.js:44 src/mixins/settings-sync.js:74
+#: src/mixins/settings-sync.js:112 src/mixins/settings-sync.js:177
 msgid "reason unknown"
 msgstr "Grund unbekannt"
 
-#. TRANSLATORS src/PersonalSettings.vue:242
-#: specialVueFakeDummyForL10nScript.js:72
-msgid "Unable to obtain the list of available fonts: {message}"
-msgstr "Kann die Schriftarten-Liste nicht erfragen: {message}"
-
-#: src/files-action.js:41 src/files-action.js:42
-msgid "Download PDF"
-msgstr "PDF herunter laden"
-
-#: src/mixins/settings-sync.js:44
+#: src/mixins/settings-sync.js:48
 msgid "Unable to query the initial value of all settings: {message}"
 msgstr "Kann die anfänglichen Werte der Einstellungen nicht abrufen: {message}"
 
-#: src/mixins/settings-sync.js:64
+#: src/mixins/settings-sync.js:78
 msgid "Unable to query the initial value of {setting}: {message}"
 msgstr ""
 "Kann die anfänglichen Wert der Einstellung {setting} nicht abrufen: {message}"
 
-#: src/mixins/settings-sync.js:75
+#: src/mixins/settings-sync.js:97
 msgid "true"
 msgstr "wahr"
 
-#: src/mixins/settings-sync.js:80
+#: src/mixins/settings-sync.js:105
 msgid "Successfully set \"{setting}\" to {value}."
 msgstr ""
 "Der Wert für die Einstellung \"{setting}\" wurde erfolgreich auf \"{value}\" "
 "gesetzt."
 
-#: src/mixins/settings-sync.js:82 src/mixins/settings-sync.js:131
+#: src/mixins/settings-sync.js:107 src/mixins/settings-sync.js:171
 msgid "Setting \"{setting}\" has been unset successfully."
 msgstr "Die Einstellung \"{setting}\" wurde erfolgreich gelöscht."
 
-#: src/mixins/settings-sync.js:92
+#: src/mixins/settings-sync.js:117
 msgid "Unable to set \"{setting}\" to {value}: {message}."
 msgstr ""
 "Konnte den Wert für die Einstellung \"{setting}\" nicht auf den Wert "
 "\"{value}\" setzen: {message}"
 
-#: src/mixins/settings-sync.js:100
+#: src/mixins/settings-sync.js:125
 msgid "false"
 msgstr "falsch"
 
-#: src/mixins/settings-sync.js:98
+#: src/mixins/settings-sync.js:123
 msgid "Unable to unset \"{setting}\": {message}"
 msgstr "Kann die Einstellung {setting} nicht löschen: {message}>\n"
 
-#: src/mixins/settings-sync.js:117
+#: src/mixins/settings-sync.js:154
 msgid "Confirmation Required"
 msgstr "Bestätigung erforderlich!"
 
-#: src/mixins/settings-sync.js:122
+#: src/mixins/settings-sync.js:159
 msgid "Unconfirmed, reverting to old value."
 msgstr "Bestätigung nicht erteilt, setze auf den alten Wert zurück."
 
-#: src/mixins/settings-sync.js:129
+#: src/mixins/settings-sync.js:169
 msgid "Successfully set value for \"{settingsKey}\" to \"{value}\""
 msgstr ""
 "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf "
 "\"{value}\" gesetzt"
 
-#: src/mixins/settings-sync.js:142
+#: src/mixins/settings-sync.js:182
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert "
@@ -688,7 +550,7 @@ msgstr "Benutzer:in hat den Vorgang abgebrochen"
 msgid "Aborted"
 msgstr "Abgebrochen"
 
-#: src/util/ajax.js:173 src/util/ajax.js:356
+#: src/util/ajax.js:173 src/util/ajax.js:366
 msgid "Error"
 msgstr "Fehler"
 
@@ -696,15 +558,15 @@ msgstr "Fehler"
 msgid "System Administrator"
 msgstr "System-Administrator"
 
-#: src/util/ajax.js:223
+#: src/util/ajax.js:233
 msgid "Feedback email: {AutoReport}"
 msgstr "Rückmeldung per Email: {AutoReport}"
 
-#: src/util/ajax.js:247
+#: src/util/ajax.js:257
 msgid "Something went wrong."
 msgstr "Irgendetwas ist schief gelaufen."
 
-#: src/util/ajax.js:249
+#: src/util/ajax.js:259
 msgid ""
 "If it should be the case that you are already logged in for a long time "
 "without interacting with the web-app, then the reason for this error is "
@@ -713,7 +575,7 @@ msgstr ""
 "Falls Du bereits längere Zeit angemeldet bist, ohne mit der Web-App zu\n"
 "interagieren, dann ist das der Grund für den Fehler."
 
-#: src/util/ajax.js:254
+#: src/util/ajax.js:264
 msgid ""
 "I any case it may help to logoff and logon again, as a temporary work-"
 "around. You will be redirected to the log-in page when you close this window."
@@ -722,7 +584,7 @@ msgstr ""
 "ab- und wieder an zu melden und den Vorgang zu wiederholen. Wenn Du\n"
 "dieses Fenster schließt, wirst Du zur Login-Seite weiter geleitet."
 
-#: src/util/ajax.js:304
+#: src/util/ajax.js:314
 msgid ""
 "Unrecoverable unknown internal error, no further information available, "
 "sorry."
@@ -730,19 +592,19 @@ msgstr ""
 "Tut uns leid, unbekannte interner Fehler, weitere Informationen sind\n"
 "leider nicht verfügbar."
 
-#: src/util/ajax.js:306
+#: src/util/ajax.js:316
 msgid "Internal Error"
 msgstr "Irgendein Fehler"
 
-#: src/util/ajax.js:313
+#: src/util/ajax.js:323
 msgid "Field {RequiredField} not present in AJAX response."
 msgstr "In der AJAX-Antwort fehlt das Feld {RequiredField}."
 
-#: src/util/ajax.js:322
+#: src/util/ajax.js:332
 msgid "Missing data"
 msgstr "Fehlende Daten"
 
-#: src/util/ajax.js:334
+#: src/util/ajax.js:344
 msgid ""
 "The submitted data \"{stringValue}\" seems to be a plain string, but we need "
 "an object where the data is provided through above listed properties."
@@ -752,11 +614,11 @@ msgstr ""
 "Daten über die oben aufgeführten (fehlenden) Objekt-Eigenschaften zu "
 "Verfügung stellt."
 
-#: src/util/ajax.js:337
+#: src/util/ajax.js:347
 msgid "Error: plain string received"
 msgstr "Fehler: einfache Zeichenkette empfangen"
 
-#: src/util/ajax.js:342
+#: src/util/ajax.js:352
 msgid ""
 "The submitted data is not a plain object, and does not provide the "
 "properties listed above."
@@ -764,15 +626,15 @@ msgstr ""
 "Die übermittelten DAten sind kein einfaches Objekt und beinhalteten nicht "
 "die oben aufgeführten benötigten Eigentschaften."
 
-#: src/util/ajax.js:345
+#: src/util/ajax.js:355
 msgid "Error: not a plain object"
 msgstr "Fehler: kein einfaches Objekt"
 
-#: src/util/ajax.js:384
+#: src/util/ajax.js:394
 msgid "Unknown JSON error response to AJAX call: {status} / {error}"
 msgstr "Unbekannte JSON Fehler-Antwort auf AJAX-Anfrage: {status} / {error}"
 
-#: src/util/ajax.js:391
+#: src/util/ajax.js:401
 msgid "HTTP error response to AJAX call: {code} / {error}"
 msgstr "HTTP Fehler-Antwort auf AJAX-Anfrage: {code} / {error}"
 
@@ -788,13 +650,160 @@ msgstr "Ja"
 msgid "Debug Information"
 msgstr "Debug Informationen"
 
-#: src/util/file-download.js:50
-msgid "unknown error"
-msgstr "unbekannter Fehler"
+#~ msgid "unknown"
+#~ msgstr "unbekannt"
 
-#: src/util/file-download.js:53
-msgid "Unable to download data from \"{url}\": {message}"
-msgstr "Kann die Daten nicht von \"{url}\" laden: {message}"
+#, php-format
+#~ msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
+#~ msgstr ""
+#~ "Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen "
+#~ "Wahrheitswert konvertiert werden."
+
+#~ msgid "not found"
+#~ msgstr "unauffindbar"
+
+#~ msgid "pass through"
+#~ msgstr "durchwinken"
+
+#, php-format
+#~ msgid ""
+#~ "Universal converter \"%1$s\" fas failed trying to convert mime-type "
+#~ "\"%2$s\""
+#~ msgstr ""
+#~ "Das Umwandlungsprogramm \"%1$s\" konnte eine Datei mit Mime-Typ \"%2$s\" "
+#~ "nicht konvertieren"
+
+#, php-format
+#~ msgid "Converter \"%1$s\" has failed trying to convert mime-type \"%2$s\""
+#~ msgstr ""
+#~ "Das Umwandlungsprogramm \"%1$s\" konnte eine Datei mit Mime-Typ \"%2$s\" "
+#~ "nicht konvertieren"
+
+#, php-format
+#~ msgid "Please install the \"%s\" program on the server."
+#~ msgstr "Bitte das \"%s\"-Programm auf dem Server installieren."
+
+#~ msgid "Combining PDFs failed"
+#~ msgstr "Das Zusammenfügen der PDFs ist fehlgeschlagen"
+
+#~ msgid "PDF Downloader"
+#~ msgstr "PDF Download-App"
+
+#~ msgid "Recursive PDF Downloader"
+#~ msgstr "Rekursive PDF-Download Anwendung"
+
+#~ msgid ""
+#~ "Recusively convert entire directory trees to PDF and provide the "
+#~ "resulting document as download"
+#~ msgstr ""
+#~ "Konvertiert die Dateien ganzer Verzeichnisbäume in das PDF-Format und "
+#~ "präsentiert das Ergebnis als PDF-Download."
+
+#~ msgid ""
+#~ "On-the-fly extraction of archive files. If enabled users can control this "
+#~ "setting on a per-user basis."
+#~ msgstr ""
+#~ "Transparentes extrahieren von Archiv-Dateien. Falls aktiviert, können die "
+#~ "einzelnen Benutzer die Einstellung für sich selbst ändern."
+
+#~ msgid "Custom Converter Scripts"
+#~ msgstr "Eigene Konvertierungs-Skripte"
+
+#~ msgid "Disable the builtin-converters."
+#~ msgstr "Voreingestellte Konverter deaktivieren"
+
+#~ msgid "Universal Converter"
+#~ msgstr "Universeller Konverter"
+
+#~ msgid ""
+#~ "Full path to a filter-program to be executed first for all files. If it "
+#~ "fails, the other converters will be tried in turn."
+#~ msgstr ""
+#~ "Der vollständige Dateisystempfad zu einem Filter-Programm, dass zuerst "
+#~ "auf jede Datei angewendet wird. Falls das fehlschlägt, werden die "
+#~ "internen Konverter ausgeführt."
+
+#~ msgid "Fallback Converter"
+#~ msgstr "Rückfall-Konverter"
+
+#~ msgid ""
+#~ "Full path to a filter-program to be run when all other filters have "
+#~ "failed. If it fails an error page will be substituted for the failing "
+#~ "document."
+#~ msgstr ""
+#~ "Der vollständige Dateisystempfad zu einem Filter-Programm, das\n"
+#~ "ausgeführt wird, wenn kein anderer Konverter passt. Falls das\n"
+#~ "fehlschägt, wird eine Fehlerseite angezeit."
+
+#~ msgid "Converters"
+#~ msgstr "Konverter"
+
+#~ msgid "Status of the configured Converters"
+#~ msgstr "Status der konfigurierten Konverter"
+
+#~ msgid "converter chain"
+#~ msgstr "Konvertierungs-Pipeline"
+
+#~ msgid "single converter"
+#~ msgstr "Einzelkonverter"
+
+#~ msgid "alternatives"
+#~ msgstr "Alternativen"
+
+#~ msgid "converter"
+#~ msgstr "Konverter"
+
+#~ msgid "Decorations and Fonts"
+#~ msgstr "Seiten-Dekorierung und Schriftarten"
+
+#~ msgid "Label output pages with file-name and page-number"
+#~ msgstr "Kopfzeile mit ursprünglichem Dateinamen und Seitennummer einfügen."
+
+#~ msgid "Format of the page-label: BASENAME_CURRENT_FILE PAGE/FILE_PAGES"
+#~ msgstr ""
+#~ "Format der Seiten-Paginierung: DATEINAME_OHNE_ENDUNG #SEITE/#DATEI_SEITEN"
+
+#~ msgid "Font for generated PDF page-annotations"
+#~ msgstr "Schriftart für die Paginierung"
+
+#~ msgid "Select a Font"
+#~ msgstr "Wähle eine Schriftart!"
+
+#~ msgid "The font to use for the page-labels: {pageLabelsFont}"
+#~ msgstr "Schriftart für die Paginierung: {pageLabelsFont}"
+
+#~ msgid "Font for generated PDF (error-)pages"
+#~ msgstr "Schriftart für die erzeugten PDF-(Fehler-)Seiten"
+
+#~ msgid "The font to use for generated pages: {generatedPagesFont}"
+#~ msgstr "Akutelle Schriftart für erzeugte PDF-Seiten: {generatedPagesFont}"
+
+#~ msgid "Test Input"
+#~ msgstr "Test-Eingabe"
+
+#~ msgid "Test Hint"
+#~ msgstr "Test-Hinweis"
+
+#~ msgid "On-the-fly extraction of archive files."
+#~ msgstr "Transparentes extrahieren von Archiv-Dateien."
+
+#~ msgid ""
+#~ "On-the-fly extraction of archive files is disabled by the administrator."
+#~ msgstr ""
+#~ "Transparentes extrahieren von Archiv-Dateien wurde von "
+#~ "Administrator*innen deaktiviert."
+
+#~ msgid "Unable to obtain the list of available fonts: {message}"
+#~ msgstr "Kann die Schriftarten-Liste nicht erfragen: {message}"
+
+#~ msgid "Download PDF"
+#~ msgstr "PDF herunter laden"
+
+#~ msgid "unknown error"
+#~ msgstr "unbekannter Fehler"
+
+#~ msgid "Unable to download data from \"{url}\": {message}"
+#~ msgstr "Kann die Daten nicht von \"{url}\" laden: {message}"
 
 #, php-format
 #~ msgid "Unknown app setting: \"%1$s\""
@@ -805,9 +814,6 @@ msgstr "Kann die Daten nicht von \"{url}\" laden: {message}"
 
 #~ msgid "Recursive Pdf Downloader"
 #~ msgstr "Rekursive PDF-Download Anwendung"
-
-#~ msgid "Recursive Pdf Downloader, Admin Settings"
-#~ msgstr "Rekursiver PDF Lader, Administrator-Einstellungen"
 
 #~ msgid "Example setting"
 #~ msgstr "Beispiel-Einstellung"
