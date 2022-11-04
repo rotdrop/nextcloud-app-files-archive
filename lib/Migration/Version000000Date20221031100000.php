@@ -68,10 +68,6 @@ class Version000000Date20221031100000 extends SimpleMigrationStep
         'notnull' => true,
         'length' => 200,
       ]);
-      $table->addColumn('mount_point_id', 'bigint', [
-        'notnull' => true,
-        'length' => 20,
-      ]);
       $table->addColumn('mount_point_path', 'string', [
         'notnull' => true,
         'length' => 4000,
@@ -95,7 +91,7 @@ class Version000000Date20221031100000 extends SimpleMigrationStep
 
       $table->setPrimaryKey(['id']);
       $table->addIndex(['user_id'], 'user_id_index');
-      $table->addIndex(['mount_point_id', 'mount_point_path_hash'], 'mount_point_index');
+      $table->addIndex(['mount_point_path_hash'], 'mount_point_index');
       $table->addIndex(['archive_file_id', 'archive_file_path_hash'], 'archive_file_index');
     }
     return $schema;

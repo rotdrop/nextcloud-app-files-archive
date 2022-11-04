@@ -135,33 +135,9 @@ class MountController extends Controller
       return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
     }
 
-    try {
-      /** @var Folder $mountPointFolder */
-      $mountPointFolder = $userFolder->get($mountPoint);
-      if ($mountPointFolder->getType() != FileInfo::TYPE_FOLDER) {
-        return self::grumble($this->l->t('The mount point "%s" exists but is not a folder.', $mountPoint));
-      }
-    } catch (FileNotFoundException $e) {
-      try {
-        $mountPointFolder = $userFolder->newFolder($mountPoint);
-      } catch (Throwable $t) {
-        //
-      }
-    }
-
-    if (empty($mountPointFolder)) {
-      return self::grumble($this->l->t('The mount point "%s" does not exist and could not be created.', $mountPoint));
-    }
-
-    /** @var Folder $mountPointFolder */
-    if (!empty($mountPointFolder->getDirectoryListing())) {
-      return self::grumble($this->l->t('The mount point folder "%s" already contains files.', $mountPoint));
-    }
-
     // ok, just insert in to our mounts table
     $mount = new ArchiveMount;
     $mount->setUserId($this->userId);
-    $mount->setMountPointId($mountPointFolder->getId());
     $mount->setMountPointPath($mountPoint);
     $mount->setMountPointPathHash(md5($mountPoint));
     $mount->setArchiveFileId($archiveFile->getId());
@@ -206,33 +182,7 @@ class MountController extends Controller
         continue;
       }
 
-      try {
-        /** @var Folder $mountPointFolder */
-        $mountPointFolder = $userFolder->get($mountPointPath);
-      } catch (Throwable $t) {
-        $errorMessages[] = $this->l->t('Unable to open the top-level folder "%s" of the mounted archive.', $mountPointPath);
-        continue;
-      }
-
-      $storage = $mountPointFolder->getStorage();
-      // $storage = $mountPoint->getStorage();
-      if (empty($storage)) {
-        $errorMessages[] = $this->l->t('There is no storage behind the mount-point "%s".', $mountPointPath);
-        continue;
-      }
-      while ($storage instanceof WrapperStorage) {
-        $storage = $storage->getWrapperStorage();
-      }
-      if (!($storage instanceof ArchiveStorage)) {
-        $errorMessages[] = $this->l->t('"%1$s" is a mount-point, but is not a mounted archive file, storage is "%2$s".', [
-          $mountPointPath, $storage->getId(),
-        ]);
-        continue;
-      }
-
       $this->mountManager->removeMount($mountPointPath);
-      $mountPointFolder->delete();
-
       $this->mountMapper->delete($mount);
 
       $messages[] = $this->l->t('Archive "%1$s" has been unmounted from "%2$s".', [

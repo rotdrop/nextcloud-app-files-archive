@@ -23,6 +23,7 @@ import generateUrl from './util/generate-url.js';
 import * as Ajax from './util/ajax.js';
 import { attachDialogHandlers } from './util/dialogs.js';
 import { getInitialState } from 'services/InitialStateService.js';
+import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 
 require('dialogs.scss');
 
@@ -31,8 +32,8 @@ const initialState = getInitialState();
 // a menu entry in order to mount archive files as "virtual" folders
 const fileActionTemplate = {
   name: 'mount-archive',
-  displayName: t(appName, '(Un-)Mount Archive'),
-  altText: t(appName, '(Un-)Mount Archive'),
+  displayName: t(appName, 'Mount Archive'),
+  altText: t(appName, 'Mount Archive'),
   iconClass: 'icon-extract',
   // mime: 'httpd/unix-directory',
   // type: OCA.Files.FileActions.TYPE_DROPDOWN,
@@ -53,7 +54,6 @@ const fileActionTemplate = {
     const fullPath = encodeURIComponent((context.dir === '/' ? '' : context.dir) + '/' + fileName);
 
     const mountUrl = generateUrl('archive/mount/{fullPath}', { fullPath });
-    const unmountUrl = generateUrl('archive/unmount/{fullPath}', { fullPath });
 
     // $file is a jQuery object, change that if the files-app gets overhauled
     const mountFileaction = context.$file.find('.fileactions .action-mount-archive');
@@ -69,19 +69,29 @@ const fileActionTemplate = {
     $.get(mountUrl)
       .fail((xhr, textStatus, errorThrown) => {
         if (xhr.status === 404) {
-          console.info('ERROR', xhr, textStatus, errorThrown);
           Ajax.handleError(xhr, textStatus, errorThrown, disableLoadingState);
+        } else {
+          showError(t(appName, 'Unable to obtain mount-status for archive-file "{archivePath}".', { archivePath: fileName }), { timeout: TOAST_PERMANENT_TIMEOUT });
+          disableLoadingState();
         }
       })
       .done((data) => {
+        if (data.mounted) {
+          const mountPointPath = data.mounts[0].mountPointPath;
+          // make it relative
+          showError(t(appName, 'The archive "{archivePath}" is already mounted on "{mountPointPath}".', { archivePath: fileName, mountPointPath }), { timeout: TOAST_PERMANENT_TIMEOUT });
+          disableLoadingState();
+          return;
+        }
         console.info('DATA', data);
-        const url = data.mounted ? unmountUrl : mountUrl;
-        $.post(url)
+        $.post(mountUrl)
           .fail((xhr, textStatus, errorThrown) => {
             Ajax.handleError(xhr, textStatus, errorThrown, disableLoadingState);
           })
           .done((data) => {
-            console.info('DONE');
+            console.info('DATA', data);
+            const mountPointPath = data.mountPointPath;
+            showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', { archivePath: fileName, mountPointPath }));
             disableLoadingState();
             context.fileList.reload();
           });

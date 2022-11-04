@@ -70,9 +70,7 @@ class ArchiveStorage extends AbstractStorage
   /** @var array<string, ArchiveEntry> */
   protected $files = [];
 
-  /**
-   * @param array $parameters
-   */
+  /** {@inheritdoc} */
   public function __construct($parameters)
   {
     parent::__construct($parameters);

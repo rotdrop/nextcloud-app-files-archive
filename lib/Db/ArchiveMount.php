@@ -30,7 +30,6 @@ class ArchiveMount extends Entity implements JsonSerializable
   public $id;
   protected $userId;
 
-  protected $mountPointId;
   protected $mountPointPath;
   protected $mountPointPathHash;
 
@@ -44,7 +43,6 @@ class ArchiveMount extends Entity implements JsonSerializable
     // $this->addType('id', 'integer');
     $this->addType('userId', 'string');
 
-    $this->addType('mountPointId', 'integer');
     $this->addType('mountPointPath', 'string');
     $this->addType('mountPointPathHash', 'string');
 
@@ -60,7 +58,6 @@ class ArchiveMount extends Entity implements JsonSerializable
       'id' => $this->id,
       'userId' => $this->userId,
 
-      'mountPointId' => $this->mountPointId,
       'mountPointPath' => $this->mountPointPath,
       'mountPointPathHash' => $this->mountPointPathHash,
 

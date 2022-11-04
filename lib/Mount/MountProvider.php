@@ -108,10 +108,10 @@ class MountProvider implements IMountProvider
       return [];
     }
 
-    // $this->logInfo('USERFOLDER ' . $userFolder->getPath() . ' INTERNAL ' . $userFolder->getInternalPath());
-
     $mounts = [];
     $mountMapping = $this->mountMapper->findAll($userId);
+
+    $userFolderPath = $userFolder->getPath();
 
     /** @var ArchiveMount $mount */
     foreach ($mountMapping as $mount) {
@@ -123,19 +123,8 @@ class MountProvider implements IMountProvider
         continue;
       }
 
-      $mountDirectory = $mount->getMountPointPath();
-      try {
-        $mountFolder = $userFolder->get($mountDirectory);
-      } catch (FileNotFoundException $e) {
-        try {
-          $mountFolder = $userFolder->newFolder($mountDirectory);
-        } catch (Throwable $t) {
-          //
-        }
-      }
-      if (empty($mountFolder)) {
-        continue;
-      }
+      // The mount-path must be absolute
+      $mountDirectory = $userFolderPath . Constants::PATH_SEPARATOR . $mount->getMountPointPath();
 
       $storage = new ArchiveStorage([
         'appContainer' => $this->appContainer,
@@ -144,8 +133,7 @@ class MountProvider implements IMountProvider
 
       $mounts[] = new class(
         $storage,
-        $userFolder,
-        $mountFolder,
+        $mountDirectory,
         $loader,
         $this->mountManager,
         $this->mountMapper,
@@ -164,18 +152,13 @@ class MountProvider implements IMountProvider
         /** @var ArchiveMount */
         private $mountEntity;
 
-        /** @var Folder */
-        private $userFolder;
-
-        /** @var Folder */
-        private $mountFolder;
+        /** @var string */
+        private $mountPointPath;
 
         /**
          * @param ArchiveStorage $storage
          *
-         * @param Folder $userFolder
-         *
-         * @param Folder $mountFolder
+         * @param string $mountPointPath
          *
          * @param IStorageFactory $loader
          *
@@ -189,8 +172,7 @@ class MountProvider implements IMountProvider
          */
         public function __construct(
           ArchiveStorage $storage,
-          Folder $userFolder,
-          Folder $mountFolder,
+          string $mountPointPath,
           IStorageFactory $loader,
           IMountManager $mountManager,
           ArchiveMountMapper $mountMapper,
@@ -199,7 +181,7 @@ class MountProvider implements IMountProvider
         ) {
           parent::__construct(
             storage: $storage,
-            mountpoint: $mountFolder->getPath(),
+            mountpoint: $mountPointPath,
             loader: $loader,
             mountOptions: [
               'filesystem_check_changes' => 1,
@@ -212,8 +194,7 @@ class MountProvider implements IMountProvider
           $this->mountManager = $mountManager;
           $this->mountMapper = $mountMapper;
           $this->mountEntity = $mountEntity;
-          $this->userFolder = $userFolder;
-          $this->mountFolder = $mountFolder;
+          $this->mountPointPath = $mountPointPath;
           $this->logger = $logger;
         }
 
@@ -236,9 +217,6 @@ class MountProvider implements IMountProvider
           $this->mountEntity->setMountPointPathHash(md5($relativeTarget));
           $this->mountMapper->update($this->mountEntity);
 
-          $this->mountFolder->unlock(Locks::LOCK_EXCLUSIVE);
-          $this->mountFolder->move($target);
-          $this->mountFolder->lock(Locks::LOCK_EXCLUSIVE);
 
           return true;
         }
@@ -247,12 +225,7 @@ class MountProvider implements IMountProvider
         public function removeMount()
         {
           $this->mountMapper->delete($this->mountEntity);
-          $this->mountManager->removeMount($this->mountFolder->getPath());
-
-          // This is cludgy. I wonder what was the intended handling ...
-          $this->mountFolder->unlock(Locks::LOCK_EXCLUSIVE);
-          $this->mountFolder->delete();
-          $this->mountFolder->lock(Locks::LOCK_EXCLUSIVE);
+          $this->mountManager->removeMount($this->mountPointPath);
           return true;
         }
       };
