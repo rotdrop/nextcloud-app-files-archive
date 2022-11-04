@@ -75,10 +75,16 @@ return [
       'url' => '/archive/unmount/{archivePath}',
       'verb' => 'POST',
     ],
-    // get the status of the given archive file
+    // get the status of the given archive mount
     [
       'name' => 'mount#mount_status',
       'url' => '/archive/mount/{archivePath}',
+      'verb' => 'GET',
+    ],
+    // archive file management
+    [
+      'name' => 'archive#info',
+      'url' => '/archive/info/{archivePath}',
       'verb' => 'GET',
     ],
     /**

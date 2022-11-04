@@ -1,6 +1,6 @@
 /**
- * @author Claus-Justus Heine
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,15 +17,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Vue from 'vue';
 import { appName } from './config.js';
 import $ from './util/jquery.js';
 import generateUrl from './util/generate-url.js';
 import * as Ajax from './util/ajax.js';
 import { attachDialogHandlers } from './util/dialogs.js';
 import { getInitialState } from 'services/InitialStateService.js';
+import { generateFilePath, imagePath } from '@nextcloud/router';
 import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
+import FilesTab from './views/FilesTab.vue';
+import { Tooltip } from '@nextcloud/vue';
 
 require('dialogs.scss');
+
+Vue.directive('tooltip', Tooltip);
+
+// eslint-disable-next-line
+__webpack_public_path__ = generateFilePath(appName, '', 'js');
+Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
+
+const View = Vue.extend(FilesTab);
+let TabInstance = null;
 
 const initialState = getInitialState();
 
@@ -34,14 +47,14 @@ const fileActionTemplate = {
   name: 'mount-archive',
   displayName: t(appName, 'Mount Archive'),
   altText: t(appName, 'Mount Archive'),
-  iconClass: 'icon-extract',
+  // iconClass: 'icon-extract',
   // mime: 'httpd/unix-directory',
   // type: OCA.Files.FileActions.TYPE_DROPDOWN,
   // permissions: OC.PERMISSION_READ,
   // shouldRender(context) {}, is not invoked for TYPE_DROPDOWN
-  // icon() {
-  //   return imagePath('core', 'filetypes/application-pdf');
-  // },
+  icon() {
+    return imagePath('core', 'actions/external');
+  },
   // render(actionSpec, isDefault, context) {}, is not invoked for TYPE_DROPDOWN
   /**
    * Handle multi-page PDF download request. Stolen from the
@@ -104,6 +117,49 @@ window.addEventListener('DOMContentLoaded', () => {
   attachDialogHandlers();
 
   console.info('INITIAL STATE', initialState);
+
+  /**
+   * Register a new tab in the sidebar
+   */
+  if (OCA.Files && OCA.Files.Sidebar) {
+    OCA.Files.Sidebar.registerTab(new OCA.Files.Sidebar.Tab({
+      id: appName,
+      name: t(appName, 'Archive'),
+      icon: 'icon-archive',
+
+      enabled(fileInfo) {
+        return initialState.archiveMimeTypes.indexOf(fileInfo.mimetype) >= 0;
+      },
+
+      async mount(el, fileInfo, context) {
+
+        if (TabInstance) {
+          TabInstance.$destroy();
+        }
+
+        TabInstance = new View({
+          // Better integration with vue parent component
+          parent: context,
+        });
+
+        // Only mount after we have all the info we need
+        await TabInstance.update(fileInfo);
+
+        TabInstance.$mount(el);
+        const $tabHeader = context.$el.closest('.app-sidebar-tabs');
+        const $iconSpan = $tabHeader.querySelector('#' + appName + ' .app-sidebar-tabs__tab-icon span');
+        $iconSpan.style.backgroundImage = 'url(' + imagePath(appName, appName) + ')';
+        $iconSpan.style.backgroundSize = '16px';
+      },
+      update(fileInfo) {
+        TabInstance.update(fileInfo);
+      },
+      destroy() {
+        TabInstance.$destroy();
+        TabInstance = null;
+      },
+    }));
+  }
 
   if (OCA.Files && OCA.Files.fileActions) {
     const fileActions = OCA.Files.fileActions;

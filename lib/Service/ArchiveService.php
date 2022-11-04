@@ -178,6 +178,24 @@ class ArchiveService
     return $this;
   }
 
+  /** @return array Archive information, meta-data. */
+  public function getArchiveInfo():array
+  {
+    if (empty($this->archiver)) {
+      throw new Exceptions\ArchiveNotOpenException(
+        $this->l->t('There is no archive file associated with this archiver instance.'));
+    }
+    return [
+      'format' => $this->archiver->getFormat(),
+      'mimeType' => $this->archiver->getMimeType(),
+      'size' => $this->archiver->getSize(),
+      'compressedSize' => $this->archiver->getCompressedSize(),
+      'originalSize' => $this->archiver->getOriginalSize(),
+      'numberOfFiles' => $this->archiver->countFiles(),
+      'comment' => $this->archiver->getComment(),
+    ];
+  }
+
   /**
    * Return a proposal for the extraction destination. Currently, this simply
    * strips double extensions like FOO.tag.N -> FOO.
