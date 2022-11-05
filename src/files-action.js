@@ -20,11 +20,11 @@
 import Vue from 'vue';
 import { appName } from './config.js';
 import $ from './util/jquery.js';
-import generateUrl from './util/generate-url.js';
+import generateAppUrl from './util/generate-url.js';
 import * as Ajax from './util/ajax.js';
 import { attachDialogHandlers } from './util/dialogs.js';
 import { getInitialState } from 'services/InitialStateService.js';
-import { generateFilePath, imagePath } from '@nextcloud/router';
+import { generateFilePath, imagePath, generateUrl } from '@nextcloud/router';
 import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import FilesTab from './views/FilesTab.vue';
 import { Tooltip } from '@nextcloud/vue';
@@ -35,7 +35,7 @@ Vue.directive('tooltip', Tooltip);
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js');
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
+Vue.mixin({ data() { return { appName }; }, methods: { t, n, generateUrl } });
 
 const View = Vue.extend(FilesTab);
 let TabInstance = null;
@@ -66,7 +66,7 @@ const fileActionTemplate = {
   actionHandler(fileName, context) {
     const fullPath = encodeURIComponent((context.dir === '/' ? '' : context.dir) + '/' + fileName);
 
-    const mountUrl = generateUrl('archive/mount/{fullPath}', { fullPath });
+    const mountUrl = generateAppUrl('archive/mount/{fullPath}', { fullPath });
 
     // $file is a jQuery object, change that if the files-app gets overhauled
     const mountFileaction = context.$file.find('.fileactions .action-mount-archive');
@@ -142,6 +142,9 @@ window.addEventListener('DOMContentLoaded', () => {
           parent: context,
         });
 
+        console.info('ELEMENT', $(el));
+        console.info('fileInfo', fileInfo);
+
         // Only mount after we have all the info we need
         await TabInstance.update(fileInfo);
 
@@ -152,6 +155,7 @@ window.addEventListener('DOMContentLoaded', () => {
         $iconSpan.style.backgroundSize = '16px';
       },
       update(fileInfo) {
+        console.info('ARGUMENTS', arguments);
         TabInstance.update(fileInfo);
       },
       destroy() {

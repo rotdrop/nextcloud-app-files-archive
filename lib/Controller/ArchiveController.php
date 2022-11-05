@@ -45,6 +45,10 @@ class ArchiveController extends Controller
   use \OCA\FilesArchive\Traits\LoggerTrait;
   use \OCA\FilesArchive\Traits\UtilTrait;
 
+  public const ARCHIVE_STATUS_OK = 0;
+  public const ARCHIVE_STATUS_TOO_LARGE = (1 << 0);
+  public const ARCHIVE_STATUS_BOMB = (1 << 1);
+
   /** @var string */
   private $userId;
 
@@ -95,12 +99,42 @@ class ArchiveController extends Controller
       return self::grumble($this->l->t('The archive file "%s" could not be found on the server.', $archivePath));
     }
 
+    $e = null;
+    $archiveStatus = self::ARCHIVE_STATUS_OK;
+    $httpStatus = Http::STATUS_BAD_REQUEST;
+    $messages = [];
+    $archiveInfo = [];
     try {
       $this->archiveService->open($archiveFile);
+      $archiveInfo = $this->archiveService->getArchiveInfo();
+      $httpStatus = Http::STATUS_OK;
+    } catch (Exceptions\ArchiveBombException $e) {
+      $this->logException($e);
+      $archiveStatus = self::ARCHIVE_STATUS_BOMB|self::ARCHIVE_STATUS_TOO_LARGE;
+      $archiveInfo = $e->getArchiveInfo();
+    } catch (Exceptions\ArchiveTooLargeException $e) {
+      $this->logException($e);
+      $archiveStatus = self::ARCHIVE_STATUS_TOO_LARGE;
+      $archiveInfo = $e->getArchiveInfo();
     } catch (Exceptions\ArchiveException $e) {
-      return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
+      $this->logException($e);
     }
 
-    return self::dataResponse($this->archiveService->getArchiveInfo());
+    if (!empty($e)) {
+      $exceptionMessage = $e->getMessage();
+      if (empty($exceptionMessage)) {
+        $messages[] = $this->l->t('Unable to open the archive file "%s": %s.', [
+          $archivePath, get_class($e)
+        ]);
+      } else {
+        $messages[] = $exceptionMessage;
+      }
+    }
+
+    return self::dataResponse([
+      'messages' => $messages,
+      'archiveStatus' => $archiveStatus,
+      'archiveInfo' => $archiveInfo,
+    ], $httpStatus);
   }
 }
