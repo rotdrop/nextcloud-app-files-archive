@@ -211,6 +211,7 @@ class MountController extends Controller
     $archivePath = urldecode($archivePath);
     $mounts = $this->mountMapper->findByArchivePath($archivePath);
     return self::dataResponse([
+      'messages' => [],
       'mounted' => !empty($mounts),
       'mounts' => array_map(fn(ArchiveMount $mount) => $mount->jsonSerialize(), empty($mounts) ? [] : $mounts),
     ]);
