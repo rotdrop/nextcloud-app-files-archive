@@ -22,17 +22,25 @@
 
 namespace OCA\FilesArchive\Exceptions;
 
+use OCA\FilesArchive\Service\ArchiveService;
+
 /**
- * Transparent archive extraction exception.
+ * Exception thrown if a zip-bomb was detected.
  */
 class ArchiveBombException extends ArchiveTooLargeException
 {
   /** @var int Archive size which is _really_ considered harmful. */
-  const BOMB_LIMIT = (1 << 30);
+  const BOMB_LIMIT = ArchiveService::ZIP_BOMB_LIMIT;
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
-  public function __construct(string $message, int $actualSize, ?\Throwable $previous = null)
+  /**
+   * @param string $message Custom error message, preferrably translated.
+   *
+   * @param array $archiveInfo As obtained from ArchiveService::getArchiveInfo().
+   *
+   * @param null|Throwable $previous
+   */
+  public function __construct(string $message, array $archiveInfo, ?\Throwable $previous = null)
   {
-    parent::__construct($message, self::BOMB_LIMIT, $actualSize, $previous);
+    parent::__construct($message, self::BOMB_LIMIT, $archiveInfo, $previous);
   }
 }

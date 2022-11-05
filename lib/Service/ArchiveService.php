@@ -27,8 +27,8 @@ use wapmorgan\UnifiedArchive\ArchiveEntry;
 
 use OCP\IL10N;
 use Psr\Log\LoggerInterface as ILogger;
-
 use OCP\Files\File;
+use OCP\Util as CloudUtil;
 
 use OCA\FilesArchive\Exceptions;
 
@@ -41,7 +41,69 @@ class ArchiveService
   use \OCA\FilesArchive\Traits\LoggerTrait;
 
   /** @var int Archive size which is _really_ considered harmful. */
-  const ZIP_BOMB_LIMIT = (1 << 30);
+  public const ZIP_BOMB_LIMIT = (1 << 31);
+
+  /**
+   * @var string
+   * Internal format of the underlying archive backend.
+   */
+  public const ARCHIVE_INFO_FORMAT = 'format';
+
+  /**
+   * @var string
+   * Mime-type of the archive file.
+   */
+  public const ARCHIVE_INFO_MIME_TYPE = 'mimeType';
+
+  /**
+   * @var string
+   *
+   * The size of the archive file (not neccessarily the sum of the size of the
+   * archive members).
+   */
+  public const ARCHIVE_INFO_SIZE = 'size';
+
+  /**
+   * @var string
+   *
+   * The sum of the compressed size of the archive members.
+   */
+  public const ARCHIVE_INFO_COMPRESSED_SIZE = 'compressedSize';
+
+  /**
+   * @var string
+   *
+   * The sum of the uncompressed size of the archive members.
+   */
+  public const ARCHIVE_INFO_ORIGINAL_SIZE = 'originalSize';
+
+  /**
+   * @var string
+   *
+   * The number of archive members (files) in the archive.
+   */
+  public const ARCHIVE_INFO_NUMBER_OF_FILES = 'numberOfFiles';
+
+  /**
+   * @var string
+   *
+   * Some archive formats support optional creator supplied comments.
+   */
+  public const ARCHIVE_INFO_COMMENT = 'comment';
+
+  /**
+   * @var array All array keys contained in the info-array obtained from
+   * archiveInfo().
+   */
+  public const ARCHIVE_INFO_KEYS = [
+    self::ARCHIVE_INFO_COMMENT,
+    self::ARCHIVE_INFO_COMPRESSED_SIZE,
+    self::ARCHIVE_INFO_FORMAT,
+    self::ARCHIVE_INFO_MIME_TYPE,
+    self::ARCHIVE_INFO_NUMBER_OF_FILES,
+    self::ARCHIVE_INFO_ORIGINAL_SIZE,
+    self::ARCHIVE_INFO_SIZE,
+  ];
 
   /** @var int */
   private $sizeLimit;
@@ -156,21 +218,24 @@ class ArchiveService
     if ($sizeLimit === null) {
       $sizeLimit = $this->sizeLimit;
     }
-    $archiveSize = $this->archiver->getOriginalSize();
+    $archiveInfo = $this->getArchiveInfo();
+    $archiveSize = $archiveInfo['originalSize'];
     if ($sizeLimit !== null && $archiveSize > $sizeLimit) {
       $this->archiver = null;
       throw new Exceptions\ArchiveTooLargeException(
-        $this->l->t('Uncompressed size of archive "%1$s" is too large: %2$d > %3$d', [
-          $fileNode->getPath(), $archiveSize, $sizeLimit,
-        ]));
+        $this->l->t('Uncompressed size of archive "%1$s" is too large: %2$s > %3$s', [
+          $fileNode->getInternalPath(), CloudUtil::humanFileSize($archiveSize), CloudUtil::humanFileSize($sizeLimit),
+        ]),
+        $archiveInfo,
+      );
     }
     if ($archiveSize > Exceptions\ArchiveBombException::BOMB_LIMIT) {
       $this->archiver = null;
       throw new Exceptions\ArchiveBombException(
-        $this->l->t('Archive "%1$s" is a potential zip bomp, size %2$d > %3$d', [
-          $fileNode->getPath(), $archiveSize, Exceptions\ArchiveBombException::BOMB_LIMIT
+        $this->l->t('Archive "%1$s" is a potential zip bomp, size %2$s > %3$s', [
+          $fileNode->getInternalPath(), CloudUtil::humanFileSize($archiveSize), CloudUtil::humanFileSize(Exceptions\ArchiveBombException::BOMB_LIMIT)
         ]),
-        $archiveSize
+        $archiveInfo,
       );
     }
     $this->fileNode = $fileNode;

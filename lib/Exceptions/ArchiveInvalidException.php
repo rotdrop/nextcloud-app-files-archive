@@ -24,51 +24,45 @@ namespace OCA\FilesArchive\Exceptions;
 
 use Throwable;
 
-use OCA\FilesArchive\Service\ArchiveService;
-
 /**
- * Exception thrown if the archive exceeds the configured limit.
+ * Base-class for exceptions thrown after the archive has been opened but is
+ * otherwise invalid or dangerous to use.
+ *
+ * @see ArchiveTooLargeException
+ * @see ArchiveBombException
  */
-class ArchiveTooLargeException extends ArchiveInvalidException
+class ArchiveInvalidException extends ArchiveException
 {
-  private int $limit;
+  /**
+   * @var array
+   *
+   * @see ArchiveService::archiveInfo()
+   */
+  protected $archiveInfo;
 
   /**
-   * @param string $message Custom error message, preferrably translated.
+   * @param array $archiveInfo Info as obtained from
+   * ArchiveService::archiveInfo().
    *
-   * @param int $limit The configured limit which was exceeded.
-   *
-   * @param array $archiveInfo As obtained from ArchiveService::getArchiveInfo().
+   * @param null|string $message
    *
    * @param null|Throwable $previous
+   *
+   * The exception code is tied to 0.
    */
-  public function __construct(
-    string $message,
-    int $limit,
-    array $archiveInfo,
-    ?Throwable $previous = null,
-  ) {
-    parent::__construct($archiveInfo, $message, $previous);
-    $this->limit = $limit;
+  public function __construct(array $archiveInfo, ?string $message, ?Throwable $previous)
+  {
+    parent::__construct($message, 0, $previous);
+    $this->archiveInfo = $archiveInfo;
   }
 
   /**
-   * Return the configured limit.
+   * @return Archive-info array.
    *
-   * @return int
+   * @see ArchiveService::archiveInfo()
    */
-  public function getLimit():int
+  public function getArchiveInfo():array
   {
-    return $this->limit;
-  }
-
-  /**
-   * Return the actual uncompressed size of the archive.
-   *
-   * @return int
-   */
-  public function getActualSize():int
-  {
-    return $this->archiveInfo[ArchiveService::ARCHIVE_INFO_ORIGINAL_SIZE];
+    return $this->archiveInfo;
   }
 }
