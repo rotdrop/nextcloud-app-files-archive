@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-04 09:49+0100\n"
+"POT-Creation-Date: 2022-11-05 01:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,24 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Controller/ArchiveController.php:89
+#: lib/Controller/MountController.php:120
+#: lib/Controller/MountController.php:169
+#, php-format
+msgid "The user folder for user \"%s\" could not be opened."
+msgstr ""
+
+#: lib/Controller/ArchiveController.php:95
+#, php-format
+msgid "The archive file \"%s\" could not be found on the server."
+msgstr ""
+
+#: lib/Controller/ArchiveController.php:101
+#: lib/Controller/MountController.php:135
+#, php-format
+msgid "Unable to open the archive file \"%s\"."
+msgstr ""
 
 #: lib/Controller/CatchAllController.php:70
 #, php-format
@@ -32,20 +50,9 @@ msgstr ""
 msgid "Get from end-point \"%s\" not implemented."
 msgstr ""
 
-#: lib/Controller/MountController.php:120
-#: lib/Controller/MountController.php:169
-#, php-format
-msgid "The user folder for user \"%s\" could not be opened."
-msgstr ""
-
 #: lib/Controller/MountController.php:126
 #, php-format
 msgid "\"%1$s\" is already mounted on \"%2$s\"."
-msgstr ""
-
-#: lib/Controller/MountController.php:135
-#, php-format
-msgid "Unable to open the archive file \"%s\"."
 msgstr ""
 
 #: lib/Controller/MountController.php:164
@@ -114,9 +121,10 @@ msgstr ""
 msgid "Archive \"%1$s\" is a potential zip bomp, size %2$d > %3$d"
 msgstr ""
 
-#: lib/Service/ArchiveService.php:232
-#: lib/Service/ArchiveService.php:249
-#: lib/Service/ArchiveService.php:263
+#: lib/Service/ArchiveService.php:186
+#: lib/Service/ArchiveService.php:250
+#: lib/Service/ArchiveService.php:267
+#: lib/Service/ArchiveService.php:281
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 
@@ -191,22 +199,26 @@ msgstr ""
 msgid "Administrative size limit: {archiveSizeLimit}"
 msgstr ""
 
-#: src/files-action.js:35
-#: src/files-action.js:36
+#: src/files-action.js:48
+#: src/files-action.js:49
 msgid "Mount Archive"
 msgstr ""
 
-#: src/files-action.js:74
+#: src/files-action.js:87
 msgid "Unable to obtain mount-status for archive-file \"{archivePath}\"."
 msgstr ""
 
-#: src/files-action.js:82
+#: src/files-action.js:95
 msgid ""
 "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"."
 msgstr ""
 
-#: src/files-action.js:94
+#: src/files-action.js:107
 msgid "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"."
+msgstr ""
+
+#: src/files-action.js:127
+msgid "Archive"
 msgstr ""
 
 #: src/mixins/settings-sync.js:44
