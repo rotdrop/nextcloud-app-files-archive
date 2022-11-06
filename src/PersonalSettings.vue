@@ -71,6 +71,7 @@ export default {
     async getData() {
       // slurp in all personal settings
       this.fetchSettings('personal');
+      this.loading = false
     },
     async saveTextInput(value, settingsKey, force) {
       this.saveConfirmedSetting(value, 'personal', settingsKey, force);

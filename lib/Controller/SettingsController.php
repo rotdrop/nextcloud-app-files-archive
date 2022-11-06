@@ -72,7 +72,7 @@ class SettingsController extends Controller
   /** @var string */
   private $userId;
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
+  // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IRequest $request,
@@ -89,6 +89,7 @@ class SettingsController extends Controller
     $this->userId = $userId;
     $this->appContainer = $appContainer;
   }
+  // phpcs:enable
 
   /**
    * @param string $setting
@@ -102,7 +103,7 @@ class SettingsController extends Controller
    * @AuthorizedAdminSetting(settings=OCA\GroupFolders\Settings\Admin)
    * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
    */
-  public function setAdmin(string $setting, $value, bool $force = false):DataResponse
+  public function setAdmin(string $setting, mixed $value, bool $force = false):DataResponse
   {
     if (!isset(self::ADMIN_SETTINGS[$setting])) {
       return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $setting));
@@ -110,7 +111,11 @@ class SettingsController extends Controller
     if (!(self::ADMIN_SETTINGS[$setting]['rw'] ?? false)) {
       return self::grumble($this->l->t('The personal setting "%1$s" is read-only', $setting));
     }
-    $oldValue = $this->config->getAppValue($this->appName, $setting);
+    $oldValue = $this->config->getAppValue(
+      $this->appName,
+      $setting,
+      self::ADMIN_SETTINGS[$setting]['default'] ?? null
+    );
     switch ($setting) {
       case self::ARCHIVE_SIZE_LIMIT:
         $newValue = $this->parseMemorySize($value);
@@ -121,6 +126,7 @@ class SettingsController extends Controller
 
     if ($newValue === null) {
       $this->config->deleteAppValue($this->appName, $setting);
+      $newValue = self::ADMIN_SETTINGS[$setting]['default'] ?? null;
     } else {
       $this->config->setAppValue($this->appName, $setting, $newValue);
     }
@@ -150,9 +156,12 @@ class SettingsController extends Controller
     }
     $results = [];
     foreach (array_keys($allSettings) as $oneSetting) {
+      $value = $this->config->getAppValue(
+        $this->appName,
+        $oneSetting,
+        self::ADMIN_SETTINGS[$setting]['default'] ?? null);
       switch ($oneSetting) {
         case self::ARCHIVE_SIZE_LIMIT:
-          $value = $this->config->getAppValue($this->appName, $oneSetting, null);
           $value = $value ? (int)$value : '';
           break;
         default:
@@ -181,7 +190,7 @@ class SettingsController extends Controller
    *
    * @NoAdminRequired
    */
-  public function setPersonal(string $setting, $value):Response
+  public function setPersonal(string $setting, mixed $value):Response
   {
     if (!isset(self::PERSONAL_SETTINGS[$setting])) {
       return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $setting));
@@ -189,7 +198,11 @@ class SettingsController extends Controller
     if (!(self::PERSONAL_SETTINGS[$setting]['rw'] ?? false)) {
       return self::grumble($this->l->t('Thge personal setting "%1$s" is read-only', $setting));
     }
-    $oldValue = $this->config->getUserValue($this->userId, $this->appName, $setting);
+    $oldValue = $this->config->getUserValue(
+      $this->userId,
+      $this->appName,
+      $setting,
+      self::PERSONAL_SETTINGS[$setting]['default'] ?? null);
     switch ($setting) {
       case self::ARCHIVE_SIZE_LIMIT:
         $newValue = $this->parseMemorySize($value);
@@ -199,6 +212,7 @@ class SettingsController extends Controller
     }
     if ($newValue === null) {
       $this->config->deleteUserValue($this->userId, $this->appName, $setting);
+      $newValue = self::PERSONAL_SETTINGS[$setting]['default'] ?? null;
     } else {
       $this->config->setUserValue($this->userId, $this->appName, $setting, $newValue);
     }
@@ -230,11 +244,11 @@ class SettingsController extends Controller
     }
     $results = [];
     foreach (array_keys($allSettings) as $oneSetting) {
-      if (str_ends_with($oneSetting, self::ADMIN_SETTING)) {
-        $value = $this->config->getAppValue($this->appName, substr($oneSetting, 0, -strlen(self::ADMIN_SETTING)));
-      } else {
-        $value = $this->config->getUserValue($this->userId, $this->appName, $oneSetting);
-      }
+      $value = $this->config->getUserValue(
+        $this->userId,
+        $this->appName,
+        $oneSetting,
+        self::PERSONAL_SETTINGS[$setting]['default'] ?? null);
       switch ($oneSetting) {
         case self::ARCHIVE_SIZE_LIMIT:
         case self::ARCHIVE_SIZE_LIMIT_ADMIN:
@@ -255,6 +269,11 @@ class SettingsController extends Controller
     }
   }
 
+  /**
+   * @param string $stringValue
+   *
+   * @return null|string
+   */
   private function parseMemorySize(string $stringValue):?string
   {
     if ($stringValue === '') {
