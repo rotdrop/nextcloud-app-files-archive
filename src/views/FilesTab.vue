@@ -21,7 +21,9 @@
 <template>
   <div class="files-tab">
     <ul>
-      <li class="files-tab-entry flex flex-center">
+      <li class="files-tab-entry flex flex-center clickable"
+          @click="showArchiveInfo = !showArchiveInfo"
+      >
         <div class="files-tab-entry__avatar icon-info-white" />
         <div class="files-tab-entry__desc">
           <h5>{{ t(appName, 'Archive Information') }}</h5>
@@ -29,7 +31,6 @@
         <Actions>
           <ActionButton v-model="showArchiveInfo"
                         :icon="'icon-triangle-' + (showArchiveInfo ? 's' : 'n')"
-                        @click="showArchiveInfo = !showArchiveInfo"
           />
         </Actions>
       </li>
@@ -82,7 +83,9 @@
           </ListItem>
         </ul>
       </li>
-      <li class="files-tab-entry flex flex-center">
+      <li class="files-tab-entry flex flex-center clickable"
+          @click="showArchiveMounts = !showArchiveMounts"
+      >
         <div class="files-tab-entry__avatar icon-external-white" />
         <div class="files-tab-entry__desc">
           <h5>{{ t(appName, 'Mount Points') }}</h5>
@@ -90,7 +93,6 @@
         <Actions>
           <ActionButton v-model="showArchiveMounts"
                         :icon="'icon-triangle-' + (showArchiveMounts ? 's' : 'n')"
-                        @click="showArchiveMounts = !showArchiveMounts"
           />
         </Actions>
       </li>
@@ -136,7 +138,9 @@
           </div>
         </div>
       </li>
-      <li class="files-tab-entry flex flex-center">
+      <li class="files-tab-entry flex flex-center clickable"
+          @click="showArchiveExtraction = !showArchiveExtraction"
+      >
         <div class="files-tab-entry__avatar icon-play-white" />
         <div class="files-tab-entry__desc">
           <h5>{{ t(appName, 'Extract Archive') }}</h5>
@@ -144,7 +148,6 @@
         <Actions>
           <ActionButton v-model="showArchiveExtraction"
                         :icon="'icon-triangle-' + (showArchiveExtraction ? 's' : 'n')"
-                        @click="showArchiveExtraction = !showArchiveExtraction"
           />
         </Actions>
       </li>
@@ -201,7 +204,7 @@ export default {
   ],
   data() {
     return {
-      fileListElement: undefined,
+      fileList: undefined,
       fileInfo: {},
       fileName: undefined,
       showArchiveInfo: true,
@@ -276,8 +279,10 @@ export default {
       this.fileInfo = fileInfo
       this.fileName = fileInfo.path + '/' + fileInfo.name
 
-      console.info('FILEINFO', fileInfo, this.fileName)
-
+      this.fileList = OCA.Files.App.currentFileList
+      this.fileList.$el.off('updated').on('updated', function(event) {
+        console.info('ARGS', arguments)
+      })
       const components = fileInfo.name.split('.')
       if (components.length > 1) {
         components.pop()
@@ -296,7 +301,6 @@ export default {
     async getData() {
       this.initialState = getInitialState()
 
-      this.fileListElement = document.querySelector('#fileList')
       this.getArchiveInfo(this.fileName)
       this.getArchiveMounts(this.fileName)
     },
@@ -318,8 +322,10 @@ export default {
           const responseData = e.response.data
           this.archiveInfo = responseData.archiveInfo
           this.archiveStatus = responseData.archiveStatus
-          for (const message of responseData.messages) {
-            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          if (responseData.messages) {
+            for (const message of responseData.messages) {
+              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            }
           }
         } else {
           this.archiveInfo = {}
@@ -346,8 +352,10 @@ export default {
           const responseData = e.response.data
           this.archiveMounts = responseData.mounts
           this.archiveMounted = responseData.mounted
-          for (const message of responseData.messages) {
-            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          if (responseData.messages) {
+            for (const message of responseData.messages) {
+              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            }
           }
         } else {
           this.archiveMounts = []
@@ -370,71 +378,100 @@ export default {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const mountPath = encodeURIComponent(this.archiveMountDirName + (this.archiveMountBaseName ? '/' + this.archiveMountBaseName : ''))
       const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}/{mountPath}', { archivePath, mountPath })
+      this.fileList.showFileBusyState(this.fileInfo.name, true)
       try {
         const response = await axios.post(url)
         this.getArchiveMounts(this.fileName)
-        if (this.archiveMountDirName === this.fileInfo.path && OCA.Files.App.currentFileList) {
-          OCA.Files.App.currentFileList.reload();
+        if (this.archiveMountDirName === this.fileInfo.path) {
+          this.fileList.reload();
         }
       } catch (e) {
         console.error('ERROR', e)
         if (e.response) {
           if (e.response.data) {
             const responseData = e.response.data
-            for (const message of responseData.messages) {
-              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            if (responseData.messages) {
+              for (const message of responseData.messages) {
+                showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+              }
             }
           }
-          showError(t(appName, 'Unmount request failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
+          showError(t(appName, 'Mount request failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
         }
       }
+      this.fileList.showFileBusyState(this.fileInfo.name, false)
     },
     async unmount(mount) {
-      const fileListMount = this.fileListElement.querySelector('[data-path="' + mount.dirName + '"][data-file="' + mount.baseName + '"]')
+      if (mount.dirName === this.fileInfo.dir && !this.fileList.inList(mount.baseName)) {
+        this.getArchiveMounts()
+        return
+      }
       const cloudUser = getCurrentUser()
       const url = generateRemoteUrl('dav/files/' + cloudUser.uid + mount.mountPointPath)
+      this.fileList.showFileBusyState(this.fileInfo.name, true)
       try {
         const response = await axios.delete(url)
-        if (fileListMount) {
-          // if the mount point is shown in the current view, then
-          // simply delete the row from the DOM.
-          fileListMount.parentNode.removeChild(fileListMount)
-          this.archiveMounted = false
+        if (mount.dirName === this.fileInfo.dir) {
+          this.fileList.remove(mount.baseName)
         }
+        this.archiveMounted = false
       } catch (e) {
         console.error('ERROR', e)
+        const messages = []
         if (e.response) {
-          if (e.response.data) {
-            const responseData = e.response.data
-            for (const message of responseData.messages) {
-              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          // attempt parsing Sabre exception is available
+          const xml = e.response.request.responseXML
+          if (xml && xml.documentElement.localName === 'error' && xml.documentElement.namespaceURI === 'DAV:') {
+            const xmlMessages = xml.getElementsByTagNameNS('http://sabredav.org/ns', 'message');
+            // const exceptions = xml.getElementsByTagNameNS('http://sabredav.org/ns', 'exception');
+            for (const message of xmlMessages) {
+              messages.push(message.textContent)
             }
           }
-          showError(t(appName, 'Unmount request failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
+          if (e.response.data) {
+            const responseData = e.response.data
+            if (responseData.messages) {
+              messages.splice(messages.length, 0, ...responseData.messages)
+            }
+          }
+          if (!messages.length) {
+            messages.push(t(appName, 'Unmount request failed with error {status}, "{statusText}".', e.response))
+          }
+          for (const message of messages) {
+            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          }
+          if (e.response.status === 404) {
+            this.getArchiveMounts()
+          }
         }
       }
+      this.fileList.showFileBusyState(this.fileInfo.name, false)
     },
     async extract() {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const targetPath = encodeURIComponent(this.archiveExtractDirName + (this.archiveExtractBaseName ? '/' + this.archiveExtractBaseName : ''))
       const url = generateUrl('/apps/' + appName + '/archive/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
+      this.fileList.showFileBusyState(this.fileInfo.name, true)
       try {
         const response = await axios.post(url)
-        if (this.archiveExtractDirName === this.fileInfo.path && OCA.Files.App.currentFileList) {
-          OCA.Files.App.currentFileList.reload();
+        if (this.archiveExtractDirName === this.fileInfo.path) {
+          this.fileList.reload();
         }
       } catch (e) {
         console.error('ERROR', e)
         if (e.response) {
           if (e.response.data) {
             const responseData = e.response.data
-            for (const message of responseData.messages) {
-              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            if (responseData.messages) {
+              for (const message of responseData.messages) {
+                showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+              }
             }
           }
           showError(t(appName, 'Archive-extraction failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
         }
       }
+      this.fileList.showFileBusyState(this.fileInfo.name, false)
     },
     async openFilePicker(dataPrefix) {
       console.info('ARGUMENTS', arguments)
