@@ -39,9 +39,17 @@ class Registration
   public static function register(IRegistrationContext $context):void
   {
     self::registerListener($context, FilesActionListener::class);
+    self::registerListener($context, FileNodeListener::class);
   }
 
-  private static function registerListener(IRegistrationContext $context, $class):void
+  /**
+   * @param IRegistrationContext $context
+   *
+   * @param string $class
+   *
+   * @return void
+   */
+  private static function registerListener(IRegistrationContext $context, string $class):void
   {
     $events = $class::EVENT;
     if (!is_array($events)) {
@@ -52,8 +60,3 @@ class Registration
     }
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***
