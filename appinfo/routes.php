@@ -87,6 +87,12 @@ return [
       'url' => '/archive/info/{archivePath}',
       'verb' => 'GET',
     ],
+    // archive extraction
+    [
+      'name' => 'archive#extract',
+      'url' => '/archive/extract/{archivePath}/{targetPath}',
+      'verb' => 'POST',
+    ],
     /**
      * Attempt a catch all ...
      */

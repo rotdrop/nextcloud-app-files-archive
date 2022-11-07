@@ -163,7 +163,11 @@
                 {{ archiveExtractDirName + (archiveExtractDirName !== '/' ? '/' : '') }}
               </a>
             </div>
-            <SettingsInputText v-model="archiveExtractBaseName" label="" class="flex-grow" />
+            <SettingsInputText v-model="archiveExtractBaseName"
+                               label=""
+                               class="flex-grow"
+                               @update="extract"
+            />
           </div>
         </div>
       </li>
@@ -271,14 +275,14 @@ export default {
     async update(fileInfo) {
       this.fileInfo = fileInfo
       this.fileName = fileInfo.path + '/' + fileInfo.name
+
+      console.info('FILEINFO', fileInfo, this.fileName)
+
       const components = fileInfo.name.split('.')
-      console.info('COMPONENTS', components)
       if (components.length > 1) {
         components.pop()
-      console.info('POP COMPONENTS', components)
       }
       this.archiveMountBaseName = components.join('.')
-      console.info('BASE', this.archiveMountBaseName)
       this.archiveMountDirName = fileInfo.path
 
       this.archiveExtractBaseName = this.archiveMountBaseName
@@ -363,13 +367,13 @@ export default {
       --this.loading
     },
     async mount() {
-      const archivePath = encodeURIComponent(this.fileInfo.dir + '/' + this.fileInfo.name)
+      const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const mountPath = encodeURIComponent(this.archiveMountDirName + (this.archiveMountBaseName ? '/' + this.archiveMountBaseName : ''))
       const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}/{mountPath}', { archivePath, mountPath })
       try {
         const response = await axios.post(url)
         this.getArchiveMounts(this.fileName)
-        if (OCA.Files.App.currentFileList) {
+        if (this.archiveMountDirName === this.fileInfo.path && OCA.Files.App.currentFileList) {
           OCA.Files.App.currentFileList.reload();
         }
       } catch (e) {
@@ -407,6 +411,28 @@ export default {
             }
           }
           showError(t(appName, 'Unmount request failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
+        }
+      }
+    },
+    async extract() {
+      const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
+      const targetPath = encodeURIComponent(this.archiveExtractDirName + (this.archiveExtractBaseName ? '/' + this.archiveExtractBaseName : ''))
+      const url = generateUrl('/apps/' + appName + '/archive/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
+      try {
+        const response = await axios.post(url)
+        if (this.archiveExtractDirName === this.fileInfo.path && OCA.Files.App.currentFileList) {
+          OCA.Files.App.currentFileList.reload();
+        }
+      } catch (e) {
+        console.error('ERROR', e)
+        if (e.response) {
+          if (e.response.data) {
+            const responseData = e.response.data
+            for (const message of responseData.messages) {
+              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            }
+          }
+          showError(t(appName, 'Archive-extraction failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
         }
       }
     },

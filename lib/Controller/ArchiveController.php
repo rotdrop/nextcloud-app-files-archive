@@ -30,11 +30,18 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\IAppContainer;
+use OCP\Files\File;
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException as FileNotFoundException;
+use OCP\Lock\ILockingProvider;
 use OCP\IL10N;
 
+use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Exceptions;
 use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Constants;
 
 /**
  * AJAX end-point for archive operations and info.
@@ -58,6 +65,9 @@ class ArchiveController extends Controller
   /** @var ArchiveService */
   private $archiveService;
 
+  /** @var IAppContainer */
+  private $appContainer;
+
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
@@ -66,6 +76,7 @@ class ArchiveController extends Controller
     LoggerInterface $logger,
     IL10N $l10n,
     IRootFolder $rootFolder,
+    IAppContainer $appContainer,
     ArchiveService $archiveService,
   ) {
     parent::__construct($appName, $request);
@@ -73,6 +84,7 @@ class ArchiveController extends Controller
     $this->l = $l10n;
     $this->userId = $userId;
     $this->rootFolder = $rootFolder;
+    $this->appContainer = $appContainer;
     $this->archiveService = $archiveService;
   }
   // phpcs:enable
@@ -136,5 +148,69 @@ class ArchiveController extends Controller
       'archiveStatus' => $archiveStatus,
       'archiveInfo' => $archiveInfo,
     ], $httpStatus);
+  }
+
+  /**
+   * @param string $archivePath
+   *
+   * @param string $targetPath
+   *
+   * @return DataResponse
+   *
+   * @NoAdminRequired
+   */
+  public function extract(string $archivePath, string $targetPath):DataResponse
+  {
+    $archivePath = urldecode($archivePath);
+    $targetPath = urldecode($targetPath);
+
+    $userFolder = $this->rootFolder->getUserFolder($this->userId);
+    try {
+      /** @var File $archiveFile */
+      $archiveFile = $userFolder->get($archivePath);
+    } catch (FileNotFoundException $e) {
+      return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
+    }
+    $archiveStorage = new ArchiveStorage([
+      'archiveFile' => $archiveFile,
+      'appContainer' => $this->appContainer,
+    ]);
+    $targetInfo = pathinfo($targetPath);
+    try {
+      /** @var Folder $targetParent */
+      $targetParent = $userFolder->get($targetInfo['dirname']);
+    } catch (FileNotFoundException $e) {
+      return self::grumble($this->l->t('Unable to open the target parent-folder "%s".', $targetInfo['dirname']));
+    }
+    $targetInternalPath = $targetParent->getInternalPath() . Constants::PATH_SEPARATOR . $targetInfo['filename'];
+    $targetStorage = $targetParent->getStorage();
+
+    /** @var ILockingProvider $lockingProvider */
+    $lockingProvider = $this->appContainer->get(ILockingProvider::class);
+
+    $locked = false;
+    try {
+      $targetStorage->acquireLock($targetInternalPath, ILockingProvider::LOCK_EXCLUSIVE, $lockingProvider);
+      $locked = true;
+      $targetStorage->copyFromStorage($archiveStorage, '/', $targetInternalPath);
+      $targetStorage->releaseLock($targetInternalPath, ILockingProvider::LOCK_EXCLUSIVE, $lockingProvider);
+      $targetStorage->getScanner()->scan($targetInternalPath);
+    } catch (Throwable $t) {
+      $this->logException($t);
+      if ($locked) {
+        try {
+          $targetStorage->releaseLock($targetInternalPath, ILockingProvider::LOCK_EXCLUSIVE, $lockingProvider);
+        } catch (Throwable $t) {
+          $this->logException($t, 'Unable to unlock ' . $targetInternalPath);
+        }
+      }
+      return self::grumble($this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
+        $archivePath, $targetPath, $t->getMessage()
+      ]));
+    }
+
+    return self::dataResponse([
+      'messages' => [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],
+    ]);
   }
 }

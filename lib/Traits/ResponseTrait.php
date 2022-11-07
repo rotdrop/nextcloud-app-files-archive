@@ -95,12 +95,12 @@ trait ResponseTrait
 
   private static function valueResponse($value, $message = '', $status = Http::STATUS_OK)
   {
-    return self::dataResponse(['message' => $message, 'value' => $value], $status);
+    return self::dataResponse(['messages' => [ $message ], 'value' => $value], $status);
   }
 
   private static function response($message, $status = Http::STATUS_OK)
   {
-    return self::dataResponse(['message' => $message], $status);
+    return self::dataResponse(['messages' => [ $message ] ], $status);
   }
 
   private static function grumble($message, $value = null, $status = Http::STATUS_BAD_REQUEST)
@@ -116,7 +116,7 @@ trait ResponseTrait
     if (is_array($message)) {
       $data = array_merge($data, $message);
     } else {
-      $data['message'] = $message;
+      $data['messages'] = [ $message ];
     }
     return self::dataResponse($data, $status);
   }
