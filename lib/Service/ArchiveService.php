@@ -33,8 +33,8 @@ use OCP\Util as CloudUtil;
 use OCA\FilesArchive\Exceptions;
 
 /**
- * Open archive files and present their contents to the PDF-combiner. This is
- * currently a wrapper around UnifiedArchive.
+ * Wrapper around the actual archive backend class in order to interface with
+ * the virtual storage and actual archive extraction controllers.
  */
 class ArchiveService
 {
