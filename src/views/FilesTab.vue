@@ -137,9 +137,34 @@
         <div class="files-tab-entry__desc">
           <h5>{{ t(appName, 'Extract Archive') }}</h5>
         </div>
+        <Actions>
+          <ActionButton v-model="showArchiveExtraction"
+                        :icon="'icon-triangle-' + (showArchiveExtraction ? 's' : 'n')"
+                        @click="showArchiveExtraction = !showArchiveExtraction"
+          />
+        </Actions>
       </li>
-    </Ul>
-  </Div>
+      <li v-show="showArchiveExtraction" class="directory-chooser files-tab-entry">
+        <div v-if="loading" class="icon-loading-small" />
+        <div v-else>
+          <div class="hint">
+            {{ t(appName, 'Choose a directory to extract the archive to:') }}
+          </div>
+          <div class="flex flex-center">
+            <div class="dirname">
+              <a href="#"
+                 class="file-picker button"
+                 @click="openFilePicker('archiveExtract', ...arguments)"
+              >
+                {{ archiveExtractDirName + (archiveExtractDirName !== '/' ? '/' : '') }}
+              </a>
+            </div>
+            <SettingsInputText v-model="archiveExtractBaseName" label="" class="flex-grow" />
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 
@@ -173,6 +198,7 @@ export default {
       fileName: undefined,
       showArchiveInfo: true,
       showArchiveMounts: false,
+      showArchiveExtraction: false,
       initialState: {},
       archiveInfo: {},
       archiveStatus: null,
@@ -182,6 +208,8 @@ export default {
       loading: 0,
       archiveMountDirName: undefined,
       archiveMountBaseName: undefined,
+      archiveExtractDirName: undefined,
+      archiveExtractBaseName: undefined,
     };
   },
   created() {
@@ -247,6 +275,10 @@ export default {
       this.archiveMountBaseName = components.join('.')
       console.info('BASE', this.archiveMountBaseName)
       this.archiveMountDirName = fileInfo.dir
+
+      this.archiveExtractBaseName = this.archiveMountBaseName
+      this.archiveExtractDirName = this.archiveMountDirName
+
       this.getData()
     },
     /**
