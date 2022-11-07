@@ -21,7 +21,7 @@
 <template>
   <div class="files-tab">
     <ul>
-      <li class="files-tab-entry flex">
+      <li class="files-tab-entry flex flex-center">
         <div class="files-tab-entry__avatar icon-info-white" />
         <div class="files-tab-entry__desc">
           <h5>{{ t(appName, 'Archive Information') }}</h5>
@@ -82,7 +82,7 @@
           </ListItem>
         </ul>
       </li>
-      <li class="files-tab-entry flex">
+      <li class="files-tab-entry flex flex-center">
         <div class="files-tab-entry__avatar icon-external-white" />
         <div class="files-tab-entry__desc">
           <h5>{{ t(appName, 'Mount Points') }}</h5>
@@ -94,7 +94,7 @@
           />
         </Actions>
       </li>
-      <li v-show="showArchiveMounts" class="files-tab-entry">
+      <li v-show="showArchiveMounts" class="directory-chooser files-tab-entry">
         <div v-if="loading" class="icon-loading-small" />
         <ul v-else-if="archiveMounted" class="archive-mounts">
           <ListItem v-for="mount in archiveMounts"
@@ -116,17 +116,30 @@
           </ListItem>
         </ul>
         <div v-else>
-          NOT MOUNTED
+          <div class="hint">
+            {{ t(appName, 'Not mounted, create a new mount-point:') }}
+          </div>
+          <div class="flex flex-center">
+            <div class="dirname">
+              <a href="#"
+                 class="file-picker button"
+                 @click="openFilePicker('archiveMount', ...arguments)"
+              >
+                {{ archiveMountDirName + (archiveMountDirName !== '/' ? '/' : '') }}
+              </a>
+            </div>
+            <SettingsInputText v-model="archiveMountBaseName" label="" class="flex-grow" />
+          </div>
         </div>
       </li>
-      <li class="files-tab-entry flex">
+      <li class="files-tab-entry flex flex-center">
         <div class="files-tab-entry__avatar icon-play-white" />
         <div class="files-tab-entry__desc">
           <h5>{{ t(appName, 'Extract Archive') }}</h5>
         </div>
       </li>
-    </ul>
-  </div>
+    </Ul>
+  </Div>
 </template>
 <script>
 
@@ -135,11 +148,12 @@ import { getInitialState } from '../services/InitialStateService.js'
 import { generateUrl } from '@nextcloud/router'
 import { getCurrentUser } from '@nextcloud/auth'
 import md5 from 'blueimp-md5'
-import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
+import { getFilePickerBuilder, showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { formatFileSize } from '@nextcloud/files'
 import ListItem from '@nextcloud/vue/dist/Components/ListItem'
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
+import SettingsInputText from '../components/SettingsInputText'
 import axios from '@nextcloud/axios'
 
 export default {
@@ -148,6 +162,7 @@ export default {
     Actions,
     ActionButton,
     ListItem,
+    SettingsInputText,
   },
   mixins: [
   ],
@@ -155,6 +170,7 @@ export default {
     return {
       fileListElement: undefined,
       fileInfo: {},
+      fileName: undefined,
       showArchiveInfo: true,
       showArchiveMounts: false,
       initialState: {},
@@ -164,6 +180,8 @@ export default {
       archiveMounted: false,
       openMountTarget: md5(generateUrl('') + appName + '-open-archive-mount'),
       loading: 0,
+      archiveMountDirName: undefined,
+      archiveMountBaseName: undefined,
     };
   },
   created() {
@@ -220,6 +238,15 @@ export default {
      */
     async update(fileInfo) {
       this.fileInfo = fileInfo
+      const components = fileInfo.name.split('.')
+      console.info('COMPONENTS', components)
+      if (components.length > 1) {
+        components.pop()
+      console.info('POP COMPONENTS', components)
+      }
+      this.archiveMountBaseName = components.join('.')
+      console.info('BASE', this.archiveMountBaseName)
+      this.archiveMountDirName = fileInfo.dir
       this.getData()
     },
     /**
@@ -317,11 +344,40 @@ export default {
         }
       }
     },
+    async openFilePicker(dataPrefix) {
+      console.info('ARGUMENTS', arguments)
+
+      const picker = getFilePickerBuilder(t(appName, 'Choose a prefix-folder'))
+        .startAt(this[dataPrefix + 'DirName'])
+        .setMultiSelect(false)
+        .setModal(true)
+        .setType(1)
+        .setMimeTypeFilter(['httpd/unix-directory'])
+        .allowDirectories()
+        .build()
+
+      const dir = await picker.pick() || '/'
+      if (!dir.startsWith('/')) {
+        showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
+      } else  {
+        showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: this[dataPrefix + 'BaseName'] }))
+        this[dataPrefix + 'DirName'] = dir
+      }
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
 .files-tab {
+  .flex {
+    display:flex;
+    &.flex-center {
+      align-items:center;
+    }
+    .flex-grow {
+      flex-grow:1;
+    }
+  }
   a.icon {
     background-position: left;
     padding-left:20px;
@@ -356,10 +412,6 @@ export default {
   }
   .files-tab-entry {
     min-height:44px;
-    &.flex {
-      display:flex;
-      align-items:center;
-    }
     &.clickable {
       &, & * {
         cursor:pointer;
@@ -384,6 +436,12 @@ export default {
         text-overflow: ellipsis;
         overflow: hidden;
         max-width: inherit;
+      }
+    }
+    &.directory-chooser {
+      .dirname {
+        font-weight:bold;
+        font-family:monospace;
       }
     }
   }
