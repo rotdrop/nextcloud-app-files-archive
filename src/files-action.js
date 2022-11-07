@@ -25,7 +25,7 @@ import * as Ajax from './util/ajax.js';
 import { attachDialogHandlers } from './util/dialogs.js';
 import { getInitialState } from 'services/InitialStateService.js';
 import { generateFilePath, imagePath, generateUrl } from '@nextcloud/router';
-import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
+import { showError, /* showSuccess, */ TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import FilesTab from './views/FilesTab.vue';
 import { Tooltip } from '@nextcloud/vue';
 
@@ -103,8 +103,8 @@ const fileActionTemplate = {
           })
           .done((data) => {
             console.info('DATA', data);
-            const mountPointPath = data.mountPointPath;
-            showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', { archivePath: fileName, mountPointPath }));
+            // const mountPointPath = data.mountPointPath;
+            // showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', { archivePath: fileName, mountPointPath }));
             disableLoadingState();
             context.fileList.reload();
           });
@@ -141,9 +141,6 @@ window.addEventListener('DOMContentLoaded', () => {
           // Better integration with vue parent component
           parent: context,
         });
-
-        console.info('ELEMENT', $(el));
-        console.info('fileInfo', fileInfo);
 
         // Only mount after we have all the info we need
         await TabInstance.update(fileInfo);
