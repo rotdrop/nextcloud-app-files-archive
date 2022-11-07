@@ -113,14 +113,13 @@ class MountController extends Controller
     } else {
       $mountPoint = urldecode($mountPoint);
     }
-    $this->logInfo('ATTEMPT MOUNT POINT ' . $mountPoint);
 
     $userFolder = $this->rootFolder->getUserFolder($this->userId);
     if (empty($userFolder)) {
       return self::grumble($this->l->t('The user folder for user "%s" could not be opened.', $this->userId));
     }
 
-    $mounts = $this->mountMapper->findByArchivePath($archivePath);
+    $mounts = $this->mountMapper->findByArchivePath($this->userId, $archivePath);
     if (!empty($mounts)) {
       $mount = array_shift($mounts);
       return self::grumble($this->l->t('"%1$s" is already mounted on "%2$s".', [
@@ -159,7 +158,7 @@ class MountController extends Controller
   {
     $archivePath = urldecode($archivePath);
 
-    $mounts = $this->mountMapper->findByArchivePath($archivePath);
+    $mounts = $this->mountMapper->findByArchivePath($this->userId, $archivePath);
     if (empty($mounts)) {
       return self::grumble($this->l->t('"%s" is not mounted.', $archivePath));
     }
@@ -209,7 +208,7 @@ class MountController extends Controller
   public function mountStatus(string $archivePath):DataResponse
   {
     $archivePath = urldecode($archivePath);
-    $mounts = $this->mountMapper->findByArchivePath($archivePath);
+    $mounts = $this->mountMapper->findByArchivePath($this->userId, $archivePath);
     return self::dataResponse([
       'messages' => [],
       'mounted' => !empty($mounts),
