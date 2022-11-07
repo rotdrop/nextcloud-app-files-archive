@@ -128,7 +128,11 @@
                 {{ archiveMountDirName + (archiveMountDirName !== '/' ? '/' : '') }}
               </a>
             </div>
-            <SettingsInputText v-model="archiveMountBaseName" label="" class="flex-grow" />
+            <SettingsInputText v-model="archiveMountBaseName"
+                               label=""
+                               class="flex-grow"
+                               @update="mount"
+            />
           </div>
         </div>
       </li>
@@ -170,7 +174,7 @@
 
 import { appName } from '../config.js'
 import { getInitialState } from '../services/InitialStateService.js'
-import { generateUrl } from '@nextcloud/router'
+import { generateUrl, generateRemoteUrl } from '@nextcloud/router'
 import { getCurrentUser } from '@nextcloud/auth'
 import md5 from 'blueimp-md5'
 import { getFilePickerBuilder, showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
@@ -266,6 +270,7 @@ export default {
      */
     async update(fileInfo) {
       this.fileInfo = fileInfo
+      this.fileName = fileInfo.path + '/' + fileInfo.name
       const components = fileInfo.name.split('.')
       console.info('COMPONENTS', components)
       if (components.length > 1) {
@@ -274,7 +279,7 @@ export default {
       }
       this.archiveMountBaseName = components.join('.')
       console.info('BASE', this.archiveMountBaseName)
-      this.archiveMountDirName = fileInfo.dir
+      this.archiveMountDirName = fileInfo.path
 
       this.archiveExtractBaseName = this.archiveMountBaseName
       this.archiveExtractDirName = this.archiveMountDirName
@@ -288,9 +293,8 @@ export default {
       this.initialState = getInitialState()
 
       this.fileListElement = document.querySelector('#fileList')
-      const fileName = this.fileInfo.path + '/' + this.fileInfo.name
-      this.getArchiveInfo(fileName)
-      this.getArchiveMounts(fileName)
+      this.getArchiveInfo(this.fileName)
+      this.getArchiveMounts(this.fileName)
     },
     async getArchiveInfo(fileName) {
       ++this.loading
@@ -358,21 +362,51 @@ export default {
       }
       --this.loading
     },
+    async mount() {
+      const archivePath = encodeURIComponent(this.fileInfo.dir + '/' + this.fileInfo.name)
+      const mountPath = encodeURIComponent(this.archiveMountDirName + (this.archiveMountBaseName ? '/' + this.archiveMountBaseName : ''))
+      const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}/{mountPath}', { archivePath, mountPath })
+      try {
+        const response = await axios.post(url)
+        this.getArchiveMounts(this.fileName)
+        if (OCA.Files.App.currentFileList) {
+          OCA.Files.App.currentFileList.reload();
+        }
+      } catch (e) {
+        console.error('ERROR', e)
+        if (e.response) {
+          if (e.response.data) {
+            const responseData = e.response.data
+            for (const message of responseData.messages) {
+              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            }
+          }
+          showError(t(appName, 'Unmount request failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
+        }
+      }
+    },
     async unmount(mount) {
       const fileListMount = this.fileListElement.querySelector('[data-path="' + mount.dirName + '"][data-file="' + mount.baseName + '"]')
       const cloudUser = getCurrentUser()
-      const url = generateUrl('/remote.php/dav/files/' + cloudUser.uid + mount.mountPointPath)
+      const url = generateRemoteUrl('dav/files/' + cloudUser.uid + mount.mountPointPath)
       try {
         const response = await axios.delete(url)
-        // FIXME: it would be good if a complete reload would not be neccessary
-        window.location.reload()
+        if (fileListMount) {
+          // if the mount point is shown in the current view, then
+          // simply delete the row from the DOM.
+          fileListMount.parentNode.removeChild(fileListMount)
+          this.archiveMounted = false
+        }
       } catch (e) {
         console.error('ERROR', e)
-        if (e.response && e.response.data) {
-          const responseData = e.response.data
-          for (const message of responseData.messages) {
-            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+        if (e.response) {
+          if (e.response.data) {
+            const responseData = e.response.data
+            for (const message of responseData.messages) {
+              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            }
           }
+          showError(t(appName, 'Unmount request failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
         }
       }
     },
