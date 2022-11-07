@@ -1,19 +1,25 @@
 # Archive Inspector and Extractor
 
 ## Intro
-This is an app for the Nextcloud cloud software. It adds a new menu
-entry to the actions menu in the files view which lets you inspect and extract
-archives (e.g. tar-archives, zip-archives ...).
+This is an app for the Nextcloud cloud software.
 
 - archive inspection is implemented as a an external mount where
-  archive members are streamed on the fly as they are
-  accessed
+  archive members are streamed on the fly as they are accessed
 - archive extraction extracts the archive contents into the file-space
   of the cloud. The app tries to be quota-aware while doing this.
 
+The app adds an item to the file-actions menu which lets you mount the
+archive file as "external" mount into the current directory. This
+mount is "movable" and can be renamed or moved into another folder.
+
+The app further adds an entry to the details-view in the right
+side-bar wheren archive information is displayed, and controls for
+mounting and extracing the archive to any location in the cloud
+file-system are available.
+
 ### State
 
-Just a skeleton ATM, there really is no working code whatsoever.
+Works for me.
 
 ### Security
 

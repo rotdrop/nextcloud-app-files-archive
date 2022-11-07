@@ -1,7 +1,7 @@
 {
   "name": "files-archive",
-  "description": "Recusively convert entire directory trees to PDF and provide the resulting document as download",
-  "version": "1.0.5",
+  "description": "On-the-fly archive inspector for Nextcloud",
+  "version": "1.0.0",
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "bugs": {
     "url": "https://github.com/rotdrop/nextcloud-app-files-archive.git"
