@@ -77,17 +77,23 @@ class ArchiveMountMapper extends QBMapper
   /**
    * Find a mount by the path of the underlying archive file.
    *
+   * @param string $userId
+   *
    * @param string $archivePath
    *
    * @return array
    */
-  public function findByArchivePath(string $archivePath):array
+  public function findByArchivePath(string $userId, string $archivePath):array
   {
     $qb = $this->db->getQueryBuilder();
 
     $qb->select('*')
       ->from($this->getTableName())
-      ->where($qb->expr()->eq('archive_file_path_hash', $qb->createNamedParameter(md5($archivePath))));
+      ->where($qb->expr()->eq('archive_file_path_hash', $qb->createNamedParameter(md5($archivePath))))
+      ->andWhere(
+        $qb->expr()->eq(
+          'user_id',
+          $qb->createNamedParameter($userId)));
 
     return $this->findEntities($qb);
   }
@@ -114,7 +120,7 @@ class ArchiveMountMapper extends QBMapper
       ->andWhere(
         $qb->expr()->eq(
           'user_id',
-          $qb->createNamedParamter($userId)));
+          $qb->createNamedParameter($userId)));
 
     return $this->findEntities($qb);
   }
@@ -141,7 +147,7 @@ class ArchiveMountMapper extends QBMapper
       ->andWhere(
         $qb->expr()->eq(
           'user_id',
-          $qb->createNamedParamter($userId)));
+          $qb->createNamedParameter($userId)));
 
     return $this->findEntity($qb);
   }
