@@ -67,9 +67,6 @@ export default {
     this.getData()
   },
   computed: {
-    builtinConvertersDisabled() {
-      return !!this.disableBuiltinConverters
-    },
   },
   watch: {
   },
@@ -80,15 +77,10 @@ export default {
       this.loading = false
     },
     async saveTextInput(value, settingsKey, force) {
-      if (await this.saveConfirmedSetting(value, 'admin', settingsKey, force)) {
-        this.fetchSetting('converters', 'admin')
-      }
+      return this.saveConfirmedSetting(value, 'admin', settingsKey, force)
     },
     async saveSetting(setting) {
-      console.info('SAVE SETTING', setting)
-      if (await this.saveSimpleSetting(setting, 'admin')) {
-        this.fetchSetting('converters', 'admin')
-      }
+      return this.saveSimpleSetting(setting, 'admin')
     },
   },
 }

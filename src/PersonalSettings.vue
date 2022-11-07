@@ -74,10 +74,10 @@ export default {
       this.loading = false
     },
     async saveTextInput(value, settingsKey, force) {
-      this.saveConfirmedSetting(value, 'personal', settingsKey, force);
+      return this.saveConfirmedSetting(value, 'personal', settingsKey, force);
     },
     async saveSetting(setting) {
-      this.saveSimpleSetting(setting, 'personal')
+      return this.saveSimpleSetting(setting, 'personal')
     },
   },
 }
