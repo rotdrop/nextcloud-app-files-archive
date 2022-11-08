@@ -25,7 +25,7 @@
   <SettingsSection :title="t(appName, 'Archive Manager, Admin Settings')">
     <AppSettingsSection :title="t(appName, 'Archive Extraction')">
       <SettingsInputText
-        v-model="archiveSizeLimit"
+        v-model="humanArchiveSizeLimit"
         :label="t(appName, 'Archive Size Limit')"
         :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
         :disabled="loading"
@@ -41,9 +41,9 @@ import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
 import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
 import SettingsInputText from './components/SettingsInputText'
 import ListItem from './components/ListItem'
-import { generateUrl } from '@nextcloud/router'
-import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
+import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
+import { generateUrl } from '@nextcloud/router'
 import settingsSync from './mixins/settings-sync'
 
 export default {
@@ -56,7 +56,8 @@ export default {
   },
   data() {
     return {
-      archiveSizeLimit: '',
+      archiveSizeLimit: null,
+      humanArchiveSizeLimit: null,
       loading: true,
     }
   },
@@ -77,7 +78,7 @@ export default {
       this.loading = false
     },
     async saveTextInput(value, settingsKey, force) {
-      return this.saveConfirmedSetting(value, 'admin', settingsKey, force)
+      await this.saveConfirmedSetting(value, 'admin', settingsKey, force)
     },
     async saveSetting(setting) {
       return this.saveSimpleSetting(setting, 'admin')

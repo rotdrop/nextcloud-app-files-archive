@@ -29,7 +29,6 @@ use Throwable;
  * otherwise invalid or dangerous to use.
  *
  * @see ArchiveTooLargeException
- * @see ArchiveBombException
  */
 class ArchiveInvalidException extends ArchiveException
 {

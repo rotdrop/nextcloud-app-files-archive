@@ -25,4 +25,5 @@ class Constants
 {
   public const PATH_SEPARATOR = '/';
   public const APP_NAME = 'files_archive';
+  public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = (1 << 32);
 }

@@ -40,9 +40,6 @@ class ArchiveService
 {
   use \OCA\FilesArchive\Traits\LoggerTrait;
 
-  /** @var int Archive size which is _really_ considered harmful. */
-  public const ZIP_BOMB_LIMIT = (1 << 31);
-
   /**
    * @var string
    * Internal format of the underlying archive backend.
@@ -226,15 +223,7 @@ class ArchiveService
         $this->l->t('Uncompressed size of archive "%1$s" is too large: %2$s > %3$s', [
           $fileNode->getInternalPath(), CloudUtil::humanFileSize($archiveSize), CloudUtil::humanFileSize($sizeLimit),
         ]),
-        $archiveInfo,
-      );
-    }
-    if ($archiveSize > Exceptions\ArchiveBombException::BOMB_LIMIT) {
-      $this->archiver = null;
-      throw new Exceptions\ArchiveBombException(
-        $this->l->t('Archive "%1$s" is a potential zip bomp, size %2$s > %3$s', [
-          $fileNode->getInternalPath(), CloudUtil::humanFileSize($archiveSize), CloudUtil::humanFileSize(Exceptions\ArchiveBombException::BOMB_LIMIT)
-        ]),
+        $sizeLimit,
         $archiveInfo,
       );
     }

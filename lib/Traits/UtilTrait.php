@@ -22,9 +22,9 @@
 
 namespace OCA\FilesArchive\Traits;
 
-use OCP\IL10N;
+use NumberFormatter;
 
-use \NumberFormatter;
+use OCP\IL10N;
 
 /**
  * Trait for some general nice-to-have functions.
@@ -161,7 +161,7 @@ trait UtilTrait
    *
    * @param null|string $locale Locale or null for the user's default locale.
    *
-   * @return int
+   * @return null|int|float
    *
    * - if the passed value is null or the empty string then the function
    * returns null.
@@ -173,22 +173,36 @@ trait UtilTrait
     if ($value === null || $value === '') {
       return null;
     }
+    if ($value === '0') {
+      return (int)0;
+    }
     $factor = [
       'b' => 1,
-      'kb' => 1000, 'kib' => (1 << 10),
-      'mb' => 1000000, 'mib' => (1 << 20),
-      'gb' => 1000000000, 'gib' => (1 << 30),
-      'tb' => 1000000000000, 'tib' => (1 << 40),
-      'pb' => 1000000000000000, 'pib' => (1 << 50),
+      'kb' => 1000,
+      'kib' => (1 << 10),
+      'mb' => (1000 * 1000),
+      'mib' => (1 << 20),
+      'gb' => (1000 * 1000 * 1000),
+      'gib' => (1 << 30),
+      'tb' => (1000 * 1000 * 1000 * 1000),
+      'tib' => (1 << 40),
+      'pb' => (1000 * 1000 * 1000 * 1000 * 1000),
+      'pib' => (1 << 50),
+      'eb' => (1000 * 1000 * 1000 * 1000 * 1000 * 1000),
+      'eib' => (1 << 60),
+      'zb' => (1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000),
+      'zib' => (1 << 70),
+      'yb' => (1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000),
+      'yib' => (1 << 80),
     ];
     $value = preg_replace('/\s+/u', '', $value);
     $value = strtolower(
       str_ireplace(
-        [ 'bytes', 'kilo', 'kibi', 'mega', 'mebi', 'giga', 'gibi', 'tera', 'tibi', 'peta', 'pebi' ],
-        [ 'b', 'k', 'ki', 'm', 'mi', 'g', 'gi', 't', 'ti', 'p', 'pi' ],
+        [ 'bytes', 'kilo', 'kibi', 'mega', 'mebi', 'giga', 'gibi', 'tera', 'tibi', 'peta', 'pebi', 'exa', 'exbi', 'zetta', 'zebi', 'yotta', 'yobi', ],
+        [ 'b',     'k',    'ki',   'm',    'mi',   'g',    'gi',   't',    'ti',   'p',    'pi',   'e',   'ei',   'z',     'zi',   'y',     'yi',   ],
         $value));
 
-    if (preg_match('/([-0-9,.]+)([kmgtp]?i?b?)?$/', $value, $matches)) {
+    if (preg_match('/([-0-9,.]+)([kmgtpezy]?i?b?)?$/', $value, $matches)) {
       $this->logInfo('MATCHES ' . print_r($matches, true));
       $value = $this->floatValue($matches[1], $locale);
       if (empty($value)) {
@@ -199,11 +213,83 @@ trait UtilTrait
           return null;
         }
         $value *= $factor[$matches[2]];
+        if ($value <= PHP_INT_MAX) {
+          $value = (int)$value;
+        }
       }
       return $value;
     } else {
       return null;
     }
+  }
+
+  /**
+   * @param int $bytes The size in bytes to format.
+   *
+   * @param string $format If \true then binary prefixes are used (kib, mib, etc.).
+   *
+   * @param int $digits Number of fractinal digits.
+   *
+   * @param null|string $locale Locale to use to format fractional numbers.
+   *
+   * @return null|string The human readable storage size.
+   *
+   * @see storageValue()
+   */
+  protected function formatStorageValue(int $bytes, string $format = 'binary', int $digits = 2, ?string $locale = null):?string
+  {
+    $units = [
+      'decimal' => [
+        '', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y',
+      ],
+      'longDecimal' => [
+        'bytes', 'kilo', 'mega', 'giga', 'tera', 'peta', 'exa', 'zetta', 'yotta',
+      ],
+      'binary' => [
+        '', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi', 'Yi',
+      ],
+      'longBinary' => [
+        '', 'kibi', 'mebi', 'gibi', 'tebi', 'pebi', 'exbi', 'zebi', 'yobi'
+      ],
+    ];
+    $bytesUnit = [
+      'decimal' => 'B',
+      'longDecimal' => ' ' . $this->l->t('bytes'),
+      'binary' => 'B',
+      'longBinary' => ' ' . $this->l->t('bytes'),
+    ];
+    $radix = [
+      'decimal' => 1000.0,
+      'longDecimal' => 1000.0,
+      'binary' => 1024.0,
+      'longBinary' => 1024.0,
+    ];
+
+    $units = $units[$format] ?? null;
+    $bytesUnit = $bytesUnit[$format] ?? null;
+    $radix = $radix[$format] ?? null;
+
+    if ($units === null || $bytesUnit === null || $radix === null)  {
+      // maybe throw InvalidArgumentException
+      return null;
+    }
+
+    empty($locale) && $locale = $this->getLocale();
+
+    $floatVal = $bytes;
+    $exponent = 0;
+    $exponentLimit = count($units) - 1;
+    while ($floatVal > $radix && $exponent < $exponentLimit) {
+      $floatVal /= $radix;
+      ++$exponent;
+    }
+
+    $fmt = new NumberFormatter($locale, \NumberFormatter::DECIMAL);
+    $fmt->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 0);
+    $fmt->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $digits);
+    $stringVal = $fmt->format($floatVal);
+
+    return $stringVal . ' ' . $units[$exponent] . $bytesUnit;
   }
 
   /**

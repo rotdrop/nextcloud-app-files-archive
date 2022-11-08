@@ -26,6 +26,7 @@ use Throwable;
 
 use Psr\Log\LoggerInterface;
 use OCP\IRequest;
+use OCP\IConfig;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Response;
@@ -68,11 +69,21 @@ class ArchiveController extends Controller
   /** @var IAppContainer */
   private $appContainer;
 
+  /** @var IConfig */
+  private $cloudConfig;
+
+  /** @var null|int */
+  private $archiveSizeLimit = null;
+
+  /** @var int */
+  private $archiveBombLimit = SettingsController::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
     IRequest $request,
     ?string $userId,
+    IConfig $cloudConfig,
     LoggerInterface $logger,
     IL10N $l10n,
     IRootFolder $rootFolder,
@@ -84,8 +95,16 @@ class ArchiveController extends Controller
     $this->l = $l10n;
     $this->userId = $userId;
     $this->rootFolder = $rootFolder;
+    $this->cloudConfig = $cloudConfig;
     $this->appContainer = $appContainer;
     $this->archiveService = $archiveService;
+
+    $this->archiveBombLimit = $this->cloudConfig->getAppValue(
+      $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
+    $this->archiveSizeLimit = $this->cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
+
+    $this->archiveService->setSizeLimit($this->actualArchiveSizeLimit());
   }
   // phpcs:enable
 
@@ -120,14 +139,13 @@ class ArchiveController extends Controller
       $this->archiveService->open($archiveFile);
       $archiveInfo = $this->archiveService->getArchiveInfo();
       $httpStatus = Http::STATUS_OK;
-    } catch (Exceptions\ArchiveBombException $e) {
-      $this->logException($e);
-      $archiveStatus = self::ARCHIVE_STATUS_BOMB|self::ARCHIVE_STATUS_TOO_LARGE;
-      $archiveInfo = $e->getArchiveInfo();
     } catch (Exceptions\ArchiveTooLargeException $e) {
       $this->logException($e);
       $archiveStatus = self::ARCHIVE_STATUS_TOO_LARGE;
       $archiveInfo = $e->getArchiveInfo();
+      if ($archiveInfo[ArchiveService::ARCHIVE_INFO_ORIGINAL_SIZE] > $this->archiveBombLimit) {
+        $archiveStatus |= self::ARCHIVE_STATUS_BOMB;
+      }
     } catch (Exceptions\ArchiveException $e) {
       $this->logException($e);
     }
@@ -171,9 +189,11 @@ class ArchiveController extends Controller
     } catch (FileNotFoundException $e) {
       return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
     }
+
     $archiveStorage = new ArchiveStorage([
-      'archiveFile' => $archiveFile,
-      'appContainer' => $this->appContainer,
+      ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+      ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
+      ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $this->actualArchiveSizeLimit(),
     ]);
     $targetInfo = pathinfo($targetPath);
     try {
@@ -212,5 +232,11 @@ class ArchiveController extends Controller
     return self::dataResponse([
       'messages' => [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],
     ]);
+  }
+
+  /** @return int */
+  private function actualArchiveSizeLimit():int
+  {
+    return min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX);
   }
 }

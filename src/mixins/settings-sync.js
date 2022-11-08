@@ -53,7 +53,7 @@ async function fetchSettings(settingsSection, storageObject) {
 }
 
 /**
- * @param {string} setting TDB.
+ * @param {string} settingsKey TDB.
  *
  * @param {string} settingsSection TDB.
  *
@@ -61,13 +61,13 @@ async function fetchSettings(settingsSection, storageObject) {
  *
  * @return {boolean} TBD.
  */
-async function fetchSetting(setting, settingsSection, storageObject) {
+async function fetchSetting(settingsKey, settingsSection, storageObject) {
   if (storageObject === undefined) {
     storageObject = this;
   }
   try {
-    const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + setting), {});
-    storageObject[setting] = response.data.value;
+    const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), {});
+    storageObject[settingsKey] = response.data.value;
     return true;
   } catch (e) {
     console.info('ERROR', e);
@@ -75,8 +75,8 @@ async function fetchSetting(setting, settingsSection, storageObject) {
     if (e.response && e.response.data && e.response.data.message) {
       message = e.response.data.message;
     }
-    showError(t(appName, 'Unable to query the initial value of {setting}: {message}', {
-      setting,
+    showError(t(appName, 'Unable to query the initial value of {settingsKey}: {message}', {
+      settingsKey,
       message,
     }));
     return false;
@@ -84,27 +84,39 @@ async function fetchSetting(setting, settingsSection, storageObject) {
 }
 
 /**
- * @param {string} setting TDB.
+ * @param {string} settingsKey TDB.
  *
  * @param {string} settingsSection TDB.
  *
  * @return {boolean} TBD.
  */
-async function saveSimpleSetting(setting, settingsSection) {
-  console.info('ARGUMENTS', setting, arguments);
-  console.info('SAVE SETTING', setting, this[setting]);
-  const value = this[setting];
-  const printValue = value === true ? t(appName, 'true') : '' + value;
+async function saveSimpleSetting(settingsKey, settingsSection) {
+  console.info('ARGUMENTS', settingsKey, arguments);
+  console.info('SAVE SETTING', settingsKey, this[settingsKey]);
+  const value = this[settingsKey];
   try {
-    const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + setting), { value });
+    const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), { value });
     console.info('RESPSONSE', response.data);
-    if (response.data && response.data.newValue !== undefined) {
-      this[setting] = response.data.newValue;
+    const responseData = response.data;
+    let displayValue;
+    if (responseData) {
+      if (responseData.newValue !== undefined) {
+        this[settingsKey] = responseData.newValue;
+        displayValue = this[settingsKey];
+      }
+      if (responseData.humanValue !== undefined) {
+        const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
+        this[humanKey] = responseData.humanValue;
+        displayValue = this[humanKey];
+      }
     }
-    if (value && value !== '') {
-      showInfo(t(appName, 'Successfully set "{setting}" to {value}.', { setting, value: printValue }));
+    if (displayValue === true) {
+      displayValue = t(appName, 'true');
+    }
+    if (displayValue && displayValue !== '') {
+      showInfo(t(appName, 'Successfully set "{settingsKey}" to {value}.', { settingsKey, displayValue }));
     } else {
-      showInfo(t(appName, 'Setting "{setting}" has been unset successfully.', { setting }));
+      showInfo(t(appName, 'Setting "{settingsKey}" has been unset successfully.', { settingsKey }));
     }
     return true;
   } catch (e) {
@@ -114,19 +126,19 @@ async function saveSimpleSetting(setting, settingsSection) {
       message = e.response.data.message;
     }
     if (value) {
-      showError(t(appName, 'Unable to set "{setting}" to {value}: {message}.', {
-        setting,
-        value: printValue,
+      showError(t(appName, 'Unable to set "{settingsKey}" to {value}: {message}.', {
+        settingsKey,
+        value: value === true ? t(appName, 'true') : '' + value,
         message,
       }));
     } else {
-      showError(t(appName, 'Unable to unset "{setting}": {message}', {
-        setting,
-        value: this[setting] || t(appName, 'false'),
+      showError(t(appName, 'Unable to unset "{settingsKey}": {message}', {
+        settingsKey,
+        value: this[settingsKey] || t(appName, 'false'),
         message,
       }));
     }
-    this[setting] = this.old[setting];
+    this[settingsKey] = this.old[settingsKey];
     return false;
   }
 }
@@ -162,11 +174,21 @@ async function saveConfirmedSetting(value, settingsSection, settingsKey, force) 
         },
         true);
     } else {
-      if (responseData && responseData.newValue !== undefined) {
-        this[settingsKey] = responseData.newValue;
+      let displayValue;
+      if (responseData) {
+        if (responseData.newValue !== undefined) {
+          this[settingsKey] = responseData.newValue;
+          displayValue = this[settingsKey];
+        }
+        if (responseData.humanValue !== undefined) {
+          const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
+          console.info('HUMAN', humanKey, responseData.humanValue);
+          this[humanKey] = responseData.humanValue;
+          displayValue = this[humanKey];
+        }
       }
-      if (value && value !== '') {
-        showSuccess(t(appName, 'Successfully set value for "{settingsKey}" to "{value}"', { settingsKey, value }));
+      if (displayValue && displayValue !== '') {
+        showSuccess(t(appName, 'Successfully set value for "{settingsKey}" to "{displayValue}"', { settingsKey, displayValue }));
       } else {
         showInfo(t(appName, 'Setting "{setting}" has been unset successfully.', { setting: settingsKey }));
       }
@@ -175,8 +197,11 @@ async function saveConfirmedSetting(value, settingsSection, settingsKey, force) 
     return true;
   } catch (e) {
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data && e.response.data.message) {
-      message = e.response.data.message;
+    if (e.response && e.response.data) {
+      const responseData = e.response.data;
+      if (Array.isArray(responseData.messages)) {
+        message = responseData.messages.join(' ');
+      }
       console.info('RESPONSE', e.response);
     }
     showError(t(appName, 'Could not set value for "{settingsKey}" to "{value}": {message}', { settingsKey, value, message }), { timeout: TOAST_PERMANENT_TIMEOUT });

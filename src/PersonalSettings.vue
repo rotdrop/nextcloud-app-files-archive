@@ -22,14 +22,14 @@
   <SettingsSection :class="appName" :title="t(appName, 'Archive Manager, Personal Settings')">
     <AppSettingsSection :title="t(appName, 'Archive Extraction')">
       <SettingsInputText
-        v-model="archiveSizeLimit"
+        v-model="humanArchiveSizeLimit"
         :label="t(appName, 'Archive Size Limit')"
         :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
         :disabled="loading"
         @update="saveTextInput(...arguments, 'archiveSizeLimit')"
       />
-      <span v-if="archiveSizeLimitAdmin > 0" class="hint">
-        {{ t(appName, 'Administrative size limit: {archiveSizeLimit}', admin) }}
+      <span v-if="archiveSizeLimitAdmin > 0" :class="{ hint: true, 'admin-limit-exceeded': archiveSizeLimitAdmin < archiveSizeLimit, 'icon-error': archiveSizeLimitAdmin < archiveSizeLimit }">
+        {{ t(appName, 'Administrative size limit: {value}', { value: humanArchiveSizeLimitAdmin }) }}
       </span>
     </AppSettingsSection>
   </SettingsSection>
@@ -54,9 +54,11 @@ export default {
   },
   data() {
     return {
+      archiveSizeLimit: null,
+      humanArchiveSizeLimit: '',
+      archiveSizeLimitAdmin: null,
+      humanArchiveSizeLimitAdmin: '',
       loading: true,
-      archiveSizeLimit: '',
-      archiveSizeLimitAdmin: '',
     }
   },
   mixins: [
@@ -108,6 +110,15 @@ export default {
   .hint {
     color: var(--color-text-lighter);
     font-size: 80%;
+    &.admin-limit-exceeded {
+      color:red;
+      font-weight:bold;
+      font-style:italic;
+      &.icon-error {
+        padding-left:20px;
+        background-position:left;
+      }
+    }
   }
 }
 </style>

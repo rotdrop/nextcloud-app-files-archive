@@ -20,8 +20,11 @@ use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\Files\IRootFolder;
 use OCP\IUser;
 use OCP\IL10N;
+use OCP\IConfig;
 use OCP\AppFramework\IAppContainer;
 use OCP\Lock\ILockingProvider as Locks;
+
+use OCA\FilesArchive\Controller\SettingsController;
 
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
@@ -54,12 +57,16 @@ class MountProvider implements IMountProvider
   /** @var IMountManager */
   private $mountManager;
 
+  /** @var IConfig */
+  private $cloudConfig;
+
   /** @var IL10N */
   private $l;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
+    IConfig $cloudConfig,
     LoggerInterface $logger,
     IL10N $l10n,
     IAppContainer $appContainer,
@@ -68,6 +75,7 @@ class MountProvider implements IMountProvider
     ArchiveMountMapper $mountMapper,
   ) {
     $this->appName = $appName;
+    $this->cloudConfig = $cloudConfig;
     $this->logger = $logger;
     $this->l = $l10n;
     $this->appContainer = $appContainer;
@@ -123,12 +131,19 @@ class MountProvider implements IMountProvider
         continue;
       }
 
+      $archiveBombLimit = $this->cloudConfig->getAppValue(
+        $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
+      $archiveSizeLimit = $this->cloudConfig->getUserValue(
+        $userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
+      $archiveSizeLimit = min($archiveBombLimit, $archiveSizeLimit ?? PHP_INT_MAX);
+
       // The mount-path must be absolute
       $mountDirectory = $userFolderPath . Constants::PATH_SEPARATOR . $mount->getMountPointPath();
 
       $storage = new ArchiveStorage([
-        'appContainer' => $this->appContainer,
-        'archiveFile' => $archiveFile,
+        ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+        ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
+        ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
       ]);
 
       $mounts[] = new class(
