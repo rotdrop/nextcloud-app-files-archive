@@ -69,14 +69,11 @@ class ArchiveController extends Controller
   /** @var IAppContainer */
   private $appContainer;
 
-  /** @var IConfig */
-  private $cloudConfig;
-
   /** @var null|int */
   private $archiveSizeLimit = null;
 
   /** @var int */
-  private $archiveBombLimit = SettingsController::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+  private $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -95,13 +92,12 @@ class ArchiveController extends Controller
     $this->l = $l10n;
     $this->userId = $userId;
     $this->rootFolder = $rootFolder;
-    $this->cloudConfig = $cloudConfig;
     $this->appContainer = $appContainer;
     $this->archiveService = $archiveService;
 
-    $this->archiveBombLimit = $this->cloudConfig->getAppValue(
+    $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
-    $this->archiveSizeLimit = $this->cloudConfig->getUserValue(
+    $this->archiveSizeLimit = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
     $this->archiveService->setSizeLimit($this->actualArchiveSizeLimit());
@@ -190,11 +186,25 @@ class ArchiveController extends Controller
       return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
     }
 
-    $archiveStorage = new ArchiveStorage([
-      ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
-      ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
-      ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $this->actualArchiveSizeLimit(),
-    ]);
+    try {
+      $archiveStorage = new ArchiveStorage([
+        ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+        ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
+        ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $this->actualArchiveSizeLimit(),
+      ]);
+    } catch (Exceptions\ArchiveTooLargeException $e) {
+      $uncompressedSize = $e->getActualSize();
+      if ($uncompressedSize > $this->archiveBombLimit) {
+        return self::grumble($this->l->t('The archive-file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [
+          $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveBombLimit)
+        ]));
+      } else {
+        return self::grumble($this->l->t('The archive-file "%1$s" is too large: uncompressed size %2$s > user limit %3$s.', [
+          $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveSizeLimit)
+        ]));
+      }
+    }
+
     $targetInfo = pathinfo($targetPath);
     try {
       /** @var Folder $targetParent */

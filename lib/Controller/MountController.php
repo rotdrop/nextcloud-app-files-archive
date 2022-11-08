@@ -31,7 +31,6 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\IAppContainer;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
@@ -44,10 +43,12 @@ use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
+use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Exceptions;
 
 /**
  * Manage user mount requests for archive files.
@@ -70,6 +71,15 @@ class MountController extends Controller
   /** @var IRootFolder */
   private $rootFolder;
 
+  /** @var ArchiveService */
+  private $archiveService;
+
+  /** @var null|int */
+  private $archiveSizeLimit = null;
+
+  /** @var int */
+  private $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
@@ -77,21 +87,27 @@ class MountController extends Controller
     ?string $userId,
     LoggerInterface $logger,
     IL10N $l10n,
-    IConfig $config,
-    IAppContainer $appContainer,
+    IConfig $cloudConfig,
     IMountManager $mountManager,
     IRootFolder $rootFolder,
     ArchiveMountMapper $mountMapper,
+    ArchiveService $archiveService,
   ) {
     parent::__construct($appName, $request);
     $this->logger = $logger;
     $this->l = $l10n;
-    $this->config = $config;
     $this->userId = $userId;
-    $this->appContainer = $appContainer;
     $this->mountMapper = $mountMapper;
     $this->mountManager = $mountManager;
     $this->rootFolder = $rootFolder;
+    $this->archiveService = $archiveService;
+
+    $this->archiveBombLimit = $cloudConfig->getAppValue(
+      $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
+    $this->archiveSizeLimit = $cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
+
+    $this->archiveService->setSizeLimit(min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX));
   }
   // phpcs:enable
 
@@ -132,6 +148,22 @@ class MountController extends Controller
       $archiveFile = $userFolder->get($archivePath);
     } catch (FileNotFoundException $e) {
       return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
+    }
+
+    try {
+      $this->archiveService->open($archiveFile);
+    } catch (Exceptions\ArchiveTooLargeException $e) {
+      $uncompressedSize = $e->getActualSize();
+      // $archiveInfo = $e->getArchiveInfo();
+      if ($uncompressedSize > $this->archiveBombLimit) {
+        return self::grumble($this->l->t('The archive-file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [
+          $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveBombLimit)
+        ]));
+      } else {
+        return self::grumble($this->l->t('The archive-file "%1$s" is too large: uncompressed size %2$s > user limit %3$s.', [
+          $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveSizeLimit)
+        ]));
+      }
     }
 
     // ok, just insert in to our mounts table

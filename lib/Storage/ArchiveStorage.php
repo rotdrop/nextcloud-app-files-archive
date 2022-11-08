@@ -20,6 +20,7 @@
 
 namespace OCA\FilesArchive\Storage;
 
+use Throwable;
 use wapmorgan\UnifiedArchive\ArchiveEntry;
 
 use Psr\Log\LoggerInterface;
@@ -110,9 +111,12 @@ class ArchiveStorage extends AbstractStorage
       // $this->logInfo('FILES ' . print_r($this->files, true));
       // $this->logInfo('DIRS ' . print_r($this->dirNames, true));
 
+    } catch (Exceptions\ArchiveTooLargeException $e) {
+      throw $e;
     } catch (Throwable $t) {
+      $this->logException($t, 'Unable to open archive file ' . $this->archiveFile->getPath());
       $this->files = [];
-      $this->dirNames = [];
+      $this->dirNames = [ 'ZIP-BOMB' ];
     }
   }
 

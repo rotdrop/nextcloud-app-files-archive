@@ -31,6 +31,7 @@ use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Exceptions;
 
 /**
  * Mount an archive-file as virtual file-system into the user-storage.
@@ -140,11 +141,16 @@ class MountProvider implements IMountProvider
       // The mount-path must be absolute
       $mountDirectory = $userFolderPath . Constants::PATH_SEPARATOR . $mount->getMountPointPath();
 
-      $storage = new ArchiveStorage([
-        ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
-        ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
-        ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
-      ]);
+      try {
+        $storage = new ArchiveStorage([
+          ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+          ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
+          ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
+        ]);
+      } catch (Exceptions\ArchiveException $e) {
+        $this->logException($e, 'Skipping archive mount of "' . $archivePath . '".');
+        continue;
+      }
 
       $mounts[] = new class(
         $storage,
