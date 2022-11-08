@@ -388,15 +388,19 @@ export default {
       } catch (e) {
         console.error('ERROR', e)
         if (e.response) {
+          const messages = []
           if (e.response.data) {
             const responseData = e.response.data
             if (responseData.messages) {
-              for (const message of responseData.messages) {
-                showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
-              }
+              messages.splice(messages.length, 0, responseData.messages)
             }
           }
-          showError(t(appName, 'Mount request failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
+          if (!messages.length) {
+            messages.push(t(appName, 'Mount request failed with error {status}, "{statusText}".', e.response))
+          }
+          for (const message of messages) {
+            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          }
         }
       }
       this.fileList.showFileBusyState(this.fileInfo.name, false)
@@ -460,15 +464,19 @@ export default {
       } catch (e) {
         console.error('ERROR', e)
         if (e.response) {
+          const messages = []
           if (e.response.data) {
             const responseData = e.response.data
             if (responseData.messages) {
-              for (const message of responseData.messages) {
-                showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
-              }
+              messages.splice(messages.length, 0, responseData.messages)
             }
           }
-          showError(t(appName, 'Archive-extraction failed with error {status}, "{statusText}".', e.response), { timeout: TOAST_PERMANENT_TIMEOUT })
+          if (!messages.length) {
+            messages.push(t(appName, 'Archive-extraction failed with error {status}, "{statusText}".', e.response))
+          }
+          for (const message of messages) {
+            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          }
         }
       }
       this.fileList.showFileBusyState(this.fileInfo.name, false)
