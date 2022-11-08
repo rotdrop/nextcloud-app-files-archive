@@ -72,7 +72,11 @@ does not add own archive-file handling stuff.
 
 ### Preferences
 
+- admin
+- personal
 
 ### Files-List
 
-![file list](contrib/screenshots/files_archive_file_list_1.png)
+- mount ![file list](contrib/screenshots/files_archive_file_list_1.png)
+- unmount ![file list](contrib/screenshots/files_archive_file_list_2.png)
+- extract ![file list](contrib/screenshots/files_archive_file_list_3.png)
