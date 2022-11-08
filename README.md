@@ -17,6 +17,8 @@ side-bar wheren archive information is displayed, and controls for
 mounting and extracing the archive to any location in the cloud
 file-system are available.
 
+## Details
+
 ### State
 
 Works for me.
@@ -65,3 +67,12 @@ integration. Possibly the archive backend could be changed are there
 could be more than one backend in the future, but intentionally this
 package just cares about the integration into the cloud-software, but
 does not add own archive-file handling stuff.
+
+## Screenshots
+
+### Preferences
+
+
+### Files-List
+
+![file list](contrib/screenshots/files_archive_file_list_1.png)
