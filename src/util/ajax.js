@@ -391,15 +391,18 @@ const ajaxFailData = function(xhr, textStatus, errorThrown) {
   let data = {
     error: errorThrown,
     status: textStatus,
-    message: t(appName, 'Unknown JSON error response to AJAX call: {status} / {error}', { status: textStatus, error: errorThrown }),
+    messages: [
+      t(appName, 'Unknown JSON error response to AJAX call: {status} / {error}', { status: textStatus, error: errorThrown }),
+    ],
     parsed: false,
   };
   if (ct.indexOf('html') > -1) {
     console.debug('html response', xhr, textStatus, errorThrown);
     console.debug(xhr.status);
-    data.message = t(
-      appName, 'HTTP error response to AJAX call: {code} / {error}',
-      { code: xhr.status, error: errorThrown });
+    data.messages = [
+      t(appName, 'HTTP error response to AJAX call: {code} / {error}',
+        { code: xhr.status, error: errorThrown }),
+    ];
     data.info = $(xhr.responseText).find('main').html();
     data.parsed = true;
   } else if (ct.indexOf('json') > -1) {
