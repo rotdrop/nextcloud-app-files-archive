@@ -142,7 +142,7 @@ class ArchiveController extends Controller
       if ($archiveInfo[ArchiveService::ARCHIVE_INFO_ORIGINAL_SIZE] > $this->archiveBombLimit) {
         $archiveStatus |= self::ARCHIVE_STATUS_BOMB;
       }
-    } catch (Exceptions\ArchiveException $e) {
+    } catch (Throwable $e) {
       $this->logException($e);
     }
 
@@ -153,7 +153,7 @@ class ArchiveController extends Controller
           $archivePath, get_class($e)
         ]);
       } else {
-        $messages[] = $exceptionMessage;
+        $messages[] = $this->l->t('Error: %s', $exceptionMessage);
       }
     }
 
