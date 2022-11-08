@@ -23,6 +23,10 @@ file-system are available.
 
 Works for me.
 
+### Alternatives
+
+- [Nextcloud Extract](https://github.com/PaulLereverend/NextcloudExtract)
+
 ### Usage
 
 - The file-actions menu contains a menu-item "Mount Archive" which
