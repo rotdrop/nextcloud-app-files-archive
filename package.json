@@ -1,7 +1,7 @@
 {
   "name": "files-archive",
   "description": "On-the-fly archive inspector for Nextcloud",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "bugs": {
     "url": "https://github.com/rotdrop/nextcloud-app-files-archive.git"

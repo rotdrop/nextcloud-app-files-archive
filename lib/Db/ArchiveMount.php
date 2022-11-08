@@ -37,6 +37,8 @@ class ArchiveMount extends Entity implements JsonSerializable
   protected $archiveFilePath;
   protected $archiveFilePathHash;
 
+  protected $passPhrase;
+
   /** CTOR */
   public function __construct()
   {
@@ -49,6 +51,8 @@ class ArchiveMount extends Entity implements JsonSerializable
     $this->addType('archiveFileId', 'integer');
     $this->addType('archiveFilePath', 'string');
     $this->addType('archiveFilePathHash', 'string');
+
+    $this->addType('passPhrase', 'string');
   }
 
   /** {@inheritdoc} */
@@ -64,6 +68,8 @@ class ArchiveMount extends Entity implements JsonSerializable
       'archiveFileId' => $this->archiveFileId,
       'archiveFilePath' => $this->archiveFilePath,
       'archiveFilePathHash' => $this->archiveFilePathHash,
+
+      'passPhrase' => $this->passPhrase,
     ];
   }
 }

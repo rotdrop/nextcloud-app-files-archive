@@ -34,21 +34,11 @@ class Version000000Date20221031100000 extends SimpleMigrationStep
   /** @var string */
   private $appName;
 
-  /** @var IDBConnection */
-  private $connection;
-
-  /**
-   * Constructor.
-   *
-   * @param null|string $appName
-   *
-   * @param IDBConnection $connection
-   */
-  public function __construct(IDBConnection $connection)
+  /** Constructor. */
+  public function __construct()
   {
     // parent::__construct();
     $this->appName = Constants::APP_NAME; // $appName;
-    $this->connection = $connection;
   }
 
   /** {@inheritdoc} */

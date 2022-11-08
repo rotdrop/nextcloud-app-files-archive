@@ -197,16 +197,18 @@ class ArchiveService
    *
    * @param null|int $sizeLimit
    *
+   * @param null|string $password
+   *
    * @return null|ArchiveService
    */
-  public function open(File $fileNode, ?int $sizeLimit = null):?ArchiveService
+  public function open(File $fileNode, ?int $sizeLimit = null, ?string $password = null):?ArchiveService
   {
     if (!$this->canOpen($fileNode)) {
       throw new Exceptions\ArchiveCannotOpenException($this->l->t('Unable to open archive file %s (%s)', [
         $fileNode->getPath(), self::getLocalPath($fileNode),
       ]));
     }
-    $this->archiver = ArchiveBackend::open(self::getLocalPath($fileNode));
+    $this->archiver = ArchiveBackend::open(self::getLocalPath($fileNode), password: $password);
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveCannotOpenException($this->l->t('Unable to open archive file %s (%s)', [
         $fileNode->getPath(), self::getLocalPath($fileNode),
