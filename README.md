@@ -3,7 +3,7 @@
 ## Intro
 This is an app for the Nextcloud cloud software.
 
-- archive inspection is implemented as a an external mount where
+- archive inspection is implemented as an external mount where
   archive members are streamed on the fly as they are accessed
 - archive extraction extracts the archive contents into the file-space
   of the cloud. The app tries to be quota-aware while doing this.
