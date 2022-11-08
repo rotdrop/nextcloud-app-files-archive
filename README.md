@@ -50,7 +50,18 @@ Works for me.
 - zip-bombs which manage too fool the archive extraction software
   about their uncompressed size can obviously not be detected by this
   approach.
+- the classical `42.zip` should not be an issue as it works by nesting
+  zip-files into each other, so it can only attack recursive archive
+  extractors.
 - archive extraction respects the quota limits of the respective user
+- however, there might be further issues if the underlying archive
+  extraction software creates temporary files on the server
+  - perhaps it would be possible to "jail" the extraction software to
+    an OS-quota-limited directory in order to avoid
+    resource-exhaustion by temporary files
+- memory consumption in principle should already be capped by the
+  web-server configuration, so this should not be a security issue in
+  the context of a zip-bomb attack.
 
 ###  Efficiency
 - Archive access is implemented on a single-file access basis. This is
