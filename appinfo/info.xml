@@ -25,6 +25,9 @@
     <personal>OCA\FilesArchive\Settings\Personal</personal>
     <personal-section>OCA\FilesArchive\Settings\PersonalSection</personal-section>
   </settings>
-  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/admin-settings.png</screenshot>
-  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/personal-settings.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_admin_settings.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_personal_settings.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_1.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_2.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_3.png</screenshot>
 </info>
