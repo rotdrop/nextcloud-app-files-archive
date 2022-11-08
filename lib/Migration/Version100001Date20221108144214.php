@@ -56,7 +56,9 @@ class Version100001Date20221108144214 extends SimpleMigrationStep
 
     $table = $schema->getTable($this->appName . '_mounts');
     $table->addColumn('pass_phrase', 'string', [
+      'notnull' => false,
       'length' => 1024,
+      'default' => null,
     ]);
 
     return $schema;
