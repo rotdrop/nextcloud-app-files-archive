@@ -83,7 +83,7 @@ class ArchiveStorage extends AbstractStorage
     $sizeLimit = $parameters[self::PARAMETER_ARCHIVE_SIZE_LIMIT] ?? Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
     $this->appContainer = $parameters[self::PARAMETER_APP_CONTAINER];
     $this->appName = $this->appContainer->get('appName');
-    $this->archiveService = $this->appContainer->get(ArchiveService::class);
+    $this->archiveService = clone $this->appContainer->get(ArchiveService::class);
     $this->archiveService->setSizeLimit($sizeLimit);
     $this->logger = $this->appContainer->get(LoggerInterface::class);
 
