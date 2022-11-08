@@ -72,8 +72,8 @@ does not add own archive-file handling stuff.
 
 ### Preferences
 
-- admin
-- personal
+- admin ![file list](contrib/screenshots/files_archive_admin_settings.png)
+- personal ![file list](contrib/screenshots/files_archive_personal_settings.png)
 
 ### Files-List
 
