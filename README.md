@@ -63,7 +63,7 @@ as archive handling backend. Please see there for a list of supported
 archive formats and how to support further archive formats.
 
 All what this package does is to provide the Nextcloud
-integration. Possibly the archive backend could be changed are there
+integration. Possibly the archive backend could be changed or there
 could be more than one backend in the future, but intentionally this
 package just cares about the integration into the cloud-software, but
 does not add own archive-file handling stuff.
