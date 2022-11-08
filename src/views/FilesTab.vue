@@ -83,12 +83,48 @@
           </ListItem>
         </ul>
       </li>
+      <li class="files-tab-entry flex flex-center">
+        <div class="files-tab-entry__avatar icon-password-white" />
+        <div class="files-tab-entry__desc">
+          <h5>
+            <span class="main-title">{{ t(appName, 'Passphrase') }}</span>
+            <span v-if="!archivePassPhrase" class="title-annotation">({{ t(appName, 'unset') }})</span>
+          </h5>
+        </div>
+        <Actions :force-menu="true">
+          <ActionInput v-if="showArchivePassPhrase"
+                       ref="archivePassPhrase"
+                       :value="archivePassPhrase"
+                       type="text"
+                       icon="icon-password"
+                       @submit="setPassPhrase"
+          >
+            {{ t(appName, 'archive passphrase') }}
+          </ActionInput>
+          <ActionInput v-else
+                       ref="archivePassPhrase"
+                       :value="archivePassPhrase"
+                       type="password"
+                       icon="icon-password"
+                       @submit="setPassPhrase"
+          >
+            {{ t(appName, 'archive passphrase') }}
+          </ActionInput>
+          <ActionCheckBox @change="togglePassPhraseVisibility">
+            {{ t(appName, 'Show Passphrase') }}
+          </ActionCheckBox>
+        </Actions>
+      </li>
       <li class="files-tab-entry flex flex-center clickable"
           @click="showArchiveMounts = !showArchiveMounts"
       >
         <div class="files-tab-entry__avatar icon-external-white" />
         <div class="files-tab-entry__desc">
-          <h5>{{ t(appName, 'Mount Points') }}</h5>
+          <h5>
+            <span class="main-title">{{ t(appName, 'Mount Points') }}</span>
+            <span v-if="archiveMounted" class="title-annotation">({{ '' + archiveMounts.length }})</span>
+            <span v-else class="title-annotation">({{ t(appName, 'not mounted') }})</span>
+          </h5>
         </div>
         <Actions>
           <ActionButton v-model="showArchiveMounts"
@@ -186,17 +222,22 @@ import { getCurrentUser } from '@nextcloud/auth'
 import md5 from 'blueimp-md5'
 import { getFilePickerBuilder, showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { formatFileSize } from '@nextcloud/files'
+import ActionInput from '@nextcloud/vue/dist/Components/ActionInput'
+import ActionCheckBox from '@nextcloud/vue/dist/Components/ActionCheckbox'
 import ListItem from '@nextcloud/vue/dist/Components/ListItem'
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import SettingsInputText from '../components/SettingsInputText'
 import axios from '@nextcloud/axios'
+import { nextTick } from 'vue'
 
 export default {
   name: 'FilesTab',
   components: {
     Actions,
     ActionButton,
+    ActionInput,
+    ActionCheckBox,
     ListItem,
     SettingsInputText,
   },
@@ -208,6 +249,7 @@ export default {
       fileInfo: {},
       fileName: undefined,
       showArchiveInfo: true,
+      showArchivePassPhrase: false,
       showArchiveMounts: false,
       showArchiveExtraction: false,
       initialState: {},
@@ -221,6 +263,7 @@ export default {
       archiveMountBaseName: undefined,
       archiveExtractDirName: undefined,
       archiveExtractBaseName: undefined,
+      archivePassPhrase: undefined,
     };
   },
   created() {
@@ -265,6 +308,15 @@ export default {
         return t(appName, 'too large')
       }
       return t(appName, 'unknown')
+    },
+    mountPointTitle() {
+      return t(appName, 'Mount Points')
+           + ' ('
+           + (this.archiveMounted
+            ? this.archiveMounts.length
+            : t(appName, 'not mounted')
+           )
+           + ')'
     },
   },
   methods: {
@@ -501,6 +553,28 @@ export default {
         this[dataPrefix + 'DirName'] = dir
       }
     },
+    async setPassPhrase() {
+      console.info('ARGUMENTS', arguments)
+      const newPassPhrase = this.showArchivePassPhrase
+        ? this.$refs.archivePassPhrase.$el.querySelector('input[type="text"]').value
+        : this.$refs.archivePassPhrase.$el.querySelector('input[type="password"]').value
+      this.archivePassPhrase = newPassPhrase
+      console.info('PASSPHRASE', newPassPhrase)
+    },
+    async togglePassPhraseVisibility() {
+      let visibleElement = this.showArchivePassPhrase
+        ? this.$refs.archivePassPhrase.$el.querySelector('input[type="text"]')
+        : this.$refs.archivePassPhrase.$el.querySelector('input[type="password"]')
+      const currentValue = visibleElement.value
+
+      this.showArchivePassPhrase = !this.showArchivePassPhrase
+      await nextTick()
+
+      visibleElement = this.showArchivePassPhrase
+        ? this.$refs.archivePassPhrase.$el.querySelector('input[type="text"]')
+        : this.$refs.archivePassPhrase.$el.querySelector('input[type="password"]')
+      visibleElement.value = currentValue
+    }
   },
 }
 </script>
@@ -579,6 +653,11 @@ export default {
       .dirname {
         font-weight:bold;
         font-family:monospace;
+      }
+    }
+    ::v-deep .archive-mounts {
+      .list-item-content > .list-item-content__actions {
+        display: block !important;
       }
     }
   }
