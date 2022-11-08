@@ -27,9 +27,11 @@ Works for me.
   [zip-bombs](https://en.wikipedia.org/wiki/Zip_bomb) there is a
   hard-coded upper limit of the decompressed archive size
 - administrators can lower this limit in order to reduce resource
-  usage on the server or if they feel that the builtin limit of 2^30
+  usage on the server or if they feel that the builtin limit of 2^32 (4 GiB)
   bytes is too high.
 - users may decrease this limit further on a per-user basis
+- zip-bombs which manage too fool the archive extraction software about their
+  uncompressed size can obviously not be detected by this approach.
 
 ### Implementation
 This package relies on
