@@ -42,8 +42,8 @@ Works for me.
 
 - in order to somehow reduce the danger of
   [zip-bombs](https://en.wikipedia.org/wiki/Zip_bomb) there is a
-  hard-coded upper limit of the decompressed archive size
-- administrators can lower this limit in order to reduce resource
+  configurable upper limit of the decompressed archive size
+- administrators can set this limit in order to reduce resource
   usage on the server or if they feel that the builtin limit of 2^32
   (4 GiB) bytes is too high.
 - users may decrease this limit further on a per-user basis
