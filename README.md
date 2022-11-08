@@ -23,10 +23,6 @@ file-system are available.
 
 Works for me.
 
-### Alternatives
-
-- [Nextcloud Extract](https://github.com/PaulLereverend/NextcloudExtract)
-
 ### Usage
 
 - The file-actions menu contains a menu-item "Mount Archive" which
@@ -71,6 +67,10 @@ integration. Possibly the archive backend could be changed are there
 could be more than one backend in the future, but intentionally this
 package just cares about the integration into the cloud-software, but
 does not add own archive-file handling stuff.
+
+### Alternatives
+
+- [Nextcloud Extract](https://github.com/PaulLereverend/NextcloudExtract)
 
 ## Screenshots
 
