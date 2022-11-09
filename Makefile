@@ -213,7 +213,7 @@ APPSTORE_FILES =\
  README.md
 
 # .htaccess is blacklisted by the app-store installer, so we have to remove it
-APPSTORE_BLACKLISTED = foobar .htaccess
+APPSTORE_BLACKLISTED = foobar .htaccess *~
 
 #@private
 appstore: COMPOSER_OPTIONS := $(COMPOSER_OPTIONS) --no-dev

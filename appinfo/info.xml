@@ -5,7 +5,7 @@
   <name>Archive Manager</name>
   <summary>On-the-fly archive inspector for Nextcloud</summary>
   <description><![CDATA[Inspect, mount and extract archive files (zip, tar, etc.)]]></description>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de" >Claus-Justus Heine</author>
   <namespace>FilesArchive</namespace>
@@ -25,9 +25,11 @@
     <personal>OCA\FilesArchive\Settings\Personal</personal>
     <personal-section>OCA\FilesArchive\Settings\PersonalSection</personal-section>
   </settings>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_mounted_archive.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_unmount_action_menu.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_set_passphrase.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_extract_file_chooser</screenshot>
   <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_admin_settings.png</screenshot>
   <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_personal_settings.png</screenshot>
-  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_1.png</screenshot>
-  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_2.png</screenshot>
-  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_3.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_zip_bomb.png</screenshot>
 </info>
