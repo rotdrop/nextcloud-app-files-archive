@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2022-11-09 08:49+0100\n"
-"PO-Revision-Date: 2022-11-09 09:09+0100\n"
+"PO-Revision-Date: 2022-11-09 09:15+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -164,8 +164,7 @@ msgstr "Kann die Archive Datei %s (%s) nicht öffnen"
 #: lib/Service/ArchiveService.php:228
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
-msgstr ""
-"Die Größe des dekomprimierten Archivs \"%1$s\" ist zo groß:  %2$d > %3$d"
+msgstr "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s"
 
 #: lib/Service/ArchiveService.php:245 lib/Service/ArchiveService.php:309
 #: lib/Service/ArchiveService.php:331 lib/Service/ArchiveService.php:345

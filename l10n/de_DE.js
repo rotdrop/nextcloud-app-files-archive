@@ -27,7 +27,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Unbekannte perönliche Einstellung: \"%1$s\"",
     "Unable to parse memory size limit \"%s\"" : "Kann das Speicher-Limit nicht interpretieren: \"%s\"",
     "Unable to open archive file %s (%s)" : "Kann die Archive Datei %s (%s) nicht öffnen",
-    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Die Größe des dekomprimierten Archivs \"%1$s\" ist zo groß:  %2$d > %3$d",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "Mit dieser Archivierungs-Service-Instanz ist keine Archiv-Datei assoziiert.",
     "Installation problem; the required %s-resource \"%s\" is not installed on the server,\n please contact the system administrator!" : "Installationsproblem; die benötigte %s-Ressource \"%s\" ist auf dem Server nicht installiert, bitte den System-Administrator kontaktiern.",
     "Archive Explorer" : "Archiv-Betrachter",
