@@ -21,7 +21,9 @@
 namespace OCA\FilesArchive\Db;
 
 use OCP\IDBConnection;
+use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\QBMapper;
+use OCP\Security\ICrypto;
 
 use OCP\Files\File;
 use OCP\Files\Folder;
@@ -32,12 +34,20 @@ use OCP\Files\FileInfo;
  */
 class ArchiveMountMapper extends QBMapper
 {
+  /** @var ICrypto */
+  private $cryptor;
+
   /**
    * @param IDBConnection $dbConnection
+   *
+   * @param ICrypto $cloudCryptor
    */
-  public function __construct(IDBConnection $dbConnection)
-  {
+  public function __construct(
+    IDBConnection $dbConnection,
+    ICrypto $cloudCryptor,
+  ) {
     parent::__construct($dbConnection, 'files_archive_mounts', ArchiveMount::class);
+    $this->cryptor = $cloudCryptor;
   }
 
   /**
@@ -150,5 +160,62 @@ class ArchiveMountMapper extends QBMapper
           $qb->createNamedParameter($userId)));
 
     return $this->findEntity($qb);
+  }
+
+  /**
+   * @param ArchiveMount $entity
+   *
+   * @return ArchiveMount
+   */
+  private function decodeEntity(ArchiveMount $entity):ArchiveMount
+  {
+    $archivePassPhrase = $entity->getArchivePassPhrase();
+    if (empty($archivePassPhrase)) {
+      $archivePassPhrase = null;
+    } else {
+      $archivePassPhrase = $this->cryptor->decrypt($archivePassPhrase);
+    }
+    $entity->setArchivePassPhrase($archivePassPhrase);
+
+    return $entity;
+  }
+
+  /**
+   * @param ArchiveMount $entity
+   *
+   * @return ArchiveMount
+   */
+  private function encodeEntity(ArchiveMount $entity):ArchiveMount
+  {
+    $archivePassPhrase = $entity->getArchivePassPhrase();
+    if (empty($archivePassPhrase)) {
+      $archivePassPhrase = null;
+    } else {
+      $archivePassPhrase = $this->cryptor->encrypt($archivePassPhrase);
+    }
+    $entity->setArchivePassPhrase($archivePassPhrase);
+
+    return $entity;
+  }
+
+  /** {@inheritdoc} */
+  public function insert(Entity $entity):Entity
+  {
+    $this->encodeEntity($entity);
+    return parent::insert($entity);
+  }
+
+  /** {@inheritdoc} */
+  public function update(Entity $entity):Entity
+  {
+    $this->encodeEntity($entity);
+    return parent::update($entity);
+  }
+
+  /** {@inheritdoc} */
+  protected function mapRowToEntity(array $row):Entity
+  {
+    $entity = parent::mapRowToEntity($row);
+    return $this->decodeEntity($entity);
   }
 }
