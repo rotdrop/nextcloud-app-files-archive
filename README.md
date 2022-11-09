@@ -10,13 +10,18 @@
         - [Usage](#usage)
         - [Security](#security)
             - [ZIP-Bombs](#zip-bombs)
-                - [Passwords/-phrases and Encrypted Archives](#passwords-phrases-and-encrypted-archives)
+            - [Passphrases and Encrypted Archives](#passphrases-and-encrypted-archives)
         - [Efficiency](#efficiency)
         - [Implementation](#implementation)
         - [Alternatives](#alternatives)
     - [Screenshots](#screenshots)
         - [Preferences](#preferences)
         - [Files-List](#files-list)
+            - [Mount](#mount)
+            - [Unmount](#unmount)
+            - [Extract](#extract)
+            - [Pass-Phrase](#pass-phrase)
+            - [ZIP-Bomb](#zip-bomb)
 
 <!-- markdown-toc end -->
 
@@ -84,7 +89,7 @@ Works for me.
   web-server configuration, so this should not be a security issue in
   the context of a zip-bomb attack.
 
-##### Passwords/-phrases and Encrypted Archives
+#### Passphrases and Encrypted Archives
 - Decryption of encrypted archives is in principle supported as stated
   in the documentation of the used
   [backend](https://github.com/wapmorgan/UnifiedArchive).
@@ -142,8 +147,17 @@ does not add own archive-file handling stuff.
 
 ### Files-List
 
-- mount ![file list](contrib/screenshots/files_archive_file_list_mounted_archive.png)
-- unmount ![file list](contrib/screenshots/files_archive_file_list_unmount_action_menu.png)
-- extract ![file list](contrib/screenshots/files_archive_file_list_extract_file_chooser.png)
-- pass-phrase ![file list](contrib/screenshots/files_archive_file_list_set_passphrase.png)
-- zib-bomb ![file list](contrib/screenshots/files_archive_file_list_zip_bomb.png)
+#### Mount
+![file list](contrib/screenshots/files_archive_file_list_mounted_archive.png)
+
+#### Unmount
+![file list](contrib/screenshots/files_archive_file_list_unmount_action_menu.png)
+
+#### Extract
+![file list](contrib/screenshots/files_archive_file_list_extract_file_chooser.png)
+
+#### Pass-Phrase
+![file list](contrib/screenshots/files_archive_file_list_set_passphrase.png)
+
+#### ZIP-Bomb
+![file list](contrib/screenshots/files_archive_file_list_zip_bomb.png)
