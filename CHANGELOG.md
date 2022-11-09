@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.0.2] - 2022-11-09
 
-### Fixeds
+### Fixed
 
 - screenshot links in appinfo.xml
 
