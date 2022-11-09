@@ -22,7 +22,8 @@
 
 namespace OCA\FilesArchive\Service;
 
-use wapmorgan\UnifiedArchive\UnifiedArchive as ArchiveBackend;
+use DateTimeInterface;
+
 use wapmorgan\UnifiedArchive\ArchiveEntry;
 
 use OCP\IL10N;
@@ -30,6 +31,8 @@ use Psr\Log\LoggerInterface as ILogger;
 use OCP\Files\File;
 use OCP\Util as CloudUtil;
 
+use OCA\FilesArchive\Backend\ArchiveFormats;
+use OCA\FilesArchive\Backend\ArchiveBackend;
 use OCA\FilesArchive\Exceptions;
 
 /**
@@ -306,7 +309,12 @@ class ArchiveService
         $this->l->t('There is no archive file associated with this archiver instance.'));
     }
     foreach ($this->archiver->getFileNames() as $fileName) {
-      $this->archiveFiles[$fileName] = $this->archiver->getFileData($fileName);
+      $fileData = $this->archiver->getFileData($fileName);
+      // work around a bug in UnifiedArchive
+      if ($fileData->modificationTime instanceof DateTimeInterface) {
+        $fileData->modificationTime = $fileData->modificationTime->getTimestamp();
+      }
+      $this->archiveFiles[$fileName] = $fileData;
     }
     return $this->archiveFiles;
   }

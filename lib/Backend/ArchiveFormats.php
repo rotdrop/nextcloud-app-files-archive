@@ -20,23 +20,45 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Service;
+namespace OCA\FilesArchive\Backend;
+
+use wapmorgan\UnifiedArchive;
 
 /**
  * Overload \wapmorgan\UnifiedArchive\Formats in order to get all supported
  * mime-types.
  */
-class ArchiveFormats extends \wapmorgan\UnifiedArchive\Formats
+class ArchiveFormats extends UnifiedArchive\Formats
 {
   /**
    * Fetch all known mime-types for the given format.
    *
-   * @param $format
+   * @param string $format
    *
    * @return array
    */
-  public static function getFormatMimeTypes($format):array
+  public static function getFormatMimeTypes(string $format):array
   {
     return array_keys(array_filter(static::$mimeTypes, fn($value) => $value === $format));
+  }
+
+  /**
+   * Fetch all drivers matching the given abilities
+   *
+   * @param string $format
+   * @param int[] $abilities
+   *
+   * @return array
+   */
+  public static function getFormatDrivers(string $format, array $abilities = []):array
+  {
+    $drivers = [];
+    self::getFormatSupportStatus($format);
+    foreach (static::$supportedDriversFormats[$format] as $driver => $driverAbilities) {
+      if (count(array_intersect($driverAbilities, $abilities)) === count($abilities)) {
+        $drivers[] = $driver;
+      }
+    }
+    return $drivers;
   }
 }
