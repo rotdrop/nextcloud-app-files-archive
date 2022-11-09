@@ -125,4 +125,5 @@ does not add own archive-file handling stuff.
 - mount ![file list](contrib/screenshots/files_archive_file_list_mounted_archive.png)
 - unmount ![file list](contrib/screenshots/files_archive_file_list_unmount_action_menu.png)
 - extract ![file list](contrib/screenshots/files_archive_file_list_extract_file_chooser.png)
+- pass-phrase ![file list](contrib/screenshots/files_archive_file_list_set_passphrase.png)
 - zib-bomb ![file list](contrib/screenshots/files_archive_file_list_zip_bomb.png)
