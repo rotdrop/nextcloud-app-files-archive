@@ -107,11 +107,13 @@ class ArchiveController extends Controller
   /**
    * @param string $archivePath
    *
+   * @param null|string $passPhrase
+   *
    * @return DataResponse
    *
    * @NoAdminRequired
    */
-  public function info(string $archivePath):DataResponse
+  public function info(string $archivePath, ?string $passPhrase = null):DataResponse
   {
     $archivePath = urldecode($archivePath);
 
@@ -132,7 +134,7 @@ class ArchiveController extends Controller
     $messages = [];
     $archiveInfo = [];
     try {
-      $this->archiveService->open($archiveFile);
+      $this->archiveService->open($archiveFile, password: $passPhrase);
       $archiveInfo = $this->archiveService->getArchiveInfo();
       $httpStatus = Http::STATUS_OK;
     } catch (Exceptions\ArchiveTooLargeException $e) {
@@ -169,11 +171,13 @@ class ArchiveController extends Controller
    *
    * @param string $targetPath
    *
+   * @param null|string $passPhrase
+   *
    * @return DataResponse
    *
    * @NoAdminRequired
    */
-  public function extract(string $archivePath, string $targetPath):DataResponse
+  public function extract(string $archivePath, string $targetPath, ?string $passPhrase = null):DataResponse
   {
     $archivePath = urldecode($archivePath);
     $targetPath = urldecode($targetPath);
@@ -189,8 +193,10 @@ class ArchiveController extends Controller
     try {
       $archiveStorage = new ArchiveStorage([
         ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+        ArchiveStorage::PARAMETER_ARCHIVE_PASS_PHRASE => $passPhrase,
         ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
         ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $this->actualArchiveSizeLimit(),
+
       ]);
     } catch (Exceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();

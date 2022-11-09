@@ -360,8 +360,12 @@ export default {
       ++this.loading
       fileName = encodeURIComponent(fileName)
       const url = generateUrl('/apps/' + appName + '/archive/info/{fileName}', { fileName })
+      const requestData = {}
+      if (this.archivePassPhrase) {
+        requestData.passPhrase = this.archivePassPhrase
+      }
       try {
-        const response = await axios.get(url)
+        const response = await axios.post(url, requestData)
         const responseData = response.data
         this.archiveInfo = responseData.archiveInfo
         this.archiveStatus = responseData.archiveStatus
@@ -423,6 +427,10 @@ export default {
         const dirName = pathComponents.join('/')
         mount.baseName = baseName
         mount.dirName = dirName
+        if (!this.archivePassPhrase && mount.archivePassPhrase) {
+          this.archivePassPhrase = mount.archivePassPhrase
+        }
+        delete mount.archivePassPhrase
       }
       --this.loading
     },
@@ -431,8 +439,12 @@ export default {
       const mountPath = encodeURIComponent(this.archiveMountDirName + (this.archiveMountBaseName ? '/' + this.archiveMountBaseName : ''))
       const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}/{mountPath}', { archivePath, mountPath })
       this.fileList.showFileBusyState(this.fileInfo.name, true)
+      const requestData = {}
+      if (this.archivePassPhrase) {
+        requestData.passPhrase = this.archivePassPhrase
+      }
       try {
-        const response = await axios.post(url)
+        const response = await axios.post(url, requestData)
         this.getArchiveMounts(this.fileName)
         if (this.archiveMountDirName === this.fileInfo.path) {
           this.fileList.reload();
@@ -508,8 +520,12 @@ export default {
       const targetPath = encodeURIComponent(this.archiveExtractDirName + (this.archiveExtractBaseName ? '/' + this.archiveExtractBaseName : ''))
       const url = generateUrl('/apps/' + appName + '/archive/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
       this.fileList.showFileBusyState(this.fileInfo.name, true)
+      const requestData = {}
+      if (this.archivePassPhrase) {
+        requestData.passPhrase = this.archivePassPhrase
+      }
       try {
-        const response = await axios.post(url)
+        const response = await axios.post(url, requestData)
         if (this.archiveExtractDirName === this.fileInfo.path) {
           this.fileList.reload();
         }
@@ -560,8 +576,42 @@ export default {
         : this.$refs.archivePassPhrase.$el.querySelector('input[type="password"]').value
       this.archivePassPhrase = newPassPhrase
       console.info('PASSPHRASE', newPassPhrase)
+
+      // patch it into existing mounts if any
+      const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
+      const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}', { archivePath })
+      this.fileList.showFileBusyState(this.fileInfo.name, true)
+      const requestData = {
+        changeSet: {
+          archivePassPhrase: this.archivePassPhrase,
+        },
+      }
+      try {
+        const response = await axios.patch(url, requestData)
+      } catch (e) {
+        console.error('ERROR', e)
+        if (e.response) {
+          const messages = []
+          if (e.response.data) {
+            const responseData = e.response.data
+            if (responseData.messages) {
+              messages.splice(messages.length, 0, responseData.messages)
+            }
+          }
+          if (!messages.length) {
+            messages.push(t(appName, 'Patching the pass-phrase failed with error {status}, "{statusText}".', e.response))
+          }
+          for (const message of messages) {
+            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          }
+        }
+      }
+      this.fileList.showFileBusyState(this.fileInfo.name, false)
     },
     async togglePassPhraseVisibility() {
+      // this is sooo complicated because the NC Action controls are
+      // seemingly only pro-forma vue-controls. There is no working
+      // v-model support, e.g.
       let visibleElement = this.showArchivePassPhrase
         ? this.$refs.archivePassPhrase.$el.querySelector('input[type="text"]')
         : this.$refs.archivePassPhrase.$el.querySelector('input[type="password"]')

@@ -69,7 +69,13 @@ return [
         'mountPoint' => null,
       ],
     ],
-    // unmount the given mount point
+    // patch the passphrase into the mounts for the given archive
+    [
+      'name' => 'mount#patch',
+      'url' => '/archive/mount/{archivePath}',
+      'verb' => 'PATCH',
+    ],
+    // unmount all mounts for the given archive
     [
       'name' => 'mount#unmount',
       'url' => '/archive/unmount/{archivePath}',
@@ -85,7 +91,7 @@ return [
     [
       'name' => 'archive#info',
       'url' => '/archive/info/{archivePath}',
-      'verb' => 'GET',
+      'verb' => 'POST',
     ],
     // archive extraction
     [

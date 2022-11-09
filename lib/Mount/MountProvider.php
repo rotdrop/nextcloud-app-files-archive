@@ -131,6 +131,8 @@ class MountProvider implements IMountProvider
       } catch (FileNotFoundException $e) {
         continue;
       }
+      $passPhrase = $mount->getArchivePassPhrase();
+
 
       $archiveBombLimit = $this->cloudConfig->getAppValue(
         $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
@@ -144,6 +146,7 @@ class MountProvider implements IMountProvider
       try {
         $storage = new ArchiveStorage([
           ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+          ArchiveStorage::PARAMETER_ARCHIVE_PASS_PHRASE => $passPhrase,
           ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
           ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
         ]);

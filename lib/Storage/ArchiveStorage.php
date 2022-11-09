@@ -54,6 +54,7 @@ class ArchiveStorage extends AbstractStorage
   public const PATH_SEPARATOR = Constants::PATH_SEPARATOR;
 
   public const PARAMETER_ARCHIVE_FILE = 'archiveFile';
+  public const PARAMETER_ARCHIVE_PASS_PHRASE = 'passPhrase';
   public const PARAMETER_APP_CONTAINER = 'appContainer';
   public const PARAMETER_ARCHIVE_SIZE_LIMIT = 'archiveSizeLimit';
 
@@ -81,6 +82,7 @@ class ArchiveStorage extends AbstractStorage
     parent::__construct($parameters);
     $this->archiveFile = $parameters[self::PARAMETER_ARCHIVE_FILE];
     $sizeLimit = $parameters[self::PARAMETER_ARCHIVE_SIZE_LIMIT] ?? Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+    $passPhrase = $parameters[self::PARAMETER_ARCHIVE_PASS_PHRASE] ?? null;
     $this->appContainer = $parameters[self::PARAMETER_APP_CONTAINER];
     $this->appName = $this->appContainer->get('appName');
     $this->archiveService = clone $this->appContainer->get(ArchiveService::class);
@@ -88,7 +90,7 @@ class ArchiveStorage extends AbstractStorage
     $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     try {
-      $this->archiveService->open($this->archiveFile);
+      $this->archiveService->open($this->archiveFile, password: $passPhrase);
       $files = $this->archiveService->getFiles();
       $this->files = [];
       $this->dirNames = [];

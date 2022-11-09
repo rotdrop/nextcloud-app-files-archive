@@ -116,11 +116,13 @@ class MountController extends Controller
    *
    * @param null|string $mountPoint
    *
+   * @param null|string $passPhrase
+   *
    * @return DataResponse
    *
    * @NoAdminRequired
    */
-  public function mount(string $archivePath, ?string $mountPoint = null)
+  public function mount(string $archivePath, ?string $mountPoint = null, ?string $passPhrase = null)
   {
     $archivePath = urldecode($archivePath);
     if (empty($mountPoint)) {
@@ -150,6 +152,24 @@ class MountController extends Controller
       return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
     }
 
+    // Supporting archive file on other storages than the vanilla user storage
+    // would require control over the order in which storages are mounted. In
+    // order not to run in such problems it is only allowed to mount archive
+    // files located inside the ordinary user file-space.
+    $archiveFileStorage = $archiveFile->getStorage();
+    while ($archiveFileStorage instanceof WrapperStorage) {
+      /** @var WrapperStorage $archiveFileStorage */
+      $archiveFileStorage = $archiveFileStorage->getWrapperStorage();
+    }
+    $userFolderStorage = $userFolder->getStorage();
+    while ($userFolderStorage instanceof WrapperStorage) {
+      /** @var WrapperStorage $archiveFileStorage */
+      $userFolderStorage = $userFolderStorage->getWrapperStorage();
+    }
+    if (!($archiveFileStorage instanceof $userFolderStorage)) {
+      return self::grumble($this->l->t('Mounting archive files located in external or shared storage is not supported as of now.'));
+    }
+
     try {
       $this->archiveService->open($archiveFile);
     } catch (Exceptions\ArchiveTooLargeException $e) {
@@ -174,6 +194,7 @@ class MountController extends Controller
     $mount->setArchiveFileId($archiveFile->getId());
     $mount->setArchiveFilePath($archivePath);
     $mount->setArchiveFilePathHash(md5($archivePath));
+    $mount->setArchivePassPhrase($passPhrase);
     $this->mountMapper->insert($mount);
 
     return self::dataResponse($mount->jsonSerialize());
@@ -247,4 +268,55 @@ class MountController extends Controller
       'mounts' => array_map(fn(ArchiveMount $mount) => $mount->jsonSerialize(), empty($mounts) ? [] : $mounts),
     ]);
   }
+
+  /**
+   * This method is primarily (and ATM only) for patching the archive file
+   * password into existing mounts. It seems that some archive formats (zip
+   * e.g.) allow listing of the archive and only start to complain about a
+   * missing pass-phrase when trying to extract data.
+   *
+   * The idea here is that the user can add a missing password after a mount
+   * seems to have succeeded as the archive listing is there, but files cannot
+   * be extracted as the password is missing.
+   *
+   * @param string $archivePath
+   *
+   * @param array $changeSet Properties to be patched into the existing
+   * mount. ATM only the pass-phrase may be changed.
+   *
+   * @return DataResponse
+   *
+   * @NoAdminRequired
+   */
+  public function patch(string $archivePath, array $changeSet = [])
+  {
+    if (empty($changeSet)) {
+      return self::dataResponse([
+        'changeSet' => [],
+      ]);
+    }
+    if (count($changeSet) != 1 || !array_key_exists('archivePassPhrase', $changeSet)) {
+      return self::grumble($this->l->t('Only the pass-phrase may be changed for an existing mount.'));
+    }
+    $newPassPhrase = $changeSet['archivePassPhrase'];
+
+    $archivePath = urldecode($archivePath);
+    $mounts = $this->mountMapper->findByArchivePath($this->userId, $archivePath);
+
+    $changeSet = [];
+
+    /** @var ArchiveMount $mount */
+    foreach ($mounts as $mount) {
+      $mountPointPath = $mount->getMountPointPath();
+      $changeSet[$mountPointPath]['old'] = $mount->getArchivePassPhrase();
+      $changeSet[$mountPointPath]['new'] = $newPassPhrase;
+      $mount->setArchivePassPhrase($newPassPhrase);
+      $this->mountMapper->update($mount);
+    }
+
+    return self::dataResponse([
+      'changeSet' => $changeSet,
+    ]);
+  }
+
 }
