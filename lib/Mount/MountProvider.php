@@ -215,8 +215,8 @@ class MountProvider implements IMountProvider
               'filesystem_check_changes' => 1,
               'readonly' => true,
               'previews' => true,
-              'enable_sharing' => false, // cannot work, mount needs DB access
-              'authenticated' => true,
+              'enable_sharing' => false,
+              'authenticated' => false,
             ]
           );
           $this->userFolderPath = $userFolderPath;
