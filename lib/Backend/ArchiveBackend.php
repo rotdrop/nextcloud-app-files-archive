@@ -42,9 +42,9 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
    */
   protected static $driverRanking = [
     UnifiedArchive\Drivers\AlchemyZippy::class => 0,
-    UnifiedArchive\Drivers\Zip::class => 10,
-    UnifiedArchive\Drivers\SevenZip::class => 20,
-    UnifiedArchive\Drivers\NelexaZip::class => 30,
+    UnifiedArchive\Drivers\NelexaZip::class => 10,
+    UnifiedArchive\Drivers\Zip::class => 20,
+    UnifiedArchive\Drivers\SevenZip::class => 30,
   ];
 
   /** {@inheritdoc} */
