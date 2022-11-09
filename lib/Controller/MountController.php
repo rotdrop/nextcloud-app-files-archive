@@ -156,19 +156,19 @@ class MountController extends Controller
     // would require control over the order in which storages are mounted. In
     // order not to run in such problems it is only allowed to mount archive
     // files located inside the ordinary user file-space.
-    $archiveFileStorage = $archiveFile->getStorage();
-    while ($archiveFileStorage instanceof WrapperStorage) {
-      /** @var WrapperStorage $archiveFileStorage */
-      $archiveFileStorage = $archiveFileStorage->getWrapperStorage();
-    }
-    $userFolderStorage = $userFolder->getStorage();
-    while ($userFolderStorage instanceof WrapperStorage) {
-      /** @var WrapperStorage $archiveFileStorage */
-      $userFolderStorage = $userFolderStorage->getWrapperStorage();
-    }
-    if (!($archiveFileStorage instanceof $userFolderStorage)) {
-      return self::grumble($this->l->t('Mounting archive files located in external or shared storage is not supported as of now.'));
-    }
+    // $archiveFileStorage = $archiveFile->getStorage();
+    // while ($archiveFileStorage instanceof WrapperStorage) {
+    //   /** @var WrapperStorage $archiveFileStorage */
+    //   $archiveFileStorage = $archiveFileStorage->getWrapperStorage();
+    // }
+    // $userFolderStorage = $userFolder->getStorage();
+    // while ($userFolderStorage instanceof WrapperStorage) {
+    //   /** @var WrapperStorage $archiveFileStorage */
+    //   $userFolderStorage = $userFolderStorage->getWrapperStorage();
+    // }
+    // if (!($archiveFileStorage instanceof $userFolderStorage)) {
+    //   return self::grumble($this->l->t('Mounting archive files located in external or shared storage is not supported as of now.'));
+    // }
 
     try {
       $this->archiveService->open($archiveFile);
