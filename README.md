@@ -40,6 +40,7 @@ Works for me.
 
 ### Security
 
+#### ZIP-Bombs
 - in order to somehow reduce the danger of
   [zip-bombs](https://en.wikipedia.org/wiki/Zip_bomb) there is a
   configurable upper limit of the decompressed archive size
@@ -63,9 +64,38 @@ Works for me.
   web-server configuration, so this should not be a security issue in
   the context of a zip-bomb attack.
 
+##### Passwords/-phrases and Encrypted Archives
+- Decryption of encrypted archives is in principle supported as stated
+  in the documentation of the used
+  [backend](https://github.com/wapmorgan/UnifiedArchive).
+- Unfortunately, the Nextcloud CRON-jobs need to have access to the
+  file-space as they periodically scan the file-system. However, the
+  cron-jobs run unauthenticated. In order to make this work, the
+  archvie passwords for the active mounts are stored in the app's
+  database table. The passwords are encrypted with the server
+  password. However, that is stored in plain-text in the `config.php`
+  of the Nextcloud instance running on the server.
+- I do not like this, but BTW this is also the way these things are
+  handled by other apps (eg. the `mail` app).
+- One note about encrypted ZIP-archives: depends in a delicate way on
+  the used backend whether decrypion works as some of the open-source
+  archive backend do not support all available ZIP encryption methods
+  (and also not all unencrypted ZIP archive formats).
+- At the moment we are choosing the first available archive-backend
+  from the following list
+  - [`Ne-Lexa/php-zip`](https://github.com/Ne-Lexa/php-zip)
+  - [`Gemorroj/Archive7z`](https://github.com/Gemorroj/Archive7z)
+  - [php ZIP extension](https://www.php.net/manual/en/book.zip.php)
+  - [`alchemy-fr/Zippy`](https://github.com/alchemy-fr/Zippy)
+- There is no real preference for any of these backends from my side,
+  just that I was not able to decrypt one archive with the standard PHP
+  ZIP extension and stopped testing after I found one that worked.
+
 ###  Efficiency
 - Archive access is implemented on a single-file access basis. This is
-  probably not the fastest way to deal with archive files.
+  probably not the fastest way to deal with archive files. OTOH, it
+  makes it easier to deal with quota and other limits, which then are
+  handled easily by the Nextcloud file-system framework.
 
 ### Implementation
 This package relies on
