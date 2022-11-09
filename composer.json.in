@@ -16,7 +16,8 @@
     "phpclasses/php-iso-file": "^0.5.1",
     "pear/archive_tar": "^1.4",
     "alchemy/zippy": "^1.0",
-    "nelexa/zip": "^4.0"
+    "nelexa/zip": "^4.0",
+    "symfony/event-dispatcher": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "*",
