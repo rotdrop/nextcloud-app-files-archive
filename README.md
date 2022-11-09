@@ -1,5 +1,25 @@
 # Archive Inspector and Extractor
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Archive Inspector and Extractor](#archive-inspector-and-extractor)
+    - [Intro](#intro)
+    - [Details](#details)
+        - [State](#state)
+        - [Usage](#usage)
+        - [Security](#security)
+            - [ZIP-Bombs](#zip-bombs)
+                - [Passwords/-phrases and Encrypted Archives](#passwords-phrases-and-encrypted-archives)
+        - [Efficiency](#efficiency)
+        - [Implementation](#implementation)
+        - [Alternatives](#alternatives)
+    - [Screenshots](#screenshots)
+        - [Preferences](#preferences)
+        - [Files-List](#files-list)
+
+<!-- markdown-toc end -->
+
 ## Intro
 This is an app for the Nextcloud cloud software.
 
