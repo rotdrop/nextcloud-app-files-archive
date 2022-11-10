@@ -5,7 +5,7 @@
   <name>Archive Manager</name>
   <summary>On-the-fly archive inspector for Nextcloud</summary>
   <description><![CDATA[Inspect, mount and extract archive files (zip, tar, etc.)]]></description>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de" >Claus-Justus Heine</author>
   <namespace>FilesArchive</namespace>

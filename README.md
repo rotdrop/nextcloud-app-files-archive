@@ -108,9 +108,9 @@ Works for me.
   (and also not all unencrypted ZIP archive formats).
 - At the moment we are choosing the first available archive-backend
   from the following list
-  - [`Ne-Lexa/php-zip`](https://github.com/Ne-Lexa/php-zip)
   - [`Gemorroj/Archive7z`](https://github.com/Gemorroj/Archive7z)
   - [php ZIP extension](https://www.php.net/manual/en/book.zip.php)
+  - [`Ne-Lexa/php-zip`](https://github.com/Ne-Lexa/php-zip)
   - [`alchemy-fr/Zippy`](https://github.com/alchemy-fr/Zippy)
 - There is no real preference for any of these backends from my side,
   just that I was not able to decrypt one archive with the standard PHP
