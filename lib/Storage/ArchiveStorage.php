@@ -77,7 +77,10 @@ class ArchiveStorage extends AbstractStorage
   /** @var array<string, ArchiveEntry> */
   protected $files = [];
 
-  /** {@inheritdoc} */
+  /** @var string */
+  protected $commonPathPrefix = '';
+
+    /** {@inheritdoc} */
   public function __construct($parameters)
   {
     parent::__construct($parameters);
@@ -93,10 +96,11 @@ class ArchiveStorage extends AbstractStorage
     try {
       $this->archiveService->open($this->archiveFile, password: $passPhrase);
 
-      $commonPrefixLen =
+      $this->commonPathPrefix =
         ($parameters[self::PARAMETER_STRIP_COMMON_PATH_PREFIX] ?? false)
-        ? strlen($this->archiveService->getCommonDirectoryPrefix())
-        : 0;
+        ? $this->archiveService->getCommonDirectoryPrefix()
+        : '';
+      $commonPrefixLen = strlen($this->commonPathPrefix);
 
       $files = $this->archiveService->getFiles();
       $this->files = [];
@@ -424,7 +428,7 @@ class ArchiveStorage extends AbstractStorage
     }
     $path = trim($path, self::PATH_SEPARATOR);
 
-    return $this->archiveService->getFileStream($path);
+    return $this->archiveService->getFileStream($this->commonPathPrefix . $path);
   }
 
   /** {@inheritdoc} */
