@@ -102,7 +102,7 @@ class FilesActionListener implements IEventListener
       'archiveMimeTypes' => ArchiveService::getSupportedMimeTypes(),
     ]);
 
-    \OCP\Util::writeLog($appName, 'MIME ' . print_r(ArchiveService::getSupportedMimeTypes(), true), \OCP\Util::INFO);
+    // \OCP\Util::writeLog($appName, 'MIME ' . print_r(ArchiveService::getSupportedMimeTypes(), true), \OCP\Util::INFO);
 
     /** @var AssetService $assetService */
     $assetService = $this->appContainer->get(AssetService::class);
