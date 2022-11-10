@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.3-alpha] - unreleased
+## [1.0.3-rc1] - unreleased
 
 ### Fixed
 
@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Optionally strip a common path prefix when mounting or extracting
   archives. This is meant for the not unsual case when the archive
   content is wrapped into a top-level directory.
+- templates for the mount/extraction folder names via user preferences
+- conflict resolution if the target mount point / extraction folder
+  already exists
 
 ## [1.0.2] - 2022-11-09
 
