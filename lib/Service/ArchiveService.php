@@ -42,6 +42,7 @@ use OCA\FilesArchive\Exceptions;
 class ArchiveService
 {
   use \OCA\FilesArchive\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Traits\UtilTrait;
 
   /**
    * @var string
@@ -252,6 +253,8 @@ class ArchiveService
       'originalSize' => $this->archiver->getOriginalSize(),
       'numberOfFiles' => $this->archiver->countFiles(),
       'comment' => $this->archiver->getComment(),
+      'mountPointProposal' => $this->getArchiveFolderName(),
+      'commonPathPrefix' => $this->getCommonDirectoryPrefix(),
     ];
   }
 
@@ -276,27 +279,9 @@ class ArchiveService
    *
    * @return null|string
    */
-  public function getTopLevelFolder():?string
+  public function getCommonDirectoryPrefix():?string
   {
-    $archiveFiles = $this->getFiles();
-    $dirName = null;
-    foreach ($archiveFiles as $archiveFile) {
-      list($rootParent,) = strpos($archiveFile, '/') !== false
-        ? explode('/', $archiveFile, 2)
-        : [ null, $archiveFile ];
-      if ($rootParent === null) {
-        // top-level plain file
-        return null;
-      }
-      if ($dirName === null) {
-        $dirName = $rootParent;
-      }
-      if ($dirName != $rootParent) {
-        // more than one top-level sub-folder
-        return null;
-      }
-    }
-    return $dirName;
+    return $this->getCommonPath(array_keys($this->getFiles()), leadingSlash: false);
   }
 
   /**
