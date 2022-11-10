@@ -180,11 +180,16 @@
             />
           </div>
           <div class="flex flex-center">
-            <div class="label">
+            <div class="label"
+                 @click="$refs.mountOptions.openMenu()"
+            >
               {{ t(appName, 'Mount Options') }}
             </div>
-            <Actions :force-menu="true">
-              <ActionCheckBox :checked="archiveMountStripCommonPathPrefix"
+            <Actions ref="mountOptions"
+                     :force-menu="true"
+            >
+              <ActionCheckBox ref="mountStripCommonPathPrefix"
+                              :checked="archiveMountStripCommonPathPrefix"
                               @change="archiveMountStripCommonPathPrefix = !archiveMountStripCommonPathPrefix"
               >
                 {{ t(appName, 'strip common path prefix') }}
@@ -228,10 +233,14 @@
             />
           </div>
           <div class="flex flex-center">
-            <div class="label">
+            <div class="label"
+                 @click="$refs.extractionOptions.openMenu()"
+            >
               {{ t(appName, 'Extraction Options') }}
             </div>
-            <Actions :force-menu="true">
+            <Actions ref="extractionOptions"
+                     :force-menu="true"
+            >
               <ActionCheckBox :checked="archiveExtractStripCommonPathPrefix"
                               @change="archiveExtractStripCommonPathPrefix = !archiveExtractStripCommonPathPrefix"
               >
@@ -388,6 +397,9 @@ export default {
      */
     async getData() {
       this.initialState = getInitialState()
+
+      this.archiveMountStripCommonPathPrefix = this.initialState.mountStripCommonPathPrefixDefault
+      this.archiveExtractStripCommonPathPrefix = this.initialState.extractStripCommonPathPrefixDefault
 
       this.getArchiveInfo(this.fileName)
       this.getArchiveMounts(this.fileName)

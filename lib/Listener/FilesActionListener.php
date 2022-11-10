@@ -89,10 +89,15 @@ class FilesActionListener implements IEventListener
       return;
     }
 
+    $userId = $user->getUID();
+
     $appName = $this->appContainer->get('appName');
 
     /** @var IInitialState $initialState */
     $initialState = $this->appContainer->get(IInitialState::class);
+
+    /** @var CloudConfig $cloudConfig */
+    $cloudConfig = $this->appContainer->get(CloudConfig::class);
 
     // just admin contact and stuff to make the ajax error handlers work.
     $groupManager = $this->appContainer->get(\OCP\IGroupManager::class);
@@ -100,6 +105,12 @@ class FilesActionListener implements IEventListener
       'adminContact' => $this->getCloudAdminContacts($groupManager, implode: true),
       'phpUserAgent' => $_SERVER['HTTP_USER_AGENT'], // @@todo get in javascript from request
       'archiveMimeTypes' => ArchiveService::getSupportedMimeTypes(),
+      SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
+        $userId, $appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
+      SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
+        $userId, $appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
+      SettingsController::MOUNT_POINT_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
+      SettingsController::EXTRACT_TARGET_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
     ]);
 
     // \OCP\Util::writeLog($appName, 'MIME ' . print_r(ArchiveService::getSupportedMimeTypes(), true), \OCP\Util::INFO);
