@@ -57,6 +57,7 @@ class ArchiveStorage extends AbstractStorage
   public const PARAMETER_ARCHIVE_PASS_PHRASE = 'passPhrase';
   public const PARAMETER_APP_CONTAINER = 'appContainer';
   public const PARAMETER_ARCHIVE_SIZE_LIMIT = 'archiveSizeLimit';
+  public const PARAMETER_STRIP_COMMON_PATH_PREFIX = 'stripCommonPathPrefix';
 
   /** @var string */
   protected $appName;
@@ -91,6 +92,9 @@ class ArchiveStorage extends AbstractStorage
 
     try {
       $this->archiveService->open($this->archiveFile, password: $passPhrase);
+
+      // $this->logInfo('TOP LEVEL DIRECTORY ' . $this->archiveService->getCommonDirectoryPrefix());
+
       $files = $this->archiveService->getFiles();
       $this->files = [];
       $this->dirNames = [];
@@ -272,6 +276,7 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function file_exists($path)
   {
+    // $this->logInfo('CHECK PATH EXISTS ' . $path);
     return $this->is_dir($path) || $this->is_file($path);
   }
 
@@ -292,7 +297,10 @@ class ArchiveStorage extends AbstractStorage
 
     $fileNames = array_map(
       function(string $memberPath) use ($path) {
-        $memberPath = trim(str_replace($path, '', $memberPath), Constants::PATH_SEPARATOR);
+        $memberPath = trim(
+          substr($memberPath, strlen($path)),
+          Constants::PATH_SEPARATOR,
+        );
         $slashPos = strpos($memberPath, Constants::PATH_SEPARATOR);
         if ($slashPos === false) {
           return $memberPath;
