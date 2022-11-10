@@ -20,7 +20,7 @@
 </script>
 <template>
   <SettingsSection :class="appName" :title="t(appName, 'Archive Manager, Personal Settings')">
-    <AppSettingsSection :title="t(appName, 'Archive Extraction')">
+    <AppSettingsSection :title="t(appName, 'Security Options')">
       <SettingsInputText
         v-model="humanArchiveSizeLimit"
         :label="t(appName, 'Archive Size Limit')"
@@ -31,6 +31,68 @@
       <span v-if="archiveSizeLimitAdmin > 0" :class="{ hint: true, 'admin-limit-exceeded': archiveSizeLimitAdmin < archiveSizeLimit, 'icon-error': archiveSizeLimitAdmin < archiveSizeLimit }">
         {{ t(appName, 'Administrative size limit: {value}', { value: humanArchiveSizeLimitAdmin }) }}
       </span>
+    </AppSettingsSection>
+    <AppSettingsSection :title="t(appName, 'Mount Options')">
+      <SettingsInputText
+        v-model="mountPointTemplate"
+        :label="t(appName, 'Template for the default-name of the mount-point')"
+        :hint="t(appName, '{archiveFileName} will be replaced by the file-name of the archive-file without extensions.')"
+        placeholder="{archiveFileName}"
+        @update="saveTextInput(...arguments, 'mountPointTemplate')"
+      />
+      <div class="settings-option">
+        <input :id="id + '-mount-strip-common-prefix'"
+               v-model="mountStripCommonPathPrefixDefault"
+               type="checkbox"
+               class="checkbox"
+               @change="saveSetting('mountStripCommonPathPrefixDefault')"
+        >
+        <label :for="id + '-mount-strip-common-prefix'">
+          {{ t(appName, 'strip common path prefix by default') }}
+        </label>
+      </div>
+      <div class="settings-option">
+        <input :id="id + '-mount-auto-rename'"
+               v-model="mountPointAutoRename"
+               type="checkbox"
+               class="checkbox"
+               @change="saveSetting('mountPointAutoRename')"
+        >
+        <label :for="id + '-mount-auto-rename'">
+          {{ t(appName, 'automatically change the mount-point name if it already exists') }}
+        </label>
+      </div>
+    </AppSettingsSection>
+    <AppSettingsSection :title="t(appName, 'Extraction Options')">
+      <SettingsInputText
+        v-model="extractTargetTemplate"
+        :label="t(appName, 'Template for the default-name of the extraction folder')"
+        :hint="t(appName, '{archiveFileName} will be replaced by the file-name of the archive-file without extensions.')"
+        placeholder="{archiveFileName}"
+        @update="saveTextInput(...arguments, 'extractTargetTemplate')"
+      />
+      <div class="settings-option">
+        <input :id="id + '-extract-strip-common-prefix'"
+               v-model="extractStripCommonPathPrefixDefault"
+               type="checkbox"
+               class="checkbox"
+               @change="saveSetting('extractStripCommonPathPrefixDefault')"
+        >
+        <label :for="id + '-extract-strip-common-prefix'">
+          {{ t(appName, 'strip common path prefix by default') }}
+        </label>
+      </div>
+      <div class="settings-option">
+        <input :id="id + '-extract-auto-rename'"
+               v-model="extractTargetAutoRename"
+               type="checkbox"
+               class="checkbox"
+               @change="saveSetting('extractTargetAutoRename')"
+        >
+        <label :for="id + '-extract-auto-rename'">
+          {{ t(appName, 'automatically change the target folder name if the target folder already exists') }}
+        </label>
+      </div>
     </AppSettingsSection>
   </SettingsSection>
 </template>
@@ -58,6 +120,13 @@ export default {
       humanArchiveSizeLimit: '',
       archiveSizeLimitAdmin: null,
       humanArchiveSizeLimitAdmin: '',
+      mountStripCommonPathPrefixDefault: false,
+      mountPointTemplate: '{archiveFileName}',
+      mountPointAutoRename: false,
+      extractStripCommonPathPrefixDefault: false,
+      extractTargetTemplate: '{archiveFileName}',
+      extractTargetAutoRename: false,
+      id: null,
       loading: true,
     }
   },
@@ -68,6 +137,8 @@ export default {
   },
   created() {
     this.getData()
+    this.id = this._uid
+    console.info('UID', this._uid)
   },
   methods: {
     async getData() {
@@ -95,28 +166,33 @@ export default {
     background-position:left center;
     height:32px;
   }
-  .flex-container {
-    display:flex;
-    &.flex-center {
-      align-items:center;
+  .app-settings-section {
+    .settings-option {
+      margin:0.5ex 0;
     }
-  }
-  .label-container {
-    height:34px;
-    display:flex;
-    align-items:center;
-    justify-content:left;
-  }
-  .hint {
-    color: var(--color-text-lighter);
-    font-size: 80%;
-    &.admin-limit-exceeded {
-      color:red;
-      font-weight:bold;
-      font-style:italic;
-      &.icon-error {
-        padding-left:20px;
-        background-position:left;
+    .flex-container {
+      display:flex;
+      &.flex-center {
+        align-items:center;
+      }
+    }
+    .label-container {
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:left;
+    }
+    .hint {
+      color: var(--color-text-lighter);
+      font-size: 80%;
+      &.admin-limit-exceeded {
+        color:red;
+        font-weight:bold;
+        font-style:italic;
+        &.icon-error {
+          padding-left:20px;
+          background-position:left;
+        }
       }
     }
   }

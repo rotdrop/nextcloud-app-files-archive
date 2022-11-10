@@ -60,6 +60,22 @@ class SettingsController extends Controller
     self::ARCHIVE_SIZE_LIMIT => [ 'rw' => true, 'default' => self::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT ],
   ];
 
+  public const MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT = 'mountStripCommonPathPrefixDefault';
+
+  public const EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT = 'extractStripCommonPathPrefixDefault';
+
+  public const MOUNT_POINT_AUTO_RENAME = 'mountPointAutoRename';
+
+  public const EXTRACT_TARGET_AUTO_RENAME = 'extractTargetAutoRename';
+
+  public const ARCHIVE_FILE_NAME_PLACEHOLDER = '{archiveFileName}';
+
+  public const FOLDER_TEMPLATE_DEFAULT = self::ARCHIVE_FILE_NAME_PLACEHOLDER;
+
+  public const MOUNT_POINT_TEMPLATE = 'mountPointTemplate';
+
+  public const EXTRACT_TARGET_TEMPLATE = 'extractTargetTemplate';
+
   /**
    * @var array<string, array>
    *
@@ -68,6 +84,12 @@ class SettingsController extends Controller
   const PERSONAL_SETTINGS = [
     self::ARCHIVE_SIZE_LIMIT => [ 'rw' => true, ],
     self::ARCHIVE_SIZE_LIMIT_ADMIN => [ 'rw' => false, 'default' => self::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT ],
+    self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => [ 'rw' => true, 'default' => false, ],
+    self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT => [ 'rw' => true, 'default' => false, ],
+    self::MOUNT_POINT_AUTO_RENAME => [ 'rw' => true, 'default' => false, ],
+    self::EXTRACT_TARGET_AUTO_RENAME => [ 'rw' => true, 'default' => false, ],
+    self::MOUNT_POINT_TEMPLATE => [ 'rw' => true, 'default' => self::FOLDER_TEMPLATE_DEFAULT ],
+    self::EXTRACT_TARGET_TEMPLATE => [ 'rw' => true, 'default' => self::FOLDER_TEMPLATE_DEFAULT ],
   ];
 
   /** @var IAppContainer */
@@ -243,6 +265,41 @@ class SettingsController extends Controller
           return self::grumble($t->getMessage());
         }
         break;
+      case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
+      case self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
+      case self::MOUNT_POINT_AUTO_RENAME:
+      case self::EXTRACT_TARGET_AUTO_RENAME:
+        $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
+        if ($newValue === null) {
+          return self::grumble(
+            $this->l->t('Value "%1$s" for setting "%2$s" is not convertible to boolean.', [
+              $value, $setting,
+            ]));
+        }
+        if ($newValue === (self::PERSONAL_SETTINGS[$setting]['default'] ?? false)) {
+          $newValue = null;
+        } else {
+          $newValue = (int)$newValue;
+        }
+        break;
+      case self::MOUNT_POINT_TEMPLATE:
+      case self::EXTRACT_TARGET_TEMPLATE:
+        if (empty($value)) {
+          $newValue = null;
+          break;
+        }
+        $newValue = strip_tags($value);
+        if ($newValue == self::PERSONAL_SETTINGS[$setting]['default']) {
+          $newValue = null;
+          break;
+        }
+        if (strpos($newValue, self::ARCHIVE_FILE_NAME_PLACEHOLDER) === false) {
+          return self::grumble($this->l->t(
+            'The target folder template "%1$s" must contain the archive-file placeholder "%2$s".', [
+              $newValue, self::ARCHIVE_FILE_NAME_PLACEHOLDER,
+            ]));
+        }
+        break;
       default:
         return self::grumble($this->l->t('Unknown personal setting: "%s".', [ $setting ]));
     }
@@ -316,6 +373,13 @@ class SettingsController extends Controller
           } else {
             $humanValue = '';
           }
+          break;
+        case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
+        case self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
+        case self::MOUNT_POINT_AUTO_RENAME:
+        case self::EXTRACT_TARGET_AUTO_RENAME:
+        case self::MOUNT_POINT_TEMPLATE:
+        case self::EXTRACT_TARGET_TEMPLATE:
           break;
         default:
           return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $oneSetting));

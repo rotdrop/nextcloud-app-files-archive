@@ -93,6 +93,20 @@ class ArchiveService
   public const ARCHIVE_INFO_COMMENT = 'comment';
 
   /**
+   * @var string
+   *
+   * Propose a mount-point name based on the archive name.
+   */
+  public const ARCHIVE_INFO_DEFAULT_MOUNT_POINT = 'defaultMountPoint';
+
+  /**
+   * @var string
+   *
+   * Compute the common path prefix of the archive members.
+   */
+  public const ARCHIVE_INFO_COMMON_PATH_PREFIX = 'commonPathPrefix';
+
+  /**
    * @var array All array keys contained in the info-array obtained from
    * archiveInfo().
    */
@@ -104,6 +118,8 @@ class ArchiveService
     self::ARCHIVE_INFO_NUMBER_OF_FILES,
     self::ARCHIVE_INFO_ORIGINAL_SIZE,
     self::ARCHIVE_INFO_SIZE,
+    self::ARCHIVE_INFO_COMMON_PATH_PREFIX,
+    self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT,
   ];
 
   /** @var int */
@@ -246,15 +262,15 @@ class ArchiveService
         $this->l->t('There is no archive file associated with this archiver instance.'));
     }
     return [
-      'format' => $this->archiver->getFormat(),
-      'mimeType' => $this->archiver->getMimeType(),
-      'size' => $this->archiver->getSize(),
-      'compressedSize' => $this->archiver->getCompressedSize(),
-      'originalSize' => $this->archiver->getOriginalSize(),
-      'numberOfFiles' => $this->archiver->countFiles(),
-      'comment' => $this->archiver->getComment(),
-      'mountPointProposal' => $this->getArchiveFolderName(),
-      'commonPathPrefix' => $this->getCommonDirectoryPrefix(),
+      self::ARCHIVE_INFO_FORMAT => $this->archiver->getFormat(),
+      self::ARCHIVE_INFO_MIME_TYPE => $this->archiver->getMimeType(),
+      self::ARCHIVE_INFO_SIZE => $this->archiver->getSize(),
+      self::ARCHIVE_INFO_COMPRESSED_SIZE => $this->archiver->getCompressedSize(),
+      self::ARCHIVE_INFO_ORIGINAL_SIZE => $this->archiver->getOriginalSize(),
+      self::ARCHIVE_INFO_NUMBER_OF_FILES => $this->archiver->countFiles(),
+      self::ARCHIVE_INFO_COMMENT => $this->archiver->getComment(),
+      self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT => $this->getArchiveFolderName(),
+      self::ARCHIVE_INFO_COMMON_PATH_PREFIX => $this->getCommonDirectoryPrefix(),
     ];
   }
 

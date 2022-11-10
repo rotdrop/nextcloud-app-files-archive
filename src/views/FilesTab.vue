@@ -424,6 +424,14 @@ export default {
           this.archiveInfo = {}
         }
       }
+
+      if (this.archiveInfo.defaultMountPoint) {
+        this.archiveMountBaseName = this.archiveInfo.defaultMountPoint
+      }
+      if (this.archiveInfo.defaultTargetBaseName) {
+        this.archiveExtractBaseName = this.archiveInfo.defaultTargetBaseName
+      }
+
       --this.loading
     },
     async getArchiveMounts(fileName) {

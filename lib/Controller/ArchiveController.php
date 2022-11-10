@@ -52,10 +52,14 @@ class ArchiveController extends Controller
   use \OCA\FilesArchive\Traits\ResponseTrait;
   use \OCA\FilesArchive\Traits\LoggerTrait;
   use \OCA\FilesArchive\Traits\UtilTrait;
+  use TargetPathTrait;
 
   public const ARCHIVE_STATUS_OK = 0;
   public const ARCHIVE_STATUS_TOO_LARGE = (1 << 0);
   public const ARCHIVE_STATUS_BOMB = (1 << 1);
+
+  public const ARCHIVE_INFO_DEFAULT_MOUNT_POINT = ArchiveService::ARCHIVE_INFO_DEFAULT_MOUNT_POINT;
+  public const ARCHIVE_INFO_DEFAULT_TARGET_BASE_NAME = 'defaultTargetBaseName';
 
   /** @var string */
   private $userId;
@@ -68,6 +72,15 @@ class ArchiveController extends Controller
 
   /** @var IAppContainer */
   private $appContainer;
+
+  /** @var string */
+  private $targetBaseNameTemplate;
+
+  /** @var string */
+  private $mountPointTemplate;
+
+  /** @var bool */
+  private $autoRenameExtractTarget = false;
 
   /** @var null|int */
   private $archiveSizeLimit = null;
@@ -101,6 +114,15 @@ class ArchiveController extends Controller
       $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
     $this->archiveService->setSizeLimit($this->actualArchiveSizeLimit());
+
+    $this->targetBaseNameTemplate = $cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::EXTRACT_TARGET_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
+
+    $this->mountPointTemplate = $cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
+
+    $this->autoRenameExtractTarget = (bool)$cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::EXTRACT_TARGET_AUTO_RENAME, false);
   }
   // phpcs:enable
 
@@ -148,6 +170,10 @@ class ArchiveController extends Controller
       $this->logException($e);
     }
 
+    // tweak the mount-point proposal according to the user preferences
+    $archiveInfo[ArchiveService::ARCHIVE_INFO_DEFAULT_MOUNT_POINT] = $this->defaultMountPointName();
+    $archiveInfo['defaultTargetBaseName'] = $this->defaultTargetBaseName();
+
     if (!empty($e)) {
       $exceptionMessage = $e->getMessage();
       if (empty($exceptionMessage)) {
@@ -169,7 +195,7 @@ class ArchiveController extends Controller
   /**
    * @param string $archivePath
    *
-   * @param string $targetPath
+   * @param null|string $targetPath
    *
    * @param null|string $passPhrase
    *
@@ -179,7 +205,7 @@ class ArchiveController extends Controller
    *
    * @NoAdminRequired
    */
-  public function extract(string $archivePath, string $targetPath, ?string $passPhrase = null, bool $stripCommonPathPrefix = false):DataResponse
+  public function extract(string $archivePath, ?string $targetPath, ?string $passPhrase = null, bool $stripCommonPathPrefix = false):DataResponse
   {
     $archivePath = urldecode($archivePath);
     $targetPath = urldecode($targetPath);
@@ -214,14 +240,34 @@ class ArchiveController extends Controller
       }
     }
 
-    $targetInfo = pathinfo($targetPath);
+    if (empty($targetPath)) {
+      $targetBaseName =  $this->defaultTargetBaseName();
+      $targetDirName = dirname($archivePath);
+      $targetPath = $targetDirName . Constants::PATH_SEPARATOR . $targetBaseName;
+    } else {
+      $targetInfo = pathinfo($targetPath);
+      $targetBaseName = $targetInfo['basename'];
+      $targetDirName = $targetInfo['dirname'];
+    }
+
     try {
       /** @var Folder $targetParent */
       $targetParent = $userFolder->get($targetInfo['dirname']);
-    } catch (FileNotFoundException $e) {
+    } catch (Throwable $t) {
+      $this->logException($e);
       return self::grumble($this->l->t('Unable to open the target parent-folder "%s".', $targetInfo['dirname']));
     }
-    $targetInternalPath = $targetParent->getInternalPath() . Constants::PATH_SEPARATOR . $targetInfo['filename'];
+
+    $nonExistingTarget = $targetParent->getNonExistingName($targetBaseName);
+    if ($nonExistingTarget != $targetBaseName) {
+      if (!$this->autoRenameExtractTarget) {
+        return self::grumble($this->l->t('The target-folder "%s" already exists and auto-rename is not enabled.', $targetPath));
+      }
+      $targetPath = $targetDirName . Constants::PATH_SEPARATOR . $nonExistingTarget;
+      $targetBaseName = $nonExistingTarget;
+    }
+
+    $targetInternalPath = $targetParent->getInternalPath() . Constants::PATH_SEPARATOR . $targetBaseName;
     $targetStorage = $targetParent->getStorage();
 
     /** @var ILockingProvider $lockingProvider */
@@ -243,6 +289,18 @@ class ArchiveController extends Controller
           $this->logException($t, 'Unable to unlock ' . $targetInternalPath);
         }
       }
+      try {
+        // try to cleanup if possible
+        $targetStorage->getScanner()->scan($targetInternalPath);
+        $targetFolder = $userFolder->get($targetPath);
+        $targetFolder->delete();
+      } catch (FileNotFoundException $e) {
+        // really ignore this one: nothing to be cleaned up
+      } catch (Throwable $t) {
+        $this->logException($t, 'Unable to cleanup target path.');
+        // otherwise ignore
+      }
+
       return self::grumble($this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
         $archivePath, $targetPath, $t->getMessage()
       ]));

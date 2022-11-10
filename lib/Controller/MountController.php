@@ -59,6 +59,7 @@ class MountController extends Controller
   use \OCA\FilesArchive\Traits\ResponseTrait;
   use \OCA\FilesArchive\Traits\LoggerTrait;
   use \OCA\FilesArchive\Traits\UtilTrait;
+  use TargetPathTrait;
 
   /** @var string */
   private $userId;
@@ -78,11 +79,21 @@ class MountController extends Controller
   /** @var MountProvider */
   private $mountProvider;
 
+  /** @var string */
+  private $mountPointTemplate;
+
+  /** @var bool */
+  private $autoRenameMountPoint = false;
+
+  /** @var bool */
+  private $stripCommonPathPrefixDefault = false;
+
   /** @var null|int */
   private $archiveSizeLimit = null;
 
   /** @var int */
   private $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -114,6 +125,15 @@ class MountController extends Controller
       $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
     $this->archiveService->setSizeLimit(min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX));
+
+    $this->mountPointTemplate = $cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
+
+    $this->autoRenameMountPoint = (bool)$cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::MOUNT_POINT_AUTO_RENAME, false);
+
+    $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
   }
   // phpcs:enable
 
@@ -124,13 +144,13 @@ class MountController extends Controller
    *
    * @param null|string $passPhrase
    *
-   * @param bool $stripCommonPathPrefix
+   * @param null|bool $stripCommonPathPrefix
    *
    * @return DataResponse
    *
    * @NoAdminRequired
    */
-  public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null, bool $stripCommonPathPrefix = false)
+  public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null)
   {
     $archivePath = urldecode($archivePath);
 
@@ -171,14 +191,39 @@ class MountController extends Controller
     }
 
     if (empty($mountPointPath)) {
-      $mountPointPath = dirname($archivePath) . Constants::PATH_SEPARATOR . $this->archiveService->getArchiveFolderName();
+      $mountPointDirName = dirname($archivePath);
+      $mountPointBaseName = $this->defaultMountPointName();
+      $mountPointPath = $mountPointDirName . Constants::PATH_SEPARATOR . $mountPointBaseName;
     } else {
       $mountPointPath = urldecode($mountPointPath);
+      $mountPointBaseName = basename($mountPointPath);
+      $mountPointDirName = dirname($mountPointPath);
+    }
+
+    // avoid "over-mounting" existing directories
+    try {
+      /** @var Folder $parentFolder */
+      $parentFolder = $userFolder->get($mountPointDirName);
+    } catch (Throwable $t) {
+      $this->logException($t);
+      return self::grumnle($this->l->t(
+        'Unable to open parent-folder "%1$s" of moint-point "%2$s": %3$s.', [
+          $mountPointDirName, $mountPointBaseName, $t->getMessage()
+        ]));
+    }
+
+    $nonExistingMountTarget = $parentFolder->getNonExistingName($mountPointBaseName);
+    if ($nonExistingMountTarget != $mountPointBaseName) {
+      if (!$this->autoRenameMountPoint) {
+        return self::grumble($this->l->t('The mount point "%s" already exists and auto-rename is not enabled.', $mountPointPath));
+      }
+      $mountPointPath = $mountPointDirName . Constants::PATH_SEPARATOR . $nonExistingMountTarget;
     }
 
     $mountFlags = 0;
-    if ($stripCommonPathPrefix) {
+    if ($stripCommonPathPrefix ?? $this->stripCommonPathPrefixDefault) {
       $mountFlags |= ArchiveMount::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
+      $this->logInfo('SHOULD STRIP PATH');
     }
 
     // ok, just insert in to our mounts table
@@ -331,5 +376,4 @@ class MountController extends Controller
       'changeSet' => $changeSet,
     ]);
   }
-
 }
