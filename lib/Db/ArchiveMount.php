@@ -27,6 +27,12 @@ use OCP\AppFramework\Db\Entity;
 /** Entity class for mounts table. */
 class ArchiveMount extends Entity implements JsonSerializable
 {
+  public const MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX = (1 << 0);
+  public const MOUNT_FLAGS = [
+    self::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX,
+  ];
+  public const MOUNT_FLAGS_MASK = self::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
+
   public $id;
   protected $userId;
 
@@ -38,6 +44,8 @@ class ArchiveMount extends Entity implements JsonSerializable
   protected $archiveFilePathHash;
 
   protected $archivePassPhrase;
+
+  protected $mountFlags;
 
   /** CTOR */
   public function __construct()
@@ -53,6 +61,8 @@ class ArchiveMount extends Entity implements JsonSerializable
     $this->addType('archiveFilePathHash', 'string');
 
     $this->addType('archivePassPhrase', 'string');
+
+    $this->addType('mountFlags', 'integer');
   }
 
   /** {@inheritdoc} */
@@ -70,6 +80,8 @@ class ArchiveMount extends Entity implements JsonSerializable
       'archiveFilePathHash' => $this->archiveFilePathHash,
 
       'archivePassPhrase' => $this->archivePassPhrase,
+
+      'mountFlags' => $this->mountFlags,
     ];
   }
 }

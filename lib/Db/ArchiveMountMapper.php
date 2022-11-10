@@ -177,6 +177,8 @@ class ArchiveMountMapper extends QBMapper
     }
     $entity->setArchivePassPhrase($archivePassPhrase);
 
+    $entity->setMountFlags(ArchiveMount::MOUNT_FLAGS_MASK & $entity->getMountFlags());
+
     return $entity;
   }
 
@@ -194,6 +196,8 @@ class ArchiveMountMapper extends QBMapper
       $archivePassPhrase = $this->cryptor->encrypt($archivePassPhrase);
     }
     $entity->setArchivePassPhrase($archivePassPhrase);
+
+    $entity->setMountFlags(ArchiveMount::MOUNT_FLAGS_MASK & $entity->getMountFlags());
 
     return $entity;
   }
