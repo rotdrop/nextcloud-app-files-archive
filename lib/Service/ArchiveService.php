@@ -286,7 +286,16 @@ class ArchiveService
       return null;
     }
     // double to account for "nested" archive types
-    return pathinfo(pathinfo($this->fileNode->getName(), PATHINFO_FILENAME), PATHINFO_FILENAME);
+    $archiveFolderName = pathinfo($this->fileNode->getName(), PATHINFO_FILENAME);
+    $secondExtension = pathinfo($archiveFolderName, PATHINFO_EXTENSION);
+
+    // as a rule of thumb we only strip the second extension if it contains no
+    // spaces and is no longer that 4 characters.
+    if (strlen($secondExtension) <= 4 && str_replace(' ', '', $secondExtension) === $secondExtension) {
+      $archiveFolderName = pathinfo($archiveFolderName, PATHINFO_FILENAME);
+    }
+
+    return $archiveFolderName;
   }
 
   /**
