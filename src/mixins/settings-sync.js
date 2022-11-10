@@ -114,7 +114,7 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
       displayValue = t(appName, 'true');
     }
     if (displayValue && displayValue !== '') {
-      showInfo(t(appName, 'Successfully set "{settingsKey}" to {value}.', { settingsKey, displayValue }));
+      showInfo(t(appName, 'Successfully set "{settingsKey}" to {value}.', { settingsKey, value: displayValue }));
     } else {
       showInfo(t(appName, 'Setting "{settingsKey}" has been unset successfully.', { settingsKey }));
     }
