@@ -63,6 +63,28 @@ Works for me.
   well as the controls to mount the archive file anywhere into the
   cloud file-system or to extract it somewhere.
 
+### Supported Archive Formats
+
+In principle every format supported by the underlying backend
+[wapmorgan/UnifiedArchive](https://github.com/wapmorgan/UnifiedArchive) should be
+supported. There are some caveats, however:
+
+- the way the `files_app` is integrated into Nextcloud means that is
+  relies on Nextcloud emitting useful MIME-types for a file. This
+  might need some configuration of the Nextcloud server which has to
+  be done by an administrator. One notable example are ISO-images,
+  which are just labelled as `application/octett-stream` (AKA: I DO
+  NOT KNOW) by Nextcloud, but should be
+  `application/x-iso9660-image`. Please have a look [at the Nextcloud documentation](https://docs.nextcloud.com/server/latest/admin_manual/configuration_mimetypes/index.html).
+- for some file-types there are different MIME-types. One example of
+  such a case are `.rar` files which are labelled by Nextcloud as
+  `application/x-rar-compressed` while
+  [wapmorgan/UnifiedArchive](https://github.com/wapmorgan/UnifiedArchive)
+  expects `application/x-rar`. These sort of things can be easily
+  cured but may also be reason why particular archive formats are not
+  supported by this app although the underlying backend can handle
+  them.
+
 ### Security
 
 #### ZIP-Bombs
