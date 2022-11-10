@@ -72,6 +72,10 @@
                     :bold="true"
                     :details="numberOfArchiveMembers"
           />
+          <ListItem :title="t(appName, 'common prefix')"
+                    :bold="true"
+                    :details="commonPathPrefix"
+          />
           <ListItem v-if="archiveInfo.comment"
                     class="archive-comment"
                     :title="t(appName, 'creator\'s comment')"
@@ -137,10 +141,10 @@
         <ul v-else-if="archiveMounted" class="archive-mounts">
           <ListItem v-for="mount in archiveMounts"
                     :key="mount.id"
-                    title=""
+                    :force-display-actions="true"
                     :bold="false"
           >
-            <template #icon>
+            <template #title>
               <a class="external icon-folder icon"
                  :target="openMountTarget"
                  :href="generateUrl('/apps/files') + '?dir=' + encodeURIComponent(mount.mountPointPath)"
@@ -151,13 +155,16 @@
             <template #actions>
               <ActionButton icon="icon-delete" @click="unmount(mount, ...arguments)" />
             </template>
+            <template v-if="mount.mountFlags & 1" #extra>
+              <div>{{ t(appName, 'Common prefix {prefix} is stripped.', { prefix: commonPathPrefix }) }}</div>
+            </template>
           </ListItem>
         </ul>
         <div v-else>
           <div class="hint">
             {{ t(appName, 'Not mounted, create a new mount-point:') }}
           </div>
-          <div class="flex flex-center">
+          <div class="flex flex-center flex-wrap">
             <div class="dirname">
               <a href="#"
                  class="file-picker button"
@@ -171,6 +178,18 @@
                                class="flex-grow"
                                @update="mount"
             />
+          </div>
+          <div class="flex flex-center">
+            <div class="label">
+              {{ t(appName, 'Mount Options') }}
+            </div>
+            <Actions :force-menu="true">
+              <ActionCheckBox :checked="archiveMountStripCommonPathPrefix"
+                              @change="archiveMountStripCommonPathPrefix = !archiveMountStripCommonPathPrefix"
+              >
+                {{ t(appName, 'strip common path prefix') }}
+              </ActionCheckBox>
+            </Actions>
           </div>
         </div>
       </li>
@@ -193,7 +212,7 @@
           <div class="hint">
             {{ t(appName, 'Choose a directory to extract the archive to:') }}
           </div>
-          <div class="flex flex-center">
+          <div class="flex flex-center flex-wrap">
             <div class="dirname">
               <a href="#"
                  class="file-picker button"
@@ -207,6 +226,18 @@
                                class="flex-grow"
                                @update="extract"
             />
+          </div>
+          <div class="flex flex-center">
+            <div class="label">
+              {{ t(appName, 'Extraction Options') }}
+            </div>
+            <Actions :force-menu="true">
+              <ActionCheckBox :checked="archiveExtractStripCommonPathPrefix"
+                              @change="archiveExtractStripCommonPathPrefix = !archiveExtractStripCommonPathPrefix"
+              >
+                {{ t(appName, 'strip common path prefix') }}
+              </ActionCheckBox>
+            </Actions>
           </div>
         </div>
       </li>
@@ -224,7 +255,8 @@ import { getFilePickerBuilder, showError, showInfo, TOAST_PERMANENT_TIMEOUT } fr
 import { formatFileSize } from '@nextcloud/files'
 import ActionInput from '@nextcloud/vue/dist/Components/ActionInput'
 import ActionCheckBox from '@nextcloud/vue/dist/Components/ActionCheckbox'
-import ListItem from '@nextcloud/vue/dist/Components/ListItem'
+//import ListItem from '@nextcloud/vue/dist/Components/ListItem'
+import ListItem from '../components/ListItem'
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import SettingsInputText from '../components/SettingsInputText'
@@ -261,8 +293,10 @@ export default {
       loading: 0,
       archiveMountDirName: undefined,
       archiveMountBaseName: undefined,
+      archiveMountStripCommonPathPrefix: false,
       archiveExtractDirName: undefined,
       archiveExtractBaseName: undefined,
+      archiveExtractStripCommonPathPrefix: false,
       archivePassPhrase: undefined,
     };
   },
@@ -293,11 +327,17 @@ export default {
     },
     numberOfArchiveMembers() {
       if (!this.archiveInfo
-          || this.archiveInfo.numberOfFiles == undefined
+          || this.archiveInfo.numberOfFiles === undefined
           || isNaN(parseInt('' + this.archiveInfo.numberOfFiles))) {
-        t(appName, 'unknown')
+        return t(appName, 'unknown')
       }
       return '' + this.archiveInfo.numberOfFiles
+    },
+    commonPathPrefix() {
+      return !this.archiveInfo
+          || this.archiveInfo.commonPathPrefix === undefined
+           ? t(appName, 'unknown')
+           : '/' + this.archiveInfo.commonPathPrefix
     },
     archiveStatusText() {
       if (this.archiveStatus === 0) {
@@ -335,11 +375,7 @@ export default {
       this.fileList.$el.off('updated').on('updated', function(event) {
         console.info('ARGS', arguments)
       })
-      const components = fileInfo.name.split('.')
-      if (components.length > 1) {
-        components.pop()
-      }
-      this.archiveMountBaseName = components.join('.')
+      this.archiveMountBaseName = fileInfo.name.split('.')[0]
       this.archiveMountDirName = fileInfo.path
 
       this.archiveExtractBaseName = this.archiveMountBaseName
@@ -372,6 +408,7 @@ export default {
         for (const message of responseData.messages) {
           showInfo(message);
         }
+        console.info('ARCHIVE INFO', this.archiveInfo)
       } catch (e) {
         console.error('ERROR', e)
         if (e.response && e.response.data) {
@@ -635,6 +672,9 @@ export default {
     &.flex-center {
       align-items:center;
     }
+    &.flex-wrap {
+      flex-wrap:wrap;
+    }
     .flex-grow {
       flex-grow:1;
     }
@@ -703,13 +743,19 @@ export default {
       .dirname {
         font-weight:bold;
         font-family:monospace;
+        .button {
+          display:block;
+        }
+      }
+      .label {
+        padding-right:0.5ex;
       }
     }
-    ::v-deep .archive-mounts {
-      .list-item-content > .list-item-content__actions {
-        display: block !important;
-      }
-    }
+    /* ::v-deep .archive-mounts {
+       .list-item-content > .list-item-content__actions {
+       display: block !important;
+       }
+       } */
   }
 }
 </style>
