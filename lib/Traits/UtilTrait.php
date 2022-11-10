@@ -312,4 +312,33 @@ trait UtilTrait
     }
     return $numUnset;
   }
+
+  /**
+   * @param array $paths Array of path names.
+   *
+   * @param bool $leadingSlash If \false the $paths array elements do not
+   * start with a slash.
+   *
+   * @return string The common directory prefix. An empty string if the
+   * path-names do not share any common prefix.
+   */
+  protected function getCommonPath(array $paths, bool $leadingSlash = true):string
+  {
+    // $this->logInfo('PATHS ' . print_r($paths, true));
+    $lastOffset = (int)$leadingSlash;
+    $common = $leadingSlash ? '/' : '';
+    while (($index = strpos($paths[0], '/', $lastOffset)) !== false) {
+      $dirLen = $index - $lastOffset + 1; // include /
+      $dir = substr($paths[0], $lastOffset, $dirLen);
+      foreach ($paths as $path) {
+        if (substr($path, $lastOffset, $dirLen) != $dir) {
+          return $leadingSlash ? substr($common, 0, -1) : $common;
+        }
+      }
+      $common .= $dir;
+      $lastOffset = $index + 1;
+    }
+    return $leadingSlash ? substr($common, 0, -1) : $common;
+  }
+
 }
