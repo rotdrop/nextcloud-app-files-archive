@@ -30,6 +30,7 @@
              type="text"
              :value="inputVal"
              :disabled="disabled"
+             :placeholder="placeholder"
              @input="$emit('input', $event.target.value)"
       >
       <input type="submit"
@@ -65,6 +66,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    placeholder: {
+      type: String,
+      default: '',
     },
   },
   data() {
