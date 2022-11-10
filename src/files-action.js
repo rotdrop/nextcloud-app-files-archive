@@ -29,6 +29,7 @@ import { showError, /* showSuccess, */ TOAST_PERMANENT_TIMEOUT } from '@nextclou
 import FilesTab from './views/FilesTab.vue';
 import { Tooltip } from '@nextcloud/vue';
 
+require('files-archive.scss');
 require('dialogs.scss');
 
 Vue.directive('tooltip', Tooltip);
@@ -125,7 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
     OCA.Files.Sidebar.registerTab(new OCA.Files.Sidebar.Tab({
       id: appName,
       name: t(appName, 'Archive'),
-      icon: 'icon-archive',
+      icon: 'icon-files-archive',
 
       enabled(fileInfo) {
         return initialState.archiveMimeTypes.indexOf(fileInfo.mimetype) >= 0;
@@ -146,10 +147,6 @@ window.addEventListener('DOMContentLoaded', () => {
         await TabInstance.update(fileInfo);
 
         TabInstance.$mount(el);
-        const $tabHeader = context.$el.closest('.app-sidebar-tabs');
-        const $iconSpan = $tabHeader.querySelector('#' + appName + ' .app-sidebar-tabs__tab-icon span');
-        $iconSpan.style.backgroundImage = 'url(' + imagePath(appName, appName) + ')';
-        $iconSpan.style.backgroundSize = '16px';
       },
       update(fileInfo) {
         console.info('ARGUMENTS', arguments);
