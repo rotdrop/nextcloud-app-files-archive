@@ -45,6 +45,7 @@ use OCP\Files\NotFoundException as FileNotFoundException;
 
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
+use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Constants;
@@ -74,6 +75,9 @@ class MountController extends Controller
   /** @var ArchiveService */
   private $archiveService;
 
+  /** @var MountProvider */
+  private $mountProvider;
+
   /** @var null|int */
   private $archiveSizeLimit = null;
 
@@ -92,6 +96,7 @@ class MountController extends Controller
     IRootFolder $rootFolder,
     ArchiveMountMapper $mountMapper,
     ArchiveService $archiveService,
+    MountProvider $mountProvider,
   ) {
     parent::__construct($appName, $request);
     $this->logger = $logger;
@@ -101,6 +106,7 @@ class MountController extends Controller
     $this->mountManager = $mountManager;
     $this->rootFolder = $rootFolder;
     $this->archiveService = $archiveService;
+    $this->mountProvider = $mountProvider;
 
     $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
@@ -122,15 +128,9 @@ class MountController extends Controller
    *
    * @NoAdminRequired
    */
-  public function mount(string $archivePath, ?string $mountPoint = null, ?string $passPhrase = null)
+  public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null)
   {
     $archivePath = urldecode($archivePath);
-    if (empty($mountPoint)) {
-      $pathInfo = pathinfo($archivePath);
-      $mountPoint = $pathInfo['dirname'] . Constants::PATH_SEPARATOR . $pathInfo['filename'];
-    } else {
-      $mountPoint = urldecode($mountPoint);
-    }
 
     $userFolder = $this->rootFolder->getUserFolder($this->userId);
     if (empty($userFolder)) {
@@ -152,24 +152,6 @@ class MountController extends Controller
       return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
     }
 
-    // Supporting archive file on other storages than the vanilla user storage
-    // would require control over the order in which storages are mounted. In
-    // order not to run in such problems it is only allowed to mount archive
-    // files located inside the ordinary user file-space.
-    // $archiveFileStorage = $archiveFile->getStorage();
-    // while ($archiveFileStorage instanceof WrapperStorage) {
-    //   /** @var WrapperStorage $archiveFileStorage */
-    //   $archiveFileStorage = $archiveFileStorage->getWrapperStorage();
-    // }
-    // $userFolderStorage = $userFolder->getStorage();
-    // while ($userFolderStorage instanceof WrapperStorage) {
-    //   /** @var WrapperStorage $archiveFileStorage */
-    //   $userFolderStorage = $userFolderStorage->getWrapperStorage();
-    // }
-    // if (!($archiveFileStorage instanceof $userFolderStorage)) {
-    //   return self::grumble($this->l->t('Mounting archive files located in external or shared storage is not supported as of now.'));
-    // }
-
     try {
       $this->archiveService->open($archiveFile);
     } catch (Exceptions\ArchiveTooLargeException $e) {
@@ -186,18 +168,41 @@ class MountController extends Controller
       }
     }
 
-    // ok, just insert in to our mounts table
-    $mount = new ArchiveMount;
-    $mount->setUserId($this->userId);
-    $mount->setMountPointPath($mountPoint);
-    $mount->setMountPointPathHash(md5($mountPoint));
-    $mount->setArchiveFileId($archiveFile->getId());
-    $mount->setArchiveFilePath($archivePath);
-    $mount->setArchiveFilePathHash(md5($archivePath));
-    $mount->setArchivePassPhrase($passPhrase);
-    $this->mountMapper->insert($mount);
+    if (empty($mountPointPath)) {
+      $mountPointPath = dirname($archivePath) . Constants::PATH_SEPARATOR . $this->archiveService->getArchiveFolderName();
+    } else {
+      $mountPointPath = urldecode($mountPointPath);
+    }
 
-    return self::dataResponse($mount->jsonSerialize());
+    // ok, just insert in to our mounts table
+    $mountEntity = new ArchiveMount;
+    $mountEntity->setUserId($this->userId);
+    $mountEntity->setMountPointPath($mountPointPath);
+    $mountEntity->setMountPointPathHash(md5($mountPointPath));
+    $mountEntity->setArchiveFileId($archiveFile->getId());
+    $mountEntity->setArchiveFilePath($archivePath);
+    $mountEntity->setArchiveFilePathHash(md5($archivePath));
+    $mountEntity->setArchivePassPhrase($passPhrase);
+    $this->mountMapper->insert($mountEntity);
+
+    try {
+      // obtain the mount-point and run the scanner
+      /** @var IMountPoint $mountPoint */
+      $mountPoint = $this->mountProvider->getMountPoint($mountEntity, $this->userId, $this->archiveService->getSizeLimit());
+
+      $this->mountManager->addMount($mountPoint);
+      $storage = $mountPoint->getStorage();
+      $storage->getScanner()->scan('');
+    } catch (Throwable $t) {
+      $this->logException($t);
+      $this->mountMapper->delete($mountEntity);
+      return self::grumble($this->l->t(
+        'Unable to update the file cache for the mount-point "%1s": %2$s.', [
+          $mountPointPath, $t->getMessage()
+        ]));
+    }
+
+    return self::dataResponse($mountEntity->jsonSerialize());
   }
 
   /**

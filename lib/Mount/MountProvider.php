@@ -1,4 +1,22 @@
 <?php
+/**
+ * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022 Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 namespace OCA\FilesArchive\Mount;
 
@@ -107,7 +125,15 @@ class MountProvider implements IMountProvider
     return $mounts;
   }
 
-  /** {@inheritdoc} */
+  /**
+   * Wrapped by the real-function into a try-catch block
+   *
+   * @param IUser $user
+   *
+   * @param IStorageFactory $loader
+   *
+   * @return array
+   */
   private function getMountsForUserInternal(IUser $user, IStorageFactory $loader)
   {
     $userId = $user->getUID();
@@ -117,146 +143,210 @@ class MountProvider implements IMountProvider
       return [];
     }
 
+    $archiveBombLimit = $this->cloudConfig->getAppValue(
+      $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
+    $archiveSizeLimit = $this->cloudConfig->getUserValue(
+      $userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
+    $archiveSizeLimit = min($archiveBombLimit, $archiveSizeLimit ?? PHP_INT_MAX);
+
     $mounts = [];
     $mountMapping = $this->mountMapper->findAll($userId);
 
-    $userFolderPath = $userFolder->getPath();
-
     /** @var ArchiveMount $mount */
-    foreach ($mountMapping as $mount) {
+    foreach ($mountMapping as $mountEntity) {
 
-      $archivePath = $mount->getArchiveFilePath();
-      try {
-        $archiveFile = $userFolder->get($archivePath);
-      } catch (FileNotFoundException $e) {
-        continue;
-      }
-      $passPhrase = $mount->getArchivePassPhrase();
-
-
-      $archiveBombLimit = $this->cloudConfig->getAppValue(
-        $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
-      $archiveSizeLimit = $this->cloudConfig->getUserValue(
-        $userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
-      $archiveSizeLimit = min($archiveBombLimit, $archiveSizeLimit ?? PHP_INT_MAX);
-
-      // The mount-path must be absolute
-      $mountDirectory = $userFolderPath . Constants::PATH_SEPARATOR . $mount->getMountPointPath();
-
-      try {
-        $storage = new ArchiveStorage([
-          ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
-          ArchiveStorage::PARAMETER_ARCHIVE_PASS_PHRASE => $passPhrase,
-          ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
-          ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
-        ]);
-      } catch (Exceptions\ArchiveException $e) {
-        $this->logException($e, 'Skipping archive mount of "' . $archivePath . '".');
+      $mountPoint = $this->doGetMountPoint(
+        $mountEntity, $userId, $loader, $userFolder, $archiveSizeLimit,
+      );
+      if ($mountPoint === null) {
         continue;
       }
 
-      $mounts[] = new class(
-        $storage,
-        $userFolderPath,
-        $mountDirectory,
-        $loader,
-        $this->mountManager,
-        $this->mountMapper,
-        $mount,
-        $this->logger,
-      ) extends MountPoint implements MoveableMount
-      {
-        use \OCA\FilesArchive\Traits\LoggerTrait;
-
-        /** @var IMountManager */
-        private $mountManager;
-
-        /** @var ArchiveMountMapper */
-        private $mountMapper;
-
-        /** @var ArchiveMount */
-        private $mountEntity;
-
-        /** @var string */
-        private $userFolderPath;
-
-        /**
-         * @param ArchiveStorage $storage
-         *
-         * @param string $userFolderPath
-         *
-         * @param string $mountPointPath
-         *
-         * @param IStorageFactory $loader
-         *
-         * @param IMountManager $mountManager
-         *
-         * @param ArchiveMountMapper $mountMapper
-         *
-         * @param ArchiveMount $mountEntity
-         *
-         * @param LoggerInterface $logger
-         */
-        public function __construct(
-          ArchiveStorage $storage,
-          string $userFolderPath,
-          string $mountPointPath,
-          IStorageFactory $loader,
-          IMountManager $mountManager,
-          ArchiveMountMapper $mountMapper,
-          ArchiveMount $mountEntity,
-          LoggerInterface $logger,
-        ) {
-          parent::__construct(
-            storage: $storage,
-            mountpoint: $mountPointPath,
-            loader: $loader,
-            mountOptions: [
-              'filesystem_check_changes' => 1,
-              'readonly' => true,
-              'previews' => true,
-              'enable_sharing' => false,
-              'authenticated' => false,
-            ]
-          );
-          $this->userFolderPath = $userFolderPath;
-          $this->mountManager = $mountManager;
-          $this->mountMapper = $mountMapper;
-          $this->mountEntity = $mountEntity;
-          $this->logger = $logger;
-        }
-
-        /** {@inheritdoc} */
-        public function getMountType()
-        {
-          return 'external'; // Constants::APP_NAME;
-        }
-
-        /** {@inheritdoc} */
-        public function moveMount($target)
-        {
-          if (!str_starts_with($target, $this->userFolderPath)) {
-            return false;
-          }
-          $relativeTarget = substr($target, strlen($this->userFolderPath));
-
-          $this->mountEntity->setMountPointPath($relativeTarget);
-          $this->mountEntity->setMountPointPathHash(md5($relativeTarget));
-          $this->mountMapper->update($this->mountEntity);
-
-          return true;
-        }
-
-        /** {@inheritdoc} */
-        public function removeMount()
-        {
-          $this->mountMapper->delete($this->mountEntity);
-          $this->mountManager->removeMount($this->getMountPoint()); // neccessary?
-          return true;
-        }
-      };
+      $mounts[] = $mountPoint;
     }
 
     return $mounts;
+  }
+
+  /**
+   * Convert the registered mount-point info into a Nextcloud mount-point.
+   *
+   * @param ArchiveMount $mountEntity
+   *
+   * @param string $userId
+   *
+   * @param int $archiveSizeLimit
+   *
+   * @return null|MoveableMount
+   */
+  public function getMountPoint(
+    ArchiveMount $mountEntity,
+    string $userId,
+    int $archiveSizeLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT,
+  ):?MoveableMount {
+
+    $storageFactory = $this->appContainer->get(IStorageFactory::class);
+    $userFolder = $this->rootFolder->getUserFolder($userId);
+    if (empty($userFolder)) {
+      return null;
+    }
+
+    return $this->doGetMountPoint(
+      $mountEntity, $userId, $storageFactory, $userFolder, $archiveSizeLimit,
+    );
+  }
+
+  /**
+   * Convert the registered mount-point info into a Nextcloud mount-point.
+   *
+   * @param ArchiveMount $mountEntity
+   *
+   * @param string $userId
+   *
+   * @param IStorageFactory $loader
+   *
+   * @param Folder $userFolder
+   *
+   * @param int $archiveSizeLimit
+   *
+   * @return null|MoveableMount
+   */
+  private function doGetMountPoint(
+    ArchiveMount $mountEntity,
+    string $userId,
+    IStorageFactory $loader,
+    Folder $userFolder,
+    int $archiveSizeLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT,
+  ):?MoveableMount {
+
+    $userFolderPath = $userFolder->getPath();
+
+    $archivePath = $mountEntity->getArchiveFilePath();
+    try {
+      $archiveFile = $userFolder->get($archivePath);
+    } catch (FileNotFoundException $e) {
+      return null;
+    }
+    $passPhrase = $mountEntity->getArchivePassPhrase();
+
+    // The mount-path must be absolute
+    $mountDirectory = $userFolderPath . Constants::PATH_SEPARATOR . $mountEntity->getMountPointPath();
+
+    // Whether to strip a common path prefix
+    $stripCommonPathPrefix = !!($mountEntity->getMountFlags() & ArchiveMount::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX);
+
+    try {
+      $storage = new ArchiveStorage([
+        ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+        ArchiveStorage::PARAMETER_ARCHIVE_PASS_PHRASE => $passPhrase,
+        ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
+        ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
+        ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix,
+      ]);
+    } catch (Exceptions\ArchiveException $e) {
+      $this->logException($e, 'Skipping archive mount of "' . $archivePath . '".');
+      return null;
+    }
+
+    return new class(
+      $storage,
+      $userFolderPath,
+      $mountDirectory,
+      $loader,
+      $this->mountManager,
+      $this->mountMapper,
+      $mountEntity,
+      $this->logger,
+    ) extends MountPoint implements MoveableMount
+    {
+      use \OCA\FilesArchive\Traits\LoggerTrait;
+
+      /** @var IMountManager */
+      private $mountManager;
+
+      /** @var ArchiveMountMapper */
+      private $mountMapper;
+
+      /** @var ArchiveMount */
+      private $mountEntity;
+
+      /** @var string */
+      private $userFolderPath;
+
+      /**
+       * @param ArchiveStorage $storage
+       *
+       * @param string $userFolderPath
+       *
+       * @param string $mountPointPath
+       *
+       * @param IStorageFactory $loader
+       *
+       * @param IMountManager $mountManager
+       *
+       * @param ArchiveMountMapper $mountMapper
+       *
+       * @param ArchiveMount $mountEntity
+       *
+       * @param LoggerInterface $logger
+       */
+      public function __construct(
+        ArchiveStorage $storage,
+        string $userFolderPath,
+        string $mountPointPath,
+        IStorageFactory $loader,
+        IMountManager $mountManager,
+        ArchiveMountMapper $mountMapper,
+        ArchiveMount $mountEntity,
+        LoggerInterface $logger,
+      ) {
+        parent::__construct(
+          storage: $storage,
+          mountpoint: $mountPointPath,
+          loader: $loader,
+          mountOptions: [
+            'filesystem_check_changes' => 1,
+            'readonly' => true,
+            'previews' => true,
+            'enable_sharing' => false,
+            'authenticated' => false,
+          ]
+        );
+        $this->userFolderPath = $userFolderPath;
+        $this->mountManager = $mountManager;
+        $this->mountMapper = $mountMapper;
+        $this->mountEntity = $mountEntity;
+        $this->logger = $logger;
+      }
+
+      /** {@inheritdoc} */
+      public function getMountType()
+      {
+        return 'external'; // Constants::APP_NAME;
+      }
+
+      /** {@inheritdoc} */
+      public function moveMount($target)
+      {
+        if (!str_starts_with($target, $this->userFolderPath)) {
+          return false;
+        }
+        $relativeTarget = substr($target, strlen($this->userFolderPath));
+
+        $this->mountEntity->setMountPointPath($relativeTarget);
+        $this->mountEntity->setMountPointPathHash(md5($relativeTarget));
+        $this->mountMapper->update($this->mountEntity);
+
+        return true;
+      }
+
+      /** {@inheritdoc} */
+      public function removeMount()
+      {
+        $this->mountMapper->delete($this->mountEntity);
+        $this->mountManager->removeMount($this->getMountPoint()); // neccessary?
+        return true;
+      }
+    };
   }
 }

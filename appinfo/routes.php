@@ -63,10 +63,10 @@ return [
     // mount the given archive file
     [
       'name' => 'mount#mount',
-      'url' => '/archive/mount/{archivePath}/{mountPoint}',
+      'url' => '/archive/mount/{archivePath}/{mountPointPath}',
       'verb' => 'POST',
       'defaults' => [
-        'mountPoint' => null,
+        'mountPointPath' => null,
       ],
     ],
     // patch the passphrase into the mounts for the given archive
