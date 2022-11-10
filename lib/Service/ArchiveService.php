@@ -362,6 +362,10 @@ class ArchiveService
         $formatMimeTypes = ArchiveFormats::getFormatMimeTypes($format);
         self::$mimeTypes = array_merge(self::$mimeTypes, $formatMimeTypes);
       }
+      // fix-ups
+      if (array_search('application/x-rar', self::$mimeTypes) !== false) {
+        self::$mimeTypes[] = 'application/x-rar-compressed';
+      }
     }
     return self::$mimeTypes;
   }
