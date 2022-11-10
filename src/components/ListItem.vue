@@ -49,8 +49,11 @@
 
             <!-- First line, title and details -->
             <div class="line-one" :class="{'line-one--bold': bold}">
-              <span class="line-one__title">
+              <span v-if="hasTitle" class="blah line-one__title">
                 {{ title }}
+              </span>
+              <span v-if="true || hasTitleSlot" class="foobar line-one__title">
+                <slot name="title" />
               </span>
               <span v-if="showDetails && hasDetails" class="line-one__details">
                 {{ details }}
@@ -141,7 +144,7 @@ export default {
      */
     title: {
       type: String,
-      required: true,
+      default: '',
     },
 
     /**
@@ -235,6 +238,7 @@ export default {
       hovered: false,
       focused: false,
       hasActions: false,
+      hasTitleSlot: false,
       hasSubtitle: false,
       hasDetailsSlot: false,
       displayActionsOnHoverFocus: false,
@@ -243,6 +247,10 @@ export default {
   },
 
   computed: {
+
+    hasTitle() {
+      return this.title !== ''
+    },
 
     hasDetails() {
       return this.details !== ''
@@ -362,6 +370,9 @@ export default {
     checkSlots() {
       if (this.hasActions !== !!this.$slots.actions) {
         this.hasActions = !!this.$slots.actions
+      }
+      if (this.hasTitleSlot !== !!this.$slots.title) {
+        this.hasTitleSlot = !!this.$slots.title
       }
       if (this.hasSubtitle !== !!this.$slots.subtitle) {
         this.hasSubtitle = !!this.$slots.subtitle
