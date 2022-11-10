@@ -8,6 +8,7 @@
     - [Details](#details)
         - [State](#state)
         - [Usage](#usage)
+        - [Supported Archive Formats](#supported-archive-formats)
         - [Security](#security)
             - [ZIP-Bombs](#zip-bombs)
             - [Passphrases and Encrypted Archives](#passphrases-and-encrypted-archives)
