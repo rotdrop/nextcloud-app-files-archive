@@ -173,11 +173,13 @@ class ArchiveController extends Controller
    *
    * @param null|string $passPhrase
    *
+   * @param bool $stripCommonPathPrefix
+   *
    * @return DataResponse
    *
    * @NoAdminRequired
    */
-  public function extract(string $archivePath, string $targetPath, ?string $passPhrase = null):DataResponse
+  public function extract(string $archivePath, string $targetPath, ?string $passPhrase = null, bool $stripCommonPathPrefix = false):DataResponse
   {
     $archivePath = urldecode($archivePath);
     $targetPath = urldecode($targetPath);
@@ -196,6 +198,7 @@ class ArchiveController extends Controller
         ArchiveStorage::PARAMETER_ARCHIVE_PASS_PHRASE => $passPhrase,
         ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
         ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $this->actualArchiveSizeLimit(),
+        ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix,
 
       ]);
     } catch (Exceptions\ArchiveTooLargeException $e) {

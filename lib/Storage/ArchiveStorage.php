@@ -93,13 +93,17 @@ class ArchiveStorage extends AbstractStorage
     try {
       $this->archiveService->open($this->archiveFile, password: $passPhrase);
 
-      // $this->logInfo('TOP LEVEL DIRECTORY ' . $this->archiveService->getCommonDirectoryPrefix());
+      $commonPrefixLen =
+        ($parameters[self::PARAMETER_STRIP_COMMON_PATH_PREFIX] ?? false)
+        ? strlen($this->archiveService->getCommonDirectoryPrefix())
+        : 0;
 
       $files = $this->archiveService->getFiles();
       $this->files = [];
       $this->dirNames = [];
       foreach ($files as $path => $fileInfo) {
         $normalizedPath = trim($this->buildPath($path), Constants::PATH_SEPARATOR);
+        $normalizedPath = substr($normalizedPath, $commonPrefixLen);
         $this->files[$normalizedPath] = $fileInfo;
         $dirName = dirname($normalizedPath);
         if (!empty($dirName)) {

@@ -124,11 +124,13 @@ class MountController extends Controller
    *
    * @param null|string $passPhrase
    *
+   * @param bool $stripCommonPathPrefix
+   *
    * @return DataResponse
    *
    * @NoAdminRequired
    */
-  public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null)
+  public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null, bool $stripCommonPathPrefix = false)
   {
     $archivePath = urldecode($archivePath);
 
@@ -174,6 +176,11 @@ class MountController extends Controller
       $mountPointPath = urldecode($mountPointPath);
     }
 
+    $mountFlags = 0;
+    if ($stripCommonPathPrefix) {
+      $mountFlags |= ArchiveMount::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
+    }
+
     // ok, just insert in to our mounts table
     $mountEntity = new ArchiveMount;
     $mountEntity->setUserId($this->userId);
@@ -183,6 +190,7 @@ class MountController extends Controller
     $mountEntity->setArchiveFilePath($archivePath);
     $mountEntity->setArchiveFilePathHash(md5($archivePath));
     $mountEntity->setArchivePassPhrase($passPhrase);
+    $mountEntity->setMountFlags($mountFlags);
     $this->mountMapper->insert($mountEntity);
 
     try {

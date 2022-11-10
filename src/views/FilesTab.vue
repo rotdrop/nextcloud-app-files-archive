@@ -480,6 +480,7 @@ export default {
       if (this.archivePassPhrase) {
         requestData.passPhrase = this.archivePassPhrase
       }
+      requestData.stripCommonPathPrefix = !!this.archiveMountStripCommonPathPrefix;
       try {
         const response = await axios.post(url, requestData)
         this.getArchiveMounts(this.fileName)
@@ -561,6 +562,7 @@ export default {
       if (this.archivePassPhrase) {
         requestData.passPhrase = this.archivePassPhrase
       }
+      requestData.stripCommonPathPrefix = !!this.archiveExtractStripCommonPathPrefix
       try {
         const response = await axios.post(url, requestData)
         if (this.archiveExtractDirName === this.fileInfo.path) {
