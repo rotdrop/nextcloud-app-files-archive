@@ -1,5 +1,5 @@
 <!--
-  - @copyright Copyright (c) 2019 Julius Härtl <jus@bitgrid.net>
+  - @copyright Copyright (c) 2019, 2022 Julius Härtl <jus@bitgrid.net>
   - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
   -
   - @author Julius Härtl <jus@bitgrid.net>
@@ -25,7 +25,7 @@
 <template>
   <form @submit.prevent="">
     <div class="input-wrapper">
-      <label :for="id">{{ label }}</label>
+      <label :for="id" :class="{ empty: !label || label === '' }">{{ label }}</label>
       <input :id="id"
              type="text"
              :value="inputVal"
@@ -97,7 +97,7 @@ export default {
     max-width: 400px;
   }
 
-  label {
+  label:not(.empty) {
     width: 100%;
   }
 
