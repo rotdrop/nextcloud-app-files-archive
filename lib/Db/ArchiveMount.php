@@ -24,7 +24,31 @@ use JsonSerializable;
 
 use OCP\AppFramework\Db\Entity;
 
-/** Entity class for mounts table. */
+/**
+ * Entity class for mounts table.
+ *
+ * @method public int getId()
+ * @method public string getUserId()
+ * @method public void setUserId(string $userId)
+ *
+ * @method public string getMountPointPath()
+ * @method public void setMountPointPath(string $path)
+ * @method public string getMountPointPathHash()
+ * @method public void setMountPointPathHash(string $pathHash)
+ *
+ * @method public int getArchiveFileId()
+ * @method public void setArchiveFileId(int $id)
+ * @method public string getArchiveFilePath()
+ * @method public void setArchiveFilePath(string $path)
+ * @method public string getArchiveFilePathHash()
+ * @method public void setArchiveFilePathHash(string $pathHash)
+ *
+ * @method public string getArchivePassPhrase()
+ * @method public void setArchivePathPhase(string $passPhrase)
+ *
+ * @method public int getMountFlags()
+ * @method public void setMountFlags(int $flags)
+ */
 class ArchiveMount extends Entity implements JsonSerializable
 {
   public const MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX = (1 << 0);
