@@ -71,33 +71,67 @@ class ArchiveStorage extends AbstractStorage
   /** @var File */
   protected $archiveFile;
 
-  /** @var array */
-  protected $dirNames = [];
-
-  /** @var array<string, ArchiveEntry> */
-  protected $files = [];
-
   /** @var string */
   protected $commonPathPrefix = '';
 
-    /** {@inheritdoc} */
+  /** @var string */
+  protected $archivePassPhrase;
+
+  /** @var bool */
+  protected $stripCommonPathPrefix;
+
+  /**
+   * @var bool
+   *
+   * Control lazy-scanning of the archive. The scanner must not be called in
+   * the constructor in order not to kill performance and is called on demand
+   * when trying to access the listing-cache.
+   */
+  protected $archiveHasBeenScanned = false;
+
+  /**
+   * @var null|array<string, ArchiveEntry>
+   *
+   * Cache for the archive listing. Only called on demand as this is costly
+   * for large archives.
+   */
+  protected $files = null;
+
+  /**
+   * @var array
+   *
+   * Cache for the folder entries of the directory listing. Computed from the
+   * $files array.
+   */
+  protected $dirNames = null;
+
+  /** {@inheritdoc} */
   public function __construct($parameters)
   {
     parent::__construct($parameters);
     $this->archiveFile = $parameters[self::PARAMETER_ARCHIVE_FILE];
     $sizeLimit = $parameters[self::PARAMETER_ARCHIVE_SIZE_LIMIT] ?? Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
-    $passPhrase = $parameters[self::PARAMETER_ARCHIVE_PASS_PHRASE] ?? null;
+    $this->archivePassPhrase = $parameters[self::PARAMETER_ARCHIVE_PASS_PHRASE] ?? null;
     $this->appContainer = $parameters[self::PARAMETER_APP_CONTAINER];
+    $this->stripCommonPathPrefix = $parameters[self::PARAMETER_STRIP_COMMON_PATH_PREFIX] ?? false;
+
     $this->appName = $this->appContainer->get('appName');
     $this->archiveService = clone $this->appContainer->get(ArchiveService::class);
     $this->archiveService->setSizeLimit($sizeLimit);
     $this->logger = $this->appContainer->get(LoggerInterface::class);
+  }
 
+  /**
+   * Archive scanner to be run before actually accessing the storage.
+   *
+   * @return void
+   */
+  protected function scanArchive():void
+  {
     try {
-      $this->archiveService->open($this->archiveFile, password: $passPhrase);
+      $this->archiveService->open($this->archiveFile, password: $this->archivePassPhrase);
 
-      $this->commonPathPrefix =
-        ($parameters[self::PARAMETER_STRIP_COMMON_PATH_PREFIX] ?? false)
+      $this->commonPathPrefix = $this->stripCommonPathPrefix
         ? $this->archiveService->getCommonDirectoryPrefix()
         : '';
       $commonPrefixLen = strlen($this->commonPathPrefix);
@@ -130,8 +164,27 @@ class ArchiveStorage extends AbstractStorage
     } catch (Throwable $t) {
       $this->logException($t, 'Unable to open archive file ' . $this->archiveFile->getPath());
       $this->files = [];
-      $this->dirNames = [ 'ZIP-BOMB' ];
+      $this->dirNames = [];
     }
+    $this->archiveHasBeenScanned = true;
+  }
+
+  /** @return array The files array, scanning the archive file if not already done. */
+  protected function getFiles():array
+  {
+    if (!$this->archiveHasBeenScanned) {
+      $this->scanArchive();
+    }
+    return $this->files;
+  }
+
+  /** @return array The directory names computed from the $files array */
+  protected function getDirNames():array
+  {
+    if (!$this->archiveHasBeenScanned) {
+      $this->scanArchive();
+    }
+    return $this->dirNames;
   }
 
   /** {@inheritdoc} */
@@ -224,7 +277,7 @@ class ArchiveStorage extends AbstractStorage
     if ($this->is_dir($path)) {
       return $this->archiveFile->getMTime();
     } elseif ($this->is_file($path)) {
-      return $this->files[$path]->modificationTime;
+      return $this->getFiles()[$path]->modificationTime;
     }
     return false;
   }
@@ -239,6 +292,7 @@ class ArchiveStorage extends AbstractStorage
    */
   public function hasUpdated($path, $time)
   {
+    $this->logInfo('I HAVE BEEN CALLED');
     $mtime = $this->filemtime($path);
     return $mtime === false || ($mtime > $time);
   }
@@ -254,7 +308,7 @@ class ArchiveStorage extends AbstractStorage
     if (!$this->is_file($path)) {
       return false;
     }
-    return $this->files[$path]->uncompressedSize;
+    return $this->getFiles()[$path]->uncompressedSize;
   }
 
   /** {@inheritdoc} */
@@ -316,7 +370,7 @@ class ArchiveStorage extends AbstractStorage
         return substr($memberPath, 0, $slashPos);
       },
       array_filter(
-        array_keys($this->files),
+        array_keys($this->getFiles()),
         fn(string $memberPath) => str_starts_with($memberPath, $path),
       )
     );
@@ -340,7 +394,7 @@ class ArchiveStorage extends AbstractStorage
     if ($path === '') {
       return true;
     }
-    $result = array_search($path, $this->dirNames) !== false;
+    $result = array_search($path, $this->getDirNames()) !== false;
 
     // $this->logInfo('PATH ' . $path . '  ' . (int)$result);
 
@@ -352,7 +406,7 @@ class ArchiveStorage extends AbstractStorage
   {
     $path = trim($path, self::PATH_SEPARATOR);
     // $this->logInfo('PATH ' . $path);
-    return !empty($this->files[$path]);
+    return !empty($this->getFiles()[$path]);
   }
 
   /** {@inheritdoc} */
