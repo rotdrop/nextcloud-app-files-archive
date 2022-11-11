@@ -24,4 +24,15 @@ server distribution. From this it should be clear where each file belongs to.
     CD-images. The default mapping of Nextcloud as of v25 is
     `application/octett-stream` (AKA "I do not konw").
   - map the `.tar.xz` extension to the MIME-type `application/x-gtar`.
+- `config/mimetypealiases.json`
+  See
+  [Nextcloud MIME-type configuration](https://docs.nextcloud.com/server/latest/admin_manual/configuration_mimetypes/index.html).
+  Note that is neccessary to run
+  ```
+  occ maintenance:mimetype:update-js
 
+  ```
+  after adding the content of this file to the nextcloud
+  configuration. The file add aliases of some archive-types to the
+  `package/x-generic` MIME-type in order to avoid the "I do not known"
+  default gear-icon.
