@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- WIP expose used back-end driver in the side-bar menu to ease debugging
+- expose the back-end driver name in the side-bar menu to ease debugging
 
 ## [1.0.3] - 2022-11-0
 
