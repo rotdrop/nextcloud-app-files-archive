@@ -1,3 +1,4 @@
 {
-    "iso": ["application/x-iso9660-image"]
+  "iso": ["application/x-iso9660-image"],
+  "tar.xz": ["application/x-gtar"]
 }
