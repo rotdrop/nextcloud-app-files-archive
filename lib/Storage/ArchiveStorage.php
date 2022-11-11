@@ -286,9 +286,10 @@ class ArchiveStorage extends AbstractStorage
    * {@inheritdoc}
    *
    * The AbstractStorage class relies on mtime($path) > $time for triggering a
-   * cache invalidation. This, however, does not cover cases where a directory
-   * has been removed. Hence we also return true if mtime returns false
-   * meaning that the file does not exist.
+   * cache invalidation.
+   *
+   * In principle we never update EXCEPT when the associated archive file has
+   * been changed.
    */
   public function hasUpdated($path, $time)
   {
