@@ -41,10 +41,12 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
    * highest ranking will be picked first.
    */
   protected static $driverRanking = [
-    UnifiedArchive\Drivers\AlchemyZippy::class => 0,
-    UnifiedArchive\Drivers\NelexaZip::class => 10,
-    UnifiedArchive\Drivers\Zip::class => 20,
-    UnifiedArchive\Drivers\SevenZip::class => 30,
+    'zip' => [
+      UnifiedArchive\Drivers\AlchemyZippy::class => 0,
+      UnifiedArchive\Drivers\NelexaZip::class => 10,
+      UnifiedArchive\Drivers\Zip::class => 20,
+      UnifiedArchive\Drivers\SevenZip::class => 30,
+    ],
   ];
 
   /** {@inheritdoc} */
@@ -75,10 +77,19 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
     if (empty($formatDrivers)) {
       return null;
     }
-    usort($formatDrivers, fn(string $formatA, string $formatB) => -((static::$driverRanking[$formatA] ?? 0) <=> (static::$driverRanking[$formatB] ?? 0)));
+    $ranking = static::$driverRanking[$format] ?? [];
+    usort($formatDrivers, fn(string $driverA, string $driverB) => -(($ranking[$driverA] ?? 0) <=> ($ranking[$driverB] ?? 0)));
 
     $driver = $formatDrivers[0];
 
     return new static($fileName, $format, $driver, $password);
+  }
+
+  /**
+   * @return null|string The used driver class-name.
+   */
+  public function getDriverClass():?string
+  {
+    return $this->driver;
   }
 }
