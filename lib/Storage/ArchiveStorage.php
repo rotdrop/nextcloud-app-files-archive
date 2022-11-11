@@ -289,13 +289,17 @@ class ArchiveStorage extends AbstractStorage
    * cache invalidation.
    *
    * In principle we never update EXCEPT when the associated archive file has
-   * been changed.
+   * been changed. So we return true if the mtime of the associated archive
+   * file is later than the $time argument.
+   *
+   * @param string $path Dir-entry path.
+   *
+   * @param int $time This is the storage_mtime column of the filecache table
+   * for the given $path.
    */
   public function hasUpdated($path, $time)
   {
-    $this->logInfo('I HAVE BEEN CALLED');
-    $mtime = $this->filemtime($path);
-    return $mtime === false || ($mtime > $time);
+    return $time < $this->archiveFile->getMTime();
   }
 
   /** {@inheritdoc} */
