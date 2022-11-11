@@ -1,0 +1,5 @@
+{ "translations": {
+    "Forbidden" : "存取被拒",
+    "Not Found" : "找不到"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

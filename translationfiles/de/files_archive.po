@@ -1,1153 +1,938 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Nextcloud package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-10 17:47+0100\n"
-"PO-Revision-Date: 2022-11-10 18:00+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2022-11-11 12:53+0000\n"
+"PO-Revision-Date: 2022-11-11 12:53+0000\n"
+"Language-Team: German (Germany) (https://www.transifex.com/nextcloud/teams/64236/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Controller/ArchiveController.php:144
-#: lib/Controller/MountController.php:159
-#: lib/Controller/MountController.php:279
+#: /app/lib/Controller/ArchiveController.php:144
+#: /app/lib/Controller/MountController.php:159
+#: /app/lib/Controller/MountController.php:279
 #, php-format
 msgid "The user folder for user \"%s\" could not be opened."
-msgstr "Das Wurzel-Verzeichnis für \"%s\" konnte nicht geöffnet werden."
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:150
+#: /app/lib/Controller/ArchiveController.php:150
 #, php-format
 msgid "The archive file \"%s\" could not be found on the server."
-msgstr "Die Archiv-Datei \"%s\" konnte auf dem Server nicht gefunden werden."
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:180
+#: /app/lib/Controller/ArchiveController.php:180
 #, php-format
 msgid "Unable to open the archive file \"%s\": %s."
-msgstr "Kann die Archiv-Datei \"%s\" nicht öffnen: %s."
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:184
+#: /app/lib/Controller/ArchiveController.php:184
 #, php-format
 msgid "Error: %s"
-msgstr "Fehler: %s"
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:218
-#: lib/Controller/MountController.php:174
+#: /app/lib/Controller/ArchiveController.php:218
+#: /app/lib/Controller/MountController.php:174
 #, php-format
 msgid "Unable to open the archive file \"%s\"."
-msgstr "Kann die Archiv-Datei \"%s\" nicht öffnen."
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:233
-#: lib/Controller/MountController.php:183
+#: /app/lib/Controller/ArchiveController.php:233
+#: /app/lib/Controller/MountController.php:183
 #, php-format
 msgid ""
-"The archive-file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > "
-"admin limit %3$s."
+"The archive-file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s >"
+" admin limit %3$s."
 msgstr ""
-"Die Archive-Datei \"%1$s\" scheine eine ZIP-Bombe zu sein: dekomprimierte "
-"Größe %2$s > Administrator-Limit %3$s."
 
-#: lib/Controller/ArchiveController.php:237
-#: lib/Controller/MountController.php:187
+#: /app/lib/Controller/ArchiveController.php:237
+#: /app/lib/Controller/MountController.php:187
 #, php-format
 msgid ""
 "The archive-file \"%1$s\" is too large: uncompressed size %2$s > user limit "
 "%3$s."
 msgstr ""
-"Die Archive-Datei \"%1$s\" ist zu groß: dekomprimierte Größe %2$s > "
-"Benutzer*in-Limit %3$s."
 
-#: lib/Controller/ArchiveController.php:258
+#: /app/lib/Controller/ArchiveController.php:258
 #, php-format
 msgid "Unable to open the target parent-folder \"%s\"."
-msgstr "Kann den Eltern-Ordner \"%s\" nicht öffnen."
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:264
+#: /app/lib/Controller/ArchiveController.php:264
 #, php-format
 msgid "The target-folder \"%s\" already exists and auto-rename is not enabled."
-msgstr "Der Ziel-Ordner \"%s\" existiert bereits und automatische Konfliktauflösung ist nicht aktiviert."
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:304
+#: /app/lib/Controller/ArchiveController.php:304
 #, php-format
 msgid "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"."
-msgstr "Kann \"%1$s\" nicht an der Stelle \"%2$s\" entpacken: \"%3s\"."
+msgstr ""
 
-#: lib/Controller/ArchiveController.php:310
+#: /app/lib/Controller/ArchiveController.php:310
 #, php-format
 msgid "Extracting \"%1$s\" to \"%2$s\" succeeded."
-msgstr "Das Entpacken von \"%1$s\" an der Stelle \"%2$s\" war erfolgreich."
+msgstr ""
 
-#: lib/Controller/CatchAllController.php:70
+#: /app/lib/Controller/CatchAllController.php:70
 #, php-format
 msgid "Post to end-point \"%s\" not implemented."
-msgstr "POST-Anfragen an \"%s\" sind nicht implementiert."
+msgstr ""
 
-#: lib/Controller/CatchAllController.php:73
+#: /app/lib/Controller/CatchAllController.php:73
 #, php-format
 msgid "Post to base-url of app \"%s\" not allowed."
-msgstr "POST-Anfragen an die Basis-Adresse der App \"%s\" sind nicht erlaubt."
+msgstr ""
 
-#: lib/Controller/CatchAllController.php:90
+#: /app/lib/Controller/CatchAllController.php:90
 #, php-format
 msgid "Get from end-point \"%s\" not implemented."
-msgstr "GET-Anfragen an \"%s\" sind nicht implementiert."
+msgstr ""
 
-#: lib/Controller/MountController.php:165
+#: /app/lib/Controller/MountController.php:165
 #, php-format
 msgid "\"%1$s\" is already mounted on \"%2$s\"."
-msgstr "\"%1$s\" ist bereits an der Stelle \"%2$s\" eingehängt."
+msgstr ""
 
-#: lib/Controller/MountController.php:210
+#: /app/lib/Controller/MountController.php:210
 #, php-format
 msgid "Unable to open parent-folder \"%1$s\" of moint-point \"%2$s\": %3$s."
-msgstr "Kann den Eltern-Ordner \"%1$s\" des Einhänge-Punkts \"%2$s\" nicht öffnen: %3$s."
+msgstr ""
 
-#: lib/Controller/MountController.php:218
+#: /app/lib/Controller/MountController.php:218
 #, php-format
 msgid "The mount point \"%s\" already exists and auto-rename is not enabled."
-msgstr "Der Einhänge-Punkt \"%s\" existiert bereits und automatische Konfliktauflösung ist nicht aktiviert."
+msgstr ""
 
-#: lib/Controller/MountController.php:253
+#: /app/lib/Controller/MountController.php:253
 #, php-format
 msgid "Unable to update the file cache for the mount-point \"%1s\": %2$s."
-msgstr "Kann den Datei-Cache für den Einhänge-Punkt \"%1$s\" nicht aktualisieren: %2$s."
+msgstr ""
 
-#: lib/Controller/MountController.php:274
+#: /app/lib/Controller/MountController.php:274
 #, php-format
 msgid "\"%s\" is not mounted."
-msgstr "\"%s\" ist nicht eingehängt."
+msgstr ""
 
-#: lib/Controller/MountController.php:291
+#: /app/lib/Controller/MountController.php:291
 #, php-format
 msgid "Directory \"%s\" should be a mount point, but it is not."
 msgstr ""
-"An der Stelle \"%s\" sollte ein Speicher eingehängt sein, aber das ist nicht "
-"der Fall."
 
-#: lib/Controller/MountController.php:298
+#: /app/lib/Controller/MountController.php:298
 #, php-format
 msgid "Archive \"%1$s\" has been unmounted from \"%2$s\"."
-msgstr "Das Archiv \"%1$s\" wurden von Einhängepunkt \"%2$s\" abgetrennt."
+msgstr ""
 
-#: lib/Controller/MountController.php:357
+#: /app/lib/Controller/MountController.php:357
 msgid "Only the pass-phrase may be changed for an existing mount."
 msgstr ""
-"Ausschließlich das Verschlüsselungs-Passwort kann für einen aktiven "
-"Einhängepunkt geändert werden."
 
-#: lib/Controller/SettingsController.php:141
-#: lib/Controller/SettingsController.php:250
-#: lib/Controller/SettingsController.php:346
-#: lib/Controller/SettingsController.php:385
+#: /app/lib/Controller/SettingsController.php:141
+#: /app/lib/Controller/SettingsController.php:250
+#: /app/lib/Controller/SettingsController.php:346
+#: /app/lib/Controller/SettingsController.php:385
 #, php-format
 msgid "Unknown personal setting: \"%1$s\""
-msgstr "Unbekannte persönliche Einstellung: \"%1$s\""
+msgstr ""
 
-#: lib/Controller/SettingsController.php:144
+#: /app/lib/Controller/SettingsController.php:144
 #, php-format
 msgid "The personal setting \"%1$s\" is read-only"
-msgstr "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden."
+msgstr ""
 
-#: lib/Controller/SettingsController.php:160
-#: lib/Controller/SettingsController.php:199
-#: lib/Controller/SettingsController.php:220
+#: /app/lib/Controller/SettingsController.php:160
+#: /app/lib/Controller/SettingsController.php:199
+#: /app/lib/Controller/SettingsController.php:220
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
-msgstr "Unbekannte Administrator-Einstellung: \"%1$s\""
+msgstr ""
 
-#: lib/Controller/SettingsController.php:253
+#: /app/lib/Controller/SettingsController.php:253
 #, php-format
 msgid "Thge personal setting \"%1$s\" is read-only"
-msgstr "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden."
+msgstr ""
 
-#: lib/Controller/SettingsController.php:275
+#: /app/lib/Controller/SettingsController.php:275
 #, php-format
 msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
 msgstr ""
-"Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen "
-"Wahrheitswert konvertiert werden."
 
-#: lib/Controller/SettingsController.php:298
+#: /app/lib/Controller/SettingsController.php:298
 #, php-format
 msgid ""
 "The target folder template \"%1$s\" must contain the archive-file "
 "placeholder \"%2$s\"."
-msgstr "Die Schablone für den Zielordner-Namen \"%1$s\" muss den Platzhalter \"%2$s\" für den Archivnamen enthalten.<\n\n"
+msgstr ""
 
-#: lib/Controller/SettingsController.php:304
+#: /app/lib/Controller/SettingsController.php:304
 #, php-format
 msgid "Unknown personal setting: \"%s\"."
-msgstr "Unbekannte perönliche Einstellung: \"%1$s\""
+msgstr ""
 
-#: lib/Controller/SettingsController.php:418
+#: /app/lib/Controller/SettingsController.php:418
 #, php-format
 msgid "Unable to parse memory size limit \"%s\""
-msgstr "Kann das Speicher-Limit nicht interpretieren: \"%s\""
+msgstr ""
 
-#: lib/Service/ArchiveService.php:227 lib/Service/ArchiveService.php:233
+#: /app/lib/Service/ArchiveService.php:236
+#: /app/lib/Service/ArchiveService.php:242
 #, php-format
 msgid "Unable to open archive file %s (%s)"
-msgstr "Kann die Archive Datei %s (%s) nicht öffnen"
+msgstr ""
 
-#: lib/Service/ArchiveService.php:245
+#: /app/lib/Service/ArchiveService.php:254
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
 msgstr ""
-"Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s"
 
-#: lib/Service/ArchiveService.php:262 lib/Service/ArchiveService.php:310
-#: lib/Service/ArchiveService.php:332 lib/Service/ArchiveService.php:346
+#: /app/lib/Service/ArchiveService.php:271
+#: /app/lib/Service/ArchiveService.php:337
+#: /app/lib/Service/ArchiveService.php:359
+#: /app/lib/Service/ArchiveService.php:373
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
-"Mit dieser Archivierungs-Service-Instanz ist keine Archiv-Datei assoziiert."
 
-#: lib/Service/AssetService.php:87
+#: /app/lib/Service/AssetService.php:87
 #, php-format
 msgid ""
-"Installation problem; the required %s-resource \"%s\" is not installed on "
-"the server,\n"
+"Installation problem; the required %s-resource \"%s\" is not installed on the server,\n"
 " please contact the system administrator!"
 msgstr ""
-"Installationsproblem; die benötigte %s-Ressource \"%s\" ist auf dem Server "
-"nicht installiert, bitte den System-Administrator kontaktiern."
 
-#: lib/Settings/AdminSection.php:72 lib/Settings/PersonalSection.php:72
+#: /app/lib/Settings/AdminSection.php:72
+#: /app/lib/Settings/PersonalSection.php:72
 msgid "Archive Explorer"
-msgstr "Archiv-Betrachter"
+msgstr ""
 
-#: lib/Traits/ResponseTrait.php:79
+#: /app/lib/Traits/ResponseTrait.php:79
 msgid "Error, caught an exception."
-msgstr "Fehler, \"Ausnahme\" \"aufgefangen\"."
+msgstr ""
 
-#: lib/Traits/ResponseTrait.php:80
+#: /app/lib/Traits/ResponseTrait.php:80
 msgid "Caused by previous exception"
-msgstr "Verursacht durch eine vorhergehende Ausnahme"
+msgstr ""
 
-#: lib/Traits/UtilTrait.php:257 lib/Traits/UtilTrait.php:259
+#: /app/lib/Traits/UtilTrait.php:257 /app/lib/Traits/UtilTrait.php:259
 msgid "bytes"
-msgstr "Bytes"
+msgstr ""
 
-#: specialAppInfoFakeDummyForL10nScript.php:2
+#: /app/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "Archive Manager"
-msgstr "Archiv-Betrachter"
+msgstr ""
 
-#: specialAppInfoFakeDummyForL10nScript.php:3
+#: /app/specialAppInfoFakeDummyForL10nScript.php:3
 msgid "On-the-fly archive inspector for Nextcloud"
-msgstr "Virtueller Archiv-Betrachter für Nextcloud"
+msgstr ""
 
-#: specialAppInfoFakeDummyForL10nScript.php:4
+#: /app/specialAppInfoFakeDummyForL10nScript.php:4
 msgid "Inspect, mount and extract archive files (zip, tar, etc.)"
 msgstr ""
-"Archiv-Dateien (zip, tar, ...) als virtuelle Speicher einhängen und optional "
-"entpacken."
 
-#. TRANSLATORS src/AdminSettings.vue:25
-#: specialVueFakeDummyForL10nScript.js:2
+#. TRANSLATORS Settings.vue:25
+#: /app/specialVueFakeDummyForL10nScript.js:2
 msgid "Archive Manager, Admin Settings"
-msgstr "Archiv-Betrachter, Administrator-Einstellungen"
+msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:26
-#: specialVueFakeDummyForL10nScript.js:4
+#. TRANSLATORS Settings.vue:26
+#: /app/specialVueFakeDummyForL10nScript.js:4
 msgid "Archive Extraction"
-msgstr "Archiv-Dateien-Behandlung"
+msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:29
-#. TRANSLATORS src/PersonalSettings.vue:26
-#: specialVueFakeDummyForL10nScript.js:6 specialVueFakeDummyForL10nScript.js:14
+#. TRANSLATORS Settings.vue:29
+#. TRANSLATORS nalSettings.vue:26
+#: /app/specialVueFakeDummyForL10nScript.js:6
+#: /app/specialVueFakeDummyForL10nScript.js:14
 msgid "Archive Size Limit"
-msgstr "Archiv-Größen-Limitierung"
+msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:30
-#. TRANSLATORS src/PersonalSettings.vue:27
-#: specialVueFakeDummyForL10nScript.js:8 specialVueFakeDummyForL10nScript.js:16
+#. TRANSLATORS Settings.vue:30
+#. TRANSLATORS nalSettings.vue:27
+#: /app/specialVueFakeDummyForL10nScript.js:8
+#: /app/specialVueFakeDummyForL10nScript.js:16
 msgid ""
 "Disallow archive extraction for archives with decompressed size larger than "
 "this limit."
 msgstr ""
-"Verbiete das Entpacken für Archivdateien, deren Größe nach Dekomprimierung "
-"größer als diese Grenze ist."
 
-#. TRANSLATORS src/PersonalSettings.vue:22
-#: specialVueFakeDummyForL10nScript.js:10
+#. TRANSLATORS nalSettings.vue:22
+#: /app/specialVueFakeDummyForL10nScript.js:10
 msgid "Archive Manager, Personal Settings"
-msgstr "Archiv-Betrachter, Persönliche Einstellungen"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:23
-#: specialVueFakeDummyForL10nScript.js:12
+#. TRANSLATORS nalSettings.vue:23
+#: /app/specialVueFakeDummyForL10nScript.js:12
 msgid "Security Options"
-msgstr "Einstellunhen zur Sicherheit"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:32
-#: specialVueFakeDummyForL10nScript.js:18
+#. TRANSLATORS nalSettings.vue:32
+#: /app/specialVueFakeDummyForL10nScript.js:18
 msgid "Administrative size limit: {value}"
-msgstr "Größenbegrenzen durch Administrator*innen: {value}"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:35
-#. TRANSLATORS src/views/FilesTab.vue:186
-#: specialVueFakeDummyForL10nScript.js:20
-#: specialVueFakeDummyForL10nScript.js:82
+#. TRANSLATORS nalSettings.vue:35
+#. TRANSLATORS /FilesTab.vue:190
+#: /app/specialVueFakeDummyForL10nScript.js:20
+#: /app/specialVueFakeDummyForL10nScript.js:86
 msgid "Mount Options"
-msgstr "Einhänge-Optionen"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:38
-#: specialVueFakeDummyForL10nScript.js:22
+#. TRANSLATORS nalSettings.vue:38
+#: /app/specialVueFakeDummyForL10nScript.js:22
 msgid "Template for the default-name of the mount-point"
-msgstr "Schablone für den voreingestellten Namen des Einhänge-Punkts"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:39
-#: specialVueFakeDummyForL10nScript.js:24
-#: specialVueFakeDummyForL10nScript.js:34
+#. TRANSLATORS nalSettings.vue:39
+#: /app/specialVueFakeDummyForL10nScript.js:24
+#: /app/specialVueFakeDummyForL10nScript.js:34
 msgid ""
 "{archiveFileName} will be replaced by the file-name of the archive-file "
 "without extensions."
-msgstr "{archiveFileName} wird durch den Dateinamen der Archiv-Datei ohne Dateinamenserweiterungen ersetzt."
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:51
-#: specialVueFakeDummyForL10nScript.js:26
-#: specialVueFakeDummyForL10nScript.js:36
+#. TRANSLATORS nalSettings.vue:51
+#: /app/specialVueFakeDummyForL10nScript.js:26
+#: /app/specialVueFakeDummyForL10nScript.js:36
 msgid "strip common path prefix by default"
-msgstr "gemeinsamen Dateipfad-Präfix normalerweise entfernen"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:62
-#: specialVueFakeDummyForL10nScript.js:28
+#. TRANSLATORS nalSettings.vue:62
+#: /app/specialVueFakeDummyForL10nScript.js:28
 msgid "automatically change the mount-point name if it already exists"
-msgstr "den Namen des Einhänge-Punktes automatisch ändern, falls der Name bereits in Verwendung ist"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:66
-#. TRANSLATORS src/views/FilesTab.vue:239
-#: specialVueFakeDummyForL10nScript.js:30
-#: specialVueFakeDummyForL10nScript.js:90
+#. TRANSLATORS nalSettings.vue:66
+#. TRANSLATORS /FilesTab.vue:243
+#: /app/specialVueFakeDummyForL10nScript.js:30
+#: /app/specialVueFakeDummyForL10nScript.js:94
 msgid "Extraction Options"
-msgstr "Einstellungen für das Entpacken"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:69
-#: specialVueFakeDummyForL10nScript.js:32
+#. TRANSLATORS nalSettings.vue:69
+#: /app/specialVueFakeDummyForL10nScript.js:32
 msgid "Template for the default-name of the extraction folder"
-msgstr "Schablone für den voreingestellten Ziel-Ordner für das Entpacken"
+msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:93
-#: specialVueFakeDummyForL10nScript.js:38
+#. TRANSLATORS nalSettings.vue:93
+#: /app/specialVueFakeDummyForL10nScript.js:38
 msgid ""
 "automatically change the target folder name if the target folder already "
 "exists"
-msgstr "den Namen des Ziel-Ordners automatisch ändern, falls der Name bereits in Verwendung ist"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:29
-#: specialVueFakeDummyForL10nScript.js:40
+#. TRANSLATORS /FilesTab.vue:29
+#: /app/specialVueFakeDummyForL10nScript.js:40
 msgid "Archive Information"
-msgstr "Archiv-Informationen"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:42
-#: specialVueFakeDummyForL10nScript.js:42
+#. TRANSLATORS /FilesTab.vue:42
+#: /app/specialVueFakeDummyForL10nScript.js:42
 msgid "archive status"
-msgstr "Archiv-Status"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:50
-#: specialVueFakeDummyForL10nScript.js:44
+#. TRANSLATORS /FilesTab.vue:50
+#: /app/specialVueFakeDummyForL10nScript.js:44
 msgid "archive format"
-msgstr "Archiv-Format"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:52
-#: specialVueFakeDummyForL10nScript.js:46
-#: specialVueFakeDummyForL10nScript.js:50
-#: specialVueFakeDummyForL10nScript.js:94
-#: specialVueFakeDummyForL10nScript.js:96
-#: specialVueFakeDummyForL10nScript.js:98
-#: specialVueFakeDummyForL10nScript.js:100
-#: specialVueFakeDummyForL10nScript.js:102
-#: specialVueFakeDummyForL10nScript.js:110
+#. TRANSLATORS /FilesTab.vue:52
+#: /app/specialVueFakeDummyForL10nScript.js:46
+#: /app/specialVueFakeDummyForL10nScript.js:50
+#: /app/specialVueFakeDummyForL10nScript.js:54
+#: /app/specialVueFakeDummyForL10nScript.js:98
+#: /app/specialVueFakeDummyForL10nScript.js:100
+#: /app/specialVueFakeDummyForL10nScript.js:102
+#: /app/specialVueFakeDummyForL10nScript.js:104
+#: /app/specialVueFakeDummyForL10nScript.js:106
+#: /app/specialVueFakeDummyForL10nScript.js:114
 msgid "unknown"
-msgstr "unbekannt"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:54
-#: specialVueFakeDummyForL10nScript.js:48
+#. TRANSLATORS /FilesTab.vue:54
+#: /app/specialVueFakeDummyForL10nScript.js:48
 msgid "MIME type"
-msgstr "MIME-Typ"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:58
-#: specialVueFakeDummyForL10nScript.js:52
+#. TRANSLATORS /FilesTab.vue:58
+#: /app/specialVueFakeDummyForL10nScript.js:52
+msgid "backend driver"
+msgstr ""
+
+#. TRANSLATORS /FilesTab.vue:62
+#: /app/specialVueFakeDummyForL10nScript.js:56
 msgid "uncompressed size"
-msgstr "Größe dekomprimiert"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:62
-#: specialVueFakeDummyForL10nScript.js:54
+#. TRANSLATORS /FilesTab.vue:66
+#: /app/specialVueFakeDummyForL10nScript.js:58
 msgid "compressed size"
-msgstr "Größe komprimiert"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:67
-#: specialVueFakeDummyForL10nScript.js:56
+#. TRANSLATORS /FilesTab.vue:71
+#: /app/specialVueFakeDummyForL10nScript.js:60
 msgid "archive file size"
-msgstr "Archive-Dateigröße"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:71
-#: specialVueFakeDummyForL10nScript.js:58
+#. TRANSLATORS /FilesTab.vue:75
+#: /app/specialVueFakeDummyForL10nScript.js:62
 msgid "# archive members"
-msgstr "Anzahl Archiv-Dateien"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:75
-#: specialVueFakeDummyForL10nScript.js:60
+#. TRANSLATORS /FilesTab.vue:79
+#: /app/specialVueFakeDummyForL10nScript.js:64
 msgid "common prefix"
-msgstr "Gemeinsamer Präfix"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:81
-#: specialVueFakeDummyForL10nScript.js:62
+#. TRANSLATORS /FilesTab.vue:85
+#: /app/specialVueFakeDummyForL10nScript.js:66
 msgid "creator's comment"
-msgstr "Erzeuger*in-Kommentar"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:94
-#: specialVueFakeDummyForL10nScript.js:64
+#. TRANSLATORS /FilesTab.vue:98
+#: /app/specialVueFakeDummyForL10nScript.js:68
 msgid "Passphrase"
-msgstr "Passwort"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:95
-#: specialVueFakeDummyForL10nScript.js:66
+#. TRANSLATORS /FilesTab.vue:99
+#: /app/specialVueFakeDummyForL10nScript.js:70
 msgid "unset"
-msgstr "nicht gesetzt"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:106
-#: specialVueFakeDummyForL10nScript.js:68
-#: specialVueFakeDummyForL10nScript.js:70
+#. TRANSLATORS /FilesTab.vue:110
+#: /app/specialVueFakeDummyForL10nScript.js:72
+#: /app/specialVueFakeDummyForL10nScript.js:74
 msgid "archive passphrase"
-msgstr "Archiv-Passwort"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:118
-#: specialVueFakeDummyForL10nScript.js:72
+#. TRANSLATORS /FilesTab.vue:122
+#: /app/specialVueFakeDummyForL10nScript.js:76
 msgid "Show Passphrase"
-msgstr "Passwort anzeigen"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:128
-#: specialVueFakeDummyForL10nScript.js:74
-#: specialVueFakeDummyForL10nScript.js:112
+#. TRANSLATORS /FilesTab.vue:132
+#: /app/specialVueFakeDummyForL10nScript.js:78
+#: /app/specialVueFakeDummyForL10nScript.js:116
 msgid "Mount Points"
-msgstr "Einhänge-Punkt"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:130
-#: specialVueFakeDummyForL10nScript.js:76
-#: specialVueFakeDummyForL10nScript.js:114
+#. TRANSLATORS /FilesTab.vue:134
+#: /app/specialVueFakeDummyForL10nScript.js:80
+#: /app/specialVueFakeDummyForL10nScript.js:118
 msgid "not mounted"
-msgstr "nicht eingehängt"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:159
-#: specialVueFakeDummyForL10nScript.js:78
+#. TRANSLATORS /FilesTab.vue:163
+#: /app/specialVueFakeDummyForL10nScript.js:82
 msgid "Common prefix {prefix} is stripped."
-msgstr "Gemeinsamer Präfix {prefix} wurde entfernt."
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:165
-#: specialVueFakeDummyForL10nScript.js:80
+#. TRANSLATORS /FilesTab.vue:169
+#: /app/specialVueFakeDummyForL10nScript.js:84
 msgid "Not mounted, create a new mount-point:"
-msgstr "Nicht eingehängt, erzeuge einen neuen Einhänge-Punkt:"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:195
-#: specialVueFakeDummyForL10nScript.js:84
-#: specialVueFakeDummyForL10nScript.js:92
+#. TRANSLATORS /FilesTab.vue:199
+#: /app/specialVueFakeDummyForL10nScript.js:88
+#: /app/specialVueFakeDummyForL10nScript.js:96
 msgid "strip common path prefix"
-msgstr "gemeinensamen Dateipfad-Präfix entfernen"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:206
-#: specialVueFakeDummyForL10nScript.js:86
+#. TRANSLATORS /FilesTab.vue:210
+#: /app/specialVueFakeDummyForL10nScript.js:90
 msgid "Extract Archive"
-msgstr "Archiv extrahieren"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:218
-#: specialVueFakeDummyForL10nScript.js:88
+#. TRANSLATORS /FilesTab.vue:222
+#: /app/specialVueFakeDummyForL10nScript.js:92
 msgid "Choose a directory to extract the archive to:"
-msgstr "Wähle ein Verzeichnis, in das das Archiv extrahiert wird:"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:353
-#: specialVueFakeDummyForL10nScript.js:104
+#. TRANSLATORS /FilesTab.vue:357
+#: /app/specialVueFakeDummyForL10nScript.js:108
 msgid "ok"
-msgstr "Ok"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:355
-#: specialVueFakeDummyForL10nScript.js:106
+#. TRANSLATORS /FilesTab.vue:359
+#: /app/specialVueFakeDummyForL10nScript.js:110
 msgid "zip bomb"
-msgstr "ZIP-Bombe"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:357
-#: specialVueFakeDummyForL10nScript.js:108
+#. TRANSLATORS /FilesTab.vue:361
+#: /app/specialVueFakeDummyForL10nScript.js:112
 msgid "too large"
-msgstr "zu groß"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:521
-#: specialVueFakeDummyForL10nScript.js:116
+#. TRANSLATORS /FilesTab.vue:525
+#: /app/specialVueFakeDummyForL10nScript.js:120
 msgid "Mount request failed with error {status}, \"{statusText}\"."
 msgstr ""
-"Einhänge-Anfrage ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\"."
 
-#. TRANSLATORS src/views/FilesTab.vue:564
-#: specialVueFakeDummyForL10nScript.js:118
+#. TRANSLATORS /FilesTab.vue:568
+#: /app/specialVueFakeDummyForL10nScript.js:122
 msgid "Unmount request failed with error {status}, \"{statusText}\"."
 msgstr ""
-"Aushänge-Anfrage ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\"."
 
-#. TRANSLATORS src/views/FilesTab.vue:602
-#: specialVueFakeDummyForL10nScript.js:120
+#. TRANSLATORS /FilesTab.vue:606
+#: /app/specialVueFakeDummyForL10nScript.js:124
 msgid "Archive-extraction failed with error {status}, \"{statusText}\"."
 msgstr ""
-"Entpacken des Archivs ist fehlgeschlagen, Fehler-Code {status}, "
-"\"{statusText}\"."
 
-#. TRANSLATORS src/views/FilesTab.vue:614
-#: specialVueFakeDummyForL10nScript.js:122
+#. TRANSLATORS /FilesTab.vue:618
+#: /app/specialVueFakeDummyForL10nScript.js:126
 msgid "Choose a prefix-folder"
-msgstr "Wähle den \"Eltern\"-Ordner"
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:625
-#: specialVueFakeDummyForL10nScript.js:124
+#. TRANSLATORS /FilesTab.vue:629
+#: /app/specialVueFakeDummyForL10nScript.js:128
 msgid "Invalid path selected: \"{dir}\"."
-msgstr "Es wurde ein ungültiger Pfad ausgewählt: {dir}."
+msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:661
-#: specialVueFakeDummyForL10nScript.js:128
+#. TRANSLATORS /FilesTab.vue:665
+#: /app/specialVueFakeDummyForL10nScript.js:132
 msgid "Patching the pass-phrase failed with error {status}, \"{statusText}\"."
 msgstr ""
-"Das Ändern des Passworts für aktive Einhänge-Punkte ist fehlgeschlagen, "
-"Fehler-Code {status}, \"{statusText}\"."
 
-#. TRANSLATORS src/views/FilesTab.vue:627
-#: specialVueFakeDummyForL10nScript.js:126
+#. TRANSLATORS /FilesTab.vue:631
+#: /app/specialVueFakeDummyForL10nScript.js:130
 msgid "Selected path: \"{dir}/{base}/\"."
-msgstr "Ausgewählter Datei-Pfad: \"{dir}/{base}\"."
+msgstr ""
 
-#: src/files-action.js:49 src/files-action.js:50
+#: /app/src/files-action.js:49 /app/src/files-action.js:50
 msgid "Mount Archive"
-msgstr "Archiv einhängen"
+msgstr ""
 
-#: src/files-action.js:88
+#: /app/src/files-action.js:88
 msgid "Unable to obtain mount-status for archive-file \"{archivePath}\"."
 msgstr ""
-"Kann den Einhänge-Status für die Archiv-Datei \"{archivePath}\" nicht "
-"ermitteln.\""
 
-#: src/files-action.js:96
-msgid ""
-"The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"."
+#: /app/src/files-action.js:96
+msgid "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"."
 msgstr ""
-"Die Archiv-Datei \"{archivePath}\" ist bereits an der Stelle "
-"\"{mountPointPath}\" eingehängt."
 
-#: src/files-action.js:128
+#: /app/src/files-action.js:128
 msgid "Archive"
-msgstr "Archiv"
+msgstr ""
 
-#: src/mixins/settings-sync.js:44 src/mixins/settings-sync.js:74
-#: src/mixins/settings-sync.js:124 src/mixins/settings-sync.js:199
+#: /app/src/mixins/settings-sync.js:44 /app/src/mixins/settings-sync.js:74
+#: /app/src/mixins/settings-sync.js:124 /app/src/mixins/settings-sync.js:199
 msgid "reason unknown"
-msgstr "Grund unbekannt"
+msgstr ""
 
-#: src/mixins/settings-sync.js:48
+#: /app/src/mixins/settings-sync.js:48
 msgid "Unable to query the initial value of all settings: {message}"
-msgstr "Kann die anfänglichen Werte der Einstellungen nicht abrufen: {message}"
+msgstr ""
 
-#: src/mixins/settings-sync.js:78
+#: /app/src/mixins/settings-sync.js:78
 msgid "Unable to query the initial value of {settingsKey}: {message}"
 msgstr ""
-"Kann die anfänglichen Wert der Einstellung {settingsKey} nicht abrufen: "
-"{message}"
 
-#: src/mixins/settings-sync.js:114 src/mixins/settings-sync.js:131
+#: /app/src/mixins/settings-sync.js:114 /app/src/mixins/settings-sync.js:131
 msgid "true"
-msgstr "wahr"
+msgstr ""
 
-#: src/mixins/settings-sync.js:117
+#: /app/src/mixins/settings-sync.js:117
 msgid "Successfully set \"{settingsKey}\" to {value}."
 msgstr ""
-"Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf "
-"\"{value}\" gesetzt."
 
-#: src/mixins/settings-sync.js:119
+#: /app/src/mixins/settings-sync.js:119
 msgid "Setting \"{settingsKey}\" has been unset successfully."
-msgstr "Die Einstellung \"{settingsKey}\" wurde erfolgreich gelöscht."
+msgstr ""
 
-#: src/mixins/settings-sync.js:129
+#: /app/src/mixins/settings-sync.js:129
 msgid "Unable to set \"{settingsKey}\" to {value}: {message}."
 msgstr ""
-"Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert "
-"\"{value}\" setzen: {message}"
 
-#: src/mixins/settings-sync.js:137
+#: /app/src/mixins/settings-sync.js:137
 msgid "false"
-msgstr "falsch"
+msgstr ""
 
-#: src/mixins/settings-sync.js:135
+#: /app/src/mixins/settings-sync.js:135
 msgid "Unable to unset \"{settingsKey}\": {message}"
-msgstr "Kann die Einstellung \"{settingsKey}\" nicht löschen: {message}>\n"
+msgstr ""
 
-#: src/mixins/settings-sync.js:166
+#: /app/src/mixins/settings-sync.js:166
 msgid "Confirmation Required"
-msgstr "Bestätigung erforderlich!"
+msgstr ""
 
-#: src/mixins/settings-sync.js:171
+#: /app/src/mixins/settings-sync.js:171
 msgid "Unconfirmed, reverting to old value."
-msgstr "Bestätigung nicht erteilt, setze auf den alten Wert zurück."
+msgstr ""
 
-#: src/mixins/settings-sync.js:191
+#: /app/src/mixins/settings-sync.js:191
 msgid "Successfully set value for \"{settingsKey}\" to \"{displayValue}\""
 msgstr ""
-"Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf "
-"\"{displayValue}\" gesetzt"
 
-#: src/mixins/settings-sync.js:193
+#: /app/src/mixins/settings-sync.js:193
 msgid "Setting \"{setting}\" has been unset successfully."
-msgstr "Die Einstellung \"{setting}\" wurde erfolgreich gelöscht."
+msgstr ""
 
-#: src/mixins/settings-sync.js:207
+#: /app/src/mixins/settings-sync.js:207
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
-"Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert "
-"\"{value}\" setzen: {message}"
 
-#: src/util/ajax.js:35
+#: /app/src/util/ajax.js:35
 msgid "OK"
-msgstr "Fein"
+msgstr ""
 
-#: src/util/ajax.js:36
+#: /app/src/util/ajax.js:36
 msgid "Created"
-msgstr "Erzeugt"
+msgstr ""
 
-#: src/util/ajax.js:37
+#: /app/src/util/ajax.js:37
 msgid "Accepted"
-msgstr "Akzeptiert"
+msgstr ""
 
-#: src/util/ajax.js:38
+#: /app/src/util/ajax.js:38
 msgid "Non-Authoritative Information"
-msgstr "Unverbindliche Information"
+msgstr ""
 
-#: src/util/ajax.js:39
+#: /app/src/util/ajax.js:39
 msgid "No Content"
-msgstr "Antwort enthält keine Daten"
+msgstr ""
 
-#: src/util/ajax.js:40
+#: /app/src/util/ajax.js:40
 msgid "Reset Content"
-msgstr "Inhalt zurückgesetzt"
+msgstr ""
 
-#: src/util/ajax.js:41
+#: /app/src/util/ajax.js:41
 msgid "Partial Content"
-msgstr "Unvollständige Antwort"
+msgstr ""
 
-#: src/util/ajax.js:42
+#: /app/src/util/ajax.js:42
 msgid "Multi-Status (WebDAV)"
-msgstr "Multi-Status (WebDAV)"
+msgstr ""
 
-#: src/util/ajax.js:43
+#: /app/src/util/ajax.js:43
 msgid "Already Reported (WebDAV)"
-msgstr "Bereits berichtet (WebDAV)"
+msgstr ""
 
-#: src/util/ajax.js:44
+#: /app/src/util/ajax.js:44
 msgid "IM Used"
-msgstr "IM verwendet"
+msgstr ""
 
-#: src/util/ajax.js:45
+#: /app/src/util/ajax.js:45
 msgid "Multiple Choices"
-msgstr "Mehrere Wahlmöglichkeiten"
+msgstr ""
 
-#: src/util/ajax.js:46
+#: /app/src/util/ajax.js:46
 msgid "Moved Permanently"
-msgstr "Permanent verschoben"
+msgstr ""
 
-#: src/util/ajax.js:47
+#: /app/src/util/ajax.js:47
 msgid "Found"
-msgstr "Gefunden"
+msgstr ""
 
-#: src/util/ajax.js:48
+#: /app/src/util/ajax.js:48
 msgid "See Other"
-msgstr "Siehe andere Web-Adresse"
+msgstr ""
 
-#: src/util/ajax.js:49
+#: /app/src/util/ajax.js:49
 msgid "Not Modified"
-msgstr "Unverändert"
+msgstr ""
 
-#: src/util/ajax.js:50
+#: /app/src/util/ajax.js:50
 msgid "Use Proxy"
-msgstr "Benutze einen Proxy"
+msgstr ""
 
-#: src/util/ajax.js:51
+#: /app/src/util/ajax.js:51
 msgid "(Unused)"
-msgstr "(Unbenutzt)"
+msgstr ""
 
-#: src/util/ajax.js:52
+#: /app/src/util/ajax.js:52
 msgid "Temporary Redirect"
-msgstr "Zeitweilige Umleitung"
+msgstr ""
 
-#: src/util/ajax.js:53
+#: /app/src/util/ajax.js:53
 msgid "Permanent Redirect (experimental)"
-msgstr "Permanente Umleitung"
+msgstr ""
 
-#: src/util/ajax.js:54
+#: /app/src/util/ajax.js:54
 msgid "Bad Request"
-msgstr "Ungültige Anfrage"
+msgstr ""
 
-#: src/util/ajax.js:55
+#: /app/src/util/ajax.js:55
 msgid "Unauthorized"
-msgstr "Nicht autorisiert"
+msgstr ""
 
-#: src/util/ajax.js:56
+#: /app/src/util/ajax.js:56
 msgid "Payment Required"
-msgstr "Bezahlung erforderlich"
+msgstr ""
 
-#: src/util/ajax.js:57
+#: /app/src/util/ajax.js:57
 msgid "Forbidden"
-msgstr "Verboten"
+msgstr ""
 
-#: src/util/ajax.js:58
+#: /app/src/util/ajax.js:58
 msgid "Not Found"
-msgstr "Unauffindbar"
+msgstr ""
 
-#: src/util/ajax.js:59
+#: /app/src/util/ajax.js:59
 msgid "Method Not Allowed"
-msgstr "Anfragemethode nicht zulässig"
+msgstr ""
 
-#: src/util/ajax.js:60
+#: /app/src/util/ajax.js:60
 msgid "Not Acceptable"
-msgstr "Nicht akzeptabel"
+msgstr ""
 
-#: src/util/ajax.js:61
+#: /app/src/util/ajax.js:61
 msgid "Proxy Authentication Required"
-msgstr "Proxy-Authentifizierung erforderlich"
+msgstr ""
 
-#: src/util/ajax.js:62
+#: /app/src/util/ajax.js:62
 msgid "Request Timeout"
-msgstr "Anfrage-Zeitüberschreitung"
+msgstr ""
 
-#: src/util/ajax.js:63
+#: /app/src/util/ajax.js:63
 msgid "Conflict"
-msgstr "Konflikt"
+msgstr ""
 
-#: src/util/ajax.js:64
+#: /app/src/util/ajax.js:64
 msgid "Gone"
-msgstr "Weg"
+msgstr ""
 
-#: src/util/ajax.js:65
+#: /app/src/util/ajax.js:65
 msgid "Length Required"
-msgstr "Länge benötigt"
+msgstr ""
 
-#: src/util/ajax.js:66
+#: /app/src/util/ajax.js:66
 msgid "Precondition Failed"
-msgstr "Vorbedingung nicht erfüllt"
+msgstr ""
 
-#: src/util/ajax.js:67
+#: /app/src/util/ajax.js:67
 msgid "Request Entity Too Large"
-msgstr "Anfrage-Daten zu groß"
+msgstr ""
 
-#: src/util/ajax.js:68
+#: /app/src/util/ajax.js:68
 msgid "Request-URI Too Long"
-msgstr "Anfrage-URI zu lang"
+msgstr ""
 
-#: src/util/ajax.js:69
+#: /app/src/util/ajax.js:69
 msgid "Unsupported Media Type"
-msgstr "Nicht unterstützter Medien-Typ"
+msgstr ""
 
-#: src/util/ajax.js:70
+#: /app/src/util/ajax.js:70
 msgid "Requested Range Not Satisfiable"
-msgstr "Angeforderter Bereich nicht möglich"
+msgstr ""
 
-#: src/util/ajax.js:71
+#: /app/src/util/ajax.js:71
 msgid "Expectation Failed"
-msgstr "Erwartete Operation Fehlgeschlagen"
+msgstr ""
 
-#: src/util/ajax.js:72
+#: /app/src/util/ajax.js:72
 msgid "I'm a teapot (RFC 2324)"
-msgstr "Ich bin eine Teekanne (RFC 2324)"
+msgstr ""
 
-#: src/util/ajax.js:73
+#: /app/src/util/ajax.js:73
 msgid "Enhance Your Calm (Twitter)"
-msgstr "Verstärke Deine Ruhe (Twitter)"
+msgstr ""
 
-#: src/util/ajax.js:74
+#: /app/src/util/ajax.js:74
 msgid "Unprocessable Entity (WebDAV)"
-msgstr "Nicht-verarbeitbarer Entrag (WebDAV)"
+msgstr ""
 
-#: src/util/ajax.js:75
+#: /app/src/util/ajax.js:75
 msgid "Locked (WebDAV)"
-msgstr "Gesperrt (WebDAV)"
+msgstr ""
 
-#: src/util/ajax.js:76
+#: /app/src/util/ajax.js:76
 msgid "Failed Dependency (WebDAV)"
-msgstr "Abhängigkeit fehlgeschlagen (WebDAV)"
+msgstr ""
 
-#: src/util/ajax.js:77
+#: /app/src/util/ajax.js:77
 msgid "Reserved for WebDAV"
-msgstr "Reserviert für WebDAV"
+msgstr ""
 
-#: src/util/ajax.js:78
+#: /app/src/util/ajax.js:78
 msgid "Upgrade Required"
-msgstr "Aufwertung benötigt"
+msgstr ""
 
-#: src/util/ajax.js:79
+#: /app/src/util/ajax.js:79
 msgid "Precondition Required"
-msgstr "Vorbedingung erforderlich"
+msgstr ""
 
-#: src/util/ajax.js:80
+#: /app/src/util/ajax.js:80
 msgid "Too Many Requests"
-msgstr "Zu viele Anfragen."
+msgstr ""
 
-#: src/util/ajax.js:81
+#: /app/src/util/ajax.js:81
 msgid "Request Header Fields Too Large"
-msgstr "Anfrage-Kopfzeilen zu lang"
+msgstr ""
 
-#: src/util/ajax.js:82
+#: /app/src/util/ajax.js:82
 msgid "No Response (Nginx)"
-msgstr "Keine Antwort (Nginx)"
+msgstr ""
 
-#: src/util/ajax.js:83
+#: /app/src/util/ajax.js:83
 msgid "Retry With (Microsoft)"
-msgstr "Wiederholen mit (Microsoft)"
+msgstr ""
 
-#: src/util/ajax.js:84
+#: /app/src/util/ajax.js:84
 msgid "Blocked by Windows Parental Controls (Microsoft)"
-msgstr "Blockiert von Windows-Kindersicherung (Microsoft)"
+msgstr ""
 
-#: src/util/ajax.js:85
+#: /app/src/util/ajax.js:85
 msgid "Unavailable For Legal Reasons"
-msgstr "Nicht verfügbar aus rechtlichen Gründen"
+msgstr ""
 
-#: src/util/ajax.js:86
+#: /app/src/util/ajax.js:86
 msgid "Client Closed Request (Nginx)"
-msgstr "Anwender-Programm hat die Anfrage beendet (Nginx)"
+msgstr ""
 
-#: src/util/ajax.js:87
+#: /app/src/util/ajax.js:87
 msgid "Internal Server Error"
-msgstr "Interner Server-Fehler"
+msgstr ""
 
-#: src/util/ajax.js:88
+#: /app/src/util/ajax.js:88
 msgid "Not Implemented"
-msgstr "Nicht implementiert"
+msgstr ""
 
-#: src/util/ajax.js:89
+#: /app/src/util/ajax.js:89
 msgid "Bad Gateway"
-msgstr "Schlechte Netzübergangseinheit"
+msgstr ""
 
-#: src/util/ajax.js:90
+#: /app/src/util/ajax.js:90
 msgid "Service Unavailable"
-msgstr "Dienst nicht verfügbar"
+msgstr ""
 
-#: src/util/ajax.js:91
+#: /app/src/util/ajax.js:91
 msgid "Gateway Timeout"
-msgstr "Zeitüberschreitung bei der Netzübergangseinheit"
+msgstr ""
 
-#: src/util/ajax.js:92
+#: /app/src/util/ajax.js:92
 msgid "HTTP Version Not Supported"
-msgstr "HTTP-Version nicht unterstützt"
+msgstr ""
 
-#: src/util/ajax.js:93
+#: /app/src/util/ajax.js:93
 msgid "Variant Also Negotiates (Experimental)"
-msgstr "Variante handelt außerdem aus (Experimenmtell)"
+msgstr ""
 
-#: src/util/ajax.js:94
+#: /app/src/util/ajax.js:94
 msgid "Insufficient Storage (WebDAV)"
-msgstr "Zu wenig Speicherplatz (WebDAV)"
+msgstr ""
 
-#: src/util/ajax.js:95
+#: /app/src/util/ajax.js:95
 msgid "Loop Detected (WebDAV)"
-msgstr "Zirkel entdeckt (WebDAV)"
+msgstr ""
 
-#: src/util/ajax.js:96
+#: /app/src/util/ajax.js:96
 msgid "Bandwidth Limit Exceeded (Apache)"
-msgstr "Bandbreiten-Beschränkung überschritten (Apache)"
+msgstr ""
 
-#: src/util/ajax.js:97
+#: /app/src/util/ajax.js:97
 msgid "Not Extended"
-msgstr "Nicht erweitert"
+msgstr ""
 
-#: src/util/ajax.js:98
+#: /app/src/util/ajax.js:98
 msgid "Network Authentication Required"
-msgstr "Netzwerk-Authentifizierung erforderlich"
+msgstr ""
 
-#: src/util/ajax.js:99
+#: /app/src/util/ajax.js:99
 msgid "Network read timeout error"
-msgstr "Netzwerk Lese-Zeitüberschreitung"
+msgstr ""
 
-#: src/util/ajax.js:100
+#: /app/src/util/ajax.js:100
 msgid "Network connect timeout error"
-msgstr "Netzwerk Verbindungs-Zeitüberschreitung"
+msgstr ""
 
-#: src/util/ajax.js:157
+#: /app/src/util/ajax.js:157
 msgid "Operation cancelled by user."
-msgstr "Benutzer:in hat den Vorgang abgebrochen"
+msgstr ""
 
-#: src/util/ajax.js:160
+#: /app/src/util/ajax.js:160
 msgid "Aborted"
-msgstr "Abgebrochen"
+msgstr ""
 
-#: src/util/ajax.js:173 src/util/ajax.js:366
+#: /app/src/util/ajax.js:173 /app/src/util/ajax.js:366
 msgid "Error"
-msgstr "Fehler"
+msgstr ""
 
-#: src/util/ajax.js:198
+#: /app/src/util/ajax.js:198
 msgid "System Administrator"
-msgstr "System-Administrator"
+msgstr ""
 
-#: src/util/ajax.js:233
+#: /app/src/util/ajax.js:233
 msgid "Feedback email: {AutoReport}"
-msgstr "Rückmeldung per Email: {AutoReport}"
+msgstr ""
 
-#: src/util/ajax.js:257
+#: /app/src/util/ajax.js:257
 msgid "Something went wrong."
-msgstr "Irgendetwas ist schief gelaufen."
+msgstr ""
 
-#: src/util/ajax.js:259
+#: /app/src/util/ajax.js:259
 msgid ""
 "If it should be the case that you are already logged in for a long time "
 "without interacting with the web-app, then the reason for this error is "
 "probably a simple timeout."
 msgstr ""
-"Falls Du bereits längere Zeit angemeldet bist, ohne mit der Web-App zu\n"
-"interagieren, dann ist das der Grund für den Fehler."
 
-#: src/util/ajax.js:264
+#: /app/src/util/ajax.js:264
 msgid ""
 "I any case it may help to logoff and logon again, as a temporary work-"
-"around. You will be redirected to the log-in page when you close this window."
+"around. You will be redirected to the log-in page when you close this "
+"window."
 msgstr ""
-"Als einstweiligen `Work-Around' kann man in jedem Fall versuchen, sich\n"
-"ab- und wieder an zu melden und den Vorgang zu wiederholen. Wenn Du\n"
-"dieses Fenster schließt, wirst Du zur Login-Seite weiter geleitet."
 
-#: src/util/ajax.js:314
+#: /app/src/util/ajax.js:314
 msgid ""
 "Unrecoverable unknown internal error, no further information available, "
 "sorry."
 msgstr ""
-"Tut uns leid, unbekannte interner Fehler, weitere Informationen sind\n"
-"leider nicht verfügbar."
 
-#: src/util/ajax.js:316
+#: /app/src/util/ajax.js:316
 msgid "Internal Error"
-msgstr "Irgendein Fehler"
-
-#: src/util/ajax.js:323
-msgid "Field {RequiredField} not present in AJAX response."
-msgstr "In der AJAX-Antwort fehlt das Feld {RequiredField}."
-
-#: src/util/ajax.js:332
-msgid "Missing data"
-msgstr "Fehlende Daten"
-
-#: src/util/ajax.js:344
-msgid ""
-"The submitted data \"{stringValue}\" seems to be a plain string, but we need "
-"an object where the data is provided through above listed properties."
 msgstr ""
-"Die übermittelten Daten \"{stringValue}\" scheinen eine einfache "
-"Zeichenkette zu sein, benötigt wird jedoch ein JavaScript-Obekt, das die "
-"Daten über die oben aufgeführten (fehlenden) Objekt-Eigenschaften zu "
-"Verfügung stellt."
 
-#: src/util/ajax.js:347
+#: /app/src/util/ajax.js:323
+msgid "Field {RequiredField} not present in AJAX response."
+msgstr ""
+
+#: /app/src/util/ajax.js:332
+msgid "Missing data"
+msgstr ""
+
+#: /app/src/util/ajax.js:344
+msgid ""
+"The submitted data \"{stringValue}\" seems to be a plain string, but we need"
+" an object where the data is provided through above listed properties."
+msgstr ""
+
+#: /app/src/util/ajax.js:347
 msgid "Error: plain string received"
-msgstr "Fehler: einfache Zeichenkette empfangen"
+msgstr ""
 
-#: src/util/ajax.js:352
+#: /app/src/util/ajax.js:352
 msgid ""
 "The submitted data is not a plain object, and does not provide the "
 "properties listed above."
 msgstr ""
-"Die übermittelten DAten sind kein einfaches Objekt und beinhalteten nicht "
-"die oben aufgeführten benötigten Eigentschaften."
 
-#: src/util/ajax.js:355
+#: /app/src/util/ajax.js:355
 msgid "Error: not a plain object"
-msgstr "Fehler: kein einfaches Objekt"
+msgstr ""
 
-#: src/util/ajax.js:395
+#: /app/src/util/ajax.js:395
 msgid "Unknown JSON error response to AJAX call: {status} / {error}"
-msgstr "Unbekannte JSON Fehler-Antwort auf AJAX-Anfrage: {status} / {error}"
+msgstr ""
 
-#: src/util/ajax.js:403
+#: /app/src/util/ajax.js:403
 msgid "HTTP error response to AJAX call: {code} / {error}"
-msgstr "HTTP Fehler-Antwort auf AJAX-Anfrage: {code} / {error}"
+msgstr ""
 
-#: src/util/dialogs.js:69
+#: /app/src/util/dialogs.js:69
 msgid "No"
-msgstr "Nein"
+msgstr ""
 
-#: src/util/dialogs.js:70
+#: /app/src/util/dialogs.js:70
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
-#: src/util/dialogs.js:105
+#: /app/src/util/dialogs.js:105
 msgid "Debug Information"
-msgstr "Debug Informationen"
-
-#~ msgid ""
-#~ "Mounting archive files located in external or shared storage is not "
-#~ "supported as of now."
-#~ msgstr ""
-#~ "Das Einhängen von Archiv-Dateien, die auf externen oder geteilten "
-#~ "Speichern liegen, ist derzeit leider nicht unterstützt."
-
-#, php-format
-#~ msgid "Archive \"%1$s\" is a potential zip bomp, size %2$d > %3$d"
-#~ msgstr ""
-#~ "Das Archiv \"%1$s\" ist eine potentielle ZIP-Bombe, Größe  %2$d > %3$d"
-
-#~ msgid ""
-#~ "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"."
-#~ msgstr ""
-#~ "Die Archiv-Datei \"{archivePath}\" wurde an der Stelle "
-#~ "\"{mountPointPath}\" eingehängt."
-
-#~ msgid "pass through"
-#~ msgstr "durchwinken"
-
-#, php-format
-#~ msgid ""
-#~ "Universal converter \"%1$s\" fas failed trying to convert mime-type "
-#~ "\"%2$s\""
-#~ msgstr ""
-#~ "Das Umwandlungsprogramm \"%1$s\" konnte eine Datei mit Mime-Typ \"%2$s\" "
-#~ "nicht konvertieren"
-
-#, php-format
-#~ msgid "Converter \"%1$s\" has failed trying to convert mime-type \"%2$s\""
-#~ msgstr ""
-#~ "Das Umwandlungsprogramm \"%1$s\" konnte eine Datei mit Mime-Typ \"%2$s\" "
-#~ "nicht konvertieren"
-
-#, php-format
-#~ msgid "Please install the \"%s\" program on the server."
-#~ msgstr "Bitte das \"%s\"-Programm auf dem Server installieren."
-
-#~ msgid "Combining PDFs failed"
-#~ msgstr "Das Zusammenfügen der PDFs ist fehlgeschlagen"
-
-#~ msgid "PDF Downloader"
-#~ msgstr "PDF Download-App"
-
-#~ msgid "Recursive PDF Downloader"
-#~ msgstr "Rekursive PDF-Download Anwendung"
-
-#~ msgid ""
-#~ "Recusively convert entire directory trees to PDF and provide the "
-#~ "resulting document as download"
-#~ msgstr ""
-#~ "Konvertiert die Dateien ganzer Verzeichnisbäume in das PDF-Format und "
-#~ "präsentiert das Ergebnis als PDF-Download."
-
-#~ msgid ""
-#~ "On-the-fly extraction of archive files. If enabled users can control this "
-#~ "setting on a per-user basis."
-#~ msgstr ""
-#~ "Transparentes extrahieren von Archiv-Dateien. Falls aktiviert, können die "
-#~ "einzelnen Benutzer die Einstellung für sich selbst ändern."
-
-#~ msgid "Custom Converter Scripts"
-#~ msgstr "Eigene Konvertierungs-Skripte"
-
-#~ msgid "Disable the builtin-converters."
-#~ msgstr "Voreingestellte Konverter deaktivieren"
-
-#~ msgid "Universal Converter"
-#~ msgstr "Universeller Konverter"
-
-#~ msgid ""
-#~ "Full path to a filter-program to be executed first for all files. If it "
-#~ "fails, the other converters will be tried in turn."
-#~ msgstr ""
-#~ "Der vollständige Dateisystempfad zu einem Filter-Programm, dass zuerst "
-#~ "auf jede Datei angewendet wird. Falls das fehlschlägt, werden die "
-#~ "internen Konverter ausgeführt."
-
-#~ msgid "Fallback Converter"
-#~ msgstr "Rückfall-Konverter"
-
-#~ msgid ""
-#~ "Full path to a filter-program to be run when all other filters have "
-#~ "failed. If it fails an error page will be substituted for the failing "
-#~ "document."
-#~ msgstr ""
-#~ "Der vollständige Dateisystempfad zu einem Filter-Programm, das\n"
-#~ "ausgeführt wird, wenn kein anderer Konverter passt. Falls das\n"
-#~ "fehlschägt, wird eine Fehlerseite angezeit."
-
-#~ msgid "Converters"
-#~ msgstr "Konverter"
-
-#~ msgid "Status of the configured Converters"
-#~ msgstr "Status der konfigurierten Konverter"
-
-#~ msgid "converter chain"
-#~ msgstr "Konvertierungs-Pipeline"
-
-#~ msgid "single converter"
-#~ msgstr "Einzelkonverter"
-
-#~ msgid "alternatives"
-#~ msgstr "Alternativen"
-
-#~ msgid "converter"
-#~ msgstr "Konverter"
-
-#~ msgid "Decorations and Fonts"
-#~ msgstr "Seiten-Dekorierung und Schriftarten"
-
-#~ msgid "Label output pages with file-name and page-number"
-#~ msgstr "Kopfzeile mit ursprünglichem Dateinamen und Seitennummer einfügen."
-
-#~ msgid "Format of the page-label: BASENAME_CURRENT_FILE PAGE/FILE_PAGES"
-#~ msgstr ""
-#~ "Format der Seiten-Paginierung: DATEINAME_OHNE_ENDUNG #SEITE/#DATEI_SEITEN"
-
-#~ msgid "Font for generated PDF page-annotations"
-#~ msgstr "Schriftart für die Paginierung"
-
-#~ msgid "Select a Font"
-#~ msgstr "Wähle eine Schriftart!"
-
-#~ msgid "The font to use for the page-labels: {pageLabelsFont}"
-#~ msgstr "Schriftart für die Paginierung: {pageLabelsFont}"
-
-#~ msgid "Font for generated PDF (error-)pages"
-#~ msgstr "Schriftart für die erzeugten PDF-(Fehler-)Seiten"
-
-#~ msgid "The font to use for generated pages: {generatedPagesFont}"
-#~ msgstr "Akutelle Schriftart für erzeugte PDF-Seiten: {generatedPagesFont}"
-
-#~ msgid "Test Input"
-#~ msgstr "Test-Eingabe"
-
-#~ msgid "Test Hint"
-#~ msgstr "Test-Hinweis"
-
-#~ msgid "On-the-fly extraction of archive files."
-#~ msgstr "Transparentes extrahieren von Archiv-Dateien."
-
-#~ msgid ""
-#~ "On-the-fly extraction of archive files is disabled by the administrator."
-#~ msgstr ""
-#~ "Transparentes extrahieren von Archiv-Dateien wurde von "
-#~ "Administrator*innen deaktiviert."
-
-#~ msgid "Unable to obtain the list of available fonts: {message}"
-#~ msgstr "Kann die Schriftarten-Liste nicht erfragen: {message}"
-
-#~ msgid "Download PDF"
-#~ msgstr "PDF herunter laden"
-
-#~ msgid "unknown error"
-#~ msgstr "unbekannter Fehler"
-
-#~ msgid "Unable to download data from \"{url}\": {message}"
-#~ msgstr "Kann die Daten nicht von \"{url}\" laden: {message}"
-
-#, php-format
-#~ msgid "Unknown app setting: \"%1$s\""
-#~ msgstr "Unbekannte App-Einstellung: \"%1$s\""
-
-#~ msgid "Admin Settings"
-#~ msgstr "Administrative Einstellungen"
-
-#~ msgid "Recursive Pdf Downloader"
-#~ msgstr "Rekursive PDF-Download Anwendung"
-
-#~ msgid "Example setting"
-#~ msgstr "Beispiel-Einstellung"
-
-#~ msgid "Just to have something to show ..."
-#~ msgstr "Nur, um irgendwas zu zeigen..."
+msgstr ""

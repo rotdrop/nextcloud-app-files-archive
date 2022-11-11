@@ -8,199 +8,199 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-10 18:00+0100\n"
+"POT-Creation-Date: 2022-11-11 12:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Controller/ArchiveController.php:144
-#: lib/Controller/MountController.php:159
-#: lib/Controller/MountController.php:279
+#: /app/lib/Controller/ArchiveController.php:144
+#: /app/lib/Controller/MountController.php:159
+#: /app/lib/Controller/MountController.php:279
 #, php-format
 msgid "The user folder for user \"%s\" could not be opened."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:150
+#: /app/lib/Controller/ArchiveController.php:150
 #, php-format
 msgid "The archive file \"%s\" could not be found on the server."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:180
+#: /app/lib/Controller/ArchiveController.php:180
 #, php-format
 msgid "Unable to open the archive file \"%s\": %s."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:184
+#: /app/lib/Controller/ArchiveController.php:184
 #, php-format
 msgid "Error: %s"
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:218
-#: lib/Controller/MountController.php:174
+#: /app/lib/Controller/ArchiveController.php:218
+#: /app/lib/Controller/MountController.php:174
 #, php-format
 msgid "Unable to open the archive file \"%s\"."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:233
-#: lib/Controller/MountController.php:183
+#: /app/lib/Controller/ArchiveController.php:233
+#: /app/lib/Controller/MountController.php:183
 #, php-format
 msgid ""
 "The archive-file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > "
 "admin limit %3$s."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:237
-#: lib/Controller/MountController.php:187
+#: /app/lib/Controller/ArchiveController.php:237
+#: /app/lib/Controller/MountController.php:187
 #, php-format
 msgid ""
 "The archive-file \"%1$s\" is too large: uncompressed size %2$s > user limit "
 "%3$s."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:258
+#: /app/lib/Controller/ArchiveController.php:258
 #, php-format
 msgid "Unable to open the target parent-folder \"%s\"."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:264
+#: /app/lib/Controller/ArchiveController.php:264
 #, php-format
 msgid "The target-folder \"%s\" already exists and auto-rename is not enabled."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:304
+#: /app/lib/Controller/ArchiveController.php:304
 #, php-format
 msgid "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"."
 msgstr ""
 
-#: lib/Controller/ArchiveController.php:310
+#: /app/lib/Controller/ArchiveController.php:310
 #, php-format
 msgid "Extracting \"%1$s\" to \"%2$s\" succeeded."
 msgstr ""
 
-#: lib/Controller/CatchAllController.php:70
+#: /app/lib/Controller/CatchAllController.php:70
 #, php-format
 msgid "Post to end-point \"%s\" not implemented."
 msgstr ""
 
-#: lib/Controller/CatchAllController.php:73
+#: /app/lib/Controller/CatchAllController.php:73
 #, php-format
 msgid "Post to base-url of app \"%s\" not allowed."
 msgstr ""
 
-#: lib/Controller/CatchAllController.php:90
+#: /app/lib/Controller/CatchAllController.php:90
 #, php-format
 msgid "Get from end-point \"%s\" not implemented."
 msgstr ""
 
-#: lib/Controller/MountController.php:165
+#: /app/lib/Controller/MountController.php:165
 #, php-format
 msgid "\"%1$s\" is already mounted on \"%2$s\"."
 msgstr ""
 
-#: lib/Controller/MountController.php:210
+#: /app/lib/Controller/MountController.php:210
 #, php-format
 msgid "Unable to open parent-folder \"%1$s\" of moint-point \"%2$s\": %3$s."
 msgstr ""
 
-#: lib/Controller/MountController.php:218
+#: /app/lib/Controller/MountController.php:218
 #, php-format
 msgid "The mount point \"%s\" already exists and auto-rename is not enabled."
 msgstr ""
 
-#: lib/Controller/MountController.php:253
+#: /app/lib/Controller/MountController.php:253
 #, php-format
 msgid "Unable to update the file cache for the mount-point \"%1s\": %2$s."
 msgstr ""
 
-#: lib/Controller/MountController.php:274
+#: /app/lib/Controller/MountController.php:274
 #, php-format
 msgid "\"%s\" is not mounted."
 msgstr ""
 
-#: lib/Controller/MountController.php:291
+#: /app/lib/Controller/MountController.php:291
 #, php-format
 msgid "Directory \"%s\" should be a mount point, but it is not."
 msgstr ""
 
-#: lib/Controller/MountController.php:298
+#: /app/lib/Controller/MountController.php:298
 #, php-format
 msgid "Archive \"%1$s\" has been unmounted from \"%2$s\"."
 msgstr ""
 
-#: lib/Controller/MountController.php:357
+#: /app/lib/Controller/MountController.php:357
 msgid "Only the pass-phrase may be changed for an existing mount."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:141
-#: lib/Controller/SettingsController.php:250
-#: lib/Controller/SettingsController.php:346
-#: lib/Controller/SettingsController.php:385
+#: /app/lib/Controller/SettingsController.php:141
+#: /app/lib/Controller/SettingsController.php:250
+#: /app/lib/Controller/SettingsController.php:346
+#: /app/lib/Controller/SettingsController.php:385
 #, php-format
 msgid "Unknown personal setting: \"%1$s\""
 msgstr ""
 
-#: lib/Controller/SettingsController.php:144
+#: /app/lib/Controller/SettingsController.php:144
 #, php-format
 msgid "The personal setting \"%1$s\" is read-only"
 msgstr ""
 
-#: lib/Controller/SettingsController.php:160
-#: lib/Controller/SettingsController.php:199
-#: lib/Controller/SettingsController.php:220
+#: /app/lib/Controller/SettingsController.php:160
+#: /app/lib/Controller/SettingsController.php:199
+#: /app/lib/Controller/SettingsController.php:220
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
 msgstr ""
 
-#: lib/Controller/SettingsController.php:253
+#: /app/lib/Controller/SettingsController.php:253
 #, php-format
 msgid "Thge personal setting \"%1$s\" is read-only"
 msgstr ""
 
-#: lib/Controller/SettingsController.php:275
+#: /app/lib/Controller/SettingsController.php:275
 #, php-format
 msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:298
+#: /app/lib/Controller/SettingsController.php:298
 #, php-format
 msgid ""
 "The target folder template \"%1$s\" must contain the archive-file "
 "placeholder \"%2$s\"."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:304
+#: /app/lib/Controller/SettingsController.php:304
 #, php-format
 msgid "Unknown personal setting: \"%s\"."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:418
+#: /app/lib/Controller/SettingsController.php:418
 #, php-format
 msgid "Unable to parse memory size limit \"%s\""
 msgstr ""
 
-#: lib/Service/ArchiveService.php:227
-#: lib/Service/ArchiveService.php:233
+#: /app/lib/Service/ArchiveService.php:236
+#: /app/lib/Service/ArchiveService.php:242
 #, php-format
 msgid "Unable to open archive file %s (%s)"
 msgstr ""
 
-#: lib/Service/ArchiveService.php:245
+#: /app/lib/Service/ArchiveService.php:254
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
 msgstr ""
 
-#: lib/Service/ArchiveService.php:262
-#: lib/Service/ArchiveService.php:310
-#: lib/Service/ArchiveService.php:332
-#: lib/Service/ArchiveService.php:346
+#: /app/lib/Service/ArchiveService.php:271
+#: /app/lib/Service/ArchiveService.php:337
+#: /app/lib/Service/ArchiveService.php:359
+#: /app/lib/Service/ArchiveService.php:373
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 
-#: lib/Service/AssetService.php:87
+#: /app/lib/Service/AssetService.php:87
 #, php-format
 msgid ""
 "Installation problem; the required %s-resource \"%s\" is not installed on "
@@ -208,732 +208,732 @@ msgid ""
 " please contact the system administrator!"
 msgstr ""
 
-#: lib/Settings/AdminSection.php:72
-#: lib/Settings/PersonalSection.php:72
+#: /app/lib/Settings/AdminSection.php:72
+#: /app/lib/Settings/PersonalSection.php:72
 msgid "Archive Explorer"
 msgstr ""
 
-#: lib/Traits/ResponseTrait.php:79
+#: /app/lib/Traits/ResponseTrait.php:79
 msgid "Error, caught an exception."
 msgstr ""
 
-#: lib/Traits/ResponseTrait.php:80
+#: /app/lib/Traits/ResponseTrait.php:80
 msgid "Caused by previous exception"
 msgstr ""
 
-#: lib/Traits/UtilTrait.php:257
-#: lib/Traits/UtilTrait.php:259
+#: /app/lib/Traits/UtilTrait.php:257 /app/lib/Traits/UtilTrait.php:259
 msgid "bytes"
 msgstr ""
 
-#: specialAppInfoFakeDummyForL10nScript.php:2
+#: /app/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "Archive Manager"
 msgstr ""
 
-#: specialAppInfoFakeDummyForL10nScript.php:3
+#: /app/specialAppInfoFakeDummyForL10nScript.php:3
 msgid "On-the-fly archive inspector for Nextcloud"
 msgstr ""
 
-#: specialAppInfoFakeDummyForL10nScript.php:4
+#: /app/specialAppInfoFakeDummyForL10nScript.php:4
 msgid "Inspect, mount and extract archive files (zip, tar, etc.)"
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:25
-#: specialVueFakeDummyForL10nScript.js:2
+#. TRANSLATORS Settings.vue:25
+#: /app/specialVueFakeDummyForL10nScript.js:2
 msgid "Archive Manager, Admin Settings"
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:26
-#: specialVueFakeDummyForL10nScript.js:4
+#. TRANSLATORS Settings.vue:26
+#: /app/specialVueFakeDummyForL10nScript.js:4
 msgid "Archive Extraction"
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:29
-#. TRANSLATORS src/PersonalSettings.vue:26
-#: specialVueFakeDummyForL10nScript.js:6
-#: specialVueFakeDummyForL10nScript.js:14
+#. TRANSLATORS Settings.vue:29
+#. TRANSLATORS nalSettings.vue:26
+#: /app/specialVueFakeDummyForL10nScript.js:6
+#: /app/specialVueFakeDummyForL10nScript.js:14
 msgid "Archive Size Limit"
 msgstr ""
 
-#. TRANSLATORS src/AdminSettings.vue:30
-#. TRANSLATORS src/PersonalSettings.vue:27
-#: specialVueFakeDummyForL10nScript.js:8
-#: specialVueFakeDummyForL10nScript.js:16
+#. TRANSLATORS Settings.vue:30
+#. TRANSLATORS nalSettings.vue:27
+#: /app/specialVueFakeDummyForL10nScript.js:8
+#: /app/specialVueFakeDummyForL10nScript.js:16
 msgid ""
 "Disallow archive extraction for archives with decompressed size larger than "
 "this limit."
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:22
-#: specialVueFakeDummyForL10nScript.js:10
+#. TRANSLATORS nalSettings.vue:22
+#: /app/specialVueFakeDummyForL10nScript.js:10
 msgid "Archive Manager, Personal Settings"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:23
-#: specialVueFakeDummyForL10nScript.js:12
+#. TRANSLATORS nalSettings.vue:23
+#: /app/specialVueFakeDummyForL10nScript.js:12
 msgid "Security Options"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:32
-#: specialVueFakeDummyForL10nScript.js:18
+#. TRANSLATORS nalSettings.vue:32
+#: /app/specialVueFakeDummyForL10nScript.js:18
 msgid "Administrative size limit: {value}"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:35
-#. TRANSLATORS src/views/FilesTab.vue:186
-#: specialVueFakeDummyForL10nScript.js:20
-#: specialVueFakeDummyForL10nScript.js:82
+#. TRANSLATORS nalSettings.vue:35
+#. TRANSLATORS /FilesTab.vue:190
+#: /app/specialVueFakeDummyForL10nScript.js:20
+#: /app/specialVueFakeDummyForL10nScript.js:86
 msgid "Mount Options"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:38
-#: specialVueFakeDummyForL10nScript.js:22
+#. TRANSLATORS nalSettings.vue:38
+#: /app/specialVueFakeDummyForL10nScript.js:22
 msgid "Template for the default-name of the mount-point"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:39
-#: specialVueFakeDummyForL10nScript.js:24
-#: specialVueFakeDummyForL10nScript.js:34
+#. TRANSLATORS nalSettings.vue:39
+#: /app/specialVueFakeDummyForL10nScript.js:24
+#: /app/specialVueFakeDummyForL10nScript.js:34
 msgid ""
 "{archiveFileName} will be replaced by the file-name of the archive-file "
 "without extensions."
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:51
-#: specialVueFakeDummyForL10nScript.js:26
-#: specialVueFakeDummyForL10nScript.js:36
+#. TRANSLATORS nalSettings.vue:51
+#: /app/specialVueFakeDummyForL10nScript.js:26
+#: /app/specialVueFakeDummyForL10nScript.js:36
 msgid "strip common path prefix by default"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:62
-#: specialVueFakeDummyForL10nScript.js:28
+#. TRANSLATORS nalSettings.vue:62
+#: /app/specialVueFakeDummyForL10nScript.js:28
 msgid "automatically change the mount-point name if it already exists"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:66
-#. TRANSLATORS src/views/FilesTab.vue:239
-#: specialVueFakeDummyForL10nScript.js:30
-#: specialVueFakeDummyForL10nScript.js:90
+#. TRANSLATORS nalSettings.vue:66
+#. TRANSLATORS /FilesTab.vue:243
+#: /app/specialVueFakeDummyForL10nScript.js:30
+#: /app/specialVueFakeDummyForL10nScript.js:94
 msgid "Extraction Options"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:69
-#: specialVueFakeDummyForL10nScript.js:32
+#. TRANSLATORS nalSettings.vue:69
+#: /app/specialVueFakeDummyForL10nScript.js:32
 msgid "Template for the default-name of the extraction folder"
 msgstr ""
 
-#. TRANSLATORS src/PersonalSettings.vue:93
-#: specialVueFakeDummyForL10nScript.js:38
+#. TRANSLATORS nalSettings.vue:93
+#: /app/specialVueFakeDummyForL10nScript.js:38
 msgid ""
 "automatically change the target folder name if the target folder already "
 "exists"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:29
-#: specialVueFakeDummyForL10nScript.js:40
+#. TRANSLATORS /FilesTab.vue:29
+#: /app/specialVueFakeDummyForL10nScript.js:40
 msgid "Archive Information"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:42
-#: specialVueFakeDummyForL10nScript.js:42
+#. TRANSLATORS /FilesTab.vue:42
+#: /app/specialVueFakeDummyForL10nScript.js:42
 msgid "archive status"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:50
-#: specialVueFakeDummyForL10nScript.js:44
+#. TRANSLATORS /FilesTab.vue:50
+#: /app/specialVueFakeDummyForL10nScript.js:44
 msgid "archive format"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:52
-#: specialVueFakeDummyForL10nScript.js:46
-#: specialVueFakeDummyForL10nScript.js:50
-#: specialVueFakeDummyForL10nScript.js:94
-#: specialVueFakeDummyForL10nScript.js:96
-#: specialVueFakeDummyForL10nScript.js:98
-#: specialVueFakeDummyForL10nScript.js:100
-#: specialVueFakeDummyForL10nScript.js:102
-#: specialVueFakeDummyForL10nScript.js:110
+#. TRANSLATORS /FilesTab.vue:52
+#: /app/specialVueFakeDummyForL10nScript.js:46
+#: /app/specialVueFakeDummyForL10nScript.js:50
+#: /app/specialVueFakeDummyForL10nScript.js:54
+#: /app/specialVueFakeDummyForL10nScript.js:98
+#: /app/specialVueFakeDummyForL10nScript.js:100
+#: /app/specialVueFakeDummyForL10nScript.js:102
+#: /app/specialVueFakeDummyForL10nScript.js:104
+#: /app/specialVueFakeDummyForL10nScript.js:106
+#: /app/specialVueFakeDummyForL10nScript.js:114
 msgid "unknown"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:54
-#: specialVueFakeDummyForL10nScript.js:48
+#. TRANSLATORS /FilesTab.vue:54
+#: /app/specialVueFakeDummyForL10nScript.js:48
 msgid "MIME type"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:58
-#: specialVueFakeDummyForL10nScript.js:52
+#. TRANSLATORS /FilesTab.vue:58
+#: /app/specialVueFakeDummyForL10nScript.js:52
+msgid "backend driver"
+msgstr ""
+
+#. TRANSLATORS /FilesTab.vue:62
+#: /app/specialVueFakeDummyForL10nScript.js:56
 msgid "uncompressed size"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:62
-#: specialVueFakeDummyForL10nScript.js:54
+#. TRANSLATORS /FilesTab.vue:66
+#: /app/specialVueFakeDummyForL10nScript.js:58
 msgid "compressed size"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:67
-#: specialVueFakeDummyForL10nScript.js:56
+#. TRANSLATORS /FilesTab.vue:71
+#: /app/specialVueFakeDummyForL10nScript.js:60
 msgid "archive file size"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:71
-#: specialVueFakeDummyForL10nScript.js:58
+#. TRANSLATORS /FilesTab.vue:75
+#: /app/specialVueFakeDummyForL10nScript.js:62
 msgid "# archive members"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:75
-#: specialVueFakeDummyForL10nScript.js:60
+#. TRANSLATORS /FilesTab.vue:79
+#: /app/specialVueFakeDummyForL10nScript.js:64
 msgid "common prefix"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:81
-#: specialVueFakeDummyForL10nScript.js:62
+#. TRANSLATORS /FilesTab.vue:85
+#: /app/specialVueFakeDummyForL10nScript.js:66
 msgid "creator's comment"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:94
-#: specialVueFakeDummyForL10nScript.js:64
+#. TRANSLATORS /FilesTab.vue:98
+#: /app/specialVueFakeDummyForL10nScript.js:68
 msgid "Passphrase"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:95
-#: specialVueFakeDummyForL10nScript.js:66
+#. TRANSLATORS /FilesTab.vue:99
+#: /app/specialVueFakeDummyForL10nScript.js:70
 msgid "unset"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:106
-#: specialVueFakeDummyForL10nScript.js:68
-#: specialVueFakeDummyForL10nScript.js:70
+#. TRANSLATORS /FilesTab.vue:110
+#: /app/specialVueFakeDummyForL10nScript.js:72
+#: /app/specialVueFakeDummyForL10nScript.js:74
 msgid "archive passphrase"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:118
-#: specialVueFakeDummyForL10nScript.js:72
+#. TRANSLATORS /FilesTab.vue:122
+#: /app/specialVueFakeDummyForL10nScript.js:76
 msgid "Show Passphrase"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:128
-#: specialVueFakeDummyForL10nScript.js:74
-#: specialVueFakeDummyForL10nScript.js:112
+#. TRANSLATORS /FilesTab.vue:132
+#: /app/specialVueFakeDummyForL10nScript.js:78
+#: /app/specialVueFakeDummyForL10nScript.js:116
 msgid "Mount Points"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:130
-#: specialVueFakeDummyForL10nScript.js:76
-#: specialVueFakeDummyForL10nScript.js:114
+#. TRANSLATORS /FilesTab.vue:134
+#: /app/specialVueFakeDummyForL10nScript.js:80
+#: /app/specialVueFakeDummyForL10nScript.js:118
 msgid "not mounted"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:159
-#: specialVueFakeDummyForL10nScript.js:78
+#. TRANSLATORS /FilesTab.vue:163
+#: /app/specialVueFakeDummyForL10nScript.js:82
 msgid "Common prefix {prefix} is stripped."
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:165
-#: specialVueFakeDummyForL10nScript.js:80
+#. TRANSLATORS /FilesTab.vue:169
+#: /app/specialVueFakeDummyForL10nScript.js:84
 msgid "Not mounted, create a new mount-point:"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:195
-#: specialVueFakeDummyForL10nScript.js:84
-#: specialVueFakeDummyForL10nScript.js:92
+#. TRANSLATORS /FilesTab.vue:199
+#: /app/specialVueFakeDummyForL10nScript.js:88
+#: /app/specialVueFakeDummyForL10nScript.js:96
 msgid "strip common path prefix"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:206
-#: specialVueFakeDummyForL10nScript.js:86
+#. TRANSLATORS /FilesTab.vue:210
+#: /app/specialVueFakeDummyForL10nScript.js:90
 msgid "Extract Archive"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:218
-#: specialVueFakeDummyForL10nScript.js:88
+#. TRANSLATORS /FilesTab.vue:222
+#: /app/specialVueFakeDummyForL10nScript.js:92
 msgid "Choose a directory to extract the archive to:"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:353
-#: specialVueFakeDummyForL10nScript.js:104
+#. TRANSLATORS /FilesTab.vue:357
+#: /app/specialVueFakeDummyForL10nScript.js:108
 msgid "ok"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:355
-#: specialVueFakeDummyForL10nScript.js:106
+#. TRANSLATORS /FilesTab.vue:359
+#: /app/specialVueFakeDummyForL10nScript.js:110
 msgid "zip bomb"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:357
-#: specialVueFakeDummyForL10nScript.js:108
+#. TRANSLATORS /FilesTab.vue:361
+#: /app/specialVueFakeDummyForL10nScript.js:112
 msgid "too large"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:521
-#: specialVueFakeDummyForL10nScript.js:116
+#. TRANSLATORS /FilesTab.vue:525
+#: /app/specialVueFakeDummyForL10nScript.js:120
 msgid "Mount request failed with error {status}, \"{statusText}\"."
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:564
-#: specialVueFakeDummyForL10nScript.js:118
+#. TRANSLATORS /FilesTab.vue:568
+#: /app/specialVueFakeDummyForL10nScript.js:122
 msgid "Unmount request failed with error {status}, \"{statusText}\"."
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:602
-#: specialVueFakeDummyForL10nScript.js:120
+#. TRANSLATORS /FilesTab.vue:606
+#: /app/specialVueFakeDummyForL10nScript.js:124
 msgid "Archive-extraction failed with error {status}, \"{statusText}\"."
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:614
-#: specialVueFakeDummyForL10nScript.js:122
+#. TRANSLATORS /FilesTab.vue:618
+#: /app/specialVueFakeDummyForL10nScript.js:126
 msgid "Choose a prefix-folder"
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:625
-#: specialVueFakeDummyForL10nScript.js:124
+#. TRANSLATORS /FilesTab.vue:629
+#: /app/specialVueFakeDummyForL10nScript.js:128
 msgid "Invalid path selected: \"{dir}\"."
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:661
-#: specialVueFakeDummyForL10nScript.js:128
+#. TRANSLATORS /FilesTab.vue:665
+#: /app/specialVueFakeDummyForL10nScript.js:132
 msgid "Patching the pass-phrase failed with error {status}, \"{statusText}\"."
 msgstr ""
 
-#. TRANSLATORS src/views/FilesTab.vue:627
-#: specialVueFakeDummyForL10nScript.js:126
+#. TRANSLATORS /FilesTab.vue:631
+#: /app/specialVueFakeDummyForL10nScript.js:130
 msgid "Selected path: \"{dir}/{base}/\"."
 msgstr ""
 
-#: src/files-action.js:49
-#: src/files-action.js:50
+#: /app/src/files-action.js:49 /app/src/files-action.js:50
 msgid "Mount Archive"
 msgstr ""
 
-#: src/files-action.js:88
+#: /app/src/files-action.js:88
 msgid "Unable to obtain mount-status for archive-file \"{archivePath}\"."
 msgstr ""
 
-#: src/files-action.js:96
+#: /app/src/files-action.js:96
 msgid ""
 "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"."
 msgstr ""
 
-#: src/files-action.js:128
+#: /app/src/files-action.js:128
 msgid "Archive"
 msgstr ""
 
-#: src/mixins/settings-sync.js:44
-#: src/mixins/settings-sync.js:74
-#: src/mixins/settings-sync.js:124
-#: src/mixins/settings-sync.js:199
+#: /app/src/mixins/settings-sync.js:44 /app/src/mixins/settings-sync.js:74
+#: /app/src/mixins/settings-sync.js:124 /app/src/mixins/settings-sync.js:199
 msgid "reason unknown"
 msgstr ""
 
-#: src/mixins/settings-sync.js:48
+#: /app/src/mixins/settings-sync.js:48
 msgid "Unable to query the initial value of all settings: {message}"
 msgstr ""
 
-#: src/mixins/settings-sync.js:78
+#: /app/src/mixins/settings-sync.js:78
 msgid "Unable to query the initial value of {settingsKey}: {message}"
 msgstr ""
 
-#: src/mixins/settings-sync.js:114
-#: src/mixins/settings-sync.js:131
+#: /app/src/mixins/settings-sync.js:114 /app/src/mixins/settings-sync.js:131
 msgid "true"
 msgstr ""
 
-#: src/mixins/settings-sync.js:117
+#: /app/src/mixins/settings-sync.js:117
 msgid "Successfully set \"{settingsKey}\" to {value}."
 msgstr ""
 
-#: src/mixins/settings-sync.js:119
+#: /app/src/mixins/settings-sync.js:119
 msgid "Setting \"{settingsKey}\" has been unset successfully."
 msgstr ""
 
-#: src/mixins/settings-sync.js:129
+#: /app/src/mixins/settings-sync.js:129
 msgid "Unable to set \"{settingsKey}\" to {value}: {message}."
 msgstr ""
 
-#: src/mixins/settings-sync.js:137
+#: /app/src/mixins/settings-sync.js:137
 msgid "false"
 msgstr ""
 
-#: src/mixins/settings-sync.js:135
+#: /app/src/mixins/settings-sync.js:135
 msgid "Unable to unset \"{settingsKey}\": {message}"
 msgstr ""
 
-#: src/mixins/settings-sync.js:166
+#: /app/src/mixins/settings-sync.js:166
 msgid "Confirmation Required"
 msgstr ""
 
-#: src/mixins/settings-sync.js:171
+#: /app/src/mixins/settings-sync.js:171
 msgid "Unconfirmed, reverting to old value."
 msgstr ""
 
-#: src/mixins/settings-sync.js:191
+#: /app/src/mixins/settings-sync.js:191
 msgid "Successfully set value for \"{settingsKey}\" to \"{displayValue}\""
 msgstr ""
 
-#: src/mixins/settings-sync.js:193
+#: /app/src/mixins/settings-sync.js:193
 msgid "Setting \"{setting}\" has been unset successfully."
 msgstr ""
 
-#: src/mixins/settings-sync.js:207
+#: /app/src/mixins/settings-sync.js:207
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 
-#: src/util/ajax.js:35
+#: /app/src/util/ajax.js:35
 msgid "OK"
 msgstr ""
 
-#: src/util/ajax.js:36
+#: /app/src/util/ajax.js:36
 msgid "Created"
 msgstr ""
 
-#: src/util/ajax.js:37
+#: /app/src/util/ajax.js:37
 msgid "Accepted"
 msgstr ""
 
-#: src/util/ajax.js:38
+#: /app/src/util/ajax.js:38
 msgid "Non-Authoritative Information"
 msgstr ""
 
-#: src/util/ajax.js:39
+#: /app/src/util/ajax.js:39
 msgid "No Content"
 msgstr ""
 
-#: src/util/ajax.js:40
+#: /app/src/util/ajax.js:40
 msgid "Reset Content"
 msgstr ""
 
-#: src/util/ajax.js:41
+#: /app/src/util/ajax.js:41
 msgid "Partial Content"
 msgstr ""
 
-#: src/util/ajax.js:42
+#: /app/src/util/ajax.js:42
 msgid "Multi-Status (WebDAV)"
 msgstr ""
 
-#: src/util/ajax.js:43
+#: /app/src/util/ajax.js:43
 msgid "Already Reported (WebDAV)"
 msgstr ""
 
-#: src/util/ajax.js:44
+#: /app/src/util/ajax.js:44
 msgid "IM Used"
 msgstr ""
 
-#: src/util/ajax.js:45
+#: /app/src/util/ajax.js:45
 msgid "Multiple Choices"
 msgstr ""
 
-#: src/util/ajax.js:46
+#: /app/src/util/ajax.js:46
 msgid "Moved Permanently"
 msgstr ""
 
-#: src/util/ajax.js:47
+#: /app/src/util/ajax.js:47
 msgid "Found"
 msgstr ""
 
-#: src/util/ajax.js:48
+#: /app/src/util/ajax.js:48
 msgid "See Other"
 msgstr ""
 
-#: src/util/ajax.js:49
+#: /app/src/util/ajax.js:49
 msgid "Not Modified"
 msgstr ""
 
-#: src/util/ajax.js:50
+#: /app/src/util/ajax.js:50
 msgid "Use Proxy"
 msgstr ""
 
-#: src/util/ajax.js:51
+#: /app/src/util/ajax.js:51
 msgid "(Unused)"
 msgstr ""
 
-#: src/util/ajax.js:52
+#: /app/src/util/ajax.js:52
 msgid "Temporary Redirect"
 msgstr ""
 
-#: src/util/ajax.js:53
+#: /app/src/util/ajax.js:53
 msgid "Permanent Redirect (experimental)"
 msgstr ""
 
-#: src/util/ajax.js:54
+#: /app/src/util/ajax.js:54
 msgid "Bad Request"
 msgstr ""
 
-#: src/util/ajax.js:55
+#: /app/src/util/ajax.js:55
 msgid "Unauthorized"
 msgstr ""
 
-#: src/util/ajax.js:56
+#: /app/src/util/ajax.js:56
 msgid "Payment Required"
 msgstr ""
 
-#: src/util/ajax.js:57
+#: /app/src/util/ajax.js:57
 msgid "Forbidden"
 msgstr ""
 
-#: src/util/ajax.js:58
+#: /app/src/util/ajax.js:58
 msgid "Not Found"
 msgstr ""
 
-#: src/util/ajax.js:59
+#: /app/src/util/ajax.js:59
 msgid "Method Not Allowed"
 msgstr ""
 
-#: src/util/ajax.js:60
+#: /app/src/util/ajax.js:60
 msgid "Not Acceptable"
 msgstr ""
 
-#: src/util/ajax.js:61
+#: /app/src/util/ajax.js:61
 msgid "Proxy Authentication Required"
 msgstr ""
 
-#: src/util/ajax.js:62
+#: /app/src/util/ajax.js:62
 msgid "Request Timeout"
 msgstr ""
 
-#: src/util/ajax.js:63
+#: /app/src/util/ajax.js:63
 msgid "Conflict"
 msgstr ""
 
-#: src/util/ajax.js:64
+#: /app/src/util/ajax.js:64
 msgid "Gone"
 msgstr ""
 
-#: src/util/ajax.js:65
+#: /app/src/util/ajax.js:65
 msgid "Length Required"
 msgstr ""
 
-#: src/util/ajax.js:66
+#: /app/src/util/ajax.js:66
 msgid "Precondition Failed"
 msgstr ""
 
-#: src/util/ajax.js:67
+#: /app/src/util/ajax.js:67
 msgid "Request Entity Too Large"
 msgstr ""
 
-#: src/util/ajax.js:68
+#: /app/src/util/ajax.js:68
 msgid "Request-URI Too Long"
 msgstr ""
 
-#: src/util/ajax.js:69
+#: /app/src/util/ajax.js:69
 msgid "Unsupported Media Type"
 msgstr ""
 
-#: src/util/ajax.js:70
+#: /app/src/util/ajax.js:70
 msgid "Requested Range Not Satisfiable"
 msgstr ""
 
-#: src/util/ajax.js:71
+#: /app/src/util/ajax.js:71
 msgid "Expectation Failed"
 msgstr ""
 
-#: src/util/ajax.js:72
+#: /app/src/util/ajax.js:72
 msgid "I'm a teapot (RFC 2324)"
 msgstr ""
 
-#: src/util/ajax.js:73
+#: /app/src/util/ajax.js:73
 msgid "Enhance Your Calm (Twitter)"
 msgstr ""
 
-#: src/util/ajax.js:74
+#: /app/src/util/ajax.js:74
 msgid "Unprocessable Entity (WebDAV)"
 msgstr ""
 
-#: src/util/ajax.js:75
+#: /app/src/util/ajax.js:75
 msgid "Locked (WebDAV)"
 msgstr ""
 
-#: src/util/ajax.js:76
+#: /app/src/util/ajax.js:76
 msgid "Failed Dependency (WebDAV)"
 msgstr ""
 
-#: src/util/ajax.js:77
+#: /app/src/util/ajax.js:77
 msgid "Reserved for WebDAV"
 msgstr ""
 
-#: src/util/ajax.js:78
+#: /app/src/util/ajax.js:78
 msgid "Upgrade Required"
 msgstr ""
 
-#: src/util/ajax.js:79
+#: /app/src/util/ajax.js:79
 msgid "Precondition Required"
 msgstr ""
 
-#: src/util/ajax.js:80
+#: /app/src/util/ajax.js:80
 msgid "Too Many Requests"
 msgstr ""
 
-#: src/util/ajax.js:81
+#: /app/src/util/ajax.js:81
 msgid "Request Header Fields Too Large"
 msgstr ""
 
-#: src/util/ajax.js:82
+#: /app/src/util/ajax.js:82
 msgid "No Response (Nginx)"
 msgstr ""
 
-#: src/util/ajax.js:83
+#: /app/src/util/ajax.js:83
 msgid "Retry With (Microsoft)"
 msgstr ""
 
-#: src/util/ajax.js:84
+#: /app/src/util/ajax.js:84
 msgid "Blocked by Windows Parental Controls (Microsoft)"
 msgstr ""
 
-#: src/util/ajax.js:85
+#: /app/src/util/ajax.js:85
 msgid "Unavailable For Legal Reasons"
 msgstr ""
 
-#: src/util/ajax.js:86
+#: /app/src/util/ajax.js:86
 msgid "Client Closed Request (Nginx)"
 msgstr ""
 
-#: src/util/ajax.js:87
+#: /app/src/util/ajax.js:87
 msgid "Internal Server Error"
 msgstr ""
 
-#: src/util/ajax.js:88
+#: /app/src/util/ajax.js:88
 msgid "Not Implemented"
 msgstr ""
 
-#: src/util/ajax.js:89
+#: /app/src/util/ajax.js:89
 msgid "Bad Gateway"
 msgstr ""
 
-#: src/util/ajax.js:90
+#: /app/src/util/ajax.js:90
 msgid "Service Unavailable"
 msgstr ""
 
-#: src/util/ajax.js:91
+#: /app/src/util/ajax.js:91
 msgid "Gateway Timeout"
 msgstr ""
 
-#: src/util/ajax.js:92
+#: /app/src/util/ajax.js:92
 msgid "HTTP Version Not Supported"
 msgstr ""
 
-#: src/util/ajax.js:93
+#: /app/src/util/ajax.js:93
 msgid "Variant Also Negotiates (Experimental)"
 msgstr ""
 
-#: src/util/ajax.js:94
+#: /app/src/util/ajax.js:94
 msgid "Insufficient Storage (WebDAV)"
 msgstr ""
 
-#: src/util/ajax.js:95
+#: /app/src/util/ajax.js:95
 msgid "Loop Detected (WebDAV)"
 msgstr ""
 
-#: src/util/ajax.js:96
+#: /app/src/util/ajax.js:96
 msgid "Bandwidth Limit Exceeded (Apache)"
 msgstr ""
 
-#: src/util/ajax.js:97
+#: /app/src/util/ajax.js:97
 msgid "Not Extended"
 msgstr ""
 
-#: src/util/ajax.js:98
+#: /app/src/util/ajax.js:98
 msgid "Network Authentication Required"
 msgstr ""
 
-#: src/util/ajax.js:99
+#: /app/src/util/ajax.js:99
 msgid "Network read timeout error"
 msgstr ""
 
-#: src/util/ajax.js:100
+#: /app/src/util/ajax.js:100
 msgid "Network connect timeout error"
 msgstr ""
 
-#: src/util/ajax.js:157
+#: /app/src/util/ajax.js:157
 msgid "Operation cancelled by user."
 msgstr ""
 
-#: src/util/ajax.js:160
+#: /app/src/util/ajax.js:160
 msgid "Aborted"
 msgstr ""
 
-#: src/util/ajax.js:173
-#: src/util/ajax.js:366
+#: /app/src/util/ajax.js:173 /app/src/util/ajax.js:366
 msgid "Error"
 msgstr ""
 
-#: src/util/ajax.js:198
+#: /app/src/util/ajax.js:198
 msgid "System Administrator"
 msgstr ""
 
-#: src/util/ajax.js:233
+#: /app/src/util/ajax.js:233
 msgid "Feedback email: {AutoReport}"
 msgstr ""
 
-#: src/util/ajax.js:257
+#: /app/src/util/ajax.js:257
 msgid "Something went wrong."
 msgstr ""
 
-#: src/util/ajax.js:259
+#: /app/src/util/ajax.js:259
 msgid ""
 "If it should be the case that you are already logged in for a long time "
 "without interacting with the web-app, then the reason for this error is "
 "probably a simple timeout."
 msgstr ""
 
-#: src/util/ajax.js:264
+#: /app/src/util/ajax.js:264
 msgid ""
 "I any case it may help to logoff and logon again, as a temporary work-"
 "around. You will be redirected to the log-in page when you close this window."
 msgstr ""
 
-#: src/util/ajax.js:314
+#: /app/src/util/ajax.js:314
 msgid ""
 "Unrecoverable unknown internal error, no further information available, "
 "sorry."
 msgstr ""
 
-#: src/util/ajax.js:316
+#: /app/src/util/ajax.js:316
 msgid "Internal Error"
 msgstr ""
 
-#: src/util/ajax.js:323
+#: /app/src/util/ajax.js:323
 msgid "Field {RequiredField} not present in AJAX response."
 msgstr ""
 
-#: src/util/ajax.js:332
+#: /app/src/util/ajax.js:332
 msgid "Missing data"
 msgstr ""
 
-#: src/util/ajax.js:344
+#: /app/src/util/ajax.js:344
 msgid ""
 "The submitted data \"{stringValue}\" seems to be a plain string, but we need "
 "an object where the data is provided through above listed properties."
 msgstr ""
 
-#: src/util/ajax.js:347
+#: /app/src/util/ajax.js:347
 msgid "Error: plain string received"
 msgstr ""
 
-#: src/util/ajax.js:352
+#: /app/src/util/ajax.js:352
 msgid ""
 "The submitted data is not a plain object, and does not provide the "
 "properties listed above."
 msgstr ""
 
-#: src/util/ajax.js:355
+#: /app/src/util/ajax.js:355
 msgid "Error: not a plain object"
 msgstr ""
 
-#: src/util/ajax.js:395
+#: /app/src/util/ajax.js:395
 msgid "Unknown JSON error response to AJAX call: {status} / {error}"
 msgstr ""
 
-#: src/util/ajax.js:403
+#: /app/src/util/ajax.js:403
 msgid "HTTP error response to AJAX call: {code} / {error}"
 msgstr ""
 
-#: src/util/dialogs.js:69
+#: /app/src/util/dialogs.js:69
 msgid "No"
 msgstr ""
 
-#: src/util/dialogs.js:70
+#: /app/src/util/dialogs.js:70
 msgid "Yes"
 msgstr ""
 
-#: src/util/dialogs.js:105
+#: /app/src/util/dialogs.js:105
 msgid "Debug Information"
 msgstr ""
