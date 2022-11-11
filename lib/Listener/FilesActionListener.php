@@ -113,7 +113,7 @@ class FilesActionListener implements IEventListener
       SettingsController::EXTRACT_TARGET_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
     ]);
 
-    // \OCP\Util::writeLog($appName, 'MIME ' . print_r(ArchiveService::getSupportedMimeTypes(), true), \OCP\Util::INFO);
+    \OCP\Util::writeLog($appName, 'MIME ' . print_r(ArchiveService::getSupportedMimeTypes(), true), \OCP\Util::INFO);
 
     /** @var AssetService $assetService */
     $assetService = $this->appContainer->get(AssetService::class);
