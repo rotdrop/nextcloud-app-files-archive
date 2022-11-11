@@ -1,0 +1,14 @@
+{ "translations": {
+    "unknown" : "tidak diketahui",
+    "Archive" : "Arsip",
+    "OK" : "OK",
+    "Created" : "Dibuat",
+    "Forbidden" : "Terlarang",
+    "Not Found" : "Tidak ditemukan",
+    "Conflict" : "Konflik",
+    "Internal Server Error" : "Galat Server Internal",
+    "Error" : "Galat",
+    "No" : "Tidak",
+    "Yes" : "Ya"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

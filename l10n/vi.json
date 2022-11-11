@@ -1,5 +1,14 @@
 { "translations": {
+    "unknown" : "không biết",
+    "Archive" : "Lưu trữ",
+    "OK" : "OK",
+    "Created" : "Đã tạo",
     "Forbidden" : "Bị cấm",
-    "Not Found" : "Không tìm thấy"
+    "Not Found" : "Không tìm thấy",
+    "Conflict" : "Xung đột",
+    "Internal Server Error" : "Lỗi máy chủ.",
+    "Error" : "Lỗi",
+    "No" : "Không",
+    "Yes" : "Có"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
