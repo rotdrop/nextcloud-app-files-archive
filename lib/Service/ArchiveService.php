@@ -108,6 +108,13 @@ class ArchiveService
   public const ARCHIVE_INFO_COMMON_PATH_PREFIX = 'commonPathPrefix';
 
   /**
+   * @var string
+   *
+   * The basename of the backend driver class.
+   */
+  public const ARCHIVE_INFO_BACKEND_DRIVER = 'backendDriver';
+
+  /**
    * @var array All array keys contained in the info-array obtained from
    * archiveInfo().
    */
@@ -121,6 +128,7 @@ class ArchiveService
     self::ARCHIVE_INFO_SIZE,
     self::ARCHIVE_INFO_COMMON_PATH_PREFIX,
     self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT,
+    self::ARCHIVE_INFO_BACKEND_DRIVER,
   ];
 
   /** @var int */
@@ -280,6 +288,7 @@ class ArchiveService
       self::ARCHIVE_INFO_COMMENT => $archiveComment,
       self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT => $this->getArchiveFolderName(),
       self::ARCHIVE_INFO_COMMON_PATH_PREFIX => $this->getCommonDirectoryPrefix(),
+      self::ARCHIVE_INFO_BACKEND_DRIVER => $this->getClassBaseName($this->archiver->getDriverType()),
     ];
   }
 

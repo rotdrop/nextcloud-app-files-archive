@@ -341,4 +341,14 @@ trait UtilTrait
     return $leadingSlash ? substr($common, 0, -1) : $common;
   }
 
+  /**
+   * @param string|mixed $classOrClassName
+   *
+   * @return string The "basename" of the given class or class-name.
+   */
+  protected function getClassBaseName($classOrClassName):string
+  {
+    $className = is_string($classOrClassName) ? $classOrClassName : get_class($classOrClassName);
+    return substr(strrchr($className, '\\'), 1);
+  }
 }

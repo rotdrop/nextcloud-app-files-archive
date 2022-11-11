@@ -84,12 +84,4 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
 
     return new static($fileName, $format, $driver, $password);
   }
-
-  /**
-   * @return null|string The used driver class-name.
-   */
-  public function getDriverClass():?string
-  {
-    return $this->driver;
-  }
 }

@@ -55,6 +55,10 @@
                     :bold="true"
                     :details="archiveInfo.mimeType || t(appName, 'unknown')"
           />
+          <ListItem :title="t(appName, 'backend driver')"
+                    :bold="true"
+                    :details="archiveInfo.backendDriver || t(appName, 'unknown')"
+          />
           <ListItem :title="t(appName, 'uncompressed size')"
                     :bold="true"
                     :details="humanArchiveOriginalSize"
