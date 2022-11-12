@@ -53,7 +53,7 @@ trait LoggerTrait
    *
    * @return mixed
    */
-  protected function mapLogLevels($level)
+  protected function mapLogLevels(mixed $level)
   {
     if (is_int($level) || is_numeric($level)) {
       return $level;
