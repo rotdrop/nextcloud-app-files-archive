@@ -138,10 +138,10 @@ class SettingsController extends Controller
   public function setAdmin(string $setting, mixed $value, bool $force = false):DataResponse
   {
     if (!isset(self::ADMIN_SETTINGS[$setting])) {
-      return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $setting));
+      return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $setting));
     }
     if (!(self::ADMIN_SETTINGS[$setting]['rw'] ?? false)) {
-      return self::grumble($this->l->t('The personal setting "%1$s" is read-only', $setting));
+      return self::grumble($this->l->t('The admin setting "%1$s" is read-only', $setting));
     }
     $oldValue = $this->config->getAppValue(
       $this->appName,
