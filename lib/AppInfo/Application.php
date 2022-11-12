@@ -22,8 +22,6 @@
 
 namespace OCA\FilesArchive\AppInfo;
 
-use SimpleXMLElement;
-
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
