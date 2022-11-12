@@ -30,6 +30,7 @@ use wapmorgan\UnifiedArchive\Exceptions as BackendExceptions;
 use OCP\IL10N;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\Files\File;
+use OCP\Files\IMimeTypeDetector;
 use OCP\Util as CloudUtil;
 
 use OCA\FilesArchive\Backend\ArchiveFormats;
@@ -131,8 +132,8 @@ class ArchiveService
     self::ARCHIVE_INFO_BACKEND_DRIVER,
   ];
 
-  /** @var int */
-  private $sizeLimit;
+  /** @var null|int */
+  private $sizeLimit = null;
 
   /** @var ArchiveBackend */
   private $archiver;
@@ -143,18 +144,18 @@ class ArchiveService
   /** @var array */
   private $archiveFiles;
 
-  /* @var array */
-  private static $mimeTypes;
+  /** @var IMimeTypeDetector */
+  private $mimeTypeDetector;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
+    IMimeTypeDetector $mimeTypeDetector,
     ILogger $logger,
     IL10N $l,
-    ?int $sizeLimit = null
   ) {
+    $this->mimeTypeDetector = $mimeTypeDetector;
     $this->logger = $logger;
     $this->l = $l;
-    $this->sizeLimit = $sizeLimit;
     $this->archiver = null;
     $this->fileNode = null;
   }
@@ -246,10 +247,12 @@ class ArchiveService
     if ($sizeLimit === null) {
       $sizeLimit = $this->sizeLimit;
     }
+    $this->fileNode = $fileNode;
     $archiveInfo = $this->getArchiveInfo();
     $archiveSize = $archiveInfo['originalSize'];
     if ($sizeLimit !== null && $archiveSize > $sizeLimit) {
       $this->archiver = null;
+      $this->fileNode = null;
       throw new Exceptions\ArchiveTooLargeException(
         $this->l->t('Uncompressed size of archive "%1$s" is too large: %2$s > %3$s', [
           $fileNode->getInternalPath(), CloudUtil::humanFileSize($archiveSize), CloudUtil::humanFileSize($sizeLimit),
@@ -258,7 +261,6 @@ class ArchiveService
         $archiveInfo,
       );
     }
-    $this->fileNode = $fileNode;
 
     return $this;
   }
@@ -278,9 +280,11 @@ class ArchiveService
       $archiveComment = null;
     }
 
+    // $this->logInfo('MIME ' .  $this->fileNode->getMimeType());
+
     return [
       self::ARCHIVE_INFO_FORMAT => $this->archiver->getFormat(),
-      self::ARCHIVE_INFO_MIME_TYPE => $this->archiver->getMimeType(),
+      self::ARCHIVE_INFO_MIME_TYPE => $this->fileNode->getMimeType(),
       self::ARCHIVE_INFO_SIZE => $this->archiver->getSize(),
       self::ARCHIVE_INFO_COMPRESSED_SIZE => $this->archiver->getCompressedSize(),
       self::ARCHIVE_INFO_ORIGINAL_SIZE => $this->archiver->getOriginalSize(),
@@ -373,27 +377,5 @@ class ArchiveService
         $this->l->t('There is no archive file associated with this archiver instance.'));
     }
     return $this->archiver->getFileStream($fileName);
-  }
-
-  /**
-   * Return a list of mime-types we can handle.
-   *
-   * @return array
-   */
-  public static function getSupportedMimeTypes():array
-  {
-    if (empty(self::$mimeTypes)) {
-      $formats = ArchiveFormats::getSupportedDriverFormats();
-      self::$mimeTypes = [];
-      foreach (array_keys($formats) as $format) {
-        $formatMimeTypes = ArchiveFormats::getFormatMimeTypes($format);
-        self::$mimeTypes = array_merge(self::$mimeTypes, $formatMimeTypes);
-      }
-      // fix-ups
-      if (array_search('application/x-rar', self::$mimeTypes) !== false) {
-        self::$mimeTypes[] = 'application/x-rar-compressed';
-      }
-    }
-    return self::$mimeTypes;
   }
 }

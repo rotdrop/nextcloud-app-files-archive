@@ -37,6 +37,8 @@ use OCA\FilesArchive\Exceptions;
 
 use OCP\Files\Config\IMountProviderCollection;
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
+use OCA\FilesArchive\Service\MimeTypeService;
+
 /**
  * App entry point.
  */
@@ -65,6 +67,9 @@ class Application extends App implements IBootstrap
    */
   public function boot(IBootContext $context): void
   {
+    $context->injectFn(function(MimeTypeService $mimeTypeService) {
+      $mimeTypeService->registerMimeTypeMappings();
+    }) ;
     $context->injectFn(function(IMountProviderCollection $mountProviderCollection, ArchiveMountProvider $mountProvider) {
       $mountProviderCollection->registerProvider($mountProvider, PHP_INT_MAX - 1);
     });

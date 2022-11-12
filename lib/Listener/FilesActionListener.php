@@ -22,12 +22,13 @@
 
 namespace OCA\FilesArchive\Listener;
 
+use Psr\Log\LoggerInterface;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IUserSession;
-use OCP\Contacts\IManager as IContactsManager;
+use OCP\IGroupManager;
 use OCP\IConfig as CloudConfig;
 
 use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
@@ -35,6 +36,7 @@ use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
 use OCA\FilesArchive\Service\AssetService;
 use OCA\FilesArchive\Controller\SettingsController;
 use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Service\MimeTypeService;
 
 /**
  * In particular listen to the asset-loading events.
@@ -93,18 +95,24 @@ class FilesActionListener implements IEventListener
 
     $appName = $this->appContainer->get('appName');
 
+    $this->logger = $this->appContainer->get(LoggerInterface::class);
+
     /** @var IInitialState $initialState */
     $initialState = $this->appContainer->get(IInitialState::class);
 
     /** @var CloudConfig $cloudConfig */
     $cloudConfig = $this->appContainer->get(CloudConfig::class);
 
+    /** @var MimeTypeService $mimeTypeService */
+    $mimeTypeService = $this->appContainer->get(MimeTypeService::class);
+    $archiveMimeTypes = $mimeTypeService->getSupportedMimeTypes();
+
     // just admin contact and stuff to make the ajax error handlers work.
-    $groupManager = $this->appContainer->get(\OCP\IGroupManager::class);
+    $groupManager = $this->appContainer->get(IGroupManager::class);
     $initialState->provideInitialState('config', [
       'adminContact' => $this->getCloudAdminContacts($groupManager, implode: true),
       'phpUserAgent' => $_SERVER['HTTP_USER_AGENT'], // @@todo get in javascript from request
-      'archiveMimeTypes' => ArchiveService::getSupportedMimeTypes(),
+      'archiveMimeTypes' => $archiveMimeTypes,
       SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
         $userId, $appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
       SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
@@ -113,7 +121,7 @@ class FilesActionListener implements IEventListener
       SettingsController::EXTRACT_TARGET_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
     ]);
 
-    \OCP\Util::writeLog($appName, 'MIME ' . print_r(ArchiveService::getSupportedMimeTypes(), true), \OCP\Util::INFO);
+    // $this->logInfo('MIME ' . print_r($archiveMimeTypes, true));
 
     /** @var AssetService $assetService */
     $assetService = $this->appContainer->get(AssetService::class);

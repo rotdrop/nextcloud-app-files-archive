@@ -31,14 +31,18 @@ use wapmorgan\UnifiedArchive;
 class ArchiveFormats extends UnifiedArchive\Formats
 {
   /**
-   * Fetch all known mime-types for the given format.
+   * Fetch all known mime-types for the given format are just the mime-type ->
+   * format mapping if the $format argument is null.
    *
-   * @param string $format
+   * @param null|string $format
    *
-   * @return array
+   * @return array<string, string> MIME-type -> FORMAT mapping.
    */
-  public static function getFormatMimeTypes(string $format):array
+  public static function getFormatMimeTypes(?string $format = null):array
   {
+    if ($format === null) {
+      return static::$mimeTypes;
+    }
     return array_keys(array_filter(static::$mimeTypes, fn($value) => $value === $format));
   }
 
