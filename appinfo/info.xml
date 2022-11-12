@@ -9,7 +9,7 @@
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de" >Claus-Justus Heine</author>
   <namespace>FilesArchive</namespace>
-  <category>office</category>
+  <category>files</category>
   <bugs>https://github.com/rotdrop/nextcloud-app-files-archive.git</bugs>
   <dependencies>
     <nextcloud min-version="23" max-version="24"/>
