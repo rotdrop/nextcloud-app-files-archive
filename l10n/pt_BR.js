@@ -1,7 +1,10 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Caused by previous exception" : "Causado por uma exceção anterior",
     "bytes" : "bytes",
+    "Archive Extraction" : "Extrair armazenamento",
+    "Archive Size Limit" : "Tamanho limite de armazenamento",
     "unknown" : "desconhecido",
     "MIME type" : "Tipo MIME",
     "Archive" : "Arquivo",
