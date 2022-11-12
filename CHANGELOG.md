@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Nextcloud is missing some prominent MIME-type mappings. Add them.
-- Performance for large archive -- partly. This is still an issue.
+- Performance for large archives -- partly. This is still an issue,
+  but has been improved
 - Correctness of file-listing if underlying archive file has changed.
 
 ### Added
