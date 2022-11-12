@@ -78,7 +78,7 @@ supported. There are some caveats, however:
   NOT KNOW) by Nextcloud, but should be
   `application/x-iso9660-image`. Please have a look
   [at the Nextcloud documentation](https://docs.nextcloud.com/server/latest/admin_manual/configuration_mimetypes/index.html).
-  An example configuration can be found in the [contrib directory](contrib/nextcloud/README.md).
+  Example configuration files can be found in the [config directory](config/README.md).
 - for some file-types there are different MIME-types. One example of
   such a case are `.rar` files which are labelled by Nextcloud as
   `application/x-rar-compressed` while
