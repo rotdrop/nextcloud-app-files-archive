@@ -44,8 +44,7 @@ use OCA\FilesArchive\Service\MimeTypeService;
  */
 class Application extends App implements IBootstrap
 {
-  const DEFAULT_LOCALE_KEY = 'DefaultLocale';
-  const DEFAULT_LOCALE = 'en_US';
+  use \OCA\FilesArchive\Traits\AppNameTrait;
 
   /** @var string */
   protected $appName;
@@ -53,8 +52,7 @@ class Application extends App implements IBootstrap
   /** Constructor. */
   public function __construct()
   {
-    $infoXml = new SimpleXMLElement(file_get_contents(__DIR__ . '/../../appinfo/info.xml'));
-    $this->appName = (string)$infoXml->id;
+    $this->appName = $this->getAppInfoAppName();
     parent::__construct($this->appName);
   }
 
@@ -69,7 +67,7 @@ class Application extends App implements IBootstrap
   {
     $context->injectFn(function(MimeTypeService $mimeTypeService) {
       $mimeTypeService->registerMimeTypeMappings();
-    }) ;
+    });
     $context->injectFn(function(IMountProviderCollection $mountProviderCollection, ArchiveMountProvider $mountProvider) {
       $mountProviderCollection->registerProvider($mountProvider, PHP_INT_MAX - 1);
     });
@@ -88,10 +86,6 @@ class Application extends App implements IBootstrap
     if ((include_once __DIR__ . '/../../vendor/autoload.php') === false) {
       throw new Exceptions\Exception('Cannot include autoload. Did you run install dependencies using composer?');
     }
-    $context->registerService(ucfirst(self::DEFAULT_LOCALE_KEY), function (ContainerInterface $container) {
-      return self::DEFAULT_LOCALE;
-    });
-    $context->registerServiceAlias(lcfirst(self::DEFAULT_LOCALE), ucfirst(self::DEFAULT_LOCALE));
 
     // Register listeners
     ListenerRegistration::register($context);

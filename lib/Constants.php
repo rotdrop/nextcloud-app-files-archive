@@ -20,10 +20,14 @@
 
 namespace OCA\FilesArchive;
 
-/** A couple of constants in order to avoid sting literals. */
+/** A couple of constants in order to avoid string literals. */
 class Constants
 {
+  /**
+   * @var string
+   *
+   * File-path separator.
+   */
   public const PATH_SEPARATOR = '/';
-  public const APP_NAME = 'files_archive';
   public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = (1 << 32);
 }

@@ -32,6 +32,8 @@ use OCA\FilesArchive\Constants;
  */
 class Version100003Date20221109223821 extends SimpleMigrationStep
 {
+  use \OCA\FilesArchive\Traits\AppNameTrait;
+
   /** @var string */
   private $appName;
 
@@ -39,7 +41,7 @@ class Version100003Date20221109223821 extends SimpleMigrationStep
   public function __construct()
   {
     // parent::__construct();
-    $this->appName = Constants::APP_NAME; // $appName;
+    $this->appName = $this->getAppInfoAppName();
   }
 
   /**
