@@ -30,7 +30,6 @@ use wapmorgan\UnifiedArchive\Exceptions as BackendExceptions;
 use OCP\IL10N;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\Files\File;
-use OCP\Files\IMimeTypeDetector;
 use OCP\Util as CloudUtil;
 
 use OCA\FilesArchive\Backend\ArchiveFormats;
@@ -144,16 +143,11 @@ class ArchiveService
   /** @var array */
   private $archiveFiles;
 
-  /** @var IMimeTypeDetector */
-  private $mimeTypeDetector;
-
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    IMimeTypeDetector $mimeTypeDetector,
     ILogger $logger,
     IL10N $l,
   ) {
-    $this->mimeTypeDetector = $mimeTypeDetector;
     $this->logger = $logger;
     $this->l = $l;
     $this->archiver = null;
