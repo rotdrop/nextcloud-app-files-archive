@@ -27,7 +27,7 @@ use OCP\EventDispatcher\IEventListener;
 use OCP\Files\Events\Node\NodeDeletedEvent;
 use OCP\Files\Events\Node\NodeRenamedEvent;
 use OCP\IUser;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface;
 use OCP\IUserSession;
 use OCP\Files\Node;
 use OCP\Files\File;
@@ -80,7 +80,7 @@ class FileNodeListener implements IEventListener
       return;
     }
     $userId = $user->getUID();
-    $this->logger = $this->appContainer->get(ILogger::class);
+    $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     /** @var Node $sourceNode */
     switch ($eventClass) {
