@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-12 03:18+0000\n"
+"POT-Creation-Date: 2022-11-13 03:14+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Claus-Justus Heine, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -160,24 +160,24 @@ msgstr ""
 "Einhängepunkt geändert werden."
 
 #: /app/lib/Controller/SettingsController.php:141
-#: /app/lib/Controller/SettingsController.php:250
-#: /app/lib/Controller/SettingsController.php:346
-#: /app/lib/Controller/SettingsController.php:385
-#, php-format
-msgid "Unknown personal setting: \"%1$s\""
-msgstr "Unbekannte persönliche Einstellung: \"%1$s\""
-
-#: /app/lib/Controller/SettingsController.php:144
-#, php-format
-msgid "The personal setting \"%1$s\" is read-only"
-msgstr "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden."
-
 #: /app/lib/Controller/SettingsController.php:160
 #: /app/lib/Controller/SettingsController.php:199
 #: /app/lib/Controller/SettingsController.php:220
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
 msgstr "Unbekannte Administrator-Einstellung: \"%1$s\""
+
+#: /app/lib/Controller/SettingsController.php:144
+#, php-format
+msgid "The admin setting \"%1$s\" is read-only"
+msgstr ""
+
+#: /app/lib/Controller/SettingsController.php:250
+#: /app/lib/Controller/SettingsController.php:346
+#: /app/lib/Controller/SettingsController.php:385
+#, php-format
+msgid "Unknown personal setting: \"%1$s\""
+msgstr "Unbekannte persönliche Einstellung: \"%1$s\""
 
 #: /app/lib/Controller/SettingsController.php:253
 #, php-format
@@ -210,21 +210,21 @@ msgstr "Unbekannte perönliche Einstellung: \"%1$s\""
 msgid "Unable to parse memory size limit \"%s\""
 msgstr "Kann das Speicher-Limit nicht interpretieren: \"%s\""
 
+#: /app/lib/Service/ArchiveService.php:231
 #: /app/lib/Service/ArchiveService.php:237
-#: /app/lib/Service/ArchiveService.php:243
 #, php-format
 msgid "Unable to open archive file %s (%s)"
 msgstr "Kann die Archive Datei %s (%s) nicht öffnen"
 
-#: /app/lib/Service/ArchiveService.php:257
+#: /app/lib/Service/ArchiveService.php:251
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
 msgstr "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s"
 
-#: /app/lib/Service/ArchiveService.php:273
-#: /app/lib/Service/ArchiveService.php:341
-#: /app/lib/Service/ArchiveService.php:363
-#: /app/lib/Service/ArchiveService.php:377
+#: /app/lib/Service/ArchiveService.php:267
+#: /app/lib/Service/ArchiveService.php:335
+#: /app/lib/Service/ArchiveService.php:357
+#: /app/lib/Service/ArchiveService.php:371
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 "Mit dieser Archivierungs-Service-Instanz ist keine Archiv-Datei assoziiert."

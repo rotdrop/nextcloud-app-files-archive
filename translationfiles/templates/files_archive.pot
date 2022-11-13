@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-12 03:18+0000\n"
+"POT-Creation-Date: 2022-11-13 03:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,23 +136,23 @@ msgid "Only the pass-phrase may be changed for an existing mount."
 msgstr ""
 
 #: /app/lib/Controller/SettingsController.php:141
-#: /app/lib/Controller/SettingsController.php:250
-#: /app/lib/Controller/SettingsController.php:346
-#: /app/lib/Controller/SettingsController.php:385
-#, php-format
-msgid "Unknown personal setting: \"%1$s\""
-msgstr ""
-
-#: /app/lib/Controller/SettingsController.php:144
-#, php-format
-msgid "The personal setting \"%1$s\" is read-only"
-msgstr ""
-
 #: /app/lib/Controller/SettingsController.php:160
 #: /app/lib/Controller/SettingsController.php:199
 #: /app/lib/Controller/SettingsController.php:220
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
+msgstr ""
+
+#: /app/lib/Controller/SettingsController.php:144
+#, php-format
+msgid "The admin setting \"%1$s\" is read-only"
+msgstr ""
+
+#: /app/lib/Controller/SettingsController.php:250
+#: /app/lib/Controller/SettingsController.php:346
+#: /app/lib/Controller/SettingsController.php:385
+#, php-format
+msgid "Unknown personal setting: \"%1$s\""
 msgstr ""
 
 #: /app/lib/Controller/SettingsController.php:253
@@ -182,21 +182,21 @@ msgstr ""
 msgid "Unable to parse memory size limit \"%s\""
 msgstr ""
 
+#: /app/lib/Service/ArchiveService.php:231
 #: /app/lib/Service/ArchiveService.php:237
-#: /app/lib/Service/ArchiveService.php:243
 #, php-format
 msgid "Unable to open archive file %s (%s)"
 msgstr ""
 
-#: /app/lib/Service/ArchiveService.php:257
+#: /app/lib/Service/ArchiveService.php:251
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
 msgstr ""
 
-#: /app/lib/Service/ArchiveService.php:273
-#: /app/lib/Service/ArchiveService.php:341
-#: /app/lib/Service/ArchiveService.php:363
-#: /app/lib/Service/ArchiveService.php:377
+#: /app/lib/Service/ArchiveService.php:267
+#: /app/lib/Service/ArchiveService.php:335
+#: /app/lib/Service/ArchiveService.php:357
+#: /app/lib/Service/ArchiveService.php:371
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 
