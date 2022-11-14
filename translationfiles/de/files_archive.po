@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-13 03:14+0000\n"
+"POT-Creation-Date: 2022-11-14 03:16+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Claus-Justus Heine, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -170,7 +170,7 @@ msgstr "Unbekannte Administrator-Einstellung: \"%1$s\""
 #: /app/lib/Controller/SettingsController.php:144
 #, php-format
 msgid "The admin setting \"%1$s\" is read-only"
-msgstr ""
+msgstr "Die Administrator-Einstellung \"%1$s\" kann nur gelesen werden."
 
 #: /app/lib/Controller/SettingsController.php:250
 #: /app/lib/Controller/SettingsController.php:346

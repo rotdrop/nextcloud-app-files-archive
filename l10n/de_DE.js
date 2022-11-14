@@ -24,6 +24,7 @@ OC.L10N.register(
     "Archive \"%1$s\" has been unmounted from \"%2$s\"." : "Das Archiv \"%1$s\" wurden von Einhängepunkt \"%2$s\" abgetrennt.",
     "Only the pass-phrase may be changed for an existing mount." : "Ausschließlich das Verschlüsselungs-Passwort kann für einen aktiven Einhängepunkt geändert werden.",
     "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrator-Einstellung: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "Die Administrationseinstellung \"%1$s\" kann nur gelesen werden",
     "Unknown personal setting: \"%1$s\"" : "Unbekannte persönliche Einstellung: \"%1$s\"",
     "Thge personal setting \"%1$s\" is read-only" : "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden.",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen Wahrheitswert konvertiert werden.",
