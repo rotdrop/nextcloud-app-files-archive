@@ -22,10 +22,10 @@
 
 namespace OCA\FilesArchive\Service;
 
+use Throwable;
+
 use OC\Files\Type\Detection as MimeTypeDetector;
-
 use Psr\Log\LoggerInterface;
-
 use OCP\Files\IMimeTypeDetector;
 
 use OCA\FilesArchive\Backend\ArchiveFormats;
@@ -93,8 +93,11 @@ class MimeTypeService
     $supportedFormats = ArchiveFormats::getSupportedDriverFormats();
     $this->supportedMimeTypes = [];
     foreach ($mimeTypeMapping as $extension => $mimeType) {
+      if ($mimeType == 'application/x-gtar') {
+        $this->logInfo('MIME TYPE ' . $mimeType);
+      }
       $format = ArchiveFormats::detectArchiveFormat('FOO.' . $extension);
-      if (!empty($supportedFormats[$format]))  {
+      if (!empty($supportedFormats[$format])) {
         $this->supportedMimeTypes[] = $mimeType[0];
       }
     }
@@ -112,14 +115,24 @@ class MimeTypeService
       return $this->mimeTypeMapping;
     }
 
-    $this->mimeTypeMapping = array_filter(
-      json_decode(
-        file_get_contents(self::MIME_TYPE_MAPPING_DATA_FILE),
-        true
-      ),
-        fn(string $key) => !str_starts_with($key, '__'),
-      ARRAY_FILTER_USE_KEY,
-    );
+    $jsonData = file_get_contents(self::MIME_TYPE_MAPPING_DATA_FILE);
+    if (empty($jsonData)) {
+      $this->logInfo('Unable to read "' . self::MIME_TYPE_MAPPING_DATA_FILE . '".');
+      $this->mimeTypeMapping = [];
+      return $this->mimeTypeMapping;
+    }
+    try {
+      $arrayData = json_decode($jsonData, true);
+    } catch (Throwable $t) {
+      $this->logException($t, 'Unable to decode mime-type mapping. "' . self::MIME_TYPE_MAPPING_DATA_FILE . '".');
+      $arrayData = null;
+    }
+    if (empty($arrayData)) {
+      $this->mimeTypeMapping = [];
+      return $this->mimeTypeMapping;
+    }
+
+    $this->mimeTypeMapping = array_filter($arrayData, fn(string $key) => !str_starts_with($key, '__'), ARRAY_FILTER_USE_KEY);
     // $this->logInfo('MIME MAPPINGS ' . print_r($this->mimeTypeMapping, true));
 
     return $this->mimeTypeMapping;
