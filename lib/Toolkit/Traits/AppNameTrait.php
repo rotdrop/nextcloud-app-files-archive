@@ -22,8 +22,6 @@
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
-use Throwable;
-
 use SimpleXMLElement;
 
 /**
@@ -33,13 +31,16 @@ use SimpleXMLElement;
 trait AppNameTrait
 {
   /**
+   * The method assumes that the entire toolkit repository has been cloned or
+   * copied directly below the lib/ directory.
+   *
    * @return null|string The app-name from the info.xml file or null if that
    * cannot be found.
    */
   protected function getAppInfoAppName():?string
   {
     // Extract the directory nesting level from the class-name
-    $nestingLevel = count(explode('\\', __CLASS__)) - 2;
+    $nestingLevel = count(explode('\\', __TRAIT__)) - 2;
 
     $pathPrefix = str_repeat(Constants::PATH_SEPARATOR . '..', $nestingLevel);
     $infoFile = Constants::PATH_SEPARATOR . 'appinfo' . Constants::PATH_SEPARATOR . 'info.xml';
