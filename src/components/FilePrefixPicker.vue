@@ -20,7 +20,7 @@
 </script>
 <template>
   <FilePrefixPicker v-bind="$attrs"
-                    :file-picker-title="filePickerTitle || t(appName, 'Choose a prefix-folder')"
+                    :file-picker-title="filePickerTitle"
                     v-on="$listeners"
                     @error:invalidDirName="showDirNameInvalid"
                     @update:dirName="showDirNameUpdated"
@@ -32,9 +32,16 @@ import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs
 import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker'
 
 export default {
-  name: 'FilePrefixPicker',
+  name: 'FilePrefixPickerWrapper',
   components: {
     FilePrefixPicker,
+  },
+  inheritAttrs: false,
+  props: {
+    filePickerTitle: {
+      type: String,
+      default: t(appName, 'Choose a prefix-folder'),
+    },
   },
   methods: {
     showDirNameUpdated(dir) {
