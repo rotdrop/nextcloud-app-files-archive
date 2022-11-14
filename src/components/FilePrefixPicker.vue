@@ -19,144 +19,30 @@
  */
 </script>
 <template>
-  <div class="input-wrapper">
-    <div v-if="hint" class="hint">
-      {{ hint }}
-    </div>
-    <div class="flex flex-center flex-wrap">
-      <div class="dirname">
-        <a href="#"
-           class="file-picker button"
-           @click="openFilePicker(...arguments)"
-        >
-          {{ pathInfo.dirName + (pathInfo.dirName !== '/' ? '/' : '') }}
-        </a>
-      </div>
-      <SettingsInputText v-model="pathInfo.baseName"
-                         label=""
-                         class="flex-grow"
-                         :placeholder="placeholder"
-                         @update="$emit('update', pathInfo)"
-      />
-    </div>
-  </div>
+  <FilePrefixPicker v-bind="$attrs"
+                    :file-picker-title="filePickerTitle || t(appName, 'Choose a prefix-folder')"
+                    v-on="$listeners"
+                    @error:invalidDirName="showDirNameInvalid"
+                    @update:dirName="showDirNameUpdated"
+  />
 </template>
 <script>
-
 import { appName } from '../config.js'
-import Vue from 'vue'
-import { getFilePickerBuilder, showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
-import SettingsInputText from '../components/SettingsInputText'
+import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
+import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker'
 
 export default {
   name: 'FilePrefixPicker',
   components: {
-    SettingsInputText,
-  },
-  emits: [
-    'input',
-    // 'update:modelValue', Vue 3
-  ],
-  props: {
-    value: {
-      type: Object,
-      default: () => {
-        return {
-          baseName: this.pathInfo.baseName,
-          dirName: this.pathInfo.dirName,
-        }
-      },
-    },
-    baseName: {
-      type: String,
-      default: undefined,
-    },
-    dirName: {
-      type: String,
-      default: undefined,
-    },
-    hint: {
-      type: String,
-      default: undefined,
-    },
-    placeholder: {
-      type: String,
-      default: undefined,
-    },
-    filePickerTitle: {
-      type: String,
-      default: t(appName, 'Choose a prefix-folder'),
-    },
-  },
-  data() {
-    return {
-      pathInfo: {
-        dirName: null,
-        baseName: null,
-      },
-    }
-  },
-  created() {
-    this.pathInfo = this.value
-    if (!this.pathInfo.baseName && this.baseName) {
-      Vue.set(this.pathInfo, 'baseName', this.baseName)
-    }
-    if (!this.pathInfo.dirName && this.dirName) {
-      Vue.set(this.pathInfo, 'dirName', this.dirName)
-    }
-  },
-  computed: {
-    pathName() {
-      return (this.pathInfo.dirName ? this.pathInfo.dirName + '/' : '') + this.pathInfo.baseName
-    }
-  },
-  watch: {
-    pathName(newValue, oldValue) {
-      this.$emit('input', this.pathInfo) // Vue 2
-    },
+    FilePrefixPicker,
   },
   methods: {
-    async openFilePicker() {
-      const picker = getFilePickerBuilder(this.filePickerTitle)
-        .startAt(this.pathInfo.dirName)
-        .setMultiSelect(false)
-        .setModal(true)
-        .setType(1)
-        .setMimeTypeFilter(['httpd/unix-directory'])
-        .allowDirectories()
-        .build()
-
-      const dir = await picker.pick() || '/'
-      if (!dir.startsWith('/')) {
-        showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
-      } else  {
-        showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: this.pathInfo.baseName }))
-        Vue.set(this.pathInfo, 'dirName', dir)
-      }
+    showDirNameUpdated(dir) {
+      showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: this.pathInfo.baseName }))
+    },
+    showDirNameInvalid(dir) {
+      showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-.input-wrapper {
-  .dirname {
-    font-weight:bold;
-    font-family:monospace;
-    .button {
-      display:block;
-    }
-  }
-   .flex {
-    display:flex;
-    &.flex-center {
-      align-items:center;
-    }
-    &.flex-wrap {
-      flex-wrap:wrap;
-    }
-    .flex-grow {
-      flex-grow:1;
-    }
-  }
-}
-</style>

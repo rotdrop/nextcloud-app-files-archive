@@ -33,6 +33,7 @@
     "npm": "^8.0.0"
   },
   "devDependencies": {
+    "@rotdrop/nextcloud-vue-components": "file:git-modules/nextcloud-vue-components",
     "@nextcloud/auth": "^1.3.0",
     "@nextcloud/axios": "^2.0.0",
     "@nextcloud/babel-config": "^1.0.0",
