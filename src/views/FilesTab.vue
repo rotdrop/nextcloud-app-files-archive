@@ -208,7 +208,7 @@
           <FilePrefixPicker v-model="archiveExtractFileInfo"
                             :hint="t(appName, 'Choose a directory to extract the archive to:')"
                             :placeholder="t(appName, 'base-name')"
-                            @update="() => { info(archiveExtractFileInfo); extract(); }"
+                            @update="extract"
           />
           <div class="flex flex-center">
             <div class="label"
@@ -247,7 +247,8 @@ import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import ListItem from '@rotdrop/nextcloud-vue-components/lib/components/ListItem'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
-import FilePrefixPicker from '../components/FilePrefixPicker'
+// import FilePrefixPicker from '../components/FilePrefixPicker'
+import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker'
 import axios from '@nextcloud/axios'
 import { nextTick } from 'vue'
 
