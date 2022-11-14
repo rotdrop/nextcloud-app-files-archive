@@ -165,24 +165,11 @@
           </ListItem>
         </ul>
         <div v-else>
-          <div class="hint">
-            {{ t(appName, 'Not mounted, create a new mount-point:') }}
-          </div>
-          <div class="flex flex-center flex-wrap">
-            <div class="dirname">
-              <a href="#"
-                 class="file-picker button"
-                 @click="openFilePicker('archiveMount', ...arguments)"
-              >
-                {{ archiveMountDirName + (archiveMountDirName !== '/' ? '/' : '') }}
-              </a>
-            </div>
-            <SettingsInputText v-model="archiveMountBaseName"
-                               label=""
-                               class="flex-grow"
-                               @update="mount"
-            />
-          </div>
+          <FilePrefixPicker v-model="archiveMountFileInfo"
+                            :hint="t(appName, 'Not mounted, create a new mount-point:')"
+                            :placeholder="t(appName, 'base-name')"
+                            @update="mount"
+          />
           <div class="flex flex-center">
             <div class="label"
                  @click="$refs.mountOptions.openMenu()"
@@ -218,24 +205,11 @@
       <li v-show="showArchiveExtraction" class="directory-chooser files-tab-entry">
         <div v-if="loading" class="icon-loading-small" />
         <div v-else>
-          <div class="hint">
-            {{ t(appName, 'Choose a directory to extract the archive to:') }}
-          </div>
-          <div class="flex flex-center flex-wrap">
-            <div class="dirname">
-              <a href="#"
-                 class="file-picker button"
-                 @click="openFilePicker('archiveExtract', ...arguments)"
-              >
-                {{ archiveExtractDirName + (archiveExtractDirName !== '/' ? '/' : '') }}
-              </a>
-            </div>
-            <SettingsInputText v-model="archiveExtractBaseName"
-                               label=""
-                               class="flex-grow"
-                               @update="extract"
-            />
-          </div>
+          <FilePrefixPicker v-model="archiveExtractFileInfo"
+                            :hint="t(appName, 'Choose a directory to extract the archive to:')"
+                            :placeholder="t(appName, 'base-name')"
+                            @update="() => { info(archiveExtractFileInfo); extract(); }"
+          />
           <div class="flex flex-center">
             <div class="label"
                  @click="$refs.extractionOptions.openMenu()"
@@ -260,6 +234,7 @@
 <script>
 
 import { appName } from '../config.js'
+import Vue from 'vue'
 import { getInitialState } from '../services/InitialStateService.js'
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router'
 import { getCurrentUser } from '@nextcloud/auth'
@@ -273,6 +248,7 @@ import ListItem from '../components/ListItem'
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import SettingsInputText from '../components/SettingsInputText'
+import FilePrefixPicker from '../components/FilePrefixPicker'
 import axios from '@nextcloud/axios'
 import { nextTick } from 'vue'
 
@@ -285,6 +261,7 @@ export default {
     ActionCheckBox,
     ListItem,
     SettingsInputText,
+    FilePrefixPicker,
   },
   mixins: [
   ],
@@ -304,11 +281,15 @@ export default {
       archiveMounted: false,
       openMountTarget: md5(generateUrl('') + appName + '-open-archive-mount'),
       loading: 0,
-      archiveMountDirName: undefined,
-      archiveMountBaseName: undefined,
+      archiveMountFileInfo: {
+        dirName: undefined,
+        baseName: undefined,
+      },
       archiveMountStripCommonPathPrefix: false,
-      archiveExtractDirName: undefined,
-      archiveExtractBaseName: undefined,
+      archiveExtractFileInfo: {
+        dirName: undefined,
+        baseName: undefined,
+      },
       archiveExtractStripCommonPathPrefix: false,
       archivePassPhrase: undefined,
     };
@@ -320,6 +301,48 @@ export default {
     // this.getData()
   },
   computed: {
+    archiveMountBaseName: {
+      get() {
+        return this.archiveMountFileInfo.baseName
+      },
+      set(value) {
+        Vue.set(this.archiveMountFileInfo, 'baseName', value)
+        return value
+      }
+    },
+    archiveMountDirName: {
+      get() {
+        return this.archiveMountFileInfo.dirName
+      },
+      set(value) {
+        Vue.set(this.archiveMountFileInfo, 'dirName', value)
+        return value
+      }
+    },
+    archiveMountPathName() {
+      return this.archiveMountDirName + (this.archiveMountBaseName ? '/' + this.archiveMountBaseName : '')
+    },
+    archiveExtractBaseName: {
+      get() {
+        return this.archiveExtractFileInfo.baseName
+      },
+      set(value) {
+        Vue.set(this.archiveExtractFileInfo, 'baseName', value)
+        return value
+      }
+    },
+    archiveExtractDirName: {
+      get() {
+        return this.archiveExtractFileInfo.dirName
+      },
+      set(value) {
+        Vue.set(this.archiveExtractFileInfo, 'dirName', value)
+        return value
+      }
+    },
+    archiveExtractPathName() {
+      return this.archiveExtractDirName + (this.archiveExtractBaseName ? '/' + this.archiveExtractBaseName : '')
+    },
     archiveInfoText() {
       return JSON.stringify(this.archiveInfo, null, 2)
     },
@@ -386,7 +409,7 @@ export default {
 
       this.fileList = OCA.Files.App.currentFileList
       this.fileList.$el.off('updated').on('updated', function(event) {
-        console.info('ARGS', arguments)
+        console.info('FILE LIST UPDATED, ARGS', arguments)
       })
       this.archiveMountBaseName = fileInfo.name.split('.')[0]
       this.archiveMountDirName = fileInfo.path
@@ -402,8 +425,8 @@ export default {
     async getData() {
       this.initialState = getInitialState()
 
-      this.archiveMountStripCommonPathPrefix = this.initialState.mountStripCommonPathPrefixDefault
-      this.archiveExtractStripCommonPathPrefix = this.initialState.extractStripCommonPathPrefixDefault
+      this.archiveMountStripCommonPathPrefix = !!this.initialState.mountStripCommonPathPrefixDefault
+      this.archiveExtractStripCommonPathPrefix = !!this.initialState.extractStripCommonPathPrefixDefault
 
       this.getArchiveInfo(this.fileName)
       this.getArchiveMounts(this.fileName)
@@ -497,7 +520,7 @@ export default {
     },
     async mount() {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
-      const mountPath = encodeURIComponent(this.archiveMountDirName + (this.archiveMountBaseName ? '/' + this.archiveMountBaseName : ''))
+      const mountPath = encodeURIComponent(this.archiveMountPathName)
       const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}/{mountPath}', { archivePath, mountPath })
       this.fileList.showFileBusyState(this.fileInfo.name, true)
       const requestData = {}
@@ -579,7 +602,7 @@ export default {
     },
     async extract() {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
-      const targetPath = encodeURIComponent(this.archiveExtractDirName + (this.archiveExtractBaseName ? '/' + this.archiveExtractBaseName : ''))
+      const targetPath = encodeURIComponent(this.archiveExtractPathName)
       const url = generateUrl('/apps/' + appName + '/archive/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
       this.fileList.showFileBusyState(this.fileInfo.name, true)
       const requestData = {}
@@ -612,33 +635,11 @@ export default {
       }
       this.fileList.showFileBusyState(this.fileInfo.name, false)
     },
-    async openFilePicker(dataPrefix) {
-      console.info('ARGUMENTS', arguments)
-
-      const picker = getFilePickerBuilder(t(appName, 'Choose a prefix-folder'))
-        .startAt(this[dataPrefix + 'DirName'])
-        .setMultiSelect(false)
-        .setModal(true)
-        .setType(1)
-        .setMimeTypeFilter(['httpd/unix-directory'])
-        .allowDirectories()
-        .build()
-
-      const dir = await picker.pick() || '/'
-      if (!dir.startsWith('/')) {
-        showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
-      } else  {
-        showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: this[dataPrefix + 'BaseName'] }))
-        this[dataPrefix + 'DirName'] = dir
-      }
-    },
     async setPassPhrase() {
-      console.info('ARGUMENTS', arguments)
       const newPassPhrase = this.showArchivePassPhrase
         ? this.$refs.archivePassPhrase.$el.querySelector('input[type="text"]').value
         : this.$refs.archivePassPhrase.$el.querySelector('input[type="password"]').value
       this.archivePassPhrase = newPassPhrase
-      console.info('PASSPHRASE', newPassPhrase)
 
       // patch it into existing mounts if any
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
