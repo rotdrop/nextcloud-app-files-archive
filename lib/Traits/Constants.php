@@ -1,5 +1,7 @@
 <?php
 /**
+ * A collection of reusable traits classes for Nextcloud apps.
+ *
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
@@ -18,9 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive;
-
-use OCA\RotDrop\Traits\Constants as TraitsConstants;
+namespace OCA\RotDrop\Traits;
 
 /** A couple of constants in order to avoid string literals. */
 class Constants
@@ -30,6 +30,6 @@ class Constants
    *
    * File-path separator.
    */
-  public const PATH_SEPARATOR = TraitsConstants::PATH_SEPARATOR;
-  public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = TraitsConstants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+  public const PATH_SEPARATOR = '/';
+  public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = (1 << 32);
 }

@@ -40,9 +40,9 @@ use OCA\FilesArchive\Constants;
  */
 class SettingsController extends Controller
 {
-  use \OCA\FilesArchive\Traits\ResponseTrait;
-  use \OCA\FilesArchive\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Traits\UtilTrait;
+  use \OCA\RotDrop\Traits\ResponseTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\UtilTrait;
 
   public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 

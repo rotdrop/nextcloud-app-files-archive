@@ -56,9 +56,9 @@ use OCA\FilesArchive\Exceptions;
  */
 class MountController extends Controller
 {
-  use \OCA\FilesArchive\Traits\ResponseTrait;
-  use \OCA\FilesArchive\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Traits\UtilTrait;
+  use \OCA\RotDrop\Traits\ResponseTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\UtilTrait;
   use TargetPathTrait;
 
   /** @var string */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive Manager for Nextcloud
+ * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -20,9 +20,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Traits;
+namespace OCA\RotDrop\Traits;
 
-use \ReflectionClass;
+use ReflectionClass;
+use Throwable;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
@@ -36,8 +37,20 @@ trait ResponseTrait
 {
   use UtilTrait;
 
-  private function dataDownloadResponse($data, $fileName, $contentType)
-  {
+  /**
+   * @param string $data Data-blob.
+   *
+   * @param string $fileName Proposed download file-name.
+   *
+   * @param string $contentType MIME-type of content.
+   *
+   * @return Http\DataDownloadResponse
+   */
+  private function dataDownloadResponse(
+    string $data,
+    string $fileName,
+    string $contentType,
+  ):Http\DataDownloadResponse {
     $response = new Http\DataDownloadResponse($data, $fileName, $contentType);
     $response->addHeader(
       'Content-Disposition',
@@ -48,8 +61,24 @@ trait ResponseTrait
     return $response;
   }
 
-  private function exceptionResponse(\Throwable $throwable, string $renderAs, string $method = null)
-  {
+  /**
+   * Return an HTML error page, populated with the exception data. This only
+   * works if a traditional "errorpage.php" file exists in the templates/
+   * directory.
+   *
+   * @param Throwable $throwable
+   *
+   * @param string $renderAs
+   *
+   * @param null|string $method
+   *
+   * @return TemplateResponse
+   */
+  private function exceptionResponse(
+    Throwable $throwable,
+    string $renderAs,
+    ?string $method = null,
+  ):TemplateResponse {
     if (empty($method)) {
       $method = __METHOD__;
     }
@@ -70,7 +99,17 @@ trait ResponseTrait
     return new TemplateResponse($this->appName, 'errorpage', $templateParameters, $renderAs);
   }
 
-  private function exceptionChainData(\Throwable $throwable, bool $top = true)
+  /**
+   * Convert a potentially nested exception into a nested array to ease
+   * post-processing.
+   *
+   * @param Throwable $throwable
+   *
+   * @param bool $top If \true then this is the top-level invocation.
+   *
+   * @return array
+   */
+  private function exceptionChainData(Throwable $throwable, bool $top = true):array
   {
     $previous = $throwable->getPrevious();
     $shortException = (new ReflectionClass($throwable))->getShortName();
@@ -85,7 +124,14 @@ trait ResponseTrait
     ];
   }
 
-  private static function dataResponse($data, $status = Http::STATUS_OK)
+  /**
+   * @param array $data
+   *
+   * @param int $status Default is Http::STATUS_OK.
+   *
+   * @return DataResponse
+   */
+  private static function dataResponse(array $data, int $status = Http::STATUS_OK):DataResponse
   {
     $response = new DataResponse($data, $status);
     $policy = $response->getContentSecurityPolicy();
@@ -93,18 +139,55 @@ trait ResponseTrait
     return $response;
   }
 
-  private static function valueResponse($value, $message = '', $status = Http::STATUS_OK)
-  {
+  /**
+   * @param mixed $value
+   *
+   * @param null|string $message
+   *
+   * @param int $status Default is Http::STATUS_OK.
+   *
+   * @return DataResponse
+   *
+   * @see dataResponse()
+   */
+  private static function valueResponse(
+    mixed $value,
+    ?string $message = '',
+    int $status = Http::STATUS_OK,
+  ):DataResponse {
     return self::dataResponse(['messages' => [ $message ], 'value' => $value], $status);
   }
 
-  private static function response($message, $status = Http::STATUS_OK)
+  /**
+   * @param null|string $message
+   *
+   * @param int $status Default is Http::STATUS_OK.
+   *
+   * @return DataResponse
+   *
+   * @see dataResponse()
+   */
+  private static function response(?string $message, int $status = Http::STATUS_OK):DataResponse
   {
     return self::dataResponse(['messages' => [ $message ] ], $status);
   }
 
-  private static function grumble($message, $value = null, $status = Http::STATUS_BAD_REQUEST)
-  {
+  /**
+   * @param null|string $message
+   *
+   * @param mixed $value
+   *
+   * @param int $status Default is Http::STATUS_BAD_REQUEST.
+   *
+   * @return DataResponse
+   *
+   * @see dataResponse()
+   */
+  private static function grumble(
+    ?string $message,
+    mixed $value = null,
+    int $status = Http::STATUS_BAD_REQUEST,
+  ):DataResponse {
     $trace = debug_backtrace();
     $caller = array_shift($trace);
     $data = [

@@ -31,7 +31,7 @@ use OCA\FilesArchive\Constants;
 /** Initial database setup. */
 class Version000000Date20221031100000 extends SimpleMigrationStep
 {
-  use \OCA\FilesArchive\Traits\AppNameTrait;
+  use \OCA\RotDrop\Traits\AppNameTrait;
 
   /** @var string */
   private $appName;

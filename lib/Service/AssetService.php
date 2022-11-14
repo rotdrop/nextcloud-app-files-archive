@@ -33,7 +33,7 @@ use OCA\FilesArchive\Exceptions;
  */
 class AssetService
 {
-  use \OCA\FilesArchive\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
 
   const ASSET_META = __DIR__ . '/../../js/asset-meta.json';
   const JS = 'js';

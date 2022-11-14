@@ -42,8 +42,8 @@ use OCA\FilesArchive\Exceptions;
  */
 class ArchiveService
 {
-  use \OCA\FilesArchive\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Traits\UtilTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\UtilTrait;
 
   /**
    * @var string

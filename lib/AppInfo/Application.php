@@ -37,12 +37,14 @@ use OCP\Files\Config\IMountProviderCollection;
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Service\MimeTypeService;
 
+include_once __DIR__ . '/../../vendor/autoload.php';
+
 /**
  * App entry point.
  */
 class Application extends App implements IBootstrap
 {
-  use \OCA\FilesArchive\Traits\AppNameTrait;
+  use \OCA\RotDrop\Traits\AppNameTrait;
 
   /** @var string */
   protected $appName;
@@ -81,9 +83,7 @@ class Application extends App implements IBootstrap
    */
   public function register(IRegistrationContext $context): void
   {
-    if ((include_once __DIR__ . '/../../vendor/autoload.php') === false) {
-      throw new Exceptions\Exception('Cannot include autoload. Did you run install dependencies using composer?');
-    }
+    include_once __DIR__ . '/../../vendor/autoload.php';
 
     // Register listeners
     ListenerRegistration::register($context);

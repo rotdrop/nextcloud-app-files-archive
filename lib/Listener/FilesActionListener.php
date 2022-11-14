@@ -43,8 +43,8 @@ use OCA\FilesArchive\Service\MimeTypeService;
  */
 class FilesActionListener implements IEventListener
 {
-  use \OCA\FilesArchive\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Traits\CloudAdminTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\CloudAdminTrait;
 
   const EVENT = HandledEvent::class;
 

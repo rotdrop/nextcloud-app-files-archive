@@ -56,7 +56,7 @@ use OCA\FilesArchive\Exceptions;
  */
 class MountProvider implements IMountProvider
 {
-  use \OCA\FilesArchive\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
 
   /** @var string */
   private $appName;
@@ -259,7 +259,7 @@ class MountProvider implements IMountProvider
       $this->logger,
     ) extends MountPoint implements MoveableMount
     {
-      use \OCA\FilesArchive\Traits\LoggerTrait;
+      use \OCA\RotDrop\Traits\LoggerTrait;
 
       /** @var IMountManager */
       private $mountManager;

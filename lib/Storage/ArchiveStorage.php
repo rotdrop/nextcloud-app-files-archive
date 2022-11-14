@@ -47,8 +47,8 @@ use OCA\FilesArchive\Constants;
 /** Virtual storage mapping an archive file into the user file-space. */
 class ArchiveStorage extends AbstractStorage
 {
-  use \OCA\FilesArchive\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Traits\UtilTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\UtilTrait;
   use CopyDirectory;
 
   public const PATH_SEPARATOR = Constants::PATH_SEPARATOR;

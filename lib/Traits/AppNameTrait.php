@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive Manager for Nextcloud
+ * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -20,13 +20,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Traits;
+namespace OCA\RotDrop\Traits;
 
 use Throwable;
 
 use SimpleXMLElement;
-
-use OCA\FilesArchive\Constants;
 
 /**
  * Trait which extracts the app-name from the info.xml file for cases where it

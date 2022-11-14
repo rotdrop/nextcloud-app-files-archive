@@ -47,7 +47,7 @@ use OCA\FilesArchive\Constants;
  */
 class FileNodeListener implements IEventListener
 {
-  use \OCA\FilesArchive\Traits\LoggerTrait;
+  use \OCA\RotDrop\Traits\LoggerTrait;
 
   const EVENT = [ NodeDeletedEvent::class, NodeRenamedEvent::class ];
 

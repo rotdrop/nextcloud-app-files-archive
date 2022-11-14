@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive Manager for Nextcloud
+ * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -20,7 +20,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Traits;
+namespace OCA\RotDrop\Traits;
+
+use Throwable;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -91,7 +93,7 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function log($level, string $message, array $context = [], int $shift = 0, bool $showTrace = false):void
+  public function log(mixed $level, string $message, array $context = [], int $shift = 0, bool $showTrace = false):void
   {
     $level = $this->mapLogLevels($level);
     $trace = debug_backtrace();
@@ -114,18 +116,25 @@ trait LoggerTrait
 
   /**
    * @param \Throwable $exception
+   *
    * @param string $message
+   *
    * @param int $shift
+   *
    * @param bool $showTrace
+   *
+   * @param mixed $level
    *
    * @return void
    */
   public function logException(
-    \Throwable $exception,
+    Throwable $exception,
     string $message = null,
     int $shift = 0,
     bool $showTrace = false,
+    mixed $level = LogLevel::ERROR,
   ):void {
+    $level = $this->mapLogLevels($level);
     $trace = debug_backtrace();
     $caller = $trace[$shift];
     $file = $caller['file']??'unknown';
@@ -137,7 +146,7 @@ trait LoggerTrait
     $prefix = $file.':'.$line.': '.$class.'::'.$method.': ';
 
     empty($message) && ($message = "Caught an Exception");
-    $this->logger->error($prefix . $message, [ 'exception' => $exception ]);
+    $this->logger->log($level, $prefix . $message, [ 'exception' => $exception ]);
   }
 
   /**
@@ -150,7 +159,7 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logError(string $message, array $context = [], $shift = 1, bool $showTrace = false):void
+  public function logError(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
   {
     $this->log(LogLevel::ERROR, $message, $context, $shift, $showTrace);
   }
@@ -165,7 +174,7 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logDebug(string $message, array $context = [], $shift = 1, bool $showTrace = false):void
+  public function logDebug(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
   {
     $this->log(LogLevel::DEBUG, $message, $context, $shift, $showTrace);
   }
@@ -180,7 +189,7 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logInfo(string $message, array $context = [], $shift = 1, bool $showTrace = false):void
+  public function logInfo(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
   {
     $this->log(LogLevel::INFO, $message, $context, $shift, $showTrace);
   }
@@ -195,7 +204,7 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logWarn(string $message, array $context = [], $shift = 1, bool $showTrace = false):void
+  public function logWarn(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
   {
     $this->log(LogLevel::WARNING, $message, $context, $shift, $showTrace);
   }
@@ -210,7 +219,7 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logFatal(string $message, array $context = [], $shift = 1, bool $showTrace = false):void
+  public function logFatal(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
   {
     $this->log(LogLevel::EMERGENCY, $message, $context, $shift, $showTrace);
   }
