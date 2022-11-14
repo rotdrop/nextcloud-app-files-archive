@@ -36,7 +36,7 @@
   "repositories": [],
   "autoload": {
     "psr-4": {
-      "OCA\\RotDrop\\Traits\\": "lib/Traits/"
+      "OCA\\RotDrop\\Toolkit\\": "lib/Toolkit/"
     }
   },
   "scripts": {

@@ -44,7 +44,7 @@ include_once __DIR__ . '/../../vendor/autoload.php';
  */
 class Application extends App implements IBootstrap
 {
-  use \OCA\RotDrop\Traits\AppNameTrait;
+  use \OCA\RotDrop\Toolkit\Traits\AppNameTrait;
 
   /** @var string */
   protected $appName;

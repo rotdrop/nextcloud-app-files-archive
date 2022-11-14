@@ -49,9 +49,9 @@ use OCA\FilesArchive\Constants;
  */
 class ArchiveController extends Controller
 {
-  use \OCA\RotDrop\Traits\ResponseTrait;
-  use \OCA\RotDrop\Traits\LoggerTrait;
-  use \OCA\RotDrop\Traits\UtilTrait;
+  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
   use TargetPathTrait;
 
   public const ARCHIVE_STATUS_OK = 0;

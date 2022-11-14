@@ -32,7 +32,7 @@ use OCP\IL10N;
  */
 class CatchAllController extends Controller
 {
-  use \OCA\RotDrop\Traits\ResponseTrait;
+  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
 
   /** @var IL10N */
   private $l;
