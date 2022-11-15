@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-14 03:16+0000\n"
+"POT-Creation-Date: 2022-11-15 03:18+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Claus-Justus Heine, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -243,15 +243,16 @@ msgstr ""
 msgid "Archive Explorer"
 msgstr "Archiv-Betrachter"
 
-#: /app/lib/Traits/ResponseTrait.php:79
+#: /app/lib/Toolkit/Traits/ResponseTrait.php:118
 msgid "Error, caught an exception."
 msgstr "Fehler, \"Ausnahme\" \"aufgefangen\"."
 
-#: /app/lib/Traits/ResponseTrait.php:80
+#: /app/lib/Toolkit/Traits/ResponseTrait.php:119
 msgid "Caused by previous exception"
 msgstr "Verursacht durch eine vorhergehende Ausnahme"
 
-#: /app/lib/Traits/UtilTrait.php:257 /app/lib/Traits/UtilTrait.php:259
+#: /app/lib/Toolkit/Traits/UtilTrait.php:257
+#: /app/lib/Toolkit/Traits/UtilTrait.php:259
 msgid "bytes"
 msgstr "Bytes"
 
@@ -313,9 +314,9 @@ msgid "Administrative size limit: {value}"
 msgstr "Größenbegrenzen durch Administrator*innen: {value}"
 
 #. TRANSLATORS nalSettings.vue:35
-#. TRANSLATORS /FilesTab.vue:190
+#. TRANSLATORS /FilesTab.vue:177
 #: /app/specialVueFakeDummyForL10nScript.js:20
-#: /app/specialVueFakeDummyForL10nScript.js:86
+#: /app/specialVueFakeDummyForL10nScript.js:94
 msgid "Mount Options"
 msgstr "Einhänge-Optionen"
 
@@ -348,9 +349,9 @@ msgstr ""
 " Verwendung ist"
 
 #. TRANSLATORS nalSettings.vue:66
-#. TRANSLATORS /FilesTab.vue:243
+#. TRANSLATORS /FilesTab.vue:217
 #: /app/specialVueFakeDummyForL10nScript.js:30
-#: /app/specialVueFakeDummyForL10nScript.js:94
+#: /app/specialVueFakeDummyForL10nScript.js:104
 msgid "Extraction Options"
 msgstr "Einstellungen für das Entpacken"
 
@@ -368,188 +369,194 @@ msgstr ""
 "den Namen des Ziel-Ordners automatisch ändern, falls der Name bereits in "
 "Verwendung ist"
 
-#. TRANSLATORS /FilesTab.vue:29
+#. TRANSLATORS nents/FilePrefixPicker.vue:43
 #: /app/specialVueFakeDummyForL10nScript.js:40
+msgid "Choose a prefix-folder"
+msgstr "Wähle den \"Eltern\"-Ordner"
+
+#. TRANSLATORS nents/FilePrefixPicker.vue:48
+#: /app/specialVueFakeDummyForL10nScript.js:42
+msgid "Selected path: \"{dir}/{base}/\"."
+msgstr "Ausgewählter Datei-Pfad: \"{dir}/{base}\"."
+
+#. TRANSLATORS nents/FilePrefixPicker.vue:51
+#: /app/specialVueFakeDummyForL10nScript.js:44
+msgid "Invalid path selected: \"{dir}\"."
+msgstr "Es wurde ein ungültiger Pfad ausgewählt: {dir}."
+
+#. TRANSLATORS /FilesTab.vue:29
+#: /app/specialVueFakeDummyForL10nScript.js:46
 msgid "Archive Information"
 msgstr "Archiv-Informationen"
 
 #. TRANSLATORS /FilesTab.vue:42
-#: /app/specialVueFakeDummyForL10nScript.js:42
+#: /app/specialVueFakeDummyForL10nScript.js:48
 msgid "archive status"
 msgstr "Archiv-Status"
 
 #. TRANSLATORS /FilesTab.vue:50
-#: /app/specialVueFakeDummyForL10nScript.js:44
+#: /app/specialVueFakeDummyForL10nScript.js:50
 msgid "archive format"
 msgstr "Archiv-Format"
 
 #. TRANSLATORS /FilesTab.vue:52
-#: /app/specialVueFakeDummyForL10nScript.js:46
-#: /app/specialVueFakeDummyForL10nScript.js:50
-#: /app/specialVueFakeDummyForL10nScript.js:54
-#: /app/specialVueFakeDummyForL10nScript.js:98
-#: /app/specialVueFakeDummyForL10nScript.js:100
-#: /app/specialVueFakeDummyForL10nScript.js:102
-#: /app/specialVueFakeDummyForL10nScript.js:104
-#: /app/specialVueFakeDummyForL10nScript.js:106
+#: /app/specialVueFakeDummyForL10nScript.js:52
+#: /app/specialVueFakeDummyForL10nScript.js:56
+#: /app/specialVueFakeDummyForL10nScript.js:60
+#: /app/specialVueFakeDummyForL10nScript.js:108
+#: /app/specialVueFakeDummyForL10nScript.js:110
+#: /app/specialVueFakeDummyForL10nScript.js:112
 #: /app/specialVueFakeDummyForL10nScript.js:114
+#: /app/specialVueFakeDummyForL10nScript.js:116
+#: /app/specialVueFakeDummyForL10nScript.js:124
 msgid "unknown"
 msgstr "unbekannt"
 
 #. TRANSLATORS /FilesTab.vue:54
-#: /app/specialVueFakeDummyForL10nScript.js:48
+#: /app/specialVueFakeDummyForL10nScript.js:54
 msgid "MIME type"
 msgstr "MIME-Typ"
 
 #. TRANSLATORS /FilesTab.vue:58
-#: /app/specialVueFakeDummyForL10nScript.js:52
+#: /app/specialVueFakeDummyForL10nScript.js:58
 msgid "backend driver"
 msgstr "Backend-Software"
 
 #. TRANSLATORS /FilesTab.vue:62
-#: /app/specialVueFakeDummyForL10nScript.js:56
+#: /app/specialVueFakeDummyForL10nScript.js:62
 msgid "uncompressed size"
 msgstr "Größe dekomprimiert"
 
 #. TRANSLATORS /FilesTab.vue:66
-#: /app/specialVueFakeDummyForL10nScript.js:58
+#: /app/specialVueFakeDummyForL10nScript.js:64
 msgid "compressed size"
 msgstr "Größe komprimiert"
 
 #. TRANSLATORS /FilesTab.vue:71
-#: /app/specialVueFakeDummyForL10nScript.js:60
+#: /app/specialVueFakeDummyForL10nScript.js:66
 msgid "archive file size"
 msgstr "Archive-Dateigröße"
 
 #. TRANSLATORS /FilesTab.vue:75
-#: /app/specialVueFakeDummyForL10nScript.js:62
+#: /app/specialVueFakeDummyForL10nScript.js:68
 msgid "# archive members"
 msgstr "Anzahl Archiv-Dateien"
 
 #. TRANSLATORS /FilesTab.vue:79
-#: /app/specialVueFakeDummyForL10nScript.js:64
+#: /app/specialVueFakeDummyForL10nScript.js:70
 msgid "common prefix"
 msgstr "Gemeinsamer Präfix"
 
 #. TRANSLATORS /FilesTab.vue:85
-#: /app/specialVueFakeDummyForL10nScript.js:66
+#: /app/specialVueFakeDummyForL10nScript.js:72
 msgid "creator's comment"
 msgstr "Erzeuger*in-Kommentar"
 
 #. TRANSLATORS /FilesTab.vue:98
-#: /app/specialVueFakeDummyForL10nScript.js:68
+#: /app/specialVueFakeDummyForL10nScript.js:74
 msgid "Passphrase"
 msgstr "Passwort"
 
 #. TRANSLATORS /FilesTab.vue:99
-#: /app/specialVueFakeDummyForL10nScript.js:70
+#: /app/specialVueFakeDummyForL10nScript.js:76
 msgid "unset"
 msgstr "nicht gesetzt"
 
 #. TRANSLATORS /FilesTab.vue:110
-#: /app/specialVueFakeDummyForL10nScript.js:72
-#: /app/specialVueFakeDummyForL10nScript.js:74
+#: /app/specialVueFakeDummyForL10nScript.js:78
+#: /app/specialVueFakeDummyForL10nScript.js:80
 msgid "archive passphrase"
 msgstr "Archiv-Passwort"
 
 #. TRANSLATORS /FilesTab.vue:122
-#: /app/specialVueFakeDummyForL10nScript.js:76
+#: /app/specialVueFakeDummyForL10nScript.js:82
 msgid "Show Passphrase"
 msgstr "Passwort anzeigen"
 
 #. TRANSLATORS /FilesTab.vue:132
-#: /app/specialVueFakeDummyForL10nScript.js:78
-#: /app/specialVueFakeDummyForL10nScript.js:116
+#: /app/specialVueFakeDummyForL10nScript.js:84
+#: /app/specialVueFakeDummyForL10nScript.js:126
 msgid "Mount Points"
 msgstr "Einhänge-Punkt"
 
 #. TRANSLATORS /FilesTab.vue:134
-#: /app/specialVueFakeDummyForL10nScript.js:80
-#: /app/specialVueFakeDummyForL10nScript.js:118
+#: /app/specialVueFakeDummyForL10nScript.js:86
+#: /app/specialVueFakeDummyForL10nScript.js:128
 msgid "not mounted"
 msgstr "nicht eingehängt"
 
 #. TRANSLATORS /FilesTab.vue:163
-#: /app/specialVueFakeDummyForL10nScript.js:82
+#: /app/specialVueFakeDummyForL10nScript.js:88
 msgid "Common prefix {prefix} is stripped."
 msgstr "Gemeinsamer Präfix {prefix} wurde entfernt."
 
 #. TRANSLATORS /FilesTab.vue:169
-#: /app/specialVueFakeDummyForL10nScript.js:84
+#: /app/specialVueFakeDummyForL10nScript.js:90
 msgid "Not mounted, create a new mount-point:"
 msgstr "Nicht eingehängt, erzeuge einen neuen Einhänge-Punkt:"
 
-#. TRANSLATORS /FilesTab.vue:199
-#: /app/specialVueFakeDummyForL10nScript.js:88
+#. TRANSLATORS /FilesTab.vue:170
+#: /app/specialVueFakeDummyForL10nScript.js:92
+#: /app/specialVueFakeDummyForL10nScript.js:102
+msgid "base-name"
+msgstr ""
+
+#. TRANSLATORS /FilesTab.vue:186
 #: /app/specialVueFakeDummyForL10nScript.js:96
+#: /app/specialVueFakeDummyForL10nScript.js:106
 msgid "strip common path prefix"
 msgstr "gemeinensamen Dateipfad-Präfix entfernen"
 
-#. TRANSLATORS /FilesTab.vue:210
-#: /app/specialVueFakeDummyForL10nScript.js:90
+#. TRANSLATORS /FilesTab.vue:197
+#: /app/specialVueFakeDummyForL10nScript.js:98
 msgid "Extract Archive"
 msgstr "Archiv extrahieren"
 
-#. TRANSLATORS /FilesTab.vue:222
-#: /app/specialVueFakeDummyForL10nScript.js:92
+#. TRANSLATORS /FilesTab.vue:209
+#: /app/specialVueFakeDummyForL10nScript.js:100
 msgid "Choose a directory to extract the archive to:"
 msgstr "Wähle ein Verzeichnis, in das das Archiv extrahiert wird:"
 
-#. TRANSLATORS /FilesTab.vue:357
-#: /app/specialVueFakeDummyForL10nScript.js:108
+#. TRANSLATORS /FilesTab.vue:379
+#: /app/specialVueFakeDummyForL10nScript.js:118
 msgid "ok"
 msgstr "Ok"
 
-#. TRANSLATORS /FilesTab.vue:359
-#: /app/specialVueFakeDummyForL10nScript.js:110
+#. TRANSLATORS /FilesTab.vue:381
+#: /app/specialVueFakeDummyForL10nScript.js:120
 msgid "zip bomb"
 msgstr "ZIP-Bombe"
 
-#. TRANSLATORS /FilesTab.vue:361
-#: /app/specialVueFakeDummyForL10nScript.js:112
+#. TRANSLATORS /FilesTab.vue:383
+#: /app/specialVueFakeDummyForL10nScript.js:122
 msgid "too large"
 msgstr "zu groß"
 
-#. TRANSLATORS /FilesTab.vue:525
-#: /app/specialVueFakeDummyForL10nScript.js:120
+#. TRANSLATORS /FilesTab.vue:547
+#: /app/specialVueFakeDummyForL10nScript.js:130
 msgid "Mount request failed with error {status}, \"{statusText}\"."
 msgstr ""
 "Einhänge-Anfrage ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\"."
 
-#. TRANSLATORS /FilesTab.vue:568
-#: /app/specialVueFakeDummyForL10nScript.js:122
+#. TRANSLATORS /FilesTab.vue:590
+#: /app/specialVueFakeDummyForL10nScript.js:132
 msgid "Unmount request failed with error {status}, \"{statusText}\"."
 msgstr ""
 "Aushänge-Anfrage ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\"."
 
-#. TRANSLATORS /FilesTab.vue:606
-#: /app/specialVueFakeDummyForL10nScript.js:124
+#. TRANSLATORS /FilesTab.vue:628
+#: /app/specialVueFakeDummyForL10nScript.js:134
 msgid "Archive-extraction failed with error {status}, \"{statusText}\"."
 msgstr ""
 "Entpacken des Archivs ist fehlgeschlagen, Fehler-Code {status}, "
 "\"{statusText}\"."
 
-#. TRANSLATORS /FilesTab.vue:618
-#: /app/specialVueFakeDummyForL10nScript.js:126
-msgid "Choose a prefix-folder"
-msgstr "Wähle den \"Eltern\"-Ordner"
-
-#. TRANSLATORS /FilesTab.vue:629
-#: /app/specialVueFakeDummyForL10nScript.js:128
-msgid "Invalid path selected: \"{dir}\"."
-msgstr "Es wurde ein ungültiger Pfad ausgewählt: {dir}."
-
 #. TRANSLATORS /FilesTab.vue:665
-#: /app/specialVueFakeDummyForL10nScript.js:132
+#: /app/specialVueFakeDummyForL10nScript.js:136
 msgid "Patching the pass-phrase failed with error {status}, \"{statusText}\"."
 msgstr ""
 "Das Ändern des Passworts für aktive Einhänge-Punkte ist fehlgeschlagen, "
 "Fehler-Code {status}, \"{statusText}\"."
-
-#. TRANSLATORS /FilesTab.vue:631
-#: /app/specialVueFakeDummyForL10nScript.js:130
-msgid "Selected path: \"{dir}/{base}/\"."
-msgstr "Ausgewählter Datei-Pfad: \"{dir}/{base}\"."
 
 #: /app/src/files-action.js:49 /app/src/files-action.js:50
 msgid "Mount Archive"
@@ -571,363 +578,366 @@ msgstr ""
 msgid "Archive"
 msgstr "Archiv"
 
-#: /app/src/mixins/settings-sync.js:44 /app/src/mixins/settings-sync.js:74
-#: /app/src/mixins/settings-sync.js:124 /app/src/mixins/settings-sync.js:199
+#: /app/src/toolkit/mixins/settings-sync.js:44
+#: /app/src/toolkit/mixins/settings-sync.js:77
+#: /app/src/toolkit/mixins/settings-sync.js:130
+#: /app/src/toolkit/mixins/settings-sync.js:208
 msgid "reason unknown"
 msgstr "Grund unbekannt"
 
-#: /app/src/mixins/settings-sync.js:48
+#: /app/src/toolkit/mixins/settings-sync.js:51
 msgid "Unable to query the initial value of all settings: {message}"
 msgstr ""
 "Kann die anfänglichen Werte der Einstellungen nicht abrufen: {message}"
 
-#: /app/src/mixins/settings-sync.js:78
+#: /app/src/toolkit/mixins/settings-sync.js:84
 msgid "Unable to query the initial value of {settingsKey}: {message}"
 msgstr ""
 "Kann die anfänglichen Wert der Einstellung {settingsKey} nicht abrufen: "
 "{message}"
 
-#: /app/src/mixins/settings-sync.js:114 /app/src/mixins/settings-sync.js:131
+#: /app/src/toolkit/mixins/settings-sync.js:120
+#: /app/src/toolkit/mixins/settings-sync.js:140
 msgid "true"
 msgstr "wahr"
 
-#: /app/src/mixins/settings-sync.js:117
+#: /app/src/toolkit/mixins/settings-sync.js:123
 msgid "Successfully set \"{settingsKey}\" to {value}."
 msgstr ""
 "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf "
 "\"{value}\" gesetzt."
 
-#: /app/src/mixins/settings-sync.js:119
+#: /app/src/toolkit/mixins/settings-sync.js:125
 msgid "Setting \"{settingsKey}\" has been unset successfully."
 msgstr "Die Einstellung \"{settingsKey}\" wurde erfolgreich gelöscht."
 
-#: /app/src/mixins/settings-sync.js:129
+#: /app/src/toolkit/mixins/settings-sync.js:138
 msgid "Unable to set \"{settingsKey}\" to {value}: {message}."
 msgstr ""
 "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert "
 "\"{value}\" setzen: {message}"
 
-#: /app/src/mixins/settings-sync.js:137
+#: /app/src/toolkit/mixins/settings-sync.js:146
 msgid "false"
 msgstr "falsch"
 
-#: /app/src/mixins/settings-sync.js:135
+#: /app/src/toolkit/mixins/settings-sync.js:144
 msgid "Unable to unset \"{settingsKey}\": {message}"
 msgstr "Kann die Einstellung \"{settingsKey}\" nicht löschen: {message}>\n"
 
-#: /app/src/mixins/settings-sync.js:166
+#: /app/src/toolkit/mixins/settings-sync.js:175
 msgid "Confirmation Required"
 msgstr "Bestätigung erforderlich!"
 
-#: /app/src/mixins/settings-sync.js:171
+#: /app/src/toolkit/mixins/settings-sync.js:180
 msgid "Unconfirmed, reverting to old value."
 msgstr "Bestätigung nicht erteilt, setze auf den alten Wert zurück."
 
-#: /app/src/mixins/settings-sync.js:191
+#: /app/src/toolkit/mixins/settings-sync.js:200
 msgid "Successfully set value for \"{settingsKey}\" to \"{displayValue}\""
 msgstr ""
 "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf "
 "\"{displayValue}\" gesetzt"
 
-#: /app/src/mixins/settings-sync.js:193
+#: /app/src/toolkit/mixins/settings-sync.js:202
 msgid "Setting \"{setting}\" has been unset successfully."
 msgstr "Die Einstellung \"{setting}\" wurde erfolgreich gelöscht."
 
-#: /app/src/mixins/settings-sync.js:207
+#: /app/src/toolkit/mixins/settings-sync.js:216
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert "
 "\"{value}\" setzen: {message}"
 
-#: /app/src/util/ajax.js:35
+#: /app/src/toolkit/util/ajax.js:35
 msgid "OK"
 msgstr "Fein"
 
-#: /app/src/util/ajax.js:36
+#: /app/src/toolkit/util/ajax.js:36
 msgid "Created"
 msgstr "Erzeugt"
 
-#: /app/src/util/ajax.js:37
+#: /app/src/toolkit/util/ajax.js:37
 msgid "Accepted"
 msgstr "Akzeptiert"
 
-#: /app/src/util/ajax.js:38
+#: /app/src/toolkit/util/ajax.js:38
 msgid "Non-Authoritative Information"
 msgstr "Unverbindliche Information"
 
-#: /app/src/util/ajax.js:39
+#: /app/src/toolkit/util/ajax.js:39
 msgid "No Content"
 msgstr "Antwort enthält keine Daten"
 
-#: /app/src/util/ajax.js:40
+#: /app/src/toolkit/util/ajax.js:40
 msgid "Reset Content"
 msgstr "Inhalt zurückgesetzt"
 
-#: /app/src/util/ajax.js:41
+#: /app/src/toolkit/util/ajax.js:41
 msgid "Partial Content"
 msgstr "Unvollständige Antwort"
 
-#: /app/src/util/ajax.js:42
+#: /app/src/toolkit/util/ajax.js:42
 msgid "Multi-Status (WebDAV)"
 msgstr "Multi-Status (WebDAV)"
 
-#: /app/src/util/ajax.js:43
+#: /app/src/toolkit/util/ajax.js:43
 msgid "Already Reported (WebDAV)"
 msgstr "Bereits berichtet (WebDAV)"
 
-#: /app/src/util/ajax.js:44
+#: /app/src/toolkit/util/ajax.js:44
 msgid "IM Used"
 msgstr "IM verwendet"
 
-#: /app/src/util/ajax.js:45
+#: /app/src/toolkit/util/ajax.js:45
 msgid "Multiple Choices"
 msgstr "Mehrere Wahlmöglichkeiten"
 
-#: /app/src/util/ajax.js:46
+#: /app/src/toolkit/util/ajax.js:46
 msgid "Moved Permanently"
 msgstr "Permanent verschoben"
 
-#: /app/src/util/ajax.js:47
+#: /app/src/toolkit/util/ajax.js:47
 msgid "Found"
 msgstr "Gefunden"
 
-#: /app/src/util/ajax.js:48
+#: /app/src/toolkit/util/ajax.js:48
 msgid "See Other"
 msgstr "Siehe andere Web-Adresse"
 
-#: /app/src/util/ajax.js:49
+#: /app/src/toolkit/util/ajax.js:49
 msgid "Not Modified"
 msgstr "Unverändert"
 
-#: /app/src/util/ajax.js:50
+#: /app/src/toolkit/util/ajax.js:50
 msgid "Use Proxy"
 msgstr "Benutze einen Proxy"
 
-#: /app/src/util/ajax.js:51
+#: /app/src/toolkit/util/ajax.js:51
 msgid "(Unused)"
 msgstr "(Unbenutzt)"
 
-#: /app/src/util/ajax.js:52
+#: /app/src/toolkit/util/ajax.js:52
 msgid "Temporary Redirect"
 msgstr "Zeitweilige Umleitung"
 
-#: /app/src/util/ajax.js:53
+#: /app/src/toolkit/util/ajax.js:53
 msgid "Permanent Redirect (experimental)"
 msgstr "Permanente Umleitung"
 
-#: /app/src/util/ajax.js:54
+#: /app/src/toolkit/util/ajax.js:54
 msgid "Bad Request"
 msgstr "Ungültige Anfrage"
 
-#: /app/src/util/ajax.js:55
+#: /app/src/toolkit/util/ajax.js:55
 msgid "Unauthorized"
 msgstr "Nicht autorisiert"
 
-#: /app/src/util/ajax.js:56
+#: /app/src/toolkit/util/ajax.js:56
 msgid "Payment Required"
 msgstr "Bezahlung erforderlich"
 
-#: /app/src/util/ajax.js:57
+#: /app/src/toolkit/util/ajax.js:57
 msgid "Forbidden"
 msgstr "Verboten"
 
-#: /app/src/util/ajax.js:58
+#: /app/src/toolkit/util/ajax.js:58
 msgid "Not Found"
 msgstr "Unauffindbar"
 
-#: /app/src/util/ajax.js:59
+#: /app/src/toolkit/util/ajax.js:59
 msgid "Method Not Allowed"
 msgstr "Anfragemethode nicht zulässig"
 
-#: /app/src/util/ajax.js:60
+#: /app/src/toolkit/util/ajax.js:60
 msgid "Not Acceptable"
 msgstr "Nicht akzeptabel"
 
-#: /app/src/util/ajax.js:61
+#: /app/src/toolkit/util/ajax.js:61
 msgid "Proxy Authentication Required"
 msgstr "Proxy-Authentifizierung erforderlich"
 
-#: /app/src/util/ajax.js:62
+#: /app/src/toolkit/util/ajax.js:62
 msgid "Request Timeout"
 msgstr "Anfrage-Zeitüberschreitung"
 
-#: /app/src/util/ajax.js:63
+#: /app/src/toolkit/util/ajax.js:63
 msgid "Conflict"
 msgstr "Konflikt"
 
-#: /app/src/util/ajax.js:64
+#: /app/src/toolkit/util/ajax.js:64
 msgid "Gone"
 msgstr "Weg"
 
-#: /app/src/util/ajax.js:65
+#: /app/src/toolkit/util/ajax.js:65
 msgid "Length Required"
 msgstr "Länge benötigt"
 
-#: /app/src/util/ajax.js:66
+#: /app/src/toolkit/util/ajax.js:66
 msgid "Precondition Failed"
 msgstr "Vorbedingung nicht erfüllt"
 
-#: /app/src/util/ajax.js:67
+#: /app/src/toolkit/util/ajax.js:67
 msgid "Request Entity Too Large"
 msgstr "Anfrage-Daten zu groß"
 
-#: /app/src/util/ajax.js:68
+#: /app/src/toolkit/util/ajax.js:68
 msgid "Request-URI Too Long"
 msgstr "Anfrage-URI zu lang"
 
-#: /app/src/util/ajax.js:69
+#: /app/src/toolkit/util/ajax.js:69
 msgid "Unsupported Media Type"
 msgstr "Nicht unterstützter Medien-Typ"
 
-#: /app/src/util/ajax.js:70
+#: /app/src/toolkit/util/ajax.js:70
 msgid "Requested Range Not Satisfiable"
 msgstr "Angeforderter Bereich nicht möglich"
 
-#: /app/src/util/ajax.js:71
+#: /app/src/toolkit/util/ajax.js:71
 msgid "Expectation Failed"
 msgstr "Erwartete Operation Fehlgeschlagen"
 
-#: /app/src/util/ajax.js:72
+#: /app/src/toolkit/util/ajax.js:72
 msgid "I'm a teapot (RFC 2324)"
 msgstr "Ich bin eine Teekanne (RFC 2324)"
 
-#: /app/src/util/ajax.js:73
+#: /app/src/toolkit/util/ajax.js:73
 msgid "Enhance Your Calm (Twitter)"
 msgstr "Verstärke Deine Ruhe (Twitter)"
 
-#: /app/src/util/ajax.js:74
+#: /app/src/toolkit/util/ajax.js:74
 msgid "Unprocessable Entity (WebDAV)"
 msgstr "Nicht-verarbeitbarer Entrag (WebDAV)"
 
-#: /app/src/util/ajax.js:75
+#: /app/src/toolkit/util/ajax.js:75
 msgid "Locked (WebDAV)"
 msgstr "Gesperrt (WebDAV)"
 
-#: /app/src/util/ajax.js:76
+#: /app/src/toolkit/util/ajax.js:76
 msgid "Failed Dependency (WebDAV)"
 msgstr "Abhängigkeit fehlgeschlagen (WebDAV)"
 
-#: /app/src/util/ajax.js:77
+#: /app/src/toolkit/util/ajax.js:77
 msgid "Reserved for WebDAV"
 msgstr "Reserviert für WebDAV"
 
-#: /app/src/util/ajax.js:78
+#: /app/src/toolkit/util/ajax.js:78
 msgid "Upgrade Required"
 msgstr "Aufwertung benötigt"
 
-#: /app/src/util/ajax.js:79
+#: /app/src/toolkit/util/ajax.js:79
 msgid "Precondition Required"
 msgstr "Vorbedingung erforderlich"
 
-#: /app/src/util/ajax.js:80
+#: /app/src/toolkit/util/ajax.js:80
 msgid "Too Many Requests"
 msgstr "Zu viele Anfragen."
 
-#: /app/src/util/ajax.js:81
+#: /app/src/toolkit/util/ajax.js:81
 msgid "Request Header Fields Too Large"
 msgstr "Anfrage-Kopfzeilen zu lang"
 
-#: /app/src/util/ajax.js:82
+#: /app/src/toolkit/util/ajax.js:82
 msgid "No Response (Nginx)"
 msgstr "Keine Antwort (Nginx)"
 
-#: /app/src/util/ajax.js:83
+#: /app/src/toolkit/util/ajax.js:83
 msgid "Retry With (Microsoft)"
 msgstr "Wiederholen mit (Microsoft)"
 
-#: /app/src/util/ajax.js:84
+#: /app/src/toolkit/util/ajax.js:84
 msgid "Blocked by Windows Parental Controls (Microsoft)"
 msgstr "Blockiert von Windows-Kindersicherung (Microsoft)"
 
-#: /app/src/util/ajax.js:85
+#: /app/src/toolkit/util/ajax.js:85
 msgid "Unavailable For Legal Reasons"
 msgstr "Nicht verfügbar aus rechtlichen Gründen"
 
-#: /app/src/util/ajax.js:86
+#: /app/src/toolkit/util/ajax.js:86
 msgid "Client Closed Request (Nginx)"
 msgstr "Anwender-Programm hat die Anfrage beendet (Nginx)"
 
-#: /app/src/util/ajax.js:87
+#: /app/src/toolkit/util/ajax.js:87
 msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
-#: /app/src/util/ajax.js:88
+#: /app/src/toolkit/util/ajax.js:88
 msgid "Not Implemented"
 msgstr "Nicht implementiert"
 
-#: /app/src/util/ajax.js:89
+#: /app/src/toolkit/util/ajax.js:89
 msgid "Bad Gateway"
 msgstr "Schlechte Netzübergangseinheit"
 
-#: /app/src/util/ajax.js:90
+#: /app/src/toolkit/util/ajax.js:90
 msgid "Service Unavailable"
 msgstr "Dienst nicht verfügbar"
 
-#: /app/src/util/ajax.js:91
+#: /app/src/toolkit/util/ajax.js:91
 msgid "Gateway Timeout"
 msgstr "Zeitüberschreitung bei der Netzübergangseinheit"
 
-#: /app/src/util/ajax.js:92
+#: /app/src/toolkit/util/ajax.js:92
 msgid "HTTP Version Not Supported"
 msgstr "HTTP-Version nicht unterstützt"
 
-#: /app/src/util/ajax.js:93
+#: /app/src/toolkit/util/ajax.js:93
 msgid "Variant Also Negotiates (Experimental)"
 msgstr "Variante handelt außerdem aus (Experimenmtell)"
 
-#: /app/src/util/ajax.js:94
+#: /app/src/toolkit/util/ajax.js:94
 msgid "Insufficient Storage (WebDAV)"
 msgstr "Zu wenig Speicherplatz (WebDAV)"
 
-#: /app/src/util/ajax.js:95
+#: /app/src/toolkit/util/ajax.js:95
 msgid "Loop Detected (WebDAV)"
 msgstr "Zirkel entdeckt (WebDAV)"
 
-#: /app/src/util/ajax.js:96
+#: /app/src/toolkit/util/ajax.js:96
 msgid "Bandwidth Limit Exceeded (Apache)"
 msgstr "Bandbreiten-Beschränkung überschritten (Apache)"
 
-#: /app/src/util/ajax.js:97
+#: /app/src/toolkit/util/ajax.js:97
 msgid "Not Extended"
 msgstr "Nicht erweitert"
 
-#: /app/src/util/ajax.js:98
+#: /app/src/toolkit/util/ajax.js:98
 msgid "Network Authentication Required"
 msgstr "Netzwerk-Authentifizierung erforderlich"
 
-#: /app/src/util/ajax.js:99
+#: /app/src/toolkit/util/ajax.js:99
 msgid "Network read timeout error"
 msgstr "Netzwerk Lese-Zeitüberschreitung"
 
-#: /app/src/util/ajax.js:100
+#: /app/src/toolkit/util/ajax.js:100
 msgid "Network connect timeout error"
 msgstr "Netzwerk Verbindungs-Zeitüberschreitung"
 
-#: /app/src/util/ajax.js:157
+#: /app/src/toolkit/util/ajax.js:157
 msgid "Operation cancelled by user."
 msgstr "Benutzer:in hat den Vorgang abgebrochen"
 
-#: /app/src/util/ajax.js:160
+#: /app/src/toolkit/util/ajax.js:160
 msgid "Aborted"
 msgstr "Abgebrochen"
 
-#: /app/src/util/ajax.js:173 /app/src/util/ajax.js:366
+#: /app/src/toolkit/util/ajax.js:173 /app/src/toolkit/util/ajax.js:366
 msgid "Error"
 msgstr "Fehler"
 
-#: /app/src/util/ajax.js:198
+#: /app/src/toolkit/util/ajax.js:198
 msgid "System Administrator"
 msgstr "System-Administrator"
 
-#: /app/src/util/ajax.js:233
+#: /app/src/toolkit/util/ajax.js:233
 msgid "Feedback email: {AutoReport}"
 msgstr "Rückmeldung per Email: {AutoReport}"
 
-#: /app/src/util/ajax.js:257
+#: /app/src/toolkit/util/ajax.js:257
 msgid "Something went wrong."
 msgstr "Irgendetwas ist schief gelaufen."
 
-#: /app/src/util/ajax.js:259
+#: /app/src/toolkit/util/ajax.js:259
 msgid ""
 "If it should be the case that you are already logged in for a long time "
 "without interacting with the web-app, then the reason for this error is "
@@ -936,7 +946,7 @@ msgstr ""
 "Falls Du bereits längere Zeit angemeldet bist, ohne mit der Web-App zu\n"
 "interagieren, dann ist das der Grund für den Fehler."
 
-#: /app/src/util/ajax.js:264
+#: /app/src/toolkit/util/ajax.js:264
 msgid ""
 "I any case it may help to logoff and logon again, as a temporary work-"
 "around. You will be redirected to the log-in page when you close this "
@@ -946,7 +956,7 @@ msgstr ""
 "ab- und wieder an zu melden und den Vorgang zu wiederholen. Wenn Du\n"
 "dieses Fenster schließt, wirst Du zur Login-Seite weiter geleitet."
 
-#: /app/src/util/ajax.js:314
+#: /app/src/toolkit/util/ajax.js:314
 msgid ""
 "Unrecoverable unknown internal error, no further information available, "
 "sorry."
@@ -954,19 +964,19 @@ msgstr ""
 "Tut uns leid, unbekannte interner Fehler, weitere Informationen sind\n"
 "leider nicht verfügbar."
 
-#: /app/src/util/ajax.js:316
+#: /app/src/toolkit/util/ajax.js:316
 msgid "Internal Error"
 msgstr "Irgendein Fehler"
 
-#: /app/src/util/ajax.js:323
+#: /app/src/toolkit/util/ajax.js:323
 msgid "Field {RequiredField} not present in AJAX response."
 msgstr "In der AJAX-Antwort fehlt das Feld {RequiredField}."
 
-#: /app/src/util/ajax.js:332
+#: /app/src/toolkit/util/ajax.js:332
 msgid "Missing data"
 msgstr "Fehlende Daten"
 
-#: /app/src/util/ajax.js:344
+#: /app/src/toolkit/util/ajax.js:344
 msgid ""
 "The submitted data \"{stringValue}\" seems to be a plain string, but we need"
 " an object where the data is provided through above listed properties."
@@ -976,11 +986,11 @@ msgstr ""
 "Daten über die oben aufgeführten (fehlenden) Objekt-Eigenschaften zu "
 "Verfügung stellt."
 
-#: /app/src/util/ajax.js:347
+#: /app/src/toolkit/util/ajax.js:347
 msgid "Error: plain string received"
 msgstr "Fehler: einfache Zeichenkette empfangen"
 
-#: /app/src/util/ajax.js:352
+#: /app/src/toolkit/util/ajax.js:352
 msgid ""
 "The submitted data is not a plain object, and does not provide the "
 "properties listed above."
@@ -988,26 +998,34 @@ msgstr ""
 "Die übermittelten DAten sind kein einfaches Objekt und beinhalteten nicht "
 "die oben aufgeführten benötigten Eigentschaften."
 
-#: /app/src/util/ajax.js:355
+#: /app/src/toolkit/util/ajax.js:355
 msgid "Error: not a plain object"
 msgstr "Fehler: kein einfaches Objekt"
 
-#: /app/src/util/ajax.js:395
+#: /app/src/toolkit/util/ajax.js:395
 msgid "Unknown JSON error response to AJAX call: {status} / {error}"
 msgstr "Unbekannte JSON Fehler-Antwort auf AJAX-Anfrage: {status} / {error}"
 
-#: /app/src/util/ajax.js:403
+#: /app/src/toolkit/util/ajax.js:403
 msgid "HTTP error response to AJAX call: {code} / {error}"
 msgstr "HTTP Fehler-Antwort auf AJAX-Anfrage: {code} / {error}"
 
-#: /app/src/util/dialogs.js:69
+#: /app/src/toolkit/util/dialogs.js:69
 msgid "No"
 msgstr "Nein"
 
-#: /app/src/util/dialogs.js:70
+#: /app/src/toolkit/util/dialogs.js:70
 msgid "Yes"
 msgstr "Ja"
 
-#: /app/src/util/dialogs.js:105
+#: /app/src/toolkit/util/dialogs.js:105
 msgid "Debug Information"
 msgstr "Debug Informationen"
+
+#: /app/src/toolkit/util/file-download.js:50
+msgid "unknown error"
+msgstr "unbekannter Fehler"
+
+#: /app/src/toolkit/util/file-download.js:53
+msgid "Unable to download data from \"{url}\": {message}"
+msgstr "Kann die Daten nicht von \"{url}\" laden: {message}"

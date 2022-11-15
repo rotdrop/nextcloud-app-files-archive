@@ -24,6 +24,7 @@ OC.L10N.register(
     "Archive \"%1$s\" has been unmounted from \"%2$s\"." : "Archiv „%1$s“ byl odpojen od „%2$s.",
     "Only the pass-phrase may be changed for an existing mount." : "Pro už existující připojení (mount) je možné měnit pouze heslovou frázi.",
     "Unknown admin setting: \"%1$s\"" : "Neznámé nastavení správy: „%1$s",
+    "The admin setting \"%1$s\" is read-only" : "Nastavení administrace \"%1$s\" je pouze pro čtení",
     "Unknown personal setting: \"%1$s\"" : "Neznámo osobní nastavení: „%1$s“.",
     "Thge personal setting \"%1$s\" is read-only" : "Osobní nastavení „%1$s“ je pouze pro čtení",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Hodnota „%1$s“ pro nastavení „%2$s“ není převoditelná na typ boolean.",
@@ -56,6 +57,9 @@ OC.L10N.register(
     "Extraction Options" : "Předvolby pro rozbalování",
     "Template for the default-name of the extraction folder" : "Šablona pro výchozí název složky pro rozbalení",
     "automatically change the target folder name if the target folder already exists" : "pokud už takový existuje, automaticky změnit název cílové složky",
+    "Choose a prefix-folder" : "Zvolte složku-předponu",
+    "Selected path: \"{dir}/{base}/\"." : "Vyberte popis umístění: „{dir}/{base}/.",
+    "Invalid path selected: \"{dir}\"." : "Vybrán neplatný popis umístění: „{dir}.",
     "Archive Information" : "Informace o archivu",
     "archive status" : "stav archivu",
     "archive format" : "formát archivu",
@@ -85,10 +89,7 @@ OC.L10N.register(
     "Mount request failed with error {status}, \"{statusText}\"." : "Požadavek na připojení (mount) se nezdařil s chybou {status}, „{statusText}.",
     "Unmount request failed with error {status}, \"{statusText}\"." : "Požadavek na odpojení (unmout) se nezdařil s chybou {status}, „{statusText}.",
     "Archive-extraction failed with error {status}, \"{statusText}\"." : "Rozbalení archivu se nezdařilo s chybou {status}, „{statusText}.",
-    "Choose a prefix-folder" : "Zvolte složku-předponu",
-    "Invalid path selected: \"{dir}\"." : "Vybrán neplatný popis umístění: „{dir}.",
     "Patching the pass-phrase failed with error {status}, \"{statusText}\"." : "Upravování heslové fráze se nezdařilo s chybou {status}, „{statusText}“.",
-    "Selected path: \"{dir}/{base}/\"." : "Vyberte popis umístění: „{dir}/{base}/.",
     "Mount Archive" : "Připojit archiv",
     "Unable to obtain mount-status for archive-file \"{archivePath}\"." : "Nedaří se získat stav připojení souboru s archivem „{archivePath}.",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Archiv „{archivePath}“ už je připojený v „{mountPointPath}.",
@@ -193,6 +194,8 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP chybová odpověď na AJAX volání: {code} / {error}",
     "No" : "Ne",
     "Yes" : "Ano",
-    "Debug Information" : "Informace pro ladění"
+    "Debug Information" : "Informace pro ladění",
+    "unknown error" : "neznámá chyba",
+    "Unable to download data from \"{url}\": {message}" : "Nedaří se stáhnout data z „{url}: {message}"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

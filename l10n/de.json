@@ -55,6 +55,9 @@
     "Extraction Options" : "Einstellungen für das Entpacken",
     "Template for the default-name of the extraction folder" : "Schablone für den voreingestellten Ziel-Ordner für das Entpacken",
     "automatically change the target folder name if the target folder already exists" : "den Namen des Ziel-Ordners automatisch ändern, falls der Name bereits in Verwendung ist",
+    "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
+    "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}\".",
+    "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad ausgewählt: {dir}.",
     "Archive Information" : "Archiv-Informationen",
     "archive status" : "Archiv-Status",
     "archive format" : "Archiv-Format",
@@ -84,10 +87,7 @@
     "Mount request failed with error {status}, \"{statusText}\"." : "Einhänge-Anfrage ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\".",
     "Unmount request failed with error {status}, \"{statusText}\"." : "Aushänge-Anfrage ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\".",
     "Archive-extraction failed with error {status}, \"{statusText}\"." : "Entpacken des Archivs ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\".",
-    "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
-    "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad ausgewählt: {dir}.",
     "Patching the pass-phrase failed with error {status}, \"{statusText}\"." : "Das Ändern des Passworts für aktive Einhänge-Punkte ist fehlgeschlagen, Fehler-Code {status}, \"{statusText}\".",
-    "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}\".",
     "Mount Archive" : "Archiv einhängen",
     "Unable to obtain mount-status for archive-file \"{archivePath}\"." : "Kann den Einhänge-Status für die Archiv-Datei \"{archivePath}\" nicht ermitteln.\"",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Die Archiv-Datei \"{archivePath}\" ist bereits an der Stelle \"{mountPointPath}\" eingehängt.",
@@ -192,6 +192,8 @@
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP Fehler-Antwort auf AJAX-Anfrage: {code} / {error}",
     "No" : "Nein",
     "Yes" : "Ja",
-    "Debug Information" : "Debug Informationen"
+    "Debug Information" : "Debug Informationen",
+    "unknown error" : "unbekannter Fehler",
+    "Unable to download data from \"{url}\": {message}" : "Kann die Daten nicht von \"{url}\" laden: {message}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
