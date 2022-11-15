@@ -214,14 +214,14 @@ APPSTORE_FILES =\
  README.md
 
 # .htaccess is blacklisted by the app-store installer, so we have to remove it
-APPSTORE_BLACKLISTED = foobar .htaccess *~
+APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
 #@private
 appstore: COMPOSER_OPTIONS := $(COMPOSER_OPTIONS) --no-dev
 #@@ Prepare appstore archive
 appstore: clean dev-setup npm-build
 	mkdir -p $(APPSTORE_SIGN_DIR)/$(APP_NAME)
-	$(RSYNC) -a $(APPSTORE_BLACKLISTED:%=--exclude %) $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
+	$(RSYNC) -a -L $(APPSTORE_BLACKLISTED:%=--exclude '%') $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	mkdir -p $(BUILD_CERT_DIR)
 	$(SILENT)if [ -n "$$APP_PRIVATE_KEY" ]; then\
   echo "$$APP_PRIVATE_KEY" > $(BUILD_CERT_DIR)/$(APP_NAME).key;\
