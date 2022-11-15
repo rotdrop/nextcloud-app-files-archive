@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.6-rc1] - 2022-11-15
+
+### Added
+
+- internal restructuring of Vue and PHP source code, there is now a
+  common base of code shared between the
+  [PDF Downloader](https://github.com/rotdrop/nextcloud-app-pdf-downloader)
+  and this app.
+
 ## [1.0.5] - 2022-11-12
 
 ### Fixed
