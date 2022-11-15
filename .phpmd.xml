@@ -34,6 +34,7 @@
 
   <rule ref="rulesets/naming.xml">
     <exclude name="ShortVariable"/>
+    <exclude name="ShortMethodName"/>
     <exclude name="LongVariable"/>
     <exclude name="BooleanGetMethodName"/>
   </rule>
@@ -44,7 +45,7 @@
   </rule>
   <rule ref="rulesets/naming.xml/ShortMethodName">
     <properties>
-      <property name="exceptions" value="di"/>
+      <property name="exceptions" value="di,t"/>
     </properties>
   </rule>
   <rule ref="rulesets/naming.xml/LongVariable">
