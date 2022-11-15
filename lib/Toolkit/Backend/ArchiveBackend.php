@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive Manager for Nextcloud
+ * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -20,13 +20,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Backend;
+namespace OCA\RotDrop\Toolkit\Backend;
 
 use InvalidArgumentException;
 use wapmorgan\UnifiedArchive;
 use wapmorgan\UnifiedArchive\Drivers\BasicDriver;
 
-use OCA\FilesArchive\Backend\ArchiveFormats as Formats;
+use OCA\RotDrop\Toolkit\Backend\ArchiveFormats as Formats;
 
 /**
  * Overload UnifiedArchive\UnifiedArchive with the goal to tweak the driver

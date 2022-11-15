@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive Manager for Nextcloud
+ * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Service;
+namespace OCA\RotDrop\Toolkit\Service;
 
 use DateTimeInterface;
 
@@ -32,9 +32,9 @@ use Psr\Log\LoggerInterface as ILogger;
 use OCP\Files\File;
 use OCP\Util as CloudUtil;
 
-use OCA\FilesArchive\Backend\ArchiveFormats;
-use OCA\FilesArchive\Backend\ArchiveBackend;
-use OCA\FilesArchive\Exceptions;
+use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
+use OCA\RotDrop\Toolkit\Backend\ArchiveBackend;
+use OCA\RotDrop\Toolkit\Exceptions;
 
 /**
  * Wrapper around the actual archive backend class in order to interface with

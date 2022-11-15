@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive Manager for Nextcloud
+ * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Backend;
+namespace OCA\RotDrop\Toolkit\Backend;
 
 use wapmorgan\UnifiedArchive;
 

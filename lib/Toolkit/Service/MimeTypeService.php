@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive Manager for Nextcloud
+ * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Service;
+namespace OCA\RotDrop\Toolkit\Service;
 
 use Throwable;
 
@@ -28,7 +28,7 @@ use OC\Files\Type\Detection as MimeTypeDetector;
 use Psr\Log\LoggerInterface;
 use OCP\Files\IMimeTypeDetector;
 
-use OCA\FilesArchive\Backend\ArchiveFormats;
+use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
 
 /** Tweak the Nextcloud server to support all MIME-types needed by this app. */
 class MimeTypeService
