@@ -38,7 +38,7 @@ use OCP\AppFramework\IAppContainer;
 use OCP\Files\FileInfo;
 use OCP\Files\File;
 
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Exceptions;
 use OCA\FilesArchive\Constants;
 

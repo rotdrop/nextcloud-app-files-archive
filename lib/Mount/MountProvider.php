@@ -47,7 +47,7 @@ use OCA\FilesArchive\Controller\SettingsController;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Storage\ArchiveStorage;
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Exceptions;
 

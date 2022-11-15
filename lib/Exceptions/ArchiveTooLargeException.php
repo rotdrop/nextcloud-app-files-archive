@@ -24,7 +24,7 @@ namespace OCA\FilesArchive\Exceptions;
 
 use Throwable;
 
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
 
 /**
  * Exception thrown if the archive exceeds the configured limit.

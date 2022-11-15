@@ -37,7 +37,7 @@ use OCP\AppFramework\IAppContainer;
 
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 
 /**

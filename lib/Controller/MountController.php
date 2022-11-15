@@ -43,7 +43,7 @@ use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Db\ArchiveMount;
@@ -116,8 +116,9 @@ class MountController extends Controller
     $this->mountMapper = $mountMapper;
     $this->mountManager = $mountManager;
     $this->rootFolder = $rootFolder;
-    $this->archiveService = $archiveService;
     $this->mountProvider = $mountProvider;
+    $this->archiveService = $archiveService;
+    $this->archiveService->setL10N($l10n);
 
     $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);

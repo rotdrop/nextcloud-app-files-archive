@@ -41,7 +41,7 @@ use OCP\IL10N;
 
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Exceptions;
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 
 /**
@@ -107,6 +107,7 @@ class ArchiveController extends Controller
     $this->rootFolder = $rootFolder;
     $this->appContainer = $appContainer;
     $this->archiveService = $archiveService;
+    $this->archiveService->setL10N($l10n);
 
     $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);

@@ -33,10 +33,11 @@ use OCP\IConfig as CloudConfig;
 
 use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
 
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Service\MimeTypeService;
+
 use OCA\FilesArchive\Service\AssetService;
 use OCA\FilesArchive\Controller\SettingsController;
-use OCA\FilesArchive\Service\ArchiveService;
-use OCA\FilesArchive\Service\MimeTypeService;
 
 /**
  * In particular listen to the asset-loading events.
@@ -105,7 +106,7 @@ class FilesActionListener implements IEventListener
 
     /** @var MimeTypeService $mimeTypeService */
     $mimeTypeService = $this->appContainer->get(MimeTypeService::class);
-    $archiveMimeTypes = $mimeTypeService->getSupportedMimeTypes();
+    $archiveMimeTypes = $mimeTypeService->setAppPath(__DIR__ . '/../../')->getSupportedMimeTypes();
 
     // just admin contact and stuff to make the ajax error handlers work.
     $groupManager = $this->appContainer->get(IGroupManager::class);
