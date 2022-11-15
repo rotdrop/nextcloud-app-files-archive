@@ -41,7 +41,7 @@ class Version100003Date20221109223821 extends SimpleMigrationStep
   public function __construct()
   {
     // parent::__construct();
-    $this->appName = $this->getAppInfoAppName();
+    $this->appName = $this->getAppInfoAppName(__DIR__);
   }
 
   /**
