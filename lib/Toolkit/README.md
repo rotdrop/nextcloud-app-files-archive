@@ -15,7 +15,7 @@ Say we choose `lib/Toolkit/` as destination folder, then one could do
 git subrepo clone THIS_REPOS_URL lib/Toolkit
 ```
 
-Then one need to add an auto-loading directive to the project's `composer.json`:
+Then one needs to add an auto-loading directive to the project's `composer.json`:
 ```
   "autoload": {
     "psr-4": {
