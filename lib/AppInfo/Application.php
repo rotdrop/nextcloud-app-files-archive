@@ -35,7 +35,7 @@ use OCA\FilesArchive\Exceptions;
 
 use OCP\Files\Config\IMountProviderCollection;
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
-use OCA\FilesArchive\Service\MimeTypeService;
+use OCA\RotDrop\Toolkit\Service\MimeTypeService;
 
 include_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -66,7 +66,7 @@ class Application extends App implements IBootstrap
   public function boot(IBootContext $context): void
   {
     $context->injectFn(function(MimeTypeService $mimeTypeService) {
-      $mimeTypeService->registerMimeTypeMappings();
+      $mimeTypeService->setAppPath(__DIR__ . '/../../')->registerMimeTypeMappings();
     });
     $context->injectFn(function(IMountProviderCollection $mountProviderCollection, ArchiveMountProvider $mountProvider) {
       $mountProviderCollection->registerProvider($mountProvider, PHP_INT_MAX - 1);

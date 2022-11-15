@@ -29,14 +29,15 @@ use Psr\Log\LoggerInterface;
 use OCP\Files\IMimeTypeDetector;
 
 use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
+use OCA\RotDrop\Toolkit\Traits\Constants;
 
 /** Tweak the Nextcloud server to support all MIME-types needed by this app. */
 class MimeTypeService
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
-  const MIME_TYPE_MAPPING_DATA_FILE = __DIR__ . '/../../config/nextcloud/mimetypemapping.json';
-  const MIME_TYPE_ALIASES_DATA_FILE = __DIR__ . '/../../config/nextcloud/mimetypealiases.json';
+  const MIME_TYPE_MAPPING_DATA_FILE = 'config/nextcloud/mimetypemapping.json';
+  const MIME_TYPE_ALIASES_DATA_FILE = 'config/nextcloud/mimetypealiases.json';
 
   /** @var MimeTypeDetector */
   private $mimeTypeDetector;
@@ -47,6 +48,9 @@ class MimeTypeService
   /** @var array<string, string> */
   private $mimeTypeMapping = null;
 
+  /** @var string */
+  private $appPath;
+
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     IMimeTypeDetector $mimeTypeDetector,
@@ -56,6 +60,24 @@ class MimeTypeService
     $this->logger = $logger;
   }
   // phpcs:enable
+
+  /**
+   * Configure the base directory containing the data files below
+   * `$appPath/config/nextcloud/`. So this is actually just the configuration
+   * prefix directory, typically the base-dir of the consuming app.
+   *
+   * @param string $appPath
+   *
+   * @return MimeTypeService $this for chaining.
+   */
+  public function setAppPath(string $appPath):MimeTypeService
+  {
+    $this->appPath = $appPath;
+    if (str_ends_with($this->appPath, Constants::PATH_SEPARATOR)) {
+      $this->appPath .= Constants::PATH_SEPARATOR;
+    }
+    return $this;
+  }
 
   /**
    * Register the needed extension to MIME-type mappings with the Nextcloud server.
@@ -115,18 +137,24 @@ class MimeTypeService
       return $this->mimeTypeMapping;
     }
 
-    $jsonData = file_get_contents(self::MIME_TYPE_MAPPING_DATA_FILE);
-    if (empty($jsonData)) {
-      $this->logInfo('Unable to read "' . self::MIME_TYPE_MAPPING_DATA_FILE . '".');
-      $this->mimeTypeMapping = [];
-      return $this->mimeTypeMapping;
+    $baseDirs = [ $this->appPath, __DIR__ . '/../../' ];
+    foreach ($baseDirs as $prefixDir) {
+      $dataFile = $prefixDir . self::MIME_TYPE_MAPPING_DATA_FILE;
+      $jsonData = file_get_contents($dataFile);
+      if (empty($jsonData)) {
+        $this->logInfo('Unable to read "' . $dataFile . '".');
+        continue;
+      }
+      try {
+        $arrayData = json_decode($jsonData, true);
+        break;
+      } catch (Throwable $t) {
+        $this->logException($t, 'Unable to decode mime-type mapping. "' . self::MIME_TYPE_MAPPING_DATA_FILE . '".');
+        $arrayData = null;
+        continue;
+      }
     }
-    try {
-      $arrayData = json_decode($jsonData, true);
-    } catch (Throwable $t) {
-      $this->logException($t, 'Unable to decode mime-type mapping. "' . self::MIME_TYPE_MAPPING_DATA_FILE . '".');
-      $arrayData = null;
-    }
+
     if (empty($arrayData)) {
       $this->mimeTypeMapping = [];
       return $this->mimeTypeMapping;
