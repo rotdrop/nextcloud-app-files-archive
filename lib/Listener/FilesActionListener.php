@@ -130,5 +130,8 @@ class FilesActionListener implements IEventListener
     list('asset' => $styleAsset,) = $assetService->getCSSAsset(self::BASENAME);
     \OCP\Util::addScript($appName, $scriptAsset);
     \OCP\Util::addStyle($appName, $styleAsset);
+
+    list('asset' => $scriptAsset,) = $assetService->getJSAsset('archive-file-list');
+    \OCP\Util::addScript($appName, $scriptAsset);
   }
 }

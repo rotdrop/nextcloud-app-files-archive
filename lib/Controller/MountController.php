@@ -312,16 +312,20 @@ class MountController extends Controller
   }
 
   /**
-   * @param string $archivePath
+   * @param null|string $archivePath
    *
    * @return DataResponse
    *
    * @NoAdminRequired
    */
-  public function mountStatus(string $archivePath):DataResponse
+  public function mountStatus(?string $archivePath):DataResponse
   {
-    $archivePath = urldecode($archivePath);
-    $mounts = $this->mountMapper->findByArchivePath($this->userId, $archivePath);
+    if (!empty($archivePath)) {
+      $archivePath = urldecode($archivePath);
+      $mounts = $this->mountMapper->findByArchivePath($this->userId, $archivePath);
+    } else {
+      $mounts = $this->mountMapper->findAll($this->userId);
+    }
     return self::dataResponse([
       'messages' => [],
       'mounted' => !empty($mounts),

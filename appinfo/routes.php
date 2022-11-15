@@ -81,11 +81,15 @@ return [
       'url' => '/archive/unmount/{archivePath}',
       'verb' => 'POST',
     ],
-    // get the status of the given archive mount
+    // get the status of the mounts by archive-path for the current user, or
+    // all mounts if the archive path is null.
     [
       'name' => 'mount#mount_status',
       'url' => '/archive/mount/{archivePath}',
       'verb' => 'GET',
+      'defaults' => [
+        'archivePath' => null,
+      ],
     ],
     // archive file management
     [

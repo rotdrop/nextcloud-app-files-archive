@@ -27,6 +27,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\IConfig;
+use OCP\IL10N;
 
 use Psr\Container\ContainerInterface;
 
@@ -70,6 +71,15 @@ class Application extends App implements IBootstrap
     });
     $context->injectFn(function(IMountProviderCollection $mountProviderCollection, ArchiveMountProvider $mountProvider) {
       $mountProviderCollection->registerProvider($mountProvider, PHP_INT_MAX - 1);
+    });
+    $context->injectFn(function(IL10N $l) {
+      \OCA\Files\App::getNavigationManager()->add([
+        'id' => 'archivemounts',
+        'appname' => $this->appName,
+        'script' => 'scripts/files-app-list.php',
+        'order' => 50,
+        'name' => $l->t('Archive Mounts'),
+      ]);
     });
   }
 

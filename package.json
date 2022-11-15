@@ -42,6 +42,7 @@
     "@nextcloud/eslint-config": "^6.1.2",
     "@nextcloud/files": "^2.1.0",
     "@nextcloud/initial-state": "*",
+    "@nextcloud/paths": "*",
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/stylelint-config": "^2.1.2",
     "@nextcloud/vue": "^5.3.1",

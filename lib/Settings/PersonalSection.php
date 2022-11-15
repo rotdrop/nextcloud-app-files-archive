@@ -40,7 +40,7 @@ class PersonalSection implements IIconSection
   /** @var IURLGenerator */
   private $urlGenerator;
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
+  // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IL10N $l10n,
@@ -50,6 +50,7 @@ class PersonalSection implements IIconSection
     $this->l = $l10n;
     $this->urlGenerator = $urlGenerator;
   }
+  // phpcs:enable
 
   /**
    * Return the ID of the section. It is supposed to be a lower case string

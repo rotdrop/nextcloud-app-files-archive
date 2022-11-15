@@ -22,6 +22,7 @@ webpackConfig.entry = {
   'admin-settings': path.join(__dirname, 'src', 'admin-settings.js'),
   'personal-settings': path.join(__dirname, 'src', 'personal-settings.js'),
   'files-action': path.join(__dirname, 'src', 'files-action.js'),
+  'archive-file-list': path.join(__dirname, 'src', 'archive-file-list.js'),
 };
 
 webpackConfig.output = {

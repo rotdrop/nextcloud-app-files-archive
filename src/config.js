@@ -20,7 +20,9 @@
 
 const appInfo = require('../appinfo/info.xml');
 const appName = appInfo.info.id[0];
+const appLongName = appInfo.info.name[0];
 
 export {
   appName,
+  appLongName,
 };
