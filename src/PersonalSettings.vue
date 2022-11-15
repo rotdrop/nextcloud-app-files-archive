@@ -105,7 +105,7 @@ import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
 import { generateUrl } from '@nextcloud/router'
 import { showError, showSuccess, showInfo, TOAST_DEFAULT_TIMEOUT, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
-import settingsSync from './mixins/settings-sync'
+import settingsSync from './toolkit/mixins/settings-sync'
 
 export default {
   name: 'PersonalSettings',

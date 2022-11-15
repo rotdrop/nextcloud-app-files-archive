@@ -44,7 +44,7 @@ import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/
 import axios from '@nextcloud/axios'
 import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { generateUrl } from '@nextcloud/router'
-import settingsSync from './mixins/settings-sync'
+import settingsSync from './toolkit/mixins/settings-sync'
 
 export default {
   name: 'AdminSettings',
