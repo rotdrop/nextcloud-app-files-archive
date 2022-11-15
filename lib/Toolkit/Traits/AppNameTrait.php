@@ -31,22 +31,21 @@ use SimpleXMLElement;
 trait AppNameTrait
 {
   /**
-   * The method assumes that the entire toolkit repository has been cloned or
-   * copied directly below the lib/ directory.
+   * @param string $classDir The value of __DIR__ of the cosuming class.
    *
    * @return null|string The app-name from the info.xml file or null if that
    * cannot be found.
    */
-  protected function getAppInfoAppName():?string
+  protected function getAppInfoAppName(string $classDir):?string
   {
     // Extract the directory nesting level from the class-name
-    $nestingLevel = count(explode('\\', __TRAIT__)) - 2;
+    $nestingLevel = count(explode('\\', __CLASS__)) - 2;
 
     $pathPrefix = str_repeat(Constants::PATH_SEPARATOR . '..', $nestingLevel);
     $infoFile = Constants::PATH_SEPARATOR . 'appinfo' . Constants::PATH_SEPARATOR . 'info.xml';
 
     // we do not try-catch here as this file MUST be there and parseable.
-    $infoXml = new SimpleXMLElement(file_get_contents(__DIR__ . $pathPrefix . $infoFile));
+    $infoXml = new SimpleXMLElement(file_get_contents($classDir . $pathPrefix . $infoFile));
 
     return !empty($infoXml->id) ? (string)$infoXml->id : null;
   }
