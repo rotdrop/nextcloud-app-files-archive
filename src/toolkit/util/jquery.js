@@ -22,7 +22,7 @@
 
 // jQuery stuff
 
-import { appName } from '../config.js';
+import { appName } from '../../config.js';
 import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
 const jQuery = require('jquery');
 

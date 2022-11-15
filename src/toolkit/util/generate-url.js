@@ -20,7 +20,7 @@
  *
  */
 
-import { appName } from '../config.js';
+import { appName } from '../../config.js';
 import { generateUrl as nextcloudGenerateUrl } from '@nextcloud/router';
 
 /**
