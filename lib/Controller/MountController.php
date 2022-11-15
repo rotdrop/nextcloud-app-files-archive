@@ -44,12 +44,13 @@ use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
 use OCA\RotDrop\Toolkit\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Constants;
-use OCA\FilesArchive\Exceptions;
 
 /**
  * Manage user mount requests for archive files.
@@ -177,7 +178,7 @@ class MountController extends Controller
 
     try {
       $this->archiveService->open($archiveFile);
-    } catch (Exceptions\ArchiveTooLargeException $e) {
+    } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();
       // $archiveInfo = $e->getArchiveInfo();
       if ($uncompressedSize > $this->archiveBombLimit) {

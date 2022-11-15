@@ -39,9 +39,10 @@ use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\Lock\ILockingProvider;
 use OCP\IL10N;
 
-use OCA\FilesArchive\Storage\ArchiveStorage;
-use OCA\FilesArchive\Exceptions;
 use OCA\RotDrop\Toolkit\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+
+use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Constants;
 
 /**
@@ -160,7 +161,7 @@ class ArchiveController extends Controller
       $this->archiveService->open($archiveFile, password: $passPhrase);
       $archiveInfo = $this->archiveService->getArchiveInfo();
       $httpStatus = Http::STATUS_OK;
-    } catch (Exceptions\ArchiveTooLargeException $e) {
+    } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $this->logException($e);
       $archiveStatus = self::ARCHIVE_STATUS_TOO_LARGE;
       $archiveInfo = $e->getArchiveInfo();

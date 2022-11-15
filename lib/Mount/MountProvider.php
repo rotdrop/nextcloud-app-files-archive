@@ -42,14 +42,14 @@ use OCP\IConfig;
 use OCP\AppFramework\IAppContainer;
 use OCP\Lock\ILockingProvider as Locks;
 
-use OCA\FilesArchive\Controller\SettingsController;
+use OCA\RotDrop\Toolkit\Service\ArchiveService;
+use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
+use OCA\FilesArchive\Controller\SettingsController;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Storage\ArchiveStorage;
-use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
-use OCA\FilesArchive\Exceptions;
 
 /**
  * Mount an archive-file as virtual file-system into the user-storage.
@@ -243,7 +243,7 @@ class MountProvider implements IMountProvider
         ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
         ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix,
       ]);
-    } catch (Exceptions\ArchiveException $e) {
+    } catch (ToolkitExceptions\ArchiveException $e) {
       $this->logException($e, 'Skipping archive mount of "' . $archivePath . '".');
       return null;
     }

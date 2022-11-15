@@ -39,7 +39,8 @@ use OCP\Files\FileInfo;
 use OCP\Files\File;
 
 use OCA\RotDrop\Toolkit\Service\ArchiveService;
-use OCA\FilesArchive\Exceptions;
+use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+
 use OCA\FilesArchive\Constants;
 
 // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -159,7 +160,7 @@ class ArchiveStorage extends AbstractStorage
       // $this->logInfo('FILES ' . print_r($this->files, true));
       // $this->logInfo('DIRS ' . print_r($this->dirNames, true));
 
-    } catch (Exceptions\ArchiveTooLargeException $e) {
+    } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       throw $e;
     } catch (Throwable $t) {
       $this->logException($t, 'Unable to open archive file ' . $this->archiveFile->getPath());
