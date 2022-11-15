@@ -146,7 +146,7 @@ class ArchiveService
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ILogger $logger,
-    IL10N $l,
+    ?IL10N $l = null,
   ) {
     $this->logger = $logger;
     $this->l = $l;
@@ -154,6 +154,40 @@ class ArchiveService
     $this->fileNode = null;
   }
   // phpcs:enable
+
+  /**
+   * Set the locatlization to use. This cannot be done by dependency injection
+   * here.
+   *
+   * @param IL10N $l10n
+   *
+   * @return ArchiveService $this.
+   *
+   * @todo Maybe generate a dummy support app instead.
+   */
+  public function setL10N(IL10N $l10n):ArchiveService
+  {
+    $this->l = $l10n;
+
+    return $this;
+  }
+
+  /**
+   * Guard against undefined $this->l.
+   *
+   * @param string $formatString
+   *
+   * @param mixed $parameters
+   *
+   * @return string
+   */
+  protected function t(string $formatString, mixed $parameters = null):string
+  {
+    if (!$this->l) {
+      return $this->l->t($formatString, $parameters);
+    }
+    return vsprintf($formatString, $parameters);
+  }
 
   /**
    * Set the size limit for the uncompressed size of the archives. Archives
@@ -228,13 +262,13 @@ class ArchiveService
   public function open(File $fileNode, ?int $sizeLimit = null, ?string $password = null):?ArchiveService
   {
     if (!$this->canOpen($fileNode)) {
-      throw new Exceptions\ArchiveCannotOpenException($this->l->t('Unable to open archive file %s (%s)', [
+      throw new Exceptions\ArchiveCannotOpenException($this->t('Unable to open archive file %s (%s)', [
         $fileNode->getPath(), self::getLocalPath($fileNode),
       ]));
     }
     $this->archiver = ArchiveBackend::open(self::getLocalPath($fileNode), password: $password);
     if (empty($this->archiver)) {
-      throw new Exceptions\ArchiveCannotOpenException($this->l->t('Unable to open archive file %s (%s)', [
+      throw new Exceptions\ArchiveCannotOpenException($this->t('Unable to open archive file %s (%s)', [
         $fileNode->getPath(), self::getLocalPath($fileNode),
       ]));
     }
@@ -248,7 +282,7 @@ class ArchiveService
       $this->archiver = null;
       $this->fileNode = null;
       throw new Exceptions\ArchiveTooLargeException(
-        $this->l->t('Uncompressed size of archive "%1$s" is too large: %2$s > %3$s', [
+        $this->t('Uncompressed size of archive "%1$s" is too large: %2$s > %3$s', [
           $fileNode->getInternalPath(), CloudUtil::humanFileSize($archiveSize), CloudUtil::humanFileSize($sizeLimit),
         ]),
         $sizeLimit,
@@ -264,7 +298,7 @@ class ArchiveService
   {
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
-        $this->l->t('There is no archive file associated with this archiver instance.'));
+        $this->t('There is no archive file associated with this archiver instance.'));
     }
     // getComment() throws if not supported (API documents differently)
     try {
@@ -332,7 +366,7 @@ class ArchiveService
   {
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
-        $this->l->t('There is no archive file associated with this archiver instance.'));
+        $this->t('There is no archive file associated with this archiver instance.'));
     }
     foreach ($this->archiver->getFileNames() as $fileName) {
       $fileData = $this->archiver->getFileData($fileName);
@@ -354,7 +388,7 @@ class ArchiveService
   {
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
-        $this->l->t('There is no archive file associated with this archiver instance.'));
+        $this->t('There is no archive file associated with this archiver instance.'));
     }
     return $this->archiver->getFileContent($fileName);
   }
@@ -368,7 +402,7 @@ class ArchiveService
   {
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
-        $this->l->t('There is no archive file associated with this archiver instance.'));
+        $this->t('There is no archive file associated with this archiver instance.'));
     }
     return $this->archiver->getFileStream($fileName);
   }
