@@ -19,11 +19,11 @@
 
 import Vue from 'vue';
 import { appName } from './config.js';
-import $ from './util/jquery.js';
-import generateAppUrl from './util/generate-url.js';
-import * as Ajax from './util/ajax.js';
-import { attachDialogHandlers } from './util/dialogs.js';
-import { getInitialState } from 'services/InitialStateService.js';
+import $ from './toolkit/util/jquery.js';
+import generateAppUrl from './toolkit/util/generate-url.js';
+import * as Ajax from './toolkit/util/ajax.js';
+import { attachDialogHandlers } from './toolkit/util/dialogs.js';
+import { getInitialState } from 'toolkit/services/InitialStateService.js';
 import { generateFilePath, imagePath, generateUrl } from '@nextcloud/router';
 import { showError, /* showSuccess, */ TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import FilesTab from './views/FilesTab.vue';

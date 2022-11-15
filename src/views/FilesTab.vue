@@ -235,7 +235,7 @@
 
 import { appName } from '../config.js'
 import Vue from 'vue'
-import { getInitialState } from '../services/InitialStateService.js'
+import { getInitialState } from '../toolkit/services/InitialStateService.js'
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router'
 import { getCurrentUser } from '@nextcloud/auth'
 import md5 from 'blueimp-md5'
