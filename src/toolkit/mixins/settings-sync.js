@@ -42,8 +42,11 @@ async function fetchSettings(settingsSection, storageObject) {
   } catch (e) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data && e.response.data.message) {
-      message = e.response.data.message;
+    if (e.response && e.response.data) {
+      const responseData = e.response.data;
+      if (Array.isArray(responseData.messages)) {
+        message = responseData.messages.join(' ');
+      }
     }
     showError(t(appName, 'Unable to query the initial value of all settings: {message}', {
       message,
@@ -72,8 +75,11 @@ async function fetchSetting(settingsKey, settingsSection, storageObject) {
   } catch (e) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data && e.response.data.message) {
-      message = e.response.data.message;
+    if (e.response && e.response.data) {
+      const responseData = e.response.data;
+      if (Array.isArray(responseData.messages)) {
+        message = responseData.messages.join(' ');
+      }
     }
     showError(t(appName, 'Unable to query the initial value of {settingsKey}: {message}', {
       settingsKey,
@@ -122,8 +128,11 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
   } catch (e) {
     console.info('RESPONSE', e);
     let message = t(appName, 'reason unknown');
-    if (e.response && e.response.data && e.response.data.message) {
-      message = e.response.data.message;
+    if (e.response && e.response.data) {
+      const responseData = e.response.data;
+      if (Array.isArray(responseData.messages)) {
+        message = responseData.messages.join(' ');
+      }
     }
     if (value) {
       showError(t(appName, 'Unable to set "{settingsKey}" to {value}: {message}.', {
