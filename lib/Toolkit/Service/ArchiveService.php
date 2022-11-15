@@ -183,7 +183,7 @@ class ArchiveService
    */
   protected function t(string $formatString, mixed $parameters = null):string
   {
-    if (!$this->l) {
+    if (!empty($this->l)) {
       return $this->l->t($formatString, $parameters);
     }
     return vsprintf($formatString, $parameters);
