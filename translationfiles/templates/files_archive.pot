@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-15 03:18+0000\n"
+"POT-Creation-Date: 2022-11-17 03:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,66 +17,66 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /app/lib/Controller/ArchiveController.php:144
-#: /app/lib/Controller/MountController.php:159
-#: /app/lib/Controller/MountController.php:279
+#: /app/lib/Controller/ArchiveController.php:146
+#: /app/lib/Controller/MountController.php:161
+#: /app/lib/Controller/MountController.php:281
 #, php-format
 msgid "The user folder for user \"%s\" could not be opened."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:150
+#: /app/lib/Controller/ArchiveController.php:152
 #, php-format
 msgid "The archive file \"%s\" could not be found on the server."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:180
+#: /app/lib/Controller/ArchiveController.php:182
 #, php-format
 msgid "Unable to open the archive file \"%s\": %s."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:184
+#: /app/lib/Controller/ArchiveController.php:186
 #, php-format
 msgid "Error: %s"
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:218
-#: /app/lib/Controller/MountController.php:174
+#: /app/lib/Controller/ArchiveController.php:220
+#: /app/lib/Controller/MountController.php:176
 #, php-format
 msgid "Unable to open the archive file \"%s\"."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:233
-#: /app/lib/Controller/MountController.php:183
+#: /app/lib/Controller/ArchiveController.php:235
+#: /app/lib/Controller/MountController.php:185
 #, php-format
 msgid ""
 "The archive-file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > "
 "admin limit %3$s."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:237
-#: /app/lib/Controller/MountController.php:187
+#: /app/lib/Controller/ArchiveController.php:239
+#: /app/lib/Controller/MountController.php:189
 #, php-format
 msgid ""
 "The archive-file \"%1$s\" is too large: uncompressed size %2$s > user limit "
 "%3$s."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:258
+#: /app/lib/Controller/ArchiveController.php:260
 #, php-format
 msgid "Unable to open the target parent-folder \"%s\"."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:264
+#: /app/lib/Controller/ArchiveController.php:266
 #, php-format
 msgid "The target-folder \"%s\" already exists and auto-rename is not enabled."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:304
+#: /app/lib/Controller/ArchiveController.php:306
 #, php-format
 msgid "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:310
+#: /app/lib/Controller/ArchiveController.php:312
 #, php-format
 msgid "Extracting \"%1$s\" to \"%2$s\" succeeded."
 msgstr ""
@@ -96,42 +96,42 @@ msgstr ""
 msgid "Get from end-point \"%s\" not implemented."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:165
+#: /app/lib/Controller/MountController.php:167
 #, php-format
 msgid "\"%1$s\" is already mounted on \"%2$s\"."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:210
+#: /app/lib/Controller/MountController.php:212
 #, php-format
 msgid "Unable to open parent-folder \"%1$s\" of moint-point \"%2$s\": %3$s."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:218
+#: /app/lib/Controller/MountController.php:220
 #, php-format
 msgid "The mount point \"%s\" already exists and auto-rename is not enabled."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:253
+#: /app/lib/Controller/MountController.php:255
 #, php-format
 msgid "Unable to update the file cache for the mount-point \"%1s\": %2$s."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:274
+#: /app/lib/Controller/MountController.php:276
 #, php-format
 msgid "\"%s\" is not mounted."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:291
+#: /app/lib/Controller/MountController.php:293
 #, php-format
 msgid "Directory \"%s\" should be a mount point, but it is not."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:298
+#: /app/lib/Controller/MountController.php:300
 #, php-format
 msgid "Archive \"%1$s\" has been unmounted from \"%2$s\"."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:357
+#: /app/lib/Controller/MountController.php:359
 msgid "Only the pass-phrase may be changed for an existing mount."
 msgstr ""
 
@@ -182,24 +182,6 @@ msgstr ""
 msgid "Unable to parse memory size limit \"%s\""
 msgstr ""
 
-#: /app/lib/Service/ArchiveService.php:231
-#: /app/lib/Service/ArchiveService.php:237
-#, php-format
-msgid "Unable to open archive file %s (%s)"
-msgstr ""
-
-#: /app/lib/Service/ArchiveService.php:251
-#, php-format
-msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
-msgstr ""
-
-#: /app/lib/Service/ArchiveService.php:267
-#: /app/lib/Service/ArchiveService.php:335
-#: /app/lib/Service/ArchiveService.php:357
-#: /app/lib/Service/ArchiveService.php:371
-msgid "There is no archive file associated with this archiver instance."
-msgstr ""
-
 #: /app/lib/Service/AssetService.php:87
 #, php-format
 msgid ""
@@ -211,6 +193,24 @@ msgstr ""
 #: /app/lib/Settings/AdminSection.php:72
 #: /app/lib/Settings/PersonalSection.php:72
 msgid "Archive Explorer"
+msgstr ""
+
+#: /app/lib/Toolkit/Service/ArchiveService.php:265
+#: /app/lib/Toolkit/Service/ArchiveService.php:271
+#, php-format
+msgid "Unable to open archive file %s (%s)"
+msgstr ""
+
+#: /app/lib/Toolkit/Service/ArchiveService.php:285
+#, php-format
+msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
+msgstr ""
+
+#: /app/lib/Toolkit/Service/ArchiveService.php:301
+#: /app/lib/Toolkit/Service/ArchiveService.php:369
+#: /app/lib/Toolkit/Service/ArchiveService.php:391
+#: /app/lib/Toolkit/Service/ArchiveService.php:405
+msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 
 #: /app/lib/Toolkit/Traits/ResponseTrait.php:118
