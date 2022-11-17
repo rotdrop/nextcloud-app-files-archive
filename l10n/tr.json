@@ -14,6 +14,12 @@
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "\"%2$s\" ayarı için \"%1$s\" değeri boolean biçimine dönüştürülemez.",
     "Unknown personal setting: \"%s\"." : "\"%s\" kişisel ayarı bilinmiyor",
     "Unable to parse memory size limit \"%s\"" : "\"%s\" bellek boyutu sınırı işlenemedi",
+    "Installation problem; the required %s-resource \"%s\" is not installed on the server,\n please contact the system administrator!" : "Kurulum sorunu. Gereken %s-resource%s\" sunucu üzerine kurulmamış.\nLütfen sistem yöneticisi ile görüşün!",
+    "Unable to open archive file %s (%s)" : "%s arşiv dosyası açılamadı (%s)",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "\"%1$s\" arşiv dosyasının sıkıştırılmamış boyutu çok büyük: %2$s > %3$s",
+    "There is no archive file associated with this archiver instance." : "Bu arşivleyici kopyası ile ilişkilendirilmiş bir arşiv dosyası bulunamadı.",
+    "Error, caught an exception." : "Hata, bir sorunla karşılaşıldı.",
+    "Caused by previous exception" : "Önceki sorundan kaynaklandı",
     "bytes" : "bayt",
     "unknown" : "bilinmiyor",
     "MIME type" : "MIME türü",
@@ -26,13 +32,18 @@
     "No Content" : "Herhangi bir içerik yok",
     "Reset Content" : "İçeriği sıfırla",
     "Unauthorized" : "Kimliği doğrulanmamış",
+    "Payment Required" : "Ödeme gerekli",
     "Forbidden" : "Yasak",
     "Not Found" : "Bulunamadı",
+    "Method Not Allowed" : "Yönteme izin verilmiyor",
     "Conflict" : "Çakışma",
     "Internal Server Error" : "Sunucuda bir sorun çıktı",
     "Error" : "Hata",
     "Missing data" : "Eksik veriler",
     "No" : "Hayır",
-    "Yes" : "Evet"
+    "Yes" : "Evet",
+    "Debug Information" : "Hata ayıklama bilgileri",
+    "unknown error" : "hata bilinmiyor",
+    "Unable to download data from \"{url}\": {message}" : "\"{url}\" adresinden veriler indirilemedi: {message}"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
