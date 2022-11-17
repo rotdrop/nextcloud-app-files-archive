@@ -44,8 +44,8 @@ export default {
     },
   },
   methods: {
-    showDirNameUpdated(dir) {
-      showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: this.pathInfo.baseName }))
+    showDirNameUpdated(dir, base) {
+      showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base }))
     },
     showDirNameInvalid(dir) {
       showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
