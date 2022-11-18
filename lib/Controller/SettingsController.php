@@ -250,7 +250,7 @@ class SettingsController extends Controller
       return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $setting));
     }
     if (!(self::PERSONAL_SETTINGS[$setting]['rw'] ?? false)) {
-      return self::grumble($this->l->t('Thge personal setting "%1$s" is read-only', $setting));
+      return self::grumble($this->l->t('The personal setting "%1$s" is read-only', $setting));
     }
     $oldValue = $this->config->getUserValue(
       $this->userId,
