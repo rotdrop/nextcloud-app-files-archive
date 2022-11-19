@@ -80,6 +80,7 @@ OC.L10N.register(
     "not mounted" : "nepřipojeno",
     "Common prefix {prefix} is stripped." : "Společná předpona {prefix} je odstraněna.",
     "Not mounted, create a new mount-point:" : "Nepřipojeno, vytvořit nový přípojný bod:",
+    "base-name" : "základ-názvu",
     "strip common path prefix" : "oříznout společnou předponu popisu umístění",
     "Extract Archive" : "Rozbalit archiv",
     "Choose a directory to extract the archive to:" : "Zvolte složku, do které archiv rozbalit:",

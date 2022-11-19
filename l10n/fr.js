@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Post to end-point \"%s\" not implemented." : "La publication sur l'end-point \"%s\" n'est pas implémentée.",
     "bytes" : "octets",
     "unknown" : "Inconnu",
     "MIME type" : "Type MIME",
@@ -8,7 +9,7 @@ OC.L10N.register(
     "true" : "vrai",
     "false" : "faux",
     "OK" : "OK",
-    "Created" : "Créée",
+    "Created" : "Créé",
     "Unauthorized" : "Interdit",
     "Forbidden" : "Interdit",
     "Not Found" : "Non trouvé",
