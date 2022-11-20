@@ -11,6 +11,7 @@
     "Conflict" : "Konflikt",
     "Internal Server Error" : "Intern serverfejl",
     "Error" : "Fejl",
+    "Missing data" : "Manglende data",
     "No" : "Nej",
     "Yes" : "Ja"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
