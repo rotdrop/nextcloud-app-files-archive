@@ -23,6 +23,7 @@
 namespace OCA\RotDrop\Toolkit\Traits;
 
 use NumberFormatter;
+use DateTimeInterface;
 
 use OCP\IL10N;
 
@@ -269,7 +270,7 @@ trait UtilTrait
     $bytesUnit = $bytesUnit[$format] ?? null;
     $radix = $radix[$format] ?? null;
 
-    if ($units === null || $bytesUnit === null || $radix === null)  {
+    if ($units === null || $bytesUnit === null || $radix === null) {
       // maybe throw InvalidArgumentException
       return null;
     }
@@ -350,5 +351,163 @@ trait UtilTrait
   {
     $className = is_string($classOrClassName) ? $classOrClassName : get_class($classOrClassName);
     return substr(strrchr($className, '\\'), 1);
+  }
+
+  /**
+   * Replace braced placeholders in a template string.
+   *
+   * The general syntax of a replacement is {[C[N]|]KEY[|M[D]][@FILTER]} where
+   * where anything in square brackets is optional.
+   *
+   * - 'C' is any character used for optional padding to the left.
+   * - 'N' is th1e padding length. If ommitted, the value of 1 is assumed.
+   * - 'KEY' is the replacement key
+   * - 'FILTER' can be either
+   *   - a single character which is used to replace occurences of '/' in the
+   *     replacement for KEY
+   *   - two characters, in which the first character is used as replacement for
+   *     the second character in the replacement value of KEY
+   *   - the hash-algo passed to the PHP hash($algo, $data) in which case the replacement value
+   *     is the hash w.r.t. FILTER of the replacement data
+   *
+   * - 'M' is a number of "path" components to include from the right from the
+   *   expansion of KEY with path-delimiter 'D' (default: "/"). "{KEY|2}" for
+   *   the value "foo/bar/foobar" would result in "bar/foobar".
+   *
+   * @param string $template
+   *
+   * @param array $templateValues An array of replacement values:
+   * ```
+   * [ KEY1 => VALUE1, KEY2 => [ 'value' => VALUE2, 'padding' => NUMBER|OTHER_KEY ], ... ]
+   * ```
+
+   * where the second varian specifies a default padding either as number or
+   * implicitly as reference to another key in which case the default padding
+   * is the strlen() of the replacement value of the other key. If any value
+   * is a \DateTimeInterface then it will be formatted by interpreting any
+   * FILTER as format string with default 'c'.
+   *
+   * @param null|array $l10nTemplateKeys Optional translated keys as
+   * ```
+   * [
+   *    TRANSLATED_KEY => ORIGINAL_KEY
+   * ]
+   * ```
+   * The template may contain translated keys, but the $templateValues
+   * replacement array must not contain translated keys.
+   *
+   * @return string
+   *
+   * @see \DateTimeInterface::format()
+   */
+  protected function replaceBracedPlaceholders(
+    string $template,
+    array $templateValues,
+    ?array $l10nTemplateKeys = null,
+  ):string {
+    $keys = array_merge(array_keys($templateValues), array_values($l10nTemplateKeys));
+    $keys = array_combine($keys, $keys);
+    $l10nKeys = array_merge($keys, $l10nTemplateKeys ?? $keys);
+    return preg_replace_callback(
+      '/{((.)([0-9]*)\|)?([^{}@|]+)(\|([0-9]+)([^{}])?)?(\@([^{}]+))?}/',
+      function(array $matches) use ($keys, $l10nKeys, $templateValues) {
+        $this->logInfo('MATCHES ' . print_r($matches, true));
+        $match = $matches[0];
+        $padChar = $matches[2];
+        $padding = $matches[3] ?: 0;
+        $keyMatch = strtoupper($matches[4]);
+
+        $tailCount = $matches[6] ?? null;
+        $tailDelimiter = $matches[7] ?? Constants::PATH_SEPARATOR;
+
+        $filter = $matches[9] ?? '';
+        $key = $l10nKeys[$keyMatch] ?? ($keys[$keyMatch] ?? null);
+        $value = !empty($key) ? $templateValues[$key] : $match;
+        if (is_array($value)) {
+          $padding = $padding ?: $value['padding'];
+          if (!is_numeric($padding)) {
+            $padding = $l10nKeys[$padding] ?? ($keys[$padding] ?? null);
+            $padding = strlen($templateValues[$padding] ?? '.');
+          }
+          $value = $value['value'];
+        }
+        if (strlen($padChar) == 1) {
+          $value = str_pad($value, $padding ?: 1, $padChar, STR_PAD_LEFT);
+        }
+        if ($value instanceof DateTimeInterface) {
+          // interprete the filter as format for DateTimeInterface::format()
+          $value = $value->format(empty($filter) ? 'c' : $filter);
+        }
+        if ($tailCount !== null) {
+          $components = explode($tailDelimiter, $value);
+          array_splice($components, 0, -$tailCount);
+          $value = implode($tailDelimiter, $components);
+        }
+        if (!empty($filter)) {
+          if (strlen($filter) == 1) {
+            $filter .= Constants::PATH_SEPARATOR;
+          }
+          if (strlen($filter) == 2) {
+            $value = str_replace($filter[1], $filter[0], $value);
+          } else {
+            $value = strtoupper(hash(strtolower($filter), $value)); // result in a hex string
+          }
+        }
+        return $value;
+      },
+      $template,
+    );
+  }
+
+  /**
+   * @param string $rgbaString RGBA color value in the format "#RRGGBBAA". The
+   * "A" (opacity) value is optional.
+   *
+   * @return array Decoded RGBA color array.
+   */
+  protected function rgbaStringToArray(string $rgbaString):array
+  {
+    $inputLength = strlen($rgbaString);
+    if ($inputLength != 7 && $inputLength != 9 || $rgbaString[0] !== '#') {
+      throw new InvalidArgumentException(
+        $this->l->t('The supplied color-string "%s" seems to be invalid.', $rgbaString));
+    }
+    $rgbaArray = [
+      hexdec(substr($rgbaString, 1, 2)),
+      hexdec(substr($rgbaString, 3, 2)),
+      hexdec(substr($rgbaString, 5, 2)),
+    ];
+    if (strlen($rgbaString) === 9) {
+      $rgbaArray[3] = hexdec(substr($rgbaString, 7, 2));
+    }
+    foreach ($rgbaArray as $colorValue) {
+      if ($colorValue === false) {
+        throw new InvalidArgumentException(
+          $this->l->t('The supplied color-string "%s" seems to be invalid.', $rgbaString));
+      }
+    }
+
+    return $rgbaArray;
+  }
+
+  /**
+   * @param array $rgbaArray RGB(A) data with values between 0 and 255 (8-bit
+   * color data). The "A" (opacity) value is optional. The input array is a
+   * flat number array with 3 or 4 components.
+   *
+   * @return string Encoded RGB(A) color string in the format "#RRGGBBAA". The
+   * "AA" is only there if the input array has 4 components.
+   */
+  protected function rgbaArrayToString(array $rgbaArray):string
+  {
+    $rgbaString = '#';
+    foreach ($rgbaArray as $colorValue) {
+      if (!is_numeric($colorValue) || (int)$colorValue != $colorValue || $colorValue < 0 || $colorValue > 255) {
+        throw new InvalidArgumentException(
+          $this->l->t('The input color values are invalid.'));
+      }
+      $rgbaString .= sprintf('%02x', $colorValue);
+    }
+    return strtolower($rgbaString);
   }
 }
