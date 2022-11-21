@@ -23,11 +23,13 @@ import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 
 /**
- * @param {string} settingsSection TDB.
+ * @param {string} settingsSection AJAX call goes to `apps/${appName}/settings/${settingsSection}`.
  *
- * @param {object} storageObject TBD.
+ * @param {object} storageObject The object which receives the
+ * settings keys as properties. If not given defaults to this.
  *
- * @return {boolean} TBD.
+ * @return {boolean} Success status, false
+ on error, true on success.
  */
 async function fetchSettings(settingsSection, storageObject) {
   if (storageObject === undefined) {
@@ -35,9 +37,10 @@ async function fetchSettings(settingsSection, storageObject) {
   }
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + settingsSection), {});
-    for (const [key, value] of Object.entries(response.data)) {
-      storageObject[key] = value;
-    }
+    Object.assign(storageObject, response.data);
+    // for (const [key, value] of Object.entries(response.data)) {
+    //   storageObject[key] = value;
+    // }
     return true;
   } catch (e) {
     console.info('ERROR', e);
