@@ -18,6 +18,7 @@
  */
 
 import { appName } from '../../config.js';
+import Vue from 'vue';
 import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
@@ -37,10 +38,15 @@ async function fetchSettings(settingsSection, storageObject) {
   }
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + settingsSection), {});
-    Object.assign(storageObject, response.data);
-    // for (const [key, value] of Object.entries(response.data)) {
-    //   storageObject[key] = value;
-    // }
+    // Object.assign(storageObject, response.data);
+    for (const [key, value] of Object.entries(response.data)) {
+      if (Object.prototype.hasOwnProperty.call(storageObject, key)) {
+        // eslint-disable-next-line import/no-named-as-default-member
+        Vue.set(storageObject, key, value);
+      } else {
+        storageObject[key] = value;
+      }
+    }
     return true;
   } catch (e) {
     console.info('ERROR', e);
@@ -73,7 +79,12 @@ async function fetchSetting(settingsKey, settingsSection, storageObject) {
   }
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), {});
-    storageObject[settingsKey] = response.data.value;
+    if (Object.prototype.hasOwnProperty.call(storageObject, settingsKey)) {
+      // eslint-disable-next-line import/no-named-as-default-member
+      Vue.set(storageObject, settingsKey, response.data.value);
+    } else {
+      storageObject[settingsKey] = response.data.value;
+    }
     return true;
   } catch (e) {
     console.info('ERROR', e);
@@ -87,7 +98,9 @@ async function fetchSetting(settingsKey, settingsSection, storageObject) {
     showError(t(appName, 'Unable to query the initial value of {settingsKey}: {message}', {
       settingsKey,
       message,
-    }));
+    }), {
+      timeout: TOAST_PERMANENT_TIMEOUT,
+    });
     return false;
   }
 }
@@ -100,12 +113,9 @@ async function fetchSetting(settingsKey, settingsSection, storageObject) {
  * @return {boolean} TBD.
  */
 async function saveSimpleSetting(settingsKey, settingsSection) {
-  console.info('ARGUMENTS', settingsKey, arguments);
-  console.info('SAVE SETTING', settingsKey, this[settingsKey]);
   const value = this[settingsKey];
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), { value });
-    console.info('RESPSONSE', response.data);
     const responseData = response.data;
     let displayValue;
     if (responseData) {
@@ -118,6 +128,9 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
         this[humanKey] = responseData.humanValue;
         displayValue = this[humanKey];
       }
+      if (Array.isArray(displayValue)) {
+        displayValue = displayValue.toString();
+      }
     }
     if (displayValue === true) {
       displayValue = t(appName, 'true');
@@ -129,7 +142,7 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
     }
     return true;
   } catch (e) {
-    console.info('RESPONSE', e);
+    console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (e.response && e.response.data) {
       const responseData = e.response.data;
@@ -142,13 +155,17 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
         settingsKey,
         value: value === true ? t(appName, 'true') : '' + value,
         message,
-      }));
+      }), {
+        timeout: TOAST_PERMANENT_TIMEOUT,
+      });
     } else {
       showError(t(appName, 'Unable to unset "{settingsKey}": {message}', {
         settingsKey,
         value: this[settingsKey] || t(appName, 'false'),
         message,
-      }));
+      }), {
+        timeout: TOAST_PERMANENT_TIMEOUT,
+      });
     }
     this[settingsKey] = this.old[settingsKey];
     return false;
@@ -168,7 +185,6 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
  */
 async function saveConfirmedSetting(value, settingsSection, settingsKey, force) {
   const self = this;
-  console.info('ARGS', arguments);
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), { value, force });
     const responseData = response.data;
@@ -194,9 +210,11 @@ async function saveConfirmedSetting(value, settingsSection, settingsKey, force) 
         }
         if (responseData.humanValue !== undefined) {
           const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
-          console.info('HUMAN', humanKey, responseData.humanValue);
           this[humanKey] = responseData.humanValue;
           displayValue = this[humanKey];
+          if (Array.isArray(displayValue)) {
+            displayValue = displayValue.toString();
+          }
         }
       }
       if (displayValue && displayValue !== '') {
@@ -205,18 +223,21 @@ async function saveConfirmedSetting(value, settingsSection, settingsKey, force) 
         showInfo(t(appName, 'Setting "{setting}" has been unset successfully.', { setting: settingsKey }));
       }
     }
-    console.info('RESPONSE', response);
     return true;
   } catch (e) {
+    console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (e.response && e.response.data) {
       const responseData = e.response.data;
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
       }
-      console.info('RESPONSE', e.response);
     }
-    showError(t(appName, 'Could not set value for "{settingsKey}" to "{value}": {message}', { settingsKey, value, message }), { timeout: TOAST_PERMANENT_TIMEOUT });
+    showError(t(appName, 'Could not set value for "{settingsKey}" to "{value}": {message}', {
+      settingsKey, value, message,
+    }), {
+      timeout: TOAST_PERMANENT_TIMEOUT,
+    });
     self.getData();
     return false;
   }

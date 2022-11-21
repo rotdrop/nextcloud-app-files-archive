@@ -25,7 +25,7 @@ import { appName } from '../../config.js';
 import generateUrl from './generate-url.js';
 import * as Ajax from './ajax.js';
 import * as ncRouter from '@nextcloud/router';
-import { showInfo } from '@nextcloud/dialogs';
+import { showError, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import { parse as parseContentDisposition } from 'content-disposition';
 
 /**
@@ -66,7 +66,7 @@ const download = function(url, post, options) {
   const fail = options.fail;
   options.fail = function(data) {
 
-    showInfo(options.errorMessage(url, data));
+    showError(options.errorMessage(url, data), { timeout: TOAST_PERMANENT_TIMEOUT });
     fail(data);
   };
 
