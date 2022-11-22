@@ -24,7 +24,7 @@ namespace OCA\RotDrop\Toolkit\Backend;
 
 use InvalidArgumentException;
 use wapmorgan\UnifiedArchive;
-use wapmorgan\UnifiedArchive\Drivers\BasicDriver;
+use wapmorgan\UnifiedArchive\Drivers\Basic\BasicDriver;
 
 use OCA\RotDrop\Toolkit\Backend\ArchiveFormats as Formats;
 
