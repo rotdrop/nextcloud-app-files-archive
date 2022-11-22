@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-21 03:18+0000\n"
+"POT-Creation-Date: 2022-11-22 03:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,9 +221,19 @@ msgstr ""
 msgid "Caused by previous exception"
 msgstr ""
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:257
-#: /app/lib/Toolkit/Traits/UtilTrait.php:259
+#: /app/lib/Toolkit/Traits/UtilTrait.php:258
+#: /app/lib/Toolkit/Traits/UtilTrait.php:260
 msgid "bytes"
+msgstr ""
+
+#: /app/lib/Toolkit/Traits/UtilTrait.php:473
+#: /app/lib/Toolkit/Traits/UtilTrait.php:486
+#, php-format
+msgid "The supplied color-string \"%s\" seems to be invalid."
+msgstr ""
+
+#: /app/lib/Toolkit/Traits/UtilTrait.php:507
+msgid "The input color values are invalid."
 msgstr ""
 
 #: /app/specialAppInfoFakeDummyForL10nScript.php:2
@@ -529,63 +539,63 @@ msgstr ""
 msgid "Archive"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:44
-#: /app/src/toolkit/mixins/settings-sync.js:77
-#: /app/src/toolkit/mixins/settings-sync.js:130
-#: /app/src/toolkit/mixins/settings-sync.js:208
+#: /app/src/toolkit/mixins/settings-sync.js:53
+#: /app/src/toolkit/mixins/settings-sync.js:91
+#: /app/src/toolkit/mixins/settings-sync.js:146
+#: /app/src/toolkit/mixins/settings-sync.js:229
 msgid "reason unknown"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:51
+#: /app/src/toolkit/mixins/settings-sync.js:60
 msgid "Unable to query the initial value of all settings: {message}"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:84
+#: /app/src/toolkit/mixins/settings-sync.js:98
 msgid "Unable to query the initial value of {settingsKey}: {message}"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:120
-#: /app/src/toolkit/mixins/settings-sync.js:140
+#: /app/src/toolkit/mixins/settings-sync.js:136
+#: /app/src/toolkit/mixins/settings-sync.js:156
 msgid "true"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:123
+#: /app/src/toolkit/mixins/settings-sync.js:139
 msgid "Successfully set \"{settingsKey}\" to {value}."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:125
+#: /app/src/toolkit/mixins/settings-sync.js:141
 msgid "Setting \"{settingsKey}\" has been unset successfully."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:138
+#: /app/src/toolkit/mixins/settings-sync.js:154
 msgid "Unable to set \"{settingsKey}\" to {value}: {message}."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:146
+#: /app/src/toolkit/mixins/settings-sync.js:164
 msgid "false"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:144
+#: /app/src/toolkit/mixins/settings-sync.js:162
 msgid "Unable to unset \"{settingsKey}\": {message}"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:175
+#: /app/src/toolkit/mixins/settings-sync.js:194
 msgid "Confirmation Required"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:180
+#: /app/src/toolkit/mixins/settings-sync.js:199
 msgid "Unconfirmed, reverting to old value."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:200
+#: /app/src/toolkit/mixins/settings-sync.js:221
 msgid "Successfully set value for \"{settingsKey}\" to \"{displayValue}\""
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:202
+#: /app/src/toolkit/mixins/settings-sync.js:223
 msgid "Setting \"{setting}\" has been unset successfully."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:216
+#: /app/src/toolkit/mixins/settings-sync.js:236
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 
