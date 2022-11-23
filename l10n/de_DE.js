@@ -39,6 +39,8 @@ OC.L10N.register(
     "Error, caught an exception." : "Fehler, \"Ausnahme\" \"aufgefangen\".",
     "Caused by previous exception" : "Verursacht durch eine vorhergehende Ausnahme",
     "bytes" : "Bytes",
+    "The supplied color-string \"%s\" seems to be invalid." : "Die angegebene Farbzeichenfolge \"%s\" scheint ungültig zu sein.",
+    "The input color values are invalid." : "Die eingegebenen Farbwerte sind ungültig.",
     "Archive Manager" : "Archiv-Betrachter",
     "On-the-fly archive inspector for Nextcloud" : "Virtueller Archiv-Betrachter für Nextcloud",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Archiv-Dateien (zip, tar, ...) als virtuelle Speicher einhängen und optional entpacken.",

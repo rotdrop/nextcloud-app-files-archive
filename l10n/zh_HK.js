@@ -39,6 +39,8 @@ OC.L10N.register(
     "Error, caught an exception." : "錯誤，捕捉到例外。",
     "Caused by previous exception" : "由先前的例外造成",
     "bytes" : "位元組",
+    "The supplied color-string \"%s\" seems to be invalid." : "提供的顏色字符串“%s”似乎無效。",
+    "The input color values are invalid." : "輸入的顏色值無效。",
     "Archive Manager" : "封存檔案管理員",
     "On-the-fly archive inspector for Nextcloud" : "Nextcloud 的即時封存檔檢查程式",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "檢查、掛載與解壓縮封存檔（zip、tar 等等）",

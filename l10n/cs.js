@@ -39,6 +39,8 @@ OC.L10N.register(
     "Error, caught an exception." : "Chyba: zachycena výjimka",
     "Caused by previous exception" : "Způsobeno předchozí výjimkou",
     "bytes" : "bajtů",
+    "The supplied color-string \"%s\" seems to be invalid." : "Zadaný řetězec barvy „%s“ se nezdá být platný.",
+    "The input color values are invalid." : "Zadané barevné hodnoty nejsou platné.",
     "Archive Manager" : "Správa archivů",
     "On-the-fly archive inspector for Nextcloud" : "Nástroj pro průběžnou inspekci archivů pro Nextcloud",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Provádějte inspekci, připojujte a rozbalujte soubory s archivy (zip, tar, atd.)",

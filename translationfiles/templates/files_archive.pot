@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-22 03:27+0000\n"
+"POT-Creation-Date: 2022-11-23 03:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,13 +226,13 @@ msgstr ""
 msgid "bytes"
 msgstr ""
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:473
-#: /app/lib/Toolkit/Traits/UtilTrait.php:486
+#: /app/lib/Toolkit/Traits/UtilTrait.php:474
+#: /app/lib/Toolkit/Traits/UtilTrait.php:487
 #, php-format
 msgid "The supplied color-string \"%s\" seems to be invalid."
 msgstr ""
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:507
+#: /app/lib/Toolkit/Traits/UtilTrait.php:508
 msgid "The input color values are invalid."
 msgstr ""
 

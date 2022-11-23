@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-11-22 03:27+0000\n"
+"POT-Creation-Date: 2022-11-23 03:25+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Claus-Justus Heine, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -256,13 +256,13 @@ msgstr "Verursacht durch eine vorhergehende Ausnahme"
 msgid "bytes"
 msgstr "Bytes"
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:473
-#: /app/lib/Toolkit/Traits/UtilTrait.php:486
+#: /app/lib/Toolkit/Traits/UtilTrait.php:474
+#: /app/lib/Toolkit/Traits/UtilTrait.php:487
 #, php-format
 msgid "The supplied color-string \"%s\" seems to be invalid."
 msgstr ""
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:507
+#: /app/lib/Toolkit/Traits/UtilTrait.php:508
 msgid "The input color values are invalid."
 msgstr ""
 

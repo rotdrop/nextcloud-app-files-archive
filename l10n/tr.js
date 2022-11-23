@@ -39,6 +39,8 @@ OC.L10N.register(
     "Error, caught an exception." : "Hata, bir sorunla karşılaşıldı.",
     "Caused by previous exception" : "Önceki sorundan kaynaklandı",
     "bytes" : "bayt",
+    "The supplied color-string \"%s\" seems to be invalid." : "Belirtilen \"%s\" renk dizgesi geçersiz gibi görünüyor.",
+    "The input color values are invalid." : "Giriş rengi değerleri geçersiz.",
     "Archive Manager" : "Arşiv yöneticisi",
     "On-the-fly archive inspector for Nextcloud" : "Nextcloud için anlık arşiv keşfedici",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Arşiv dosyalarını (zip, tar, vb.) keşfedin, takın ve ayıklayın ",

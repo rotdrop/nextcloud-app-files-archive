@@ -39,6 +39,8 @@ OC.L10N.register(
     "Error, caught an exception." : "Грешка, засечено е изключение.",
     "Caused by previous exception" : "Причинено от предишно изключение",
     "bytes" : "байта",
+    "The supplied color-string \"%s\" seems to be invalid." : "Предоставеният низ за цвят \"%s\" изглежда е невалиден.",
+    "The input color values are invalid." : "Въведените стойности на цветовете са невалидни.",
     "Archive Manager" : "Мениджър на архив",
     "On-the-fly archive inspector for Nextcloud" : "Инструмент за инспектиране на архиви в движение за Nextcloud",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Инспектиране, монтиране и извличане на архивни файлове (zip, tar, etc.)",
