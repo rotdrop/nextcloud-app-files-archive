@@ -50,6 +50,7 @@ OC.L10N.register(
     "Internal Server Error" : "Error interno del servidor",
     "Not Implemented" : "No está implementado",
     "Service Unavailable" : "Servicio no disponible",
+    "HTTP Version Not Supported" : "Versión HTTP no soportada",
     "Aborted" : "Cancelado",
     "Error" : "Error",
     "System Administrator" : "Administrador de Sistema",

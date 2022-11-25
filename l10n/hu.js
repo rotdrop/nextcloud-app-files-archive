@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "bytes" : "bájt",
     "unknown" : "ismeretlen",
-    "MIME type" : "MIME típus",
+    "MIME type" : "MIME-típus",
     "Archive" : "Archívum",
     "OK" : "Rendben",
     "Created" : "Létrehozva",
