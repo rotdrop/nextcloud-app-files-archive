@@ -55,6 +55,7 @@ OC.L10N.register(
     "Conflict" : "冲突",
     "Internal Server Error" : "内部服务器错误",
     "Error" : "错误",
+    "Missing data" : "数据丢失",
     "No" : "否",
     "Yes" : "是"
 },
