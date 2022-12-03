@@ -191,7 +191,7 @@ OC.L10N.register(
     "Missing data" : "Fehlende Daten",
     "The submitted data \"{stringValue}\" seems to be a plain string, but we need an object where the data is provided through above listed properties." : "Die übermittelten Daten \"{stringValue}\" scheinen eine einfache Zeichenkette zu sein, benötigt wird jedoch ein JavaScript-Obekt, das die Daten über die oben aufgeführten (fehlenden) Objekt-Eigenschaften zu Verfügung stellt.",
     "Error: plain string received" : "Fehler: einfache Zeichenkette empfangen",
-    "The submitted data is not a plain object, and does not provide the properties listed above." : "Die übermittelten DAten sind kein einfaches Objekt und beinhalteten nicht die oben aufgeführten benötigten Eigentschaften.",
+    "The submitted data is not a plain object, and does not provide the properties listed above." : "Die übermittelten Daten sind kein einfaches Objekt und beinhalteten nicht die oben aufgeführten benötigten Eigenschaften.",
     "Error: not a plain object" : "Fehler: kein einfaches Objekt",
     "Unknown JSON error response to AJAX call: {status} / {error}" : "Unbekannte JSON Fehler-Antwort auf AJAX-Anfrage: {status} / {error}",
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP Fehler-Antwort auf AJAX-Anfrage: {code} / {error}",
