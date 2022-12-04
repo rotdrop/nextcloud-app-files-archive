@@ -32,4 +32,5 @@ class Constants
    */
   public const PATH_SEPARATOR = '/';
   public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = (1 << 32);
+  public const USER_FOLDER_PREFIX = 'files';
 }
