@@ -9,6 +9,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Ezarpen pertsonal ezezaguna: \"%s\".",
     "Unable to parse memory size limit \"%s\"" : "Ezin izan da memoriaren tamainaren muga analizatu \"%s\"",
     "Unable to open archive file %s (%s)" : "Ezin izan da artxibo fitxategia ireki %s (%s)",
+    "There is no archive file associated with this archiver instance." : "Ez dago artxibo-fitxategirik lotutako artxibo-instantzia honekin.",
     "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
     "bytes" : "byte",
