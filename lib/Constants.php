@@ -23,13 +23,6 @@ namespace OCA\FilesArchive;
 use OCA\RotDrop\Toolkit\Traits\Constants as TraitsConstants;
 
 /** A couple of constants in order to avoid string literals. */
-class Constants
+class Constants extends TraitsConstants
 {
-  /**
-   * @var string
-   *
-   * File-path separator.
-   */
-  public const PATH_SEPARATOR = TraitsConstants::PATH_SEPARATOR;
-  public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = TraitsConstants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 }

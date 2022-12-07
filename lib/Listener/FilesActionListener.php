@@ -36,8 +36,8 @@ use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
 use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\RotDrop\Toolkit\Service\MimeTypeService;
 
-use OCA\FilesArchive\Service\AssetService;
 use OCA\FilesArchive\Controller\SettingsController;
+use OCA\FilesArchive\Constants;
 
 /**
  * In particular listen to the asset-loading events.
@@ -46,6 +46,7 @@ class FilesActionListener implements IEventListener
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
   use \OCA\RotDrop\Toolkit\Traits\CloudAdminTrait;
+  use \OCA\RotDrop\Toolkit\Traits\AssetTrait;
 
   const EVENT = HandledEvent::class;
 
@@ -124,10 +125,9 @@ class FilesActionListener implements IEventListener
 
     // $this->logInfo('MIME ' . print_r($archiveMimeTypes, true));
 
-    /** @var AssetService $assetService */
-    $assetService = $this->appContainer->get(AssetService::class);
-    list('asset' => $scriptAsset,) = $assetService->getJSAsset(self::BASENAME);
-    list('asset' => $styleAsset,) = $assetService->getCSSAsset(self::BASENAME);
+    $this->initializeAssets(__DIR__);
+    list(Constants::ASSET => $scriptAsset,) = $this->getJSAsset(self::BASENAME);
+    list(Constants::ASSET => $styleAsset,) = $this->getCSSAsset(self::BASENAME);
     \OCP\Util::addScript($appName, $scriptAsset);
     \OCP\Util::addStyle($appName, $styleAsset);
   }

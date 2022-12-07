@@ -25,29 +25,27 @@ namespace OCA\FilesArchive\Settings;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Settings\IDelegatedSettings;
 
-use OCA\FilesArchive\Service\AssetService;
+use OCA\FilesArchive\Constants;
 
 /**
  * Render the administrative settings for this app.
  */
 class Admin implements IDelegatedSettings
 {
+  use \OCA\RotDrop\Toolkit\Traits\AssetTrait;
+
   const TEMPLATE = "admin-settings";
 
   /** @var string */
   private $appName;
 
-  /** @var AssetService */
-  private $assetService;
-
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
-  public function __construct(
-    string $appName,
-    AssetService $assetService,
-  ) {
+  // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+  public function __construct(string $appName)
+  {
     $this->appName = $appName;
-    $this->assetService = $assetService;
+    $this->initializeAssets(__DIR__);
   }
+  // phpcs:enable
 
   /**
    * Return the HTML-template in order to render the personal settings.
@@ -61,8 +59,8 @@ class Admin implements IDelegatedSettings
       self::TEMPLATE, [
         'appName' => $this->appName,
         'assets' => [
-          AssetService::JS => $this->assetService->getJSAsset(self::TEMPLATE),
-          AssetService::CSS => $this->assetService->getCSSAsset(self::TEMPLATE),
+          Constants::JS => $this->getJSAsset(self::TEMPLATE),
+          Constants::CSS => $this->getCSSAsset(self::TEMPLATE),
         ],
       ],
       'blank');

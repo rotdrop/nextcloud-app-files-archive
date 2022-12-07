@@ -25,28 +25,25 @@ namespace OCA\FilesArchive\Settings;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Settings\ISettings;
 
-use OCA\FilesArchive\Service\AssetService;
+use OCA\FilesArchive\Constants;
 
 /**
  * Render the personal per-user settings for this app.
  */
 class Personal implements ISettings
 {
+  use \OCA\RotDrop\Toolkit\Traits\AssetTrait;
+
   const TEMPLATE = "personal-settings";
 
   /** @var string */
   private $appName;
 
-  /** @var AssetService */
-  private $assetService;
-
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
-  public function __construct(
-    string $appName,
-    AssetService $assetService,
-  ) {
+  // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+  public function __construct(string $appName)
+  {
     $this->appName = $appName;
-    $this->assetService = $assetService;
+    $this->initializeAssets(__DIR__);
   }
 
   /**
@@ -61,8 +58,8 @@ class Personal implements ISettings
       self::TEMPLATE, [
         'appName' => $this->appName,
         'assets' => [
-          AssetService::JS => $this->assetService->getJSAsset(self::TEMPLATE),
-          AssetService::CSS => $this->assetService->getCSSAsset(self::TEMPLATE),
+          Constants::JS => $this->assetService->getJSAsset(self::TEMPLATE),
+          Constants::CSS => $this->assetService->getCSSAsset(self::TEMPLATE),
         ],
       ]);
   }
@@ -90,8 +87,3 @@ class Personal implements ISettings
     return 50;
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***
