@@ -40,7 +40,7 @@ trait ResponseTrait
   /**
    * @param string $data Data-blob.
    *
-   * @param string $fileName Proposed download file-name.
+   * @param string $fileName Proposed download filename.
    *
    * @param string $contentType MIME-type of content.
    *

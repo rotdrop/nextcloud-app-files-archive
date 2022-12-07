@@ -96,7 +96,7 @@ class ArchiveService
   /**
    * @var string
    *
-   * Propose a mount-point name based on the archive name.
+   * Propose a mount point name based on the archive name.
    */
   public const ARCHIVE_INFO_DEFAULT_MOUNT_POINT = 'defaultMountPoint';
 

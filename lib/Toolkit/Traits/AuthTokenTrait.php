@@ -150,7 +150,7 @@ trait AuthTokenTrait
   /**
    * Delete any auth token secured with the given passphrase.
    *
-   * @param string $passphrase Token pass-phrase.
+   * @param string $passphrase Token passphrase.
    *
    * @return void
    */
