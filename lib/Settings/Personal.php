@@ -58,8 +58,8 @@ class Personal implements ISettings
       self::TEMPLATE, [
         'appName' => $this->appName,
         'assets' => [
-          Constants::JS => $this->assetService->getJSAsset(self::TEMPLATE),
-          Constants::CSS => $this->assetService->getCSSAsset(self::TEMPLATE),
+          Constants::JS => $this->getJSAsset(self::TEMPLATE),
+          Constants::CSS => $this->getCSSAsset(self::TEMPLATE),
         ],
       ]);
   }
