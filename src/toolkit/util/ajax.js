@@ -258,7 +258,7 @@ const ajaxHandleError = function(xhr, textStatus, errorThrown, callbacks) {
     generalHint += '<br/>'
       + t(appName, 'If it should be the case that you are already '
           + 'logged in for a long time without interacting '
-          + 'with the web-app, then the reason for this '
+          + 'with the app, then the reason for this '
           + 'error is probably a simple timeout.');
     generalHint += '<br/>'
       + t(appName, 'I any case it may help to logoff and logon again, as a '
