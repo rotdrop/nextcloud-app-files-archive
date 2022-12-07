@@ -23,6 +23,7 @@
 namespace OCA\RotDrop\Toolkit\Traits;
 
 use OCP\Files\IRootFolder;
+use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
@@ -102,4 +103,53 @@ trait UserRootFolderTrait
   {
     return $this->userId . Constants::PATH_SEPARATOR . Constants::USER_FOLDER_PREFIX;
   }
+
+  /**
+   * Walk the given $pathOrFolder and apply the callable to each found node.
+   *
+   * @param string|Folder $pathOrFolder Folder-path or Folder instance. If a
+   * path then it must be relative to the user folder.
+   *
+   * @param null|callable $callback The callback receives two arguments, the
+   * current file-system node and the recursion depth.
+   *
+   * @param int $depth Internal recursion depth parameters. The $callback
+   * receives it as second argument.
+   *
+   * @return int The number of plain files found during the walk.
+   */
+  public function folderWalk(mixed $pathOrFolder, ?callable $callback = null, int $depth = 0):int
+  {
+    /** @var \OCP\Files\File $node */
+    if (!($pathOrFolder instanceof Folder)) {
+      $folder = $this->getUserFolder()->get($pathOrFolder);
+    } else {
+      $folder = $pathOrFolder;
+    }
+
+    if (empty($folder)) {
+      return 0;
+    }
+
+    if (!empty($callback)) {
+      $callback($folder, $depth);
+    }
+    ++$depth;
+
+    $numberOfFiles = 0;
+    $folderContents = $folder->getDirectoryListing();
+    /** @var Node $node */
+    foreach ($folderContents as $node) {
+      if ($node->getType() == FileInfo::TYPE_FILE) {
+        if (!empty($callback)) {
+          $callback($node, $depth);
+        }
+        ++$numberOfFiles;
+      } else {
+        $numberOfFiles += $this->folderWalk($node, $callback, $depth);
+      }
+    }
+    return $numberOfFiles;
+  }
+
 }
