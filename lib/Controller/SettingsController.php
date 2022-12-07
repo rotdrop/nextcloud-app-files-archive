@@ -295,7 +295,7 @@ class SettingsController extends Controller
         }
         if (strpos($newValue, self::ARCHIVE_FILE_NAME_PLACEHOLDER) === false) {
           return self::grumble($this->l->t(
-            'The target folder template "%1$s" must contain the archive-file placeholder "%2$s".', [
+            'The target folder template "%1$s" must contain the archive file placeholder "%2$s".', [
               $newValue, self::ARCHIVE_FILE_NAME_PLACEHOLDER,
             ]));
         }

@@ -166,8 +166,8 @@
         </ul>
         <div v-else>
           <FilePrefixPicker v-model="archiveMountFileInfo"
-                            :hint="t(appName, 'Not mounted, create a new mount-point:')"
-                            :placeholder="t(appName, 'base-name')"
+                            :hint="t(appName, 'Not mounted, create a new mount point:')"
+                            :placeholder="t(appName, 'basename')"
                             @update="mount"
           />
           <div class="flex flex-center">
@@ -207,7 +207,7 @@
         <div v-else>
           <FilePrefixPicker v-model="archiveExtractFileInfo"
                             :hint="t(appName, 'Choose a directory to extract the archive to:')"
-                            :placeholder="t(appName, 'base-name')"
+                            :placeholder="t(appName, 'basename')"
                             @update="extract"
           />
           <div class="flex flex-center">
@@ -662,7 +662,7 @@ export default {
             }
           }
           if (!messages.length) {
-            messages.push(t(appName, 'Patching the pass-phrase failed with error {status}, "{statusText}".', e.response))
+            messages.push(t(appName, 'Patching the passphrase failed with error {status}, "{statusText}".', e.response))
           }
           for (const message of messages) {
             showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })

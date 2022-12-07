@@ -52,7 +52,7 @@ use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Constants;
 
 /**
- * Mount an archive-file as virtual file-system into the user-storage.
+ * Mount an archive file as virtual file-system into the user-storage.
  */
 class MountProvider implements IMountProvider
 {
@@ -169,7 +169,7 @@ class MountProvider implements IMountProvider
   }
 
   /**
-   * Convert the registered mount-point info into a Nextcloud mount-point.
+   * Convert the registered mount point info into a Nextcloud mount point.
    *
    * @param ArchiveMount $mountEntity
    *
@@ -197,7 +197,7 @@ class MountProvider implements IMountProvider
   }
 
   /**
-   * Convert the registered mount-point info into a Nextcloud mount-point.
+   * Convert the registered mount point info into a Nextcloud mount point.
    *
    * @param ArchiveMount $mountEntity
    *

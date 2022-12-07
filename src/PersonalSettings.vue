@@ -35,8 +35,8 @@
     <AppSettingsSection :title="t(appName, 'Mount Options')">
       <SettingsInputText
         v-model="mountPointTemplate"
-        :label="t(appName, 'Template for the default-name of the mount-point')"
-        :hint="t(appName, '{archiveFileName} will be replaced by the file-name of the archive-file without extensions.')"
+        :label="t(appName, 'Template for the default name of the mount point')"
+        :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
         placeholder="{archiveFileName}"
         @update="saveTextInput(...arguments, 'mountPointTemplate')"
       />
@@ -59,15 +59,15 @@
                @change="saveSetting('mountPointAutoRename')"
         >
         <label :for="id + '-mount-auto-rename'">
-          {{ t(appName, 'automatically change the mount-point name if it already exists') }}
+          {{ t(appName, 'automatically change the mount point name if it already exists') }}
         </label>
       </div>
     </AppSettingsSection>
     <AppSettingsSection :title="t(appName, 'Extraction Options')">
       <SettingsInputText
         v-model="extractTargetTemplate"
-        :label="t(appName, 'Template for the default-name of the extraction folder')"
-        :hint="t(appName, '{archiveFileName} will be replaced by the file-name of the archive-file without extensions.')"
+        :label="t(appName, 'Template for the default name of the extraction folder')"
+        :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
         placeholder="{archiveFileName}"
         @update="saveTextInput(...arguments, 'extractTargetTemplate')"
       />

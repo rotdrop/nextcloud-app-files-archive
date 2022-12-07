@@ -85,7 +85,7 @@ const fileActionTemplate = {
         if (xhr.status === 404) {
           Ajax.handleError(xhr, textStatus, errorThrown, disableLoadingState);
         } else {
-          showError(t(appName, 'Unable to obtain mount-status for archive-file "{archivePath}".', { archivePath: fileName }), { timeout: TOAST_PERMANENT_TIMEOUT });
+          showError(t(appName, 'Unable to obtain mount-status for archive file "{archivePath}".', { archivePath: fileName }), { timeout: TOAST_PERMANENT_TIMEOUT });
           disableLoadingState();
         }
       })

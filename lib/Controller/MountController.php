@@ -182,11 +182,11 @@ class MountController extends Controller
       $uncompressedSize = $e->getActualSize();
       // $archiveInfo = $e->getArchiveInfo();
       if ($uncompressedSize > $this->archiveBombLimit) {
-        return self::grumble($this->l->t('The archive-file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [
+        return self::grumble($this->l->t('The archive file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [
           $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveBombLimit)
         ]));
       } else {
-        return self::grumble($this->l->t('The archive-file "%1$s" is too large: uncompressed size %2$s > user limit %3$s.', [
+        return self::grumble($this->l->t('The archive file "%1$s" is too large: uncompressed size %2$s > user limit %3$s.', [
           $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveSizeLimit)
         ]));
       }
@@ -209,7 +209,7 @@ class MountController extends Controller
     } catch (Throwable $t) {
       $this->logException($t);
       return self::grumnle($this->l->t(
-        'Unable to open parent-folder "%1$s" of moint-point "%2$s": %3$s.', [
+        'Unable to open parent folder "%1$s" of moint-point "%2$s": %3$s.', [
           $mountPointDirName, $mountPointBaseName, $t->getMessage()
         ]));
     }
@@ -241,7 +241,7 @@ class MountController extends Controller
     $this->mountMapper->insert($mountEntity);
 
     try {
-      // obtain the mount-point and run the scanner
+      // obtain the mount point and run the scanner
       /** @var IMountPoint $mountPoint */
       $mountPoint = $this->mountProvider->getMountPoint($mountEntity, $this->userId, $this->archiveService->getSizeLimit());
 
@@ -252,7 +252,7 @@ class MountController extends Controller
       $this->logException($t);
       $this->mountMapper->delete($mountEntity);
       return self::grumble($this->l->t(
-        'Unable to update the file cache for the mount-point "%1s": %2$s.', [
+        'Unable to update the file cache for the mount point "%1s": %2$s.', [
           $mountPointPath, $t->getMessage()
         ]));
     }
@@ -290,7 +290,7 @@ class MountController extends Controller
       /** @var IMountPoint $mountPoint */
       $mountPoint = $this->mountManager->find($mountPointPath);
       if (empty($mountPoint)) {
-        $errorMessages[] = $this->l->t('Directory "%s" should be a mount point, but it is not.', $mountPointPath);
+        $errorMessages[] = $this->l->t('Directory "%s" is not a mount point.', $mountPointPath);
         continue;
       }
 
@@ -333,7 +333,7 @@ class MountController extends Controller
    * This method is primarily (and ATM only) for patching the archive file
    * password into existing mounts. It seems that some archive formats (zip
    * e.g.) allow listing of the archive and only start to complain about a
-   * missing pass-phrase when trying to extract data.
+   * missing passphrase when trying to extract data.
    *
    * The idea here is that the user can add a missing password after a mount
    * seems to have succeeded as the archive listing is there, but files cannot
@@ -342,7 +342,7 @@ class MountController extends Controller
    * @param string $archivePath
    *
    * @param array $changeSet Properties to be patched into the existing
-   * mount. ATM only the pass-phrase may be changed.
+   * mount. ATM only the passphrase may be changed.
    *
    * @return DataResponse
    *
@@ -356,7 +356,7 @@ class MountController extends Controller
       ]);
     }
     if (count($changeSet) != 1 || !array_key_exists('archivePassPhrase', $changeSet)) {
-      return self::grumble($this->l->t('Only the pass-phrase may be changed for an existing mount.'));
+      return self::grumble($this->l->t('Only the passphrase may be changed for an existing mount.'));
     }
     $newPassPhrase = $changeSet['archivePassPhrase'];
 

@@ -46,7 +46,7 @@ use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Constants;
 
 /**
- * AJAX end-point for archive operations and info.
+ * AJAX endpoint for archive operations and info.
  */
 class ArchiveController extends Controller
 {
@@ -172,7 +172,7 @@ class ArchiveController extends Controller
       $this->logException($e);
     }
 
-    // tweak the mount-point proposal according to the user preferences
+    // tweak the mount point proposal according to the user preferences
     $archiveInfo[ArchiveService::ARCHIVE_INFO_DEFAULT_MOUNT_POINT] = $this->defaultMountPointName();
     $archiveInfo['defaultTargetBaseName'] = $this->defaultTargetBaseName();
 
@@ -232,11 +232,11 @@ class ArchiveController extends Controller
     } catch (Exceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();
       if ($uncompressedSize > $this->archiveBombLimit) {
-        return self::grumble($this->l->t('The archive-file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [
+        return self::grumble($this->l->t('The archive file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [
           $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveBombLimit)
         ]));
       } else {
-        return self::grumble($this->l->t('The archive-file "%1$s" is too large: uncompressed size %2$s > user limit %3$s.', [
+        return self::grumble($this->l->t('The archive file "%1$s" is too large: uncompressed size %2$s > user limit %3$s.', [
           $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveSizeLimit)
         ]));
       }
@@ -257,7 +257,7 @@ class ArchiveController extends Controller
       $targetParent = $userFolder->get($targetInfo['dirname']);
     } catch (Throwable $t) {
       $this->logException($e);
-      return self::grumble($this->l->t('Unable to open the target parent-folder "%s".', $targetInfo['dirname']));
+      return self::grumble($this->l->t('Unable to open the target parent folder "%s".', $targetInfo['dirname']));
     }
 
     $nonExistingTarget = $targetParent->getNonExistingName($targetBaseName);

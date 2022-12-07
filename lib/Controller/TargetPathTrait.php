@@ -24,7 +24,7 @@ namespace OCA\FilesArchive\Controller;
 
 use OCA\RotDrop\Toolkit\Service\ArchiveService;
 
-/** Trait class which provides the proposed target base-names. */
+/** Trait class which provides the proposed target basenames. */
 trait TargetPathTrait
 {
   /** @var string */

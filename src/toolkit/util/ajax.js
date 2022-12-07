@@ -311,8 +311,7 @@ const ajaxValidateResponse = function(data, required, errorCB) {
   // error handling
   if (typeof data === 'undefined' || !data) {
     Dialogs.alert(
-      t(appName, 'Unrecoverable unknown internal error, '
-        + 'no further information available, sorry.'),
+      t(appName, 'Unrecoverable unknown internal error, no details available'),
       t(appName, 'Internal Error'), dialogCallback, true);
     return false;
   }

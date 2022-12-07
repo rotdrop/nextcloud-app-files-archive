@@ -67,10 +67,10 @@ class CatchAllController extends Controller
     $request = implode('/', array_filter($parts));
     if (!empty($request)) {
       return self::grumble(
-        $this->l->t('Post to end-point "%s" not implemented.', $request));
+        $this->l->t('Post to endpoint "%s" not implemented.', $request));
     } else {
       return self::grumble(
-        $this->l->t('Post to base-url of app "%s" not allowed.', $this->appName()));
+        $this->l->t('Post to base URL of app "%s" not allowed.', $this->appName()));
     }
   }
 
@@ -87,6 +87,6 @@ class CatchAllController extends Controller
     $parts = [ $a, $b, $c, $d, $e, $f, $g ];
     $request = implode('/', array_filter($parts));
     return self::grumble(
-      $this->l->t('Get from end-point "%s" not implemented.', $request));
+      $this->l->t('Get from endpoint "%s" not implemented.', $request));
   }
 }

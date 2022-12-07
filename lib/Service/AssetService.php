@@ -47,7 +47,7 @@ class AssetService
   /** @var array */
   private $assets = [];
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
+  // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(IL10N $l10n, ILogger $logger)
   {
     $this->logger = $logger;
@@ -71,22 +71,23 @@ class AssetService
       }
     }
   }
+  // phpcs:enable
 
 
   /**
-   * @param string $type js or css
+   * @param string $type js or css.
    *
    * @param string $baseName
    *
    * @return array
    */
-  public function getAsset($type, $baseName):array
+  public function getAsset(string $type, string $baseName):array
   {
     if (empty($this->assets[$type][$baseName])) {
-      throw new Exceptions\EnduserNotificationException(
-        $this->l->t('Installation problem; the required %s-resource "%s" is not installed on the server,
- please contact the system administrator!', [
-          $type, $baseName,
+      throw new Exceptions\EnduserNotificationException($this->l->t(
+        'Installation problem; the required resource "%1$s" of type "%2$s" is not installed on the server, please contact the system administrator!', [
+          $baseName,
+          $type,
         ]));
     }
     return $this->assets[$type][$baseName];
@@ -95,9 +96,9 @@ class AssetService
   /**
    * @param string $baseName
    *
-   * @return string
+   * @return array
    */
-  public function getJSAsset($baseName)
+  public function getJSAsset(string $baseName):array
   {
     return $this->getAsset(self::JS, $baseName);
   }
@@ -105,9 +106,9 @@ class AssetService
   /**
    * @param string $baseName
    *
-   * @return string
+   * @return array
    */
-  public function getCSSAsset($baseName)
+  public function getCSSAsset(string $baseName):array
   {
     return $this->getAsset(self::CSS, $baseName);
   }
