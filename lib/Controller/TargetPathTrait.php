@@ -24,6 +24,8 @@ namespace OCA\FilesArchive\Controller;
 
 use OCA\RotDrop\Toolkit\Service\ArchiveService;
 
+use OCA\FilesArchive\Constants;
+
 /** Trait class which provides the proposed target basenames. */
 trait TargetPathTrait
 {
@@ -36,23 +38,63 @@ trait TargetPathTrait
   /** @var ArchiveService */
   private $archiveService;
 
-  /** @return string The default mount point name */
-  private function defaultTargetBaseName():string
+  /**
+   * @param string $archiveFileName
+   *
+   * @return string The default mount point name
+   */
+  private function defaultTargetBaseName(string $archiveFileName):string
   {
     return str_replace(
       SettingsController::ARCHIVE_FILE_NAME_PLACEHOLDER,
-      $this->archiveService->getArchiveFolderName(),
+      ArchiveService::getArchiveFolderName($archiveFileName),
       $this->targetBaseNameTemplate,
     );
   }
 
-  /** @return string The default mount point name */
-  private function defaultMountPointName():string
+  /**
+   * @param string $archiveFileName
+   *
+   * @return string The default mount point name
+   */
+  private function defaultMountPointName(string $archiveFileName):string
   {
     return str_replace(
       SettingsController::ARCHIVE_FILE_NAME_PLACEHOLDER,
-      $this->archiveService->getArchiveFolderName(),
+      ArchiveService::getArchiveFolderName($archiveFileName),
       $this->mountPointTemplate,
     );
+  }
+
+  /**
+   * @param string $destinationPath
+   *
+   * @param string $archivePath
+   *
+   * @param string $operation One of 'mount' or 'extract'
+   *
+   * @return array
+   * ``` [ 'path' => PATH, 'baseName' => BASE_NAME, 'dirName' => DIR_NAME ]```.
+   */
+  private function targetPathInfo(string $destinationPath, string $archivePath, string $operation):array
+  {
+    if (empty($destinationPath)) {
+      $destinationDirName = dirname($archivePath);
+      if ($operation == 'mount') {
+        $destinationBaseName = $this->defaultMountPointName($archivePath);
+      } else {
+        $destinationBaseName = $this->defaultTargetBaseName($archivePath);
+      }
+      $destinationPath = $destinationDirName . Constants::PATH_SEPARATOR . $destinationBaseName;
+    } else {
+      $destinationInfo = pathinfo($destinationPath);
+      $destinationBaseName = $destinationInfo['basename'];
+      $destinationDirName = $destinationInfo['dirname'];
+    }
+    return [
+      'baseName' => $destinationBaseName,
+      'dirName' => $destinationDirName,
+      'path' => $destinationPath,
+    ];
   }
 }
