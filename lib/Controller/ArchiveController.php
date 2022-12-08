@@ -173,8 +173,8 @@ class ArchiveController extends Controller
     }
 
     // tweak the mount point proposal according to the user preferences
-    $archiveInfo[ArchiveService::ARCHIVE_INFO_DEFAULT_MOUNT_POINT] = $this->defaultMountPointName();
-    $archiveInfo['defaultTargetBaseName'] = $this->defaultTargetBaseName();
+    $archiveInfo[ArchiveService::ARCHIVE_INFO_DEFAULT_MOUNT_POINT] = $this->defaultMountPointName($archiveFile->getName());
+    $archiveInfo['defaultTargetBaseName'] = $this->defaultTargetBaseName($archiveFile->getName());
 
     if (!empty($e)) {
       $exceptionMessage = $e->getMessage();
@@ -210,7 +210,9 @@ class ArchiveController extends Controller
   public function extract(string $archivePath, ?string $targetPath, ?string $passPhrase = null, bool $stripCommonPathPrefix = false):DataResponse
   {
     $archivePath = urldecode($archivePath);
-    $targetPath = urldecode($targetPath);
+    if ($targetPath) {
+      $targetPath = urldecode($targetPath);
+    }
 
     $userFolder = $this->rootFolder->getUserFolder($this->userId);
     try {
@@ -242,22 +244,18 @@ class ArchiveController extends Controller
       }
     }
 
-    if (empty($targetPath)) {
-      $targetBaseName =  $this->defaultTargetBaseName();
-      $targetDirName = dirname($archivePath);
-      $targetPath = $targetDirName . Constants::PATH_SEPARATOR . $targetBaseName;
-    } else {
-      $targetInfo = pathinfo($targetPath);
-      $targetBaseName = $targetInfo['basename'];
-      $targetDirName = $targetInfo['dirname'];
-    }
+    list(
+      'path' => $targetPath,
+      'baseName' => $targetBaseName,
+      'dirName' => $targetDirName,
+    ) = $this->targetPathInfo($targetPath, $archivePath, 'extract');
 
     try {
       /** @var Folder $targetParent */
-      $targetParent = $userFolder->get($targetInfo['dirname']);
+      $targetParent = $userFolder->get($targetDirName);
     } catch (Throwable $t) {
       $this->logException($e);
-      return self::grumble($this->l->t('Unable to open the target parent folder "%s".', $targetInfo['dirname']));
+      return self::grumble($this->l->t('Unable to open the target parent folder "%s".', $targetDirName));
     }
 
     $nonExistingTarget = $targetParent->getNonExistingName($targetBaseName);
@@ -309,6 +307,8 @@ class ArchiveController extends Controller
     }
 
     return self::dataResponse([
+      'archivePath' => $archivePath,
+      'targetPath' => $targetPath,
       'messages' => [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],
     ]);
   }

@@ -10,7 +10,7 @@
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- *"
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -34,7 +34,13 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\BackgroundJob\IJobList;
+use OCP\Files\File;
 
+use OCA\RotDrop\Toolkit\Service\UserScopeService;
+
+use OCA\FilesArchive\BackgroundJob\ArchiveJob;
+use OCA\FilesArchive\Service\NotificationService;
 use OCA\FilesArchive\Constants;
 
 /**
@@ -45,12 +51,26 @@ class BackgroundJobController extends Controller
   use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
   use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
+  use \OCA\RotDrop\Toolkit\Traits\UserRootFolderTrait;
+  use TargetPathTrait;
 
-  const OPERATION_MOUNT = 'mount';
-  const OPERATION_EXTRACT = 'extract';
+  const OPERATION_MOUNT = ArchiveJob::TARGET_MOUNT;
+  const OPERATION_EXTRACT = ArchiveJob::TARGET_EXTRACT;
 
   /** @var string */
   private $userId;
+
+  /** @var IConfig */
+  private $cloudConfig;
+
+  /** @var IJobList */
+  private $jobList;
+
+  /** @var NotificationService */
+  private $notificationService;
+
+  /** @var UserScopeService */
+  private $userScopeService;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -60,11 +80,18 @@ class BackgroundJobController extends Controller
     LoggerInterface $logger,
     IL10N $l10n,
     IConfig $cloudConfig,
+    IJobList $jobList,
+    NotificationService $notificationService,
+    UserScopeService $userScopeService,
   ) {
     parent::__construct($appName, $request);
     $this->logger = $logger;
     $this->l = $l10n;
+    $this->cloudConfig = $cloudConfig;
     $this->userId = $userId;
+    $this->jobList = $jobList;
+    $this->notificationService = $notificationService;
+    $this->userScopeService = $userScopeService;
   }
   // phpcs:enable
 
@@ -73,7 +100,7 @@ class BackgroundJobController extends Controller
    *
    * @param string $archivePath
    *
-   * @param null|string $mountPoint
+   * @param null|string $destinationPath
    *
    * @param null|string $passPhrase
    *
@@ -85,6 +112,48 @@ class BackgroundJobController extends Controller
    */
   public function schedule(string $operation, string $archivePath, ?string $destinationPath = null, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null)
   {
-    return self::grumble($this->l->t('UNIMPLEMENTED'));
+    $archivePath = urldecode($archivePath);
+    if ($destinationPath) {
+      $destinationPath = urldecode($destinationPath);
+    }
+
+    /** @var File $archiveNode */
+    $archiveNode = $this->getUserFolder()->get($archivePath);
+
+    $destinationPathInfo = $this->targetPathInfo($destinationPath, $archivePath, $operation);
+    $destinationParentPath = $destinationPathInfo['dirName'];
+    $destinationParentFolder = $this->getUserFolder()->get($destinationParentPath);
+    $destinationPath = $destinationPathInfo['path'];
+
+    $needsAuthentication = $archiveNode->getMountPoint()->getOption('authenticated', false)
+      || $destinationParentFolder->getMountPoint()->getOption('authenticated', false);
+
+    if ($needsAuthentication) {
+      list('passphrase' => $tokenSecret) = $this->userScopeService->getAuthToken();
+    }
+
+    $this->jobList->add(ArchiveJob::class, [
+      ArchiveJob::TARGET_KEY => $operation,
+      ArchiveJob::USER_ID_KEY => $this->userId,
+      ArchiveJob::SOURCE_PATH_KEY => $archivePath,
+      ArchiveJob::SOURCE_ID_KEY => $archiveNode->getId(),
+      ArchiveJob::DESTINATION_PATH_KEY => $destinationPath,
+      ArchiveJob::ARCHIVE_PASSPHRASE_KEY => $passPhrase,
+      ArchiveJob::STRIP_COMMON_PATH_PREFIX_KEY => $stripCommonPathPrefix,
+      ArchiveJob::NEEDS_AUTHENTICATION_KEY => $needsAuthentication ?? false,
+      ArchiveJob::AUTH_TOKEN_KEY => $tokenSecret ?? null
+    ]);
+
+    $this->notificationService->sendNotificationOnPending($this->userId, $archiveNode, $destinationPathInfo['path'], $operation);
+
+    return self::dataResponse([
+      'jobType' => $operation,
+      'targetPath' => $destinationPath,
+      'messages' => [
+        $operation == self::OPERATION_MOUNT
+        ? $this->l->t('Archive background mount job scheduled successfully.')
+        : $this->l->t('Archive background extraction job scheduled successfully.'),
+      ],
+    ]);
   }
 }

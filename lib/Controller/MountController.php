@@ -155,6 +155,9 @@ class MountController extends Controller
   public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null)
   {
     $archivePath = urldecode($archivePath);
+    if ($mountPointPath) {
+      $mountPointPath = urldecode($mountPointPath);
+    }
 
     $userFolder = $this->rootFolder->getUserFolder($this->userId);
     if (empty($userFolder)) {
@@ -176,6 +179,11 @@ class MountController extends Controller
       return self::grumble($this->l->t('Unable to open the archive file "%s".', $archivePath));
     }
 
+    $mountFlags = 0;
+    if ($stripCommonPathPrefix ?? $this->stripCommonPathPrefixDefault) {
+      $mountFlags |= ArchiveMount::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
+    }
+
     try {
       $this->archiveService->open($archiveFile);
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
@@ -192,15 +200,11 @@ class MountController extends Controller
       }
     }
 
-    if (empty($mountPointPath)) {
-      $mountPointDirName = dirname($archivePath);
-      $mountPointBaseName = $this->defaultMountPointName();
-      $mountPointPath = $mountPointDirName . Constants::PATH_SEPARATOR . $mountPointBaseName;
-    } else {
-      $mountPointPath = urldecode($mountPointPath);
-      $mountPointBaseName = basename($mountPointPath);
-      $mountPointDirName = dirname($mountPointPath);
-    }
+    list(
+      'path' => $mountPointPath,
+      'baseName' => $mountPointBaseName,
+      'dirName' => $mountPointDirName,
+    ) = $this->targetPathInfo($mountPointPath, $archivePath, 'mount');
 
     // avoid "over-mounting" existing directories
     try {
@@ -222,13 +226,7 @@ class MountController extends Controller
       $mountPointPath = $mountPointDirName . Constants::PATH_SEPARATOR . $nonExistingMountTarget;
     }
 
-    $mountFlags = 0;
-    if ($stripCommonPathPrefix ?? $this->stripCommonPathPrefixDefault) {
-      $mountFlags |= ArchiveMount::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
-      $this->logInfo('SHOULD STRIP PATH');
-    }
-
-    // ok, just insert in to our mounts table
+    // ok, just insert into our mounts table
     $mountEntity = new ArchiveMount;
     $mountEntity->setUserId($this->userId);
     $mountEntity->setMountPointPath($mountPointPath);

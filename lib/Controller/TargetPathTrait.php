@@ -76,7 +76,7 @@ trait TargetPathTrait
    * @return array
    * ``` [ 'path' => PATH, 'baseName' => BASE_NAME, 'dirName' => DIR_NAME ]```.
    */
-  private function targetPathInfo(string $destinationPath, string $archivePath, string $operation):array
+  private function targetPathInfo(?string $destinationPath, string $archivePath, string $operation):array
   {
     if (empty($destinationPath)) {
       $destinationDirName = dirname($archivePath);
