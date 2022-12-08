@@ -25,6 +25,8 @@ namespace OCA\RotDrop\Toolkit\Traits;
 use OCP\IL10N;
 use Psr\Log\LoggerInterface as ILogger;
 
+use OCA\RotDrop\Toolkit\Exceptions;
+
 /**
  * Return JavaScript- and CSS-assets names dealing with attached content
  * hashes. This needs some setup on the webpack build-system:
