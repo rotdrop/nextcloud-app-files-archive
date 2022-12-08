@@ -30,7 +30,7 @@
         </div>
         <Actions>
           <ActionButton v-model="showArchiveInfo"
-                        :icon="'icon-triangle-' + (showArchiveInfo ? 's' : 'n')"
+                        :icon="'icon-triangle-' + (showArchiveInfo ? 'n' : 's')"
           />
         </Actions>
       </li>
@@ -136,7 +136,7 @@
         </div>
         <Actions>
           <ActionButton v-model="showArchiveMounts"
-                        :icon="'icon-triangle-' + (showArchiveMounts ? 's' : 'n')"
+                        :icon="'icon-triangle-' + (showArchiveMounts ? 'n' : 's')"
           />
         </Actions>
       </li>
@@ -185,6 +185,12 @@
               >
                 {{ t(appName, 'strip common path prefix') }}
               </ActionCheckBox>
+              <ActionCheckBox ref="mountBackgroundJob"
+                              :checked="archiveMountBackgroundJob"
+                              @change="archiveMountBackgroundJob = !archiveMountBackgroundJob"
+              >
+                {{ t(appName, 'schedule as background job') }}
+              </ActionCheckBox>
             </Actions>
           </div>
         </div>
@@ -198,7 +204,7 @@
         </div>
         <Actions>
           <ActionButton v-model="showArchiveExtraction"
-                        :icon="'icon-triangle-' + (showArchiveExtraction ? 's' : 'n')"
+                        :icon="'icon-triangle-' + (showArchiveExtraction ? 'n' : 's')"
           />
         </Actions>
       </li>
@@ -223,6 +229,12 @@
                               @change="archiveExtractStripCommonPathPrefix = !archiveExtractStripCommonPathPrefix"
               >
                 {{ t(appName, 'strip common path prefix') }}
+              </ActionCheckBox>
+              <ActionCheckBox ref="extractBackgroundJob"
+                              :checked="archiveExtractBackgroundJob"
+                              @change="archiveExtractBackgroundJob = !archiveExtractBackgroundJob"
+              >
+                {{ t(appName, 'schedule as background job') }}
               </ActionCheckBox>
             </Actions>
           </div>
@@ -285,11 +297,13 @@ export default {
         baseName: undefined,
       },
       archiveMountStripCommonPathPrefix: false,
+      archiveMountBackgroundJob: false,
       archiveExtractFileInfo: {
         dirName: undefined,
         baseName: undefined,
       },
       archiveExtractStripCommonPathPrefix: false,
+      archiveExtractBackgroundJob: false,
       archivePassPhrase: undefined,
     };
   },
@@ -426,6 +440,8 @@ export default {
 
       this.archiveMountStripCommonPathPrefix = !!this.initialState.mountStripCommonPathPrefixDefault
       this.archiveExtractStripCommonPathPrefix = !!this.initialState.extractStripCommonPathPrefixDefault
+      this.archiveMountBackgroundJob = !!this.initialState.mountBackgroundJob
+      this.archiveExtractBackgroundJob = !!this.initialState.extractBackgroundJob
 
       this.getArchiveInfo(this.fileName)
       this.getArchiveMounts(this.fileName)
