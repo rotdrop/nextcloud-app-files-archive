@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-07 03:22+0000\n"
+"POT-Creation-Date: 2022-12-08 03:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 #: /app/lib/Controller/MountController.php:185
 #, php-format
 msgid ""
-"The archive-file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > "
+"The archive file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > "
 "admin limit %3$s."
 msgstr ""
 
@@ -57,13 +57,13 @@ msgstr ""
 #: /app/lib/Controller/MountController.php:189
 #, php-format
 msgid ""
-"The archive-file \"%1$s\" is too large: uncompressed size %2$s > user limit "
+"The archive file \"%1$s\" is too large: uncompressed size %2$s > user limit "
 "%3$s."
 msgstr ""
 
 #: /app/lib/Controller/ArchiveController.php:260
 #, php-format
-msgid "Unable to open the target parent-folder \"%s\"."
+msgid "Unable to open the target parent folder \"%s\"."
 msgstr ""
 
 #: /app/lib/Controller/ArchiveController.php:266
@@ -83,17 +83,17 @@ msgstr ""
 
 #: /app/lib/Controller/CatchAllController.php:70
 #, php-format
-msgid "Post to end-point \"%s\" not implemented."
+msgid "Post to endpoint \"%s\" not implemented."
 msgstr ""
 
 #: /app/lib/Controller/CatchAllController.php:73
 #, php-format
-msgid "Post to base-url of app \"%s\" not allowed."
+msgid "Post to base URL of app \"%s\" not allowed."
 msgstr ""
 
 #: /app/lib/Controller/CatchAllController.php:90
 #, php-format
-msgid "Get from end-point \"%s\" not implemented."
+msgid "Get from endpoint \"%s\" not implemented."
 msgstr ""
 
 #: /app/lib/Controller/MountController.php:167
@@ -103,7 +103,7 @@ msgstr ""
 
 #: /app/lib/Controller/MountController.php:212
 #, php-format
-msgid "Unable to open parent-folder \"%1$s\" of moint-point \"%2$s\": %3$s."
+msgid "Unable to open parent folder \"%1$s\" of moint-point \"%2$s\": %3$s."
 msgstr ""
 
 #: /app/lib/Controller/MountController.php:220
@@ -113,7 +113,7 @@ msgstr ""
 
 #: /app/lib/Controller/MountController.php:255
 #, php-format
-msgid "Unable to update the file cache for the mount-point \"%1s\": %2$s."
+msgid "Unable to update the file cache for the mount point \"%1s\": %2$s."
 msgstr ""
 
 #: /app/lib/Controller/MountController.php:276
@@ -123,7 +123,7 @@ msgstr ""
 
 #: /app/lib/Controller/MountController.php:293
 #, php-format
-msgid "Directory \"%s\" should be a mount point, but it is not."
+msgid "Directory \"%s\" is not a mount point."
 msgstr ""
 
 #: /app/lib/Controller/MountController.php:300
@@ -132,7 +132,7 @@ msgid "Archive \"%1$s\" has been unmounted from \"%2$s\"."
 msgstr ""
 
 #: /app/lib/Controller/MountController.php:359
-msgid "Only the pass-phrase may be changed for an existing mount."
+msgid "Only the passphrase may be changed for an existing mount."
 msgstr ""
 
 #: /app/lib/Controller/SettingsController.php:141
@@ -157,7 +157,7 @@ msgstr ""
 
 #: /app/lib/Controller/SettingsController.php:253
 #, php-format
-msgid "Thge personal setting \"%1$s\" is read-only"
+msgid "The personal setting \"%1$s\" is read-only"
 msgstr ""
 
 #: /app/lib/Controller/SettingsController.php:275
@@ -168,7 +168,7 @@ msgstr ""
 #: /app/lib/Controller/SettingsController.php:298
 #, php-format
 msgid ""
-"The target folder template \"%1$s\" must contain the archive-file "
+"The target folder template \"%1$s\" must contain the archive file "
 "placeholder \"%2$s\"."
 msgstr ""
 
@@ -180,14 +180,6 @@ msgstr ""
 #: /app/lib/Controller/SettingsController.php:418
 #, php-format
 msgid "Unable to parse memory size limit \"%s\""
-msgstr ""
-
-#: /app/lib/Service/AssetService.php:87
-#, php-format
-msgid ""
-"Installation problem; the required %s-resource \"%s\" is not installed on "
-"the server,\n"
-" please contact the system administrator!"
 msgstr ""
 
 #: /app/lib/Settings/AdminSection.php:72
@@ -211,6 +203,13 @@ msgstr ""
 #: /app/lib/Toolkit/Service/ArchiveService.php:391
 #: /app/lib/Toolkit/Service/ArchiveService.php:405
 msgid "There is no archive file associated with this archiver instance."
+msgstr ""
+
+#: /app/lib/Toolkit/Traits/AssetTrait.php:102
+#, php-format
+msgid ""
+"Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not "
+"installed on the server, please contact the system administrator!"
 msgstr ""
 
 #: /app/lib/Toolkit/Traits/ResponseTrait.php:118
@@ -298,14 +297,14 @@ msgstr ""
 
 #. TRANSLATORS nalSettings.vue:38
 #: /app/specialVueFakeDummyForL10nScript.js:22
-msgid "Template for the default-name of the mount-point"
+msgid "Template for the default name of the mount point"
 msgstr ""
 
 #. TRANSLATORS nalSettings.vue:39
 #: /app/specialVueFakeDummyForL10nScript.js:24
 #: /app/specialVueFakeDummyForL10nScript.js:34
 msgid ""
-"{archiveFileName} will be replaced by the file-name of the archive-file "
+"{archiveFileName} will be replaced by the filename of the archive file "
 "without extensions."
 msgstr ""
 
@@ -317,7 +316,7 @@ msgstr ""
 
 #. TRANSLATORS nalSettings.vue:62
 #: /app/specialVueFakeDummyForL10nScript.js:28
-msgid "automatically change the mount-point name if it already exists"
+msgid "automatically change the mount point name if it already exists"
 msgstr ""
 
 #. TRANSLATORS nalSettings.vue:66
@@ -329,7 +328,7 @@ msgstr ""
 
 #. TRANSLATORS nalSettings.vue:69
 #: /app/specialVueFakeDummyForL10nScript.js:32
-msgid "Template for the default-name of the extraction folder"
+msgid "Template for the default name of the extraction folder"
 msgstr ""
 
 #. TRANSLATORS nalSettings.vue:93
@@ -462,13 +461,13 @@ msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:169
 #: /app/specialVueFakeDummyForL10nScript.js:90
-msgid "Not mounted, create a new mount-point:"
+msgid "Not mounted, create a new mount point:"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:170
 #: /app/specialVueFakeDummyForL10nScript.js:92
 #: /app/specialVueFakeDummyForL10nScript.js:102
-msgid "base-name"
+msgid "basename"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:186
@@ -519,7 +518,7 @@ msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:665
 #: /app/specialVueFakeDummyForL10nScript.js:136
-msgid "Patching the pass-phrase failed with error {status}, \"{statusText}\"."
+msgid "Patching the passphrase failed with error {status}, \"{statusText}\"."
 msgstr ""
 
 #: /app/src/files-action.js:49 /app/src/files-action.js:50
@@ -527,7 +526,7 @@ msgid "Mount Archive"
 msgstr ""
 
 #: /app/src/files-action.js:88
-msgid "Unable to obtain mount-status for archive-file \"{archivePath}\"."
+msgid "Unable to obtain mount-status for archive file \"{archivePath}\"."
 msgstr ""
 
 #: /app/src/files-action.js:96
@@ -871,7 +870,7 @@ msgstr ""
 msgid "Aborted"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:173 /app/src/toolkit/util/ajax.js:366
+#: /app/src/toolkit/util/ajax.js:173 /app/src/toolkit/util/ajax.js:365
 msgid "Error"
 msgstr ""
 
@@ -890,8 +889,8 @@ msgstr ""
 #: /app/src/toolkit/util/ajax.js:259
 msgid ""
 "If it should be the case that you are already logged in for a long time "
-"without interacting with the web-app, then the reason for this error is "
-"probably a simple timeout."
+"without interacting with the app, then the reason for this error is probably "
+"a simple timeout."
 msgstr ""
 
 #: /app/src/toolkit/util/ajax.js:264
@@ -901,48 +900,46 @@ msgid ""
 msgstr ""
 
 #: /app/src/toolkit/util/ajax.js:314
-msgid ""
-"Unrecoverable unknown internal error, no further information available, "
-"sorry."
+msgid "Unrecoverable unknown internal error, no details available"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:316
+#: /app/src/toolkit/util/ajax.js:315
 msgid "Internal Error"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:323
+#: /app/src/toolkit/util/ajax.js:322
 msgid "Field {RequiredField} not present in AJAX response."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:332
+#: /app/src/toolkit/util/ajax.js:331
 msgid "Missing data"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:344
+#: /app/src/toolkit/util/ajax.js:343
 msgid ""
 "The submitted data \"{stringValue}\" seems to be a plain string, but we need "
 "an object where the data is provided through above listed properties."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:347
+#: /app/src/toolkit/util/ajax.js:346
 msgid "Error: plain string received"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:352
+#: /app/src/toolkit/util/ajax.js:351
 msgid ""
 "The submitted data is not a plain object, and does not provide the "
 "properties listed above."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:355
+#: /app/src/toolkit/util/ajax.js:354
 msgid "Error: not a plain object"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:395
+#: /app/src/toolkit/util/ajax.js:394
 msgid "Unknown JSON error response to AJAX call: {status} / {error}"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:403
+#: /app/src/toolkit/util/ajax.js:402
 msgid "HTTP error response to AJAX call: {code} / {error}"
 msgstr ""
 

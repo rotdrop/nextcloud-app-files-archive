@@ -1,6 +1,4 @@
 { "translations": {
-    "Post to end-point \"%s\" not implemented." : "\"%s\" amaiera-puntura bidaltzea ez dago inplementatuta.",
-    "Get from end-point \"%s\" not implemented." : "\"%s\" amaiera-puntutik lortzea ez dago inplementatuta.",
     "Unknown admin setting: \"%1$s\"" : "Administratzaile ezarpen ezezaguna: \"%1$s\"",
     "Unknown personal setting: \"%1$s\"" : "Ezarpen pertsonal ezezaguna: \"%1$s\"",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "\"%1$s\" balioa \"%2$s\" ezarpenerako ezin da balio boolearrera aldatu.",
