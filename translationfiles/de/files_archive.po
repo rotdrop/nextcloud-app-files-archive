@@ -113,7 +113,7 @@ msgstr "\"%1$s\" ist bereits an der Stelle \"%2$s\" eingehängt."
 
 #: /app/lib/Controller/MountController.php:212
 #, php-format
-msgid "Unable to open parent folder \"%1$s\" of moint-point \"%2$s\": %3$s."
+msgid "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s."
 msgstr ""
 
 #: /app/lib/Controller/MountController.php:220
@@ -361,7 +361,7 @@ msgstr ""
 
 #. TRANSLATORS nents/FilePrefixPicker.vue:43
 #: /app/specialVueFakeDummyForL10nScript.js:40
-msgid "Choose a prefix-folder"
+msgid "Choose a prefix folder"
 msgstr "Wähle den \"Eltern\"-Ordner"
 
 #. TRANSLATORS nents/FilePrefixPicker.vue:48
