@@ -209,7 +209,7 @@ class MountController extends Controller
     } catch (Throwable $t) {
       $this->logException($t);
       return self::grumnle($this->l->t(
-        'Unable to open parent folder "%1$s" of moint-point "%2$s": %3$s.', [
+        'Unable to open parent folder "%1$s" of mount point "%2$s": %3$s.', [
           $mountPointDirName, $mountPointBaseName, $t->getMessage()
         ]));
     }

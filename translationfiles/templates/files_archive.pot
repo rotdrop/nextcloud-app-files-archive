@@ -103,7 +103,7 @@ msgstr ""
 
 #: /app/lib/Controller/MountController.php:212
 #, php-format
-msgid "Unable to open parent folder \"%1$s\" of moint-point \"%2$s\": %3$s."
+msgid "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s."
 msgstr ""
 
 #: /app/lib/Controller/MountController.php:220
