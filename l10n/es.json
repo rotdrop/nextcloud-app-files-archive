@@ -9,6 +9,7 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "La extracción de \"%1$s\" a \"%2$s\" se completó exitósamente.",
     "\"%s\" is not mounted." : "\"%s\" no está montado.",
     "Unknown personal setting: \"%1$s\"" : "Ajuste personal desconocido: \"%1$s\"",
+    "The personal setting \"%1$s\" is read-only" : "El ajuste personal \"%1$s\" is sólo lectura",
     "Archive Explorer" : "Explorador de archivos",
     "bytes" : "bytes",
     "Archive Manager" : "Gestor de Archivos",

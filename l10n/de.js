@@ -16,6 +16,7 @@ OC.L10N.register(
     "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrator-Einstellung: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Die Administrator-Einstellung \"%1$s\" kann nur gelesen werden.",
     "Unknown personal setting: \"%1$s\"" : "Unbekannte persönliche Einstellung: \"%1$s\"",
+    "The personal setting \"%1$s\" is read-only" : "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden.",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen Wahrheitswert konvertiert werden.",
     "Unknown personal setting: \"%s\"." : "Unbekannte perönliche Einstellung: \"%1$s\"",
     "Unable to parse memory size limit \"%s\"" : "Kann das Speicher-Limit nicht interpretieren: \"%s\"",
