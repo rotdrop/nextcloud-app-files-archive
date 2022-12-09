@@ -340,7 +340,7 @@ msgstr ""
 
 #. TRANSLATORS nents/FilePrefixPicker.vue:43
 #: /app/specialVueFakeDummyForL10nScript.js:40
-msgid "Choose a prefix-folder"
+msgid "Choose a prefix folder"
 msgstr ""
 
 #. TRANSLATORS nents/FilePrefixPicker.vue:48

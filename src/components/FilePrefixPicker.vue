@@ -40,7 +40,7 @@ export default {
   props: {
     filePickerTitle: {
       type: String,
-      default: t(appName, 'Choose a prefix-folder'),
+      default: t(appName, 'Choose a prefix folder'),
     },
   },
   methods: {
