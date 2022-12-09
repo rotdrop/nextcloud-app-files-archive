@@ -86,7 +86,7 @@ class Notifier implements INotifier
   public function prepare(INotification $notification, string $languageCode):INotification
   {
     if ($notification->getApp() !== $this->appName) {
-      throw new InvalidArgumentException('Application should be files_zip instead of ' . $notification->getApp());
+      throw new InvalidArgumentException('Application should be ' . $this->appName . ' instead of ' . $notification->getApp());
     }
 
     $l = $this->l10nFactory->get($this->appName, $languageCode);
@@ -114,9 +114,9 @@ class Notifier implements INotifier
           'name' => $parameters['destinationBaseName'],
         ];
         if ($subjectType & self::TYPE_MOUNT) {
-          $subjectTemplate = $l->t('The archive file at {source} will be mounted as a virtual folder at {destination}.');
+          $subjectTemplate = $l->t('The archive file {source} will be mounted as a virtual folder at {destination}.');
         } else {
-          $subjectTemplate = $l->t('The archive file at {source} will be extracted to {destination}.');
+          $subjectTemplate = $l->t('The archive file {source} will be extracted to {destination}.');
         }
         break;
       case self::TYPE_SUCCESS:
@@ -137,13 +137,9 @@ class Notifier implements INotifier
         break;
       case self::TYPE_FAILURE:
         $subjectSubstitutions['destination'] = [
-          'type' => 'file',
-          'id' => $parameters['destinationId'],
-          'name' => $parameters['destinationBaseName'],
-          'path' => $parameters['destinationDirectory'],
-          'link' => $this->urlGenerator->linkToRouteAbsolute('files.viewcontroller.showFile', [
-            'fileid' => $parameters['destinationId'],
-          ]),
+          'type' => 'highlight',
+          'id' => $notification->getObjectId(),
+          'name' => $parameters['destinationPath'],
         ];
         $errorMessage = $parameters['errorMessage'] ?? null;
         if ($errorMessage) {
@@ -152,6 +148,11 @@ class Notifier implements INotifier
           } else {
             $subjectTemplate = $l->t('Extacting {source} to {destination} bas failed: {message}');
           }
+          $subjectSubstitutions['message'] = [
+            'type' => 'highlight',
+            'id' => $notification->getObjectId(),
+            'name' => $l->t($errorMessage),
+          ];
         } else {
           if ($subjectType & self::TYPE_MOUNT) {
             $subjectTemplate = $l->t('Mounting {source} at {destination} has failed.');

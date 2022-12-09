@@ -67,7 +67,9 @@ const fileActionTemplate = {
   actionHandler(fileName, context) {
     const fullPath = encodeURIComponent((context.dir === '/' ? '' : context.dir) + '/' + fileName);
 
-    const mountUrl = generateAppUrl('archive/mount/{fullPath}', { fullPath });
+    const mountUrl = initialState.mountBackgroundJob
+      ? generateAppUrl('archive/schedule/mount/{fullPath}', { fullPath })
+      : generateAppUrl('archive/mount/{fullPath}', { fullPath });
 
     // $file is a jQuery object, change that if the files-app gets overhauled
     const mountFileaction = context.$file.find('.fileactions .action-mount-archive');
@@ -107,7 +109,9 @@ const fileActionTemplate = {
             // const mountPointPath = data.mountPointPath;
             // showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', { archivePath: fileName, mountPointPath }));
             disableLoadingState();
-            context.fileList.reload();
+            if (!initialState.mountBackgroundJob) {
+              context.fileList.reload();
+            }
           });
       });
   },

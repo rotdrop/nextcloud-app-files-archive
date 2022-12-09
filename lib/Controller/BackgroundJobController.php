@@ -35,6 +35,7 @@ use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\BackgroundJob\IJobList;
+use OCP\Files\IRootFolder;
 use OCP\Files\File;
 
 use OCA\RotDrop\Toolkit\Service\UserScopeService;
@@ -58,7 +59,7 @@ class BackgroundJobController extends Controller
   const OPERATION_EXTRACT = ArchiveJob::TARGET_EXTRACT;
 
   /** @var string */
-  private $userId;
+  protected $userId;
 
   /** @var IConfig */
   private $cloudConfig;
@@ -80,6 +81,7 @@ class BackgroundJobController extends Controller
     LoggerInterface $logger,
     IL10N $l10n,
     IConfig $cloudConfig,
+    IRootFolder $rootFolder,
     IJobList $jobList,
     NotificationService $notificationService,
     UserScopeService $userScopeService,
@@ -88,6 +90,7 @@ class BackgroundJobController extends Controller
     $this->logger = $logger;
     $this->l = $l10n;
     $this->cloudConfig = $cloudConfig;
+    $this->rootFolder = $rootFolder;
     $this->userId = $userId;
     $this->jobList = $jobList;
     $this->notificationService = $notificationService;

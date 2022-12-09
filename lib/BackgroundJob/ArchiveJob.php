@@ -27,7 +27,6 @@ use Throwable;
 
 use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\BackgroundJob\QueuedJob;
-use OCP\BackgroundJob\IJobList;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\AppFramework\Http\DataResponse;
@@ -269,13 +268,8 @@ class ArchiveJob extends QueuedJob
       $this->logInfo('Source ' . $this->getSourcePath() . ' Target ' . $destinationFolder->getPath());
       $this->notificationService->sendNotificationOnSuccess($this, $destinationFolder);
 
-      /** @var IJobList $jobList */
-      $jobList = $this->appContainer->get(IJobList::class);
-      $jobList->add(DownloadsCleanupJob::class, [
-        DownloadsCleanupJob::USER_ID_KEY => $this->getUserId(),
-      ]);
     } catch (Throwable $t) {
-      $this->logger->error('Failed to create composite PDF.', [ 'exception' => $t ]);
+      $this->logger->error('Failed mount or extract archive.', [ 'exception' => $t ]);
       if ($t instanceof FileNotFoundException) {
         $message = $this->t('File or folder could not be found.');
       } else {

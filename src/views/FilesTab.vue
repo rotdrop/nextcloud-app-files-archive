@@ -250,6 +250,7 @@ import Vue from 'vue'
 import { getInitialState } from '../toolkit/services/InitialStateService.js'
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router'
 import { getCurrentUser } from '@nextcloud/auth'
+import generateAppUrl from '../toolkit/util/generate-url.js'
 import md5 from 'blueimp-md5'
 import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { formatFileSize } from '@nextcloud/files'
@@ -262,6 +263,8 @@ import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/
 import FilePrefixPicker from '../components/FilePrefixPicker'
 import axios from '@nextcloud/axios'
 import { nextTick } from 'vue'
+
+const mountsPollingInterval = 30 * 1000
 
 export default {
   name: 'FilesTab',
@@ -305,6 +308,8 @@ export default {
       archiveExtractStripCommonPathPrefix: false,
       archiveExtractBackgroundJob: false,
       archivePassPhrase: undefined,
+      //
+      backgroundMountsTimer: undefined
     };
   },
   created() {
@@ -408,6 +413,12 @@ export default {
            + ')'
     },
   },
+  beforeDestroy() {
+    if (this.backgroundMountsTimer) {
+      clearInterval(this.backgroundMountsTimer)
+      this.backgroundMountsTimer = undefined
+    }
+  },
   methods: {
     info() {
       console.info.apply(null, arguments)
@@ -444,12 +455,12 @@ export default {
       this.archiveExtractBackgroundJob = !!this.initialState.extractBackgroundJob
 
       this.getArchiveInfo(this.fileName)
-      this.getArchiveMounts(this.fileName)
+      this.refreshArchiveMounts(this.fileName)
     },
     async getArchiveInfo(fileName) {
       ++this.loading
       fileName = encodeURIComponent(fileName)
-      const url = generateUrl('/apps/' + appName + '/archive/info/{fileName}', { fileName })
+      const url = generateAppUrl('archive/info/{fileName}', { fileName })
       const requestData = {}
       if (this.archivePassPhrase) {
         requestData.passPhrase = this.archivePassPhrase
@@ -488,15 +499,26 @@ export default {
 
       --this.loading
     },
-    async getArchiveMounts(fileName) {
-      ++this.loading
+    async refreshArchiveMounts(filename) {
+      const mounts = await this.getArchiveMounts(filename, false)
+      this.archiveMounts = mounts.mounts
+      this.archiveMounted = mounts.mounted
+    },
+    async getArchiveMounts(fileName, silent) {
+      const result = {
+        mounts: [],
+        mounted: false,
+      }
+      if (silent !== true) {
+        ++this.loading
+      }
       fileName = encodeURIComponent(fileName)
-      const url = generateUrl('/apps/' + appName + '/archive/mount/{fileName}', { fileName })
+      const url = generateAppUrl('archive/mount/{fileName}', { fileName })
       try {
         const response = await axios.get(url)
         const responseData = response.data
-        this.archiveMounts = responseData.mounts
-        this.archiveMounted = responseData.mounted
+        result.mounts = responseData.mounts
+        result.mounted = responseData.mounted
         for (const message of responseData.messages) {
           showInfo(message);
         }
@@ -505,22 +527,19 @@ export default {
         console.error('ERROR', e)
         if (e.response && e.response.data) {
           const responseData = e.response.data
-          this.archiveMounts = responseData.mounts
-          this.archiveMounted = responseData.mounted
+          result.mounts = responseData.mounts
+          result.mounted = responseData.mounted
           if (responseData.messages) {
             for (const message of responseData.messages) {
               showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
             }
           }
-        } else {
-          this.archiveMounts = []
-          this.archiveMounted = false
         }
       }
       // id="fileList"
       // data-path
       // data-file
-      for (const mount of this.archiveMounts) {
+      for (const mount of result.mounts) {
         const pathComponents = mount.mountPointPath.split('/')
         const baseName = pathComponents.pop()
         const dirName = pathComponents.join('/')
@@ -531,12 +550,42 @@ export default {
         }
         delete mount.archivePassPhrase
       }
-      --this.loading
+      if (silent !== true) {
+        --this.loading
+      }
+      return result
+    },
+    async backgroundMountsPoller(archiveMountIds) {
+      const { mounts, mounted } = await this.getArchiveMounts(this.fileName, true)
+      let mountingFinished = mounts.length != archiveMountIds.length
+      if (!mountingFinished) {
+        const mountIds = mounts.map(mount => mount.id).sort()
+        for (const i = 0; i < mountIds.length; ++i) {
+          if (mountIds[i] !== archiveMountIds[i]) {
+            mountingFinished = true
+            break
+          }
+        }
+      }
+      if (!mountingFinished) {
+        this.backgroundMountsTimer = setTimeout(() => this.backgroundMountsPoller(archiveMountIds), mountsPollingInterval)
+      } else {
+        this.backgroundMountsTimer = undefined
+        this.archiveMounts = mounts
+        this.archiveMounted = mounted
+        this.refreshArchiveMounts(this.fileName)
+        if (this.archiveMountDirName === this.fileInfo.path) {
+          this.fileList.reload();
+        }
+      }
     },
     async mount() {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const mountPath = encodeURIComponent(this.archiveMountPathName)
-      const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}/{mountPath}', { archivePath, mountPath })
+      const urlTemplate = this.archiveMountBackgroundJob
+        ? 'archive/schedule/mount/{archivePath}/{mountPath}'
+        : 'archive/mount/{archivePath}/{mountPath}'
+      const url = generateAppUrl(urlTemplate, { archivePath, mountPath })
       this.fileList.showFileBusyState(this.fileInfo.name, true)
       const requestData = {}
       if (this.archivePassPhrase) {
@@ -545,9 +594,14 @@ export default {
       requestData.stripCommonPathPrefix = !!this.archiveMountStripCommonPathPrefix;
       try {
         const response = await axios.post(url, requestData)
-        this.getArchiveMounts(this.fileName)
-        if (this.archiveMountDirName === this.fileInfo.path) {
-          this.fileList.reload();
+        if (this.archiveMountBackgroundJob) {
+          const archiveMountIds = this.archiveMounts.map(mount => mount.id).sort()
+          this.backgroundMountsTimer = setTimeout(() => this.backgroundMountsPoller(archiveMountIds), mountsPollingInterval)
+        } else {
+          this.refreshArchiveMounts(this.fileName)
+          if (this.archiveMountDirName === this.fileInfo.path) {
+            this.fileList.reload();
+          }
         }
       } catch (e) {
         console.error('ERROR', e)
@@ -571,7 +625,7 @@ export default {
     },
     async unmount(mount) {
       if (mount.dirName === this.fileInfo.dir && !this.fileList.inList(mount.baseName)) {
-        this.getArchiveMounts()
+        this.refreshArchiveMounts()
         return
       }
       const cloudUser = getCurrentUser()
@@ -609,7 +663,7 @@ export default {
             showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
           }
           if (e.response.status === 404) {
-            this.getArchiveMounts()
+            this.refreshArchiveMounts()
           }
         }
       }

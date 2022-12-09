@@ -27,15 +27,15 @@ namespace OCA\FilesArchive\Service;
 use DateTime;
 
 use OCP\Files\Node;
-use OCP\Files\File;
+use OCP\Files\Folder;
 use OCP\Notification\IManager;
 use OCP\Notification\INotification;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IUserSession;
 
-use OCA\PdfDownloader\BackgroundJob\ArchiveJob;
-use OCA\PdfDownloader\Notification\Notifier;
-use OCA\PdfDownloader\Constants;
+use OCA\FilesArchive\BackgroundJob\ArchiveJob;
+use OCA\FilesArchive\Notification\Notifier;
+use OCA\FilesArchive\Constants;
 
 /** Service class for notification management. */
 class NotificationService
@@ -105,11 +105,11 @@ class NotificationService
   /**
    * @param ArchiveJob $job
    *
-   * @param Folder $file
+   * @param Folder $folder
    *
    * @return void
    */
-  public function sendNotificationOnSuccess(ArchiveJob $job, Folder $file):void
+  public function sendNotificationOnSuccess(ArchiveJob $job, Folder $folder):void
   {
     $userId = $job->getUserId();
     $this->userId = $userId;
@@ -137,7 +137,7 @@ class NotificationService
     );
     $subject = $notification->getSubject();
     $subjectParameters = $notification->getSubjectParameters();
-    $subjectParameters['destinationId'] = $file->getId();
+    $subjectParameters['destinationId'] = $folder->getId();
 
     $notification
       ->setDateTime(new DateTime())
