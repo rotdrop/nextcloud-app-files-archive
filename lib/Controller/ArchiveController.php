@@ -263,7 +263,7 @@ class ArchiveController extends Controller
     $nonExistingTarget = $targetParent->getNonExistingName($targetBaseName);
     if ($nonExistingTarget != $targetBaseName) {
       if (!$this->autoRenameExtractTarget) {
-        return self::grumble($this->l->t('The target-folder "%s" already exists and auto-rename is not enabled.', $targetPath));
+        return self::grumble($this->l->t('The target folder "%s" already exists and auto-rename is not enabled.', $targetPath));
       }
       $targetPath = $targetDirName . Constants::PATH_SEPARATOR . $nonExistingTarget;
       $targetBaseName = $nonExistingTarget;

@@ -261,9 +261,9 @@ const ajaxHandleError = function(xhr, textStatus, errorThrown, callbacks) {
           + 'with the app, then the reason for this '
           + 'error is probably a simple timeout.');
     generalHint += '<br/>'
-      + t(appName, 'I any case it may help to logoff and logon again, as a '
-          + 'temporary work-around. You will be redirected to the '
-          + 'log-in page when you close this window.');
+      + t(appName, 'In any case it may help to logoff and logon again, as a '
+          + 'temporary workaround. You will be redirected to the '
+          + 'login page when you close this window.');
     info += '<div class="error general">' + generalHint + '</div>';
     // info += '<div class="error toastify feedback-link">'
     //       + t(appName, 'Feedback email: {AutoReport}', { AutoReport: autoReport }, -1, { escape: false })

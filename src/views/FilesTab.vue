@@ -625,7 +625,7 @@ export default {
             }
           }
           if (!messages.length) {
-            messages.push(t(appName, 'Archive-extraction failed with error {status}, "{statusText}".', e.response))
+            messages.push(t(appName, 'Archive extraction failed with error {status}, "{statusText}".', e.response))
           }
           for (const message of messages) {
             showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
