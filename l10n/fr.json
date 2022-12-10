@@ -38,7 +38,6 @@
     "strip common path prefix by default" : "supprime le préfixe du chemin commun par défaut",
     "Extraction Options" : "Options d'extraction",
     "automatically change the target folder name if the target folder already exists" : "changer automatiquement le nom du dossier cible si celui-ci existe déjà",
-    "Choose a prefix-folder" : "Choisir un préfixe de dossier",
     "Selected path: \"{dir}/{base}/\"." : "Sélectionner le chemin : \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Chemin invalide sélectionné : \"{dir}\".",
     "Archive Information" : "Information sur l'archive",

@@ -42,7 +42,6 @@ OC.L10N.register(
     "strip common path prefix by default" : "elimina el prefix de camí comú per defecte",
     "Extraction Options" : "Opcions d'extracció",
     "automatically change the target folder name if the target folder already exists" : "canviar automàticament el nom de la carpeta de destinació si la carpeta de destinació ja existeix",
-    "Choose a prefix-folder" : "Trieu una carpeta-prefix",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Archive Information" : "Arxiu d'informació",

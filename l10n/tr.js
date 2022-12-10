@@ -43,7 +43,6 @@ OC.L10N.register(
     "strip common path prefix by default" : "varsayılan olarak ortak yol ön eki ayıklansın",
     "Extraction Options" : "Ayıklama ayarları",
     "automatically change the target folder name if the target folder already exists" : "hedef klasör zaten varsa hedef klasör adı otomatik olarak değiştirilsin",
-    "Choose a prefix-folder" : "Bir ön ek klasörü seçin",
     "Selected path: \"{dir}/{base}/\"." : "Seçilmiş yol: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Seçilmiş yol geçersiz: \"{dir}\".",
     "Archive Information" : "Arşiv bilgileri",

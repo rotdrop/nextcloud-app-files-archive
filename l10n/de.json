@@ -39,7 +39,6 @@
     "strip common path prefix by default" : "gemeinsamen Dateipfad-Präfix normalerweise entfernen",
     "Extraction Options" : "Einstellungen für das Entpacken",
     "automatically change the target folder name if the target folder already exists" : "den Namen des Ziel-Ordners automatisch ändern, falls der Name bereits in Verwendung ist",
-    "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}\".",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad ausgewählt: {dir}.",
     "Archive Information" : "Archiv-Informationen",

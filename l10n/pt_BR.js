@@ -30,7 +30,6 @@ OC.L10N.register(
     "Archive Extraction" : "Extrair armazenamento",
     "Archive Size Limit" : "Tamanho limite de armazenamento",
     "Extraction Options" : "Opções de extração",
-    "Choose a prefix-folder" : "Escolha a pasta-prefixo",
     "Archive Information" : "Informação de arquivamento",
     "archive status" : "Estado do arquivamento ",
     "archive format" : "Formato do arquivamento",

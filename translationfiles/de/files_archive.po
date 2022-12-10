@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-09 03:37+0000\n"
+"POT-Creation-Date: 2022-12-10 03:28+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Claus-Justus Heine, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -362,7 +362,7 @@ msgstr ""
 #. TRANSLATORS nents/FilePrefixPicker.vue:43
 #: /app/specialVueFakeDummyForL10nScript.js:40
 msgid "Choose a prefix folder"
-msgstr "Wähle den \"Eltern\"-Ordner"
+msgstr ""
 
 #. TRANSLATORS nents/FilePrefixPicker.vue:48
 #: /app/specialVueFakeDummyForL10nScript.js:42
