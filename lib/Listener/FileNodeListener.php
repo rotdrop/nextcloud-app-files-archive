@@ -43,7 +43,7 @@ use OCA\FilesArchive\Constants;
 /**
  * Listen to renamed and deleted events in order to keep the
  * configured document-templates synchronized with the cloud
- * file-system.
+ * file system.
  */
 class FileNodeListener implements IEventListener
 {
