@@ -69,6 +69,15 @@ return [
         'mountPointPath' => null,
       ],
     ],
+    // schedule a mount or extraction operation
+    [
+      'name' => 'background_job#schedule',
+      'url' => '/archive/schedule/{operation}/{archivePath}/{destinationPath}',
+      'verb' => 'POST',
+      'defaults' => [
+        'destinationPath' => null,
+      ],
+    ],
     // patch the passphrase into the mounts for the given archive
     [
       'name' => 'mount#patch',

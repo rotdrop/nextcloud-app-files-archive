@@ -27,15 +27,17 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\IConfig;
+use OCP\Files\Config\IMountProviderCollection;
 
 use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
 use OCA\FilesArchive\Exceptions;
 
-use OCP\Files\Config\IMountProviderCollection;
-use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\RotDrop\Toolkit\Service\MimeTypeService;
+
+use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
+use OCA\FilesArchive\Notification\Notifier;
 
 include_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -83,9 +85,9 @@ class Application extends App implements IBootstrap
    */
   public function register(IRegistrationContext $context): void
   {
-    include_once __DIR__ . '/../../vendor/autoload.php';
-
     // Register listeners
     ListenerRegistration::register($context);
+
+    $context->registerNotifierService(Notifier::class);
   }
 }

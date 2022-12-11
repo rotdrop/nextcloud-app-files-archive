@@ -52,7 +52,7 @@ use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Constants;
 
 /**
- * Mount an archive file as virtual file-system into the user-storage.
+ * Mount an archive file as virtual file system into the user-storage.
  */
 class MountProvider implements IMountProvider
 {

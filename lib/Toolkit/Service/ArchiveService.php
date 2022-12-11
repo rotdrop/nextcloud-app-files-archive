@@ -318,7 +318,7 @@ class ArchiveService
       self::ARCHIVE_INFO_ORIGINAL_SIZE => $this->archiver->getOriginalSize(),
       self::ARCHIVE_INFO_NUMBER_OF_FILES => $this->archiver->countFiles(),
       self::ARCHIVE_INFO_COMMENT => $archiveComment,
-      self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT => $this->getArchiveFolderName(),
+      self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT => self::getArchiveFolderName($this->fileNode->getName()),
       self::ARCHIVE_INFO_COMMON_PATH_PREFIX => $this->getCommonDirectoryPrefix(),
       self::ARCHIVE_INFO_BACKEND_DRIVER => $this->getClassBaseName($this->archiver->getDriverType()),
     ];
@@ -328,15 +328,14 @@ class ArchiveService
    * Return a proposal for the extraction destination. Currently, this simply
    * strips double extensions like FOO.tag.N -> FOO.
    *
+   * @param string $archiveFileName
+   *
    * @return string
    */
-  public function getArchiveFolderName():?string
+  public static function getArchiveFolderName(string $archiveFileName):?string
   {
-    if (empty($this->fileNode)) {
-      return null;
-    }
     // double to account for "nested" archive types
-    $archiveFolderName = pathinfo($this->fileNode->getName(), PATHINFO_FILENAME);
+    $archiveFolderName = pathinfo($archiveFileName, PATHINFO_FILENAME);
     $secondExtension = pathinfo($archiveFolderName, PATHINFO_EXTENSION);
 
     // as a rule of thumb we only strip the second extension if it contains no

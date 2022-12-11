@@ -95,7 +95,7 @@ trait UserRootFolderTrait
 
   /**
    * @return string Just the name of the user folder without recurse to the
-   * file-system. Thus the returned folder-name does not neccessarily point to
+   * file system. Thus the returned folder-name does not neccessarily point to
    * an existing folder. The returned path is relative to the root-folder,
    * e.g. "jane.doe/files".
    */
@@ -111,7 +111,7 @@ trait UserRootFolderTrait
    * path then it must be relative to the user folder.
    *
    * @param null|callable $callback The callback receives two arguments, the
-   * current file-system node and the recursion depth.
+   * current file system node and the recursion depth.
    *
    * @param int $depth Internal recursion depth parameters. The $callback
    * receives it as second argument.

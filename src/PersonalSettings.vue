@@ -62,6 +62,17 @@
           {{ t(appName, 'automatically change the mount point name if it already exists') }}
         </label>
       </div>
+      <div class="settings-option">
+        <input :id="id + '-mount-background-job'"
+               v-model="mountBackgroundJob"
+               type="checkbox"
+               class="checkbox"
+               @change="saveSetting('mountBackgroundJob')"
+        >
+        <label :for="id + '-mount-background-job'">
+          {{ t(appName, 'default to scheduling mount requests as background job') }}
+        </label>
+      </div>
     </AppSettingsSection>
     <AppSettingsSection :title="t(appName, 'Extraction Options')">
       <SettingsInputText
@@ -91,6 +102,17 @@
         >
         <label :for="id + '-extract-auto-rename'">
           {{ t(appName, 'automatically change the target folder name if the target folder already exists') }}
+        </label>
+      </div>
+      <div class="settings-option">
+        <input :id="id + '-extract-background-job'"
+               v-model="extractBackgroundJob"
+               type="checkbox"
+               class="checkbox"
+               @change="saveSetting('extractBackgroundJob')"
+        >
+        <label :for="id + '-extract-background-job'">
+          {{ t(appName, 'default to scheduling extraction requests as background job') }}
         </label>
       </div>
     </AppSettingsSection>
@@ -123,9 +145,11 @@ export default {
       mountStripCommonPathPrefixDefault: false,
       mountPointTemplate: '{archiveFileName}',
       mountPointAutoRename: false,
+      mountBackgroundJob: false,
       extractStripCommonPathPrefixDefault: false,
       extractTargetTemplate: '{archiveFileName}',
       extractTargetAutoRename: false,
+      extractBackgroundJob: false,
       id: null,
       loading: true,
     }
