@@ -158,6 +158,7 @@
     "System Administrator" : "System-Administrator",
     "Feedback email: {AutoReport}" : "Rückmeldung per Email: {AutoReport}",
     "Something went wrong." : "Irgendetwas ist schief gelaufen.",
+    "If it should be the case that you are already logged in for a long time without interacting with the app, then the reason for this error is probably a simple timeout." : "Falls du bereits längere Zeit angemeldet bist, ohne mit der App zu\ninteragieren, dann ist das der Grund für den Fehler.",
     "I any case it may help to logoff and logon again, as a temporary work-around. You will be redirected to the log-in page when you close this window." : "Als einstweiligen `Work-Around' kann man in jedem Fall versuchen, sich\nab- und wieder an zu melden und den Vorgang zu wiederholen. Wenn Du\ndieses Fenster schließt, wirst Du zur Login-Seite weiter geleitet.",
     "Internal Error" : "Irgendein Fehler",
     "Field {RequiredField} not present in AJAX response." : "In der AJAX-Antwort fehlt das Feld {RequiredField}.",
