@@ -49,14 +49,27 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
     ],
   ];
 
-  /** {@inheritdoc} */
-  public static function open($fileName, $abilities = [], $password = null)
+  /**
+   * {@inheritdoc}
+   *
+   * @param bool $contentCheck Whether to also look at the contents of a file
+   * to determine its MIME-type if it could not be determined by its file
+   * extension.
+   */
+  public static function open($fileName, $abilities = [], $password = null, bool $contentCheck = true)
   {
     if (!file_exists($fileName) || !is_readable($fileName)) {
       throw new InvalidArgumentException('Could not open file: ' . $fileName.' is not readable');
     }
 
-    $format = Formats::detectArchiveFormat($fileName);
+    // @todo This is here because of
+    // https://github.com/wapmorgan/UnifiedArchive/issues/40#issue-1482748064
+    // and must be removed after that issue has been resolved.
+    if ($fileName !== strtolower($fileName)) {
+      $contentCheck = false;
+    }
+
+    $format = Formats::detectArchiveFormat($fileName, contentCheck: $contentCheck);
     if ($format === false) {
       return null;
     }
