@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-11 03:33+0000\n"
+"POT-Creation-Date: 2022-12-12 03:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: /app/lib/BackgroundJob/ArchiveJob.php:274
+msgid "File or folder could not be found."
+msgstr ""
+
 #: /app/lib/Controller/ArchiveController.php:146
-#: /app/lib/Controller/MountController.php:161
-#: /app/lib/Controller/MountController.php:281
+#: /app/lib/Controller/MountController.php:164
+#: /app/lib/Controller/MountController.php:279
 #, php-format
 msgid "The user folder for user \"%s\" could not be opened."
 msgstr ""
@@ -39,39 +43,39 @@ msgstr ""
 msgid "Error: %s"
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:220
-#: /app/lib/Controller/MountController.php:176
+#: /app/lib/Controller/ArchiveController.php:222
+#: /app/lib/Controller/MountController.php:179
 #, php-format
 msgid "Unable to open the archive file \"%s\"."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:235
-#: /app/lib/Controller/MountController.php:185
+#: /app/lib/Controller/ArchiveController.php:237
+#: /app/lib/Controller/MountController.php:193
 #, php-format
 msgid ""
 "The archive file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > "
 "admin limit %3$s."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:239
-#: /app/lib/Controller/MountController.php:189
+#: /app/lib/Controller/ArchiveController.php:241
+#: /app/lib/Controller/MountController.php:197
 #, php-format
 msgid ""
 "The archive file \"%1$s\" is too large: uncompressed size %2$s > user limit "
 "%3$s."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:260
+#: /app/lib/Controller/ArchiveController.php:258
 #, php-format
 msgid "Unable to open the target parent folder \"%s\"."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:266
+#: /app/lib/Controller/ArchiveController.php:264
 #, php-format
-msgid "The target-folder \"%s\" already exists and auto-rename is not enabled."
+msgid "The target folder \"%s\" already exists and auto-rename is not enabled."
 msgstr ""
 
-#: /app/lib/Controller/ArchiveController.php:306
+#: /app/lib/Controller/ArchiveController.php:304
 #, php-format
 msgid "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"."
 msgstr ""
@@ -79,6 +83,14 @@ msgstr ""
 #: /app/lib/Controller/ArchiveController.php:312
 #, php-format
 msgid "Extracting \"%1$s\" to \"%2$s\" succeeded."
+msgstr ""
+
+#: /app/lib/Controller/BackgroundJobController.php:157
+msgid "Archive background mount job scheduled successfully."
+msgstr ""
+
+#: /app/lib/Controller/BackgroundJobController.php:158
+msgid "Archive background extraction job scheduled successfully."
 msgstr ""
 
 #: /app/lib/Controller/CatchAllController.php:70
@@ -96,90 +108,136 @@ msgstr ""
 msgid "Get from endpoint \"%s\" not implemented."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:167
+#: /app/lib/Controller/MountController.php:170
 #, php-format
 msgid "\"%1$s\" is already mounted on \"%2$s\"."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:212
+#: /app/lib/Controller/MountController.php:216
 #, php-format
 msgid "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:220
+#: /app/lib/Controller/MountController.php:224
 #, php-format
 msgid "The mount point \"%s\" already exists and auto-rename is not enabled."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:255
+#: /app/lib/Controller/MountController.php:253
 #, php-format
 msgid "Unable to update the file cache for the mount point \"%1s\": %2$s."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:276
+#: /app/lib/Controller/MountController.php:274
 #, php-format
 msgid "\"%s\" is not mounted."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:293
+#: /app/lib/Controller/MountController.php:291
 #, php-format
 msgid "Directory \"%s\" is not a mount point."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:300
+#: /app/lib/Controller/MountController.php:298
 #, php-format
 msgid "Archive \"%1$s\" has been unmounted from \"%2$s\"."
 msgstr ""
 
-#: /app/lib/Controller/MountController.php:359
+#: /app/lib/Controller/MountController.php:357
 msgid "Only the passphrase may be changed for an existing mount."
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:141
-#: /app/lib/Controller/SettingsController.php:160
-#: /app/lib/Controller/SettingsController.php:199
-#: /app/lib/Controller/SettingsController.php:220
+#: /app/lib/Controller/SettingsController.php:149
+#: /app/lib/Controller/SettingsController.php:168
+#: /app/lib/Controller/SettingsController.php:207
+#: /app/lib/Controller/SettingsController.php:228
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:144
+#: /app/lib/Controller/SettingsController.php:152
 #, php-format
 msgid "The admin setting \"%1$s\" is read-only"
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:250
-#: /app/lib/Controller/SettingsController.php:346
-#: /app/lib/Controller/SettingsController.php:385
+#: /app/lib/Controller/SettingsController.php:258
+#: /app/lib/Controller/SettingsController.php:356
+#: /app/lib/Controller/SettingsController.php:397
 #, php-format
 msgid "Unknown personal setting: \"%1$s\""
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:253
+#: /app/lib/Controller/SettingsController.php:261
 #, php-format
 msgid "The personal setting \"%1$s\" is read-only"
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:275
+#: /app/lib/Controller/SettingsController.php:285
 #, php-format
 msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:298
+#: /app/lib/Controller/SettingsController.php:308
 #, php-format
 msgid ""
 "The target folder template \"%1$s\" must contain the archive file "
 "placeholder \"%2$s\"."
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:304
+#: /app/lib/Controller/SettingsController.php:314
 #, php-format
 msgid "Unknown personal setting: \"%s\"."
 msgstr ""
 
-#: /app/lib/Controller/SettingsController.php:418
+#: /app/lib/Controller/SettingsController.php:430
 #, php-format
 msgid "Unable to parse memory size limit \"%s\""
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:82
+#: /app/specialAppInfoFakeDummyForL10nScript.php:2
+msgid "Archive Manager"
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:117
+msgid ""
+"The archive file {source} will be mounted as a virtual folder at "
+"{destination}."
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:119
+msgid "The archive file {source} will be extracted to {destination}."
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:133
+msgid ""
+"Your archive file {source} has been mounted as a virtual folder at "
+"{destination}."
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:135
+msgid "Your archive file {source} has been extracted to {destination}."
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:147
+msgid "Mounting {source} at {destination} has failed: {message}"
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:149
+msgid "Extacting {source} to {destination} bas failed: {message}"
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:158
+msgid "Mounting {source} at {destination} has failed."
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:160
+msgid "Extacting {source} to {destination} bas failed."
+msgstr ""
+
+#: /app/lib/Notification/Notifier.php:165
+#, php-format
+msgid "Unsupported subject: \"%s\"."
 msgstr ""
 
 #: /app/lib/Settings/AdminSection.php:72
@@ -199,13 +257,13 @@ msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
 msgstr ""
 
 #: /app/lib/Toolkit/Service/ArchiveService.php:301
-#: /app/lib/Toolkit/Service/ArchiveService.php:369
-#: /app/lib/Toolkit/Service/ArchiveService.php:391
-#: /app/lib/Toolkit/Service/ArchiveService.php:405
+#: /app/lib/Toolkit/Service/ArchiveService.php:368
+#: /app/lib/Toolkit/Service/ArchiveService.php:390
+#: /app/lib/Toolkit/Service/ArchiveService.php:404
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 
-#: /app/lib/Toolkit/Traits/AssetTrait.php:102
+#: /app/lib/Toolkit/Traits/AssetTrait.php:104
 #, php-format
 msgid ""
 "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not "
@@ -233,10 +291,6 @@ msgstr ""
 
 #: /app/lib/Toolkit/Traits/UtilTrait.php:508
 msgid "The input color values are invalid."
-msgstr ""
-
-#: /app/specialAppInfoFakeDummyForL10nScript.php:2
-msgid "Archive Manager"
 msgstr ""
 
 #: /app/specialAppInfoFakeDummyForL10nScript.php:3
@@ -291,7 +345,7 @@ msgstr ""
 #. TRANSLATORS nalSettings.vue:35
 #. TRANSLATORS /FilesTab.vue:177
 #: /app/specialVueFakeDummyForL10nScript.js:20
-#: /app/specialVueFakeDummyForL10nScript.js:94
+#: /app/specialVueFakeDummyForL10nScript.js:98
 msgid "Mount Options"
 msgstr ""
 
@@ -302,7 +356,7 @@ msgstr ""
 
 #. TRANSLATORS nalSettings.vue:39
 #: /app/specialVueFakeDummyForL10nScript.js:24
-#: /app/specialVueFakeDummyForL10nScript.js:34
+#: /app/specialVueFakeDummyForL10nScript.js:36
 msgid ""
 "{archiveFileName} will be replaced by the filename of the archive file "
 "without extensions."
@@ -310,7 +364,7 @@ msgstr ""
 
 #. TRANSLATORS nalSettings.vue:51
 #: /app/specialVueFakeDummyForL10nScript.js:26
-#: /app/specialVueFakeDummyForL10nScript.js:36
+#: /app/specialVueFakeDummyForL10nScript.js:38
 msgid "strip common path prefix by default"
 msgstr ""
 
@@ -319,205 +373,221 @@ msgstr ""
 msgid "automatically change the mount point name if it already exists"
 msgstr ""
 
-#. TRANSLATORS nalSettings.vue:66
-#. TRANSLATORS /FilesTab.vue:217
+#. TRANSLATORS nalSettings.vue:73
 #: /app/specialVueFakeDummyForL10nScript.js:30
-#: /app/specialVueFakeDummyForL10nScript.js:104
+msgid "default to scheduling mount requests as background job"
+msgstr ""
+
+#. TRANSLATORS nalSettings.vue:77
+#. TRANSLATORS /FilesTab.vue:223
+#: /app/specialVueFakeDummyForL10nScript.js:32
+#: /app/specialVueFakeDummyForL10nScript.js:110
 msgid "Extraction Options"
 msgstr ""
 
-#. TRANSLATORS nalSettings.vue:69
-#: /app/specialVueFakeDummyForL10nScript.js:32
+#. TRANSLATORS nalSettings.vue:80
+#: /app/specialVueFakeDummyForL10nScript.js:34
 msgid "Template for the default name of the extraction folder"
 msgstr ""
 
-#. TRANSLATORS nalSettings.vue:93
-#: /app/specialVueFakeDummyForL10nScript.js:38
+#. TRANSLATORS nalSettings.vue:104
+#: /app/specialVueFakeDummyForL10nScript.js:40
 msgid ""
 "automatically change the target folder name if the target folder already "
 "exists"
 msgstr ""
 
+#. TRANSLATORS nalSettings.vue:115
+#: /app/specialVueFakeDummyForL10nScript.js:42
+msgid "default to scheduling extraction requests as background job"
+msgstr ""
+
 #. TRANSLATORS nents/FilePrefixPicker.vue:43
-#: /app/specialVueFakeDummyForL10nScript.js:40
+#: /app/specialVueFakeDummyForL10nScript.js:44
 msgid "Choose a prefix folder"
 msgstr ""
 
 #. TRANSLATORS nents/FilePrefixPicker.vue:48
-#: /app/specialVueFakeDummyForL10nScript.js:42
+#: /app/specialVueFakeDummyForL10nScript.js:46
 msgid "Selected path: \"{dir}/{base}/\"."
 msgstr ""
 
 #. TRANSLATORS nents/FilePrefixPicker.vue:51
-#: /app/specialVueFakeDummyForL10nScript.js:44
+#: /app/specialVueFakeDummyForL10nScript.js:48
 msgid "Invalid path selected: \"{dir}\"."
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:29
-#: /app/specialVueFakeDummyForL10nScript.js:46
+#: /app/specialVueFakeDummyForL10nScript.js:50
 msgid "Archive Information"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:42
-#: /app/specialVueFakeDummyForL10nScript.js:48
+#: /app/specialVueFakeDummyForL10nScript.js:52
 msgid "archive status"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:50
-#: /app/specialVueFakeDummyForL10nScript.js:50
+#: /app/specialVueFakeDummyForL10nScript.js:54
 msgid "archive format"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:52
-#: /app/specialVueFakeDummyForL10nScript.js:52
 #: /app/specialVueFakeDummyForL10nScript.js:56
 #: /app/specialVueFakeDummyForL10nScript.js:60
-#: /app/specialVueFakeDummyForL10nScript.js:108
-#: /app/specialVueFakeDummyForL10nScript.js:110
-#: /app/specialVueFakeDummyForL10nScript.js:112
-#: /app/specialVueFakeDummyForL10nScript.js:114
+#: /app/specialVueFakeDummyForL10nScript.js:64
 #: /app/specialVueFakeDummyForL10nScript.js:116
+#: /app/specialVueFakeDummyForL10nScript.js:118
+#: /app/specialVueFakeDummyForL10nScript.js:120
+#: /app/specialVueFakeDummyForL10nScript.js:122
 #: /app/specialVueFakeDummyForL10nScript.js:124
+#: /app/specialVueFakeDummyForL10nScript.js:132
 msgid "unknown"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:54
-#: /app/specialVueFakeDummyForL10nScript.js:54
+#: /app/specialVueFakeDummyForL10nScript.js:58
 msgid "MIME type"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:58
-#: /app/specialVueFakeDummyForL10nScript.js:58
+#: /app/specialVueFakeDummyForL10nScript.js:62
 msgid "backend driver"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:62
-#: /app/specialVueFakeDummyForL10nScript.js:62
+#: /app/specialVueFakeDummyForL10nScript.js:66
 msgid "uncompressed size"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:66
-#: /app/specialVueFakeDummyForL10nScript.js:64
+#: /app/specialVueFakeDummyForL10nScript.js:68
 msgid "compressed size"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:71
-#: /app/specialVueFakeDummyForL10nScript.js:66
+#: /app/specialVueFakeDummyForL10nScript.js:70
 msgid "archive file size"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:75
-#: /app/specialVueFakeDummyForL10nScript.js:68
+#: /app/specialVueFakeDummyForL10nScript.js:72
 msgid "# archive members"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:79
-#: /app/specialVueFakeDummyForL10nScript.js:70
+#: /app/specialVueFakeDummyForL10nScript.js:74
 msgid "common prefix"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:85
-#: /app/specialVueFakeDummyForL10nScript.js:72
+#: /app/specialVueFakeDummyForL10nScript.js:76
 msgid "creator's comment"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:98
-#: /app/specialVueFakeDummyForL10nScript.js:74
+#: /app/specialVueFakeDummyForL10nScript.js:78
 msgid "Passphrase"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:99
-#: /app/specialVueFakeDummyForL10nScript.js:76
+#: /app/specialVueFakeDummyForL10nScript.js:80
 msgid "unset"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:110
-#: /app/specialVueFakeDummyForL10nScript.js:78
-#: /app/specialVueFakeDummyForL10nScript.js:80
+#: /app/specialVueFakeDummyForL10nScript.js:82
+#: /app/specialVueFakeDummyForL10nScript.js:84
 msgid "archive passphrase"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:122
-#: /app/specialVueFakeDummyForL10nScript.js:82
+#: /app/specialVueFakeDummyForL10nScript.js:86
 msgid "Show Passphrase"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:132
-#: /app/specialVueFakeDummyForL10nScript.js:84
-#: /app/specialVueFakeDummyForL10nScript.js:126
+#: /app/specialVueFakeDummyForL10nScript.js:88
+#: /app/specialVueFakeDummyForL10nScript.js:134
 msgid "Mount Points"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:134
-#: /app/specialVueFakeDummyForL10nScript.js:86
-#: /app/specialVueFakeDummyForL10nScript.js:128
+#: /app/specialVueFakeDummyForL10nScript.js:90
+#: /app/specialVueFakeDummyForL10nScript.js:136
 msgid "not mounted"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:163
-#: /app/specialVueFakeDummyForL10nScript.js:88
+#: /app/specialVueFakeDummyForL10nScript.js:92
 msgid "Common prefix {prefix} is stripped."
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:169
-#: /app/specialVueFakeDummyForL10nScript.js:90
+#: /app/specialVueFakeDummyForL10nScript.js:94
 msgid "Not mounted, create a new mount point:"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:170
-#: /app/specialVueFakeDummyForL10nScript.js:92
-#: /app/specialVueFakeDummyForL10nScript.js:102
+#: /app/specialVueFakeDummyForL10nScript.js:96
+#: /app/specialVueFakeDummyForL10nScript.js:108
 msgid "basename"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:186
-#: /app/specialVueFakeDummyForL10nScript.js:96
-#: /app/specialVueFakeDummyForL10nScript.js:106
+#: /app/specialVueFakeDummyForL10nScript.js:100
+#: /app/specialVueFakeDummyForL10nScript.js:112
 msgid "strip common path prefix"
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:197
-#: /app/specialVueFakeDummyForL10nScript.js:98
+#. TRANSLATORS /FilesTab.vue:192
+#: /app/specialVueFakeDummyForL10nScript.js:102
+#: /app/specialVueFakeDummyForL10nScript.js:114
+msgid "schedule as background job"
+msgstr ""
+
+#. TRANSLATORS /FilesTab.vue:203
+#: /app/specialVueFakeDummyForL10nScript.js:104
 msgid "Extract Archive"
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:209
-#: /app/specialVueFakeDummyForL10nScript.js:100
+#. TRANSLATORS /FilesTab.vue:215
+#: /app/specialVueFakeDummyForL10nScript.js:106
 msgid "Choose a directory to extract the archive to:"
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:379
-#: /app/specialVueFakeDummyForL10nScript.js:118
+#. TRANSLATORS /FilesTab.vue:398
+#: /app/specialVueFakeDummyForL10nScript.js:126
 msgid "ok"
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:381
-#: /app/specialVueFakeDummyForL10nScript.js:120
+#. TRANSLATORS /FilesTab.vue:400
+#: /app/specialVueFakeDummyForL10nScript.js:128
 msgid "zip bomb"
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:383
-#: /app/specialVueFakeDummyForL10nScript.js:122
+#. TRANSLATORS /FilesTab.vue:402
+#: /app/specialVueFakeDummyForL10nScript.js:130
 msgid "too large"
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:547
-#: /app/specialVueFakeDummyForL10nScript.js:130
+#. TRANSLATORS /FilesTab.vue:617
+#: /app/specialVueFakeDummyForL10nScript.js:138
 msgid "Mount request failed with error {status}, \"{statusText}\"."
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:590
-#: /app/specialVueFakeDummyForL10nScript.js:132
+#. TRANSLATORS /FilesTab.vue:660
+#: /app/specialVueFakeDummyForL10nScript.js:140
 msgid "Unmount request failed with error {status}, \"{statusText}\"."
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:628
-#: /app/specialVueFakeDummyForL10nScript.js:134
-msgid "Archive-extraction failed with error {status}, \"{statusText}\"."
+#. TRANSLATORS /FilesTab.vue:698
+#: /app/specialVueFakeDummyForL10nScript.js:142
+msgid "Archive extraction failed with error {status}, \"{statusText}\"."
 msgstr ""
 
-#. TRANSLATORS /FilesTab.vue:665
-#: /app/specialVueFakeDummyForL10nScript.js:136
+#. TRANSLATORS /FilesTab.vue:735
+#: /app/specialVueFakeDummyForL10nScript.js:144
 msgid "Patching the passphrase failed with error {status}, \"{statusText}\"."
 msgstr ""
 
@@ -525,16 +595,16 @@ msgstr ""
 msgid "Mount Archive"
 msgstr ""
 
-#: /app/src/files-action.js:88
-msgid "Unable to obtain mount-status for archive file \"{archivePath}\"."
+#: /app/src/files-action.js:90
+msgid "Unable to obtain mount status for archive file \"{archivePath}\"."
 msgstr ""
 
-#: /app/src/files-action.js:96
+#: /app/src/files-action.js:98
 msgid ""
 "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"."
 msgstr ""
 
-#: /app/src/files-action.js:128
+#: /app/src/files-action.js:132
 msgid "Archive"
 msgstr ""
 
@@ -895,8 +965,9 @@ msgstr ""
 
 #: /app/src/toolkit/util/ajax.js:264
 msgid ""
-"I any case it may help to logoff and logon again, as a temporary work-"
-"around. You will be redirected to the log-in page when you close this window."
+"In any case it may help to logoff and logon again, as a temporary "
+"workaround. You will be redirected to the login page when you close this "
+"window."
 msgstr ""
 
 #: /app/src/toolkit/util/ajax.js:314

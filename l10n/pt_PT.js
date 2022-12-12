@@ -6,7 +6,6 @@ OC.L10N.register(
     "Unable to open the archive file \"%s\": %s." : "Não foi possível abrir o arquivo armazenado \"%s\": %s.",
     "Error: %s" : "Erro: %s",
     "Unable to open the archive file \"%s\"." : "Não foi possível abrir o arquivo armazenado \"%s\".",
-    "The target-folder \"%s\" already exists and auto-rename is not enabled." : "A pasta alvo \"%s\" já existe e a renomeação automática não está ativada.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "Impossível extrair \"%1$s\" para \"%2$s\": \"%3$s\".",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Extração \"%1$s\" para \"%2$s\" bem-sucedida.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" já está montado em \"%2$s\".",

@@ -45,7 +45,6 @@ OC.L10N.register(
     "System Administrator" : "Systémový Administrátor",
     "Feedback email: {AutoReport}" : "E-mail pre spätnú väzbu: {AutoReport}",
     "Something went wrong." : "Niečo sa pokazilo",
-    "I any case it may help to logoff and logon again, as a temporary work-around. You will be redirected to the log-in page when you close this window." : "V každom prípade môže pomôcť odhlásenie a opätovné prihlásenie ako dočasné riešenie. Po zatvorení tohto okna budete presmerovaní na prihlasovaciu stránku.",
     "Internal Error" : "Interná chyba",
     "Missing data" : "Chýbajúce údaje",
     "Unknown JSON error response to AJAX call: {status} / {error}" : "Neznáma chybová odpoveď JSON pre volanie AJAX: {status} / {error}",
