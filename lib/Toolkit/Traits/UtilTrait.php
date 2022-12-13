@@ -405,9 +405,11 @@ trait UtilTrait
     array $templateValues,
     ?array $l10nTemplateKeys = null,
   ):string {
-    $keys = array_merge(array_keys($templateValues), array_values($l10nTemplateKeys));
+
+    $keys = array_keys($templateValues);
     $keys = array_combine($keys, $keys);
-    $l10nKeys = array_merge($keys, $l10nTemplateKeys ?? $keys);
+    $l10nKeys = array_merge($keys, array_flip($l10nTemplateKeys) ?? $keys);
+
     return preg_replace_callback(
       '/{((.)([0-9]*)\|)?([^{}@|]+)(\|([0-9]+)([^{}])?)?(\@([^{}]+))?}/',
       function(array $matches) use ($keys, $l10nKeys, $templateValues) {
@@ -458,6 +460,44 @@ trait UtilTrait
       },
       $template,
     );
+  }
+
+  /**
+   * Translate the braced placeholders contained in the given $template to the
+   * array values supplied by the $l10nTemplateKeys, that is, the keys of
+   * $l10nTemplateKeys matching the braced placeholders contained in $template
+   * will be replaced by their respective array value.
+   *
+   * @param string $template
+   *
+   * @param null|array $l10nTemplateKeys If null, no replacement is performed
+   * and the $template argument is return unchanged.
+   *
+   * @return string
+   */
+  protected function translateBracedTemplate(string $template, ?array $l10nTemplateKeys):string
+  {
+    $patterns = array_map(fn($key) => '/{(.*)' . $key . '(.*)}/', array_keys($l10nTemplateKeys));
+    $replacements = array_map(fn($value) => '{${1}' . $value . '${2}}', array_values($l10nTemplateKeys));
+    return preg_replace($patterns, $replacements, $template);
+  }
+
+  /**
+   * Translate the braced placeholders contained in the given $template to the
+   * array keys supplied by the $l10nTemplateKeys, that is, the array values
+   * of $l10nTemplateKeys matching the braced placeholders contained in
+   * $template will be replaced by their respective array key.
+   *
+   * @param string $template
+   *
+   * @param null|array $l10nTemplateKeys If null, no replacement is performed
+   * and the $template argument is return unchanged.
+   *
+   * @return string
+   */
+  protected function untranslateBracedTemplate(string $template, ?array $l10nTemplateKeys):string
+  {
+    return $this->translateBracedTemplate($template, array_flip($l10nTemplateKeys));
   }
 
   /**
