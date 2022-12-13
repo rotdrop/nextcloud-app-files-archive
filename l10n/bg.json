@@ -1,4 +1,5 @@
 { "translations": {
+    "File or folder could not be found." : "Файлът или папката не могат да бъдат намерени.",
     "The user folder for user \"%s\" could not be opened." : "Потребителската папка за потребител \"%s\" не може да бъде отворена.",
     "The archive file \"%s\" could not be found on the server." : "Архивният файл \"%s\" не може да бъде намерен на сървъра.",
     "Unable to open the archive file \"%s\": %s." : "Не е възможно да се отвори архивният файл  \"%s\": %s.",
@@ -28,6 +29,7 @@
     "Unknown personal setting: \"%s\"." : "Неизвестна лична настройка: \"%s\".",
     "Unable to parse memory size limit \"%s\"" : "Не е възможен анализ на ограничението на размера на паметта \"%s\"",
     "Archive Manager" : "Мениджър на архив",
+    "Unsupported subject: \"%s\"." : "Неподдържан субект/тема/: \"%s\".",
     "Archive Explorer" : " Преглед на архиви",
     "Unable to open archive file %s (%s)" : "Не е възможно да се отвори архивният файл %s (%s)",
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Некомпресираният размер на архива \"%1$s\" е твърде голям: %2$s > %3$s",

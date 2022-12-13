@@ -1,4 +1,5 @@
 { "translations": {
+    "File or folder could not be found." : "No fue posible encontrar el archivo o la carpeta.",
     "The user folder for user \"%s\" could not be opened." : "La carpeta de usuario para el usuario \"%s\" no pudo abrirse.",
     "The archive file \"%s\" could not be found on the server." : "El archivo de contenedor \"%s\" no se ha encontrado en el servidor.",
     "Unable to open the archive file \"%s\": %s." : "No fue posible abrir el archivo de contenedor \"%s\": %s.",
@@ -194,6 +195,7 @@
     "Yes" : "Sí",
     "Debug Information" : "Información de depuración",
     "unknown error" : "error desconocido",
-    "Unable to download data from \"{url}\": {message}" : "No fue posible descargar datos desde \"{url}\": {message}"
+    "Unable to download data from \"{url}\": {message}" : "No fue posible descargar datos desde \"{url}\": {message}",
+    "The quick brown fox jumps over the lazy dog." : "El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el saxofón detrás del palenque de paja."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Soubor nebo složku se nedaří nalézt.",
     "The user folder for user \"%s\" could not be opened." : "Domovskou složku uživatele „%s“ se nepodařilo otevřít.",
     "The archive file \"%s\" could not be found on the server." : "Soubor s archivem „%s“ nebyl na serveru nalezen.",
     "Unable to open the archive file \"%s\": %s." : "Nedaří se otevřít soubor s archivem „%s: %s.",
@@ -30,6 +31,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Neznámo osobní nastavení: „%s“.",
     "Unable to parse memory size limit \"%s\"" : "Nedaří se zpracovat limit velikosti paměti „%s“",
     "Archive Manager" : "Správa archivů",
+    "Unsupported subject: \"%s\"." : "Nepodporovaný předmět: „%s.",
     "Archive Explorer" : "Průzkumník archivu",
     "Unable to open archive file %s (%s)" : "Nedaří se otevřít soubor s archivem %s (%s)",
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Velikost archivu po rozbalení „%1$s“ je přílišná: %2$s > %3$s",

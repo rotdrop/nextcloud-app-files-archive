@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-12 03:21+0000\n"
+"POT-Creation-Date: 2022-12-13 03:35+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Markus Eckstein, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -1074,3 +1074,9 @@ msgstr "unbekannter Fehler"
 #: /app/src/toolkit/util/file-download.js:53
 msgid "Unable to download data from \"{url}\": {message}"
 msgstr "Kann die Daten nicht von \"{url}\" laden: {message}"
+
+#. TRANSLATORS: This should be a pangram (see
+#. https://en.wikipedia.org/wiki/Pangram) in the target language.
+#: /app/src/toolkit/util/pangram.js:23
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr ""
