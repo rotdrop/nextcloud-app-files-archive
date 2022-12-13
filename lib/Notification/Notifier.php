@@ -146,7 +146,7 @@ class Notifier implements INotifier
           if ($subjectType & self::TYPE_MOUNT) {
             $subjectTemplate = $l->t('Mounting {source} at {destination} has failed: {message}');
           } else {
-            $subjectTemplate = $l->t('Extacting {source} to {destination} bas failed: {message}');
+            $subjectTemplate = $l->t('Extracting {source} to {destination} has failed: {message}');
           }
           $subjectSubstitutions['message'] = [
             'type' => 'highlight',
