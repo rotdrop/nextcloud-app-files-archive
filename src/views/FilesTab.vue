@@ -167,7 +167,7 @@
         <div v-else>
           <FilePrefixPicker v-model="archiveMountFileInfo"
                             :hint="t(appName, 'Not mounted, create a new mount point:')"
-                            :placeholder="t(appName, 'basename')"
+                            :placeholder="t(appName, 'base name')"
                             @update="mount"
           />
           <div class="flex flex-center">
