@@ -20,7 +20,8 @@
 import { appName } from '../../config.js';
 
 // TRANSLATORS: This should be a pangram in the target language, please have a look at
-// TRANSLATORS: https://en.wikipedia.org/wiki/Pangramwhere you can also find examples for some languages.
+// TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
+// TRANSLATORS: also find examples for some languages.
 const pangram = t(appName, 'The quick brown fox jumps over the lazy dog.');
 
 export default pangram;
