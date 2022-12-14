@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-13 03:35+0000\n"
+"POT-Creation-Date: 2022-12-14 03:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,7 +224,7 @@ msgid "Mounting {source} at {destination} has failed: {message}"
 msgstr ""
 
 #: /app/lib/Notification/Notifier.php:149
-msgid "Extacting {source} to {destination} bas failed: {message}"
+msgid "Extracting {source} to {destination} has failed: {message}"
 msgstr ""
 
 #: /app/lib/Notification/Notifier.php:158
@@ -283,13 +283,13 @@ msgstr ""
 msgid "bytes"
 msgstr ""
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:474
-#: /app/lib/Toolkit/Traits/UtilTrait.php:487
+#: /app/lib/Toolkit/Traits/UtilTrait.php:514
+#: /app/lib/Toolkit/Traits/UtilTrait.php:527
 #, php-format
 msgid "The supplied color-string \"%s\" seems to be invalid."
 msgstr ""
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:508
+#: /app/lib/Toolkit/Traits/UtilTrait.php:548
 msgid "The input color values are invalid."
 msgstr ""
 
@@ -530,8 +530,7 @@ msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:170
 #: /app/specialVueFakeDummyForL10nScript.js:96
-#: /app/specialVueFakeDummyForL10nScript.js:108
-msgid "basename"
+msgid "base name"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:186
@@ -554,6 +553,11 @@ msgstr ""
 #. TRANSLATORS /FilesTab.vue:215
 #: /app/specialVueFakeDummyForL10nScript.js:106
 msgid "Choose a directory to extract the archive to:"
+msgstr ""
+
+#. TRANSLATORS /FilesTab.vue:216
+#: /app/specialVueFakeDummyForL10nScript.js:108
+msgid "basename"
 msgstr ""
 
 #. TRANSLATORS /FilesTab.vue:398
@@ -1034,7 +1038,8 @@ msgstr ""
 msgid "Unable to download data from \"{url}\": {message}"
 msgstr ""
 
-#. TRANSLATORS: This should be a pangram (see https://en.wikipedia.org/wiki/Pangram) in the target language.
-#: /app/src/toolkit/util/pangram.js:23
+#. TRANSLATORS: This should be a pangram in the target language, please have a look at
+#. TRANSLATORS: https://en.wikipedia.org/wiki/Pangramwhere you can also find examples for some languages.
+#: /app/src/toolkit/util/pangram.js:24
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr ""

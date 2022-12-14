@@ -81,10 +81,10 @@ OC.L10N.register(
     "not mounted" : "не е монтиран",
     "Common prefix {prefix} is stripped." : "Общият префикс {prefix} е премахнат.",
     "Not mounted, create a new mount point:" : "Не е монтиран, създаване на нова точка за монтиране:",
-    "basename" : "базово име /basename/",
     "strip common path prefix" : "премахване на общия префикс на пътя",
     "Extract Archive" : "Извличане на архив",
     "Choose a directory to extract the archive to:" : "Изберете директория, в която да се извлече архива:",
+    "basename" : "базово име /basename/",
     "ok" : "ok",
     "zip bomb" : "zip бомба",
     "too large" : "твърде голям",
@@ -195,6 +195,7 @@ OC.L10N.register(
     "Yes" : "Да",
     "Debug Information" : "Информация за отстраняване на грешки",
     "unknown error" : "неизвестна грешка",
-    "Unable to download data from \"{url}\": {message}" : "Невъзможно е да се изтеглят данни от \"{url}\": {message}"
+    "Unable to download data from \"{url}\": {message}" : "Невъзможно е да се изтеглят данни от \"{url}\": {message}",
+    "The quick brown fox jumps over the lazy dog." : "The quick brown fox jumps over the lazy dog. /изречение -  панграма, което съдържа всички букви от английската азбука/"
 },
 "nplurals=2; plural=(n != 1);");

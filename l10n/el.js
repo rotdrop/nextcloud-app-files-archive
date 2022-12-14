@@ -9,6 +9,7 @@ OC.L10N.register(
     "Archive Manager" : "Διαχειριστής Αρχείων",
     "Archive Explorer" : "Εξερεύνηση Αρχείων",
     "bytes" : "bytes",
+    "Template for the default name of the extraction folder" : "Πρότυπο για το προεπιλεγμένο όνομα του φακέλου εξαγωγής",
     "unknown" : "άγνωστο",
     "MIME type" : "Τύπος MIME",
     "Extract Archive" : "Εξαγωγή Αρχείων",
