@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-14 03:24+0000\n"
+"POT-Creation-Date: 2022-12-15 03:21+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Claus-Justus Heine, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: /app/lib/BackgroundJob/ArchiveJob.php:274
 msgid "File or folder could not be found."
-msgstr ""
+msgstr "Datei oder Ordner konnte nicht gefunden werden."
 
 #: /app/lib/Controller/ArchiveController.php:146
 #: /app/lib/Controller/MountController.php:164
@@ -104,17 +104,17 @@ msgstr ""
 #: /app/lib/Controller/CatchAllController.php:70
 #, php-format
 msgid "Post to endpoint \"%s\" not implemented."
-msgstr ""
+msgstr "POST-Anfragen an \"%s\" sind nicht implementiert."
 
 #: /app/lib/Controller/CatchAllController.php:73
 #, php-format
 msgid "Post to base URL of app \"%s\" not allowed."
-msgstr ""
+msgstr "POST-Anfragen an die Basis-Adresse der App \"%s\" sind nicht erlaubt."
 
 #: /app/lib/Controller/CatchAllController.php:90
 #, php-format
 msgid "Get from endpoint \"%s\" not implemented."
-msgstr ""
+msgstr "GET-Anfragen an \"%s\" sind nicht implementiert."
 
 #: /app/lib/Controller/MountController.php:170
 #, php-format
@@ -250,7 +250,7 @@ msgstr ""
 #: /app/lib/Notification/Notifier.php:165
 #, php-format
 msgid "Unsupported subject: \"%s\"."
-msgstr ""
+msgstr "Nicht unterstützter Betreff: \"%s\"."
 
 #: /app/lib/Settings/AdminSection.php:72
 #: /app/lib/Settings/PersonalSection.php:72
@@ -1081,8 +1081,8 @@ msgstr "Kann die Daten nicht von \"{url}\" laden: {message}"
 
 #. TRANSLATORS: This should be a pangram in the target language, please have a
 #. look at
-#. TRANSLATORS: https://en.wikipedia.org/wiki/Pangramwhere you can also find
-#. examples for some languages.
-#: /app/src/toolkit/util/pangram.js:24
+#. TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
+#. TRANSLATORS: also find examples for some languages.
+#: /app/src/toolkit/util/pangram.js:25
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Falsches Üben von Xylophonmusik quält jeden größeren Zwerg."

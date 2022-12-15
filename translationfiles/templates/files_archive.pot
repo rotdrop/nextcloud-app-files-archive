@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-14 03:24+0000\n"
+"POT-Creation-Date: 2022-12-15 03:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1039,7 +1039,8 @@ msgid "Unable to download data from \"{url}\": {message}"
 msgstr ""
 
 #. TRANSLATORS: This should be a pangram in the target language, please have a look at
-#. TRANSLATORS: https://en.wikipedia.org/wiki/Pangramwhere you can also find examples for some languages.
-#: /app/src/toolkit/util/pangram.js:24
+#. TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
+#. TRANSLATORS: also find examples for some languages.
+#: /app/src/toolkit/util/pangram.js:25
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr ""

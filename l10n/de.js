@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Datei oder Ordner konnte nicht gefunden werden.",
     "The user folder for user \"%s\" could not be opened." : "Das Wurzel-Verzeichnis für \"%s\" konnte nicht geöffnet werden.",
     "The archive file \"%s\" could not be found on the server." : "Die Archiv-Datei \"%s\" konnte auf dem Server nicht gefunden werden.",
     "Unable to open the archive file \"%s\": %s." : "Kann die Archiv-Datei \"%s\" nicht öffnen: %s.",
@@ -8,6 +9,9 @@ OC.L10N.register(
     "Unable to open the archive file \"%s\"." : "Kann die Archiv-Datei \"%s\" nicht öffnen.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "Kann \"%1$s\" nicht an der Stelle \"%2$s\" entpacken: \"%3s\".",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Das Entpacken von \"%1$s\" an der Stelle \"%2$s\" war erfolgreich.",
+    "Post to endpoint \"%s\" not implemented." : "POST-Anfragen an \"%s\" sind nicht implementiert.",
+    "Post to base URL of app \"%s\" not allowed." : "POST-Anfragen an die Basis-Adresse der App \"%s\" sind nicht erlaubt.",
+    "Get from endpoint \"%s\" not implemented." : "GET-Anfragen an \"%s\" sind nicht implementiert.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" ist bereits an der Stelle \"%2$s\" eingehängt.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Der Einhänge-Punkt \"%s\" existiert bereits und automatische Konfliktauflösung ist nicht aktiviert.",
     "\"%s\" is not mounted." : "\"%s\" ist nicht eingehängt.",
@@ -20,6 +24,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Unbekannte perönliche Einstellung: \"%1$s\"",
     "Unable to parse memory size limit \"%s\"" : "Kann das Speicher-Limit nicht interpretieren: \"%s\"",
     "Archive Manager" : "Archiv-Betrachter",
+    "Unsupported subject: \"%s\"." : "Nicht unterstützter Betreff: \"%s\".",
     "Archive Explorer" : "Archiv-Betrachter",
     "Unable to open archive file %s (%s)" : "Kann die Archive Datei %s (%s) nicht öffnen",
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s",
