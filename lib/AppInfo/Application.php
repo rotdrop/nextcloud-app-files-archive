@@ -32,7 +32,6 @@ use OCP\Files\Config\IMountProviderCollection;
 use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
-use OCA\FilesArchive\Exceptions;
 
 use OCA\RotDrop\Toolkit\Service\MimeTypeService;
 
