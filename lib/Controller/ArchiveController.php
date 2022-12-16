@@ -39,9 +39,9 @@ use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\Lock\ILockingProvider;
 use OCP\IL10N;
 
-use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
+use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Constants;
 
@@ -231,7 +231,7 @@ class ArchiveController extends Controller
         ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix,
 
       ]);
-    } catch (Exceptions\ArchiveTooLargeException $e) {
+    } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();
       if ($uncompressedSize > $this->archiveBombLimit) {
         return self::grumble($this->l->t('The archive file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [

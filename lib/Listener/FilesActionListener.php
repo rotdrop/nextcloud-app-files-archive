@@ -33,9 +33,9 @@ use OCP\IConfig as CloudConfig;
 
 use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
 
-use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\RotDrop\Toolkit\Service\MimeTypeService;
 
+use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Controller\SettingsController;
 use OCA\FilesArchive\Constants;
 

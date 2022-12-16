@@ -42,9 +42,9 @@ use OCP\IConfig;
 use OCP\AppFramework\IAppContainer;
 use OCP\Lock\ILockingProvider as Locks;
 
-use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
+use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Controller\SettingsController;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;

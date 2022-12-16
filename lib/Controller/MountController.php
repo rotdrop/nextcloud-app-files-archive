@@ -43,9 +43,9 @@ use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
-use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
+use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Db\ArchiveMount;

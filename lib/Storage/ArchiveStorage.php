@@ -38,9 +38,9 @@ use OCP\AppFramework\IAppContainer;
 use OCP\Files\FileInfo;
 use OCP\Files\File;
 
-use OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
+use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 
 // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
