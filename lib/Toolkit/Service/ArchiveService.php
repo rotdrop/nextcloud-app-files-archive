@@ -156,7 +156,7 @@ class ArchiveService
   // phpcs:enable
 
   /**
-   * Set the locatlization to use. This cannot be done by dependency injection
+   * Set the localization to use. This cannot be done by dependency injection
    * here.
    *
    * @param IL10N $l10n
