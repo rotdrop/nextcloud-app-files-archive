@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Fichier ou dossier introuvable.",
     "The user folder for user \"%s\" could not be opened." : "Le dossier de l'utilisateur pour \"%s\" n'a pas pu être ouvert.",
     "The archive file \"%s\" could not be found on the server." : "Le fichier d'archive \"%s\" n'a pas pu être trouvé sur le serveur.",
     "Unable to open the archive file \"%s\": %s." : "Impossible d'ouvrir le fichier d'archive \"%s\": %s.",
