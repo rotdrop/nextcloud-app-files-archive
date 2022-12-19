@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Ezin izan da fitxategia edo karpeta aurkitu.",
     "The user folder for user \"%s\" could not be opened." : "Ezin izan da \"%s\" erabiltzailearen karpeta ireki.",
     "The archive file \"%s\" could not be found on the server." : "Ezin izan da \"%s\" artxibo-fitxategia aurkitu zerbitzarian.",
     "Unable to open the archive file \"%s\": %s." : "Ezin da \"%s\" artxibo-fitxategia ireki: %s.",
@@ -24,11 +25,13 @@ OC.L10N.register(
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "\"%1$s\" balioa \"%2$s\" ezarpenerako ezin da balio boolearrera aldatu.",
     "Unknown personal setting: \"%s\"." : "Ezarpen pertsonal ezezaguna: \"%s\".",
     "Unable to parse memory size limit \"%s\"" : "Ezin izan da memoriaren tamainaren muga analizatu \"%s\"",
+    "Unsupported subject: \"%s\"." : "Euskarririk gabeko gaia: \"%s\".",
     "Unable to open archive file %s (%s)" : "Ezin izan da artxibo fitxategia ireki %s (%s)",
     "There is no archive file associated with this archiver instance." : "Ez dago artxibo-fitxategirik lotutako artxibo-instantzia honekin.",
     "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
     "bytes" : "byte",
+    "The input color values are invalid." : "Sartutako kolorearen balioak baliogabeak dira.",
     "Archive Extraction" : "Artxiboen erauzketa",
     "Archive Size Limit" : "Artiboaren tamaina-muga",
     "unknown" : "ezezaguna",
@@ -96,11 +99,13 @@ OC.L10N.register(
     "Gateway Timeout" : "Atebidearen itxarote-denbora ahituta",
     "HTTP Version Not Supported" : "HTTP bertsioa ez da onartzen",
     "Insufficient Storage (WebDAV)" : "Ez dago biltegi nahikorik (WebDAV)",
+    "Loop Detected (WebDAV)" : "Begizta detektatuta (WebDAV)",
     "Bandwidth Limit Exceeded (Apache)" : "Banda-zabalera muga gaindituta (Apache)",
     "Not Extended" : "Hedatu gabe",
     "Network Authentication Required" : "Sare-autentifikazioa beharrezkoa",
     "Network read timeout error" : "Sare irakurtze denbora-muga errorea",
     "Network connect timeout error" : "Sare konektatze denbora-muga errorea",
+    "Operation cancelled by user." : "Erabiltzaileak eragiketa bertan behera utzi du.",
     "Aborted" : "Bertan behera utzita",
     "Error" : "Errorea",
     "System Administrator" : "Sistemaren administratzailea",
@@ -111,6 +116,7 @@ OC.L10N.register(
     "Error: not a plain object" : "Errorea: ez da elementu arrunta",
     "No" : "Ez",
     "Yes" : "Bai",
-    "unknown error" : "errore ezezaguna"
+    "unknown error" : "errore ezezaguna",
+    "The quick brown fox jumps over the lazy dog." : "Eva eta Iñaxio quadez joan ziren flyscheko campingeko bungalowera."
 },
 "nplurals=2; plural=(n != 1);");
