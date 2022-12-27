@@ -29,6 +29,7 @@ use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IUserSession;
 use OCP\IGroupManager;
+use OCP\IL10N;
 use OCP\IConfig as CloudConfig;
 
 use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
