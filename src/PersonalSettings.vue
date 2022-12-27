@@ -183,12 +183,21 @@ export default {
 .settings-section {
   :deep(.settings-section__title) {
     padding-left:60px;
-    background-image:url('../img/app-dark.svg');
-    background-repeat:no-repeat;
-    background-origin:border-box;
-    background-size:32px;
-    background-position:left center;
     height:32px;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background-size:32px;
+      background-image:url('../img/app-dark.svg');
+      background-repeat:no-repeat;
+      background-origin:border-box;
+      background-position:left center;
+    }
   }
   .app-settings-section {
     .settings-option {
@@ -220,5 +229,10 @@ export default {
       }
     }
   }
+}
+</style>
+<style lang="scss">
+body[data-themes*="dark"] .settings-section__title::before {
+  filter: Invert(); // avoid conflict with sass lower case invert()
 }
 </style>
