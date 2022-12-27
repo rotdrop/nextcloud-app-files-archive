@@ -100,7 +100,7 @@ trait AssetTrait
   protected function getAsset(string $type, string $baseName):array
   {
     if (empty($this->assets[$type][$baseName])) {
-      throw new Exceptions\EndUserNotificationException($this->l->t(
+      throw new Exceptions\EnduserNotificationException($this->l->t(
         'Installation problem; the required resource "%1$s" of type "%2$s" is not installed on the server, please contact the system administrator!', [
           $baseName,
           $type,
