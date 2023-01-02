@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Datoteke ali mape ni mogoče najti.",
     "bytes" : "bajtov",
     "unknown" : "neznano",
     "MIME type" : "Vrsta MIME",
