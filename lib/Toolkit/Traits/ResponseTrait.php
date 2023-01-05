@@ -35,7 +35,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
  */
 trait ResponseTrait
 {
-  use UtilTrait;
+  use UtilTrait; // transliterate()
 
   /**
    * @param string $data Data-blob.
