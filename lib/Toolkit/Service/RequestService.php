@@ -31,7 +31,7 @@ use OCP\ISession;
 use Psr\Log\LoggerInterface;
 use OCP\IL10N;
 
-use OCA\CAFeVDBMembers\Exceptions;
+use OCA\RotDrop\Toolkit\Exceptions;
 
 /** Post to local routes on the same server. */
 class RequestService
@@ -92,8 +92,6 @@ class RequestService
    * @param IL10N $l10n
    *
    * @return RequestService $this.
-   *
-   * @todo Maybe generate a dummy support app instead.
    */
   public function setL10N(IL10N $l10n):RequestService
   {
@@ -166,9 +164,56 @@ class RequestService
   }
 
   /**
+   * GET from an URL.
+   *
+   * @param string $url The URL. Will be made absolute if not starting with a
+   * literal 'http'.
+   *
+   * @param array $requestData Stuff passed by the GET method.
+   *
+   * @return array
+   *
+   * @throws Exceptions\SessionStillOpenException
+   */
+  public function getFromURL(
+    string $url,
+    array $requestData = [],
+  ):array {
+    if (!str_starts_with($url, 'http')) {
+      $url = $this->urlGenerator->getAbsoluteURL($url);
+    }
+    return $this->callInternalRoute($url, self::GET, [], $requestData);
+  }
+
+  /**
+   * POST to an URL.
+   *
+   * @param string $url The URL. Will be made absolute if not starting with a
+   * literal 'http'.
+   *
+   * @param array $requestData Stuff passed by the POST method.
+   *
+   * @return array
+   *
+   * @throws Exceptions\SessionStillOpenException
+   */
+  public function postToURL(
+    string $url,
+    array $requestData = [],
+  ):array {
+    if (!str_starts_with($url, 'http')) {
+      $url = $this->urlGenerator->getAbsoluteURL($url);
+    }
+    return $this->callInternalRoute($url, self::POST, [], $requestData);
+  }
+
+  /**
    * Send to to a Cloud route.
    *
-   * @param string $route Route name (i.e.: not the URL).
+   * @param string $route Route name or URL. If $route starts with a literal
+   * 'http' then it will be used as is. The $routeParams are ignored in this
+   * case and the $requestParams are appended to the URL for GET and posted to
+   * the URL for POST requests.
    *
    * @param string $method
    *
@@ -239,7 +284,13 @@ class RequestService
       }
     }
 
-    $url = $this->urlGenerator->linkToRouteAbsolute($route, array_merge($routeParams, $urlParameters));
+    if (str_starts_with($route, 'http')) {
+      unset($urlParameters['format']);
+      $appendSep = strrchr($url, '?') === false ? '?' : '&';
+      $url = $route . $appendSep . http_build_query($urlParameters, '', '&');
+    } else {
+      $url = $this->urlGenerator->linkToRouteAbsolute($route, array_merge($routeParams, $urlParameters));
+    }
 
     $cookies = array();
     foreach ($this->request->cookies as $name => $value) {
