@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -33,9 +33,6 @@ use OCP\IL10N;
 class CatchAllController extends Controller
 {
   use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
-
-  /** @var IL10N */
-  private $l;
 
   /**
    * @param string $appName
