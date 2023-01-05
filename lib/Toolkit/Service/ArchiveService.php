@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -156,8 +156,7 @@ class ArchiveService
   // phpcs:enable
 
   /**
-   * Set the localization to use. This cannot be done by dependency injection
-   * here.
+   * Set the localization to use.
    *
    * @param IL10N $l10n
    *
