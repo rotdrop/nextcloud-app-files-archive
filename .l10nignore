@@ -3,3 +3,4 @@ build/
 doc/
 js/
 lib/Toolkit/Service/RequestService.php
+lib/Toolkit/Service/GroupFoldersService.php
