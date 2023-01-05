@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -57,9 +57,9 @@ use OCA\FilesArchive\Constants;
  */
 class MountController extends Controller
 {
+  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
   use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
   use TargetPathTrait;
 
   /** @var string */

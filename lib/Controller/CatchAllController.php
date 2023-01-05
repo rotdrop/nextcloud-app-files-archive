@@ -32,6 +32,7 @@ use OCP\IL10N;
  */
 class CatchAllController extends Controller
 {
+  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
   use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
 
   /**
@@ -50,13 +51,14 @@ class CatchAllController extends Controller
     $this->l = $l10n;
   }
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.MissingParamTag
+  // phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag
   /**
-   * @SuppressWarnings(PHPMD.ShortVariable)
+   * @return Response
+   *
    * @NoAdminRequired
    * @NoCSRFRequired
    *
-   * @return Response
+   * @SuppressWarnings(PHPMD.ShortVariable)
    */
   public function post($a, $b, $c, $d, $e, $f, $g):Response
   {
@@ -70,14 +72,16 @@ class CatchAllController extends Controller
         $this->l->t('Post to base URL of app "%s" not allowed.', $this->appName()));
     }
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.MissingParamTag
 
-  // phpcs:ignore PEAR.Commenting.FunctionComment.MissingParamTag
+  // phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag
   /**
-   * @SuppressWarnings(PHPMD.ShortVariable)
+   * @return Response
+   *
    * @NoAdminRequired
    * @NoCSRFRequired
    *
-   * @return Response
+   * @SuppressWarnings(PHPMD.ShortVariable)
    */
   public function get($a, $b, $c, $d, $e, $f, $g):Response
   {
@@ -86,4 +90,5 @@ class CatchAllController extends Controller
     return self::grumble(
       $this->l->t('Get from endpoint "%s" not implemented.', $request));
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.MissingParamTag
 }
