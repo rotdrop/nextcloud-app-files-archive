@@ -111,7 +111,7 @@ trait LoggerTrait
       $prefix .= $file.':'.$line.': '.$class.'::'.$method.'(): ';
     } while ($showTrace && --$shift > 0);
 
-    $this->logger->log($level, $prefix.$message, $context);
+    $this->logger()->log($level, $prefix.$message, $context);
   }
 
   /**
@@ -146,7 +146,7 @@ trait LoggerTrait
     $prefix = $file.':'.$line.': '.$class.'::'.$method.': ';
 
     empty($message) && ($message = "Caught an Exception");
-    $this->logger->log($level, $prefix . $message, [ 'exception' => $exception ]);
+    $this->logger()->log($level, $prefix . $message, [ 'exception' => $exception ]);
   }
 
   /**

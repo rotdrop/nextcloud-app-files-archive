@@ -149,13 +149,22 @@ trait ResponseTrait
    * @return DataResponse
    *
    * @see dataResponse()
+   *
+   * @todo Remove message/messages duplication.
    */
   private static function valueResponse(
     mixed $value,
     ?string $message = '',
     int $status = Http::STATUS_OK,
   ):DataResponse {
-    return self::dataResponse(['messages' => [ $message ], 'value' => $value], $status);
+    return self::dataResponse(
+      [
+        'messages' => [ $message ],
+        'message' => $message,
+        'value' => $value,
+      ],
+      $status
+    );
   }
 
   /**
@@ -169,11 +178,17 @@ trait ResponseTrait
    */
   private static function response(?string $message, int $status = Http::STATUS_OK):DataResponse
   {
-    return self::dataResponse(['messages' => [ $message ] ], $status);
+    return self::dataResponse(
+      [
+        'messages' => [ $message ],
+        'message' => $message,
+      ],
+      $status
+    );
   }
 
   /**
-   * @param null|string $message
+   * @param null|string|array $message
    *
    * @param mixed $value
    *
@@ -182,9 +197,11 @@ trait ResponseTrait
    * @return DataResponse
    *
    * @see dataResponse()
+   *
+   * @todo Remove message/messages duplication.
    */
   private static function grumble(
-    ?string $message,
+    mixed $message,
     mixed $value = null,
     int $status = Http::STATUS_BAD_REQUEST,
   ):DataResponse {
@@ -200,7 +217,29 @@ trait ResponseTrait
       $data = array_merge($data, $message);
     } else {
       $data['messages'] = [ $message ];
+      $data['message'] = $message;
     }
     return self::dataResponse($data, $status);
+  }
+
+  /**
+   * @param DataResponse $response
+   *
+   * @return array
+   *
+   * @todo Remove message/messages duplication.
+   */
+  private static function getResponseMessages(DataResponse $response):array
+  {
+    $messages = [];
+    $data = $response->getData();
+    foreach (['message', 'messages'] as $key) {
+      $messageData = $data[$key] ?? [];
+      if (!is_array($messageData)) {
+        $messageData = [ $messageData ];
+      }
+      $messages = array_merge($messages, $messageData);
+    }
+    return $messages;
   }
 }
