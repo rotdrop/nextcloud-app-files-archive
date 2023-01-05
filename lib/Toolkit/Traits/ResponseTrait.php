@@ -32,11 +32,14 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 /**
  * Utility class to ease constructing HTTP responses.
+ *
+ * The consuming class has to define a translitate() method compatible to the
+ * one defined in the UtilTrait.
+ *
+ * @see UtilTrait::transliterate()
  */
 trait ResponseTrait
 {
-  use UtilTrait; // transliterate()
-
   /**
    * @param string $data Data-blob.
    *
