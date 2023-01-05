@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -50,7 +50,7 @@ const info = function(text, title, callback, modal, allowHtml) {
 const confirm = function(text, title, options, modal, allowHtml) {
   const defaultOptions = {
     callback() {},
-    model: false,
+    modal: false,
     allowHtml: false,
     default: 'confirm',
   };
@@ -81,7 +81,7 @@ const confirm = function(text, title, options, modal, allowHtml) {
     'notice',
     buttons,
     options.callback,
-    options.model,
+    options.modal,
     options.allowHtml
   );
 };
