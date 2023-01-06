@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-01-05 03:26+0000\n"
+"POT-Creation-Date: 2023-01-06 03:26+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Markus Eckstein, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -107,17 +107,17 @@ msgstr "Hintergrundbereitstellungsjob für Archivierung erfolgreich geplant."
 msgid "Archive background extraction job scheduled successfully."
 msgstr "Hintergrundextraktionsjob für das Archiv erfolgreich geplant."
 
-#: /app/lib/Controller/CatchAllController.php:70
+#: /app/lib/Controller/CatchAllController.php:69
 #, php-format
 msgid "Post to endpoint \"%s\" not implemented."
 msgstr "POST-Anfragen an \"%s\" sind nicht implementiert."
 
-#: /app/lib/Controller/CatchAllController.php:73
+#: /app/lib/Controller/CatchAllController.php:72
 #, php-format
 msgid "Post to base URL of app \"%s\" not allowed."
 msgstr "POST-Anfragen an die Basis-Adresse der App \"%s\" sind nicht erlaubt."
 
-#: /app/lib/Controller/CatchAllController.php:90
+#: /app/lib/Controller/CatchAllController.php:91
 #, php-format
 msgid "Get from endpoint \"%s\" not implemented."
 msgstr "GET-Anfragen an \"%s\" sind nicht implementiert."
@@ -169,39 +169,39 @@ msgstr ""
 "Ausschließlich das Verschlüsselungspasswort kann für einen aktiven "
 "Einhängepunkt geändert werden."
 
-#: /app/lib/Controller/SettingsController.php:149
-#: /app/lib/Controller/SettingsController.php:168
-#: /app/lib/Controller/SettingsController.php:207
-#: /app/lib/Controller/SettingsController.php:228
+#: /app/lib/Controller/SettingsController.php:146
+#: /app/lib/Controller/SettingsController.php:165
+#: /app/lib/Controller/SettingsController.php:204
+#: /app/lib/Controller/SettingsController.php:225
 #, php-format
 msgid "Unknown admin setting: \"%1$s\""
 msgstr "Unbekannte Administrator-Einstellung: \"%1$s\""
 
-#: /app/lib/Controller/SettingsController.php:152
+#: /app/lib/Controller/SettingsController.php:149
 #, php-format
 msgid "The admin setting \"%1$s\" is read-only"
 msgstr "Die Verwaltungs-Einstellungen \"%1$s\" kann nur gelesen werden."
 
-#: /app/lib/Controller/SettingsController.php:258
-#: /app/lib/Controller/SettingsController.php:356
-#: /app/lib/Controller/SettingsController.php:397
+#: /app/lib/Controller/SettingsController.php:255
+#: /app/lib/Controller/SettingsController.php:353
+#: /app/lib/Controller/SettingsController.php:394
 #, php-format
 msgid "Unknown personal setting: \"%1$s\""
 msgstr "Unbekannte persönliche Einstellung: \"%1$s\""
 
-#: /app/lib/Controller/SettingsController.php:261
+#: /app/lib/Controller/SettingsController.php:258
 #, php-format
 msgid "The personal setting \"%1$s\" is read-only"
 msgstr "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden."
 
-#: /app/lib/Controller/SettingsController.php:285
+#: /app/lib/Controller/SettingsController.php:282
 #, php-format
 msgid "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean."
 msgstr ""
 "Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen "
 "Wahrheitswert konvertiert werden."
 
-#: /app/lib/Controller/SettingsController.php:308
+#: /app/lib/Controller/SettingsController.php:305
 #, php-format
 msgid ""
 "The target folder template \"%1$s\" must contain the archive file "
@@ -210,12 +210,12 @@ msgstr ""
 "Die Schablone für den Zielordnernamen \"%1$s\" muss den Platzhalter \"%2$s\""
 " für den Archivnamen enthalten."
 
-#: /app/lib/Controller/SettingsController.php:314
+#: /app/lib/Controller/SettingsController.php:311
 #, php-format
 msgid "Unknown personal setting: \"%s\"."
 msgstr "Unbekannte persönliche Einstellung: \"%s\""
 
-#: /app/lib/Controller/SettingsController.php:430
+#: /app/lib/Controller/SettingsController.php:427
 #, php-format
 msgid "Unable to parse memory size limit \"%s\""
 msgstr "Kann das Speicher-Limit nicht interpretieren: \"%s\""
@@ -271,31 +271,31 @@ msgstr "Das Extrahieren von {source} nach {destination} ist fehlgeschlagen."
 msgid "Unsupported subject: \"%s\"."
 msgstr "Nicht unterstützter Betreff: \"%s\"."
 
-#: /app/lib/Settings/AdminSection.php:72
+#: /app/lib/Settings/AdminSection.php:73
 #: /app/lib/Settings/PersonalSection.php:72
 msgid "Archive Explorer"
 msgstr "Archiv-Betrachter"
 
-#: /app/lib/Toolkit/Service/ArchiveService.php:265
-#: /app/lib/Toolkit/Service/ArchiveService.php:271
+#: /app/lib/Toolkit/Service/ArchiveService.php:264
+#: /app/lib/Toolkit/Service/ArchiveService.php:270
 #, php-format
 msgid "Unable to open archive file %s (%s)"
 msgstr "Kann die Archive Datei %s (%s) nicht öffnen"
 
-#: /app/lib/Toolkit/Service/ArchiveService.php:285
+#: /app/lib/Toolkit/Service/ArchiveService.php:284
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
 msgstr "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s"
 
-#: /app/lib/Toolkit/Service/ArchiveService.php:301
-#: /app/lib/Toolkit/Service/ArchiveService.php:368
-#: /app/lib/Toolkit/Service/ArchiveService.php:390
-#: /app/lib/Toolkit/Service/ArchiveService.php:404
+#: /app/lib/Toolkit/Service/ArchiveService.php:300
+#: /app/lib/Toolkit/Service/ArchiveService.php:367
+#: /app/lib/Toolkit/Service/ArchiveService.php:389
+#: /app/lib/Toolkit/Service/ArchiveService.php:403
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 "Mit dieser Archivierungs-Service-Instanz ist keine Archiv-Datei assoziiert."
 
-#: /app/lib/Toolkit/Traits/AssetTrait.php:104
+#: /app/lib/Toolkit/Traits/AssetTrait.php:103
 #, php-format
 msgid ""
 "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not"
@@ -305,11 +305,11 @@ msgstr ""
 "auf dem Server nicht installiert, bitte den System-Administrator "
 "kontaktieren!"
 
-#: /app/lib/Toolkit/Traits/ResponseTrait.php:118
+#: /app/lib/Toolkit/Traits/ResponseTrait.php:121
 msgid "Error, caught an exception."
 msgstr "Fehler, \"Ausnahme\" \"aufgefangen\"."
 
-#: /app/lib/Toolkit/Traits/ResponseTrait.php:119
+#: /app/lib/Toolkit/Traits/ResponseTrait.php:122
 msgid "Caused by previous exception"
 msgstr "Verursacht durch eine vorhergehende Ausnahme"
 
