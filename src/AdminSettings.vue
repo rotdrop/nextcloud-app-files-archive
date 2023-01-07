@@ -1,6 +1,6 @@
 <script>
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -22,7 +22,9 @@
  */
 </script>
 <template>
-  <SettingsSection :title="t(appName, 'Archive Manager, Admin Settings')">
+  <SettingsSection :class="cloudVersionClasses"
+                   :title="t(appName, 'Archive Manager, Admin Settings')"
+  >
     <AppSettingsSection :title="t(appName, 'Archive Extraction')">
       <SettingsInputText
         v-model="humanArchiveSizeLimit"
@@ -45,6 +47,7 @@ import axios from '@nextcloud/axios'
 import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { generateUrl } from '@nextcloud/router'
 import settingsSync from './toolkit/mixins/settings-sync'
+import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 
 export default {
   name: 'AdminSettings',
@@ -56,6 +59,7 @@ export default {
   },
   data() {
     return {
+      cloudVersionClasses,
       archiveSizeLimit: null,
       humanArchiveSizeLimit: null,
       loading: true,
@@ -87,6 +91,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.cloud-version {
+  --cloud-theme-filter: none;
+  &.cloud-version-major-25 {
+    --cloud-theme-filter: var(--background-invert-if-dark);
+  }
+}
 .settings-section {
   .flex-container {
     display:flex;
@@ -110,15 +120,11 @@ export default {
       background-repeat:no-repeat;
       background-origin:border-box;
       background-position:left center;
+      filter: var(--cloud-theme-filter);
     }
   }
   :deep(.app-settings-section) {
     margin-bottom: 40px;
   }
-}
-</style>
-<style lang="scss">
-body[data-themes*="dark"] .settings-section__title::before {
-  filter: Invert(); // avoid conflict with sass lower case invert()
 }
 </style>

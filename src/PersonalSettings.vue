@@ -1,6 +1,6 @@
 <script>
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -19,7 +19,7 @@
  */
 </script>
 <template>
-  <SettingsSection :class="appName" :title="t(appName, 'Archive Manager, Personal Settings')">
+  <SettingsSection :class="[...cloudVersionClasses, appName]" :title="t(appName, 'Archive Manager, Personal Settings')">
     <AppSettingsSection :title="t(appName, 'Security Options')">
       <SettingsInputText
         v-model="humanArchiveSizeLimit"
@@ -128,6 +128,7 @@ import { generateUrl } from '@nextcloud/router'
 import { showError, showSuccess, showInfo, TOAST_DEFAULT_TIMEOUT, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 import settingsSync from './toolkit/mixins/settings-sync'
+import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 
 export default {
   name: 'PersonalSettings',
@@ -138,6 +139,7 @@ export default {
   },
   data() {
     return {
+      cloudVersionClasses,
       archiveSizeLimit: null,
       humanArchiveSizeLimit: '',
       archiveSizeLimitAdmin: null,
@@ -180,6 +182,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.cloud-version {
+  --cloud-theme-filter: none;
+  &.cloud-version-major-25 {
+    --cloud-theme-filter: var(--background-invert-if-dark);
+  }
+}
 .settings-section {
   :deep(.settings-section__title) {
     padding-left:60px;
@@ -197,6 +205,7 @@ export default {
       background-repeat:no-repeat;
       background-origin:border-box;
       background-position:left center;
+      filter: var(--cloud-theme-filter);
     }
   }
   .app-settings-section {
@@ -229,10 +238,5 @@ export default {
       }
     }
   }
-}
-</style>
-<style lang="scss">
-body[data-themes*="dark"] .settings-section__title::before {
-  filter: Invert(); // avoid conflict with sass lower case invert()
 }
 </style>
