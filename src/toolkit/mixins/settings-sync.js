@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -110,9 +110,12 @@ async function fetchSetting(settingsKey, settingsSection, storageObject) {
  *
  * @param {string} settingsSection TDB.
  *
+ * @param {Function} onSuccess Success callback, invoked with the
+ * response data and the arguments of this function.
+ *
  * @return {boolean} TBD.
  */
-async function saveSimpleSetting(settingsKey, settingsSection) {
+async function saveSimpleSetting(settingsKey, settingsSection, onSuccess) {
   const value = this[settingsKey];
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), { value });
@@ -139,6 +142,9 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
       showInfo(t(appName, 'Successfully set "{settingsKey}" to {value}.', { settingsKey, value: displayValue }));
     } else {
       showInfo(t(appName, 'Setting "{settingsKey}" has been unset successfully.', { settingsKey }));
+    }
+    if (typeof onSuccess === 'function') {
+      onSuccess(responseData, value, settingsSection, settingsKey);
     }
     return true;
   } catch (e) {
@@ -181,9 +187,12 @@ async function saveSimpleSetting(settingsKey, settingsSection) {
  *
  * @param {boolean} force TDB.
  *
+ * @param {Function} onSuccess Success callback, invoked with the
+ * response data and the arguments of this function.
+ *
  * @return {boolean} TBD.
  */
-async function saveConfirmedSetting(value, settingsSection, settingsKey, force) {
+async function saveConfirmedSetting(value, settingsSection, settingsKey, force, onSuccess) {
   const self = this;
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + settingsSection + '/' + settingsKey), { value, force });
@@ -221,6 +230,9 @@ async function saveConfirmedSetting(value, settingsSection, settingsKey, force) 
         showSuccess(t(appName, 'Successfully set value for "{settingsKey}" to "{displayValue}"', { settingsKey, displayValue }));
       } else {
         showInfo(t(appName, 'Setting "{setting}" has been unset successfully.', { setting: settingsKey }));
+      }
+      if (typeof onSuccess === 'function') {
+        onSuccess(responseData, value, settingsSection, settingsKey, force);
       }
     }
     return true;
