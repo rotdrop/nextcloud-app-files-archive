@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-01-07 03:25+0000\n"
+"POT-Creation-Date: 2023-01-08 03:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -301,24 +301,24 @@ msgstr ""
 msgid "Inspect, mount and extract archive files (zip, tar, etc.)"
 msgstr ""
 
-#. TRANSLATORS Settings.vue:25
+#. TRANSLATORS Settings.vue:26
 #: /app/specialVueFakeDummyForL10nScript.js:2
 msgid "Archive Manager, Admin Settings"
 msgstr ""
 
-#. TRANSLATORS Settings.vue:26
+#. TRANSLATORS Settings.vue:28
 #: /app/specialVueFakeDummyForL10nScript.js:4
 msgid "Archive Extraction"
 msgstr ""
 
-#. TRANSLATORS Settings.vue:29
+#. TRANSLATORS Settings.vue:31
 #. TRANSLATORS nalSettings.vue:26
 #: /app/specialVueFakeDummyForL10nScript.js:6
 #: /app/specialVueFakeDummyForL10nScript.js:14
 msgid "Archive Size Limit"
 msgstr ""
 
-#. TRANSLATORS Settings.vue:30
+#. TRANSLATORS Settings.vue:32
 #. TRANSLATORS nalSettings.vue:27
 #: /app/specialVueFakeDummyForL10nScript.js:8
 #: /app/specialVueFakeDummyForL10nScript.js:16
@@ -614,8 +614,8 @@ msgstr ""
 
 #: /app/src/toolkit/mixins/settings-sync.js:53
 #: /app/src/toolkit/mixins/settings-sync.js:91
-#: /app/src/toolkit/mixins/settings-sync.js:146
-#: /app/src/toolkit/mixins/settings-sync.js:229
+#: /app/src/toolkit/mixins/settings-sync.js:152
+#: /app/src/toolkit/mixins/settings-sync.js:241
 msgid "reason unknown"
 msgstr ""
 
@@ -627,48 +627,48 @@ msgstr ""
 msgid "Unable to query the initial value of {settingsKey}: {message}"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:136
-#: /app/src/toolkit/mixins/settings-sync.js:156
+#: /app/src/toolkit/mixins/settings-sync.js:139
+#: /app/src/toolkit/mixins/settings-sync.js:162
 msgid "true"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:139
+#: /app/src/toolkit/mixins/settings-sync.js:142
 msgid "Successfully set \"{settingsKey}\" to {value}."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:141
+#: /app/src/toolkit/mixins/settings-sync.js:144
 msgid "Setting \"{settingsKey}\" has been unset successfully."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:154
+#: /app/src/toolkit/mixins/settings-sync.js:160
 msgid "Unable to set \"{settingsKey}\" to {value}: {message}."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:164
+#: /app/src/toolkit/mixins/settings-sync.js:170
 msgid "false"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:162
+#: /app/src/toolkit/mixins/settings-sync.js:168
 msgid "Unable to unset \"{settingsKey}\": {message}"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:194
+#: /app/src/toolkit/mixins/settings-sync.js:203
 msgid "Confirmation Required"
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:199
+#: /app/src/toolkit/mixins/settings-sync.js:208
 msgid "Unconfirmed, reverting to old value."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:221
+#: /app/src/toolkit/mixins/settings-sync.js:230
 msgid "Successfully set value for \"{settingsKey}\" to \"{displayValue}\""
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:223
+#: /app/src/toolkit/mixins/settings-sync.js:232
 msgid "Setting \"{setting}\" has been unset successfully."
 msgstr ""
 
-#: /app/src/toolkit/mixins/settings-sync.js:236
+#: /app/src/toolkit/mixins/settings-sync.js:248
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 

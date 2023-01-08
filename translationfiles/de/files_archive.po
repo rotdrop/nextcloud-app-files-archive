@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-01-06 03:26+0000\n"
+"POT-Creation-Date: 2023-01-08 03:25+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Markus Eckstein, 2022\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -338,24 +338,24 @@ msgstr ""
 "Archiv-Dateien (zip, tar, ...) als virtuelle Speicher einhängen und optional"
 " entpacken."
 
-#. TRANSLATORS Settings.vue:25
+#. TRANSLATORS Settings.vue:26
 #: /app/specialVueFakeDummyForL10nScript.js:2
 msgid "Archive Manager, Admin Settings"
 msgstr "Archiv-Betrachter, Administrator-Einstellungen"
 
-#. TRANSLATORS Settings.vue:26
+#. TRANSLATORS Settings.vue:28
 #: /app/specialVueFakeDummyForL10nScript.js:4
 msgid "Archive Extraction"
 msgstr "Archiv-Dateien-Behandlung"
 
-#. TRANSLATORS Settings.vue:29
+#. TRANSLATORS Settings.vue:31
 #. TRANSLATORS nalSettings.vue:26
 #: /app/specialVueFakeDummyForL10nScript.js:6
 #: /app/specialVueFakeDummyForL10nScript.js:14
 msgid "Archive Size Limit"
 msgstr "Archiv-Größen-Limitierung"
 
-#. TRANSLATORS Settings.vue:30
+#. TRANSLATORS Settings.vue:32
 #. TRANSLATORS nalSettings.vue:27
 #: /app/specialVueFakeDummyForL10nScript.js:8
 #: /app/specialVueFakeDummyForL10nScript.js:16
@@ -669,8 +669,8 @@ msgstr "Archiv"
 
 #: /app/src/toolkit/mixins/settings-sync.js:53
 #: /app/src/toolkit/mixins/settings-sync.js:91
-#: /app/src/toolkit/mixins/settings-sync.js:146
-#: /app/src/toolkit/mixins/settings-sync.js:229
+#: /app/src/toolkit/mixins/settings-sync.js:152
+#: /app/src/toolkit/mixins/settings-sync.js:241
 msgid "reason unknown"
 msgstr "Grund unbekannt"
 
@@ -685,54 +685,54 @@ msgstr ""
 "Kann die anfänglichen Wert der Einstellung {settingsKey} nicht abrufen: "
 "{message}"
 
-#: /app/src/toolkit/mixins/settings-sync.js:136
-#: /app/src/toolkit/mixins/settings-sync.js:156
+#: /app/src/toolkit/mixins/settings-sync.js:139
+#: /app/src/toolkit/mixins/settings-sync.js:162
 msgid "true"
 msgstr "wahr"
 
-#: /app/src/toolkit/mixins/settings-sync.js:139
+#: /app/src/toolkit/mixins/settings-sync.js:142
 msgid "Successfully set \"{settingsKey}\" to {value}."
 msgstr ""
 "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf "
 "\"{value}\" gesetzt."
 
-#: /app/src/toolkit/mixins/settings-sync.js:141
+#: /app/src/toolkit/mixins/settings-sync.js:144
 msgid "Setting \"{settingsKey}\" has been unset successfully."
 msgstr "Die Einstellung \"{settingsKey}\" wurde erfolgreich gelöscht."
 
-#: /app/src/toolkit/mixins/settings-sync.js:154
+#: /app/src/toolkit/mixins/settings-sync.js:160
 msgid "Unable to set \"{settingsKey}\" to {value}: {message}."
 msgstr ""
 "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert "
 "\"{value}\" setzen: {message}"
 
-#: /app/src/toolkit/mixins/settings-sync.js:164
+#: /app/src/toolkit/mixins/settings-sync.js:170
 msgid "false"
 msgstr "falsch"
 
-#: /app/src/toolkit/mixins/settings-sync.js:162
+#: /app/src/toolkit/mixins/settings-sync.js:168
 msgid "Unable to unset \"{settingsKey}\": {message}"
 msgstr "Kann die Einstellung \"{settingsKey}\" nicht löschen: {message}"
 
-#: /app/src/toolkit/mixins/settings-sync.js:194
+#: /app/src/toolkit/mixins/settings-sync.js:203
 msgid "Confirmation Required"
 msgstr "Bestätigung erforderlich!"
 
-#: /app/src/toolkit/mixins/settings-sync.js:199
+#: /app/src/toolkit/mixins/settings-sync.js:208
 msgid "Unconfirmed, reverting to old value."
 msgstr "Bestätigung nicht erteilt, setze auf den alten Wert zurück."
 
-#: /app/src/toolkit/mixins/settings-sync.js:221
+#: /app/src/toolkit/mixins/settings-sync.js:230
 msgid "Successfully set value for \"{settingsKey}\" to \"{displayValue}\""
 msgstr ""
 "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf "
 "\"{displayValue}\" gesetzt"
 
-#: /app/src/toolkit/mixins/settings-sync.js:223
+#: /app/src/toolkit/mixins/settings-sync.js:232
 msgid "Setting \"{setting}\" has been unset successfully."
 msgstr "Die Einstellung \"{setting}\" wurde erfolgreich gelöscht."
 
-#: /app/src/toolkit/mixins/settings-sync.js:236
+#: /app/src/toolkit/mixins/settings-sync.js:248
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert "
