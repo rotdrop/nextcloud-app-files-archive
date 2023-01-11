@@ -27,6 +27,9 @@ use OCP\IGroupManager;
 
 /**
  * Utitlity trait in order to get the addresses of the cloud admins.
+ *
+ * Needed class members:
+ * - protected $groupManager
  */
 trait CloudAdminTrait
 {
@@ -47,12 +50,11 @@ trait CloudAdminTrait
   /**
    * Contact information for the overall admins.
    *
-   * @param IGroupManager $groupManager
    * @param bool $implode
    *
    * @return array
    */
-  protected function getCloudAdminContacts(IGroupManager $groupManager, bool $implode = false):string
+  protected function getCloudAdminContacts(bool $implode = false):string
   {
     $adminUsers = $this->getCloudAdmins();
     $contacts = [];
