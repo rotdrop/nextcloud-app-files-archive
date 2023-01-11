@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -113,9 +113,9 @@ class FilesActionListener implements IEventListener
     $archiveMimeTypes = $mimeTypeService->setAppPath(__DIR__ . '/../../')->getSupportedMimeTypes();
 
     // just admin contact and stuff to make the ajax error handlers work.
-    $groupManager = $this->appContainer->get(IGroupManager::class);
+    $this->groupManager = $this->appContainer->get(IGroupManager::class);
     $initialState->provideInitialState('config', [
-      'adminContact' => $this->getCloudAdminContacts($groupManager, implode: true),
+      'adminContact' => $this->getCloudAdminContacts(implode: true),
       'phpUserAgent' => $_SERVER['HTTP_USER_AGENT'], // @@todo get in javascript from request
       'archiveMimeTypes' => $archiveMimeTypes,
       SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
