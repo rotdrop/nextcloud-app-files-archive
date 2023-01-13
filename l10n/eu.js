@@ -39,6 +39,7 @@ OC.L10N.register(
     "Archive Extraction" : "Artxiboen erauzketa",
     "Archive Size Limit" : "Artiboaren tamaina-muga",
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Ez onartu artxiboen erauzketa, deskonprimituta muga hori baino tamaina handiagoa duten artxiboetarako.",
+    "Administrative size limit: {value}" : "Tamaina-muga administratiboa: {value}",
     "Selected path: \"{dir}/{base}/\"." : "Hautatutako bide-izena: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Bide-izen baliogabea hautatu da: \"{dir}\".",
     "unknown" : "ezezaguna",
@@ -58,6 +59,7 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Berretsi gabe, aurreko baliora itzultzen.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\" \"{displayValue}\" baliora ondo ezarri da",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ezarpena behar bezala baliogabetu da.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}",
     "OK" : "Ados",
     "Created" : "Sortua",
     "Accepted" : "Onartuta",
@@ -141,10 +143,12 @@ OC.L10N.register(
     "The submitted data is not a plain object, and does not provide the properties listed above." : "Bidalitako datuak ez dira objektu soila, eta ez ditu goian zerrendatutako propietateak ematen.",
     "Error: not a plain object" : "Errorea: ez da elementu arrunta",
     "Unknown JSON error response to AJAX call: {status} / {error}" : "JSON errore-erantzun ezezaguna AJAX deiari: {status} / {error}",
+    "HTTP error response to AJAX call: {code} / {error}" : "HTTP errore-erantzuna AJAX deiari: {code} / {error}",
     "No" : "Ez",
     "Yes" : "Bai",
     "Debug Information" : "Arazketa informazioa",
     "unknown error" : "errore ezezaguna",
+    "Unable to download data from \"{url}\": {message}" : "Ezin izan dira datuak deskargatu \"{url}\"(e)tik: {message}",
     "The quick brown fox jumps over the lazy dog." : "Eva eta Iñaxio quadez joan ziren flyscheko campingeko bungalowera."
 },
 "nplurals=2; plural=(n != 1);");
