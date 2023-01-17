@@ -137,7 +137,7 @@ class SettingsController extends Controller
    *
    * @return DataResponse
    *
-   * @AuthorizedAdminSetting(settings=OCA\GroupFolders\Settings\Admin)
+   * @AuthorizedAdminSetting(settings=OCA\FilesArchive\Settings\Admin)
    * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
    */
   public function setAdmin(string $setting, mixed $value, bool $force = false):DataResponse
@@ -193,7 +193,7 @@ class SettingsController extends Controller
    *
    * @return DataResponse
    *
-   * @AuthorizedAdminSetting(settings=OCA\GroupFolders\Settings\Admin)
+   * @AuthorizedAdminSetting(settings=OCA\FilesArchive\Settings\Admin)
    */
   public function getAdmin(?string $setting = null):DataResponse
   {
