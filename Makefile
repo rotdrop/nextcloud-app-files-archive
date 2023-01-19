@@ -208,7 +208,6 @@ APPSTORE_FILES =\
  lib\
  vendor\
  config\
- contrib\
  CHANGELOG.md\
  COPYING\
  README.md
