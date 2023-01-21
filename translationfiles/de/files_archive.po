@@ -8,16 +8,16 @@
 # nautilusx, 2022
 # Joas Schilling, 2022
 # Claus-Justus Heine, 2022
-# Markus Eckstein, 2022
+# Markus Eckstein, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-01-08 03:25+0000\n"
+"POT-Creation-Date: 2023-01-21 03:51+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
-"Last-Translator: Markus Eckstein, 2022\n"
+"Last-Translator: Markus Eckstein, 2023\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -335,8 +335,8 @@ msgstr "Virtueller Archiv-Betrachter für Nextcloud"
 #: /app/specialAppInfoFakeDummyForL10nScript.php:4
 msgid "Inspect, mount and extract archive files (zip, tar, etc.)"
 msgstr ""
-"Archiv-Dateien (zip, tar, ...) als virtuelle Speicher einhängen und optional"
-" entpacken."
+"Archiv-Dateien (zip, tar, …) als virtuelle Speicher einhängen und optional "
+"entpacken."
 
 #. TRANSLATORS Settings.vue:26
 #: /app/specialVueFakeDummyForL10nScript.js:2

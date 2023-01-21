@@ -75,7 +75,7 @@ OC.L10N.register(
     "default to scheduling extraction requests as background job" : "Standardmäßig werden Extraktionsanfragen als Hintergrundjob geplant",
     "Choose a prefix folder" : "Präfixordner auswählen",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Pfad: \"{dir}/{base}\".",
-    "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad gewählt: {dir}.",
+    "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad gewählt: \"{dir}\".",
     "Archive Information" : "Archiv-Informationen",
     "archive status" : "Archiv-Status",
     "archive format" : "Archiv-Format",
