@@ -49,6 +49,7 @@ OC.L10N.register(
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Ez onartu artxiboen erauzketa, deskonprimituta muga hori baino tamaina handiagoa duten artxiboetarako.",
     "Security Options" : "Segurtasun aukerak",
     "Administrative size limit: {value}" : "Tamaina-muga administratiboa: {value}",
+    "Mount Options" : "Muntatze aukerak",
     "Selected path: \"{dir}/{base}/\"." : "Hautatutako bide-izena: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Bide-izen baliogabea hautatu da: \"{dir}\".",
     "Archive Information" : "Artxiboaren informazioa",
