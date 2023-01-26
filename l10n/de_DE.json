@@ -38,7 +38,7 @@
     "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ihre Archivdatei {source} wurde als virtueller Ordner unter {destination} eingehängt.",
     "Your archive file {source} has been extracted to {destination}." : "Ihre Archivdatei {source} wurde nach {destination} entpackt.",
     "Mounting {source} at {destination} has failed: {message}" : "Einhängen von {source} unter {destination} ist fehlgeschlagen: {message}",
-    "Extracting {source} to {destination} has failed: {message}" : "Extrahieren von {source} nach {destination} ist fehlgeschlagen: {message}",
+    "Extracting {source} to {destination} has failed: {message}" : "Fehler beim Extrahieren von {source} nach {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Einhängen von {source} bei {destination} ist fehlgeschlagen.",
     "Extacting {source} to {destination} bas failed." : "Das Entpacken von {source} nach {destination} ist fehlgeschlagen.",
     "Unsupported subject: \"%s\"." : "Nicht unterstützter Betreff: \"%s\".",
