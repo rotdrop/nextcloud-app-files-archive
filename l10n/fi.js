@@ -1,19 +1,30 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Tiedostoa tai kansiota ei löytynyt.",
+    "Error: %s" : "Virhe: %s",
     "bytes" : "tavua",
+    "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
+    "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
     "unknown" : "tuntematon",
     "MIME type" : "MIME-tyyppi",
     "Archive" : "Arkisto",
+    "reason unknown" : "tuntematon syy",
+    "Confirmation Required" : "Vahvistus vaaditaan",
     "OK" : "OK",
     "Created" : "Luotu",
+    "Accepted" : "Hyväksytty",
+    "No Content" : "Ei sisältöä",
     "Unauthorized" : "Ei valtuuksia",
     "Forbidden" : "Estetty",
     "Not Found" : "Ei löytynyt",
     "Conflict" : "Ristiriita",
     "Internal Server Error" : "Sisäinen palvelinvirhe",
     "Error" : "Virhe",
+    "Something went wrong." : "Jokin meni pieleen.",
+    "Internal Error" : "Sisäinen virhe",
     "No" : "Ei",
-    "Yes" : "Kyllä"
+    "Yes" : "Kyllä",
+    "unknown error" : "tuntematon virhe"
 },
 "nplurals=2; plural=(n != 1);");
