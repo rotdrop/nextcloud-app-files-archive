@@ -100,7 +100,7 @@ OC.L10N.register(
     "strip common path prefix" : "gemeinensamen Dateipfad-Präfix entfernen",
     "schedule as background job" : "Als Hintergrundjob planen",
     "Extract Archive" : "Archiv extrahieren",
-    "Choose a directory to extract the archive to:" : "Verzeichnis, in das das Archiv extrahiert wird wählen:",
+    "Choose a directory to extract the archive to:" : "Ordner wählen, in den das Archiv extrahiert wird:",
     "basename" : "Basisname",
     "ok" : "Ok",
     "zip bomb" : "ZIP-Bombe",
