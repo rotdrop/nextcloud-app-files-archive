@@ -1,6 +1,18 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Bestand of map kon niet worden gevonden",
+    "Post to endpoint \"%s\" not implemented." : "'Post' aanvraag naar eindpunt \"%s\" is niet geïmplementeerd",
+    "Post to base URL of app \"%s\" not allowed." : "'Post' aanvraag naar basis URL of de \" %s\" is niet geïmplementeerd",
+    "Get from endpoint \"%s\" not implemented." : "'Get' aanvraag naar eindpunt \"%s\" is niet geïmplementeerd",
+    "Unknown admin setting: \"%1$s\"" : "Onbekende adminstratorinstelling: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "De administratorinstelling \"%1$s\" is alleen-lezen",
+    "Unknown personal setting: \"%1$s\"" : "Onbekende persoonlijke instelling: \"%1$s\"",
+    "The personal setting \"%1$s\" is read-only" : "De persoonlijke instelling \"%1$s\" is niet aanpasbaar",
+    "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "De waarde \"%1$s\" voor de instelling \"%2$s\" is niet om te zetten naar een booleaanse waarde.",
+    "Unknown personal setting: \"%s\"." : "Onbekende persoonlijke instelling: \"%s\"",
+    "Unable to parse memory size limit \"%s\"" : "Kan geheugengrootelimitiet \"%s\" niet verwerken",
+    "Unsupported subject: \"%s\"." : "Het volgende onderwerp word niet ondersteunt\" \"%s\"",
     "bytes" : "bytes",
     "unknown" : "onbekend",
     "MIME type" : "MIME type",
