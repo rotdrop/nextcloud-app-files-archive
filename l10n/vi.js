@@ -10,6 +10,7 @@ OC.L10N.register(
     "Conflict" : "Xung đột",
     "Internal Server Error" : "Lỗi máy chủ.",
     "Error" : "Lỗi",
+    "Missing data" : "Thiếu dữ liệu",
     "No" : "Không",
     "Yes" : "Có"
 },
