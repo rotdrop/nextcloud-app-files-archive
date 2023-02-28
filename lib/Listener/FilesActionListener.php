@@ -34,7 +34,7 @@ use OCP\IConfig as CloudConfig;
 
 use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
 
-use OCA\RotDrop\Toolkit\Service\MimeTypeService;
+use OCA\FilesArchive\Toolkit\Service\MimeTypeService;
 
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Controller\SettingsController;
@@ -45,9 +45,9 @@ use OCA\FilesArchive\Constants;
  */
 class FilesActionListener implements IEventListener
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-  use \OCA\RotDrop\Toolkit\Traits\CloudAdminTrait;
-  use \OCA\RotDrop\Toolkit\Traits\AssetTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\CloudAdminTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\AssetTrait;
 
   const EVENT = HandledEvent::class;
 

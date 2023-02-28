@@ -43,7 +43,7 @@ use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
-use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
@@ -57,9 +57,9 @@ use OCA\FilesArchive\Constants;
  */
 class MountController extends Controller
 {
-  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
-  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
   use TargetPathTrait;
 
   /** @var string */

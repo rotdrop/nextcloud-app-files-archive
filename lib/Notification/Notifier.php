@@ -37,7 +37,7 @@ use OCA\FilesArchive\BackgroundJob\ArchiveJob;
  */
 class Notifier implements INotifier
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
 
   public const TYPE_MOUNT = (1 << 0);
   public const TYPE_EXTRACT = (1 << 1);

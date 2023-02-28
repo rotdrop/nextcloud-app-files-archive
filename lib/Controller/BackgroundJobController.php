@@ -38,7 +38,7 @@ use OCP\BackgroundJob\IJobList;
 use OCP\Files\IRootFolder;
 use OCP\Files\File;
 
-use OCA\RotDrop\Toolkit\Service\UserScopeService;
+use OCA\FilesArchive\Toolkit\Service\UserScopeService;
 
 use OCA\FilesArchive\BackgroundJob\ArchiveJob;
 use OCA\FilesArchive\Service\NotificationService;
@@ -49,10 +49,10 @@ use OCA\FilesArchive\Constants;
  */
 class BackgroundJobController extends Controller
 {
-  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
-  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-  use \OCA\RotDrop\Toolkit\Traits\UserRootFolderTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
   use TargetPathTrait;
 
   const OPERATION_MOUNT = ArchiveJob::TARGET_MOUNT;

@@ -42,7 +42,7 @@ use OCP\IConfig;
 use OCP\AppFramework\IAppContainer;
 use OCP\Lock\ILockingProvider as Locks;
 
-use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Controller\SettingsController;
@@ -56,7 +56,7 @@ use OCA\FilesArchive\Constants;
  */
 class MountProvider implements IMountProvider
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
 
   /** @var string */
   private $appName;
@@ -259,7 +259,7 @@ class MountProvider implements IMountProvider
       $this->logger,
     ) extends MountPoint implements MoveableMount
     {
-      use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+      use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
 
       /** @var IMountManager */
       private $mountManager;

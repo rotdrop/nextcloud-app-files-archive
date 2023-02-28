@@ -39,7 +39,7 @@ use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\Lock\ILockingProvider;
 use OCP\IL10N;
 
-use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
@@ -50,9 +50,9 @@ use OCA\FilesArchive\Constants;
  */
 class ArchiveController extends Controller
 {
-  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
-  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
   use TargetPathTrait;
 
   public const ARCHIVE_STATUS_OK = 0;

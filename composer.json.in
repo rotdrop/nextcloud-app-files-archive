@@ -34,11 +34,6 @@
     }
   },
   "repositories": [],
-  "autoload": {
-    "psr-4": {
-      "OCA\\RotDrop\\Toolkit\\": "lib/Toolkit/"
-    }
-  },
   "scripts": {
     "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
     "cs:check": "php-cs-fixer fix --dry-run --diff",

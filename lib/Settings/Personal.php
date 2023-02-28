@@ -32,7 +32,7 @@ use OCA\FilesArchive\Constants;
  */
 class Personal implements ISettings
 {
-  use \OCA\RotDrop\Toolkit\Traits\AssetTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\AssetTrait;
 
   const TEMPLATE = "personal-settings";
 

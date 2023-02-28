@@ -32,7 +32,7 @@ use OCA\FilesArchive\Constants;
  */
 class Version100001Date20221108144214 extends SimpleMigrationStep
 {
-  use \OCA\RotDrop\Toolkit\Traits\AppNameTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
 
   /** @var string */
   private $appName;

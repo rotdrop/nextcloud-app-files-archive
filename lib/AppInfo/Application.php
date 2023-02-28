@@ -33,7 +33,7 @@ use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
 
-use OCA\RotDrop\Toolkit\Service\MimeTypeService;
+use OCA\FilesArchive\Toolkit\Service\MimeTypeService;
 
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Notification\Notifier;
@@ -45,7 +45,7 @@ include_once __DIR__ . '/../../vendor/autoload.php';
  */
 class Application extends App implements IBootstrap
 {
-  use \OCA\RotDrop\Toolkit\Traits\AppNameTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
 
   /** @var string */
   protected $appName;

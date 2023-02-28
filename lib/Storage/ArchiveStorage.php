@@ -38,7 +38,7 @@ use OCP\AppFramework\IAppContainer;
 use OCP\Files\FileInfo;
 use OCP\Files\File;
 
-use OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
@@ -48,8 +48,8 @@ use OCA\FilesArchive\Constants;
 /** Virtual storage mapping an archive file into the user file-space. */
 class ArchiveStorage extends AbstractStorage
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-  use \OCA\RotDrop\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
   use CopyDirectory;
 
   public const PATH_SEPARATOR = Constants::PATH_SEPARATOR;

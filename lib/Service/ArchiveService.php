@@ -25,7 +25,7 @@ namespace OCA\FilesArchive\Service;
 use OCP\IL10N;
 use Psr\Log\LoggerInterface as ILogger;
 
-use OCA\RotDrop\Toolkit\Service\ArchiveService as ToolkitService;
+use OCA\FilesArchive\Toolkit\Service\ArchiveService as ToolkitService;
 
 /** Just a wrapper around the toolkit service in order to get the $l10n from this app. */
 class ArchiveService extends ToolkitService

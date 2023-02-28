@@ -20,7 +20,7 @@
 
 namespace OCA\FilesArchive;
 
-use OCA\RotDrop\Toolkit\Traits\Constants as TraitsConstants;
+use OCA\FilesArchive\Toolkit\Traits\Constants as TraitsConstants;
 
 /** A couple of constants in order to avoid string literals. */
 class Constants extends TraitsConstants

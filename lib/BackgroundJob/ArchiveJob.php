@@ -36,7 +36,7 @@ use OCP\AppFramework\IAppContainer;
 use OCP\IUserSession;
 use OCP\Files\IRootFolder;
 
-use OCA\RotDrop\Toolkit\Service\UserScopeService;
+use OCA\FilesArchive\Toolkit\Service\UserScopeService;
 
 use OCA\FilesArchive\Service\FileSystemWalker;
 use OCA\FilesArchive\Service\NotificationService;
@@ -50,8 +50,8 @@ use OCA\FilesArchive\Exceptions;
  */
 class ArchiveJob extends QueuedJob
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-  use \OCA\RotDrop\Toolkit\Traits\UserRootFolderTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
 
   public const TARGET_MOUNT = 'mount';
   public const TARGET_EXTRACT = 'extract';
