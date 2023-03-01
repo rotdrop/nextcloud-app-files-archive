@@ -1,1 +1,1 @@
-../lib/Toolkit/config/README.md
+../php-toolkit/config/README.md
