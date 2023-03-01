@@ -185,7 +185,7 @@ class MountController extends Controller
     }
 
     try {
-      $this->archiveService->open($archiveFile);
+      $this->archiveService->open($archiveFile, password: $passPhrase);
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();
       // $archiveInfo = $e->getArchiveInfo();

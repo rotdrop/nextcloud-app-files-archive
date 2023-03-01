@@ -206,14 +206,18 @@ class ArchiveMountMapper extends QBMapper
   public function insert(Entity $entity):Entity
   {
     $this->encodeEntity($entity);
-    return parent::insert($entity);
+    $result = parent::insert($entity);
+    $this->decodeEntity($result);
+    return $result;
   }
 
   /** {@inheritdoc} */
   public function update(Entity $entity):Entity
   {
     $this->encodeEntity($entity);
-    return parent::update($entity);
+    $result = parent::update($entity);
+    $this->decodeEntity($result);
+    return $result;
   }
 
   /** {@inheritdoc} */
