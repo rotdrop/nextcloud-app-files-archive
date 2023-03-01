@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-02-11 03:27+0000\n"
+"POT-Creation-Date: 2023-03-01 03:46+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Markus Eckstein, 2023\n"
 "Language-Team: German (https://www.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -276,26 +276,26 @@ msgstr "Nicht unterstützter Betreff: \"%s\"."
 msgid "Archive Explorer"
 msgstr "Archiv-Betrachter"
 
-#: /app/lib/Toolkit/Service/ArchiveService.php:264
-#: /app/lib/Toolkit/Service/ArchiveService.php:270
+#: /app/php-toolkit/Service/ArchiveService.php:264
+#: /app/php-toolkit/Service/ArchiveService.php:270
 #, php-format
 msgid "Unable to open archive file %s (%s)"
 msgstr "Kann die Archive Datei %s (%s) nicht öffnen"
 
-#: /app/lib/Toolkit/Service/ArchiveService.php:284
+#: /app/php-toolkit/Service/ArchiveService.php:284
 #, php-format
 msgid "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s"
 msgstr "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s"
 
-#: /app/lib/Toolkit/Service/ArchiveService.php:300
-#: /app/lib/Toolkit/Service/ArchiveService.php:367
-#: /app/lib/Toolkit/Service/ArchiveService.php:389
-#: /app/lib/Toolkit/Service/ArchiveService.php:403
+#: /app/php-toolkit/Service/ArchiveService.php:300
+#: /app/php-toolkit/Service/ArchiveService.php:367
+#: /app/php-toolkit/Service/ArchiveService.php:389
+#: /app/php-toolkit/Service/ArchiveService.php:403
 msgid "There is no archive file associated with this archiver instance."
 msgstr ""
 "Mit dieser Archivierungs-Service-Instanz ist keine Archiv-Datei assoziiert."
 
-#: /app/lib/Toolkit/Traits/AssetTrait.php:103
+#: /app/php-toolkit/Traits/AssetTrait.php:103
 #, php-format
 msgid ""
 "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not"
@@ -305,26 +305,26 @@ msgstr ""
 "auf dem Server nicht installiert, bitte den System-Administrator "
 "kontaktieren!"
 
-#: /app/lib/Toolkit/Traits/ResponseTrait.php:121
+#: /app/php-toolkit/Traits/ResponseTrait.php:121
 msgid "Error, caught an exception."
 msgstr "Fehler, \"Ausnahme\" \"aufgefangen\"."
 
-#: /app/lib/Toolkit/Traits/ResponseTrait.php:122
+#: /app/php-toolkit/Traits/ResponseTrait.php:122
 msgid "Caused by previous exception"
 msgstr "Verursacht durch eine vorhergehende Ausnahme"
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:258
-#: /app/lib/Toolkit/Traits/UtilTrait.php:260
+#: /app/php-toolkit/Traits/UtilTrait.php:258
+#: /app/php-toolkit/Traits/UtilTrait.php:260
 msgid "bytes"
 msgstr "Bytes"
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:514
-#: /app/lib/Toolkit/Traits/UtilTrait.php:527
+#: /app/php-toolkit/Traits/UtilTrait.php:514
+#: /app/php-toolkit/Traits/UtilTrait.php:527
 #, php-format
 msgid "The supplied color-string \"%s\" seems to be invalid."
 msgstr "Die angegebene Farbzeichenfolge \"%s\" scheint ungültig zu sein."
 
-#: /app/lib/Toolkit/Traits/UtilTrait.php:548
+#: /app/php-toolkit/Traits/UtilTrait.php:548
 msgid "The input color values are invalid."
 msgstr "Die eingegebenen Farbwerte sind ungültig."
 
