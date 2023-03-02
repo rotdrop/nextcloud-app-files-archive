@@ -58,6 +58,7 @@
     "svgo-loader": "^3.0.1",
     "vue": "^2.6.14",
     "webpack": "^5.64.4",
+    "webpack-deadcode-plugin": "^0.1.17",
     "xml-loader": "^1.2.1",
     "xml2js": "*"
   }

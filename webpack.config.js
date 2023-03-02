@@ -4,6 +4,7 @@ const webpackConfig = require('@nextcloud/webpack-vue-config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
+const DeadCodePlugin = require('webpack-deadcode-plugin');
 const fs = require('fs');
 const xml2js = require('xml2js');
 
@@ -63,6 +64,15 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     },
     productionMode ? /\.css$/ : /^$/
   ),
+  new DeadCodePlugin({
+    patterns: [
+      'src/**/*.(js|jsx|css)',
+      'style/**/*.scss',
+    ],
+    exclude: [
+      // 'src/toolkit/**',
+    ],
+  }),
 ]);
 
 // webpackConfig.module.rules = webpackConfig.module.rules.concat([
