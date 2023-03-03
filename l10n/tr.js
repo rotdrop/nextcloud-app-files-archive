@@ -213,9 +213,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "AJAX çağrısına HTTP hata yanıtı verildi: {code} / {error}",
     "No" : "Hayır",
     "Yes" : "Evet",
-    "Debug Information" : "Hata ayıklama bilgileri",
-    "unknown error" : "hata bilinmiyor",
-    "Unable to download data from \"{url}\": {message}" : "\"{url}\" adresinden veriler indirilemedi: {message}",
-    "The quick brown fox jumps over the lazy dog." : "Hızlı kahverengi tilki tembel köpeğin üzerinden atlar."
+    "Debug Information" : "Hata ayıklama bilgileri"
 },
 "nplurals=2; plural=(n > 1);");

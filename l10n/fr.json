@@ -211,9 +211,6 @@
     "HTTP error response to AJAX call: {code} / {error}" : "Erreur HTTP à un appel AJAX : {code} / {error}",
     "No" : "Non",
     "Yes" : "Oui",
-    "Debug Information" : "Information de déboggage",
-    "unknown error" : "erreur inconnue",
-    "Unable to download data from \"{url}\": {message}" : "Impossible de télécharger les données depuis \"{url}\": {message}",
-    "The quick brown fox jumps over the lazy dog." : "Buvez de ce whisky que le patron juge fameux."
+    "Debug Information" : "Information de déboggage"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

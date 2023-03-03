@@ -27,7 +27,6 @@
     "Internal Error" : "Intern fejl",
     "Missing data" : "Manglende data",
     "No" : "Nej",
-    "Yes" : "Ja",
-    "unknown error" : "ukendt fejl"
+    "Yes" : "Ja"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

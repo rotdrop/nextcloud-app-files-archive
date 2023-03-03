@@ -115,8 +115,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Risposta di errore HTTP alla chiamata AJAX: {code} / {error}",
     "No" : "No",
     "Yes" : "Si",
-    "Debug Information" : "Informazioni di Debug",
-    "unknown error" : "errore sconosciuto",
-    "Unable to download data from \"{url}\": {message}" : "Impossibile scaricare i dati da \"{url}\": {message}"
+    "Debug Information" : "Informazioni di Debug"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

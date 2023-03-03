@@ -17,7 +17,6 @@ OC.L10N.register(
     "Something went wrong." : "Yella wacu ur neddi ara akken ilaq.",
     "Internal Error" : "Tuccḍa tadigant",
     "No" : "Uhu",
-    "Yes" : "Oui",
-    "unknown error" : "Agul mačči d aḍahri"
+    "Yes" : "Oui"
 },
 "nplurals=2; plural=(n != 1);");

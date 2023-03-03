@@ -213,9 +213,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "對 AJAX 呼叫的 HTTP 錯誤回應：{code} / {error}",
     "No" : "否",
     "Yes" : "是",
-    "Debug Information" : "排除錯誤資訊",
-    "unknown error" : "未知錯誤",
-    "Unable to download data from \"{url}\": {message}" : "無法下載來自「{url}」的資料：{message}",
-    "The quick brown fox jumps over the lazy dog." : "The quick brown fox jumps over the lazy dog."
+    "Debug Information" : "排除錯誤資訊"
 },
 "nplurals=1; plural=0;");

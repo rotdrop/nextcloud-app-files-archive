@@ -49,8 +49,6 @@
     "HTTP error response to AJAX call: {code} / {error}" : "Chybová odpoveď HTTP pre volanie AJAX: {code} / {error}",
     "No" : "Nie",
     "Yes" : "Áno",
-    "Debug Information" : "Informácie o ladení",
-    "unknown error" : "neznáma chyba",
-    "Unable to download data from \"{url}\": {message}" : "Nie je možné stiahnuť údaje z adresy \"{url}\": {message}"
+    "Debug Information" : "Informácie o ladení"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

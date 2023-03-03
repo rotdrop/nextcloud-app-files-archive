@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-03-02 03:32+0000\n"
+"POT-Creation-Date: 2023-03-03 03:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -672,349 +672,415 @@ msgstr ""
 msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:35
+#. TRANSLATORS: Textual description of HTTP status code 200, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:36
 msgid "OK"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:36
+#. TRANSLATORS: Textual description of HTTP status code 201, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:38
 msgid "Created"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:37
+#. TRANSLATORS: Textual description of HTTP status code 202, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:40
 msgid "Accepted"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:38
+#. TRANSLATORS: Textual description of HTTP status code 203, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:42
 msgid "Non-Authoritative Information"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:39
+#. TRANSLATORS: Textual description of HTTP status code 204, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:44
 msgid "No Content"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:40
+#. TRANSLATORS: Textual description of HTTP status code 205, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:46
 msgid "Reset Content"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:41
+#. TRANSLATORS: Textual description of HTTP status code 206, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:48
 msgid "Partial Content"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:42
+#. TRANSLATORS: Textual description of HTTP status code 207, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:50
 msgid "Multi-Status (WebDAV)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:43
+#. TRANSLATORS: Textual description of HTTP status code 208, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:52
 msgid "Already Reported (WebDAV)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:44
+#. TRANSLATORS: Textual description of HTTP status code 226, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:54
 msgid "IM Used"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:45
+#. TRANSLATORS: Textual description of HTTP status code 300, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:56
 msgid "Multiple Choices"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:46
+#. TRANSLATORS: Textual description of HTTP status code 301, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:58
 msgid "Moved Permanently"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:47
+#. TRANSLATORS: Textual description of HTTP status code 302, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:60
 msgid "Found"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:48
+#. TRANSLATORS: Textual description of HTTP status code 303, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:62
 msgid "See Other"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:49
+#. TRANSLATORS: Textual description of HTTP status code 304, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:64
 msgid "Not Modified"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:50
+#. TRANSLATORS: Textual description of HTTP status code 305, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:66
 msgid "Use Proxy"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:51
+#. TRANSLATORS: Textual description of HTTP status code 306, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:68
 msgid "(Unused)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:52
+#. TRANSLATORS: Textual description of HTTP status code 307, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:70
 msgid "Temporary Redirect"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:53
+#. TRANSLATORS: Textual description of HTTP status code 308, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:72
 msgid "Permanent Redirect (experimental)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:54
+#. TRANSLATORS: Textual description of HTTP status code 400, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:74
 msgid "Bad Request"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:55
+#. TRANSLATORS: Textual description of HTTP status code 401, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:76
 msgid "Unauthorized"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:56
+#. TRANSLATORS: Textual description of HTTP status code 402, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:78
 msgid "Payment Required"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:57
+#. TRANSLATORS: Textual description of HTTP status code 403, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:80
 msgid "Forbidden"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:58
+#. TRANSLATORS: Textual description of HTTP status code 404, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:82
 msgid "Not Found"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:59
+#. TRANSLATORS: Textual description of HTTP status code 405, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:84
 msgid "Method Not Allowed"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:60
+#. TRANSLATORS: Textual description of HTTP status code 406, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:86
 msgid "Not Acceptable"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:61
+#. TRANSLATORS: Textual description of HTTP status code 407, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:88
 msgid "Proxy Authentication Required"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:62
+#. TRANSLATORS: Textual description of HTTP status code 408, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:90
 msgid "Request Timeout"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:63
+#. TRANSLATORS: Textual description of HTTP status code 409, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:92
 msgid "Conflict"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:64
+#. TRANSLATORS: Textual description of HTTP status code 410, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:94
 msgid "Gone"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:65
+#. TRANSLATORS: Textual description of HTTP status code 411, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:96
 msgid "Length Required"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:66
+#. TRANSLATORS: Textual description of HTTP status code 412, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:98
 msgid "Precondition Failed"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:67
+#. TRANSLATORS: Textual description of HTTP status code 413, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:100
 msgid "Request Entity Too Large"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:68
+#. TRANSLATORS: Textual description of HTTP status code 414, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:102
 msgid "Request-URI Too Long"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:69
+#. TRANSLATORS: Textual description of HTTP status code 415, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:104
 msgid "Unsupported Media Type"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:70
+#. TRANSLATORS: Textual description of HTTP status code 416, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:106
 msgid "Requested Range Not Satisfiable"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:71
+#. TRANSLATORS: Textual description of HTTP status code 417, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:108
 msgid "Expectation Failed"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:72
+#. TRANSLATORS: Textual description of HTTP status code 418, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:110
 msgid "I'm a teapot (RFC 2324)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:73
+#. TRANSLATORS: Textual description of HTTP status code 420, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:112
 msgid "Enhance Your Calm (Twitter)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:74
+#. TRANSLATORS: Textual description of HTTP status code 422, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:114
 msgid "Unprocessable Entity (WebDAV)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:75
+#. TRANSLATORS: Textual description of HTTP status code 423, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:116
 msgid "Locked (WebDAV)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:76
+#. TRANSLATORS: Textual description of HTTP status code 424, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:118
 msgid "Failed Dependency (WebDAV)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:77
+#. TRANSLATORS: Textual description of HTTP status code 425, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:120
 msgid "Reserved for WebDAV"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:78
+#. TRANSLATORS: Textual description of HTTP status code 426, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:122
 msgid "Upgrade Required"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:79
+#. TRANSLATORS: Textual description of HTTP status code 428, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:124
 msgid "Precondition Required"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:80
+#. TRANSLATORS: Textual description of HTTP status code 429, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:126
 msgid "Too Many Requests"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:81
+#. TRANSLATORS: Textual description of HTTP status code 431, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:128
 msgid "Request Header Fields Too Large"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:82
+#. TRANSLATORS: Textual description of HTTP status code 444, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:130
 msgid "No Response (Nginx)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:83
+#. TRANSLATORS: Textual description of HTTP status code 449, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:132
 msgid "Retry With (Microsoft)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:84
+#. TRANSLATORS: Textual description of HTTP status code 450, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:134
 msgid "Blocked by Windows Parental Controls (Microsoft)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:85
+#. TRANSLATORS: Textual description of HTTP status code 451, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:136
 msgid "Unavailable For Legal Reasons"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:86
+#. TRANSLATORS: Textual description of HTTP status code 599, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:138
 msgid "Client Closed Request (Nginx)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:87
+#. TRANSLATORS: Textual description of HTTP status code 500, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:140
 msgid "Internal Server Error"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:88
+#. TRANSLATORS: Textual description of HTTP status code 501, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:142
 msgid "Not Implemented"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:89
+#. TRANSLATORS: Textual description of HTTP status code 502, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:144
 msgid "Bad Gateway"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:90
+#. TRANSLATORS: Textual description of HTTP status code 503, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:146
 msgid "Service Unavailable"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:91
+#. TRANSLATORS: Textual description of HTTP status code 504, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:148
 msgid "Gateway Timeout"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:92
+#. TRANSLATORS: Textual description of HTTP status code 505, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:150
 msgid "HTTP Version Not Supported"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:93
+#. TRANSLATORS: Textual description of HTTP status code 506, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:152
 msgid "Variant Also Negotiates (Experimental)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:94
+#. TRANSLATORS: Textual description of HTTP status code 507, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:154
 msgid "Insufficient Storage (WebDAV)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:95
+#. TRANSLATORS: Textual description of HTTP status code 508, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:156
 msgid "Loop Detected (WebDAV)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:96
+#. TRANSLATORS: Textual description of HTTP status code 509, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:158
 msgid "Bandwidth Limit Exceeded (Apache)"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:97
+#. TRANSLATORS: Textual description of HTTP status code 510, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:160
 msgid "Not Extended"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:98
+#. TRANSLATORS: Textual description of HTTP status code 511, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:162
 msgid "Network Authentication Required"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:99
+#. TRANSLATORS: Textual description of HTTP status code 598, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:164
 msgid "Network read timeout error"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:100
+#. TRANSLATORS: Textual description of HTTP status code 599, see e.g. https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+#: /app/src/toolkit/util/ajax.js:166
 msgid "Network connect timeout error"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:157
+#: /app/src/toolkit/util/ajax.js:223
 msgid "Operation cancelled by user."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:160
+#: /app/src/toolkit/util/ajax.js:226
 msgid "Aborted"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:173 /app/src/toolkit/util/ajax.js:365
+#: /app/src/toolkit/util/ajax.js:239 /app/src/toolkit/util/ajax.js:431
 msgid "Error"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:198
+#: /app/src/toolkit/util/ajax.js:264
 msgid "System Administrator"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:233
+#: /app/src/toolkit/util/ajax.js:299
 msgid "Feedback email: {AutoReport}"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:257
+#: /app/src/toolkit/util/ajax.js:323
 msgid "Something went wrong."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:259
+#: /app/src/toolkit/util/ajax.js:325
 msgid ""
 "If it should be the case that you are already logged in for a long time "
 "without interacting with the app, then the reason for this error is probably "
 "a simple timeout."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:264
+#: /app/src/toolkit/util/ajax.js:330
 msgid ""
 "In any case it may help to logoff and logon again, as a temporary "
 "workaround. You will be redirected to the login page when you close this "
 "window."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:314
+#: /app/src/toolkit/util/ajax.js:380
 msgid "Unrecoverable unknown internal error, no details available"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:315
+#: /app/src/toolkit/util/ajax.js:381
 msgid "Internal Error"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:322
+#: /app/src/toolkit/util/ajax.js:388
 msgid "Field {RequiredField} not present in AJAX response."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:331
+#: /app/src/toolkit/util/ajax.js:397
 msgid "Missing data"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:343
+#: /app/src/toolkit/util/ajax.js:409
 msgid ""
 "The submitted data \"{stringValue}\" seems to be a plain string, but we need "
 "an object where the data is provided through above listed properties."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:346
+#: /app/src/toolkit/util/ajax.js:412
 msgid "Error: plain string received"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:351
+#: /app/src/toolkit/util/ajax.js:417
 msgid ""
 "The submitted data is not a plain object, and does not provide the "
 "properties listed above."
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:354
+#: /app/src/toolkit/util/ajax.js:420
 msgid "Error: not a plain object"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:394
+#: /app/src/toolkit/util/ajax.js:460
 msgid "Unknown JSON error response to AJAX call: {status} / {error}"
 msgstr ""
 
-#: /app/src/toolkit/util/ajax.js:402
+#: /app/src/toolkit/util/ajax.js:468
 msgid "HTTP error response to AJAX call: {code} / {error}"
 msgstr ""
 
@@ -1028,19 +1094,4 @@ msgstr ""
 
 #: /app/src/toolkit/util/dialogs.js:105
 msgid "Debug Information"
-msgstr ""
-
-#: /app/src/toolkit/util/file-download.js:50
-msgid "unknown error"
-msgstr ""
-
-#: /app/src/toolkit/util/file-download.js:53
-msgid "Unable to download data from \"{url}\": {message}"
-msgstr ""
-
-#. TRANSLATORS: This should be a pangram in the target language, please have a look at
-#. TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
-#. TRANSLATORS: also find examples for some languages.
-#: /app/src/toolkit/util/pangram.js:25
-msgid "The quick brown fox jumps over the lazy dog."
 msgstr ""

@@ -22,7 +22,6 @@
     "Something went wrong." : "Jokin meni pieleen.",
     "Internal Error" : "Sisäinen virhe",
     "No" : "Ei",
-    "Yes" : "Kyllä",
-    "unknown error" : "tuntematon virhe"
+    "Yes" : "Kyllä"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

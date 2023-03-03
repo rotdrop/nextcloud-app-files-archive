@@ -213,9 +213,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP грешка в отговор на AJAX повикване: {code} / {error}",
     "No" : "Не",
     "Yes" : "Да",
-    "Debug Information" : "Информация за отстраняване на грешки",
-    "unknown error" : "неизвестна грешка",
-    "Unable to download data from \"{url}\": {message}" : "Невъзможно е да се изтеглят данни от \"{url}\": {message}",
-    "The quick brown fox jumps over the lazy dog." : "The quick brown fox jumps over the lazy dog. /изречение -  панграма, което съдържа всички букви от английската азбука/"
+    "Debug Information" : "Информация за отстраняване на грешки"
 },
 "nplurals=2; plural=(n != 1);");

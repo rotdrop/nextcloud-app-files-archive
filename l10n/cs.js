@@ -213,9 +213,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP chybová odpověď na AJAX volání: {code} / {error}",
     "No" : "Ne",
     "Yes" : "Ano",
-    "Debug Information" : "Informace pro ladění",
-    "unknown error" : "neznámá chyba",
-    "Unable to download data from \"{url}\": {message}" : "Nedaří se stáhnout data z „{url}: {message}",
-    "The quick brown fox jumps over the lazy dog." : "Příliš žluťoučký kůň úpěl ďábelské ódy."
+    "Debug Information" : "Informace pro ladění"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

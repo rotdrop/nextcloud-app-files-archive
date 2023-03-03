@@ -213,9 +213,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP error response to AJAX call: {code} / {error}",
     "No" : "No",
     "Yes" : "Yes",
-    "Debug Information" : "Debug Information",
-    "unknown error" : "unknown error",
-    "Unable to download data from \"{url}\": {message}" : "Unable to download data from \"{url}\": {message}",
-    "The quick brown fox jumps over the lazy dog." : "The quick brown fox jumps over the lazy dog."
+    "Debug Information" : "Debug Information"
 },
 "nplurals=2; plural=(n != 1);");

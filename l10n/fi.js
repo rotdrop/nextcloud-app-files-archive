@@ -24,7 +24,6 @@ OC.L10N.register(
     "Something went wrong." : "Jokin meni pieleen.",
     "Internal Error" : "Sisäinen virhe",
     "No" : "Ei",
-    "Yes" : "Kyllä",
-    "unknown error" : "tuntematon virhe"
+    "Yes" : "Kyllä"
 },
 "nplurals=2; plural=(n != 1);");

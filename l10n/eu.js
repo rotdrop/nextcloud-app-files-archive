@@ -163,9 +163,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP errore-erantzuna AJAX deiari: {code} / {error}",
     "No" : "Ez",
     "Yes" : "Bai",
-    "Debug Information" : "Arazketa informazioa",
-    "unknown error" : "errore ezezaguna",
-    "Unable to download data from \"{url}\": {message}" : "Ezin izan dira datuak deskargatu \"{url}\"(e)tik: {message}",
-    "The quick brown fox jumps over the lazy dog." : "Eva eta Iñaxio quadez joan ziren flyscheko campingeko bungalowera."
+    "Debug Information" : "Arazketa informazioa"
 },
 "nplurals=2; plural=(n != 1);");

@@ -45,9 +45,6 @@ OC.L10N.register(
     "Error: not a plain object" : "Ошибка: не простой объект",
     "No" : "Нет",
     "Yes" : "Да",
-    "Debug Information" : "Отладочная информация",
-    "unknown error" : "неизвестная ошибка",
-    "Unable to download data from \"{url}\": {message}" : "Невозможно загрузить данные из \"{url}\": {message}",
-    "The quick brown fox jumps over the lazy dog." : "Быстрая коричневая лиса перепрыгивает через ленивую собаку."
+    "Debug Information" : "Отладочная информация"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

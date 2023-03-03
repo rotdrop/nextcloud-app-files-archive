@@ -65,7 +65,6 @@ OC.L10N.register(
     "Missing data" : "Ελλιπή δεδομένα",
     "No" : "Όχι",
     "Yes" : "Ναι",
-    "Debug Information" : "Πληροφορίες αποσφαλμάτωσης",
-    "unknown error" : "άγνωστο σφάλμα"
+    "Debug Information" : "Πληροφορίες αποσφαλμάτωσης"
 },
 "nplurals=2; plural=(n != 1);");

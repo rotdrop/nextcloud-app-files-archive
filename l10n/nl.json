@@ -36,7 +36,6 @@
     "Internal Error" : "Interne fout",
     "Missing data" : "Ontbrekende gegevens",
     "No" : "Nee",
-    "Yes" : "Ja",
-    "unknown error" : "onbekende fout"
+    "Yes" : "Ja"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

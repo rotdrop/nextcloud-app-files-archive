@@ -213,9 +213,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Respuesta HTTP de error a llamada AJAX: {code} / {error}",
     "No" : "No",
     "Yes" : "Sí",
-    "Debug Information" : "Información de depuración",
-    "unknown error" : "error desconocido",
-    "Unable to download data from \"{url}\": {message}" : "No fue posible descargar datos desde \"{url}\": {message}",
-    "The quick brown fox jumps over the lazy dog." : "El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el saxofón detrás del palenque de paja."
+    "Debug Information" : "Información de depuración"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

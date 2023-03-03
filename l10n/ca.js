@@ -170,8 +170,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Resposta d'error HTTP a la trucada AJAX: {code} / {error}",
     "No" : "No",
     "Yes" : "Sí",
-    "Debug Information" : "Informació de depuració",
-    "unknown error" : "error desconegut",
-    "Unable to download data from \"{url}\": {message}" : "No es poden baixar dades de \"{url}\": {message}"
+    "Debug Information" : "Informació de depuració"
 },
 "nplurals=2; plural=(n != 1);");
