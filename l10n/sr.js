@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "bytes" : "бајтова",
     "unknown" : "непознато",
+    "MIME type" : "MIME тип",
     "Archive" : "Архива",
     "OK" : "У реду",
     "Created" : "Направљен",
