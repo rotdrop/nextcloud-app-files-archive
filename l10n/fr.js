@@ -185,7 +185,7 @@ OC.L10N.register(
     "Service Unavailable" : "Service indisponible",
     "Gateway Timeout" : "Délai dépassé pour accéder à la passerelle",
     "HTTP Version Not Supported" : "Version HTTP non supportée",
-    "Variant Also Negotiates (Experimental)" : "Variant Négocie aussi (expérimentation)",
+    "Variant Also Negotiates (Experimental)" : "Erreur de négociation (Variant Also Negotiates, expérimental)",
     "Insufficient Storage (WebDAV)" : "Stockage insuffisant (WebDAV)",
     "Loop Detected (WebDAV)" : "Bouclé détectée (WebDAV)",
     "Bandwidth Limit Exceeded (Apache)" : "Limite de bande passante dépassée (Apache)",
