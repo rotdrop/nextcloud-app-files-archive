@@ -1,4 +1,5 @@
 { "translations": {
+    "File or folder could not be found." : "لم يمكن العثور على الملف أو المجلد",
     "unknown" : "غير معروف",
     "Archive" : "الأرشيف",
     "OK" : "موافق",

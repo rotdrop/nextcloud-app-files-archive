@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "لم يمكن العثور على الملف أو المجلد",
     "unknown" : "غير معروف",
     "Archive" : "الأرشيف",
     "OK" : "موافق",
