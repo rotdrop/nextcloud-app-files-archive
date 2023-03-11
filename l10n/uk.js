@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "bytes" : "байтів",
     "unknown" : "невідомо",
+    "uncompressed size" : "розархівований розмір",
+    "compressed size" : "архівований розмір",
     "Archive" : "Архів",
     "OK" : "Гаразд",
     "Created" : "Створено",
