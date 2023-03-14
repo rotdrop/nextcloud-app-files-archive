@@ -1,4 +1,5 @@
 { "translations": {
+    "File or folder could not be found." : "Το αρχείο ή ο φάκελος δεν μπορεί να βρεθεί.",
     "The user folder for user \"%s\" could not be opened." : "Ο φάκελος χρήστη για τον χρήστη \"%s\" δεν μπορεί να ανοίξει.",
     "The archive file \"%s\" could not be found on the server." : "Το αρχείο αρχειοθέτησης \"%s\" δεν βρέθηκε στο διακομιστή.",
     "Unable to open the archive file \"%s\": %s." : "Αδύνατο να ανοίξει το αρχείο αρχειοθέτησης \"%s\": %s.",
