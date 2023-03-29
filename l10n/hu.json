@@ -1,4 +1,8 @@
 { "translations": {
+    "File or folder could not be found." : "A fájl vagy mappa nem található.",
+    "Post to endpoint \"%s\" not implemented." : "A POST üzenet nincs megvalósítva a következő végponton: „%s”",
+    "Post to base URL of app \"%s\" not allowed." : "A(z) „%s” alkalmazás alap webcímére küldött POST üzenet nem engedélyezett.",
+    "Get from endpoint \"%s\" not implemented." : "A GET üzenet nincs megvalósítva a következő végponton: „%s”",
     "bytes" : "bájt",
     "unknown" : "ismeretlen",
     "MIME type" : "MIME-típus",
