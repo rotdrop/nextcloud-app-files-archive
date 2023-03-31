@@ -199,7 +199,7 @@ OC.L10N.register(
     "System Administrator" : "Sistem yöneticisi",
     "Feedback email: {AutoReport}" : "Geri bildirim e-postası: {AutoReport}",
     "Something went wrong." : "Bir şeyler ters gitti.",
-    "If it should be the case that you are already logged in for a long time without interacting with the app, then the reason for this error is probably a simple timeout." : "Web uygulamasıyla etkileşime girmeden oturumunuz uzun süredir açık kalmışsa, bu hata büyük olasılıkla zaman aşımından kaynaklanmıştır.",
+    "If it should be the case that you are already logged in for a long time without interacting with the app, then the reason for this error is probably a simple timeout." : "İnternet uygulamasıyla etkileşime girmeden oturumunuz uzun süredir açık kalmışsa, bu hata büyük olasılıkla zaman aşımından kaynaklanmıştır.",
     "In any case it may help to logoff and logon again, as a temporary workaround. You will be redirected to the login page when you close this window." : "Her durumda, geçici bir çözüm olarak oturumu kapatıp yeniden açmak yardımcı olabilir. Bu pencereyi kapattığınızda oturum açma sayfasına yönlendirileceksiniz.",
     "Unrecoverable unknown internal error, no details available" : "Aşılamayan ve bilinmeyen bir iç sorun çıktı. Herhangi bir ayrıntı yok.",
     "Internal Error" : "İç sorun",
