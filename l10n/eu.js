@@ -62,6 +62,7 @@ OC.L10N.register(
     "basename" : "oinarrizko izena",
     "ok" : "ados",
     "too large" : "handiegia",
+    "Mount Archive" : "Muntatu artxiboa",
     "Archive" : "Artxibatu",
     "reason unknown" : "arrazoi ezezaguna",
     "Unable to query the initial value of all settings: {message}" : "Ezin da kontsultatu ezarpen guztien hasierako balioa: {message}",
