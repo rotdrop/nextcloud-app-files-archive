@@ -11,6 +11,8 @@
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "A cadea de cor proporcionada \"%s\" parece non ser válida.",
     "The input color values are invalid." : "Os valores de cores introducidos non son válidos.",
+    "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: \"{dir}/{base}/\".",
+    "Invalid path selected: \"{dir}\"." : "Ruta seleccionada non válida: \"{dir}\".",
     "unknown" : "descoñecido",
     "Archive" : "Aquivar",
     "true" : "certo",
