@@ -16,7 +16,7 @@ OC.L10N.register(
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: «{dir}/{base}/».",
     "Invalid path selected: \"{dir}\"." : "Seleccionou unha ruta incorrecta «{dir}».",
     "unknown" : "descoñecido",
-    "Archive" : "Aquivar",
+    "Archive" : "Arquivo",
     "true" : "certo",
     "false" : "falso",
     "OK" : "Aceptar",
