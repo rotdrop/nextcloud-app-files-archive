@@ -1,4 +1,5 @@
 { "translations": {
+    "Only the passphrase may be changed for an existing mount." : "Só é posíbel cambiar a frase de contrasinal para unha montaxe existente.",
     "Unknown admin setting: \"%1$s\"" : "Axuste de administrador descoñecido: «%1$s»",
     "The admin setting \"%1$s\" is read-only" : "O axuste de administración «%1$s» é só de lectura",
     "Unknown personal setting: \"%1$s\"" : "Axuste persoal descoñecido: «%1$s»",
@@ -14,6 +15,10 @@
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: «{dir}/{base}/».",
     "Invalid path selected: \"{dir}\"." : "Seleccionou unha ruta incorrecta «{dir}».",
     "unknown" : "descoñecido",
+    "Passphrase" : "Frase de contrasinal",
+    "archive passphrase" : "arquivar a frase de contrasinal",
+    "Show Passphrase" : "Amosar a frase de contrasinal",
+    "Patching the passphrase failed with error {status}, \"{statusText}\"." : "Produciuse un erro de {status}, «{statusText}» ao parchear a frase de contrasinal.",
     "Archive" : "Arquivo",
     "true" : "certo",
     "false" : "falso",
