@@ -126,13 +126,22 @@ webpackConfig.module.rules = [
     test: /\.vue$/,
     loader: 'vue-loader',
   },
+  {
+    test: /\.js$/,
+    loader: 'babel-loader',
+    exclude: /node_modules/,
+  },
 ];
 
 webpackConfig.resolve.modules = [
-  path.resolve(__dirname, 'node_modules'),
   path.resolve(__dirname, 'style'),
   path.resolve(__dirname, 'src'),
   path.resolve(__dirname, '.'),
+  'node_modules',
 ];
+
+webpackConfig.stats = {
+  errorDetails: true,
+};
 
 module.exports = webpackConfig;

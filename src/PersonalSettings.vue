@@ -122,8 +122,8 @@
 <script>
 import { appName } from './config.js'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
-import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
+import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
+import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
 import { generateUrl } from '@nextcloud/router'
 import { showError, showSuccess, showInfo, TOAST_DEFAULT_TIMEOUT, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
