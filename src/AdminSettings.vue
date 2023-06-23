@@ -26,12 +26,11 @@
                    :title="t(appName, 'Archive Manager, Admin Settings')"
   >
     <AppSettingsSection :title="t(appName, 'Archive Extraction')">
-      <SettingsInputText
-        v-model="humanArchiveSizeLimit"
-        :label="t(appName, 'Archive Size Limit')"
-        :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
-        :disabled="loading"
-        @update="saveTextInput(...arguments, 'archiveSizeLimit')"
+      <SettingsInputText v-model="humanArchiveSizeLimit"
+                         :label="t(appName, 'Archive Size Limit')"
+                         :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
+                         :disabled="loading"
+                         @update="saveTextInput(...arguments, 'archiveSizeLimit')"
       />
     </AppSettingsSection>
   </SettingsSection>
