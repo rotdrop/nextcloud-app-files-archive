@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2023 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@ import $ from './toolkit/util/jquery.js';
 import generateAppUrl from './toolkit/util/generate-url.js';
 import * as Ajax from './toolkit/util/ajax.js';
 import { attachDialogHandlers } from './toolkit/util/dialogs.js';
-import { getInitialState } from 'toolkit/services/InitialStateService.js';
+import { getInitialState } from './toolkit/services/InitialStateService.js';
 import { generateFilePath, imagePath, generateUrl } from '@nextcloud/router';
 import { showError, /* showSuccess, */ TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import FilesTab from './views/FilesTab.vue';

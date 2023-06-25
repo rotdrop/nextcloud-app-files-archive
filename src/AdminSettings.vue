@@ -26,12 +26,11 @@
                    :title="t(appName, 'Archive Manager, Admin Settings')"
   >
     <AppSettingsSection :title="t(appName, 'Archive Extraction')">
-      <SettingsInputText
-        v-model="humanArchiveSizeLimit"
-        :label="t(appName, 'Archive Size Limit')"
-        :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
-        :disabled="loading"
-        @update="saveTextInput(...arguments, 'archiveSizeLimit')"
+      <SettingsInputText v-model="humanArchiveSizeLimit"
+                         :label="t(appName, 'Archive Size Limit')"
+                         :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
+                         :disabled="loading"
+                         @update="saveTextInput(...arguments, 'archiveSizeLimit')"
       />
     </AppSettingsSection>
   </SettingsSection>
@@ -39,8 +38,8 @@
 
 <script>
 import { appName } from './config.js'
-import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
+import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
+import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
 import ListItem from '@rotdrop/nextcloud-vue-components/lib/components/ListItem'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
 import axios from '@nextcloud/axios'

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -23,7 +23,7 @@ import { appName } from './config.js';
 import { generateFilePath } from '@nextcloud/router';
 
 import Vue from 'vue';
-import AdminSettings from './AdminSettings';
+import AdminSettings from './AdminSettings.vue';
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/');

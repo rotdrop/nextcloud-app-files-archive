@@ -1,65 +1,66 @@
 {
   "name": "files-archive",
-  "description": "On-the-fly archive inspector for Nextcloud",
   "version": "1.1.3-rc1",
-  "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
+  "private": true,
+  "description": "On-the-fly archive inspector for Nextcloud",
+  "homepage": "https://github.com/rotdrop/nextcloud-app-files-archive.git",
   "bugs": {
     "url": "https://github.com/rotdrop/nextcloud-app-files-archive.git"
   },
   "repository": {
-    "url": "https://github.com/rotdrop/nextcloud-app-files-archive.git",
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/rotdrop/nextcloud-app-files-archive.git"
   },
-  "homepage": "https://github.com/rotdrop/nextcloud-app-files-archive.git",
   "license": "agpl",
-  "private": true,
+  "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "scripts": {
     "build": "webpack --node-env production --progress",
+    "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+    "cs:fix": "vendor/bin/php-cs-fixer fix",
     "dev": "webpack --node-env development --progress",
-    "watch": "webpack --node-env development --progress --watch",
-    "serve": "webpack --node-env development serve --progress",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
+    "serve": "webpack --node-env development serve --progress",
     "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
     "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
-    "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-    "cs:fix": "vendor/bin/php-cs-fixer fix"
+    "watch": "webpack --node-env development --progress --watch"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
   ],
-  "engines": {
-    "node": "^16.0.0",
-    "npm": "^8.0.0"
-  },
   "devDependencies": {
-    "@rotdrop/nextcloud-vue-components": "file:git-modules/nextcloud-vue-components",
     "@nextcloud/auth": "^1.3.0",
     "@nextcloud/axios": "^2.0.0",
     "@nextcloud/babel-config": "^1.0.0",
     "@nextcloud/browserslist-config": "^2.2.0",
     "@nextcloud/dialogs": "^3.1.2",
-    "@nextcloud/eslint-config": "^6.1.2",
+    "@nextcloud/eslint-config": "^8.2.1",
     "@nextcloud/files": "^2.1.0",
     "@nextcloud/initial-state": "*",
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/stylelint-config": "^2.1.2",
-    "@nextcloud/vue": "^5.3.1",
-    "@nextcloud/webpack-vue-config": "^4.3.2",
+    "@nextcloud/vue": "^7.0.0",
+    "@nextcloud/webpack-vue-config": "^5.5.0",
+    "@rotdrop/nextcloud-vue-components": "file:git-modules/nextcloud-vue-components",
     "blueimp-md5": "^2.19.0",
     "content-disposition": "*",
     "csso-webpack-plugin": "^2.0.0-beta.3",
+    "eslint-webpack-plugin": "^3.1.1",
     "html-webpack-plugin": "^5.5.0",
     "is-plain-object": "^5.0.0",
     "jquery": "^3.6.0",
     "mini-css-extract-plugin": "^2.6.1",
     "sass": "^1.53.0",
-    "sass-loader": "^12.0.0",
+    "sass-loader": "^13.1.0",
     "svgo-loader": "^3.0.1",
     "vue": "^2.6.14",
-    "webpack": "^5.64.4",
+    "webpack": "*",
     "webpack-deadcode-plugin": "^0.1.17",
     "xml-loader": "^1.2.1",
     "xml2js": "*"
+  },
+  "engines": {
+    "node": "^16.0.0",
+    "npm": "^8.0.0"
   }
 }

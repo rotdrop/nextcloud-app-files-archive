@@ -21,24 +21,22 @@
 <template>
   <SettingsSection :class="[...cloudVersionClasses, appName]" :title="t(appName, 'Archive Manager, Personal Settings')">
     <AppSettingsSection :title="t(appName, 'Security Options')">
-      <SettingsInputText
-        v-model="humanArchiveSizeLimit"
-        :label="t(appName, 'Archive Size Limit')"
-        :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
-        :disabled="loading"
-        @update="saveTextInput(...arguments, 'archiveSizeLimit')"
+      <SettingsInputText v-model="humanArchiveSizeLimit"
+                         :label="t(appName, 'Archive Size Limit')"
+                         :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
+                         :disabled="loading"
+                         @update="saveTextInput(...arguments, 'archiveSizeLimit')"
       />
       <span v-if="archiveSizeLimitAdmin > 0" :class="{ hint: true, 'admin-limit-exceeded': archiveSizeLimitAdmin < archiveSizeLimit, 'icon-error': archiveSizeLimitAdmin < archiveSizeLimit }">
         {{ t(appName, 'Administrative size limit: {value}', { value: humanArchiveSizeLimitAdmin }) }}
       </span>
     </AppSettingsSection>
     <AppSettingsSection :title="t(appName, 'Mount Options')">
-      <SettingsInputText
-        v-model="mountPointTemplate"
-        :label="t(appName, 'Template for the default name of the mount point')"
-        :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
-        placeholder="{archiveFileName}"
-        @update="saveTextInput(...arguments, 'mountPointTemplate')"
+      <SettingsInputText v-model="mountPointTemplate"
+                         :label="t(appName, 'Template for the default name of the mount point')"
+                         :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
+                         placeholder="{archiveFileName}"
+                         @update="saveTextInput(...arguments, 'mountPointTemplate')"
       />
       <div class="settings-option">
         <input :id="id + '-mount-strip-common-prefix'"
@@ -75,12 +73,11 @@
       </div>
     </AppSettingsSection>
     <AppSettingsSection :title="t(appName, 'Extraction Options')">
-      <SettingsInputText
-        v-model="extractTargetTemplate"
-        :label="t(appName, 'Template for the default name of the extraction folder')"
-        :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
-        placeholder="{archiveFileName}"
-        @update="saveTextInput(...arguments, 'extractTargetTemplate')"
+      <SettingsInputText v-model="extractTargetTemplate"
+                         :label="t(appName, 'Template for the default name of the extraction folder')"
+                         :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
+                         placeholder="{archiveFileName}"
+                         @update="saveTextInput(...arguments, 'extractTargetTemplate')"
       />
       <div class="settings-option">
         <input :id="id + '-extract-strip-common-prefix'"
@@ -122,8 +119,8 @@
 <script>
 import { appName } from './config.js'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
-import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
+import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
+import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
 import { generateUrl } from '@nextcloud/router'
 import { showError, showSuccess, showInfo, TOAST_DEFAULT_TIMEOUT, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
