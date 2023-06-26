@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-06-14 02:11+0000\n"
+"POT-Creation-Date: 2023-06-26 02:24+0000\n"
 "PO-Revision-Date: 2022-11-11 12:53+0000\n"
 "Last-Translator: Markus Eckstein, 2023\n"
 "Language-Team: German (https://app.transifex.com/nextcloud/teams/64236/de/)\n"
@@ -305,11 +305,11 @@ msgstr ""
 "auf dem Server nicht installiert, bitte den System-Administrator "
 "kontaktieren!"
 
-#: /app/php-toolkit/Traits/ResponseTrait.php:121
+#: /app/php-toolkit/Traits/ResponseTrait.php:122
 msgid "Error, caught an exception."
 msgstr "Fehler, \"Ausnahme\" \"aufgefangen\"."
 
-#: /app/php-toolkit/Traits/ResponseTrait.php:122
+#: /app/php-toolkit/Traits/ResponseTrait.php:123
 msgid "Caused by previous exception"
 msgstr "Verursacht durch eine vorhergehende Ausnahme"
 
@@ -348,15 +348,15 @@ msgstr "Archiv-Betrachter, Administrator-Einstellungen"
 msgid "Archive Extraction"
 msgstr "Archiv-Dateien-Behandlung"
 
-#. TRANSLATORS Settings.vue:31
-#. TRANSLATORS nalSettings.vue:26
+#. TRANSLATORS Settings.vue:30
+#. TRANSLATORS nalSettings.vue:25
 #: /app/specialVueFakeDummyForL10nScript.js:6
 #: /app/specialVueFakeDummyForL10nScript.js:14
 msgid "Archive Size Limit"
 msgstr "Archiv-Größen-Limitierung"
 
-#. TRANSLATORS Settings.vue:32
-#. TRANSLATORS nalSettings.vue:27
+#. TRANSLATORS Settings.vue:31
+#. TRANSLATORS nalSettings.vue:26
 #: /app/specialVueFakeDummyForL10nScript.js:8
 #: /app/specialVueFakeDummyForL10nScript.js:16
 msgid ""
@@ -376,24 +376,24 @@ msgstr "Archiv-Betrachter, Persönliche Einstellungen"
 msgid "Security Options"
 msgstr "Einstellunhen zur Sicherheit"
 
-#. TRANSLATORS nalSettings.vue:32
+#. TRANSLATORS nalSettings.vue:31
 #: /app/specialVueFakeDummyForL10nScript.js:18
 msgid "Administrative size limit: {value}"
 msgstr "Größenbegrenzen durch Administrator*innen: {value}"
 
-#. TRANSLATORS nalSettings.vue:35
+#. TRANSLATORS nalSettings.vue:34
 #. TRANSLATORS /FilesTab.vue:177
 #: /app/specialVueFakeDummyForL10nScript.js:20
 #: /app/specialVueFakeDummyForL10nScript.js:98
 msgid "Mount Options"
 msgstr "Einhänge-Optionen"
 
-#. TRANSLATORS nalSettings.vue:38
+#. TRANSLATORS nalSettings.vue:36
 #: /app/specialVueFakeDummyForL10nScript.js:22
 msgid "Template for the default name of the mount point"
 msgstr "Vorlage für den Standardnamen des Einhängepunkts."
 
-#. TRANSLATORS nalSettings.vue:39
+#. TRANSLATORS nalSettings.vue:37
 #: /app/specialVueFakeDummyForL10nScript.js:24
 #: /app/specialVueFakeDummyForL10nScript.js:36
 msgid ""
@@ -403,37 +403,37 @@ msgstr ""
 "{archiveFileName} wird durch den Dateinamen der Archivdatei ohne "
 "Dateinamenserweiterungen ersetzt."
 
-#. TRANSLATORS nalSettings.vue:51
+#. TRANSLATORS nalSettings.vue:49
 #: /app/specialVueFakeDummyForL10nScript.js:26
 #: /app/specialVueFakeDummyForL10nScript.js:38
 msgid "strip common path prefix by default"
 msgstr "gemeinsamen Dateipfad-Präfix normalerweise entfernen"
 
-#. TRANSLATORS nalSettings.vue:62
+#. TRANSLATORS nalSettings.vue:60
 #: /app/specialVueFakeDummyForL10nScript.js:28
 msgid "automatically change the mount point name if it already exists"
 msgstr ""
 "den Namen des Einhängepunktes automatisch ändern, falls der Name bereits in "
 "Verwendung ist"
 
-#. TRANSLATORS nalSettings.vue:73
+#. TRANSLATORS nalSettings.vue:71
 #: /app/specialVueFakeDummyForL10nScript.js:30
 msgid "default to scheduling mount requests as background job"
 msgstr "Standardmäßig werden Mount-Anforderungen als Hintergrundjob geplant"
 
-#. TRANSLATORS nalSettings.vue:77
+#. TRANSLATORS nalSettings.vue:75
 #. TRANSLATORS /FilesTab.vue:223
 #: /app/specialVueFakeDummyForL10nScript.js:32
 #: /app/specialVueFakeDummyForL10nScript.js:110
 msgid "Extraction Options"
 msgstr "Einstellungen für das Entpacken"
 
-#. TRANSLATORS nalSettings.vue:80
+#. TRANSLATORS nalSettings.vue:77
 #: /app/specialVueFakeDummyForL10nScript.js:34
 msgid "Template for the default name of the extraction folder"
 msgstr "Vorlage für den Standardnamen des Ordners für das Entpacken"
 
-#. TRANSLATORS nalSettings.vue:104
+#. TRANSLATORS nalSettings.vue:101
 #: /app/specialVueFakeDummyForL10nScript.js:40
 msgid ""
 "automatically change the target folder name if the target folder already "
@@ -442,7 +442,7 @@ msgstr ""
 "den Namen des Ziel-Ordners automatisch ändern, falls der Name bereits in "
 "Verwendung ist"
 
-#. TRANSLATORS nalSettings.vue:115
+#. TRANSLATORS nalSettings.vue:112
 #: /app/specialVueFakeDummyForL10nScript.js:42
 msgid "default to scheduling extraction requests as background job"
 msgstr ""

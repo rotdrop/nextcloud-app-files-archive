@@ -43,6 +43,7 @@ OC.L10N.register(
     "Created" : "أُنشئ",
     "Unauthorized" : "غير مصرح",
     "Forbidden" : "ممنوعع",
+    "Not Found" : "غير موجود",
     "Conflict" : "تعارُض",
     "Gone" : "انقضى",
     "Length Required" : "الطول المطلوب",

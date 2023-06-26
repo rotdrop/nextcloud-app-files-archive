@@ -22,7 +22,7 @@ OC.L10N.register(
     "Show Passphrase" : "Amosar a frase de contrasinal",
     "Patching the passphrase failed with error {status}, \"{statusText}\"." : "Produciuse un erro de {status}, «{statusText}» ao parchear a frase de contrasinal.",
     "Archive" : "Arquivo",
-    "true" : "certo",
+    "true" : "verdadeiro",
     "false" : "falso",
     "OK" : "Aceptar",
     "Created" : "Creado",
