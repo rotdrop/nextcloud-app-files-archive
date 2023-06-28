@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Unknown admin setting: \"%1$s\"" : "Невідомі налаштування адміна: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "Налаштування адміністратора \"%1$s\" тільки для перегляду",
     "bytes" : "байтів",
     "unknown" : "невідомо",
     "uncompressed size" : "розархівований розмір",
