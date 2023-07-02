@@ -18,6 +18,7 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "Seleccionou unha ruta incorrecta «{dir}».",
     "unknown" : "descoñecido",
     "MIME type" : "Tipo MIME",
+    "uncompressed size" : "tamaño sen comprimir",
     "Passphrase" : "Frase de contrasinal",
     "archive passphrase" : "arquivar a frase de contrasinal",
     "Show Passphrase" : "Amosar a frase de contrasinal",
