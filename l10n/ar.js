@@ -29,6 +29,7 @@ OC.L10N.register(
     "Selected path: \"{dir}/{base}/\"." : "المسار المختار: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "المسار المختار غير صحيح: \"{dir}\"",
     "unknown" : "غير معروف",
+    "MIME type" : "نوع الملف MIME",
     "basename" : "الاسم الأساس",
     "Archive" : "الأرشيف",
     "reason unknown" : "السبب غير معلوم",

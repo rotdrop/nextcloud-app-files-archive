@@ -1,4 +1,5 @@
 { "translations": {
+    "File or folder could not be found." : "Non foi posíbel atopar o ficheiro ou o cartafol",
     "Only the passphrase may be changed for an existing mount." : "Só é posíbel cambiar a frase de contrasinal para unha montaxe existente.",
     "Unknown admin setting: \"%1$s\"" : "Axuste de administrador descoñecido: «%1$s»",
     "The admin setting \"%1$s\" is read-only" : "O axuste de administración «%1$s» é só de lectura",
