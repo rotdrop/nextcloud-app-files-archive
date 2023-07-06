@@ -82,7 +82,7 @@ OC.L10N.register(
     "unknown" : "unbekannt",
     "MIME type" : "MIME-Typ",
     "backend driver" : "Backend-Treiber",
-    "uncompressed size" : "dekomprimierte Grö´ße",
+    "uncompressed size" : "dekomprimierte Größe",
     "compressed size" : "komprimierte Größe",
     "archive file size" : "Archiv-Dateigröße",
     "# archive members" : "Archiv-Mitglieder",
