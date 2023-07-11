@@ -73,7 +73,9 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
       'style/**/*.scss',
     ],
     exclude: [
-      // 'src/toolkit/**',
+      'src/toolkit/util/file-download.js',
+      'src/toolkit/util/on-document-loaded.js',
+      'src/toolkit/util/pangram.js',
     ],
   }),
 ]);
