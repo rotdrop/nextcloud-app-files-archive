@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "bytes" : "بایت",
     "unknown" : "نامشخص",
+    "MIME type" : "نوع MIME",
     "Archive" : "بایگانی",
     "OK" : "تایید",
     "Created" : "ایجاد شده",
