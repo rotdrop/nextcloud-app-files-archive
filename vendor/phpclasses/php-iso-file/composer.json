@@ -1,0 +1,9 @@
+{
+    "name": "phpclasses/php-iso-file",
+    "description": "Read, extract and test ISO DVD image files",
+    "keywords": ["iso"],
+	"autoload":
+	{
+		"classmap": ["classes\/boot_catalog.class.php", "classes\/boot_catalog_entry.class.php", "classes\/buffer.class.php", "classes\/descriptor_boot.class.php", "classes\/descriptor.class.php", "classes\/descriptor_partition.class.php", "classes\/descriptor_terminator.class.php", "classes\/descriptor_volume.class.php", "classes\/file_dir_descriptors.class.php", "classes\/file_iso.class.php", "classes\/iso_date.class.php", "classes\/path_table_record.class.php"]
+	}
+}
