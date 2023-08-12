@@ -6,7 +6,7 @@
     "Error: %s" : "錯誤：%s",
     "Unable to open the archive file \"%s\"." : "無法打開封存檔案 \"%s\"。",
     "The archive file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s." : "封存檔案「%1$s」似乎是 zip 炸彈：未壓縮大小 %2$s > 管理上限 %3$s。",
-    "The archive file \"%1$s\" is too large: uncompressed size %2$s > user limit %3$s." : "封存檔案「%1$s」太大了：未壓縮大小 %2$s > 使用者上限 %3$s。",
+    "The archive file \"%1$s\" is too large: uncompressed size %2$s > user limit %3$s." : "封存檔案「%1$s」太大了：未壓縮大小 %2$s > 用戶上限 %3$s。",
     "Unable to open the target parent folder \"%s\"." : "無法打開目標父文件夾“%s”。",
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "目標資料夾「%s」已存在且未啟用自動重新命名。",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "無法將“%1$s”提取到“%2$s”：“%3$s”。",
