@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "解壓縮資料夾的默認名稱模板",
     "automatically change the target folder name if the target folder already exists" : "若目標資料夾已存在，則自動變更目標資料夾名稱",
     "default to scheduling extraction requests as background job" : "默認將提取請求安排為後台作業",
-    "Choose a prefix folder" : "選擇前綴資料夾",
+    "Choose a prefix-folder" : "選擇前綴資料夾",
     "Selected path: \"{dir}/{base}/\"." : "已選取的路徑：「{dir}/{base}/」。",
     "Invalid path selected: \"{dir}\"." : "選取了無效路徑：「{dir}」。",
     "Archive Information" : "封存檔案資訊",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "對 AJAX 呼叫的 HTTP 錯誤回應：{code} / {error}",
     "No" : "否",
     "Yes" : "是",
-    "Debug Information" : "排除錯誤資訊"
+    "Debug Information" : "排除錯誤資訊",
+    "Choose a prefix folder" : "選擇前綴資料夾"
 },
 "nplurals=1; plural=0;");
