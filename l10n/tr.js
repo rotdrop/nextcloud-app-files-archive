@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Ayıklama klasörü varsayılan adlandırma kalıbı ",
     "automatically change the target folder name if the target folder already exists" : "hedef klasör zaten varsa hedef klasör adı otomatik olarak değiştirilsin",
     "default to scheduling extraction requests as background job" : "ayıklama istekleri varsayılan olarak arka plan görevi olarak zamanlansın",
-    "Choose a prefix folder" : "Bir ön ek klasörü seçin",
+    "Choose a prefix-folder" : "Bir ön ek klasörü seçin",
     "Selected path: \"{dir}/{base}/\"." : "Seçilmiş yol: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Seçilmiş yol geçersiz: \"{dir}\".",
     "Archive Information" : "Arşiv bilgileri",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "AJAX çağrısına HTTP hata yanıtı verildi: {code} / {error}",
     "No" : "Hayır",
     "Yes" : "Evet",
-    "Debug Information" : "Hata ayıklama bilgileri"
+    "Debug Information" : "Hata ayıklama bilgileri",
+    "Choose a prefix folder" : "Bir ön ek klasörü seçin"
 },
 "nplurals=2; plural=(n > 1);");

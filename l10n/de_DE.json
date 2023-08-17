@@ -71,7 +71,7 @@
     "Template for the default name of the extraction folder" : "Vorlage für den Standardnamen des Ordners für das Entpacken",
     "automatically change the target folder name if the target folder already exists" : "Den Namen des Ziel-Ordners automatisch ändern, falls der Ordner bereits vorhanden ist",
     "default to scheduling extraction requests as background job" : "Standardmäßig werden Extraktionsanfragen als Hintergrundjob geplant",
-    "Choose a prefix folder" : "Präfixordner auswählen",
+    "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Pfad: \"{dir}/{base}\".",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad gewählt: \"{dir}\".",
     "Archive Information" : "Archiv-Informationen",
@@ -211,6 +211,7 @@
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP Fehler-Antwort auf AJAX-Anfrage: {code} / {error}",
     "No" : "Nein",
     "Yes" : "Ja",
-    "Debug Information" : "Debug Informationen"
+    "Debug Information" : "Debug Informationen",
+    "Choose a prefix folder" : "Präfixordner auswählen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

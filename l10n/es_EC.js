@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Plantilla para el nombre predeterminado de la carpeta de extracción",
     "automatically change the target folder name if the target folder already exists" : "cambiar automáticamente el nombre de la carpeta de destino si la carpeta de destino ya existe",
     "default to scheduling extraction requests as background job" : "programar solicitudes de extracción como tareas en segundo plano de forma predeterminada",
-    "Choose a prefix folder" : "Elegir una carpeta de prefijo",
+    "Choose a prefix-folder" : "Elije un prefijo de carpeta",
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Ruta seleccionada no válida: \"{dir}\".",
     "Archive Information" : "Información de archivo de archivo",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Respuesta de error HTTP a la llamada AJAX: {code} / {error}",
     "No" : "No",
     "Yes" : "Sí",
-    "Debug Information" : "Información de depuración"
+    "Debug Information" : "Información de depuración",
+    "Choose a prefix folder" : "Elegir una carpeta de prefijo"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

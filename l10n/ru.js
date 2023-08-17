@@ -73,7 +73,6 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Шаблон имени директории распаковки по умолчанию",
     "automatically change the target folder name if the target folder already exists" : "автоматически изменить имя целевой папки, если она уже существует",
     "default to scheduling extraction requests as background job" : "по умолчанию запросы на распаковку планируются как фоновое задание",
-    "Choose a prefix folder" : "Выберите префикс директории",
     "Selected path: \"{dir}/{base}/\"." : "Выбраный путь: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Выбран некорректный путь: \"{dir}\".",
     "Archive Information" : "Сведения об архиве",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Ошибка запроса HTTP в сессии AJAX: {code} / {error}",
     "No" : "Нет",
     "Yes" : "Да",
-    "Debug Information" : "Отладочная информация"
+    "Debug Information" : "Отладочная информация",
+    "Choose a prefix folder" : "Выберите префикс директории"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

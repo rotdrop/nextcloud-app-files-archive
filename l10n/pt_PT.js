@@ -22,6 +22,7 @@ OC.L10N.register(
     "Error, caught an exception." : "Erro, detetada uma exceção.",
     "Caused by previous exception" : "Causado por uma exceção anterior",
     "bytes" : "bytes",
+    "Choose a prefix-folder" : "Escolha uma pasta-prefixo",
     "Selected path: \"{dir}/{base}/\"." : "Caminho selecionado: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Selecionado caminho inválido: \"{dir}\".",
     "unknown" : "desconhecido",
