@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "A kibontási mappa alapértelmezett nevének sablonja",
     "automatically change the target folder name if the target folder already exists" : "a kibontási mappa nevének automatikus módosítása, ha az már létezik",
     "default to scheduling extraction requests as background job" : "kibontási kérések háttérfeladatként történő ütemezése alapértelmezésként",
-    "Choose a prefix folder" : "Előtagmappa kiválasztása",
+    "Choose a prefix-folder" : "Előtagmappa kiválasztása",
     "Selected path: \"{dir}/{base}/\"." : "Kiválasztott útvonal: „{dir}/{base}/”.",
     "Invalid path selected: \"{dir}\"." : "Érvénytelen útvonal kiválasztva: „{dir}”.",
     "Archive Information" : "Archívuminformációk",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP hibaválasz az AJAX kérésre: {code} / {error}",
     "No" : "Nem",
     "Yes" : "Igen",
-    "Debug Information" : "Hibakeresési információk"
+    "Debug Information" : "Hibakeresési információk",
+    "Choose a prefix folder" : "Előtagmappa kiválasztása"
 },
 "nplurals=2; plural=(n != 1);");

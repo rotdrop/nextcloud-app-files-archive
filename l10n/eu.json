@@ -71,7 +71,7 @@
     "Template for the default name of the extraction folder" : "Erauzketa karpetaren izenerako lehenetsirako txantiloia",
     "automatically change the target folder name if the target folder already exists" : "automatikoki aldatu xede-karpetaren izena xede-karpeta dagoeneko badago",
     "default to scheduling extraction requests as background job" : "lehenetsita erauzketa-eskaerak atzeko planoko lan gisa programatzeko",
-    "Choose a prefix folder" : "Aukeratu karpeta lehenetsi bat",
+    "Choose a prefix-folder" : "Aukeratu karpeta lehenetsi bat",
     "Selected path: \"{dir}/{base}/\"." : "Hautatutako bide-izena: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Bide-izen baliogabea hautatu da: \"{dir}\".",
     "Archive Information" : "Artxiboaren informazioa",
@@ -211,6 +211,7 @@
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP errore-erantzuna AJAX deiari: {code} / {error}",
     "No" : "Ez",
     "Yes" : "Bai",
-    "Debug Information" : "Arazketa informazioa"
+    "Debug Information" : "Arazketa informazioa",
+    "Choose a prefix folder" : "Aukeratu karpeta lehenetsi bat"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

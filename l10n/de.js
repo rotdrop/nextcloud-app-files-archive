@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Vorlage für den Standardnamen des Ordners für das Entpacken",
     "automatically change the target folder name if the target folder already exists" : "den Namen des Ziel-Ordners automatisch ändern, falls der Name bereits in Verwendung ist",
     "default to scheduling extraction requests as background job" : "Standardmäßig werden Extraktionsanfragen als Hintergrundjob eingeplant",
-    "Choose a prefix folder" : "Präfixordner auswählen",
+    "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}\".",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad ausgewählt: {dir}.",
     "Archive Information" : "Archiv-Informationen",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP Fehler-Antwort auf AJAX-Anfrage: {code} / {error}",
     "No" : "Nein",
     "Yes" : "Ja",
-    "Debug Information" : "Debug Informationen"
+    "Debug Information" : "Debug Informationen",
+    "Choose a prefix folder" : "Präfixordner auswählen"
 },
 "nplurals=2; plural=(n != 1);");

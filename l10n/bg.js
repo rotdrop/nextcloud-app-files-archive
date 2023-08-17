@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Шаблон за име по подразбиране на папка за извличане",
     "automatically change the target folder name if the target folder already exists" : "автоматично променя името на целевата папка, ако целевата папка вече съществува",
     "default to scheduling extraction requests as background job" : "планиране по подразбиране на заявките за извличане, като фонова задача",
-    "Choose a prefix folder" : "Избор на префикс-папка",
+    "Choose a prefix-folder" : "Избор на префикс-папка",
     "Selected path: \"{dir}/{base}/\"." : "Избран път: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Избран е невалиден път: \"{dir}\".",
     "Archive Information" : "Информация за архива",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP грешка в отговор на AJAX повикване: {code} / {error}",
     "No" : "Не",
     "Yes" : "Да",
-    "Debug Information" : "Информация за отстраняване на грешки"
+    "Debug Information" : "Информация за отстраняване на грешки",
+    "Choose a prefix folder" : "Избор на префикс-папка"
 },
 "nplurals=2; plural=(n != 1);");

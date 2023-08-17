@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "قالب للاسم الافتراضي لمجلد فكّ الضغط",
     "automatically change the target folder name if the target folder already exists" : "تغيير اسم المجلد الهدف تلقائيًا إذا كان المجلد الهدف موجوداً سلفاً",
     "default to scheduling extraction requests as background job" : "افتراضي لجدولة طلبات فك الضغط كوظائف في الخلفية",
-    "Choose a prefix folder" : "إختَر مجلداً بادئاً prefix folder",
+    "Choose a prefix-folder" : "إختر مُجلّداً بادئاً",
     "Selected path: \"{dir}/{base}/\"." : "المسار المختار: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "المسار المختار غير صحيح: \"{dir}\"",
     "Archive Information" : "معلومات الأرشيف",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "خطأ HTTP عند الاستجابة لاستدعاء آجاكس AJAX call ـ: {code} / {error}",
     "No" : "لا",
     "Yes" : "نعم",
-    "Debug Information" : "معلومات التنقيح debug"
+    "Debug Information" : "معلومات التنقيح debug",
+    "Choose a prefix folder" : "إختَر مجلداً بادئاً prefix folder"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");
