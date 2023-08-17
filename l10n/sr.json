@@ -71,7 +71,7 @@
     "Template for the default name of the extraction folder" : "Шаблон за подразумевано име фолдера у који се распакује",
     "automatically change the target folder name if the target folder already exists" : "аутоматски промени име циљног фолдера у случају да циљни фолдер већ постоји",
     "default to scheduling extraction requests as background job" : "подразумевано заказуј захтеве за распакивање као позадински посао",
-    "Choose a prefix folder" : "Изаберите префикс фолдер",
+    "Choose a prefix-folder" : "Изаберите префикс-фолдер",
     "Selected path: \"{dir}/{base}/\"." : "Изабрана путања: „{dir}/{base}/”.",
     "Invalid path selected: \"{dir}\"." : "Изабрана је неисправна путања: „{dir}”.",
     "Archive Information" : "Информације о архиви",
@@ -211,6 +211,7 @@
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP одговор грешке на AJAX позив: {code} / {error}",
     "No" : "Не",
     "Yes" : "Да",
-    "Debug Information" : "Дибаг информације"
+    "Debug Information" : "Дибаг информације",
+    "Choose a prefix folder" : "Изаберите префикс фолдер"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }

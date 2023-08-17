@@ -26,6 +26,7 @@ OC.L10N.register(
     "Archive Size Limit" : "Limite Dimensione Archivio",
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Non consentire l'estrazione di archivi con dimensioni decompresse superiori a questo limite.",
     "Administrative size limit: {value}" : "Limite dimensione imposta: {value}",
+    "Choose a prefix-folder" : "Scegli una cartella predefinita",
     "Selected path: \"{dir}/{base}/\"." : "Percorso selezionato: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Selezionato percorso non valido: \"{dir}\".",
     "unknown" : "sconosciuto",

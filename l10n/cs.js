@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Šablona pro výchozí název složky pro rozbalení",
     "automatically change the target folder name if the target folder already exists" : "pokud už takový existuje, automaticky změnit název cílové složky",
     "default to scheduling extraction requests as background job" : "požadavky na rozbalení ve výchozím stavu odbavovat naplánování úlohy na pozadí",
-    "Choose a prefix folder" : "Zvolte složku-předponu",
+    "Choose a prefix-folder" : "Zvolte složku-předponu",
     "Selected path: \"{dir}/{base}/\"." : "Vyberte popis umístění: „{dir}/{base}/.",
     "Invalid path selected: \"{dir}\"." : "Vybrán neplatný popis umístění: „{dir}.",
     "Archive Information" : "Informace o archivu",
@@ -213,6 +213,7 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP chybová odpověď na AJAX volání: {code} / {error}",
     "No" : "Ne",
     "Yes" : "Ano",
-    "Debug Information" : "Informace pro ladění"
+    "Debug Information" : "Informace pro ladění",
+    "Choose a prefix folder" : "Zvolte složku-předponu"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

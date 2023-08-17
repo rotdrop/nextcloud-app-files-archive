@@ -64,7 +64,6 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "解压缩文件夹的默认名称的模版",
     "automatically change the target folder name if the target folder already exists" : "当目标文件夹存在的时候自动更改目标文件夹的名称",
     "default to scheduling extraction requests as background job" : "默认将解压缩请求作为后台任务执行",
-    "Choose a prefix folder" : "选择前缀文件夹",
     "Selected path: \"{dir}/{base}/\"." : "选择的路径：“{dir}/{base}/”。",
     "Invalid path selected: \"{dir}\"." : "选择了无效路径：“{dir}”。",
     "Archive Information" : "压缩文件信息",
@@ -116,6 +115,7 @@ OC.L10N.register(
     "Missing data" : "数据丢失",
     "No" : "否",
     "Yes" : "是",
-    "Debug Information" : "调试信息"
+    "Debug Information" : "调试信息",
+    "Choose a prefix folder" : "选择前缀文件夹"
 },
 "nplurals=1; plural=0;");
