@@ -73,7 +73,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Vorlage für den Standardnamen des Ordners für das Entpacken",
     "automatically change the target folder name if the target folder already exists" : "Den Namen des Ziel-Ordners automatisch ändern, falls der Ordner bereits vorhanden ist",
     "default to scheduling extraction requests as background job" : "Standardmäßig werden Extraktionsanfragen als Hintergrundjob geplant",
-    "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
+    "Choose a prefix-folder" : "Präfixordner auswählen",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Pfad: \"{dir}/{base}\".",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad gewählt: \"{dir}\".",
     "Archive Information" : "Archiv-Informationen",
