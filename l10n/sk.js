@@ -28,6 +28,7 @@ OC.L10N.register(
     "Unauthorized" : "Nepovolené",
     "Forbidden" : "Zakázané",
     "Not Found" : "Nenájdené",
+    "Proxy Authentication Required" : "Vyžaduje sa overenie pre proxy",
     "Conflict" : "Konflikt",
     "Internal Server Error" : "Vnútorná chyba servera",
     "Service Unavailable" : "Služba nedostupná",
