@@ -12,6 +12,7 @@ OC.L10N.register(
     "unknown" : "neznámy",
     "MIME type" : "Typ MIME",
     "Archive" : "Archív",
+    "reason unknown" : "dôvod neznámy",
     "Confirmation Required" : "Vyžaduje sa potvrdenie",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}",
     "OK" : "OK",
