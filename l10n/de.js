@@ -61,7 +61,7 @@ OC.L10N.register(
     "Archive Size Limit" : "Archiv-Größen-Limitierung",
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Verbiete das Entpacken für Archivdateien, deren Größe nach Dekomprimierung größer als diese Grenze ist.",
     "Archive Manager, Personal Settings" : "Archiv-Betrachter, Persönliche Einstellungen",
-    "Security Options" : "Einstellunhen zur Sicherheit",
+    "Security Options" : "Sicherheitseinstellungen",
     "Administrative size limit: {value}" : "Größenbegrenzen durch Administrator*innen: {value}",
     "Mount Options" : "Einhänge-Optionen",
     "Template for the default name of the mount point" : "Vorlage für den Standardnamen des Einhängepunkts.",
