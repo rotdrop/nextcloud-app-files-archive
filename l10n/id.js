@@ -10,6 +10,7 @@ OC.L10N.register(
     "Conflict" : "Konflik",
     "Internal Server Error" : "Galat Server Internal",
     "Error" : "Galat",
+    "Missing data" : "Data tidak ada",
     "No" : "Tidak",
     "Yes" : "Ya"
 },
