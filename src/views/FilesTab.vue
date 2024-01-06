@@ -575,7 +575,7 @@ export default {
         this.archiveMounted = mounted
         this.refreshArchiveMounts(this.fileName)
         if (this.archiveMountDirName === this.fileInfo.path) {
-          this.fileList.reload();
+          this.fileList.reload()
         }
       }
     },
@@ -600,7 +600,7 @@ export default {
         } else {
           this.refreshArchiveMounts(this.fileName)
           if (this.archiveMountDirName === this.fileInfo.path) {
-            this.fileList.reload();
+            this.fileList.reload()
           }
         }
       } catch (e) {
@@ -682,7 +682,7 @@ export default {
       try {
         const response = await axios.post(url, requestData)
         if (this.archiveExtractDirName === this.fileInfo.path) {
-          this.fileList.reload();
+          this.fileList.reload()
         }
       } catch (e) {
         console.error('ERROR', e)
