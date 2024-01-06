@@ -1,0 +1,101 @@
+name: Continuous Integration
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.0'
+            job-description: 'Ubuntu; PHP 8.0; latest-deps'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.0'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.0; lowest-deps'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.1'
+            job-description: 'Ubuntu; PHP 8.1; latest-deps'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.1'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.1; lowest-deps'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.2'
+            job-description: 'Ubuntu; PHP 8.2; latest-deps'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.2'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.2; lowest-deps'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.3'
+            job-description: 'Ubuntu; PHP 8.2; latest-deps'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.3'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.2; lowest-deps'
+
+          - operating-system: 'windows-latest'
+            php-version: '8.3'
+            job-description: 'Windows; PHP 8.2; latest-deps'
+
+          - operating-system: 'macos-latest'
+            php-version: '8.3'
+            job-description: 'MacOS; PHP 8.2; latest-deps'
+
+    name: ${{ matrix.job-description }}
+
+    runs-on: ${{ matrix.operating-system }}
+
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      #- name: Setup p7zip Ubuntu. already installed
+      - name: Setup p7zip MacOs
+        if: matrix.operating-system == 'macos-latest'
+        run: |
+          curl -L https://github.com/p7zip-project/p7zip/archive/v17.05.tar.gz > v17.05.tar.gz
+          tar xzvf v17.05.tar.gz
+          cd p7zip-17.05
+          make all3
+          sudo ./install.sh
+      - name: Setup 7zip Windows
+        if: matrix.operating-system == 'windows-latest'
+        run: Install-Module 7Zip4PowerShell -Force
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          retry_wait_seconds: 30
+          command: |
+            composer update --optimize-autoloader --no-interaction --ansi --no-progress --prefer-dist ${{ matrix.composer-flags }}
+            composer info -D
+
+      - name: Tests
+        run: vendor/bin/phpunit --configuration phpunit.xml.dist
