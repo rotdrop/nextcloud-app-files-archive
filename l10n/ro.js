@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Utilizator",
+    "Password" : "Parolă",
     "unknown" : "necunoscut",
     "Archive" : "Arhivă",
     "OK" : "OK",

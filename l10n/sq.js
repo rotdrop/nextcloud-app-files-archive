@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Përdorues",
+    "Password" : "Fjalëkalimi",
     "unknown" : "panjohur",
     "Archive" : "Arkiva",
     "OK" : "OK",

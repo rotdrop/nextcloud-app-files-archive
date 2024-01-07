@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "Người dùng",
+    "Password" : "Mật khẩu",
     "unknown" : "không biết",
     "Archive" : "Lưu trữ",
     "OK" : "OK",

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Lietotājs",
     "bytes" : "baiti",
     "unknown" : "nezināms",
     "Archive" : "Arhīvi",

@@ -47,6 +47,8 @@
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "There is no archive file associated with this archiver instance.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
+    "User" : "کاربر",
+    "Password" : "گذرواژه",
     "Error, caught an exception." : "Error, caught an exception.",
     "Caused by previous exception" : "Caused by previous exception",
     "bytes" : "بایت",

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Password" : "암호",
     "bytes" : "바이트",
     "unknown" : "알 수 없음",
     "Archive" : "보관",

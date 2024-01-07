@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "Përdorues",
+    "Password" : "Fjalëkalimi",
     "unknown" : "panjohur",
     "Archive" : "Arkiva",
     "OK" : "OK",
