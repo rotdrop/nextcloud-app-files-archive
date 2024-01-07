@@ -9,6 +9,8 @@ OC.L10N.register(
     "Unable to open the archive file \"%s\"." : "Αδύνατο να ανοίξει το αρχείο αρχειοθέτησης \"%s\".",
     "Archive Manager" : "Διαχειριστής Αρχείων",
     "Archive Explorer" : "Εξερεύνηση Αρχείων",
+    "User" : "Χρήστης",
+    "Password" : "Συνθηματικό",
     "bytes" : "bytes",
     "Template for the default name of the extraction folder" : "Πρότυπο για το προεπιλεγμένο όνομα του φακέλου εξαγωγής",
     "unknown" : "άγνωστο",

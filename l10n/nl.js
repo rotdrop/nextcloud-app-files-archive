@@ -13,6 +13,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Onbekende persoonlijke instelling: \"%s\"",
     "Unable to parse memory size limit \"%s\"" : "Kan geheugengrootelimitiet \"%s\" niet verwerken",
     "Unsupported subject: \"%s\"." : "Het volgende onderwerp word niet ondersteunt\" \"%s\"",
+    "Password" : "Wachtwoord",
     "bytes" : "bytes",
     "unknown" : "onbekend",
     "MIME type" : "MIME type",

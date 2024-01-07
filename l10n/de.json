@@ -47,6 +47,8 @@
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Die Größe des dekomprimierten Archivs \"%1$s\" ist zu groß:  %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "Mit dieser Archivierungs-Service-Instanz ist keine Archiv-Datei assoziiert.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte den System-Administrator kontaktieren!",
+    "User" : "Benutzer",
+    "Password" : "Passwort",
     "Error, caught an exception." : "Fehler, \"Ausnahme\" \"aufgefangen\".",
     "Caused by previous exception" : "Verursacht durch eine vorhergehende Ausnahme",
     "bytes" : "Bytes",

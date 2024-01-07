@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Pengguna",
+    "Password" : "Kata sandi",
     "unknown" : "tidak diketahui",
     "Archive" : "Arsip",
     "OK" : "OK",

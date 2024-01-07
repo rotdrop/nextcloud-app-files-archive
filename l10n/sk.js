@@ -4,6 +4,8 @@ OC.L10N.register(
     "Unable to open archive file %s (%s)" : "Archív nie je možné otvoriť %s (%s)",
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Nekomprimovaná veľkosť archívu \"%1$s\" je veľmi veľká: %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "K tejto inštancii archivátora nie je priradený žiadny archívny súbor.",
+    "User" : "Používateľ",
+    "Password" : "Heslo",
     "Error, caught an exception." : "Chyba, vyskytla sa výnimka.",
     "Caused by previous exception" : "Spôsobené predchádzajúcou výnimkou",
     "bytes" : "bajty",

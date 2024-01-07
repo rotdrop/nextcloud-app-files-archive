@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "משתמש",
+    "Password" : "ססמה",
     "bytes" : "בתים",
     "unknown" : "לא ידוע",
     "Archive" : "לארכיון",

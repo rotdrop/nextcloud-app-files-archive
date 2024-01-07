@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Utente",
+    "Password" : "Crae",
     "bytes" : "bytes",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",

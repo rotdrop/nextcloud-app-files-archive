@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Notandi",
+    "Password" : "Lykilorð",
     "bytes" : "bæti",
     "unknown" : "óþekkt",
     "Archive" : "Safn",

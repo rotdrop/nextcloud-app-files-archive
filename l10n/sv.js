@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Password" : "Lösenord",
     "bytes" : "byte",
     "unknown" : "okänt",
     "Archive" : "Arkivera",

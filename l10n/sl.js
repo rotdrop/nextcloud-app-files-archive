@@ -19,6 +19,8 @@ OC.L10N.register(
     "Unsupported subject: \"%s\"." : "Nepodprta zadeva »%s«.",
     "Archive Explorer" : "Raziskovalec arhivov",
     "Unable to open archive file %s (%s)" : "Datoteke arhiva %s ni mogoče odpreti (%s)",
+    "User" : "Uporabnik",
+    "Password" : "Geslo",
     "Error, caught an exception." : "Zaznana je izjemna napaka.",
     "bytes" : "bajtov",
     "Archive Extraction" : "Razširjanje arhiva",

@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "Ususario",
+    "Password" : "Clave",
     "unknown" : "desconocido",
     "Archive" : "Archivar",
     "OK" : "OK",
