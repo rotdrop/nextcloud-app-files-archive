@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "მომხმარებელი",
+    "Password" : "პაროლ",
     "bytes" : "ბაიტები",
     "unknown" : "უცნობი",
     "Archive" : "არქივი",

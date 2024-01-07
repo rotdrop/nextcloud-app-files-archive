@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "Error: %s" : "Klaida: %s",
+    "Password" : "Slaptažodis",
     "bytes" : "baitų",
     "Security Options" : "Saugumo parinktys",
     "Mount Options" : "Prijungimo parinktys",

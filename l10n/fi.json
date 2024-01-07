@@ -16,6 +16,7 @@
     "Your archive file {source} has been extracted to {destination}." : "Arkistotiedosto {source} on purettu sijaintiin {destination}.",
     "Archive Explorer" : "Arkistoselain",
     "Unable to open archive file %s (%s)" : "Arkistotiedostoa %s ei voitu avata (%s)",
+    "Password" : "Salasana",
     "bytes" : "tavua",
     "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
     "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Password" : "パスワード",
     "bytes" : "バイト",
     "unknown" : "不明",
     "MIME type" : "MIMEタイプ",

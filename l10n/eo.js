@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Uzanto",
     "unknown" : "nekonata",
     "Archive" : "Arĥivujo",
     "OK" : "Bone",

@@ -19,6 +19,8 @@ OC.L10N.register(
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "O valor \"%1$s\" para a definição \"%2$s\" não é possível de converter para booleano.",
     "Unknown personal setting: \"%s\"." : "Definição pessoal desconhecida: \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Erro de instalação; o recurso necessário \"%1$s\" do tipo \"%2$s\" não está instalado no servidor, contacte o administrador do sistema.",
+    "User" : "Utilizador",
+    "Password" : "Password",
     "Error, caught an exception." : "Erro, detetada uma exceção.",
     "Caused by previous exception" : "Causado por uma exceção anterior",
     "bytes" : "bytes",

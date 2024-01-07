@@ -49,6 +49,7 @@ OC.L10N.register(
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "A(z) „%1$s” archívum tömörítetlen mérete túl nagy: %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "Nem tartozik archívumfájl ehhez az archiváló példányhoz.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Telepítési probléma; a kért „%1$s” „%2$s” típusú erőforrás nincs a kiszolgálóra telepítve, lépjen kapcsolatba a rendszergazdával.",
+    "Password" : "Jelszó",
     "Error, caught an exception." : "Hiba, kivétel történt.",
     "Caused by previous exception" : "Az előző kivétel okozta",
     "bytes" : "bájt",

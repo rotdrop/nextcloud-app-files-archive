@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "משתמש",
+    "Password" : "ססמה",
     "bytes" : "בתים",
     "unknown" : "לא ידוע",
     "Archive" : "לארכיון",
