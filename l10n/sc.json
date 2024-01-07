@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "Utente",
+    "Password" : "Crae",
     "bytes" : "bytes",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",

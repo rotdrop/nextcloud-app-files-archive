@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Password" : "Лозинка",
     "unknown" : "непознат",
     "Archive" : "Архива",
     "OK" : "Добро",

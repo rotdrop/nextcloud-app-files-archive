@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "Notandi",
+    "Password" : "Lykilorð",
     "bytes" : "bæti",
     "unknown" : "óþekkt",
     "Archive" : "Safn",

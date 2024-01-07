@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "Utilizator",
+    "Password" : "Parolă",
     "unknown" : "necunoscut",
     "Archive" : "Arhivă",
     "OK" : "OK",

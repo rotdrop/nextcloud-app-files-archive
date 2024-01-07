@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Usuario",
+    "Password" : "Clave",
     "bytes" : "bytes",
     "unknown" : "desconocido",
     "Archive" : "Archivar",

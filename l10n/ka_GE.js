@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "მომხმარებელი",
+    "Password" : "პაროლ",
     "bytes" : "ბაიტები",
     "unknown" : "უცნობი",
     "Archive" : "არქივი",

@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "@string/user_icon",
+    "Password" : "Zaporka",
     "bytes" : "bajtova",
     "unknown" : "nepoznato",
     "Archive" : "Arhiva",

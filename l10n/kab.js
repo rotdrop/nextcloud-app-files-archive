@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Aseqdac",
     "true" : "idetti",
     "false" : "ucciḍ",
     "Confirmation Required" : "Asentem ilaq",

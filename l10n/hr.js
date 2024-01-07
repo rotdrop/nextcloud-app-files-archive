@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "@string/user_icon",
+    "Password" : "Zaporka",
     "bytes" : "bajtova",
     "unknown" : "nepoznato",
     "Archive" : "Arhiva",

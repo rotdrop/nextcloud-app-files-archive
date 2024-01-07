@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "Người dùng",
+    "Password" : "Mật khẩu",
     "unknown" : "không biết",
     "Archive" : "Lưu trữ",
     "OK" : "OK",

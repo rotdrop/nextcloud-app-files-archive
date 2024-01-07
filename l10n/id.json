@@ -1,4 +1,6 @@
 { "translations": {
+    "User" : "Pengguna",
+    "Password" : "Kata sandi",
     "unknown" : "tidak diketahui",
     "Archive" : "Arsip",
     "OK" : "OK",
