@@ -32,7 +32,7 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "個人設置 “%1$s” 是唯讀的",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "設定「%2$s」的值「%1$s」無法轉換為布林值。",
     "The target folder template \"%1$s\" must contain the archive file placeholder \"%2$s\"." : "目標資料夾模板「%1$s」必須包含封存檔佔位字串「%2$s」。",
-    "Unknown personal setting: \"%s\"." : "不詳的個人設定：「%s」。",
+    "Unknown personal setting: \"%s\"." : "個人設定不詳：「%s」。",
     "Unable to parse memory size limit \"%s\"" : "無法解析記憶體大小限制：「%s」",
     "Archive Manager" : "封存檔案管理員",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "封存檔案 {source} 將作為虛擬資料夾掛載在 {destination}。",
