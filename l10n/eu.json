@@ -47,6 +47,7 @@
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "\"%1$s\" artxiboaren tamaina deskonprimatuta handiegia da: %2$s>%3$s",
     "There is no archive file associated with this archiver instance." : "Ez dago artxibo-fitxategirik lotutako artxibo-instantzia honekin.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Instalazio arazoa; \"%2$s\" motako \"%1$s\" beharrezko baliabidea ez dago zerbitzarian instalatuta, jarri harremanetan sistemaren administratzailearekin!",
+    "User" : "Erabiltzailea",
     "Password" : "Pasahitza",
     "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
