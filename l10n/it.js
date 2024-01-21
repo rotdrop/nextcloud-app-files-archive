@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "File or folder could not be found." : "Impossibile trovare il file o la cartella.",
+    "The archive file \"%1$s\" is too large: uncompressed size %2$s > user limit %3$s." : "L'archivio \"%1$s\" è troppo grande: dimensione non compressa %2$s > limite utente %3$s.",
     "Post to endpoint \"%s\" not implemented." : "Pubblicazione su endpoint \"%s\" non implementata.",
     "Post to base URL of app \"%s\" not allowed." : "L'invio all'URL di base dell'app \"%s\" non è consentito.",
     "Get from endpoint \"%s\" not implemented." : "Chiamata GET dall'endpoint \"%s\" non implementata.",
@@ -22,7 +23,7 @@ OC.L10N.register(
     "Caused by previous exception" : "Causata dalla precedente eccezione",
     "bytes" : "byte",
     "The supplied color-string \"%s\" seems to be invalid." : "La color-string \"%s\" fornita non sembra essere valida.",
-    "The input color values are invalid." : "I valori di colore in input non sono validi.",
+    "The input color values are invalid." : "I valori di colore in ingresso non sono validi.",
     "Archive Extraction" : "Estrazione archivio",
     "Archive Size Limit" : "Limite dimensione archivio",
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Non consentire l'estrazione di archivi con dimensioni decompresse superiori a questo limite.",
@@ -32,8 +33,8 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "Selezionato percorso non valido: \"{dir}\".",
     "unknown" : "sconosciuto",
     "MIME type" : "Tipo MIME",
-    "Passphrase" : "Passphrase",
-    "unset" : "non settato",
+    "Passphrase" : "Frase segreta",
+    "unset" : "non impostato",
     "basename" : "basename",
     "ok" : "OK",
     "Archive" : "Archivio",
@@ -120,7 +121,7 @@ OC.L10N.register(
     "Missing data" : "Dati mancanti",
     "HTTP error response to AJAX call: {code} / {error}" : "Risposta di errore HTTP alla chiamata AJAX: {code} / {error}",
     "No" : "No",
-    "Yes" : "Si",
+    "Yes" : "Sì",
     "Debug Information" : "Informazioni di debug"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
