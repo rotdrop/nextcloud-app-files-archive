@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,8 @@
 
 namespace OCA\FilesArchive\Listener;
 
+use Throwable;
+
 use Psr\Log\LoggerInterface;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
@@ -32,7 +34,8 @@ use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IConfig as CloudConfig;
 
-use OCA\Files\Event\LoadAdditionalScriptsEvent as HandledEvent;
+use OCA\Files\Event\LoadAdditionalScriptsEvent;
+use OCA\Files\Event\LoadSidebar;
 
 use OCA\FilesArchive\Toolkit\Service\MimeTypeService;
 
@@ -49,15 +52,33 @@ class FilesActionListener implements IEventListener
   use \OCA\FilesArchive\Toolkit\Traits\CloudAdminTrait;
   use \OCA\FilesArchive\Toolkit\Traits\AssetTrait;
 
-  const EVENT = HandledEvent::class;
+  const EVENT = [
+    LoadAdditionalScriptsEvent::class,
+    LoadSidebar::class,
+  ];
 
-  const BASENAME = 'files-action';
+  const ASSET_BASENAME = [
+    LoadAdditionalScriptsEvent::class => [
+      Constants::JS => 'files-hooks',
+      Constants::CSS => null,
+    ],
+    LoadSidebar::class => [
+      Constants::JS => 'files-sidebar-hooks',
+      Constants::CSS => 'files-sidebar-hooks',
+    ],
+  ];
 
   /** @var IAppContainer */
   private $appContainer;
 
+  /** @var array */
+  private $handled = [
+    LoadAdditionalScriptsEvent::class => false,
+    LoadSidebar::class => false,
+  ];
+
   /** @var bool */
-  private $handled = false;
+  private $initialStateEmitted = false;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(IAppContainer $appContainer)
@@ -75,16 +96,16 @@ class FilesActionListener implements IEventListener
    */
   public function handle(Event $event): void
   {
-    if (!($event instanceof HandledEvent)) {
+    $eventClass = get_class($event);
+    if (!in_array($eventClass, self::EVENT)) {
       return;
     }
-    /** @var HandledEvent $event */
 
     // this really only needs to be executed once per request.
-    if ($this->handled) {
+    if ($this->handled[$eventClass]) {
       return;
     }
-    $this->handled = true;
+    $this->handled[$eventClass] = true;
 
     /** @var IUserSession $userSession */
     $userSession = $this->appContainer->get(IUserSession::class);
@@ -108,34 +129,54 @@ class FilesActionListener implements IEventListener
     /** @var CloudConfig $cloudConfig */
     $cloudConfig = $this->appContainer->get(CloudConfig::class);
 
-    /** @var MimeTypeService $mimeTypeService */
-    $mimeTypeService = $this->appContainer->get(MimeTypeService::class);
-    $archiveMimeTypes = $mimeTypeService->setAppPath(__DIR__ . '/../../')->getSupportedMimeTypes();
+    if (!$this->initialStateEmitted) {
+      /** @var MimeTypeService $mimeTypeService */
+      $mimeTypeService = $this->appContainer->get(MimeTypeService::class);
+      $archiveMimeTypes = $mimeTypeService->setAppPath(__DIR__ . '/../../')->getSupportedMimeTypes();
 
-    // just admin contact and stuff to make the ajax error handlers work.
-    $this->groupManager = $this->appContainer->get(IGroupManager::class);
-    $initialState->provideInitialState('config', [
-      'adminContact' => $this->getCloudAdminContacts(implode: true),
-      'phpUserAgent' => $_SERVER['HTTP_USER_AGENT'], // @@todo get in javascript from request
-      'archiveMimeTypes' => $archiveMimeTypes,
-      SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
-        $userId, $appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
-      SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
-        $userId, $appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
-      SettingsController::MOUNT_BACKGROUND_JOB => $cloudConfig->getUserValue(
-        $userId, $appName, SettingsController::MOUNT_BACKGROUND_JOB, SettingsController::MOUNT_BACKGROUND_JOB_DEFAULT),
-      SettingsController::EXTRACT_BACKGROUND_JOB => $cloudConfig->getUserValue(
-        $userId, $appName, SettingsController::EXTRACT_BACKGROUND_JOB, SettingsController::EXTRACT_BACKGROUND_JOB_DEFAULT),
-      SettingsController::MOUNT_POINT_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
-      SettingsController::EXTRACT_TARGET_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
-    ]);
+      // just admin contact and stuff to make the ajax error handlers work.
+      $this->groupManager = $this->appContainer->get(IGroupManager::class);
+      $initialState->provideInitialState('config', [
+        'adminContact' => $this->getCloudAdminContacts(implode: true),
+        'phpUserAgent' => $_SERVER['HTTP_USER_AGENT'], // @@todo get in javascript from request
+        'archiveMimeTypes' => $archiveMimeTypes,
+        SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
+          $userId, $appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
+        SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
+          $userId, $appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
+        SettingsController::MOUNT_BACKGROUND_JOB => $cloudConfig->getUserValue(
+          $userId, $appName, SettingsController::MOUNT_BACKGROUND_JOB, SettingsController::MOUNT_BACKGROUND_JOB_DEFAULT),
+        SettingsController::EXTRACT_BACKGROUND_JOB => $cloudConfig->getUserValue(
+          $userId, $appName, SettingsController::EXTRACT_BACKGROUND_JOB, SettingsController::EXTRACT_BACKGROUND_JOB_DEFAULT),
+        SettingsController::MOUNT_POINT_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
+        SettingsController::EXTRACT_TARGET_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
+      ]);
 
-    // $this->logInfo('MIME ' . print_r($archiveMimeTypes, true));
+      // $this->logInfo('MIME ' . print_r($archiveMimeTypes, true));
+    }
 
-    $this->initializeAssets(__DIR__);
-    list(Constants::ASSET => $scriptAsset,) = $this->getJSAsset(self::BASENAME);
-    list(Constants::ASSET => $styleAsset,) = $this->getCSSAsset(self::BASENAME);
-    \OCP\Util::addScript($appName, $scriptAsset);
-    \OCP\Util::addStyle($appName, $styleAsset);
+    if (empty($this->assets)) {
+      $this->initializeAssets(__DIR__);
+    }
+
+    $assetBasename = self::ASSET_BASENAME[$eventClass][Constants::JS];
+    if ($assetBasename) {
+      try {
+        $this->logInfo('Adding script ' . $assetBasename);
+        list('asset' => $scriptAsset,) = $this->getJSAsset($assetBasename);
+        \OCP\Util::addScript($appName, $scriptAsset);
+      } catch (Throwable $t) {
+        $this->logException($t, 'Unable to add script asset ' . $assetBasename);
+      }
+    }
+    $assetBasename = self::ASSET_BASENAME[$eventClass][Constants::CSS];
+    if ($assetBasename) {
+      try {
+        list('asset' => $styleAsset,) = $this->getCSSAsset($assetBasename);
+        \OCP\Util::addStyle($appName, $styleAsset);
+      } catch (Throwable $t) {
+        $this->logException($t, 'Unable to add style asset ' . $assetBasename);
+      }
+    }
   }
 }
