@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -60,6 +60,8 @@ class MountController extends Controller
   use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
   use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
   use TargetPathTrait;
 
   /** @var string */
@@ -142,7 +144,7 @@ class MountController extends Controller
   /**
    * @param string $archivePath
    *
-   * @param null|string $mountPoint
+   * @param null|string $mountPointPath
    *
    * @param null|string $passPhrase
    *
@@ -152,8 +154,12 @@ class MountController extends Controller
    *
    * @NoAdminRequired
    */
-  public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null)
-  {
+  public function mount(
+    string $archivePath,
+    ?string $mountPointPath = null,
+    ?string $passPhrase = null,
+    ?bool $stripCommonPathPrefix = null,
+  ) {
     $archivePath = urldecode($archivePath);
     if ($mountPointPath) {
       $mountPointPath = urldecode($mountPointPath);
@@ -255,7 +261,7 @@ class MountController extends Controller
         ]));
     }
 
-    return self::dataResponse($mountEntity->jsonSerialize());
+    return self::dataResponse($this->formatMountEntity($mountEntity));
   }
 
   /**
@@ -310,6 +316,29 @@ class MountController extends Controller
   }
 
   /**
+   * Convert the given mount-point entity to a flat array and also add
+   * information about the file-system node of the mount-point in order to be
+   * able to communicate with the files-app files-listings.
+   *
+   * @param ArchiveMount $mount
+   *
+   * @return array
+   */
+  private function formatMountEntity(ArchiveMount $mount):array
+  {
+    $data = $mount->jsonSerialize();
+    $userFolder = $this->getUserFolder();
+    try {
+      $mountNode = $userFolder->get($mount->getMountPointPath());
+      $data['mountPoint'] = $this->formatNode($mountNode);
+    } catch (FileNotFoundException $notFound) {
+      $this->logException($notFound);
+      $data['mountPoint'] = false;
+    }
+    return $data;
+  }
+
+  /**
    * @param string $archivePath
    *
    * @return DataResponse
@@ -323,7 +352,7 @@ class MountController extends Controller
     return self::dataResponse([
       'messages' => [],
       'mounted' => !empty($mounts),
-      'mounts' => array_map(fn(ArchiveMount $mount) => $mount->jsonSerialize(), empty($mounts) ? [] : $mounts),
+      'mounts' => array_map(fn(ArchiveMount $mount) => $this->formatMountEntity($mount), empty($mounts) ? [] : $mounts),
     ]);
   }
 
