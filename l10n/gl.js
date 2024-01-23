@@ -53,7 +53,7 @@ OC.L10N.register(
     "Password" : "Contrasinal",
     "Login succeeded." : "Acceso satisfactorio",
     "Login failed." : "Produciuse un fallo no acceso:",
-    "Error, caught an exception." : "Erro, detectouse unha excepción.",
+    "Error, caught an exception." : "Produciuse un erro, detectouse unha excepción.",
     "Caused by previous exception" : "Causado por unha excepción anterior",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "A cadea de cor fornecida «%s» semella ser incorrecta.",
