@@ -26,7 +26,7 @@ import { generateRemoteUrl } from '@nextcloud/router';
 /**
  * @param {object} fileInfo File-info object.
  *
- * @param {undefined|string} owner If undefined the current user is used.
+ * @param {undefined|string} [owner] If undefined the current user is used.
  *
  * @return {File|Folder}
  */
