@@ -46,26 +46,26 @@ trait NodeTrait
   /**
    * Stolen from the template-manager.
    *
-   * @param Node|File $file
+   * @param Node $node
    *
    * @return array
    *
    * @throws NotFoundException
    * @throws \OCP\Files\InvalidPathException
    */
-  protected function formatFile(Node $file):array
+  protected function formatNode(Node $node):array
   {
     return [
-      'basename' => $file->getName(),
-      'etag' => $file->getEtag(),
-      'fileid' => $file->getId(),
-      'filename' => $this->rootFolder->getUserFolder($this->userId)->getRelativePath($file->getPath()),
-      'lastmod' => $file->getMTime(),
-      'mime' => $file->getMimetype(),
-      'size' => $file->getSize(),
-      'type' => $file->getType(),
-      'hasPreview' => $this->previewManager->isAvailable($file),
-      'permissions' => $file->getPermissions(),
+      'basename' => $node->getName(),
+      'etag' => $node->getEtag(),
+      'fileid' => $node->getId(),
+      'filename' => $this->rootFolder->getUserFolder($this->userId)->getRelativePath($node->getPath()),
+      'lastmod' => $node->getMTime(),
+      'mime' => $node->getMimetype(),
+      'size' => $node->getSize(),
+      'type' => $node->getType(),
+      'hasPreview' => $this->previewManager->isAvailable($node),
+      'permissions' => $node->getPermissions(),
     ];
   }
 }
