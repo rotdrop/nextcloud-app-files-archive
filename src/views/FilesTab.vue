@@ -1,7 +1,7 @@
 <script>
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -281,7 +281,6 @@ export default {
   ],
   data() {
     return {
-      fileList: undefined,
       fileInfo: {},
       fileName: undefined,
       showArchiveInfo: true,
@@ -423,6 +422,10 @@ export default {
     info() {
       console.info.apply(null, arguments)
     },
+    setBusySate(state) {
+      // This cannot be used any longer. How to?
+      // this.fileList.showFileBusyState(this.fileInfo.name, state)
+    },
      /**
      * Update current fileInfo and fetch new data
      * @param {Object} fileInfo the current file FileInfo
@@ -431,10 +434,10 @@ export default {
       this.fileInfo = fileInfo
       this.fileName = fileInfo.path + '/' + fileInfo.name
 
-      this.fileList = OCA.Files.App.currentFileList
-      this.fileList.$el.off('updated').on('updated', function(event) {
-        console.info('FILE LIST UPDATED, ARGS', arguments)
-      })
+      /* this.fileList = OCA.Files.App.currentFileList
+       * this.fileList.$el.off('updated').on('updated', function(event) {
+       *   console.info('FILE LIST UPDATED, ARGS', arguments)
+       * }) */
       this.archiveMountBaseName = fileInfo.name.split('.')[0]
       this.archiveMountDirName = fileInfo.path
 
@@ -500,9 +503,28 @@ export default {
       --this.loading
     },
     async refreshArchiveMounts(filename) {
+      const oldMounts = this.archiveMounts
       const mounts = await this.getArchiveMounts(filename, false)
       this.archiveMounts = mounts.mounts
       this.archiveMounted = mounts.mounted
+      // emit birth and death signals as needed, in order to update
+      // the frontend file-listing. The computational effort is
+      // quadratic, but we are talking here about the common case that
+      // there is only a single mount -- or by accident another
+      // one. So what.
+      const newMounts = this.archiveMounts.filter((mount) => oldMounts.findIndex((oldMount) => mount.mountPoint.fileid === oldMount.mountPoint.fileid) == -1)
+      const deletedMounts = oldMounts.filter((oldMount) => this.archiveMounts.findIndex((mount) => mount.mountPoint.fileid === oldMount.mountPoint.fileid) == -1)
+      for (const mount of deletedMounts) {
+        const node = fileInfoToNode(mount.mountPoint)
+
+        emit('files:node:deleted', node)
+      }
+      for (const mount of newMounts) {
+        const node = fileInfoToNode(mount.mountPoint)
+
+        emit('files:node:created', node)
+      }
+      // update should not be necessary, we just want the things to show up ...
     },
     async getArchiveMounts(fileName, silent) {
       const result = {
@@ -575,7 +597,8 @@ export default {
         this.archiveMounted = mounted
         this.refreshArchiveMounts(this.fileName)
         if (this.archiveMountDirName === this.fileInfo.path) {
-          this.fileList.reload()
+          // @todo emit signal
+          // this.fileList.reload()
         }
       }
     },
@@ -586,7 +609,7 @@ export default {
         ? 'archive/schedule/mount/{archivePath}/{mountPath}'
         : 'archive/mount/{archivePath}/{mountPath}'
       const url = generateAppUrl(urlTemplate, { archivePath, mountPath })
-      this.fileList.showFileBusyState(this.fileInfo.name, true)
+      this.setBusyState(true)
       const requestData = {}
       if (this.archivePassPhrase) {
         requestData.passPhrase = this.archivePassPhrase
@@ -600,7 +623,8 @@ export default {
         } else {
           this.refreshArchiveMounts(this.fileName)
           if (this.archiveMountDirName === this.fileInfo.path) {
-            this.fileList.reload()
+            // todo emit signal
+            // this.fileList.reload()
           }
         }
       } catch (e) {
@@ -621,20 +645,22 @@ export default {
           }
         }
       }
-      this.fileList.showFileBusyState(this.fileInfo.name, false)
+      this.setBusyState(false)
     },
     async unmount(mount) {
-      if (mount.dirName === this.fileInfo.dir && !this.fileList.inList(mount.baseName)) {
+      if (false && mount.dirName === this.fileInfo.dir && !this.fileList.inList(mount.baseName)) {
+        // TODO listen on signals
         this.refreshArchiveMounts()
         return
       }
       const cloudUser = getCurrentUser()
       const url = generateRemoteUrl('dav/files/' + cloudUser.uid + mount.mountPointPath)
-      this.fileList.showFileBusyState(this.fileInfo.name, true)
+      this.setBusyState(true)
       try {
         const response = await axios.delete(url)
         if (mount.dirName === this.fileInfo.dir) {
-          this.fileList.remove(mount.baseName)
+          // @todo emit signal
+          // this.fileList.remove(mount.baseName)
         }
         this.archiveMounted = false
       } catch (e) {
@@ -667,13 +693,13 @@ export default {
           }
         }
       }
-      this.fileList.showFileBusyState(this.fileInfo.name, false)
+      this.setBusyState(false)
     },
     async extract() {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const targetPath = encodeURIComponent(this.archiveExtractPathName)
       const url = generateUrl('/apps/' + appName + '/archive/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
-      this.fileList.showFileBusyState(this.fileInfo.name, true)
+      this.setBusyState(true)
       const requestData = {}
       if (this.archivePassPhrase) {
         requestData.passPhrase = this.archivePassPhrase
@@ -682,7 +708,8 @@ export default {
       try {
         const response = await axios.post(url, requestData)
         if (this.archiveExtractDirName === this.fileInfo.path) {
-          this.fileList.reload()
+          // @todo emit signal
+          // this.fileList.reload()
         }
       } catch (e) {
         console.error('ERROR', e)
@@ -702,7 +729,7 @@ export default {
           }
         }
       }
-      this.fileList.showFileBusyState(this.fileInfo.name, false)
+      this.setBusyState(false)
     },
     async setPassPhrase() {
       const newPassPhrase = this.showArchivePassPhrase
@@ -713,7 +740,7 @@ export default {
       // patch it into existing mounts if any
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}', { archivePath })
-      this.fileList.showFileBusyState(this.fileInfo.name, true)
+      this.setBusyState(true)
       const requestData = {
         changeSet: {
           archivePassPhrase: this.archivePassPhrase,
@@ -739,7 +766,7 @@ export default {
           }
         }
       }
-      this.fileList.showFileBusyState(this.fileInfo.name, false)
+      this.setBusyState(false)
     },
     async togglePassPhraseVisibility() {
       // this is sooo complicated because the NC Action controls are
