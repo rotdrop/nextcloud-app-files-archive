@@ -50,6 +50,8 @@ trait NodeTrait
    */
   protected function formatNode(Node $node):array
   {
+    $mount = $node->getMountPoint();
+    $mountType = $mount->getMountType();
     return [
       'basename' => $node->getName(),
       'etag' => $node->getEtag(),
@@ -61,6 +63,7 @@ trait NodeTrait
       'type' => $node->getType(),
       'hasPreview' => $this->previewManager->isAvailable($node),
       'permissions' => $node->getPermissions(),
+      'mount-type' => $mountType,
     ];
   }
 }
