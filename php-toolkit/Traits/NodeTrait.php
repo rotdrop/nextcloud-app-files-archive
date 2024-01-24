@@ -29,13 +29,8 @@ use OCP\Files\IRootFolder;
 /** Helper trait for file-system nodes. */
 trait NodeTrait
 {
-  /**
-   * @var string $userId
-   *
-   * This must remain without type-hint as the Nextcloud base controller class
-   * also contains it without type-hint.
-   */
-  protected $userId;
+  /** @var string $userId */
+  protected string $userId;
 
   /** @var IPreview */
   protected IPreview $previewManager;
