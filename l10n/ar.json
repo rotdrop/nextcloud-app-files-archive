@@ -47,6 +47,8 @@
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "الحجم غير المضغوط للأرشيف \"%1$s\" كبيرٌ جدّاً: %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "لا توجد ملفات أرشيف متعلقة بهذا المُؤرْشِف archiver",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "مشكلة في التنصيب؛ المورد المطلوب \"%1$s\" من نوع \"%2$s\"  لم يتم تنصيبه على الخادوم، يرجى الاتصال مع مشرف النظام!",
+    "User" : "مستخدم",
+    "Password" : "كلمة المرور",
     "Login succeeded." : "تمّ الدخول بنجاح.",
     "Login failed." : "فشل عملية الدخول.",
     "Error, caught an exception." : "خطأ نتج عنه توليد استثناء.",
