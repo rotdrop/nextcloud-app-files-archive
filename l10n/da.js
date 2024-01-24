@@ -2,6 +2,8 @@ OC.L10N.register(
     "files_archive",
     {
     "Error: %s" : "Fejl: %s",
+    "User" : "ruger",
+    "Password" : "Kodeord",
     "bytes" : "bytes",
     "unknown" : "ukendt",
     "MIME type" : "MIME-type",
