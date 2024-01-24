@@ -49,6 +49,7 @@ OC.L10N.register(
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Некомпресираният размер на архива „%1$s“ е твърде голям: %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "Няма архивен файл, свързан с този екземпляр на архиватора.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблем с инсталирането; необходимият ресурс „%1$s“ от тип „%2$s“ не е инсталиран на сървъра, моля, свържете се със системния администратор!",
+    "Password" : "Парола",
     "Error, caught an exception." : "Грешка, засечено е изключение.",
     "Caused by previous exception" : "Причинено от предишно изключение",
     "bytes" : "байта",
