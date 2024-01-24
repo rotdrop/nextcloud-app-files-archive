@@ -7,6 +7,7 @@ module.exports = {
     __webpack_public_path__: true,
   },
   rules: {
+    'import/extensions': 'off',
     'no-tabs': ['error', { allowIndentationTabs: false }],
     indent: ['error', 2],
     'no-mixed-spaces-and-tabs': 'error',
