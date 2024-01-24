@@ -21,7 +21,7 @@ import Vue from 'vue';
 import { appName } from './config.js';
 import { attachDialogHandlers } from './toolkit/util/dialogs.js';
 import { getInitialState } from './toolkit/services/InitialStateService.js';
-import { generateFilePath, generateUrl } from '@nextcloud/router';
+import { generateUrl } from '@nextcloud/router';
 import FilesTab from './views/FilesTab.vue';
 import { Tooltip } from '@nextcloud/vue';
 
@@ -34,7 +34,8 @@ require('dialogs.scss');
 Vue.directive('tooltip', Tooltip);
 
 // eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js');
+require('./webpack-setup.js');
+
 Vue.mixin({ data() { return { appName }; }, methods: { t, n, generateUrl } });
 
 const View = Vue.extend(FilesTab);
@@ -45,8 +46,6 @@ const initialState = getInitialState();
 window.addEventListener('DOMContentLoaded', () => {
 
   attachDialogHandlers();
-
-  console.info('INITIAL STATE', initialState);
 
   /**
    * Register a new tab in the sidebar
@@ -78,7 +77,6 @@ window.addEventListener('DOMContentLoaded', () => {
         TabInstance.$mount(el);
       },
       update(fileInfo) {
-        console.info('ARGUMENTS', arguments);
         TabInstance.update(fileInfo);
       },
       destroy() {
