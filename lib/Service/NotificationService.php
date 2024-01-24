@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright Copyright (c) 2022 Claus-Justus Heine
+ * @copyright Copyright (c) 2022, 2024 Claus-Justus Heine
  * @license GNU AGPL version 3 or any later version
  *
  * "stolen" from files_zip Copyright (c) 2021 Julius Härtl <jus@bitgrid.net>
@@ -43,25 +43,14 @@ class NotificationService
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
   use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
 
-  /** @var string */
-  protected $appName;
-
-  /** @var null|string */
-  protected $userId = null;
-
-  /** @var IManager */
-  private $notificationManager;
-
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
-    IManager $notificationManager,
-    ILogger $logger,
+    protected $appName,
+    private IManager $notificationManager,
+    protected ILogger $logger,
     IUserSession $userSession,
   ) {
     $this->appName = $appName;
-    $this->notificationManager = $notificationManager;
-    $this->logger = $logger;
     $user = $userSession->getUser();
     if (!empty($user)) {
       $this->userId = $user->getUID();

@@ -31,6 +31,7 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\IPreview;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
@@ -65,63 +66,38 @@ class MountController extends Controller
   use TargetPathTrait;
 
   /** @var string */
-  private $userId;
-
-  /** @var ArchiveMountMapper */
-  private $mountMapper;
-
-  /** @var IMountManager */
-  private $mountManager;
-
-  /** @var IRootFolder */
-  private $rootFolder;
-
-  /** @var ArchiveService */
-  private $archiveService;
-
-  /** @var MountProvider */
-  private $mountProvider;
-
-  /** @var string */
-  private $mountPointTemplate;
+  private string $mountPointTemplate;
 
   /** @var bool */
-  private $autoRenameMountPoint = false;
+  private bool $autoRenameMountPoint = false;
 
   /** @var bool */
-  private $stripCommonPathPrefixDefault = false;
+  private bool $stripCommonPathPrefixDefault = false;
 
   /** @var null|int */
-  private $archiveSizeLimit = null;
+  private ?int $archiveSizeLimit = null;
 
   /** @var int */
-  private $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+  private int $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
     IRequest $request,
-    ?string $userId,
-    LoggerInterface $logger,
-    IL10N $l10n,
+    protected string $userId,
+    protected LoggerInterface $logger,
+    protected IL10N $l,
     IConfig $cloudConfig,
-    IMountManager $mountManager,
-    IRootFolder $rootFolder,
-    ArchiveMountMapper $mountMapper,
-    ArchiveService $archiveService,
-    MountProvider $mountProvider,
+    private IMountManager $mountManager,
+    protected IRootFolder $rootFolder,
+    private ArchiveMountMapper $mountMapper,
+    private ArchiveService $archiveService,
+    private MountProvider $mountProvider,
+    protected IPreview $previewManager,
   ) {
     parent::__construct($appName, $request);
-    $this->logger = $logger;
-    $this->l = $l10n;
-    $this->userId = $userId;
-    $this->mountMapper = $mountMapper;
-    $this->mountManager = $mountManager;
-    $this->rootFolder = $rootFolder;
-    $this->mountProvider = $mountProvider;
-    $this->archiveService = $archiveService;
-    $this->archiveService->setL10N($l10n);
+    $this->archiveService->setL10N($l);
 
     $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
@@ -280,7 +256,7 @@ class MountController extends Controller
       return self::grumble($this->l->t('"%s" is not mounted.', $archivePath));
     }
 
-    $userFolder = $this->rootFolder->getUserFolder($this->userId);
+    $userFolder = $this->getUserFolder();
     if (empty($userFolder)) {
       return self::grumble($this->l->t('The user folder for user "%s" could not be opened.', $this->userId));
     }
@@ -288,6 +264,7 @@ class MountController extends Controller
     $unMountCount = 0;
     $messages = [];
     $errorMessages = [];
+    $removedMountPoints = [];
     foreach ($mounts as $mount) {
       $mountPointPath = $mount->getMountPointPath();
 
@@ -297,6 +274,8 @@ class MountController extends Controller
         $errorMessages[] = $this->l->t('Directory "%s" is not a mount point.', $mountPointPath);
         continue;
       }
+
+      $removedMountPoints[] = $this->formatMountEntity($mount);
 
       $this->mountManager->removeMount($mountPointPath);
       $this->mountMapper->delete($mount);
@@ -312,6 +291,7 @@ class MountController extends Controller
       'errorMessages' => $errorMessages,
       'messages' => $messages,
       'count' => $unMountCount,
+      'mounts' => $removedMountPoints,
     ], count($errorMessages) > 0 ? Http::STATUS_BAD_REQUEST : Http::STATUS_OK);
   }
 

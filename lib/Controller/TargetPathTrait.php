@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -29,13 +29,13 @@ use OCA\FilesArchive\Constants;
 trait TargetPathTrait
 {
   /** @var string */
-  private $targetBaseNameTemplate;
+  private string $targetBaseNameTemplate;
 
   /** @var string */
-  private $mountPointTemplate;
+  private string $mountPointTemplate;
 
   /** @var ArchiveService */
-  private $archiveService;
+  private ArchiveService $archiveService;
 
   /**
    * @param string $archiveFileName
