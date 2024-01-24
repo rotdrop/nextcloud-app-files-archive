@@ -1,5 +1,7 @@
 { "translations": {
     "Error: %s" : "Fejl: %s",
+    "User" : "ruger",
+    "Password" : "Kodeord",
     "bytes" : "bytes",
     "unknown" : "ukendt",
     "MIME type" : "MIME-type",

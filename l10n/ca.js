@@ -24,6 +24,8 @@ OC.L10N.register(
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "La mida no comprimida de l'arxiu \"%1$s\" és massa gran: %2$s > %3$s",
     "There is no archive file associated with this archiver instance." : "No hi ha cap fitxer d'arxiu associat amb aquesta instància de l'arxivador.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema d'instal·lació; el recurs necessari \"%1$s\" del tipus \"%2$s\" no està instal·lat al servidor, poseu-vos en contacte amb l'administrador del sistema!",
+    "User" : "Usuari",
+    "Password" : "Contrasenya",
     "Error, caught an exception." : "Error, s'ha detectat una excepció.",
     "Caused by previous exception" : "Causat per una excepció anterior",
     "bytes" : "bytes",
