@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -304,6 +304,8 @@ class MountProvider implements IMountProvider
           storage: $storage,
           mountpoint: $mountPointPath,
           loader: $loader,
+          mountId: $mountEntity->getArchiveFileId(),
+          mountProvider: MountProvider::class,
           mountOptions: [
             'filesystem_check_changes' => 1,
             'readonly' => true,
@@ -331,6 +333,7 @@ class MountProvider implements IMountProvider
         if (!str_starts_with($target, $this->userFolderPath)) {
           return false;
         }
+
         $relativeTarget = substr($target, strlen($this->userFolderPath));
 
         $this->mountEntity->setMountPointPath($relativeTarget);
@@ -343,8 +346,19 @@ class MountProvider implements IMountProvider
       /** {@inheritdoc} */
       public function removeMount()
       {
+        /** @var MountPoint $this */
         $this->mountMapper->delete($this->mountEntity);
-        $this->mountManager->removeMount($this->getMountPoint()); // neccessary?
+        $this->mountManager->removeMount($this->getMountPoint());
+
+        // Destroy the cache s.t. we will get a new id on the next mount. This
+        // is necessary to get the display in the front-end correct because
+        // the path cache (Vue "store") does not listen to "deleted" events.
+        /** @var ArchiveStorage $storage */
+        $storage = $this->getStorage();
+        // $storage->getCache()->remove($this->getStorageRootId());
+        // $storage->getStorageCache()->remove($this->getNumericStorageId());
+        $storage->getCache()->clear(); // internal, but much faster
+
         return true;
       }
     };
