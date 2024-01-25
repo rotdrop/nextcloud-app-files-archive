@@ -117,6 +117,7 @@ OC.L10N.register(
     "Unable to obtain mount status for archive file \"{archivePath}\"." : "無法擷取封存檔「{archivePath}」的掛載狀態。",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "封存檔「{archivePath}」已掛載於「{mountPointPath}」。",
     "Archive" : "壓縮檔",
+    "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "封存檔「{archivePath}」已掛載於「{mountPointPath}」。",
     "reason unknown" : "未知理由",
     "Unable to query the initial value of all settings: {message}" : "無法查詢所有設定的初始值：{message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "無法查詢 {settingsKey} 的初始值：{message}",
