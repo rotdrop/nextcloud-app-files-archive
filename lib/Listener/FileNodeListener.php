@@ -132,7 +132,6 @@ class FileNodeListener implements IEventListener
         /** @var ArchiveMount $mount */
         foreach ($mounts as $mount) {
           $mount->setArchiveFilePath($targetPath);
-          $mount->setArchiveFilePathHash(md5($targetPath));
           $mountMapper->update($mount);
         }
         break;
