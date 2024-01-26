@@ -307,6 +307,18 @@ export default {
     }
   },
   computed: {
+    archiveFileId() {
+      return this.fileInfo?.id
+    },
+    archiveFileDirName() {
+      return this.fileInfo.path
+    },
+    archiveFileBaseName() {
+      return this.fileInfo.name
+    },
+    archiveFilePathName() {
+      return this.fileInfo.path + '/' + this.fileInfo.name
+    },
     archiveMounted() {
       return this.archiveMounts.length > 0
     },
@@ -404,6 +416,9 @@ export default {
   created() {
     // this.getData()
     subscribe('files:node:deleted', this.onMountPointDeleted)
+    subscribe('files:node:renamed', this.onMountPointRenamed)
+
+    subscribe('notifications:notification:received', (event) => this.onNotification(event))
   },
   mounted() {
     // this.getData()
@@ -427,6 +442,8 @@ export default {
      * @param {object} fileInfo the current file FileInfo
      */
     async update(fileInfo) {
+      console.info('FILE INFO', fileInfo)
+
       this.fileInfo = fileInfo
       this.fileName = fileInfo.path + '/' + fileInfo.name
 
@@ -499,7 +516,7 @@ export default {
       --this.loading
     },
     async refreshArchiveMounts(filename, noEmit) {
-      const oldMounts = this.archiveMounts
+      const oldMounts = [...this.archiveMounts]
       const mounts = await this.getArchiveMounts(filename, false)
       this.archiveMounts = mounts.mounts
       if (noEmit) {
@@ -577,8 +594,6 @@ export default {
       }
       return result
     },
-    async notificationListener() {
-    },
     async backgroundMountsPoller(archiveMountIds) {
       const { mounts } = await this.getArchiveMounts(this.fileName, true)
       let mountingFinished = mounts.length !== archiveMountIds.length
@@ -654,11 +669,6 @@ export default {
     },
     async unmount(mount) {
       console.info('UNMOUNT MOUNT', mount)
-      /* if (false && mount.dirName === this.fileInfo.dir && !this.fileList.inList(mount.baseName)) {
-       *   // TODO listen on signals emit signal
-       *   this.refreshArchiveMounts()
-       *   return
-       * } */
       const cloudUser = getCurrentUser()
       const url = generateRemoteUrl('dav/files/' + cloudUser.uid + mount.mountPointPath)
       this.setBusyState(true)
@@ -706,6 +716,39 @@ export default {
       }
       this.setBusyState(false)
     },
+    onNotification(event) {
+      const destinationData = event?.notification?.messageRichParameters?.destination
+      if (destinationData?.mount?.archiveFileId !== this.archiveFileId) {
+        // not for us, in the future we may want to maintain a store
+        // and cache the data for all file-ids.
+        console.info('*** Archive notification for other file received', event)
+        return
+      }
+      if (destinationData?.status === 'mount') {
+        console.info('*** Mount notification received, updating mount-list', destinationData)
+        const mountFileId = destinationData.id
+        const mountIndex = this.archiveMounts.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
+        if (mountIndex === -1) {
+          const mount = destinationData.mount
+          mount.mountPoint = destinationData.folder
+          this.archiveMounts.push(mount)
+        }
+      }
+    },
+    onMountPointRenamed(mountPoint) {
+      // update the list of mountpoints
+      const mountFileId = mountPoint.fileid
+      const mountIndex = this.archiveMounts.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
+      if (mountIndex >= 0) {
+        console.info('BERFORE RENAME', { ...this.archiveMounts[mountIndex] })
+        vueSet(this.archiveMounts[mountIndex], 'mountPoint', mountPoint)
+        vueSet(this.archiveMounts[mountIndex], 'mountPointPath', mountPoint.path)
+        vueSet(this.archiveMounts[mountIndex], 'mountPointPathHash', md5(mountPoint.path))
+        console.info('AFTER RENAME', { ...this.archiveMounts[mountIndex] })
+      } else {
+        console.info('RENAME OF NODE NOT FOR US', mountPoint)
+      }
+    },
     onMountPointDeleted(mountPoint) {
       const mountFileId = mountPoint.fileid
       const mountIndex = this.archiveMounts.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
@@ -719,7 +762,10 @@ export default {
     async extractArchive() {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const targetPath = encodeURIComponent(this.archiveExtractPathName)
-      const url = generateUrl('/apps/' + appName + '/archive/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
+      const urlTemplate = this.archiveExtractBackgroundJob
+        ? 'archive/schedule/extract/{archivePath}/{targetPath}'
+        : 'archive/extract/{archivePath}/{targetPath}'
+      const url = generateAppUrl(urlTemplate, { archivePath, targetPath })
       this.setBusyState(true)
       const requestData = {}
       if (this.archivePassPhrase) {
@@ -728,10 +774,11 @@ export default {
       requestData.stripCommonPathPrefix = !!this.archiveExtractStripCommonPathPrefix
       try {
         const response = await axios.post(url, requestData)
-        const node = fileInfoToNode(response.data.targetFolder)
-
-        console.info('EMIT CREATED')
-        emit('files:node:created', node)
+        if (!this.archiveExtractBackgroundJob) {
+          const node = fileInfoToNode(response.data.targetFolder)
+          console.info('EMIT CREATED')
+          emit('files:node:created', node)
+        }
       } catch (e) {
         console.error('ERROR', e)
         if (e.response) {

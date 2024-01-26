@@ -20,9 +20,10 @@
 import { appName } from './config.js';
 import generateAppUrl from './toolkit/util/generate-url.js';
 import { fileInfoToNode } from './toolkit/util/file-node-helper.js';
-import { emit } from '@nextcloud/event-bus';
+import { emit, subscribe } from '@nextcloud/event-bus';
 import axios from '@nextcloud/axios';
 import type { AxiosResponse, AxiosError } from 'axios';
+import type { NotificationEvent } from './toolkit/types/events.ts';
 import { getInitialState } from './toolkit/services/InitialStateService.js';
 import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import { registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
@@ -34,6 +35,19 @@ require('./webpack-setup.js');
 
 const initialState = getInitialState();
 const archiveMimeTypes: Array<string> = initialState.archiveMimeTypes;
+
+subscribe('notifications:notification:received', (event: NotificationEvent) => {
+  console.info('NOTIFICATION RECEIVED', event)
+  const successData = event.notification?.messageRichParameters
+  console.info('SUCCESS DATA', successData)
+  if (!successData?.destination?.status || !successData?.destination?.folder) {
+    return
+  }
+  const node = fileInfoToNode(successData.destination.folder)
+  console.info('EMIT CREATED', node)
+
+  emit('files:node:created', node)
+})
 
 registerFileAction(new FileAction({
   id: appName,
@@ -63,12 +77,14 @@ registerFileAction(new FileAction({
 
     const fullPath = encodeURIComponent(node.path);
 
+    const mountStatusUrl = generateAppUrl('archive/mount/{fullPath}', { fullPath }, undefined);
+
     const mountUrl = initialState.mountBackgroundJob
       ? generateAppUrl('archive/schedule/mount/{fullPath}', { fullPath }, undefined)
-      : generateAppUrl('archive/mount/{fullPath}', { fullPath }, undefined);
+      : mountStatusUrl;
 
     try {
-      let response: AxiosResponse = await axios.get(mountUrl);
+      let response: AxiosResponse = await axios.get(mountStatusUrl);
       const data = response.data;
       if (data.mounted) {
         const mountPointPath = data.mounts[0].mountPointPath;
