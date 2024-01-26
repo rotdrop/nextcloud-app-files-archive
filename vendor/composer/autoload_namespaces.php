@@ -6,7 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'PHPMD\\' => array($vendorDir . '/phpmd/phpmd/src/main/php'),
     'Console' => array($vendorDir . '/pear/console_getopt'),
     'CabArchive' => array($vendorDir . '/wapmorgan/cab-archive/src'),
     'Archive_Tar' => array($vendorDir . '/pear/archive_tar'),
