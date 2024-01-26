@@ -235,6 +235,16 @@ class ArchiveService
   }
 
   /**
+   * Return the "opened" status.
+   *
+   * @return true
+   */
+  public function isOpen():bool
+  {
+    return $this->archiver !== null;
+  }
+
+  /**
    * Close, i.e. unconfigure. This method is error agnostic, it simply unsets
    * the initial state variables.
    *
