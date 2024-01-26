@@ -35,6 +35,7 @@ use OCP\IPreview;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IUserSession;
 use OCP\Files\Mount\IMountPoint;
 use OCP\Files\Mount\IMountManager;
 use OCP\Files\IRootFolder;
@@ -85,35 +86,40 @@ class MountController extends Controller
   public function __construct(
     ?string $appName,
     IRequest $request,
-    protected string $userId,
     protected LoggerInterface $logger,
     protected IL10N $l,
-    IConfig $cloudConfig,
     private IMountManager $mountManager,
     protected IRootFolder $rootFolder,
     private ArchiveMountMapper $mountMapper,
     private ArchiveService $archiveService,
     private MountProvider $mountProvider,
     protected IPreview $previewManager,
+    IConfig $cloudConfig,
+    IUserSession $userSession,
   ) {
     parent::__construct($appName, $request);
     $this->archiveService->setL10N($l);
 
-    $this->archiveBombLimit = $cloudConfig->getAppValue(
-      $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
-    $this->archiveSizeLimit = $cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
+    $user = $userSession->getUser();
+    if (!empty($user)) {
+      $this->userId = $user->getUID();
 
-    $this->archiveService->setSizeLimit(min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX));
+      $this->archiveBombLimit = $cloudConfig->getAppValue(
+        $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
+      $this->archiveSizeLimit = $cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
-    $this->mountPointTemplate = $cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
+      $this->archiveService->setSizeLimit(min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX));
 
-    $this->autoRenameMountPoint = (bool)$cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::MOUNT_POINT_AUTO_RENAME, false);
+      $this->mountPointTemplate = $cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
 
-    $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+      $this->autoRenameMountPoint = (bool)$cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::MOUNT_POINT_AUTO_RENAME, false);
+
+      $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+    }
   }
   // phpcs:enable
 
@@ -212,13 +218,10 @@ class MountController extends Controller
     $mountEntity = new ArchiveMount;
     $mountEntity->setUserId($this->userId);
     $mountEntity->setMountPointPath($mountPointPath);
-    $mountEntity->setMountPointPathHash(md5($mountPointPath));
     $mountEntity->setArchiveFileId($archiveFile->getId());
     $mountEntity->setArchiveFilePath($archivePath);
-    $mountEntity->setArchiveFilePathHash(md5($archivePath));
     $mountEntity->setArchivePassPhrase($passPhrase);
     $mountEntity->setMountFlags($mountFlags);
-    $this->mountMapper->insert($mountEntity);
 
     try {
       // obtain the mount point and run the scanner
@@ -227,15 +230,26 @@ class MountController extends Controller
 
       $this->mountManager->addMount($mountPoint);
       $storage = $mountPoint->getStorage();
+      // $this->logInfo('START THE SCANNER');
       $storage->getScanner()->scan('');
+      // $this->logInfo('FINISHED SCANNING');
+
+      // only now we have the root-id
+      $mountEntity->setMountPointFileId($mountPoint->getStorageRootId());
+      $this->mountMapper->insert($mountEntity);
     } catch (Throwable $t) {
       $this->logException($t);
-      $this->mountMapper->delete($mountEntity);
+      try {
+        $this->mountManager->removeMount($mountPoint->MountPoint());
+      } catch (Throwable $t) {
+        // ignore
+      }
       return self::grumble($this->l->t(
         'Unable to update the file cache for the mount point "%1s": %2$s.', [
           $mountPointPath, $t->getMessage()
         ]));
     }
+
 
     return self::dataResponse($this->formatMountEntity($mountEntity));
   }
@@ -309,6 +323,7 @@ class MountController extends Controller
     $data = $mount->jsonSerialize();
     $userFolder = $this->getUserFolder();
     try {
+      /** @var Folder $mountNode */
       $mountNode = $userFolder->get($mount->getMountPointPath());
       $data['mountPoint'] = $this->formatNode($mountNode);
     } catch (FileNotFoundException $notFound) {
