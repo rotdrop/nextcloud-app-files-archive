@@ -416,7 +416,7 @@ export default {
     subscribe('files:node:deleted', this.onMountPointDeleted)
     subscribe('files:node:renamed', this.onMountPointRenamed)
 
-    subscribe('notifications:notification:received', (event) => this.onNotification(event))
+    subscribe('notifications:notification:received', this.onNotification)
   },
   mounted() {
     // this.getData()
@@ -688,6 +688,9 @@ export default {
       this.setBusyState(false)
     },
     onNotification(event) {
+      if (event?.notification?.app !== appName) {
+        return
+      }
       const destinationData = event?.notification?.messageRichParameters?.destination
       if (destinationData?.mount?.archiveFileId !== this.archiveFileId) {
         // not for us, in the future we may want to maintain a store
