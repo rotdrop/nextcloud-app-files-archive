@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,6 +31,8 @@ use OCP\AppFramework\Db\Entity;
  * @method public string getUserId()
  * @method public void setUserId(string $userId)
  *
+ * @method public int getMountPointFileId()
+ * @method public void setMountPointFileId(int $fileId)
  * @method public string getMountPointPath()
  * @method public void setMountPointPath(string $path)
  * @method public string getMountPointPathHash()
@@ -60,6 +62,7 @@ class ArchiveMount extends Entity implements JsonSerializable
   public $id;
   protected $userId;
 
+  protected $mountPointFileId;
   protected $mountPointPath;
   protected $mountPointPathHash;
 
@@ -77,6 +80,7 @@ class ArchiveMount extends Entity implements JsonSerializable
     // $this->addType('id', 'integer');
     $this->addType('userId', 'string');
 
+    $this->addType('mountPointFileId', 'integer');
     $this->addType('mountPointPath', 'string');
     $this->addType('mountPointPathHash', 'string');
 
@@ -89,6 +93,32 @@ class ArchiveMount extends Entity implements JsonSerializable
     $this->addType('mountFlags', 'integer');
   }
 
+  /**
+   * Set the mount point path and automatically also the hash value for it.
+   *
+   * @param string $path
+   *
+   * @return void
+   */
+  public function setMountPointPath(string $path):void
+  {
+    parent::setMountPointPath($path);
+    parent::setMountPointPathHash(md5($path));
+  }
+
+  /**
+   * Set the archive file path and automatically also the hash value for it.
+   *
+   * @param string $path
+   *
+   * @return void
+   */
+  public function setArchiveFilePath(string $path):void
+  {
+    parent::setArchiveFilePath($path);
+    parent::setArchiveFilePathHash(md5($path));
+  }
+
   /** {@inheritdoc} */
   public function jsonSerialize()
   {
@@ -96,6 +126,7 @@ class ArchiveMount extends Entity implements JsonSerializable
       'id' => $this->id,
       'userId' => $this->userId,
 
+      'mountPointFileId' => $this->mountPointFileId,
       'mountPointPath' => $this->mountPointPath,
       'mountPointPathHash' => $this->mountPointPathHash,
 

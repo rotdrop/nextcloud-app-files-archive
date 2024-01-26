@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -72,6 +72,8 @@ class ArchiveMountMapper extends QBMapper
    * Find a mount by its mount-path.
    *
    * @param string $mountPath
+   *
+   * @return null|ArchiveMount
    */
   public function findByMountPath(string $mountPath):?ArchiveMount
   {
@@ -80,6 +82,42 @@ class ArchiveMountMapper extends QBMapper
     $qb->select('*')
       ->from($this->getTableName())
       ->where($qb->expr()->eq('mount_point_path_hash', $qb->createNamedParameter(md5($mountPath))));
+
+    return $this->findEntity($qb);
+  }
+
+  /**
+   * Find a mount by its mount-path.
+   *
+   * @param int $mountPointFileId File id of the mount-point.
+   *
+   * @return null|ArchiveMount
+   */
+  public function findByMountPointFileId(int $mountPointFileId):?ArchiveMount
+  {
+    $qb = $this->db->getQueryBuilder();
+
+    $qb->select('*')
+      ->from($this->getTableName())
+      ->where($qb->expr()->eq('mount_point_file_id', $qb->createNamedParameter($mountPointFileId)));
+
+    return $this->findEntity($qb);
+  }
+
+  /**
+   * Find a mount by its mount-path.
+   *
+   * @param Folder $mountPointFolder
+   *
+   * @return null|ArchiveMount
+   */
+  public function findByMountPointFolder(Folder $mountPointFolder):?ArchiveMount
+  {
+    $qb = $this->db->getQueryBuilder();
+
+    $qb->select('*')
+      ->from($this->getTableName())
+      ->where($qb->expr()->eq('mount_point_file_id', $qb->createNamedParameter($mountPointFolder->getId())));
 
     return $this->findEntity($qb);
   }
@@ -178,6 +216,8 @@ class ArchiveMountMapper extends QBMapper
     $entity->setArchivePassPhrase($archivePassPhrase);
 
     $entity->setMountFlags(ArchiveMount::MOUNT_FLAGS_MASK & $entity->getMountFlags());
+    $entity->setArchiveFilePathHash(md5($entity->getArchiveFilePath()));
+    $entity->setMountPointPathHash(md5($entity->getMountPointPath()));
 
     return $entity;
   }
@@ -198,6 +238,8 @@ class ArchiveMountMapper extends QBMapper
     $entity->setArchivePassPhrase($archivePassPhrase);
 
     $entity->setMountFlags(ArchiveMount::MOUNT_FLAGS_MASK & $entity->getMountFlags());
+    $entity->setArchiveFilePathHash(md5($entity->getArchiveFilePath()));
+    $entity->setMountPointPathHash(md5($entity->getMountPointPath()));
 
     return $entity;
   }
