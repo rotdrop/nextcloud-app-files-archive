@@ -145,7 +145,6 @@ class Notifier implements INotifier
           ]),
         ];
 
-        $destination = null;
         try {
           $destinations = $this->getUserFolder()->getById($parameters['destinationId']);
 
