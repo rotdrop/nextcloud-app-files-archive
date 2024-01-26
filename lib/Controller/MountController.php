@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,9 +31,11 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\IPreview;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IUserSession;
 use OCP\Files\Mount\IMountPoint;
 use OCP\Files\Mount\IMountManager;
 use OCP\Files\IRootFolder;
@@ -60,89 +62,71 @@ class MountController extends Controller
   use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
   use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
   use TargetPathTrait;
 
   /** @var string */
-  private $userId;
-
-  /** @var ArchiveMountMapper */
-  private $mountMapper;
-
-  /** @var IMountManager */
-  private $mountManager;
-
-  /** @var IRootFolder */
-  private $rootFolder;
-
-  /** @var ArchiveService */
-  private $archiveService;
-
-  /** @var MountProvider */
-  private $mountProvider;
-
-  /** @var string */
-  private $mountPointTemplate;
+  private string $mountPointTemplate;
 
   /** @var bool */
-  private $autoRenameMountPoint = false;
+  private bool $autoRenameMountPoint = false;
 
   /** @var bool */
-  private $stripCommonPathPrefixDefault = false;
+  private bool $stripCommonPathPrefixDefault = false;
 
   /** @var null|int */
-  private $archiveSizeLimit = null;
+  private ?int $archiveSizeLimit = null;
 
   /** @var int */
-  private $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+  private int $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
     IRequest $request,
-    ?string $userId,
-    LoggerInterface $logger,
-    IL10N $l10n,
+    protected LoggerInterface $logger,
+    protected IL10N $l,
+    private IMountManager $mountManager,
+    protected IRootFolder $rootFolder,
+    private ArchiveMountMapper $mountMapper,
+    private ArchiveService $archiveService,
+    private MountProvider $mountProvider,
+    protected IPreview $previewManager,
     IConfig $cloudConfig,
-    IMountManager $mountManager,
-    IRootFolder $rootFolder,
-    ArchiveMountMapper $mountMapper,
-    ArchiveService $archiveService,
-    MountProvider $mountProvider,
+    IUserSession $userSession,
   ) {
     parent::__construct($appName, $request);
-    $this->logger = $logger;
-    $this->l = $l10n;
-    $this->userId = $userId;
-    $this->mountMapper = $mountMapper;
-    $this->mountManager = $mountManager;
-    $this->rootFolder = $rootFolder;
-    $this->mountProvider = $mountProvider;
-    $this->archiveService = $archiveService;
-    $this->archiveService->setL10N($l10n);
+    $this->archiveService->setL10N($l);
 
-    $this->archiveBombLimit = $cloudConfig->getAppValue(
-      $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
-    $this->archiveSizeLimit = $cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
+    $user = $userSession->getUser();
+    if (!empty($user)) {
+      $this->userId = $user->getUID();
 
-    $this->archiveService->setSizeLimit(min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX));
+      $this->archiveBombLimit = $cloudConfig->getAppValue(
+        $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
+      $this->archiveSizeLimit = $cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
-    $this->mountPointTemplate = $cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
+      $this->archiveService->setSizeLimit(min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX));
 
-    $this->autoRenameMountPoint = (bool)$cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::MOUNT_POINT_AUTO_RENAME, false);
+      $this->mountPointTemplate = $cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
 
-    $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+      $this->autoRenameMountPoint = (bool)$cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::MOUNT_POINT_AUTO_RENAME, false);
+
+      $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+    }
   }
   // phpcs:enable
 
   /**
    * @param string $archivePath
    *
-   * @param null|string $mountPoint
+   * @param null|string $mountPointPath
    *
    * @param null|string $passPhrase
    *
@@ -152,8 +136,12 @@ class MountController extends Controller
    *
    * @NoAdminRequired
    */
-  public function mount(string $archivePath, ?string $mountPointPath = null, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null)
-  {
+  public function mount(
+    string $archivePath,
+    ?string $mountPointPath = null,
+    ?string $passPhrase = null,
+    ?bool $stripCommonPathPrefix = null,
+  ) {
     $archivePath = urldecode($archivePath);
     if ($mountPointPath) {
       $mountPointPath = urldecode($mountPointPath);
@@ -230,13 +218,10 @@ class MountController extends Controller
     $mountEntity = new ArchiveMount;
     $mountEntity->setUserId($this->userId);
     $mountEntity->setMountPointPath($mountPointPath);
-    $mountEntity->setMountPointPathHash(md5($mountPointPath));
     $mountEntity->setArchiveFileId($archiveFile->getId());
     $mountEntity->setArchiveFilePath($archivePath);
-    $mountEntity->setArchiveFilePathHash(md5($archivePath));
     $mountEntity->setArchivePassPhrase($passPhrase);
     $mountEntity->setMountFlags($mountFlags);
-    $this->mountMapper->insert($mountEntity);
 
     try {
       // obtain the mount point and run the scanner
@@ -245,17 +230,28 @@ class MountController extends Controller
 
       $this->mountManager->addMount($mountPoint);
       $storage = $mountPoint->getStorage();
+      // $this->logInfo('START THE SCANNER');
       $storage->getScanner()->scan('');
+      // $this->logInfo('FINISHED SCANNING');
+
+      // only now we have the root-id
+      $mountEntity->setMountPointFileId($mountPoint->getStorageRootId());
+      $this->mountMapper->insert($mountEntity);
     } catch (Throwable $t) {
       $this->logException($t);
-      $this->mountMapper->delete($mountEntity);
+      try {
+        $this->mountManager->removeMount($mountPoint->MountPoint());
+      } catch (Throwable $t) {
+        // ignore
+      }
       return self::grumble($this->l->t(
         'Unable to update the file cache for the mount point "%1s": %2$s.', [
           $mountPointPath, $t->getMessage()
         ]));
     }
 
-    return self::dataResponse($mountEntity->jsonSerialize());
+
+    return self::dataResponse($this->formatMountEntity($mountEntity));
   }
 
   /**
@@ -274,7 +270,7 @@ class MountController extends Controller
       return self::grumble($this->l->t('"%s" is not mounted.', $archivePath));
     }
 
-    $userFolder = $this->rootFolder->getUserFolder($this->userId);
+    $userFolder = $this->getUserFolder();
     if (empty($userFolder)) {
       return self::grumble($this->l->t('The user folder for user "%s" could not be opened.', $this->userId));
     }
@@ -282,6 +278,7 @@ class MountController extends Controller
     $unMountCount = 0;
     $messages = [];
     $errorMessages = [];
+    $removedMountPoints = [];
     foreach ($mounts as $mount) {
       $mountPointPath = $mount->getMountPointPath();
 
@@ -291,6 +288,8 @@ class MountController extends Controller
         $errorMessages[] = $this->l->t('Directory "%s" is not a mount point.', $mountPointPath);
         continue;
       }
+
+      $removedMountPoints[] = $this->formatMountEntity($mount);
 
       $this->mountManager->removeMount($mountPointPath);
       $this->mountMapper->delete($mount);
@@ -306,7 +305,32 @@ class MountController extends Controller
       'errorMessages' => $errorMessages,
       'messages' => $messages,
       'count' => $unMountCount,
+      'mounts' => $removedMountPoints,
     ], count($errorMessages) > 0 ? Http::STATUS_BAD_REQUEST : Http::STATUS_OK);
+  }
+
+  /**
+   * Convert the given mount-point entity to a flat array and also add
+   * information about the file-system node of the mount-point in order to be
+   * able to communicate with the files-app files-listings.
+   *
+   * @param ArchiveMount $mount
+   *
+   * @return array
+   */
+  private function formatMountEntity(ArchiveMount $mount):array
+  {
+    $data = $mount->jsonSerialize();
+    $userFolder = $this->getUserFolder();
+    try {
+      /** @var Folder $mountNode */
+      $mountNode = $userFolder->get($mount->getMountPointPath());
+      $data['mountPoint'] = $this->formatNode($mountNode);
+    } catch (FileNotFoundException $notFound) {
+      $this->logException($notFound);
+      $data['mountPoint'] = false;
+    }
+    return $data;
   }
 
   /**
@@ -323,7 +347,7 @@ class MountController extends Controller
     return self::dataResponse([
       'messages' => [],
       'mounted' => !empty($mounts),
-      'mounts' => array_map(fn(ArchiveMount $mount) => $mount->jsonSerialize(), empty($mounts) ? [] : $mounts),
+      'mounts' => array_map(fn(ArchiveMount $mount) => $this->formatMountEntity($mount), empty($mounts) ? [] : $mounts),
     ]);
   }
 

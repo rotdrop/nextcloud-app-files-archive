@@ -5,15 +5,15 @@
   <name>Archive Manager</name>
   <summary>On-the-fly archive inspector for Nextcloud</summary>
   <description><![CDATA[Inspect, mount and extract archive files (zip, tar, etc.)]]></description>
-  <version>1.1.5-rc1</version>
+  <version>1.2.0-rc1</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de" >Claus-Justus Heine</author>
   <namespace>FilesArchive</namespace>
   <category>files</category>
   <bugs>https://github.com/rotdrop/nextcloud-app-files-archive.git</bugs>
   <dependencies>
-    <nextcloud min-version="26" max-version="28"/>
-    <php min-version="8.0" max-version="8.2" />
+    <nextcloud min-version="28" max-version="28"/>
+    <php min-version="8.0" max-version="8.3" />
   </dependencies>
   <types>
     <filesystem/><!-- required for catching dav events, otherwise app is not loaded -->

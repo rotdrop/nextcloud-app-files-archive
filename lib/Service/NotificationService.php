@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright Copyright (c) 2022 Claus-Justus Heine
+ * @copyright Copyright (c) 2022, 2024 Claus-Justus Heine
  * @license GNU AGPL version 3 or any later version
  *
  * "stolen" from files_zip Copyright (c) 2021 Julius Härtl <jus@bitgrid.net>
@@ -41,27 +41,14 @@ use OCA\FilesArchive\Constants;
 class NotificationService
 {
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
-
-  /** @var string */
-  protected $appName;
-
-  /** @var null|string */
-  protected $userId = null;
-
-  /** @var IManager */
-  private $notificationManager;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
-    IManager $notificationManager,
-    ILogger $logger,
+    protected $appName,
+    private IManager $notificationManager,
+    protected ILogger $logger,
     IUserSession $userSession,
   ) {
-    $this->appName = $appName;
-    $this->notificationManager = $notificationManager;
-    $this->logger = $logger;
     $user = $userSession->getUser();
     if (!empty($user)) {
       $this->userId = $user->getUID();
@@ -99,7 +86,6 @@ class NotificationService
     )
       ->setDateTime(new DateTime());
     $this->notificationManager->notify($notification);
-    $this->logInfo('NOTIFY PENDING');
   }
 
   /**
@@ -109,10 +95,11 @@ class NotificationService
    *
    * @return void
    */
-  public function sendNotificationOnSuccess(ArchiveJob $job, Folder $folder):void
+  public function sendNotificationOnSuccess(ArchiveJob $job):void
   {
     $userId = $job->getUserId();
     $this->userId = $userId;
+    $destinationId = $job->getDestinationId();
     $destinationPath = $job->getDestinationPath();
     $sourcePath = $job->getSourcePath();
     $sourceId = $job->getSourceId();
@@ -135,15 +122,21 @@ class NotificationService
       $sourceId,
       $destinationPath,
     );
+
     $subject = $notification->getSubject();
     $subjectParameters = $notification->getSubjectParameters();
-    $subjectParameters['destinationId'] = $folder->getId();
+    $subjectParameters['destinationId'] = $destinationId;
+
+    $message = $notification->getMessage();
+    $messageParameters = $notification->getMessageParameters();
+    $messageParameters['destinationId'] = $destinationId;
 
     $notification
       ->setDateTime(new DateTime())
-      ->setSubject($subject, $subjectParameters);
+      ->setSubject($subject, $subjectParameters)
+      ->setMessage($message, $messageParameters);
+
     $this->notificationManager->notify($notification);
-    $this->logInfo('NOTIFY SUCCESS');
   }
 
   /**
@@ -186,7 +179,6 @@ class NotificationService
       ->setDateTime(new DateTime())
       ->setObject('job', (string)$job->getId());
     $this->notificationManager->notify($notification);
-    $this->logInfo('NOTIFY FAILURE');
   }
 
   /**
@@ -217,11 +209,24 @@ class NotificationService
     ?string $errorMessage = null,
   ):INotification {
     $type |= ($target == ArchiveJob::TARGET_MOUNT ? Notifier::TYPE_MOUNT : Notifier::TYPE_EXTRACT);
+    /** @var INotification $notification */
     $notification = $this->notificationManager->createNotification();
     $notification->setUser($userId)
       ->setApp($this->appName)
       ->setObject('target', md5($destinationPath))
       ->setSubject((string)$type, [
+        'sourceId' => $sourceId,
+        'sourcePath' => $sourcePath,
+        'sourceDirectory' => dirname($sourcePath),
+        'sourceDirectoryName' => basename(dirname($sourcePath)),
+        'sourceBaseName' => basename($sourcePath),
+        'destinationPath' => $destinationPath,
+        'destinationDirectory' => dirname($destinationPath),
+        'destinationDirectoryName' => basename(dirname($destinationPath)),
+        'destinationBaseName' => basename($destinationPath),
+        'errorMessage' => $errorMessage,
+      ])
+      ->setMessage((string)$type, [
         'sourceId' => $sourceId,
         'sourcePath' => $sourcePath,
         'sourceDirectory' => dirname($sourcePath),

@@ -3,7 +3,7 @@
  * Recursive PDF Downloader App for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,6 @@ use OCP\AppFramework\Http;
 use OCP\ITempManager;
 use OCP\AppFramework\IAppContainer;
 use OCP\IUserSession;
-use OCP\Files\IRootFolder;
 
 use OCA\FilesArchive\Toolkit\Service\UserScopeService;
 
@@ -51,7 +50,6 @@ use OCA\FilesArchive\Exceptions;
 class ArchiveJob extends QueuedJob
 {
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
 
   public const TARGET_MOUNT = 'mount';
   public const TARGET_EXTRACT = 'extract';
@@ -66,33 +64,23 @@ class ArchiveJob extends QueuedJob
   public const NEEDS_AUTHENTICATION_KEY = 'needsAuthentication';
   public const AUTH_TOKEN_KEY = 'authToken';
 
-  /** @var IAppContainer */
-  private $appContainer;
-
-  /** @var IUserSession */
-  private $userSession;
-
-  /** @var ITempManager */
-  private $tempManager;
-
-  /** @var NotificationService */
-  private $notificationService;
+  /**
+   * @var int
+   *
+   * File id of the destination folder node.
+   */
+  private ?int $destinationId = null;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ITimeFactory $timeFactory,
-    ILogger $logger,
-    IUserSession $userSession,
-    IAppContainer $appContainer,
-    ITempManager $tempManager,
-    NotificationService $notificationService,
+    protected ILogger $logger,
+    private IUserSession $userSession,
+    private IAppContainer $appContainer,
+    private ITempManager $tempManager,
+    private NotificationService $notificationService,
   ) {
     parent::__construct($timeFactory);
-    $this->logger = $logger;
-    $this->tempManager = $tempManager;
-    $this->appContainer = $appContainer;
-    $this->userSession = $userSession;
-    $this->notificationService = $notificationService;
   }
   // phpcs:enable
 
@@ -176,6 +164,19 @@ class ArchiveJob extends QueuedJob
   }
 
   /**
+   * @return int
+   *
+   * @throws InvalidArgumentException
+   */
+  public function getDestinationId():int
+  {
+    if ($this->destinationId === null) {
+      throw new InvalidArgumentException('Destination id is empty.');
+    }
+    return $this->destinationId;
+  }
+
+  /**
    * @return string
    *
    * @throws InvalidArgumentException
@@ -194,7 +195,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getArchivePassphrase():?string
   {
-    $archivePassphrase = $this->argument[self::DESTINATION_PATH_KEY] ?? null;
+    $archivePassphrase = $this->argument[self::ARCHIVE_PASSPHRASE_KEY] ?? null;
     return $archivePassphrase;
   }
 
@@ -203,7 +204,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getStripCommonPathPrefix():?bool
   {
-    $archivePassphrase = $this->argument[self::DESTINATION_PATH_KEY] ?? null;
+    $archivePassphrase = $this->argument[self::STRIP_COMMON_PATH_PREFIX_KEY] ?? null;
     return $archivePassphrase;
   }
 
@@ -243,7 +244,8 @@ class ArchiveJob extends QueuedJob
           $response = $mountController->mount($archivePath, $destinationPath, $archivePassPhrase, $stripCommonPathPrefix);
           $data = $response->getData();
           if ($response->getStatus() === Http::STATUS_OK) {
-            $destinationPath = $data['mountPointPath'];
+            // $this->logInfo('CONTROLLER OK ' . print_r($data, true));
+            $this->destinationId = $data['mountPointFileId'];
           }
           break;
         case self::TARGET_EXTRACT:
@@ -252,7 +254,7 @@ class ArchiveJob extends QueuedJob
           $response = $archiveController->extract($archivePath, $destinationPath, $archivePassPhrase, $stripCommonPathPrefix);
           $data = $response->getData();
           if ($response->getStatus() === Http::STATUS_OK) {
-            $destinationPath = $data['targetPath'];
+            $this->destinationId = $data['targetFileId'];
           }
           break;
       }
@@ -261,13 +263,11 @@ class ArchiveJob extends QueuedJob
       if ($response->getStatus() !== Http::STATUS_OK) {
         throw new Exceptions\Exception(implode(' ', $data['messages'] ?? []));
       }
+      if ($this->destinationId <= 0) {
+        throw new Exceptions\Exception('Destination id is invalid: ' . $this->destinationId);
+      }
 
-      $this->userId = $this->getUserId();
-      $this->rootFolder = $this->appContainer->get(IRootFolder::class);
-      $destinationFolder = $this->getUserFolder()->get($destinationPath);
-
-      $this->logInfo('Source ' . $this->getSourcePath() . ' Target ' . $destinationFolder->getPath());
-      $this->notificationService->sendNotificationOnSuccess($this, $destinationFolder);
+      $this->notificationService->sendNotificationOnSuccess($this);
 
     } catch (Throwable $t) {
       $this->logger->error('Failed mount or extract archive.', [ 'exception' => $t ]);

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -57,11 +57,11 @@ class Version100003Date20221109223821 extends SimpleMigrationStep
     $schema = $schemaClosure();
 
     $table = $schema->getTable($this->appName . '_mounts');
-      $table->addColumn('mount_flags', 'bigint', [
-        'notnull' => true,
-        'length' => 20,
-        'default' => 0,
-      ]);
+    $table->addColumn('mount_flags', 'bigint', [
+      'notnull' => true,
+      'length' => 20,
+      'default' => 0,
+    ]);
 
     return $schema;
   }

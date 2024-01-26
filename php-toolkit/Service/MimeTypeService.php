@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -39,9 +39,6 @@ class MimeTypeService
   const MIME_TYPE_MAPPING_DATA_FILE = 'config/nextcloud/mimetypemapping.json';
   const MIME_TYPE_ALIASES_DATA_FILE = 'config/nextcloud/mimetypealiases.json';
 
-  /** @var MimeTypeDetector */
-  private $mimeTypeDetector;
-
   /** @var array */
   private $supportedMimeTypes = null;
 
@@ -53,11 +50,9 @@ class MimeTypeService
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    IMimeTypeDetector $mimeTypeDetector,
-    LoggerInterface $logger,
+    private IMimeTypeDetector $mimeTypeDetector,
+    protected LoggerInterface $logger,
   ) {
-    $this->mimeTypeDetector = $mimeTypeDetector;
-    $this->logger = $logger;
   }
   // phpcs:enable
 

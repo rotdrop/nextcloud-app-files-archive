@@ -69,11 +69,11 @@ all: help
 .PHONY: all
 
 #@@ Build the distribution assets (minified, without debugging info)
-build: dev-setup npm-build lint test
+build: dev-setup npm-build test
 .PHONY: build
 
 #@@ Build the development assets (include debugging information)
-dev: dev-setup npm-dev lint test
+dev: dev-setup npm-dev test
 .PHONY: dev
 
 #@private
@@ -125,14 +125,17 @@ APP_TOOLKIT_NS = FilesArchive
 include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 
 CSS_FILES = $(shell find $(ABSSRCDIR)/style -name "*.css" -o -name "*.scss")
-JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue")
+JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name "*.ts")
+IMG_FILES = $(shell find $(ABSSRCDIR)/img -name "*.svg")
 
 NPM_INIT_DEPS =\
  Makefile package-lock.json package.json webpack.config.js .eslintrc.js
 
 WEBPACK_DEPS =\
  $(NPM_INIT_DEPS)\
- $(CSS_FILES) $(JS_FILES)
+ $(CSS_FILES)\
+ $(JS_FILES)\
+ $(IMG_FILES)
 
 WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
 
@@ -165,7 +168,6 @@ endif
 $(WEBPACK_TARGETS): $(WEBPACK_DEPS) $(BUILD_FLAVOUR_FILE)
 	make webpack-clean
 	$(NPM) run $(shell cat $(BUILD_FLAVOUR_FILE)) || rm -f $(WEBPACK_TARGETS)
-	$(NPM) run lint
 
 #@private
 npm-dev: build-flavour-dev $(WEBPACK_TARGETS)

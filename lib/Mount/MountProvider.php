@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,6 +31,7 @@ use Psr\Log\LoggerInterface;
 
 use OCP\Files\Mount\IMountManager;
 use OCP\Files\Config\IMountProvider;
+use OCP\Files\Config\IUserMountCache;
 use OCP\Files\Storage\IStorageFactory;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
@@ -58,49 +59,21 @@ class MountProvider implements IMountProvider
 {
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
 
-  /** @var string */
-  private $appName;
-
   /** @var int */
   private static $recursionLevel = 0;
 
-  /** @var ArchiveMountMapper */
-  private $mountMapper;
-
-  /** @var IAppContainer */
-  private $appContainer;
-
-  /** @var IRootFolder */
-  private $rootFolder;
-
-  /** @var IMountManager */
-  private $mountManager;
-
-  /** @var IConfig */
-  private $cloudConfig;
-
-  /** @var IL10N */
-  private $l;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
-    IConfig $cloudConfig,
-    LoggerInterface $logger,
-    IL10N $l10n,
-    IAppContainer $appContainer,
-    IRootFolder $rootFolder,
-    IMountManager $mountManager,
-    ArchiveMountMapper $mountMapper,
+    private string $appName,
+    private IConfig $cloudConfig,
+    protected LoggerInterface $logger,
+    protected IL10N $l,
+    private IAppContainer $appContainer,
+    private IRootFolder $rootFolder,
+    private IMountManager $mountManager,
+    private ArchiveMountMapper $mountMapper,
+    private IUserMountCache $userMountCache,
   ) {
-    $this->appName = $appName;
-    $this->cloudConfig = $cloudConfig;
-    $this->logger = $logger;
-    $this->l = $l10n;
-    $this->appContainer = $appContainer;
-    $this->rootFolder = $rootFolder;
-    $this->mountManager = $mountManager;
-    $this->mountMapper = $mountMapper;
   }
   // phpcs:enable
 
@@ -248,30 +221,23 @@ class MountProvider implements IMountProvider
       return null;
     }
 
+    if ($mountEntity->getMountPointFileId()) {
+      $storage->setRootId($mountEntity->getMountPointFileId());
+    }
+
     return new class(
       $storage,
       $userFolderPath,
       $mountDirectory,
       $loader,
       $this->mountManager,
+      $this->userMountCache,
       $this->mountMapper,
       $mountEntity,
       $this->logger,
     ) extends MountPoint implements MoveableMount
     {
       use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-
-      /** @var IMountManager */
-      private $mountManager;
-
-      /** @var ArchiveMountMapper */
-      private $mountMapper;
-
-      /** @var ArchiveMount */
-      private $mountEntity;
-
-      /** @var string */
-      private $userFolderPath;
 
       /**
        * @param ArchiveStorage $storage
@@ -284,6 +250,8 @@ class MountProvider implements IMountProvider
        *
        * @param IMountManager $mountManager
        *
+       * @param IUserMountCache $userMountCache
+       *
        * @param ArchiveMountMapper $mountMapper
        *
        * @param ArchiveMount $mountEntity
@@ -295,22 +263,25 @@ class MountProvider implements IMountProvider
         string $userFolderPath,
         string $mountPointPath,
         IStorageFactory $loader,
-        IMountManager $mountManager,
-        ArchiveMountMapper $mountMapper,
-        ArchiveMount $mountEntity,
-        LoggerInterface $logger,
+        private IMountManager $mountManager,
+        private IUserMountCache $userMountCache,
+        private ArchiveMountMapper $mountMapper,
+        private ArchiveMount $mountEntity,
+        protected LoggerInterface $logger,
       ) {
         parent::__construct(
           storage: $storage,
           mountpoint: $mountPointPath,
           loader: $loader,
+          mountId: $mountEntity->getArchiveFileId(),
+          mountProvider: MountProvider::class,
           mountOptions: [
             'filesystem_check_changes' => 1,
             'readonly' => true,
             'previews' => true,
             'enable_sharing' => false,
             'authenticated' => false,
-          ]
+          ],
         );
         $this->userFolderPath = $userFolderPath;
         $this->mountManager = $mountManager;
@@ -331,10 +302,13 @@ class MountProvider implements IMountProvider
         if (!str_starts_with($target, $this->userFolderPath)) {
           return false;
         }
+
         $relativeTarget = substr($target, strlen($this->userFolderPath));
 
+        // has to be done, the file-cache is then updated automagically, it seems
+        $this->setMountPoint($target);
+
         $this->mountEntity->setMountPointPath($relativeTarget);
-        $this->mountEntity->setMountPointPathHash(md5($relativeTarget));
         $this->mountMapper->update($this->mountEntity);
 
         return true;
@@ -343,8 +317,21 @@ class MountProvider implements IMountProvider
       /** {@inheritdoc} */
       public function removeMount()
       {
+        /** @var MountPoint $this */
         $this->mountMapper->delete($this->mountEntity);
-        $this->mountManager->removeMount($this->getMountPoint()); // neccessary?
+        $this->mountManager->removeMount($this->getMountPoint());
+
+        $this->userMountCache->remoteStorageMounts($this->getNumericStorageId());
+
+        // Destroy the cache s.t. we will get a new id on the next mount. This
+        // is necessary to get the display in the front-end correct because
+        // the path cache (Vue "store") does not listen to "deleted" events.
+        /** @var ArchiveStorage $storage */
+        $storage = $this->getStorage();
+        // $storage->getCache()->remove($this->getStorageRootId());
+        // $storage->getStorageCache()->remove($this->getNumericStorageId());
+        $storage->getCache()->clear(); // internal, but much faster
+
         return true;
       }
     };

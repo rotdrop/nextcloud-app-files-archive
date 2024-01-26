@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -38,6 +38,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\Lock\ILockingProvider;
 use OCP\IL10N;
+use OCP\IPreview;
 
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
@@ -53,6 +54,7 @@ class ArchiveController extends Controller
   use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
   use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
   use TargetPathTrait;
 
   public const ARCHIVE_STATUS_OK = 0;
@@ -63,52 +65,35 @@ class ArchiveController extends Controller
   public const ARCHIVE_INFO_DEFAULT_TARGET_BASE_NAME = 'defaultTargetBaseName';
 
   /** @var string */
-  private $userId;
-
-  /** @var IRootFolder */
-  private $rootFolder;
-
-  /** @var ArchiveService */
-  private $archiveService;
-
-  /** @var IAppContainer */
-  private $appContainer;
+  private string $targetBaseNameTemplate;
 
   /** @var string */
-  private $targetBaseNameTemplate;
-
-  /** @var string */
-  private $mountPointTemplate;
+  private string $mountPointTemplate;
 
   /** @var bool */
-  private $autoRenameExtractTarget = false;
+  private bool $autoRenameExtractTarget = false;
 
   /** @var null|int */
-  private $archiveSizeLimit = null;
+  private ?int $archiveSizeLimit = null;
 
   /** @var int */
-  private $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+  private int $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
     IRequest $request,
-    ?string $userId,
+    protected string $userId,
     IConfig $cloudConfig,
-    LoggerInterface $logger,
-    IL10N $l10n,
-    IRootFolder $rootFolder,
-    IAppContainer $appContainer,
-    ArchiveService $archiveService,
+    protected LoggerInterface $logger,
+    protected IL10N $l,
+    protected IRootFolder $rootFolder,
+    private IAppContainer $appContainer,
+    protected IPreview $previewManager,
+    private ArchiveService $archiveService,
   ) {
     parent::__construct($appName, $request);
-    $this->logger = $logger;
-    $this->l = $l10n;
-    $this->userId = $userId;
-    $this->rootFolder = $rootFolder;
-    $this->appContainer = $appContainer;
-    $this->archiveService = $archiveService;
-    $this->archiveService->setL10N($l10n);
+    $this->archiveService->setL10N($l);
 
     $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
@@ -306,9 +291,14 @@ class ArchiveController extends Controller
       ]));
     }
 
+    /** @var Folder $targetFolder */
+    $targetFolder = $userFolder->get($targetPath);
+
     return self::dataResponse([
       'archivePath' => $archivePath,
+      'targetFileId' => $targetFolder->getId(),
       'targetPath' => $targetPath,
+      'targetFolder' => $this->formatNode($targetFolder),
       'messages' => [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],
     ]);
   }

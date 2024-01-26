@@ -1,7 +1,8 @@
+const BabelLoaderExcludeNodeModulesExcept = require('babel-loader-exclude-node-modules-except');
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const DeadCodePlugin = require('webpack-deadcode-plugin');
-const fs = require('fs');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
@@ -23,7 +24,8 @@ const productionMode = process.env.NODE_ENV === 'production';
 webpackConfig.entry = {
   'admin-settings': path.join(__dirname, 'src', 'admin-settings.js'),
   'personal-settings': path.join(__dirname, 'src', 'personal-settings.js'),
-  'files-action': path.join(__dirname, 'src', 'files-action.js'),
+  'files-hooks': path.join(__dirname, 'src', 'files-hooks.ts'),
+  'files-sidebar-hooks': path.join(__dirname, 'src', 'files-sidebar-hooks.js'),
 };
 
 webpackConfig.output = {
@@ -120,11 +122,30 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.svg$/i,
-    use: 'svgo-loader',
+    loader: 'svgo-loader',
     type: 'asset', // 'asset/resource',
     generator: {
       filename: './css/img/[name]-[hash][ext]',
       publicPath: '../',
+    },
+    options: {
+      multipass: true,
+      js2svg: {
+        indent: 2,
+        pretty: true,
+      },
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              // viewBox is required to resize SVGs with CSS.
+              // @see https://github.com/svg/svgo/issues/1128
+              removeViewBox: false,
+            },
+          },
+        },
+      ],
     },
   },
   {
@@ -134,13 +155,75 @@ webpackConfig.module.rules = [
   {
     test: /\.js$/,
     loader: 'babel-loader',
-    exclude: /node_modules/,
+    // automatically detect necessary packages to
+    // transpile in the node_modules folder
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      '@nextcloud/dialogs',
+      '@nextcloud/event-bus',
+      'davclient.js',
+      'nextcloud-vue-collections',
+      'p-finally',
+      'p-limit',
+      'p-locate',
+      'p-queue',
+      'p-timeout',
+      'p-try',
+      'semver',
+      'striptags',
+      'toastify-js',
+      'v-tooltip',
+      'yocto-queue',
+    ]),
+  },
+  {
+    test: /\.tsx?$/,
+    use: [
+      'babel-loader',
+      {
+        // Fix TypeScript syntax errors in Vue
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
+    exclude: BabelLoaderExcludeNodeModulesExcept([]),
+  },
+  {
+    resourceQuery: /raw/,
+    type: 'asset/source',
+  },
+  {
+    test: /\.svg$/i,
+    resourceQuery: /raw/,
+    loader: 'svgo-loader',
+    type: 'asset/source',
+    options: {
+      multipass: true,
+      js2svg: {
+        indent: 2,
+        pretty: true,
+      },
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              // viewBox is required to resize SVGs with CSS.
+              // @see https://github.com/svg/svgo/issues/1128
+              removeViewBox: false,
+            },
+          },
+        },
+      ],
+    },
   },
 ];
 
 webpackConfig.resolve.modules = [
   path.resolve(__dirname, 'style'),
   path.resolve(__dirname, 'src'),
+  path.resolve(__dirname, 'img'),
   path.resolve(__dirname, '.'),
   'node_modules',
 ];

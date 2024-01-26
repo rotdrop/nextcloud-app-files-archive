@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -37,6 +37,8 @@ use OCP\AppFramework\IAppContainer;
 
 use OCP\Files\FileInfo;
 use OCP\Files\File;
+use OCP\Files\Cache\ICacheEntry;
+use OCP\Cache\CappedMemoryCache;
 
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
@@ -106,6 +108,22 @@ class ArchiveStorage extends AbstractStorage
    */
   protected $dirNames = null;
 
+  /**
+   * @var int
+   *
+   * The file-id of the mount-point. This is non-null after the initial
+   * file-scan has completed. Once set, the storage will forward several tasks
+   * to the filecache instead of rescanning the archive over and over again.
+   */
+  protected ?int $rootId = null;
+
+  /**
+   * @var CappedMemoryCache
+   *
+   * Cache for the database filecache
+   */
+  protected $fileCacheCache;
+
   /** {@inheritdoc} */
   public function __construct($parameters)
   {
@@ -120,6 +138,83 @@ class ArchiveStorage extends AbstractStorage
     $this->archiveService = clone $this->appContainer->get(ArchiveService::class);
     $this->archiveService->setSizeLimit($sizeLimit);
     $this->logger = $this->appContainer->get(LoggerInterface::class);
+
+    $this->fileCacheCache = new CappedMemoryCache;
+  }
+
+  /**
+   * @param int $rootId
+   *
+   * @return void
+   */
+  public function setRootId(int $rootId):void
+  {
+    $this->rootId = $rootId;
+  }
+
+  /**
+   * @return int
+   */
+  public function getRootId():int
+  {
+    return $this->rootId;
+  }
+
+  /** {@inheritdoc} */
+  public function getScanner($path = '', $storage = null)
+  {
+    if ($storage) {
+      return parent::getScanner($path, $storage);
+    }
+    if (!isset($this->scanner)) {
+      $this->scanner = new class($storage) extends \OC\Files\Cache\Scanner
+      {
+        /** {@inheritfile} */
+        public function scanFile($file, $reuseExisting = 0, $parentId = -1, $cacheData = null, $lock = true, $data = null)
+        {
+          // mark uncached
+          $oldRootId = $this->storage->getRootId();
+          $this->storage->setRootId(null);
+
+          $result = parent::scanFile($file, $reuseExisting, $parentId, $cacheData, $lock, $data);
+
+          // mark again as cached
+          $this->storage->setRootId($oldRootId);
+
+          return $result;
+        }
+      };
+    }
+    return $this->scanner;
+  }
+
+  /**
+   * Return the file-cache entry for the given path, or false if the cache
+   * entry does not exist.
+   *
+   * @param string $path
+   *
+   * @return bool|ICacheEntry
+   */
+  protected function getCacheEntry(string $path):ICacheEntry|bool
+  {
+    if (!$this->fileCacheCache->hasKey($path)) {
+      $this->fileCacheCache->set($path, $this->getCache()->get($path));
+    }
+    return $this->fileCacheCache->get($path);
+  }
+
+  /**
+   * @return void
+   */
+  protected function openArchive():void
+  {
+    if (!$this->archiveService->isOpen()) {
+      $this->archiveService->open($this->archiveFile, password: $this->archivePassPhrase);
+      $this->commonPathPrefix = $this->stripCommonPathPrefix
+        ? $this->archiveService->getCommonDirectoryPrefix()
+        : '';
+    }
   }
 
   /**
@@ -129,12 +224,11 @@ class ArchiveStorage extends AbstractStorage
    */
   protected function scanArchive():void
   {
-    try {
-      $this->archiveService->open($this->archiveFile, password: $this->archivePassPhrase);
+    // $this->logException(new \Exception('RESCAN'));
 
-      $this->commonPathPrefix = $this->stripCommonPathPrefix
-        ? $this->archiveService->getCommonDirectoryPrefix()
-        : '';
+    try {
+      $this->openArchive();
+
       $commonPrefixLen = strlen($this->commonPathPrefix);
 
       $files = $this->archiveService->getFiles();
@@ -274,13 +368,21 @@ class ArchiveStorage extends AbstractStorage
   public function filemtime($path)
   {
     $path = trim($path, self::PATH_SEPARATOR);
+    $result = false;
     // $this->logInfo('PATH ' . $path);
     if ($this->is_dir($path)) {
-      return $this->archiveFile->getMTime();
+      $result = $this->archiveFile->getMTime();
     } elseif ($this->is_file($path)) {
-      return $this->getFiles()[$path]->modificationTime;
+      if ($this->rootId > 0) {
+        /** @var ICacheEntry $cacheEntry */
+        $cacheEntry = $this->getCacheEntry($path);
+        $result = $cacheEntry->getMTime();
+      } else {
+        $result = $this->getFiles()[$path]->modificationTime;
+      }
     }
-    return false;
+    // $this->logInfo('MTIME RESULT ' . $path . ' -> ' . (int)$result);
+    return $result;
   }
 
   /**
@@ -300,20 +402,31 @@ class ArchiveStorage extends AbstractStorage
    */
   public function hasUpdated($path, $time)
   {
-    return $time < $this->archiveFile->getMTime();
+    /** @var ICacheEntry $rootEntry */
+    $rootEntry = $this->getCache()->get('');
+    $result = min($rootEntry->getStorageMTime(), $rootEntry->getMTime()) < $this->archiveFile->getMTime();
+    // $result = $time < $this->archiveFile->getMTime();
+    // $this->logInfo('REF TIME ' . $time . ' ARCH TIME ' .  $this->archiveFile->getMTime() . ' UPDATED ' . (int)$result);
+    return $result;
   }
 
   /** {@inheritdoc} */
   public function filesize($path): false|int|float
   {
-    $path = trim($path, self::PATH_SEPARATOR);
-    // $this->logInfo('PATH ' . $path);
     if ($this->is_dir($path)) {
       return 0;
     }
     if (!$this->is_file($path)) {
       return false;
     }
+    if ($this->rootId > 0) {
+      /** @var ICacheEntry $cacheEntry */
+      $cacheEntry = $this->getCacheEntry($path);
+      return $cacheEntry->getSize();
+    }
+
+    $path = trim($path, self::PATH_SEPARATOR);
+    // $this->logInfo('PATH ' . $path);
     return $this->getFiles()[$path]->uncompressedSize;
   }
 
@@ -344,7 +457,13 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function file_exists($path)
   {
-    // $this->logInfo('CHECK PATH EXISTS ' . $path);
+    if ($this->rootId > 0) {
+      if (!$this->fileCacheCache->hasKey($path)) {
+        $this->fileCacheCache->set($path, $this->getCache()->get($path));
+      }
+      return !!$this->fileCacheCache->get($path);
+    }
+
     return $this->is_dir($path) || $this->is_file($path);
   }
 
@@ -359,6 +478,21 @@ class ArchiveStorage extends AbstractStorage
   {
     if (!$this->is_dir($path)) {
       return false;
+    }
+
+    if ($this->rootId > 0) {
+      /** @var ICacheEntry $cacheEntry */
+      $cacheEntry = $this->getCacheEntry($path);
+      $dirFileId = $cacheEntry->getId();
+      $folderContents = $this->getCache()->getFolderContentsById($dirFileId);
+      $fileNames = [];
+      foreach ($folderContents as $cacheEntry) {
+        $path = $cacheEntry->getPath();
+        $this->fileCacheCache->set($path, $cacheEntry);
+        $fileNames[] = basename($path);
+      }
+      sort($fileNames);
+      return $fileNames;
     }
 
     $path = ltrim($path, Constants::PATH_SEPARATOR);
@@ -396,6 +530,15 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function is_dir($path)
   {
+    if ($this->rootId > 0) {
+      /** @var ICacheEntry $cacheEntry */
+      $cacheEntry = $this->getCacheEntry($path);
+      if (!$cacheEntry) {
+        return false;
+      }
+      return $cacheEntry->getMimeType() == 'httpd/unix-directory';
+    }
+
     $path = trim($path, self::PATH_SEPARATOR);
     if ($path === '') {
       return true;
@@ -410,6 +553,15 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function is_file($path)
   {
+    if ($this->rootId > 0) {
+      /** @var ICacheEntry $cacheEntry */
+      $cacheEntry = $this->getCacheEntry($path);
+      if (!$cacheEntry) {
+        return false;
+      }
+      return $cacheEntry->getMimeType() != 'httpd/unix-directory';
+    }
+
     $path = trim($path, self::PATH_SEPARATOR);
     // $this->logInfo('PATH ' . $path);
     return !empty($this->getFiles()[$path]);
@@ -487,6 +639,8 @@ class ArchiveStorage extends AbstractStorage
       return false;
     }
     $path = trim($path, self::PATH_SEPARATOR);
+
+    $this->openArchive();
 
     return $this->archiveService->getFileStream($this->commonPathPrefix . $path);
   }

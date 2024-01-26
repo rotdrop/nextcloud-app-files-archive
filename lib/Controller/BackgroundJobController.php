@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -59,42 +59,25 @@ class BackgroundJobController extends Controller
   const OPERATION_EXTRACT = ArchiveJob::TARGET_EXTRACT;
 
   /** @var string */
-  protected $userId;
-
-  /** @var IConfig */
-  private $cloudConfig;
-
-  /** @var IJobList */
-  private $jobList;
-
-  /** @var NotificationService */
-  private $notificationService;
-
-  /** @var UserScopeService */
-  private $userScopeService;
+  private string $mountPointTemplate;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
     IRequest $request,
-    ?string $userId,
-    LoggerInterface $logger,
-    IL10N $l10n,
-    IConfig $cloudConfig,
-    IRootFolder $rootFolder,
-    IJobList $jobList,
-    NotificationService $notificationService,
-    UserScopeService $userScopeService,
+    protected string $userId,
+    protected LoggerInterface $logger,
+    protected IL10N $l,
+    private IConfig $cloudConfig,
+    protected IRootFolder $rootFolder,
+    private IJobList $jobList,
+    private NotificationService $notificationService,
+    private UserScopeService $userScopeService,
   ) {
     parent::__construct($appName, $request);
-    $this->logger = $logger;
-    $this->l = $l10n;
-    $this->cloudConfig = $cloudConfig;
-    $this->rootFolder = $rootFolder;
-    $this->userId = $userId;
-    $this->jobList = $jobList;
-    $this->notificationService = $notificationService;
-    $this->userScopeService = $userScopeService;
+
+    $this->mountPointTemplate = $cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
   }
   // phpcs:enable
 

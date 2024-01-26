@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -100,31 +100,17 @@ class SettingsController extends Controller
     self::EXTRACT_BACKGROUND_JOB => [ 'rw' => true, 'default' => self::EXTRACT_BACKGROUND_JOB_DEFAULT ],
   ];
 
-  /** @var IAppContainer */
-  private $appContainer;
-
-  /** @var IConfig */
-  private $config;
-
-  /** @var string */
-  private $userId;
-
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IRequest $request,
-    $userId,
-    LoggerInterface $logger,
-    IL10N $l10n,
-    IConfig $config,
-    IAppContainer $appContainer,
+    private $userId,
+    protected LoggerInterface $logger,
+    protected IL10N $l,
+    private IConfig $config,
+    private IAppContainer $appContainer,
   ) {
     parent::__construct($appName, $request);
-    $this->logger = $logger;
-    $this->l = $l10n;
-    $this->config = $config;
-    $this->userId = $userId;
-    $this->appContainer = $appContainer;
   }
   // phpcs:enable
 

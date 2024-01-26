@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -41,9 +41,8 @@ use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 
 /**
- * Listen to renamed and deleted events in order to keep the
- * configured document-templates synchronized with the cloud
- * file system.
+ * Listen to renamed and deleted events in order to keep mount-point table
+ * synchronized with the cloud file system.
  */
 class FileNodeListener implements IEventListener
 {
@@ -133,7 +132,6 @@ class FileNodeListener implements IEventListener
         /** @var ArchiveMount $mount */
         foreach ($mounts as $mount) {
           $mount->setArchiveFilePath($targetPath);
-          $mount->setArchiveFilePathHash(md5($targetPath));
           $mountMapper->update($mount);
         }
         break;

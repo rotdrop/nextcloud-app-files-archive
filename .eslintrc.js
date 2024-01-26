@@ -2,7 +2,12 @@ module.exports = {
   extends: [
     '@nextcloud',
   ],
+  globals: {
+    __webpack_nonce__: true,
+    __webpack_public_path__: true,
+  },
   rules: {
+    'import/extensions': 'off',
     'no-tabs': ['error', { allowIndentationTabs: false }],
     indent: ['error', 2],
     'no-mixed-spaces-and-tabs': 'error',
@@ -15,8 +20,9 @@ module.exports = {
           './src',
           './style',
           './',
+          './img',
         ],
-        tryExtensions: ['.js', '.json', '.node', '.css', '.scss', '.xml', '.vue'],
+        tryExtensions: ['.js', '.ts', '.json', '.node', '.css', '.scss', '.xml', '.vue', '.svg'],
       },
     ],
     // Do allow line-break before closing brackets
