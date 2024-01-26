@@ -162,7 +162,6 @@ class FilesActionListener implements IEventListener
     $assetBasename = self::ASSET_BASENAME[$eventClass][Constants::JS];
     if ($assetBasename) {
       try {
-        $this->logInfo('Adding script ' . $assetBasename);
         list('asset' => $scriptAsset,) = $this->getJSAsset($assetBasename);
         \OCP\Util::addScript($appName, $scriptAsset);
       } catch (Throwable $t) {
