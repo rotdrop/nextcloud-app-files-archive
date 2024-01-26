@@ -37,6 +37,9 @@ const initialState = getInitialState();
 const archiveMimeTypes: Array<string> = initialState.archiveMimeTypes;
 
 subscribe('notifications:notification:received', (event: NotificationEvent) => {
+  if (event?.notification?.app != appName) {
+    return;
+  }
   console.info('NOTIFICATION RECEIVED', event)
   const successData = event.notification?.messageRichParameters
   console.info('SUCCESS DATA', successData)
