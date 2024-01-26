@@ -261,8 +261,6 @@ import ListItem from '@rotdrop/nextcloud-vue-components/lib/components/ListItem.
 import FilePrefixPicker from '../components/FilePrefixPicker.vue'
 import axios from '@nextcloud/axios'
 
-const mountsPollingInterval = 30 * 1000
-
 export default {
   name: 'FilesTab',
   components: {
@@ -594,30 +592,6 @@ export default {
       }
       return result
     },
-    async backgroundMountsPoller(archiveMountIds) {
-      const { mounts } = await this.getArchiveMounts(this.fileName, true)
-      let mountingFinished = mounts.length !== archiveMountIds.length
-      if (!mountingFinished) {
-        const mountIds = mounts.map(mount => mount.id).sort()
-        for (let i = 0; i < mountIds.length; ++i) {
-          if (mountIds[i] !== archiveMountIds[i]) {
-            mountingFinished = true
-            break
-          }
-        }
-      }
-      if (!mountingFinished) {
-        this.backgroundMountsTimer = setTimeout(() => this.backgroundMountsPoller(archiveMountIds), mountsPollingInterval)
-      } else {
-        this.backgroundMountsTimer = undefined
-        this.archiveMounts = mounts
-        this.refreshArchiveMounts(this.fileName)
-        if (this.archiveMountDirName === this.fileInfo.path) {
-          // @todo emit signal
-          // this.fileList.reload()
-        }
-      }
-    },
     async mountArchive() {
       const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
       const mountPath = encodeURIComponent(this.archiveMountPathName)
@@ -633,10 +607,7 @@ export default {
       requestData.stripCommonPathPrefix = !!this.archiveMountStripCommonPathPrefix
       try {
         const response = await axios.post(url, requestData)
-        if (this.archiveMountBackgroundJob) {
-          const archiveMountIds = this.archiveMounts.map(mount => mount.id).sort()
-          this.backgroundMountsTimer = setTimeout(() => this.backgroundMountsPoller(archiveMountIds), mountsPollingInterval)
-        } else {
+        if (!this.archiveMountBackgroundJob) {
           const newMount = response.data
           const newFileId = newMount.mountPoint.fileid
           if (this.archiveMounts.findIndex((mount) => mount.mountPoint.fileid === newFileId) === -1) {
