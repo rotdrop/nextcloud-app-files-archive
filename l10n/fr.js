@@ -117,6 +117,8 @@ OC.L10N.register(
     "Unable to obtain mount status for archive file \"{archivePath}\"." : "Impossible d'obtenir le statut de montage pour le fichier d'archive \"{archivePath}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "L'archive \"{archivePath}\" est déjà montée sur \"{mountPointPath}\".",
     "Archive" : "Archive",
+    "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "L'archive « {archivePath} » a déjà été montée sur « {mountPointPath} ».",
+    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Impossible d'obtenir le statut de montage pour le fichier d'archive « {archivePath} : {message} ».",
     "reason unknown" : "raison inconnue",
     "Unable to query the initial value of all settings: {message}" : "Impossible de récupérer la valeur initiale de tous les paramètres : {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Impossible de récupérer la valeur initiale de {settingsKey}: {message}",
