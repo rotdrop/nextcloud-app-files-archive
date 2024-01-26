@@ -25,6 +25,7 @@ namespace OCA\RotDrop\Toolkit\Traits;
 use OCP\IPreview;
 use OCP\Files\Node;
 use OCP\Files\IRootFolder;
+use OCP\Files\Mount\IMovableMount;
 
 /** Helper trait for file-system nodes. */
 trait NodeTrait
@@ -52,6 +53,9 @@ trait NodeTrait
   {
     $mount = $node->getMountPoint();
     $mountType = $mount->getMountType();
+    $extraPermissions = ($mount instanceof IMovableMount)
+      ? (\OCP\Constants::PERMISSION_UPDATE | \OCP\Constants::PERMISSION_DELETE)
+      : 0;
     return [
       'basename' => $node->getName(),
       'etag' => $node->getEtag(),
@@ -62,7 +66,7 @@ trait NodeTrait
       'size' => $node->getSize(),
       'type' => $node->getType(),
       'hasPreview' => $this->previewManager->isAvailable($node),
-      'permissions' => $node->getPermissions(),
+      'permissions' => $node->getPermissions() | $extraPermissions,
       'mount-type' => $mountType,
     ];
   }
