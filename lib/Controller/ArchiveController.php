@@ -38,6 +38,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\Lock\ILockingProvider;
 use OCP\IL10N;
+use OCP\IPreview;
 
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
@@ -88,6 +89,7 @@ class ArchiveController extends Controller
     protected IL10N $l,
     protected IRootFolder $rootFolder,
     private IAppContainer $appContainer,
+    protected IPreview $previewManager,
     private ArchiveService $archiveService,
   ) {
     parent::__construct($appName, $request);
@@ -289,10 +291,12 @@ class ArchiveController extends Controller
       ]));
     }
 
+    /** @var Folder $targetFolder */
     $targetFolder = $userFolder->get($targetPath);
 
     return self::dataResponse([
       'archivePath' => $archivePath,
+      'targetFileId' => $targetFolder->getId(),
       'targetPath' => $targetPath,
       'targetFolder' => $this->formatNode($targetFolder),
       'messages' => [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],

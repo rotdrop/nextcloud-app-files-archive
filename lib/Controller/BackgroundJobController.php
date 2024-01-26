@@ -58,6 +58,9 @@ class BackgroundJobController extends Controller
   const OPERATION_MOUNT = ArchiveJob::TARGET_MOUNT;
   const OPERATION_EXTRACT = ArchiveJob::TARGET_EXTRACT;
 
+  /** @var string */
+  private string $mountPointTemplate;
+
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
@@ -72,6 +75,9 @@ class BackgroundJobController extends Controller
     private UserScopeService $userScopeService,
   ) {
     parent::__construct($appName, $request);
+
+    $this->mountPointTemplate = $cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
   }
   // phpcs:enable
 
