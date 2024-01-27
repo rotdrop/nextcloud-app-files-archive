@@ -14,8 +14,6 @@ OC.L10N.register(
     "Archive Manager" : "Arkistohallinta",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Arkistotiedosto {source} liitetään virtuaalikansioksi sijaintiin {destination}.",
     "The archive file {source} will be extracted to {destination}." : "Arkistotiedosto {source} puretaan sijaintiin {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Arkistotiedosto {source} on liitetty virtuaalikansioksi sijaintiin {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Arkistotiedosto {source} on purettu sijaintiin {destination}.",
     "Archive Explorer" : "Arkistoselain",
     "Unable to open archive file %s (%s)" : "Arkistotiedostoa %s ei voitu avata (%s)",
     "Password" : "Salasana",
@@ -57,6 +55,8 @@ OC.L10N.register(
     "Something went wrong." : "Jokin meni pieleen.",
     "Internal Error" : "Sisäinen virhe",
     "No" : "Ei",
-    "Yes" : "Kyllä"
+    "Yes" : "Kyllä",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Arkistotiedosto {source} on liitetty virtuaalikansioksi sijaintiin {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Arkistotiedosto {source} on purettu sijaintiin {destination}."
 },
 "nplurals=2; plural=(n != 1);");
