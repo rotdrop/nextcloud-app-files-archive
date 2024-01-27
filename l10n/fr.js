@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Gestionnaire d'archive",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Le fichier archive {source} sera monté comme dossier virtuel dans {destination}.",
     "The archive file {source} will be extracted to {destination}." : "Le fichier archive {source} sera extrait dans {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Le fichier archive {source} a été monté comme dossier virtuel dans {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Le fichier archive {source} a été extrait dans {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Le montage de {source} dans {destination} a échoué : {message}",
     "Extracting {source} to {destination} has failed: {message}" : "L'extraction de {source} dans {destination} a échoué : {message}",
     "Mounting {source} at {destination} has failed." : "Le montage de {source} dans {destination} a échoué.",
@@ -220,6 +218,8 @@ OC.L10N.register(
     "No" : "Non",
     "Yes" : "Oui",
     "Debug Information" : "Information de déboggage",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Le fichier archive {source} a été monté comme dossier virtuel dans {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Le fichier archive {source} a été extrait dans {destination}.",
     "Choose a prefix folder" : "Choisir un dossier préfixe"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -29,8 +29,6 @@ OC.L10N.register(
     "Archive Manager" : "압축 관리자",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "압축 파일 {source}을(를) 가상 폴더 {destination}에 마운트합니다",
     "The archive file {source} will be extracted to {destination}." : "압축 파일 {source}을(를) {destination}에 압축 해제합니다",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "내 압축 파일 {source}을(를) 가상 폴더 {destination}에 마운트합니다",
-    "Your archive file {source} has been extracted to {destination}." : "내 압축 파일 {source}을(를) {destination}에 압축 해제합니다",
     "Mounting {source} at {destination} has failed: {message}" : "{source}을(를) {destination}에 마운트하지 못함: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "{source}을(를) {destination}에 압축 해제하지 못함: {message}",
     "Mounting {source} at {destination} has failed." : "{source}을(를) {destination}에 마운트하지 못했습니다",
@@ -185,6 +183,8 @@ OC.L10N.register(
     "No" : "아니오",
     "Yes" : "예",
     "Debug Information" : "디버그 정보",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "내 압축 파일 {source}을(를) 가상 폴더 {destination}에 마운트합니다",
+    "Your archive file {source} has been extracted to {destination}." : "내 압축 파일 {source}을(를) {destination}에 압축 해제합니다",
     "Choose a prefix folder" : "접두사 폴더 지정"
 },
 "nplurals=1; plural=0;");

@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Archívumkezelő",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "A(z) {source} archívumfájl virtuális mappaként lesz csatolva a következő helyen: {destination}.",
     "The archive file {source} will be extracted to {destination}." : "A(z) {source} archívumfájl a következő helyre lesz kibontva: {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "A(z) {source} archívumfájl csatolva lett virtuális mappaként a következő helyen: {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "A(z) {source} archívumfájl ki lett bontva a következő helyre: {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "A(z) {source} csatolása a(z) {destination} helyre sikertelen: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "A(z) {source} kibontása a(z) {destination} helyre sikertelen: {message}",
     "Mounting {source} at {destination} has failed." : "A(z) {source} csatolása a(z) {destination} helyre sikertelen.",
@@ -215,6 +213,8 @@ OC.L10N.register(
     "No" : "Nem",
     "Yes" : "Igen",
     "Debug Information" : "Hibakeresési információk",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "A(z) {source} archívumfájl csatolva lett virtuális mappaként a következő helyen: {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "A(z) {source} archívumfájl ki lett bontva a következő helyre: {destination}.",
     "Choose a prefix folder" : "Előtagmappa kiválasztása"
 },
 "nplurals=2; plural=(n != 1);");

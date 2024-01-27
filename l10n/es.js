@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Gestor de Archivos",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "El archivador {source} será montado como una carpeta virtual en {destination}",
     "The archive file {source} will be extracted to {destination}." : "El archivador {source} será extraído en {destination}",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Su archivador {source} fue montado como una carpeta virtual en {destination}",
-    "Your archive file {source} has been extracted to {destination}." : "Su archivador {source} fue extraído en {destination}",
     "Mounting {source} at {destination} has failed: {message}" : "El montaje de {source} en {destination} ha fallado: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "La extracción de {source} en {destination} ha fallado: {message}",
     "Mounting {source} at {destination} has failed." : "El montaje de {source} en {destination} ha fallado.",
@@ -222,6 +220,8 @@ OC.L10N.register(
     "No" : "No",
     "Yes" : "Sí",
     "Debug Information" : "Información de depuración",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Su archivador {source} fue montado como una carpeta virtual en {destination}",
+    "Your archive file {source} has been extracted to {destination}." : "Su archivador {source} fue extraído en {destination}",
     "Choose a prefix folder" : "Seleccione una carpeta prefijo"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

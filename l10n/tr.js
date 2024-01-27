@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Arşiv yöneticisi",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "{source} arşiv dosyası {destination} sanal klasörü olarak takılacak.",
     "The archive file {source} will be extracted to {destination}." : "{source} arşiv dosyası {destination} olarak ayıklanacak.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "{source} arşiv dosyanız {destination} sanal klasörü olarak takılacak.",
-    "Your archive file {source} has been extracted to {destination}." : "{source} arşiv dosyanız {destination} olarak ayıklanacak.",
     "Mounting {source} at {destination} has failed: {message}" : "{source} dosyası {destination} hedefine takılamadı: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "{source} dosyası {destination} hedefine ayıklanamadı: {message}",
     "Mounting {source} at {destination} has failed." : "{source} dosyası {destination} hedefine takılamadı.",
@@ -218,6 +216,8 @@ OC.L10N.register(
     "No" : "Hayır",
     "Yes" : "Evet",
     "Debug Information" : "Hata ayıklama bilgileri",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "{source} arşiv dosyanız {destination} sanal klasörü olarak takılacak.",
+    "Your archive file {source} has been extracted to {destination}." : "{source} arşiv dosyanız {destination} olarak ayıklanacak.",
     "Choose a prefix folder" : "Bir ön ek klasörü seçin"
 },
 "nplurals=2; plural=(n > 1);");

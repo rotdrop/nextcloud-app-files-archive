@@ -35,8 +35,6 @@
     "Archive Manager" : "Менеджер Архивов",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Архив {source} был смонтирован в в виртуальное расположение {destination}.",
     "The archive file {source} will be extracted to {destination}." : "Архив {source} был распакован в {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ваш архив {source} был смонтирован в виртуальное расположение {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Ваш архив {source} был распакован в {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Монтирование {source} в {destination} завершилось неудачно: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Распаковка {source} в {destination} завершилась неудачно: {message}",
     "Mounting {source} at {destination} has failed." : "Монтирование {source} в {destination} завершилось неудачно.",
@@ -212,6 +210,8 @@
     "No" : "Нет",
     "Yes" : "Да",
     "Debug Information" : "Отладочная информация",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ваш архив {source} был смонтирован в виртуальное расположение {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Ваш архив {source} был распакован в {destination}.",
     "Choose a prefix folder" : "Выберите префикс директории"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }
