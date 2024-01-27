@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Gerenciador de armazenamento",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "O arquivo {source} será montado como uma pasta virtual em {destination}.",
     "The archive file {source} will be extracted to {destination}." : "O arquivo {source} será extraído para {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Seu arquivo {source} foi montado como uma pasta virtual em {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Seu arquivo {source} foi extraído para {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "A montagem de {source} em {destination} falhou: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "A extração de {source} para {destination} falhou: {message}",
     "Mounting {source} at {destination} has failed." : "A montagem de {source} em {destination} falhou.",
@@ -218,6 +216,8 @@ OC.L10N.register(
     "No" : "Não",
     "Yes" : "Sim",
     "Debug Information" : "Informações de depuração",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Seu arquivo {source} foi montado como uma pasta virtual em {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Seu arquivo {source} foi extraído para {destination}.",
     "Choose a prefix folder" : "Escolha uma pasta de prefixo"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

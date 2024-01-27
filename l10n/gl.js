@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Xestor de arquivos",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "O ficheiro de arquivo {source} montarase como un cartafol virtual en {destination}.",
     "The archive file {source} will be extracted to {destination}." : "O ficheiro de arquivo {source} extraerase en {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "O seu ficheiro de arquivo {source} foi montado como un cartafol virtual en {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "O seu ficheiro de arquivo {source} foi extraído en {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Produciuse un fallo ao montar {source} en {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Produciuse un fallo ao extraer {source} en {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Produciuse un fallo ao montar {source} en {destination}.",
@@ -218,6 +216,8 @@ OC.L10N.register(
     "No" : "Non",
     "Yes" : "Si",
     "Debug Information" : "Información de depuración",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "O seu ficheiro de arquivo {source} foi montado como un cartafol virtual en {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "O seu ficheiro de arquivo {source} foi extraído en {destination}.",
     "Choose a prefix folder" : "Escoller un prefixo de cartafol"
 },
 "nplurals=2; plural=(n != 1);");

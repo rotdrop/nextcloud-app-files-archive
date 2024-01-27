@@ -35,8 +35,6 @@
     "Archive Manager" : "مُدير الأرشيف Archive Manager",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "سيتم تنصيب ملف الأرشيف {source} كمجلد افتراضي في {destination}.",
     "The archive file {source} will be extracted to {destination}." : "ملف الأرشيف {source} سيتم فكُّه إلى {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "تمّ تنصيب ملف الأرشيف {source} كمجلد افتراضي في {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "تمّ استخلاص ملف الأرشيف {source} إلى {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "فشل تنصيب الـ {source} في {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "فشل فكُّ {source} إلى {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "فشل تنصيب الـ {source} في {destination}.",
@@ -220,6 +218,8 @@
     "No" : "لا",
     "Yes" : "نعم",
     "Debug Information" : "معلومات التنقيح debug",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "تمّ تنصيب ملف الأرشيف {source} كمجلد افتراضي في {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "تمّ استخلاص ملف الأرشيف {source} إلى {destination}.",
     "Choose a prefix folder" : "إختَر مجلداً بادئاً prefix folder"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

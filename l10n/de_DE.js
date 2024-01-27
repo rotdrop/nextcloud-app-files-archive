@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Archiv-Manager",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Die Archivdatei {source} wird als virtueller Ordner unter {destination} eingehängt.",
     "The archive file {source} will be extracted to {destination}." : "Die Archivdatei {source} wird nach {destination} entpackt.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ihre Archivdatei {source} wurde als virtueller Ordner unter {destination} eingehängt.",
-    "Your archive file {source} has been extracted to {destination}." : "Ihre Archivdatei {source} wurde nach {destination} entpackt.",
     "Mounting {source} at {destination} has failed: {message}" : "Einhängen von {source} unter {destination} ist fehlgeschlagen: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Fehler beim Extrahieren von {source} nach {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Einhängen von {source} unter {destination} ist fehlgeschlagen.",
@@ -222,6 +220,8 @@ OC.L10N.register(
     "No" : "Nein",
     "Yes" : "Ja",
     "Debug Information" : "Debug Informationen",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ihre Archivdatei {source} wurde als virtueller Ordner unter {destination} eingehängt.",
+    "Your archive file {source} has been extracted to {destination}." : "Ihre Archivdatei {source} wurde nach {destination} entpackt.",
     "Choose a prefix folder" : "Präfixordner auswählen"
 },
 "nplurals=2; plural=(n != 1);");

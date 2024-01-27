@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Arkivleder",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Arkivfilen {kilde} vil bli montert som en virtuell mappe på {destination}.",
     "The archive file {source} will be extracted to {destination}." : "Arkivfilen {source} vil bli trukket ut til {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Arkivfilen din {kilde} har blitt montert som en virtuell mappe på {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Arkivfilen din {source} er trukket ut til {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Montering av {source} på {destination} mislyktes: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Utpakking av {source} til {destination} mislyktes: {message}",
     "Mounting {source} at {destination} has failed." : "Montering av {source} på {destination} mislyktes.",
@@ -216,6 +214,8 @@ OC.L10N.register(
     "No" : "Nei",
     "Yes" : "Ja",
     "Debug Information" : "Feilsøkingsinformasjon",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Arkivfilen din {kilde} har blitt montert som en virtuell mappe på {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Arkivfilen din {source} er trukket ut til {destination}.",
     "Choose a prefix folder" : "Velg en prefiksmappe"
 },
 "nplurals=2; plural=(n != 1);");

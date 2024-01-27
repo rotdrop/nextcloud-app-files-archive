@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "封存檔案管理員",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "封存檔案 {source} 將作為虛擬資料夾掛載在 {destination}。",
     "The archive file {source} will be extracted to {destination}." : "封存檔案 {source} 將被解壓縮到 {destination}。",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "您的封存檔案 {source} 已作為虛擬資料夾掛載在 {destination}。",
-    "Your archive file {source} has been extracted to {destination}." : "您的封存檔案 {source} 已解壓縮到 {destination}。",
     "Mounting {source} at {destination} has failed: {message}" : "在 {destination} 掛載 {source} 失敗：{message}",
     "Extracting {source} to {destination} has failed: {message}" : "將 {source} 提取到 {destination} 失敗：{message}",
     "Mounting {source} at {destination} has failed." : "在 {destination} 掛載 {source} 失敗。",
@@ -222,6 +220,8 @@ OC.L10N.register(
     "No" : "否",
     "Yes" : "是",
     "Debug Information" : "排除錯誤資訊",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "您的封存檔案 {source} 已作為虛擬資料夾掛載在 {destination}。",
+    "Your archive file {source} has been extracted to {destination}." : "您的封存檔案 {source} 已解壓縮到 {destination}。",
     "Choose a prefix folder" : "選擇前綴資料夾"
 },
 "nplurals=1; plural=0;");
