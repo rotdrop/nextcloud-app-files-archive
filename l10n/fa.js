@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Archive Manager",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "The archive file {source} will be mounted as a virtual folder at {destination}.",
     "The archive file {source} will be extracted to {destination}." : "The archive file {source} will be extracted to {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Your archive file {source} has been mounted as a virtual folder at {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Your archive file {source} has been extracted to {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Mounting {source} at {destination} has failed: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Extracting {source} to {destination} has failed: {message}",
     "Mounting {source} at {destination} has failed." : "Mounting {source} at {destination} has failed.",
@@ -216,6 +214,8 @@ OC.L10N.register(
     "No" : "نه",
     "Yes" : "بله",
     "Debug Information" : "Debug Information",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Your archive file {source} has been mounted as a virtual folder at {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Your archive file {source} has been extracted to {destination}.",
     "Choose a prefix folder" : "Choose a prefix folder"
 },
 "nplurals=2; plural=(n > 1);");

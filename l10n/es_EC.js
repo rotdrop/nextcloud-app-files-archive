@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Gestor de archivos de archivo",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "El archivo de archivo {source} se montará como una carpeta virtual en {destination}.",
     "The archive file {source} will be extracted to {destination}." : "El archivo de archivo {source} se extraerá a {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Se ha montado el archivo de archivo {source} como una carpeta virtual en {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Se ha extraído el archivo de archivo {source} a {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "No se pudo realizar el montaje de {source} en {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "No se pudo realizar la extracción de {source} a {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "No se pudo realizar el montaje de {source} en {destination}.",
@@ -215,6 +213,8 @@ OC.L10N.register(
     "No" : "No",
     "Yes" : "Sí",
     "Debug Information" : "Información de depuración",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Se ha montado el archivo de archivo {source} como una carpeta virtual en {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Se ha extraído el archivo de archivo {source} a {destination}.",
     "Choose a prefix folder" : "Elegir una carpeta de prefijo"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

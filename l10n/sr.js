@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Менаџер архива",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Фајл архиве {source} ће се монтирати као виртуелни фолдер {destination}.",
     "The archive file {source} will be extracted to {destination}." : "Фајл архиве {source} ће се распаковати у {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ваш фајл архиве {source} је монтиран као виртуелни фолдер {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Ваш фајл архиве {source} је распакован у {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Није успело монтирање {source} у {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Није успело рааспакивање {source} у {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Није успело монтирање {source} у {destination}.",
@@ -222,6 +220,8 @@ OC.L10N.register(
     "No" : "Не",
     "Yes" : "Да",
     "Debug Information" : "Дибаг информације",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ваш фајл архиве {source} је монтиран као виртуелни фолдер {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Ваш фајл архиве {source} је распакован у {destination}.",
     "Choose a prefix folder" : "Изаберите префикс фолдер"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

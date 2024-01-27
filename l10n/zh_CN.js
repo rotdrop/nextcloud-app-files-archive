@@ -31,8 +31,6 @@ OC.L10N.register(
     "Archive Manager" : "压缩文件管理器",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "压缩文件 {source} 将作为虚拟文件夹挂载到 {destination}。",
     "The archive file {source} will be extracted to {destination}." : "压缩文件 {source} 将被解压缩至 {destination}。",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "您的压缩文件 {source} 已作为虚拟文件夹挂载在 {destination}。",
-    "Your archive file {source} has been extracted to {destination}." : "您的压缩文件 {source} 已经被解压缩到 {destination}。",
     "Mounting {source} at {destination} has failed: {message}" : "挂载 {source} 到 {destination} 已失败： {message}",
     "Extracting {source} to {destination} has failed: {message}" : "解压缩{source}到{destination}失败： {message}",
     "Mounting {source} at {destination} has failed." : "挂载 {source} 到 {destination} 已失败。",
@@ -117,6 +115,8 @@ OC.L10N.register(
     "No" : "否",
     "Yes" : "是",
     "Debug Information" : "调试信息",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "您的压缩文件 {source} 已作为虚拟文件夹挂载在 {destination}。",
+    "Your archive file {source} has been extracted to {destination}." : "您的压缩文件 {source} 已经被解压缩到 {destination}。",
     "Choose a prefix folder" : "选择前缀文件夹"
 },
 "nplurals=1; plural=0;");
