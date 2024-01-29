@@ -37,8 +37,6 @@ OC.L10N.register(
     "Archive Manager" : "Správa archivů",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Soubor archivu {source} bude připojen jako virtuální složka v {destination}.",
     "The archive file {source} will be extracted to {destination}." : "Soubor archivu {source} bude rozbalen do {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Soubor archivu {source} byl připojen jako virtuální složke v {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Soubor archivu {source} byl rozbalen do {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Připojování {source} do {destination} se nezdařilo: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Rozbalování {source} do {destination} se nezdařilo: {message}",
     "Mounting {source} at {destination} has failed." : "Připojování {source} do {destination} se nezdařilo.",
@@ -218,6 +216,8 @@ OC.L10N.register(
     "No" : "Ne",
     "Yes" : "Ano",
     "Debug Information" : "Informace pro ladění",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Soubor archivu {source} byl připojen jako virtuální složke v {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Soubor archivu {source} byl rozbalen do {destination}.",
     "Choose a prefix folder" : "Zvolte složku-předponu"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

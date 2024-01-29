@@ -35,8 +35,6 @@
     "Archive Manager" : "Мениджър на архив",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "Архивният файл {source} ще бъде монтиран като виртуална папка в {destination}.",
     "The archive file {source} will be extracted to {destination}." : "Архивният файл {source} ще бъде извлечен в {destination}.",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Вашият архивен файл {source} бeше монтиран като виртуална папка в {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Вашият архивен файл {source} е извлечен в {destination}.",
     "Mounting {source} at {destination} has failed: {message}" : "Монтирането на {source} в {destination} е неуспешно: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Извличането на {source} в {destination} е неуспешно: {message}",
     "Mounting {source} at {destination} has failed." : "Монтирането на {source} в {destination} е неуспешно.",
@@ -213,6 +211,8 @@
     "No" : "Не",
     "Yes" : "Да",
     "Debug Information" : "Информация за отстраняване на грешки",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Вашият архивен файл {source} бeше монтиран като виртуална папка в {destination}.",
+    "Your archive file {source} has been extracted to {destination}." : "Вашият архивен файл {source} е извлечен в {destination}.",
     "Choose a prefix folder" : "Избор на префикс-папка"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
