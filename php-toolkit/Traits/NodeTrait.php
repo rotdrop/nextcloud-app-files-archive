@@ -30,6 +30,8 @@ use OCP\Files\Mount\IMovableMount;
 /** Helper trait for file-system nodes. */
 trait NodeTrait
 {
+  use UserRootFolderTrait;
+
   /** @var string $userId */
   protected string $userId;
 
@@ -56,11 +58,24 @@ trait NodeTrait
     $extraPermissions = ($mount instanceof IMovableMount)
       ? (\OCP\Constants::PERMISSION_UPDATE | \OCP\Constants::PERMISSION_DELETE)
       : 0;
+    $path = $node->getPath();
+    $topLevelFolder = $this->getUserFolder();
+    if (!str_starts_with($path, $topLevelFolder->getPath())) {
+      $topLevelFolder = $this->getUserAppFolder();
+      if (!str_starts_with($path, $topLevelFolder->getPath())) {
+        $topLevelFolder = null;
+      }
+    }
+    if (!empty($topLevelFolder)) {
+      $relativePath = $topLevelFolder->getRelativePath($path);
+      $topLevelFolder = $topLevelFolder->getPath();
+    }
     return [
-      'basename' => $node->getName(),
-      'etag' => $node->getEtag(),
       'fileid' => $node->getId(),
-      'filename' => $this->rootFolder->getUserFolder($this->userId)->getRelativePath($node->getPath()),
+      'path' => $path,
+      'topLevelFolder' => $topLevelFolder,
+      'relativePath' => $relativePath,
+      'basename' => $node->getName(),
       'lastmod' => $node->getMTime(),
       'mime' => $node->getMimetype(),
       'size' => $node->getSize(),
@@ -68,6 +83,7 @@ trait NodeTrait
       'hasPreview' => $this->previewManager->isAvailable($node),
       'permissions' => $node->getPermissions() | $extraPermissions,
       'mount-type' => $mountType,
+      'etag' => $node->getEtag(),
     ];
   }
 }

@@ -32,9 +32,13 @@ import { generateRemoteUrl } from '@nextcloud/router';
  */
 export const fileInfoToNode = function(fileInfo, owner) {
   owner = owner || getCurrentUser().uid;
+  const userFrontEndFolder = '/' + owner + '/files';
+  if (fileInfo.topLevelFolder !== userFrontEndFolder) {
+    throw new Error(`${fileInfo.path} is located outside of the front end user file space ${userFrontEndFolder}.`);
+  }
   const nodeData = {
     id: fileInfo.fileid,
-    source: generateRemoteUrl(join('dav/files', owner, fileInfo.filename)),
+    source: generateRemoteUrl(join('dav/files', owner, fileInfo.relativePath)),
     root: `/files/${owner}`,
     mime: fileInfo.mime,
     mtime: new Date(fileInfo.lastmod * 1000),

@@ -94,6 +94,7 @@ class FileNodeListener implements IEventListener
     }
 
     if ($sourceNode->getType() != FileInfo::TYPE_FILE) {
+      // could perhaps remove the success information
       return;
     }
 

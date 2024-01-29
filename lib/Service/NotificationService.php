@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace OCA\FilesArchive\Service;
 
 use DateTime;
+use InvalidArgumentException;
 
 use OCP\Files\Node;
 use OCP\Files\Folder;
@@ -80,11 +81,11 @@ class NotificationService
       Notifier::TYPE_SCHEDULED,
       $target,
       $userId,
-      $sourcePath,
-      $sourceNode->getId(),
-      $destinationPath,
-    )
-      ->setDateTime(new DateTime());
+      sourcePath: $sourcePath,
+      sourceId: $sourceNode->getId(),
+      destinationPath: $destinationPath,
+    );
+
     $this->notificationManager->notify($notification);
   }
 
@@ -105,36 +106,22 @@ class NotificationService
     $sourceId = $job->getSourceId();
     $target = $job->getTarget();
 
-    $this->notificationManager->markProcessed($this->buildNotification(
+    $this->deleteNotification(
       Notifier::TYPE_SCHEDULED,
-      $target,
       $userId,
-      $sourcePath,
-      $sourceId,
-      $destinationPath,
-    ));
+      target: $target,
+      sourceId: $sourceId,
+    );
 
     $notification = $this->buildNotification(
       Notifier::TYPE_SUCCESS,
       $target,
       $userId,
-      $sourcePath,
-      $sourceId,
-      $destinationPath,
+      sourcePath: $sourcePath,
+      sourceId: $sourceId,
+      destinationPath: $destinationPath,
+      destinationId: $destinationId,
     );
-
-    $subject = $notification->getSubject();
-    $subjectParameters = $notification->getSubjectParameters();
-    $subjectParameters['destinationId'] = $destinationId;
-
-    $message = $notification->getMessage();
-    $messageParameters = $notification->getMessageParameters();
-    $messageParameters['destinationId'] = $destinationId;
-
-    $notification
-      ->setDateTime(new DateTime())
-      ->setSubject($subject, $subjectParameters)
-      ->setMessage($message, $messageParameters);
 
     $this->notificationManager->notify($notification);
   }
@@ -157,27 +144,24 @@ class NotificationService
     $sourceId = $job->getSourceId();
     $target = $job->getTarget();
 
-    $this->notificationManager->markProcessed($this->buildNotification(
+    $this->deleteNotification(
       Notifier::TYPE_SCHEDULED,
-      $target,
       $userId,
-      $sourcePath,
-      $sourceId,
-      $destinationPath,
-    ));
+      sourceId: $sourceId,
+      target: $target,
+    );
 
     $notification = $this->buildNotification(
       Notifier::TYPE_FAILURE,
       $target,
       $userId,
-      $sourcePath,
-      $sourceId,
-      $destinationPath,
-      $errorMessage,
+      sourcePath: $sourcePath,
+      sourceId: $sourceId,
+      destinationPath: $destinationPath,
+      errorMessage: $errorMessage,
     );
-    $notification
-      ->setDateTime(new DateTime())
-      ->setObject('job', (string)$job->getId());
+    $notification->setObject('job', (string)$job->getId());
+
     $this->notificationManager->notify($notification);
   }
 
@@ -194,6 +178,8 @@ class NotificationService
    *
    * @param string $destinationPath
    *
+   * @param int $destinationId
+   *
    * @param null|string $errorMessage Optional error message when emitting
    * failure notifications.
    *
@@ -206,38 +192,131 @@ class NotificationService
     string $sourcePath,
     int $sourceId,
     string $destinationPath,
+    int $destinationId = -1,
     ?string $errorMessage = null,
   ):INotification {
     $type |= ($target == ArchiveJob::TARGET_MOUNT ? Notifier::TYPE_MOUNT : Notifier::TYPE_EXTRACT);
+
+    if ($type & (Notifier::TYPE_SCHEDULED|Notifier::TYPE_FAILURE|Notifier::TYPE_CANCELLED)) {
+      $objectType = 'sourceId';
+      $objectId = $sourceId;
+    } else {
+      $objectType = 'destinationId';
+      $objectId = $destinationId;
+    }
+
     /** @var INotification $notification */
     $notification = $this->notificationManager->createNotification();
     $notification->setUser($userId)
       ->setApp($this->appName)
-      ->setObject('target', md5($destinationPath))
-      ->setSubject((string)$type, [
-        'sourceId' => $sourceId,
-        'sourcePath' => $sourcePath,
-        'sourceDirectory' => dirname($sourcePath),
-        'sourceDirectoryName' => basename(dirname($sourcePath)),
-        'sourceBaseName' => basename($sourcePath),
-        'destinationPath' => $destinationPath,
-        'destinationDirectory' => dirname($destinationPath),
-        'destinationDirectoryName' => basename(dirname($destinationPath)),
-        'destinationBaseName' => basename($destinationPath),
-        'errorMessage' => $errorMessage,
-      ])
-      ->setMessage((string)$type, [
-        'sourceId' => $sourceId,
-        'sourcePath' => $sourcePath,
-        'sourceDirectory' => dirname($sourcePath),
-        'sourceDirectoryName' => basename(dirname($sourcePath)),
-        'sourceBaseName' => basename($sourcePath),
-        'destinationPath' => $destinationPath,
-        'destinationDirectory' => dirname($destinationPath),
-        'destinationDirectoryName' => basename(dirname($destinationPath)),
-        'destinationBaseName' => basename($destinationPath),
-        'errorMessage' => $errorMessage,
-      ]);
+      ->setObject($objectType, (string)$objectId);
+
+    $parameters = [
+      'sourceId' => $sourceId,
+      'sourcePath' => $sourcePath,
+      'sourceDirectory' => dirname($sourcePath),
+      'sourceDirectoryName' => basename(dirname($sourcePath)),
+      'sourceBaseName' => basename($sourcePath),
+      'destinationPath' => $destinationPath,
+      'destinationDirectory' => dirname($destinationPath),
+      'destinationDirectoryName' => basename(dirname($destinationPath)),
+      'destinationBaseName' => basename($destinationPath),
+      'destinationId' => $destinationId,
+      'errorMessage' => $errorMessage,
+    ];
+
+    $notification
+      ->setSubject((string)$type, $parameters)
+      ->setMessage((string)$type, $parameters)
+      ->setDateTime(new DateTime());
+
     return $notification;
+  }
+
+  /**
+   * Request the removal of notifications matching the given criteria.
+   *
+   * @param int $type
+   *
+   * @param string $userId
+   *
+   * @param int $sourceId
+   *
+   * @param int $destinationId
+   *
+   * @param null|string $target
+   *
+   * @return void
+   *
+   * @throws InvalidArgumentException
+   */
+  public function deleteNotification(
+    int $type,
+    string $userId,
+    int $sourceId = -1,
+    int $destinationId = -1,
+    ?string $target = null,
+  ):void {
+    if ($type == Notifier::TYPE_ANY) {
+      if (($sourceId <= 0) == ($destinationId <= 0)) {
+        throw new InvalidArgumentException('Exactly on of "sourceid" and "destination" id must be specified for notification subject = ' . $type);
+      }
+      if ($sourceId > 0) {
+        $objectType = 'sourceId';
+        $objectId = $sourceId;
+      } else {
+        $objectType = 'destinationId';
+        $objectId = $destinationId;
+      }
+    } else {
+      if ($target !== null) {
+        $type &= ~(Notifier::TYPE_MOUNT|Notifier::TYPE_EXTRACT);
+        $type |= ($target == ArchiveJob::TARGET_MOUNT ? Notifier::TYPE_MOUNT : Notifier::TYPE_EXTRACT);
+      }
+      if ($type & (Notifier::TYPE_SCHEDULED|Notifier::TYPE_FAILURE|Notifier::TYPE_CANCELLED)) {
+        if ($sourceId <= 0) {
+          throw new InvalidArgumentException('Source-id must be given for notification subject = ' . $type);
+        }
+        $objectType = 'sourceId';
+        $objectId = $sourceId;
+      } else {
+        if ($destinationId <= 0) {
+          throw new InvalidArgumentException('Destination-id must be given for notification subject = ' . $type);
+        }
+        $objectType = 'destinationId';
+        $objectId = $destinationId;
+      }
+    }
+    $notification = $this->notificationManager->createNotification();
+    $notification
+      ->setUser($userId)
+      ->setApp($this->appName)
+      ->setObject($objectType, (string)$objectId);
+    if ($type != Notifier::TYPE_ANY) {
+      $notification->setSubject((string)$type);
+    }
+    $this->logInfo('REQUEST CLEAN OF ' . $type . ' ' . $target . ' ' . $userId);
+    $this->notificationManager->markProcessed($notification);
+  }
+
+  /**
+   * Mark a notification of a successful mount, e.g. after unmounting.
+   *
+   * @param string $userId
+   *
+   * @param int $mountPointId The file-id of the mount point.
+   *
+   * @return void
+   */
+  public function deleteMountSuccessNotification(
+    string $userId,
+    int $mountPointId,
+  ):void {
+    $this->deleteNotification(
+      Notifier::TYPE_SUCCESS,
+      userId: $userId,
+      target: ArchiveJob::TARGET_MOUNT,
+      destinationId: $mountPointId,
+    );
   }
 }

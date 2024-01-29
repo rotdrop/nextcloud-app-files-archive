@@ -49,12 +49,15 @@ class Notifier implements INotifier
   use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
   use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
 
+  public const TYPE_ANY = 0;
   public const TYPE_MOUNT = (1 << 0);
   public const TYPE_EXTRACT = (1 << 1);
   public const TYPE_SCHEDULED = (1 << 2);
   public const TYPE_SUCCESS = (1 << 3);
   public const TYPE_FAILURE = (1 << 4);
-  public const TYPE_STAGES = self::TYPE_SCHEDULED|self::TYPE_FAILURE|self::TYPE_SUCCESS;
+  public const TYPE_CANCELLED = (1 << 5);
+  public const TYPE_REMOVED = (1 << 6);
+  public const TYPE_STAGES = self::TYPE_SCHEDULED|self::TYPE_FAILURE|self::TYPE_SUCCESS|self::TYPE_CANCELLED|self::TYPE_REMOVED;
   public const TYPE_TARGETS = self::TYPE_MOUNT|self::TYPE_EXTRACT;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing

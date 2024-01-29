@@ -43,14 +43,14 @@ use OCP\IConfig;
 use OCP\AppFramework\IAppContainer;
 use OCP\Lock\ILockingProvider as Locks;
 
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
-
-use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Controller\SettingsController;
+use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
+use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Service\NotificationService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
-use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
 /**
  * Mount an archive file as virtual file system into the user-storage.
@@ -73,6 +73,7 @@ class MountProvider implements IMountProvider
     private IMountManager $mountManager,
     private ArchiveMountMapper $mountMapper,
     private IUserMountCache $userMountCache,
+    private NotificationService $notificationService,
   ) {
   }
   // phpcs:enable
@@ -227,13 +228,14 @@ class MountProvider implements IMountProvider
 
     return new class(
       $storage,
-      $userFolderPath,
       $mountDirectory,
       $loader,
+      $userFolderPath,
       $this->mountManager,
       $this->userMountCache,
       $this->mountMapper,
       $mountEntity,
+      $this->notificationService,
       $this->logger,
     ) extends MountPoint implements MoveableMount
     {
@@ -242,11 +244,11 @@ class MountProvider implements IMountProvider
       /**
        * @param ArchiveStorage $storage
        *
-       * @param string $userFolderPath
-       *
        * @param string $mountPointPath
        *
        * @param IStorageFactory $loader
+       *
+       * @param string $userFolderPath
        *
        * @param IMountManager $mountManager
        *
@@ -256,17 +258,20 @@ class MountProvider implements IMountProvider
        *
        * @param ArchiveMount $mountEntity
        *
+       * @param NotificationService $notificationService
+       *
        * @param LoggerInterface $logger
        */
       public function __construct(
         ArchiveStorage $storage,
-        string $userFolderPath,
         string $mountPointPath,
         IStorageFactory $loader,
+        private string $userFolderPath,
         private IMountManager $mountManager,
         private IUserMountCache $userMountCache,
         private ArchiveMountMapper $mountMapper,
         private ArchiveMount $mountEntity,
+        private NotificationService $notificationService,
         protected LoggerInterface $logger,
       ) {
         parent::__construct(
@@ -283,11 +288,6 @@ class MountProvider implements IMountProvider
             'authenticated' => false,
           ],
         );
-        $this->userFolderPath = $userFolderPath;
-        $this->mountManager = $mountManager;
-        $this->mountMapper = $mountMapper;
-        $this->mountEntity = $mountEntity;
-        $this->logger = $logger;
       }
 
       /** {@inheritdoc} */
@@ -311,6 +311,13 @@ class MountProvider implements IMountProvider
         $this->mountEntity->setMountPointPath($relativeTarget);
         $this->mountMapper->update($this->mountEntity);
 
+        // Convenience: obviously the user has realized the mount, so there is
+        // no point in keeping the notification.
+        $this->notificationService->deleteMountSuccessNotification(
+          userId: $this->mountEntity->getUserId(),
+          mountPointId: $this->mountEntity->getMountPointFileId(),
+        );
+
         return true;
       }
 
@@ -331,6 +338,13 @@ class MountProvider implements IMountProvider
         // $storage->getCache()->remove($this->getStorageRootId());
         // $storage->getStorageCache()->remove($this->getNumericStorageId());
         $storage->getCache()->clear(); // internal, but much faster
+
+        // Remove the mount-success information in order not to have stale
+        // notifications with links to non-existing files.
+        $this->notificationService->deleteMountSuccessNotification(
+          userId: $this->mountEntity->getUserId(),
+          mountPointId: $this->mountEntity->getMountPointFileId(),
+        );
 
         return true;
       }

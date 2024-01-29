@@ -37,9 +37,8 @@ use OCP\IConfig as CloudConfig;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
 use OCA\Files\Event\LoadSidebar;
 
-use OCA\FilesArchive\Toolkit\Service\MimeTypeService;
-
 use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Service\MimeTypeService;
 use OCA\FilesArchive\Controller\SettingsController;
 use OCA\FilesArchive\Constants;
 
@@ -132,7 +131,10 @@ class FilesActionListener implements IEventListener
     if (!$this->initialStateEmitted) {
       /** @var MimeTypeService $mimeTypeService */
       $mimeTypeService = $this->appContainer->get(MimeTypeService::class);
-      $archiveMimeTypes = $mimeTypeService->setAppPath(__DIR__ . '/../../')->getSupportedMimeTypes();
+      $archiveMimeTypes = $mimeTypeService->getSupportedArchiveMimeTypes();
+      $archiveMimeTypes = array_values($archiveMimeTypes);
+      sort($archiveMimeTypes);
+      $archiveMimeTypes = array_values(array_unique($archiveMimeTypes));
 
       // just admin contact and stuff to make the ajax error handlers work.
       $this->groupManager = $this->appContainer->get(IGroupManager::class);
