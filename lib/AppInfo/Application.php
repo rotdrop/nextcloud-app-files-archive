@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
 
-use OCA\FilesArchive\Toolkit\Service\MimeTypeService;
+use OCA\FilesArchive\Service\MimeTypeService;
 
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Notification\Notifier;
@@ -67,7 +67,7 @@ class Application extends App implements IBootstrap
   public function boot(IBootContext $context): void
   {
     $context->injectFn(function(MimeTypeService $mimeTypeService) {
-      $mimeTypeService->setAppPath(__DIR__ . '/../../')->registerMimeTypeMappings();
+      $mimeTypeService->registerMimeTypeMappings();
     });
     $context->injectFn(function(IMountProviderCollection $mountProviderCollection, ArchiveMountProvider $mountProvider) {
       $mountProviderCollection->registerProvider($mountProvider, PHP_INT_MAX - 1);
