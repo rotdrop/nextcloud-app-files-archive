@@ -3,13 +3,13 @@ OC.L10N.register(
     {
     "File or folder could not be found." : "No fue posible encontrar el archivo o la carpeta.",
     "The user folder for user \"%s\" could not be opened." : "La carpeta de usuario para el usuario \"%s\" no pudo abrirse.",
-    "The archive file \"%s\" could not be found on the server." : "El archivo de contenedor \"%s\" no se ha encontrado en el servidor.",
-    "Unable to open the archive file \"%s\": %s." : "No fue posible abrir el archivo de contenedor \"%s\": %s.",
+    "The archive file \"%s\" could not be found on the server." : "El archivador \"%s\" no se ha podido encontrar en el servidor.",
+    "Unable to open the archive file \"%s\": %s." : "No fue posible abrir el archivador \"%s\": %s.",
     "Error: %s" : "Error: %s",
-    "Unable to open the archive file \"%s\"." : "No fue posible abrir el archivo de contenedor \"%s\".",
+    "Unable to open the archive file \"%s\"." : "No fue posible abrir el archivador \"%s\".",
     "The archive file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s." : "El archivador \"%1$s\" parece ser un zip-bomb: El tamaño sin comprimir %2$s > límite administrativo %3$s.",
     "The archive file \"%1$s\" is too large: uncompressed size %2$s > user limit %3$s." : "El archivador \"%1$s\" es demasiado grande: El tamaño sin comprimir %2$s > límite de usuario %3$s.",
-    "Unable to open the target parent folder \"%s\"." : "No fue posible abrir la carpeta superior \"%s\".",
+    "Unable to open the target parent folder \"%s\"." : "No fue posible abrir la carpeta superior de destino \"%s\".",
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "La carpeta destino \"%s\" ya existe y el renombrado automático no está habilitado.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "No fue posible extraer \"%1$s\" a \"%2$s\": \"%3$s\".",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "La extracción de \"%1$s\" a \"%2$s\" se completó exitósamente.",
@@ -37,6 +37,9 @@ OC.L10N.register(
     "Archive Manager" : "Gestor de Archivos",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "El archivador {source} será montado como una carpeta virtual en {destination}",
     "The archive file {source} will be extracted to {destination}." : "El archivador {source} será extraído en {destination}",
+    "Archive mount of {source} succeeded." : "Se montó el archivador {source} exitosamente.",
+    "Archive extraction of {source} succeeded." : "Se extrajo el archivador {source} exitosamente.",
+    "Your archive file {source} has been mounted as a virtual folder at {destination}. In order to unmount it it is safe to just delete the mount point {destination}. This will do no harm to the archive file and just issue an \"unmount\" action. Please note that the virtual folder is read-only." : "Su archivador {source} se ha montado como una carpeta virtual en {destination}. De manera de desmontarlo de forma segura, apenas borre el punto de montaje {destination}. Esto no dañará al archivador y solo ejecutará una acción de \"desmontaje\". Tenga en cuenta que la carpeta virtual es de sólo lectura.",
     "Mounting {source} at {destination} has failed: {message}" : "El montaje de {source} en {destination} ha fallado: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "La extracción de {source} en {destination} ha fallado: {message}",
     "Mounting {source} at {destination} has failed." : "El montaje de {source} en {destination} ha fallado.",
@@ -222,6 +225,7 @@ OC.L10N.register(
     "Debug Information" : "Información de depuración",
     "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Su archivador {source} fue montado como una carpeta virtual en {destination}",
     "Your archive file {source} has been extracted to {destination}." : "Su archivador {source} fue extraído en {destination}",
-    "Choose a prefix folder" : "Seleccione una carpeta prefijo"
+    "Choose a prefix folder" : "Seleccione una carpeta prefijo",
+    "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source }." : "Se ha extraído su archivador {file} a {destination}. El contenido del archivador residen allí como archivos ordinarios. Siéntase libre de utilizarlos a gusto. No se realiza limpieza automática, los archivos extraídos permanecerán en su espacio de archivos hasta que los borre manualmente. Si no tiene más uso para los mismos, simplemente borre la carpeta {destination}. Tenga en cuenta que cualquier cambio que se realice a los archivos extraídos no serán vueltos a escribir en el archivador {source}."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
