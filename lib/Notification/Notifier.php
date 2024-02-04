@@ -192,7 +192,7 @@ class Notifier implements INotifier
             . ' Please feel free to use those as it pleases you.'
             . ' There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually.'
             . ' Just delete the folder {destination} if you have no more use of those files.'
-            . ' Please note also that any changes committed to the extracted files will not be written back to the archive file {source }.'
+            . ' Please note also that any changes committed to the extracted files will not be written back to the archive file {source}.'
           );
         }
 
