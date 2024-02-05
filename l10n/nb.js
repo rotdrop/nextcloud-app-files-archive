@@ -49,6 +49,8 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installasjonsproblem; den nødvendige ressursen \"%1$s\" av typen \"%2$s\" er ikke installert på serveren, kontakt systemadministratoren!",
     "User" : "Bruker",
     "Password" : "PassordP",
+    "Login succeeded." : "Innlogging lyktes.",
+    "Login failed." : "Innlogging feilet.",
     "Error, caught an exception." : "Feil, fanget et unntak.",
     "Caused by previous exception" : "Forårsaket av tidligere unntak",
     "bytes" : "byte",
