@@ -226,7 +226,6 @@ OC.L10N.register(
     "Debug Information" : "排除錯誤資訊",
     "Your archive file {source} has been mounted as a virtual folder at {destination}." : "您的封存檔案 {source} 已作為虛擬資料夾掛載在 {destination}。",
     "Your archive file {source} has been extracted to {destination}." : "您的封存檔案 {source} 已解壓縮到 {destination}。",
-    "Choose a prefix folder" : "選擇前綴資料夾",
-    "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source }." : "您的封存檔案 {source} 已解壓縮至 {destination}。封存內容以普通檔案形式存在那裡。請隨意使用這些檔案，只要您滿意即可。沒有自動清除，解壓縮的檔案將保留在您的檔案空間中，直至您手動刪除它們。如果您不再需要這些檔案，只需刪除資料夾 {destination} 即可。請注意，對解壓縮的檔案所做的任何更改將不會寫回封存檔案 {source}。"
+    "Choose a prefix folder" : "選擇前綴資料夾"
 },
 "nplurals=1; plural=0;");

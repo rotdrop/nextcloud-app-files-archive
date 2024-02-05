@@ -224,7 +224,6 @@
     "Debug Information" : "Debug Information",
     "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Your archive file {source} has been mounted as a virtual folder at {destination}.",
     "Your archive file {source} has been extracted to {destination}." : "Your archive file {source} has been extracted to {destination}.",
-    "Choose a prefix folder" : "Choose a prefix folder",
-    "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source }." : "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source }."
+    "Choose a prefix folder" : "Choose a prefix folder"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

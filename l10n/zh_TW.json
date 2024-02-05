@@ -224,7 +224,6 @@
     "Debug Information" : "除錯資訊",
     "Your archive file {source} has been mounted as a virtual folder at {destination}." : "封存檔案 {source} 已作為虛擬資料夾掛載在 {destination}。",
     "Your archive file {source} has been extracted to {destination}." : "您的封存檔案 {source} 已解壓縮至 {destination}。",
-    "Choose a prefix folder" : "選擇前綴資料夾",
-    "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source }." : "您的封存檔案 {source} 已解壓縮至 {destination}。封存檔案內容以普通檔案形式存在那裡。請隨意使用那些檔案。不會自動清除，解壓縮的檔案將會保留在您的檔案空間中，直到您手動刪除它們。若您不再需要那些檔案，只要刪除資料夾 {destination} 即可。請注意，對解壓縮的檔案所作的任何變更將不會寫入回封存檔案 {source}。"
+    "Choose a prefix folder" : "選擇前綴資料夾"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
