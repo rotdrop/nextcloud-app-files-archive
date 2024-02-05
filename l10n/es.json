@@ -224,7 +224,6 @@
     "Debug Information" : "Información de depuración",
     "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Su archivador {source} fue montado como una carpeta virtual en {destination}",
     "Your archive file {source} has been extracted to {destination}." : "Su archivador {source} fue extraído en {destination}",
-    "Choose a prefix folder" : "Seleccione una carpeta prefijo",
-    "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source }." : "Se ha extraído su archivador {file} a {destination}. El contenido del archivador residen allí como archivos ordinarios. Siéntase libre de utilizarlos a gusto. No se realiza limpieza automática, los archivos extraídos permanecerán en su espacio de archivos hasta que los borre manualmente. Si no tiene más uso para los mismos, simplemente borre la carpeta {destination}. Tenga en cuenta que cualquier cambio que se realice a los archivos extraídos no serán vueltos a escribir en el archivador {source}."
+    "Choose a prefix folder" : "Seleccione una carpeta prefijo"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
