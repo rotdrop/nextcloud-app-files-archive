@@ -226,7 +226,6 @@ OC.L10N.register(
     "Debug Information" : "Дибаг информације",
     "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ваш фајл архиве {source} је монтиран као виртуелни фолдер {destination}.",
     "Your archive file {source} has been extracted to {destination}." : "Ваш фајл архиве {source} је распакован у {destination}.",
-    "Choose a prefix folder" : "Изаберите префикс фолдер",
-    "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source }." : "Ваш фајл архиве {source} је распакован у {destination}. Садржај архиве се тамо налази као обични фајлови. Користите те фајлове по сопственом нахођењу. Не постоји аутоматско чишћење, распаковани фајлови ће остати у вашем простору за фајлове све док их ручно не обришете. Ако вам више не требају, једноставно обришите фолдер {destination}. Молимо вас да имате на уму да се било какве измене начињене над распакованим фајловима неће уписати назад у фајл архиве {source }."
+    "Choose a prefix folder" : "Изаберите префикс фолдер"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
