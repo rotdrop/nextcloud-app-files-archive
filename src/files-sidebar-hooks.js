@@ -19,17 +19,14 @@
 
 import Vue from 'vue';
 import { appName } from './config.js';
-import { attachDialogHandlers } from './toolkit/util/dialogs.js';
 import { getInitialState } from './toolkit/services/InitialStateService.js';
 import { generateUrl } from '@nextcloud/router';
-import FilesTab from './views/FilesTab.vue';
 import { Tooltip } from '@nextcloud/vue';
 
 // eslint-disable-next-line
 import logoSvg from '../img/app.svg?raw';
 
 require('files-archive.scss');
-require('dialogs.scss');
 
 Vue.directive('tooltip', Tooltip);
 
@@ -38,14 +35,11 @@ require('./webpack-setup.js');
 
 Vue.mixin({ data() { return { appName }; }, methods: { t, n, generateUrl } });
 
-const View = Vue.extend(FilesTab);
 let TabInstance = null;
 
 const initialState = getInitialState();
 
 window.addEventListener('DOMContentLoaded', () => {
-
-  attachDialogHandlers();
 
   /**
    * Register a new tab in the sidebar
@@ -61,6 +55,8 @@ window.addEventListener('DOMContentLoaded', () => {
       },
 
       async mount(el, fileInfo, context) {
+        const FilesTab = (await import('./views/FilesTab.vue')).default;
+        const View = Vue.extend(FilesTab);
 
         if (TabInstance) {
           TabInstance.$destroy();
@@ -73,14 +69,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Only mount after we have all the info we need
         await TabInstance.update(fileInfo);
-
         TabInstance.$mount(el);
       },
       update(fileInfo) {
         TabInstance.update(fileInfo);
       },
       destroy() {
-        TabInstance.$destroy();
+        if (TabInstance !== null) {
+          TabInstance.$destroy();
+        }
         TabInstance = null;
       },
     }));
