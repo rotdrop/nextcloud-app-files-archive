@@ -71,7 +71,7 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
   ),
   new DeadCodePlugin({
     patterns: [
-      'src/**/*.(js|jsx|css)',
+      'src/**/*.(js|jsx|css|vue)',
       'style/**/*.scss',
     ],
     exclude: [
