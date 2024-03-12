@@ -9,7 +9,7 @@
   - License, or (at your option) any later version.
   -
   - This program is distributed in the hope that it will be useful,
-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   - GNU Affero General Public License for more details.
   -
@@ -256,9 +256,14 @@ import md5 from 'blueimp-md5'
 import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 
 import { formatFileSize } from '@nextcloud/files'
-import { NcActionInput, NcActionCheckbox, NcActions, NcActionButton } from '@nextcloud/vue'
+import {
+  NcActionInput,
+  NcActionCheckbox,
+  NcActions,
+  NcActionButton,
+} from '@nextcloud/vue'
 import ListItem from '@rotdrop/nextcloud-vue-components/lib/components/ListItem.vue'
-import FilePrefixPicker from '../components/FilePrefixPicker.vue'
+import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue'
 import axios from '@nextcloud/axios'
 
 export default {
@@ -271,8 +276,6 @@ export default {
     ListItem,
     FilePrefixPicker,
   },
-  mixins: [
-  ],
   data() {
     return {
       fileInfo: {},
