@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:rotdrop/nextcloud-vue-components.git
+	branch = main
+	commit = ed727ae288c97a6dcc01e6da150f68efe1410a27
+	parent = 2d391fd19db610535e9b4bcb7c99690e5a3a2b62
+	method = merge
+	cmdver = 0.4.5
