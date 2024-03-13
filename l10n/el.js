@@ -12,6 +12,7 @@ OC.L10N.register(
     "User" : "Χρήστης",
     "Password" : "Συνθηματικό",
     "bytes" : "bytes",
+    "submit" : "υποβολή",
     "Template for the default name of the extraction folder" : "Πρότυπο για το προεπιλεγμένο όνομα του φακέλου εξαγωγής",
     "unknown" : "άγνωστο",
     "MIME type" : "Τύπος MIME",
