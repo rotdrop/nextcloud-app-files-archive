@@ -82,8 +82,6 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
       'src/toolkit/util/on-document-loaded.js',
       'src/toolkit/util/pangram.js',
       'src/toolkit/util/print-r.js',
-      'style/dialogs.scss',
-      'style/error-dialogs.scss',
     ],
   }),
 ]);

@@ -37,24 +37,21 @@ const initialState = getInitialState();
 const archiveMimeTypes: Array<string> = initialState.archiveMimeTypes;
 
 subscribe('notifications:notification:received', (event: NotificationEvent) => {
-  if (event?.notification?.app != appName) {
+  if (event?.notification?.app !== appName) {
     return;
   }
-  console.info('NOTIFICATION RECEIVED', event)
-  const successData = event.notification?.messageRichParameters
-  console.info('SUCCESS DATA', successData)
+  const successData = event.notification?.messageRichParameters;
   if (!successData?.destination?.status || !successData?.destination?.folder) {
-    return
+    return;
   }
-  const node = fileInfoToNode(successData.destination.folder)
-  console.info('EMIT CREATED', node)
+  const node = fileInfoToNode(successData.destination.folder);
 
-  emit('files:node:created', node)
-})
+  emit('files:node:created', node);
+});
 
 registerFileAction(new FileAction({
   id: appName,
-  displayName(/*nodes: Node[], view: View*/) {
+  displayName(/* nodes: Node[], view: View */) {
     return t(appName, 'Mount Archive');
   },
   title(/* files: Node[], view: View */) {
@@ -76,7 +73,7 @@ registerFileAction(new FileAction({
     }
     return true;
   },
-  async exec(node: Node/*, view: View, dir: string*/) {
+  async exec(node: Node/* , view: View, dir: string */) {
 
     const fullPath = encodeURIComponent(node.path);
 
@@ -107,21 +104,21 @@ registerFileAction(new FileAction({
             mountPointPath,
           }));
           const mountNode = fileInfoToNode(data.mountPoint);
-          console.info('MOUNT NODE', mountNode)
+          console.info('MOUNT NODE', mountNode);
 
           // Update files list
-          emit('files:node:created', mountNode)
+          emit('files:node:created', mountNode);
         }
-      } catch (e: any) {
+      } catch (e: AxiosError) {
         const reason: AxiosError = e;
         if (reason.message) {
           showError(
             t(appName, 'Failed to mount archive file "{archivePath}: {message}".', {
               archivePath: node.path,
-            message: reason.message,
+              message: reason.message,
             }), {
               timeout: TOAST_PERMANENT_TIMEOUT,
-          });
+            });
         } else {
           showError(t(appName, 'Failed to mount archive file "{archivePath}".', {
             archivePath: node.path,
@@ -131,7 +128,7 @@ registerFileAction(new FileAction({
           return null;
         }
       }
-    } catch (e: any) {
+    } catch (e: AxiosError) {
       const reason: AxiosError = e;
       console.error('ERROR', e);
       if (reason.message) {

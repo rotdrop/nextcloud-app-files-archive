@@ -150,7 +150,7 @@
             <template #title>
               <a class="external icon-folder icon"
                  :target="openMountTarget"
-                 :href="generateUrl('/apps/files') + '?dir=' + encodeURIComponent(mountPoint.mountPointPath)"
+                 :href="filesAppMountPointUrlI(mountPoint)"
               >
                 {{ mountPoint.mountPointPath }}
               </a>
@@ -245,7 +245,7 @@
 <script>
 
 import { appName } from '../config.js'
-import { set as vueSet, nextTick } from 'vue'
+import Vue, { set as vueSet, nextTick } from 'vue'
 import { getInitialState } from '../toolkit/services/InitialStateService.js'
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router'
 import { emit, subscribe } from '@nextcloud/event-bus'
@@ -254,6 +254,7 @@ import generateAppUrl from '../toolkit/util/generate-url.js'
 import { fileInfoToNode } from '../toolkit/util/file-node-helper.js'
 import md5 from 'blueimp-md5'
 import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
+import { translate as t, translatePlural as n } from '@nextcloud/l10n'
 
 import { formatFileSize } from '@nextcloud/files'
 import {
@@ -261,10 +262,18 @@ import {
   NcActionCheckbox,
   NcActions,
   NcActionButton,
+  Tooltip,
 } from '@nextcloud/vue'
 import ListItem from '@rotdrop/nextcloud-vue-components/lib/components/ListItem.vue'
 import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue'
 import axios from '@nextcloud/axios'
+
+Vue.directive('tooltip', Tooltip)
+Vue.mixin({ data() { return { appName } }, methods: { t, n } })
+
+export {
+  Vue,
+}
 
 export default {
   name: 'FilesTab',
@@ -829,6 +838,9 @@ export default {
         ? this.$refs.archivePassPhrase.$el.querySelector('input[type="text"]')
         : this.$refs.archivePassPhrase.$el.querySelector('input[type="password"]')
       visibleElement.value = currentValue
+    },
+    filesAppMountPointUrl(mountPoint) {
+      return generateUrl('/apps/files') + '?dir=' + encodeURIComponent(mountPoint.mountPointPath)
     },
   },
 }
