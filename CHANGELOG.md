@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.2.0-rc3] - 2024-03-13
+## [1.2.0-rc4] - 2024-03-13
 
 ### Added
 
@@ -13,10 +13,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Drop support for Nextcloud <= v27. The differences in the files-API
-  are just too big.
+- Reduce the size of the JS assets needed to hook in to the files-app sidebar
 
 - Use latest @nextcloud/vue toolkit.
+
+- Drop support for Nextcloud <= v27. The differences in the files-API
+  are just too big.
 
 ### Fixed
 
