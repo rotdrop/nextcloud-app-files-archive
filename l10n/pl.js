@@ -8,6 +8,7 @@ OC.L10N.register(
     "Error, caught an exception." : "Błąd, złapano wyjątek.",
     "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
     "bytes" : "bajtów",
+    "Choose a folder" : "Wybierz katalog",
     "unknown" : "nieznane",
     "MIME type" : "Typ MIME",
     "Archive" : "Archiwum",

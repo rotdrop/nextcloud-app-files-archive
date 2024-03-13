@@ -15,6 +15,7 @@ OC.L10N.register(
     "Unsupported subject: \"%s\"." : "Het volgende onderwerp word niet ondersteunt\" \"%s\"",
     "Password" : "Wachtwoord",
     "bytes" : "bytes",
+    "submit" : "versturen",
     "unknown" : "onbekend",
     "MIME type" : "MIME type",
     "Archive" : "Archiveren",
