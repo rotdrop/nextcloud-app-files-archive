@@ -71,13 +71,17 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
   ),
   new DeadCodePlugin({
     patterns: [
-      'src/**/*.(js|jsx|css)',
+      'src/**/*.(js|jsx|css|vue)',
       'style/**/*.scss',
     ],
     exclude: [
+      'src/toolkit/util/ajax.js',
+      'src/toolkit/util/dialogs.js',
       'src/toolkit/util/file-download.js',
+      'src/toolkit/util/jquery.js',
       'src/toolkit/util/on-document-loaded.js',
       'src/toolkit/util/pangram.js',
+      'src/toolkit/util/print-r.js',
     ],
   }),
 ]);

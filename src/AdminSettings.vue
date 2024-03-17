@@ -1,61 +1,56 @@
-<script>
-/**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
- *
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- *
- * @license AGPL-3.0-or-later
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- */
-</script>
+<!--
+ - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ -
+ - @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ -
+ - @license AGPL-3.0-or-later
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as
+ - published by the Free Software Foundation, either version 3 of the
+ - License, or (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program. If not, see <http://www.gnu.org/licenses/>.
+ -->
 <template>
-  <SettingsSection :class="cloudVersionClasses"
-                   :title="t(appName, 'Archive Manager, Admin Settings')"
-  >
-    <AppSettingsSection :title="t(appName, 'Archive Extraction')">
-      <SettingsInputText v-model="humanArchiveSizeLimit"
-                         :label="t(appName, 'Archive Size Limit')"
-                         :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
-                         :disabled="loading"
-                         @update="saveTextInput(...arguments, 'archiveSizeLimit')"
+  <div :class="['templateroot', ...cloudVersionClasses]">
+    <h1 class="title">
+      {{ t(appName, 'Archive Manager, Admin Settings') }}
+    </h1>
+    <NcSettingsSection :name="t(appName, 'Archive Extraction')">
+      <TextField :value.sync="humanArchiveSizeLimit"
+                 :label="t(appName, 'Archive Size Limit')"
+                 :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
+                 :disabled="loading"
+                 @submit="saveTextInput('archiveSizeLimit')"
       />
-    </AppSettingsSection>
-  </SettingsSection>
+    </NcSettingsSection>
+  </div>
 </template>
 
 <script>
-import { appName } from './config.js'
-import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
-import ListItem from '@rotdrop/nextcloud-vue-components/lib/components/ListItem'
-import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
-import axios from '@nextcloud/axios'
-import { showError, showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
-import { generateUrl } from '@nextcloud/router'
-import settingsSync from './toolkit/mixins/settings-sync'
+import {
+  NcSettingsSection,
+} from '@nextcloud/vue'
+import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
+import settingsSync from './toolkit/mixins/settings-sync.js'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 
 export default {
   name: 'AdminSettings',
   components: {
-    AppSettingsSection,
-    ListItem,
-    SettingsSection,
-    SettingsInputText,
+    NcSettingsSection,
+    TextField,
   },
+  mixins: [
+    settingsSync,
+  ],
   data() {
     return {
       cloudVersionClasses,
@@ -64,23 +59,19 @@ export default {
       loading: true,
     }
   },
-  mixins: [
-    settingsSync,
-  ],
   created() {
     this.getData()
-  },
-  computed: {
-  },
-  watch: {
   },
   methods: {
     async getData() {
       // slurp in all settings
-      this.fetchSettings('admin');
+      this.fetchSettings('admin')
       this.loading = false
     },
-    async saveTextInput(value, settingsKey, force) {
+    async saveTextInput(settingsKey, value, force) {
+      if (value === undefined) {
+        value = this[settingsKey] || ''
+      }
       await this.saveConfirmedSetting(value, 'admin', settingsKey, force)
     },
     async saveSetting(setting) {
@@ -96,16 +87,13 @@ export default {
     --cloud-theme-filter: var(--background-invert-if-dark);
   }
 }
-.settings-section {
-  .flex-container {
-    display:flex;
-    &.flex-center {
-      align-items:center;
-    }
-  }
-  :deep() &__title {
+.templateroot::v-deep {
+  h1.title {
+    margin: 30px 30px 0px;
+    font-size:revert;
+    font-weight:revert;
+    position: relative;
     padding-left:60px;
-    position:relative;
     height:32px;
     &::before {
       content: "";
@@ -122,8 +110,11 @@ export default {
       filter: var(--cloud-theme-filter);
     }
   }
-  :deep(.app-settings-section) {
-    margin-bottom: 40px;
+  .flex-container {
+    display:flex;
+    &.flex-center {
+      align-items:center;
+    }
   }
 }
 </style>
