@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.2.0-rc4] - 2024-03-13
+## [1.2.0] - 2024-03-17
 
 ### Added
 
@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Drop support for Nextcloud <= v27. The differences in the files-API
   are just too big.
+
+- Translations
 
 ### Fixed
 
