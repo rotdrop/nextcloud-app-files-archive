@@ -32,7 +32,6 @@ use OCP\Files\Folder;
 use OCP\Notification\IManager;
 use OCP\Notification\INotification;
 use Psr\Log\LoggerInterface as ILogger;
-use OCP\IUserSession;
 
 use OCA\FilesArchive\BackgroundJob\ArchiveJob;
 use OCA\FilesArchive\Notification\Notifier;
@@ -47,13 +46,8 @@ class NotificationService
   public function __construct(
     protected $appName,
     private IManager $notificationManager,
-    protected ILogger $logger,
-    IUserSession $userSession,
+    protected ILogger $logger
   ) {
-    $user = $userSession->getUser();
-    if (!empty($user)) {
-      $this->userId = $user->getUID();
-    }
   }
   // phpcs:enable
 
@@ -75,7 +69,6 @@ class NotificationService
     string $destinationPath,
     string $target,
   ):void {
-    $this->userId = $userId;
     $sourcePath = $sourceNode->getPath();
     $notification = $this->buildNotification(
       Notifier::TYPE_SCHEDULED,
@@ -99,7 +92,6 @@ class NotificationService
   public function sendNotificationOnSuccess(ArchiveJob $job):void
   {
     $userId = $job->getUserId();
-    $this->userId = $userId;
     $destinationId = $job->getDestinationId();
     $destinationPath = $job->getDestinationPath();
     $sourcePath = $job->getSourcePath();
@@ -138,7 +130,6 @@ class NotificationService
     ?string $errorMessage = null,
   ):void {
     $userId = $job->getUserId();
-    $this->userId = $userId;
     $destinationPath = $job->getDestinationPath();
     $sourcePath = $job->getSourcePath();
     $sourceId = $job->getSourceId();
