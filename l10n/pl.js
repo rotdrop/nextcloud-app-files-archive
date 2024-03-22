@@ -4,6 +4,7 @@ OC.L10N.register(
     "File or folder could not be found." : "Nie można znaleźć pliku lub katalogu.",
     "Unknown admin setting: \"%1$s\"" : "Nieznane ustawienie administracyjne: \"%1$s\"",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problem z instalacją: wymagany zasób „%1$s” typu „%2$s” nie jest zainstalowany na serwerze, skontaktuj się z administratorem!",
+    "User" : "Użytkownik",
     "Password" : "Hasło",
     "Error, caught an exception." : "Błąd, złapano wyjątek.",
     "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
