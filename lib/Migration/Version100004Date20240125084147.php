@@ -71,6 +71,7 @@ class Version100004Date20240125084147 extends SimpleMigrationStep
     if (!$table->hasColumn($this->columnName)) {
       $table->addColumn($this->columnName, 'bigint', [
         'notnull' => true,
+        'default' => -1,
         'length' => 20,
       ]);
     }
@@ -105,12 +106,13 @@ class Version100004Date20240125084147 extends SimpleMigrationStep
     $updateQuery = $this->connection->getQueryBuilder();
     $updateQuery
       ->update($this->tableName)
-      ->set($this->columnName, $updateQuery->createParameter($this->columnName));
+      ->set($this->columnName, $updateQuery->createParameter($this->columnName))
+      ->where($updateQuery->expr()->eq('id', $updateQuery->createParameter('id')));
 
     $deleteQuery = $this->connection->getQueryBuilder();
     $deleteQuery
       ->delete($this->tableName)
-      ->where($deleteQuery->expr()->eq('mount_point_path', $deleteQuery->createParameter('mount_point_path')));
+      ->where($deleteQuery->expr()->eq('id', $deleteQuery->createParameter('id')));
 
     $selectResult = $selectQuery->execute();
     while ($row = $selectResult->fetch()) {
@@ -125,7 +127,7 @@ class Version100004Date20240125084147 extends SimpleMigrationStep
         case 0:
           $output->warning('Unable to find active mount of registered archive mount ' . $row['archive_file_path'] . ' -> ' . $mountPoint . '.');
           $deleteQuery
-            ->setParameter('mount_point_path', $row['mount_point_path'])
+            ->setParameter('id', $row['id'])
             ->executeStatement();
           break;
         case 1:
@@ -133,6 +135,7 @@ class Version100004Date20240125084147 extends SimpleMigrationStep
           if ($rootId != $row[$this->columnName]) {
             $output->warning('Updating mount point file id to ' . $rootId . '.');
             $updateQuery->setParameter($this->columnName, $rootId);
+            $updateQuery->setParameter('id', $row['id']);
             $updateQuery->executeStatement();
           } else {
             $output->info('Mount point file id already set to ' . $rootId . '.');

@@ -19,7 +19,7 @@
 <template>
   <div :class="['templateroot', appName, ...cloudVersionClasses]">
     <h1 class="title">
-      t(appName, 'Archive Manager, Personal Settings')
+      {{ t(appName, 'Archive Manager, Personal Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Security Options')">
       <TextField :value.sync="humanArchiveSizeLimit"
