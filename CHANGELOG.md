@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - restore PHP 8.1 compatibility
 
+- personal settings dialog courtesy of @kemitix
+
 ## [1.2.1] - 2024-03-21
 
 ### Fixed
