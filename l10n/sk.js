@@ -11,6 +11,7 @@ OC.L10N.register(
     "bytes" : "bajty",
     "pick a color" : "vyberte farbu",
     "restore palette" : "obnoviť paletu",
+    "Choose a folder" : "Vybrať priečinok",
     "Archive Size Limit" : "Limit veľkosti archívu",
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Zakázať extrakciu archívu pre archívy s dekomprimovanou veľkosťou väčšou ako tento limit.",
     "unknown" : "neznámy",
