@@ -63,7 +63,7 @@ class FilesActionListener implements IEventListener
     ],
     LoadSidebar::class => [
       Constants::JS => 'files-sidebar-hooks',
-      Constants::CSS => 'files-sidebar-hooks',
+      Constants::CSS => null,
     ],
   ];
 
