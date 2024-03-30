@@ -7,6 +7,7 @@ OC.L10N.register(
     "Login failed." : "L'aniciu de la sesión falló.",
     "bytes" : "bytes",
     "MIME type" : "Tipu MIME",
+    "Archive" : "Archivar",
     "true" : "true",
     "false" : "false",
     "OK" : "Normal",
