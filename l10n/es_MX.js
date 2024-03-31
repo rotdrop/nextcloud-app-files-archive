@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "User" : "Usuario",
+    "Password" : "Contraseña",
     "bytes" : "bytes",
     "unknown" : "desconocido",
     "Archive" : "Archivar",
