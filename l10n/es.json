@@ -193,7 +193,7 @@
     "Upgrade Required" : "Se necesita actualizar",
     "Precondition Required" : "Se requiere pre-condición",
     "Too Many Requests" : "Demasiadas peticiones",
-    "Request Header Fields Too Large" : "Campos de la cabecera de la solicitud muy grandes",
+    "Request Header Fields Too Large" : "Campos del encabezado de la solicitud demasiado grandes",
     "No Response (Nginx)" : "Sin respuesta (Nginx)",
     "Retry With (Microsoft)" : "Reintentar con (Microsoft)",
     "Blocked by Windows Parental Controls (Microsoft)" : "Bloqueado por los controles parentales de Windows (Microsoft)",
