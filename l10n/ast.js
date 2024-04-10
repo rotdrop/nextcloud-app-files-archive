@@ -16,6 +16,7 @@ OC.L10N.register(
     "true" : "true",
     "false" : "false",
     "OK" : "Normal",
+    "Forbidden" : "Prohíbese",
     "Not Found" : "Nun s'atopó",
     "Internal Server Error" : "Error internu del sirvidor",
     "Error" : "Error",
