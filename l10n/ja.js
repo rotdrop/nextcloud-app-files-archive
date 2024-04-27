@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Password" : "パスワード",
     "bytes" : "バイト",
+    "Clear Selection" : "セッションクリア",
     "unknown" : "不明",
     "MIME type" : "MIMEタイプ",
     "Archive" : "アーカイブ",
