@@ -1,6 +1,8 @@
 { "translations": {
     "User" : "Lietotājs",
+    "Password" : "Parole",
     "bytes" : "baiti",
+    "Security Options" : "Drošības iespējas",
     "unknown" : "nezināms",
     "Archive" : "Arhīvi",
     "OK" : "Labi",

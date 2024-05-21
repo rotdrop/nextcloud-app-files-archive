@@ -2,7 +2,9 @@ OC.L10N.register(
     "files_archive",
     {
     "User" : "Lietotājs",
+    "Password" : "Parole",
     "bytes" : "baiti",
+    "Security Options" : "Drošības iespējas",
     "unknown" : "nezināms",
     "Archive" : "Arhīvi",
     "OK" : "Labi",
