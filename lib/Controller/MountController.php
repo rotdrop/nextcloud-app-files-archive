@@ -47,7 +47,8 @@ use OCP\Files\NotFoundException as FileNotFoundException;
 
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Toolkit\Service\ArchiveService;
+use OCA\FilesArchive\Service\ArchiveServiceFactory;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Db\ArchiveMount;
@@ -65,6 +66,7 @@ class MountController extends Controller
   use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
   use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
   use TargetPathTrait;
+  use ArchiveSizeLimitTrait;
 
   /** @var string */
   private string $mountPointTemplate;
@@ -81,7 +83,6 @@ class MountController extends Controller
   /** @var int */
   private int $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 
-
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
@@ -91,14 +92,13 @@ class MountController extends Controller
     private IMountManager $mountManager,
     protected IRootFolder $rootFolder,
     private ArchiveMountMapper $mountMapper,
-    private ArchiveService $archiveService,
+    private ArchiveServiceFactory $archiveServiceFactory,
     private MountProvider $mountProvider,
     protected IPreview $previewManager,
     IConfig $cloudConfig,
     IUserSession $userSession,
   ) {
     parent::__construct($appName, $request);
-    $this->archiveService->setL10N($l);
 
     $user = $userSession->getUser();
     if (!empty($user)) {
@@ -108,8 +108,6 @@ class MountController extends Controller
         $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
       $this->archiveSizeLimit = $cloudConfig->getUserValue(
         $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
-
-      $this->archiveService->setSizeLimit(min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX));
 
       $this->mountPointTemplate = $cloudConfig->getUserValue(
         $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
@@ -172,8 +170,11 @@ class MountController extends Controller
       $mountFlags |= ArchiveMount::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
     }
 
+    /** @var ArchiveService $archiveService */
     try {
-      $this->archiveService->open($archiveFile, password: $passPhrase);
+      $archiveService = $this->archiveServiceFactory->get($archiveFile);
+      $archiveService->setSizeLimit($this->actualArchiveSizeLimit());
+      $archiveService->open($archiveFile, password: $passPhrase);
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();
       // $archiveInfo = $e->getArchiveInfo();
@@ -226,7 +227,7 @@ class MountController extends Controller
     try {
       // obtain the mount point and run the scanner
       /** @var IMountPoint $mountPoint */
-      $mountPoint = $this->mountProvider->getMountPoint($mountEntity, $this->userId, $this->archiveService->getSizeLimit());
+      $mountPoint = $this->mountProvider->getMountPoint($mountEntity, $this->userId, $archiveService->getSizeLimit());
 
       $this->mountManager->addMount($mountPoint);
       $storage = $mountPoint->getStorage();

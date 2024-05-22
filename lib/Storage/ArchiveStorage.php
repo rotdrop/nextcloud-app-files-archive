@@ -42,7 +42,8 @@ use OCP\Cache\CappedMemoryCache;
 
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Service\ArchiveServiceFactory;
+use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 
 // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -75,7 +76,7 @@ class ArchiveStorage extends AbstractStorage
   protected $archiveFile;
 
   /** @var string */
-  protected $commonPathPrefix = '';
+  protected ?string $commonPathPrefix = null;
 
   /** @var string */
   protected $archivePassPhrase;
@@ -135,7 +136,8 @@ class ArchiveStorage extends AbstractStorage
     $this->stripCommonPathPrefix = $parameters[self::PARAMETER_STRIP_COMMON_PATH_PREFIX] ?? false;
 
     $this->appName = $this->appContainer->get('appName');
-    $this->archiveService = clone $this->appContainer->get(ArchiveService::class);
+    $factory = $this->appContainer->get(ArchiveServiceFactory::class);
+    $this->archiveService = $factory->get($this->archiveFile);
     $this->archiveService->setSizeLimit($sizeLimit);
     $this->logger = $this->appContainer->get(LoggerInterface::class);
 
@@ -211,6 +213,8 @@ class ArchiveStorage extends AbstractStorage
   {
     if (!$this->archiveService->isOpen()) {
       $this->archiveService->open($this->archiveFile, password: $this->archivePassPhrase);
+    }
+    if ($this->commonPathPrefix === null) {
       $this->commonPathPrefix = $this->stripCommonPathPrefix
         ? $this->archiveService->getCommonDirectoryPrefix()
         : '';
@@ -251,8 +255,8 @@ class ArchiveStorage extends AbstractStorage
       }
       $this->dirNames = array_keys($this->dirNames);
 
-      // $this->logInfo('FILES ' . print_r($this->files, true));
-      // $this->logInfo('DIRS ' . print_r($this->dirNames, true));
+      $this->logInfo('FILES ' . print_r($this->files, true));
+      $this->logInfo('DIRS ' . print_r($this->dirNames, true));
 
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       throw $e;
