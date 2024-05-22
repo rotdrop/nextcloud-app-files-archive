@@ -12,7 +12,7 @@
   <category>files</category>
   <bugs>https://github.com/rotdrop/nextcloud-app-files-archive.git</bugs>
   <dependencies>
-    <nextcloud min-version="28" max-version="28"/>
+    <nextcloud min-version="28" max-version="29"/>
     <php min-version="8.1" max-version="8.3" />
   </dependencies>
   <types>
