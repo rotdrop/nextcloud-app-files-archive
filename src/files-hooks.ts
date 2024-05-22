@@ -45,6 +45,7 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
     return;
   }
   const node = fileInfoToNode(successData.destination.folder);
+  node.attributes['is-mount-root'] = true;
 
   emit('files:node:created', node);
 });
