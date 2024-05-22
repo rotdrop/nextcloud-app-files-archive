@@ -4,12 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.4-rc1] - unreleased
+
+### Fixed
+
+- stripping of common directory prefixes was deeply broken (issue #38)
+
+- fix setting the archive-bomb limits in the settinhs pages
+
+### Added
+
+- support NC 29
+
 ## [1.2.3] - 2024-03-30
 
 ### Fixed
 
 - A spurious error message in the logs. This did not affect the
-  functionality of the app but puzzled its users.
+  functi
+  onality of the app but puzzled its users.
 
 ## [1.2.2] - 2024-03-23
 
