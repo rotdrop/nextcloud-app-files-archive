@@ -22,7 +22,7 @@
 
 namespace OCA\FilesArchive\Controller;
 
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 
 /** Trait class which provides the proposed target basenames. */
@@ -33,9 +33,6 @@ trait TargetPathTrait
 
   /** @var string */
   private string $mountPointTemplate;
-
-  /** @var ArchiveService */
-  private ArchiveService $archiveService;
 
   /**
    * @param string $archiveFileName

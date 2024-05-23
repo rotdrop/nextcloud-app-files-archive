@@ -45,6 +45,7 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
     return;
   }
   const node = fileInfoToNode(successData.destination.folder);
+  node.attributes['is-mount-root'] = true;
 
   emit('files:node:created', node);
 });
@@ -68,10 +69,7 @@ registerFileAction(new FileAction({
     if (!(node.permissions & Permission.READ)) {
       return false;
     }
-    if (!initialState.individualFileConversion) {
-      return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
-    }
-    return true;
+    return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
   },
   async exec(node: Node/* , view: View, dir: string */) {
 

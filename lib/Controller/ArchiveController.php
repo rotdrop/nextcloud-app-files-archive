@@ -42,7 +42,8 @@ use OCP\IPreview;
 
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Service\ArchiveServiceFactory;
+use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Constants;
 
@@ -56,6 +57,7 @@ class ArchiveController extends Controller
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
   use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
   use TargetPathTrait;
+  use ArchiveSizeLimitTrait;
 
   public const ARCHIVE_STATUS_OK = 0;
   public const ARCHIVE_STATUS_TOO_LARGE = (1 << 0);
@@ -90,19 +92,16 @@ class ArchiveController extends Controller
     protected IRootFolder $rootFolder,
     private IAppContainer $appContainer,
     protected IPreview $previewManager,
-    private ArchiveService $archiveService,
+    private ArchiveServiceFactory $archiveServiceFactory,
   ) {
     parent::__construct($appName, $request);
-    $this->archiveService->setL10N($l);
 
     $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
     $this->archiveSizeLimit = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
-    $this->archiveService->setSizeLimit($this->actualArchiveSizeLimit());
-
-    $this->targetBaseNameTemplate = $cloudConfig->getUserValue(
+   $this->targetBaseNameTemplate = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::EXTRACT_TARGET_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
 
     $this->mountPointTemplate = $cloudConfig->getUserValue(
@@ -142,9 +141,12 @@ class ArchiveController extends Controller
     $httpStatus = Http::STATUS_BAD_REQUEST;
     $messages = [];
     $archiveInfo = [];
+    /** @var ArchiveService $archiveService */
     try {
-      $this->archiveService->open($archiveFile, password: $passPhrase);
-      $archiveInfo = $this->archiveService->getArchiveInfo();
+      $archiveService = $this->archiveServiceFactory->get($archiveFile);
+      $archiveService->setSizeLimit($this->actualArchiveSizeLimit());
+      $archiveService->open($archiveFile, password: $passPhrase);
+      $archiveInfo = $archiveService->getArchiveInfo();
       $httpStatus = Http::STATUS_OK;
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $this->logException($e);
@@ -301,11 +303,5 @@ class ArchiveController extends Controller
       'targetFolder' => $this->formatNode($targetFolder),
       'messages' => [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],
     ]);
-  }
-
-  /** @return int */
-  private function actualArchiveSizeLimit():int
-  {
-    return min($this->archiveBombLimit, $this->archiveSizeLimit ?? PHP_INT_MAX);
   }
 }

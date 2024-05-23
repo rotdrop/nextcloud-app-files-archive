@@ -28,7 +28,7 @@
                  :label="t(appName, 'Archive Size Limit')"
                  :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
                  :disabled="loading"
-                 @submit="saveTextInput('archiveSizeLimit')"
+                 @submit="saveTextInput('archiveSizeLimit', humanArchiveSizeLimit)"
       />
     </NcSettingsSection>
   </div>

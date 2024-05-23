@@ -542,12 +542,14 @@ export default {
       const deletedMounts = oldMounts.filter((oldMount) => this.archiveMounts.findIndex((mount) => mount.mountPoint.fileid === oldMount.mountPoint.fileid) === -1)
       for (const mount of deletedMounts) {
         const node = fileInfoToNode(mount.mountPoint)
+        node.attributes['is-mount-root'] = true
 
         console.info('EMIT DELETED', node)
         emit('files:node:deleted', node)
       }
       for (const mount of newMounts) {
         const node = fileInfoToNode(mount.mountPoint)
+        node.attributes['is-mount-root'] = true
 
         console.info('EMIT CREATED', node)
         emit('files:node:created', node)
