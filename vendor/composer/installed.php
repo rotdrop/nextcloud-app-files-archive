@@ -3,7 +3,7 @@
         'name' => 'rotdrop/nextcloud-app-files-archive',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '79e58abfc69e0a89dccac4064d3c466d5a7aa39f',
+        'reference' => '688a37c974b4ca837ef03550e2fc876f958580f3',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -133,7 +133,7 @@
         'rotdrop/nextcloud-app-files-archive' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '79e58abfc69e0a89dccac4064d3c466d5a7aa39f',
+            'reference' => '688a37c974b4ca837ef03550e2fc876f958580f3',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
