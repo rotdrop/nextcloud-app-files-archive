@@ -496,7 +496,7 @@ class ArchiveStorage extends AbstractStorage
         $fileNames[] = basename($path);
       }
       sort($fileNames);
-      return $fileNames;
+      return IteratorDirectory::wrap(array_values($fileNames));
     }
 
     $path = ltrim($path, Constants::PATH_SEPARATOR);
