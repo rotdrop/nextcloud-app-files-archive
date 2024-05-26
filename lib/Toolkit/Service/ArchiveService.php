@@ -131,6 +131,14 @@ class ArchiveService
     self::ARCHIVE_INFO_BACKEND_DRIVER,
   ];
 
+  /**
+   * @var Enforce UTF-8 in the environment.
+   */
+  protected const OVERRIDE_ENVIRONMENT = [
+    'LANG' => 'C.UTF-8',
+    'LC_ALL' => 'C.UTF-8',
+  ];
+
   /** @var null|int */
   private $sizeLimit = null;
 
@@ -142,6 +150,9 @@ class ArchiveService
 
   /** @var array */
   private $archiveFiles;
+
+  /** @var array */
+  private array $savedProcessEnvironment;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -231,7 +242,13 @@ class ArchiveService
    */
   public function canOpen(File $fileNode):bool
   {
-    return ArchiveBackend::canOpen(self::getLocalPath($fileNode));
+    $this->setProcessEnvironment();
+
+    $result = ArchiveBackend::canOpen(self::getLocalPath($fileNode));
+
+    $this->restoreProcessEnvironment();
+
+    return $result;
   }
 
   /**
@@ -273,7 +290,13 @@ class ArchiveService
         $fileNode->getPath(), self::getLocalPath($fileNode),
       ]));
     }
+
+    $this->setProcessEnvironment();
+
     $this->archiver = ArchiveBackend::open(self::getLocalPath($fileNode), password: $password);
+
+    $this->restoreProcessEnvironment();
+
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveCannotOpenException($this->t('Unable to open archive file %s (%s)', [
         $fileNode->getPath(), self::getLocalPath($fileNode),
@@ -307,6 +330,9 @@ class ArchiveService
       throw new Exceptions\ArchiveNotOpenException(
         $this->t('There is no archive file associated with this archiver instance.'));
     }
+
+    $this->setProcessEnvironment();
+
     // getComment() throws if not supported (API documents differently)
     try {
       $archiveComment = $this->archiver->getComment();
@@ -317,7 +343,7 @@ class ArchiveService
 
     // $this->logInfo('MIME ' .  $this->fileNode->getMimeType());
 
-    return [
+    $result = [
       self::ARCHIVE_INFO_FORMAT => $this->archiver->getFormat(),
       self::ARCHIVE_INFO_MIME_TYPE => $this->fileNode->getMimeType(),
       self::ARCHIVE_INFO_SIZE => $this->archiver->getSize(),
@@ -329,6 +355,10 @@ class ArchiveService
       self::ARCHIVE_INFO_COMMON_PATH_PREFIX => $this->getCommonDirectoryPrefix(),
       self::ARCHIVE_INFO_BACKEND_DRIVER => $this->getClassBaseName($this->archiver->getDriverType()),
     ];
+
+    $this->restoreProcessEnvironment();
+
+    return $result;
   }
 
   /**
@@ -374,6 +404,9 @@ class ArchiveService
       throw new Exceptions\ArchiveNotOpenException(
         $this->t('There is no archive file associated with this archiver instance.'));
     }
+
+    $this->setProcessEnvironment();
+
     foreach ($this->archiver->getFileNames() as $fileName) {
       $fileData = $this->archiver->getFileData($fileName);
       // work around a bug in UnifiedArchive
@@ -382,6 +415,9 @@ class ArchiveService
       }
       $this->archiveFiles[$fileName] = $fileData;
     }
+
+    $this->restoreProcessEnvironment();
+
     return $this->archiveFiles;
   }
 
@@ -396,7 +432,14 @@ class ArchiveService
       throw new Exceptions\ArchiveNotOpenException(
         $this->t('There is no archive file associated with this archiver instance.'));
     }
-    return $this->archiver->getFileContent($fileName);
+
+    $this->setProcessEnvironment();
+
+    $result = $this->archiver->getFileContent($fileName);
+
+    $this->restoreProcessEnvironment();
+
+    return $result;
   }
 
   /**
@@ -410,6 +453,51 @@ class ArchiveService
       throw new Exceptions\ArchiveNotOpenException(
         $this->t('There is no archive file associated with this archiver instance.'));
     }
-    return $this->archiver->getFileStream($fileName);
+
+    $this->setProcessEnvironment();
+
+    $result = $this->archiver->getFileStream($fileName);
+
+    $this->restoreProcessEnvironment();
+
+    return $result;
+  }
+
+  /**
+   * Enforece UTF-8 locale in the enviroment as otherwise some external
+   * helpers do not function correctly.
+   *
+   * @return void
+   *
+   * @SuppressWarnings(PHPMD.Superglobals)
+   */
+  protected function setProcessEnvironment():void
+  {
+    foreach (self::OVERRIDE_ENVIRONMENT as $key => $value) {
+      $this->savedProcessEnvironment[$key] = $_ENV[$key] ?? null;
+      $_ENV[$key] = $value;
+    }
+  }
+
+  /**
+   * Restore the environment variables previously overridden by
+   * setProcessEnvironment().
+   *
+   * @return void
+   *
+   * @SuppressWarnings(PHPMD.Superglobals)
+   */
+  protected function restoreProcessEnvironment():void
+  {
+    foreach (array_keys(self::OVERRIDE_ENVIRONMENT) as $key) {
+      if (!isset($this->savedProcessEnvironment[$key])) {
+        continue;
+      }
+      if ($this->savedProcessEnvironment[$key] === null) {
+        unset($_ENV[$key]);
+      } else {
+        $_ENV[$key] = $this->savedProcessEnvironment[$key];
+      }
+    }
   }
 }
