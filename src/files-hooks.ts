@@ -102,6 +102,7 @@ registerFileAction(new FileAction({
             mountPointPath,
           }));
           const mountNode = fileInfoToNode(data.mountPoint);
+          mountNode.attributes['is-mount-root'] = true
           console.info('MOUNT NODE', mountNode);
 
           // Update files list
