@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\RotDrop\Toolkit\Service;
+namespace OCA\FilesArchive\Toolkit\Service;
 
 use Throwable;
 
@@ -28,22 +28,25 @@ use OC\Files\Type\Detection as MimeTypeDetector;
 use Psr\Log\LoggerInterface;
 use OCP\Files\IMimeTypeDetector;
 
-use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
-use OCA\RotDrop\Toolkit\Traits\Constants;
+use OCA\FilesArchive\Toolkit\Backend\ArchiveFormats;
+use OCA\FilesArchive\Toolkit\Traits\Constants;
 
 /** Tweak the Nextcloud server to support all MIME-types needed by this app. */
 class MimeTypeService
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
 
   const MIME_TYPE_MAPPING_DATA_FILE = 'config/nextcloud/mimetypemapping.json';
   const MIME_TYPE_ALIASES_DATA_FILE = 'config/nextcloud/mimetypealiases.json';
 
   /** @var array */
-  private $supportedMimeTypes = null;
+  private ?array $supportedMimeTypes = null;
 
   /** @var array<string, string> */
-  private $mimeTypeMapping = null;
+  private ?array $appMimeTypeMappings = null;
+
+  /** @var array<string, string> */
+  private ?array $allMimeTypeMappings = null;
 
   /** @var string */
   private $appPath;
@@ -88,13 +91,14 @@ class MimeTypeService
     }
 
     $cloudMimeTypeMapping = $this->mimeTypeDetector->getAllMappings();
-    $mimeTypeMapping = $this->getMimeTypeMapping();
+    $mimeTypeMapping = $this->getAppMimeTypeMappings();
 
     $missingMimeMappings = array_diff_key($mimeTypeMapping, $cloudMimeTypeMapping);
-    foreach ($missingMimeMappings as $extension => $mimeType) {
-      // $this->logInfo('ADDING MISSING MIME-TYPE MAPPING ' . $extension . ' => ' . $mimeType[0]);
-      $this->mimeTypeDetector->registerType($extension, $mimeType[0]);
+    foreach ($missingMimeMappings as $extension => $mimeTypes) {
+      $this->mimeTypeDetector->registerType($extension, $mimeTypes[0]);
     }
+    $this->allMimeTypeMappings = null;
+    // $this->logInfo('ADDING MISSING MIME-TYPE MAPPINGS ' . print_r($missingMimeMappings, true));
   }
 
   /**
@@ -108,9 +112,10 @@ class MimeTypeService
     if ($this->supportedMimeTypes !== null) {
       return $this->supportedMimeTypes;
     }
-    $mimeTypeMapping = $this->getMimeTypeMapping();
+    $mimeTypeMapping = $this->getAllMimeTypeMappings();
     $supportedFormats = ArchiveFormats::getSupportedDriverFormats();
     $this->supportedMimeTypes = [];
+    $unsupportedMimeTypes = [];
     foreach ($mimeTypeMapping as $extension => $mimeTypes) {
       if (count($mimeTypes) == 0) {
         $this->logError('Buggy config file, no mime-types for extension ' . $extension);
@@ -124,18 +129,37 @@ class MimeTypeService
       $format = ArchiveFormats::detectArchiveFormat('FOO.' . $extension);
       if (!empty($supportedFormats[$format])) {
         $this->supportedMimeTypes[$extension] = $mimeType;
+      } else {
+        $unsupportedMimeTypes[$extension] = $mimeType;
       }
     }
     // $this->logInfo('SUPPORTED MIME TYPES ' . print_r($this->supportedMimeTypes, true));
+    // $this->logInfo('UNSUPPORTED MIME TYPES ' . print_r($unsupportedMimeTypes, true));
 
     return $this->supportedMimeTypes;
   }
 
-  /** @return array Slurp in and cache the extension to mime-type mapping. */
-  private function getMimeTypeMapping():array
+  /** @return array Return all registered mime-type without comments. */
+  private function getAllMimeTypeMappings():array
   {
-    if ($this->mimeTypeMapping !== null) {
-      return $this->mimeTypeMapping;
+    if ($this->allMimeTypeMappings !== null) {
+      return $this->allMimeTypeMappings;
+    }
+
+    $arrayData = $this->mimeTypeDetector->getAllMappings();
+
+    $this->allMimeTypeMappings = array_filter($arrayData, fn(string $key) => !str_starts_with($key, '_'), ARRAY_FILTER_USE_KEY);
+    // $this->logInfo('MIME MAPPINGS ' . print_r($this->allMimeTypeMappings, true));
+
+    return $this->allMimeTypeMappings;
+
+  }
+
+  /** @return array Slurp in and cache the extension to mime-type mapping. */
+  private function getAppMimeTypeMappings():array
+  {
+    if ($this->appMimeTypeMappings !== null) {
+      return $this->appMimeTypeMappings;
     }
 
     $baseDirs = [ $this->appPath, __DIR__ . '/../../' ];
@@ -157,13 +181,13 @@ class MimeTypeService
     }
 
     if (empty($arrayData)) {
-      $this->mimeTypeMapping = [];
-      return $this->mimeTypeMapping;
+      $this->appMimeTypeMappings = [];
+      return $this->appMimeTypeMappings;
     }
 
-    $this->mimeTypeMapping = array_filter($arrayData, fn(string $key) => !str_starts_with($key, '__'), ARRAY_FILTER_USE_KEY);
-    // $this->logInfo('MIME MAPPINGS ' . print_r($this->mimeTypeMapping, true));
+    $this->appMimeTypeMappings = array_filter($arrayData, fn(string $key) => !str_starts_with($key, '_'), ARRAY_FILTER_USE_KEY);
+    // $this->logInfo('MIME MAPPINGS ' . print_r($this->appMimeTypeMappings, true));
 
-    return $this->mimeTypeMapping;
+    return $this->appMimeTypeMappings;
   }
 }
