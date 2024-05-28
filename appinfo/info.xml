@@ -19,6 +19,13 @@
     <filesystem/><!-- required for catching dav events, otherwise app is not loaded -->
     <dav/>
   </types>
+  <repair-steps>
+    <!-- <install>
+    </install> -->
+    <post-migration>
+      <step>OCA\FilesArchive\Migration\RegisterMimeTypes</step>
+    </post-migration>
+  </repair-steps>
   <settings>
     <admin>OCA\FilesArchive\Settings\Admin</admin>
     <admin-section>OCA\FilesArchive\Settings\AdminSection</admin-section>
