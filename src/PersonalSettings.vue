@@ -78,7 +78,7 @@
                  :label="t(appName, 'Template for the default name of the extraction folder')"
                  :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
                  placeholder="{archiveFileName}"
-                 @submit="saveTextInput(...arguments, 'extractTargetTemplate')"
+                 @submit="saveTextInput('extractTargetTemplate')"
       />
       <div class="settings-option">
         <input :id="id + '-extract-strip-common-prefix'"
