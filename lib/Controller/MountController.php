@@ -177,7 +177,6 @@ class MountController extends Controller
       $archiveService->open($archiveFile, password: $passPhrase);
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();
-      // $archiveInfo = $e->getArchiveInfo();
       if ($uncompressedSize > $this->archiveBombLimit) {
         return self::grumble($this->l->t('The archive file "%1$s" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s.', [
           $archivePath, $this->formatStorageValue($uncompressedSize), $this->formatStorageValue($this->archiveBombLimit)
