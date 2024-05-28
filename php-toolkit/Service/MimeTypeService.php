@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\FilesArchive\Toolkit\Service;
+namespace OCA\RotDrop\Toolkit\Service;
 
 use Throwable;
 
@@ -86,19 +86,35 @@ class MimeTypeService
    */
   public function registerMimeTypeMappings():void
   {
-    if (!($this->mimeTypeDetector instanceof mimeTypeDetector)) {
+    if (!($this->mimeTypeDetector instanceof MimeTypeDetector)) {
       return;
+    }
+
+    $missingMimeMappings = $this->getMissingMimeTypeMappings();
+    foreach ($missingMimeMappings as $extension => $mimeTypes) {
+      $this->mimeTypeDetector->registerType($extension, $mimeTypes[0]);
+    }
+    $this->allMimeTypeMappings = null;
+  }
+
+  /**
+   * Return an array of required mime type mappings missing from this Nextcloud instance.
+   *
+   * @return array
+   */
+  public function getMissingMimeTypeMappings():array
+  {
+    if (!($this->mimeTypeDetector instanceof MimeTypeDetector)) {
+      return [];
     }
 
     $cloudMimeTypeMapping = $this->mimeTypeDetector->getAllMappings();
     $mimeTypeMapping = $this->getAppMimeTypeMappings();
 
     $missingMimeMappings = array_diff_key($mimeTypeMapping, $cloudMimeTypeMapping);
-    foreach ($missingMimeMappings as $extension => $mimeTypes) {
-      $this->mimeTypeDetector->registerType($extension, $mimeTypes[0]);
-    }
-    $this->allMimeTypeMappings = null;
     // $this->logInfo('ADDING MISSING MIME-TYPE MAPPINGS ' . print_r($missingMimeMappings, true));
+
+    return $missingMimeMappings;
   }
 
   /**
@@ -112,6 +128,7 @@ class MimeTypeService
     if ($this->supportedMimeTypes !== null) {
       return $this->supportedMimeTypes;
     }
+    $this->registerMimeTypeMappings();
     $mimeTypeMapping = $this->getAllMimeTypeMappings();
     $supportedFormats = ArchiveFormats::getSupportedDriverFormats();
     $this->supportedMimeTypes = [];
@@ -120,13 +137,13 @@ class MimeTypeService
       if (count($mimeTypes) == 0) {
         $this->logError('Buggy config file, no mime-types for extension ' . $extension);
       } elseif (count($mimeTypes) > 1) {
-        $this->logWarn('More than one mime-type for extension "' . $extension . '": ' . print_r($mimeTypes, true));
+        $this->logDebug('More than one mime-type for extension "' . $extension . '": ' . print_r($mimeTypes, true));
       }
       $mimeType = $mimeTypes[0];
       if ($mimeType == 'application/x-gtar') {
         $this->logInfo('MIME TYPE ' . $mimeType);
       }
-      $format = ArchiveFormats::detectArchiveFormat('FOO.' . $extension);
+      $format = ArchiveFormats::detectArchiveFormat('FOO.' . $extension, contentCheck: false);
       if (!empty($supportedFormats[$format])) {
         $this->supportedMimeTypes[$extension] = $mimeType;
       } else {
