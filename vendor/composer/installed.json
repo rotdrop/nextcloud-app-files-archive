@@ -2094,18 +2094,12 @@
         },
         {
             "name": "wapmorgan/unified-archive",
-            "version": "1.2.0",
-            "version_normalized": "1.2.0.0",
+            "version": "dev-bugfix/fix-alchemy-zippy-mtime",
+            "version_normalized": "dev-bugfix/fix-alchemy-zippy-mtime",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wapmorgan/UnifiedArchive.git",
-                "reference": "5f02ad060223fd714aaf7f64a18d8e819ac0ab93"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wapmorgan/UnifiedArchive/zipball/5f02ad060223fd714aaf7f64a18d8e819ac0ab93",
-                "reference": "5f02ad060223fd714aaf7f64a18d8e819ac0ab93",
-                "shasum": ""
+                "url": "https://github.com/rotdrop/UnifiedArchive",
+                "reference": "3b92dcd314ac69303dea66046669b05bf8a8d025"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -2136,7 +2130,7 @@
                 "symfony/console": "Requirement for cam (Console Archive Manager)",
                 "wapmorgan/cab-archive": "[pure] native CAB support"
             },
-            "time": "2023-06-30T15:52:56+00:00",
+            "time": "2024-05-28T13:27:11+00:00",
             "bin": [
                 "bin/cam"
             ],
@@ -2158,13 +2152,17 @@
                     }
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "wapmorgan\\UnifiedArchive\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "build": [
+                    "phar-builder package composer.json"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2190,10 +2188,6 @@
                 "tar",
                 "zip"
             ],
-            "support": {
-                "issues": "https://github.com/wapmorgan/UnifiedArchive/issues",
-                "source": "https://github.com/wapmorgan/UnifiedArchive/tree/1.2.0"
-            },
             "install-path": "../wapmorgan/unified-archive"
         }
     ],
