@@ -151,8 +151,8 @@ class ArchiveController extends Controller
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $this->logException($e);
       $archiveStatus = self::ARCHIVE_STATUS_TOO_LARGE;
-      $archiveInfo = $e->getArchiveInfo();
-      if ($archiveInfo[ArchiveService::ARCHIVE_INFO_ORIGINAL_SIZE] > $this->archiveBombLimit) {
+      $uncompressedSize = $e->getActualSize();
+      if ($uncompressedSize > $this->archiveBombLimit) {
         $archiveStatus |= self::ARCHIVE_STATUS_BOMB;
       }
     } catch (Throwable $e) {
