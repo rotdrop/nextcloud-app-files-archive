@@ -18,7 +18,7 @@
     "symfony/console": "^6.0",
     "symfony/event-dispatcher": "*",
     "wapmorgan/cab-archive": "^0.0.7",
-    "wapmorgan/unified-archive": "^1.2.0"
+    "wapmorgan/unified-archive": "dev-bugfix/fix-alchemy-zippy-mtime"
   },
   "require-dev": {
     "nextcloud/coding-standard": "*",
@@ -34,7 +34,12 @@
       "php": "8.0.2"
     }
   },
-  "repositories": [],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/rotdrop/UnifiedArchive"
+    }
+  ],
   "scripts": {
     "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
     "cs:check": "php-cs-fixer fix --dry-run --diff",

@@ -75,7 +75,7 @@ class RegisterMimeTypes implements IRepairStep
       $coreFile = $dataSet['core'];
 
       if (!is_writable($coreFile)) {
-        $this->logError('Unable to update "%s", file is not writable.', $coreFile);
+        $this->logError('Unable to update "' . $coreFile . '", file is not writable.');
         continue;
       } else {
         $this->logInfo('Modifying "' . $coreFile . '" ...');
