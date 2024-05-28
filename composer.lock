@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "effb126f36ba0c49016bddd28f2d311a",
+    "content-hash": "88ca72d73fccdc00f56317556154ee25",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2014,17 +2014,11 @@
         },
         {
             "name": "wapmorgan/unified-archive",
-            "version": "1.2.0",
+            "version": "dev-bugfix/fix-alchemy-zippy-mtime",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wapmorgan/UnifiedArchive.git",
-                "reference": "5f02ad060223fd714aaf7f64a18d8e819ac0ab93"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wapmorgan/UnifiedArchive/zipball/5f02ad060223fd714aaf7f64a18d8e819ac0ab93",
-                "reference": "5f02ad060223fd714aaf7f64a18d8e819ac0ab93",
-                "shasum": ""
+                "url": "https://github.com/rotdrop/UnifiedArchive",
+                "reference": "3b92dcd314ac69303dea66046669b05bf8a8d025"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -2081,7 +2075,11 @@
                     "wapmorgan\\UnifiedArchive\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "build": [
+                    "phar-builder package composer.json"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2107,11 +2105,7 @@
                 "tar",
                 "zip"
             ],
-            "support": {
-                "issues": "https://github.com/wapmorgan/UnifiedArchive/issues",
-                "source": "https://github.com/wapmorgan/UnifiedArchive/tree/1.2.0"
-            },
-            "time": "2023-06-30T15:52:56+00:00"
+            "time": "2024-05-28T13:27:11+00:00"
         }
     ],
     "packages-dev": [
@@ -4642,6 +4636,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "wapmorgan/unified-archive": 20,
         "phpmd/phpmd": 0
     },
     "prefer-stable": false,
