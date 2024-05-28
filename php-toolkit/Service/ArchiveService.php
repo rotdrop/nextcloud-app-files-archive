@@ -316,7 +316,7 @@ class ArchiveService
           $fileNode->getInternalPath(), CloudUtil::humanFileSize($archiveSize), CloudUtil::humanFileSize($sizeLimit),
         ]),
         $sizeLimit,
-        $archiveInfo,
+        $archiveSize,
       );
     }
 

@@ -627,6 +627,7 @@ export default {
           if (this.archiveMounts.findIndex((mount) => mount.mountPoint.fileid === newFileId) === -1) {
             this.archiveMounts.push(newMount)
             const node = fileInfoToNode(response.data.mountPoint)
+            node.attributes['is-mount-root'] = true
 
             console.info('EMIT CREATED', node)
             emit('files:node:created', node)
@@ -666,6 +667,7 @@ export default {
           console.error('UNABLE TO FIND DELETED MOUNT IN LIST', mount, this.archiveMounts)
         }
         const node = fileInfoToNode(mount.mountPoint)
+        node.attributes['is-mount-root'] = true
 
         console.info('EMIT DELETED')
         emit('files:node:deleted', node)
@@ -764,6 +766,8 @@ export default {
         const response = await axios.post(url, requestData)
         if (!this.archiveExtractBackgroundJob) {
           const node = fileInfoToNode(response.data.targetFolder)
+          node.attributes['is-mount-root'] = true
+
           console.info('EMIT CREATED')
           emit('files:node:created', node)
         }
