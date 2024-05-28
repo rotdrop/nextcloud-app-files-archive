@@ -230,7 +230,7 @@ class ArchiveService
    */
   private static function getLocalPath(File $fileNode):string
   {
-    return $fileNode->getStorage()->getLocalFile($fileNode->getInternalPath());
+    return realpath($fileNode->getStorage()->getLocalFile($fileNode->getInternalPath()));
   }
 
   /**

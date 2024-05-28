@@ -5,7 +5,7 @@
   <name>Archive Manager</name>
   <summary>On-the-fly archive inspector for Nextcloud</summary>
   <description><![CDATA[Inspect, mount and extract archive files (zip, tar, etc.)]]></description>
-  <version>1.2.4-rc3</version>
+  <version>1.2.4-rc4</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de" >Claus-Justus Heine</author>
   <namespace>FilesArchive</namespace>
@@ -19,6 +19,13 @@
     <filesystem/><!-- required for catching dav events, otherwise app is not loaded -->
     <dav/>
   </types>
+  <repair-steps>
+    <!-- <install>
+    </install> -->
+    <post-migration>
+      <step>OCA\FilesArchive\Migration\RegisterMimeTypes</step>
+    </post-migration>
+  </repair-steps>
   <settings>
     <admin>OCA\FilesArchive\Settings\Admin</admin>
     <admin-section>OCA\FilesArchive\Settings\AdminSection</admin-section>
