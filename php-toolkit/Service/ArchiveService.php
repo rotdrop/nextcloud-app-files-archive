@@ -23,6 +23,7 @@
 namespace OCA\RotDrop\Toolkit\Service;
 
 use DateTimeInterface;
+use Normalizer;
 
 use wapmorgan\UnifiedArchive\ArchiveEntry;
 use wapmorgan\UnifiedArchive\Exceptions as BackendExceptions;
@@ -152,7 +153,16 @@ class ArchiveService
   private $archiveFiles;
 
   /** @var array */
+  private $archiveInfo;
+
+  /** @var array */
   private array $savedProcessEnvironment;
+
+  /**
+   * @var int
+   * Normalization convention used inside the archive.
+   */
+  private int $unicodeNormalization;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -161,6 +171,8 @@ class ArchiveService
   ) {
     $this->archiver = null;
     $this->fileNode = null;
+    $this->archiveFiles = null;
+    $this->archiveInfo = null;
   }
   // phpcs:enable
 
@@ -272,6 +284,7 @@ class ArchiveService
     $this->archiver = null;
     $this->fileNode = null;
     $this->archiveFiles = null;
+    $this->archiveInfo = null;
   }
 
   /**
@@ -320,6 +333,14 @@ class ArchiveService
       );
     }
 
+    $this->unicodeNormalization = Normalizer::NFC;
+    foreach ($this->archiver->getFileNames() as $fileName) {
+      if (!Normalizer::isNormalized($fileName)) {
+        $this->unicodeNormalization = Normalizer::NFD;
+        break;
+      }
+    }
+
     return $this;
   }
 
@@ -329,6 +350,10 @@ class ArchiveService
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
         $this->t('There is no archive file associated with this archiver instance.'));
+    }
+
+    if ($this->archiveInfo !== null) {
+      return $this->archiveInfo;
     }
 
     $this->setProcessEnvironment();
@@ -343,7 +368,7 @@ class ArchiveService
 
     // $this->logInfo('MIME ' .  $this->fileNode->getMimeType());
 
-    $result = [
+    $this->archiveInfo = [
       self::ARCHIVE_INFO_FORMAT => $this->archiver->getFormat(),
       self::ARCHIVE_INFO_MIME_TYPE => $this->fileNode->getMimeType(),
       self::ARCHIVE_INFO_SIZE => $this->archiver->getSize(),
@@ -358,7 +383,7 @@ class ArchiveService
 
     $this->restoreProcessEnvironment();
 
-    return $result;
+    return $this->archiveInfo;
   }
 
   /**
@@ -405,6 +430,10 @@ class ArchiveService
         $this->t('There is no archive file associated with this archiver instance.'));
     }
 
+    if ($this->archiveFiles !== null) {
+      return $this->archiveFiles;
+    }
+
     $this->setProcessEnvironment();
 
     foreach ($this->archiver->getFileNames() as $fileName) {
@@ -435,7 +464,7 @@ class ArchiveService
 
     $this->setProcessEnvironment();
 
-    $result = $this->archiver->getFileContent($fileName);
+    $result = $this->archiver->getFileContent(Normalizer::normalize($fileName, $this->unicodeNormalization));
 
     $this->restoreProcessEnvironment();
 
@@ -456,7 +485,7 @@ class ArchiveService
 
     $this->setProcessEnvironment();
 
-    $result = $this->archiver->getFileStream($fileName);
+    $result = $this->archiver->getFileStream(Normalizer::normalize($fileName, $this->unicodeNormalization));
 
     $this->restoreProcessEnvironment();
 
