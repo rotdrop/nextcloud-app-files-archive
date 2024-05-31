@@ -92,7 +92,7 @@ class RegisterMimeTypes implements IRepairStep
             }
           } catch (Throwable $t) {
             $this->logException($t);
-            continue;
+            continue 2;
           }
           break;
         case 'mapping':
