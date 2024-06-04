@@ -25,7 +25,9 @@ namespace OCA\RotDrop\Toolkit\Service;
 use DateTimeInterface;
 use Normalizer;
 
+use wapmorgan\UnifiedArchive\Abilities as DriverAbilities;
 use wapmorgan\UnifiedArchive\ArchiveEntry;
+use wapmorgan\UnifiedArchive\Drivers\Basic\BasicDriver;
 use wapmorgan\UnifiedArchive\Exceptions as BackendExceptions;
 
 use OCP\IL10N;
@@ -251,16 +253,80 @@ class ArchiveService
    * @param File $fileNode
    *
    * @return bool
+   *
+   * @throws Exceptions\ArchiveCannotOpenException
    */
   public function canOpen(File $fileNode):bool
   {
     $this->setProcessEnvironment();
 
-    $result = ArchiveBackend::canOpen(self::getLocalPath($fileNode));
+    $localPath = self::getLocalPath($fileNode);
+
+    $format = ArchiveFormats::detectArchiveFormat($localPath);
+    $canOpen = $format !== null && ArchiveFormats::canOpen($format);
 
     $this->restoreProcessEnvironment();
 
-    return $result;
+    if ($format === null) {
+      throw new Exceptions\ArchiveCannotOpenException(
+        $this->l->t('Unable to detect the archive format of "%1$s".', $fileNode->getName())
+      );
+    }
+    if (!$canOpen) {
+      $messages = [];
+      if (str_starts_with($format, 't') && !str_starts_with($format, 'tar')) {
+        $innerFormat = 'tar';
+        $compositeFormat = $format;
+        $format = substr($format, 1);
+        $this->setProcessEnvironment();
+        $canDecompress = $format !== null && ArchiveFormats::canOpen($format);
+        $canUntar = ArchiveFormats::canOpen($innerFormat);
+        $this->restoreProcessEnvironment();
+        if (!$canDecompress) {
+          $messages[] = $this->l->t('Archive format of "%1$s" detected as "%2$s", but there is no backend driver installed which can decompress ".%3$s" files.', [
+             $fileNode->getName(),
+             $compositeFormat,
+             $format,
+          ]);
+        }
+        if (!$canUntar) {
+          // this should never be the case ...
+          $messages[] = $this->l->t(
+            'Unable to deal with tar-files. Please check the installation of the app.'
+          );
+        }
+      } else {
+        $messages[] = $this->l->t('The archive format of "%1$s" has been detected as "%2$s", but there is no backend driver installed which can deal with this format.', [
+          $fileNode->getName(),
+          $format,
+        ]);
+      }
+      $formats = ArchiveFormats::getDeclaredDriverFormats();
+      foreach ($formats[$format] as $driverClass) {
+        $shortDriver = substr($driverClass, strrpos($driverClass, '\\') + 1);
+        if (!$driverClass::isInstalled()) {
+          $messages[] = $this->l->t('The "%1$s" driver could handle this format, but it is not installed.', $shortDriver);
+          $typeLabel = BasicDriver::$typeLabels[$driverClass::TYPE];
+          $instructions = $driverClass::getInstallationInstruction();
+          $messages[] = $this->l->t('Installation instructions: ')
+            . ucfirst($typeLabel)
+            . '. '
+            . ucfirst($instructions)
+            . '.';
+          continue;
+        }
+        $abilities = $driverClass::getFormatAbilities($format);
+        $requiredAbilities = DriverAbilities::OPEN|DriverAbilities::EXTRACT_CONTENT;
+        if (($abilities & $requiredAbilities) != $requiredAbilities) {
+          $messages[] = $this->l->t('The "%1$s" driver claims to handle this format, but cannot extract the archive content.', $shortDriver);
+        }
+      }
+      throw new Exceptions\ArchiveCannotOpenException(
+        implode(PHP_EOL, $messages)
+      );
+    }
+
+    return true;
   }
 
   /**
