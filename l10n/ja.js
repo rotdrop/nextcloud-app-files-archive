@@ -1,6 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "ユーザー",
     "Password" : "パスワード",
     "bytes" : "バイト",
     "Clear Selection" : "セッションクリア",
