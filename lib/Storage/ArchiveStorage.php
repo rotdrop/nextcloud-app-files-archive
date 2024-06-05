@@ -255,8 +255,8 @@ class ArchiveStorage extends AbstractStorage
       }
       $this->dirNames = array_keys($this->dirNames);
 
-      $this->logInfo('FILES ' . print_r($this->files, true));
-      $this->logInfo('DIRS ' . print_r($this->dirNames, true));
+      // $this->logInfo('FILES ' . print_r($this->files, true));
+      // $this->logInfo('DIRS ' . print_r($this->dirNames, true));
 
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       throw $e;
