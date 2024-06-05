@@ -31,13 +31,13 @@
                  @submit="saveTextInput('archiveSizeLimit', humanArchiveSizeLimit)"
       />
     </NcSettingsSection>
-    <NcSettingsSection :name="t(appName, 'Diagnostics')">
+    <NcSettingsSection :name="t(appName, 'Diagnostics')" class="diagnostics">
       <h3>{{ t(appName, "Archive Formats") }}</h3>
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <pre :class="{ loading: diagnostics.formats === null, diagnostics: true }" v-html="diagnostics.formats" />
+      <pre :class="{ loading: diagnostics.formats === null, diagnostics_output: true, ansi_color_bg_black: true }" v-html="diagnostics.formats" />
       <h3>{{ t(appName, "Supported Drivers") }}</h3>
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <pre :class="{ loading: diagnostics.drivers === null, diagnostics: true }" v-html="diagnostics.drivers" />
+      <pre :class="{ loading: diagnostics.drivers === null, diagnostics_output: true, ansi_color_bg_black: true }" v-html="diagnostics.drivers" />
     </NcSettingsSection>
   </div>
 </template>
@@ -126,9 +126,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .cloud-version {
-  --cloud-theme-filter: none;
-  &.cloud-version-major-25 {
-    --cloud-theme-filter: var(--background-invert-if-dark);
+  --cloud-theme-filter: var(--background-invert-if-dark);
+  &.cloud-version-major-24 {
+    --cloud-theme-filter: none;
   }
 }
 .templateroot::v-deep {
@@ -160,13 +160,88 @@ export default {
       align-items:center;
     }
   }
-  .diagnostics {
+  .diagnostics_output {
     min-height: 2ex;
-    font-family: monospace;
-    font-size: 80%;
-    line-height: 100%;
     max-width: 100%;
     overflow-x: auto;
+    &, * {
+      font-family: monospace;
+      font-size: 80%;
+      line-height: normal;
+    }
+  }
+}
+// solarized colors for SensioLabs\AnsiConverter
+[data-themes*='dark'] {
+  .templateroot::v-deep .diagnostics *:not(.loading) {
+    &.ansi_color_fg_black { color: #073642 }
+    &.ansi_color_bg_black { background-color: #073642 }
+    &.ansi_color_fg_red { color: #dc322f }
+    &.ansi_color_bg_red { background-color: #dc322f }
+    &.ansi_color_fg_green { color: #859900 }
+    &.ansi_color_bg_green { background-color: #859900 }
+    &.ansi_color_fg_yellow { color: #b58900 }
+    &.ansi_color_bg_yellow { background-color: #b58900 }
+    &.ansi_color_fg_blue { color: #268bd2 }
+    &.ansi_color_bg_blue { background-color: #268bd2 }
+    &.ansi_color_fg_magenta { color: #d33682 }
+    &.ansi_color_bg_magenta { background-color: #d33682 }
+    &.ansi_color_fg_cyan { color: #2aa198 }
+    &.ansi_color_bg_cyan { background-color: #2aa198 }
+    &.ansi_color_fg_white { color: #eee8d5 }
+    &.ansi_color_bg_white { background-color: #eee8d5 }
+    &.ansi_color_fg_brblack { color: #002b36 }
+    &.ansi_color_bg_brblack { background-color: #002b36 }
+    &.ansi_color_fg_brred { color: #cb4b16 }
+    &.ansi_color_bg_brred { background-color: #cb4b16 }
+    &.ansi_color_fg_brgreen { color: #586e75 }
+    &.ansi_color_bg_brgreen { background-color: #586e75 }
+    &.ansi_color_fg_bryellow { color: #657b83 }
+    &.ansi_color_bg_bryellow { background-color: #657b83 }
+    &.ansi_color_fg_brblue { color: #839496 }
+    &.ansi_color_bg_brblue { background-color: #839496 }
+    &.ansi_color_fg_brmagenta { color: #6c71c4 }
+    &.ansi_color_bg_brmagenta { background-color: #6c71c4 }
+    &.ansi_color_fg_brcyan { color: #93a1a1 }
+    &.ansi_color_bg_brcyan { background-color: #93a1a1 }
+    &.ansi_color_fg_brwhite { color: #fdf6e3 }
+    &.ansi_color_bg_brwhite { background-color: #fdf6e3 }
+  }
+}
+[data-themes*='light'], [data-themes*='default'] {
+  .templateroot::v-deep .diagnostics *:not(.loading) {
+    &.ansi_color_fg_black { color: #eee8d5 }
+    &.ansi_color_bg_black { background-color: #eee8d5 }
+    &.ansi_color_fg_red { color: #dc322f }
+    &.ansi_color_bg_red { background-color: #dc322f }
+    &.ansi_color_fg_green { color: #859900 }
+    &.ansi_color_bg_green { background-color: #859900 }
+    &.ansi_color_fg_yellow { color: #b58900 }
+    &.ansi_color_bg_yellow { background-color: #b58900 }
+    &.ansi_color_fg_blue { color: #268bd2 }
+    &.ansi_color_bg_blue { background-color: #268bd2 }
+    &.ansi_color_fg_magenta { color: #d33682 }
+    &.ansi_color_bg_magenta { background-color: #d33682 }
+    &.ansi_color_fg_cyan { color: #2aa198 }
+    &.ansi_color_bg_cyan { background-color: #2aa198 }
+    &.ansi_color_fg_white { color: #073642 }
+    &.ansi_color_bg_white { background-color: #073642 }
+    &.ansi_color_fg_brblack { color: #fdf6e3 }
+    &.ansi_color_bg_brblack { background-color: #fdf6e3 }
+    &.ansi_color_fg_brred { color: #cb4b16 }
+    &.ansi_color_bg_brred { background-color: #cb4b16 }
+    &.ansi_color_fg_brgreen { color: #93a1a1 }
+    &.ansi_color_bg_brgreen { background-color: #93a1a1 }
+    &.ansi_color_fg_bryellow { color: #839496 }
+    &.ansi_color_bg_bryellow { background-color: #839496 }
+    &.ansi_color_fg_brblue { color: #657b83 }
+    &.ansi_color_bg_brblue { background-color: #657b83 }
+    &.ansi_color_fg_brmagenta { color: #6c71c4 }
+    &.ansi_color_bg_brmagenta { background-color: #6c71c4 }
+    &.ansi_color_fg_brcyan { color: #586e75 }
+    &.ansi_color_bg_brcyan { background-color: #586e75 }
+    &.ansi_color_fg_brwhite { color: #002b36 }
+    &.ansi_color_bg_brwhite { background-color: #002b36 }
   }
 }
 </style>
