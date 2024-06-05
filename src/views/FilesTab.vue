@@ -148,15 +148,22 @@
                     :bold="false"
           >
             <template #title>
-              <a class="external icon-folder icon"
+              <a v-tooltip="mountPoint.mountPointPath"
+                 class="external icon-folder icon"
                  :target="openMountTarget"
-                 :href="filesAppMountPointUrlI(mountPoint)"
+                 :href="filesAppMountPointUrl(mountPoint)"
               >
                 {{ mountPoint.mountPointPath }}
               </a>
             </template>
             <template #actions>
-              <NcActionButton icon="icon-delete" @click="unmount(mountPoint, ...arguments)" />
+              <NcActionButton @click="unmount(mountPoint, ...arguments)">
+                <template #icon>
+                  <NetworkOff v-tooltip="t(appName, 'Disconnect storage')"
+                              :size="20"
+                  />
+                </template>
+              </NcActionButton>
             </template>
             <template v-if="mountPoint.mountFlags & 1" #extra>
               <div>{{ t(appName, 'Common prefix {prefix} is stripped.', { prefix: commonPathPrefix }) }}</div>
@@ -255,6 +262,7 @@ import { fileInfoToNode } from '../toolkit/util/file-node-helper.js'
 import md5 from 'blueimp-md5'
 import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { translate as t, translatePlural as n } from '@nextcloud/l10n'
+import NetworkOff from 'vue-material-design-icons/NetworkOff.vue'
 
 import { formatFileSize } from '@nextcloud/files'
 import {
@@ -278,12 +286,13 @@ export {
 export default {
   name: 'FilesTab',
   components: {
-    NcActions,
-    NcActionButton,
-    NcActionInput,
-    NcActionCheckbox,
-    ListItem,
     FilePrefixPicker,
+    ListItem,
+    NcActionButton,
+    NcActionCheckbox,
+    NcActionInput,
+    NcActions,
+    NetworkOff,
   },
   data() {
     return {
@@ -529,6 +538,7 @@ export default {
       const oldMounts = [...this.archiveMounts]
       const mounts = await this.getArchiveMounts(filename, false)
       this.archiveMounts = mounts.mounts
+      console.info('MOUNTS', this.archiveMounts)
       if (noEmit) {
         // do no emit birth during initialization
         return
@@ -573,7 +583,6 @@ export default {
         for (const message of responseData.messages) {
           showInfo(message)
         }
-        console.info('MOUNTS', this.archiveMounts)
       } catch (e) {
         console.error('ERROR', e)
         if (e.response && e.response.data) {
