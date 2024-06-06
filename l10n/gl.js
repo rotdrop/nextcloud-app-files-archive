@@ -102,6 +102,7 @@ OC.L10N.register(
     "Show Passphrase" : "Amosar a frase de contrasinal",
     "Mount Points" : "Puntos de montaxe",
     "not mounted" : "sen montar",
+    "Disconnect storage" : "Desconectar o almacenamento",
     "Common prefix {prefix} is stripped." : "O prefixo común {prefix} está suprimido.",
     "Not mounted, create a new mount point:" : "Sen montar, cree un novo punto de montaxe:",
     "base name" : "nome base",

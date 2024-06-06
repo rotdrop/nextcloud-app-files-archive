@@ -16,6 +16,7 @@ OC.L10N.register(
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Zakázať extrakciu archívu pre archívy s dekomprimovanou veľkosťou väčšou ako tento limit.",
     "unknown" : "neznámy",
     "MIME type" : "Typ MIME",
+    "Disconnect storage" : "Odpojiť úložisko",
     "Archive" : "Archív",
     "reason unknown" : "dôvod neznámy",
     "Confirmation Required" : "Vyžaduje sa potvrdenie",

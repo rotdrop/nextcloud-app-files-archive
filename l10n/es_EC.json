@@ -97,6 +97,7 @@
     "Show Passphrase" : "Mostrar frase de contraseña",
     "Mount Points" : "Puntos de montaje",
     "not mounted" : "no montado",
+    "Disconnect storage" : "Desconectar almacenamiento",
     "Common prefix {prefix} is stripped." : "El prefijo común {prefix} se elimina.",
     "Not mounted, create a new mount point:" : "No está montado, crea un nuevo punto de montaje:",
     "base name" : "nombre base",

@@ -48,6 +48,7 @@ OC.L10N.register(
     "Passphrase" : "Šifrirno geslo",
     "Show Passphrase" : "Pokaži šifrirno geslo",
     "Mount Points" : "Priklopne točke",
+    "Disconnect storage" : "Odklopi shrambo",
     "Choose a directory to extract the archive to:" : "Izbor mape za razširjanje arhiva:",
     "Archive" : "Arhiv",
     "reason unknown" : "razlog ni znan",

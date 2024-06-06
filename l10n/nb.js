@@ -112,6 +112,7 @@ OC.L10N.register(
     "Show Passphrase" : "Vis passordfrase",
     "Mount Points" : "Mount Points",
     "not mounted" : "ikke montert",
+    "Disconnect storage" : "Koble fra lager",
     "Common prefix {prefix} is stripped." : "Vanlig prefiks {prefiks} fjernes.",
     "Not mounted, create a new mount point:" : "Ikke montert, opprett et nytt monteringspunkt:",
     "base name" : "basenavn",

@@ -5,6 +5,7 @@ OC.L10N.register(
     "Password" : "ססמה",
     "bytes" : "בתים",
     "unknown" : "לא ידוע",
+    "Disconnect storage" : "ניתוק אחסון",
     "Archive" : "לארכיון",
     "OK" : "אישור",
     "Created" : "מועד היצירה",

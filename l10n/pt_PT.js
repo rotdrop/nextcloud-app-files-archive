@@ -28,6 +28,7 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "Selecionado caminho inválido: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Caminho selecionado: \"{dir}/{base}/\".",
     "unknown" : "desconhecido",
+    "Disconnect storage" : "Desligue o armazenamento",
     "Archive" : "Arquivar",
     "true" : "verdadeiro",
     "false" : "falso",

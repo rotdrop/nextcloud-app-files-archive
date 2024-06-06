@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Password" : "Лозинка",
     "unknown" : "непознат",
+    "Disconnect storage" : "Исклучи складиште",
     "Archive" : "Архива",
     "OK" : "Добро",
     "Created" : "Креирано",

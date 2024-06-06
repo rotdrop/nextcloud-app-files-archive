@@ -93,6 +93,7 @@ OC.L10N.register(
     "Show Passphrase" : "Показать пароль",
     "Mount Points" : "Точки монтирования",
     "not mounted" : "не смонтировано",
+    "Disconnect storage" : "Отсоединить хранилище",
     "Common prefix {prefix} is stripped." : "Общий префикс {prefix} обрезан.",
     "Not mounted, create a new mount point:" : "Не смонтирован, создайте новую точку монтирования:",
     "base name" : "базовое имя",

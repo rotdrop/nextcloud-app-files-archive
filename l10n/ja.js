@@ -1,11 +1,13 @@
 OC.L10N.register(
     "files_archive",
     {
+    "User" : "ユーザー",
     "Password" : "パスワード",
     "bytes" : "バイト",
     "Clear Selection" : "セッションクリア",
     "unknown" : "不明",
     "MIME type" : "MIMEタイプ",
+    "Disconnect storage" : "ストレージを切断する",
     "Archive" : "アーカイブ",
     "OK" : "OK",
     "Created" : "作成時刻",

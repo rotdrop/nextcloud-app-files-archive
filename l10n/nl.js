@@ -18,6 +18,7 @@ OC.L10N.register(
     "submit" : "versturen",
     "unknown" : "onbekend",
     "MIME type" : "MIME type",
+    "Disconnect storage" : "Verbinding met opslag verbreken",
     "Archive" : "Archiveren",
     "OK" : "OK",
     "Created" : "Gemaakt",

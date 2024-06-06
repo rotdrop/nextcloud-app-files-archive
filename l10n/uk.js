@@ -19,6 +19,7 @@ OC.L10N.register(
     "unknown" : "невідомо",
     "uncompressed size" : "розархівований розмір",
     "compressed size" : "архівований розмір",
+    "Disconnect storage" : "Від’єднати сховище",
     "Choose a directory to extract the archive to:" : "Виберіть каталог, до якого буде видобуто архів:",
     "Archive" : "Архів",
     "OK" : "Гаразд",

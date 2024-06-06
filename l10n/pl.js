@@ -12,6 +12,7 @@ OC.L10N.register(
     "Choose a folder" : "Wybierz katalog",
     "unknown" : "nieznane",
     "MIME type" : "Typ MIME",
+    "Disconnect storage" : "Odłącz magazyn",
     "Archive" : "Archiwum",
     "true" : "prawda",
     "false" : "nieprawda",
