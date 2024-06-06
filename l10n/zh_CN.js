@@ -85,6 +85,7 @@ OC.L10N.register(
     "Show Passphrase" : "显示密码",
     "Mount Points" : "挂载点",
     "not mounted" : "未挂载",
+    "Disconnect storage" : "断开与存储空间的连接",
     "Common prefix {prefix} is stripped." : "已删除共同前缀 {prefix}",
     "Not mounted, create a new mount point:" : "未挂载，创建一个新的挂载点：",
     "strip common path prefix" : "去除共同路径前缀",

@@ -5,6 +5,7 @@ OC.L10N.register(
     "Password" : "Zaporka",
     "bytes" : "bajtova",
     "unknown" : "nepoznato",
+    "Disconnect storage" : "Odspoji pohranu",
     "Archive" : "Arhiva",
     "OK" : "U redu",
     "Created" : "Stvoreno",

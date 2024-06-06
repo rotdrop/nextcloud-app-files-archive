@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "User" : "Usuario",
     "unknown" : "desconocido",
+    "Disconnect storage" : "Desconectar almacenamiento",
     "Archive" : "Archivar",
     "OK" : "OK",
     "Created" : "Creado",

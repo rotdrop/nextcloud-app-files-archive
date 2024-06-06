@@ -16,6 +16,7 @@ OC.L10N.register(
     "Template for the default name of the extraction folder" : "Πρότυπο για το προεπιλεγμένο όνομα του φακέλου εξαγωγής",
     "unknown" : "άγνωστο",
     "MIME type" : "Τύπος MIME",
+    "Disconnect storage" : "Αποσύνδεση αποθηκευτικού χώρου",
     "Extract Archive" : "Εξαγωγή Αρχείων",
     "ok" : "ok",
     "zip bomb" : "βόμβα αποσυμπίεσης",

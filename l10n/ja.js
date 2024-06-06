@@ -7,6 +7,7 @@ OC.L10N.register(
     "Clear Selection" : "セッションクリア",
     "unknown" : "不明",
     "MIME type" : "MIMEタイプ",
+    "Disconnect storage" : "ストレージを切断する",
     "Archive" : "アーカイブ",
     "OK" : "OK",
     "Created" : "作成時刻",
