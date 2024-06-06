@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Pengguna",
     "Password" : "Kata sandi",
     "unknown" : "tidak diketahui",
+    "Disconnect storage" : "Memutuskan penyimpaan",
     "Archive" : "Arsip",
     "OK" : "OK",
     "Created" : "Dibuat",

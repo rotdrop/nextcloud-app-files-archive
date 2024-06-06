@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Përdorues",
     "Password" : "Fjalëkalimi",
     "unknown" : "panjohur",
+    "Disconnect storage" : "Shkëpute depozitën",
     "Archive" : "Arkiva",
     "OK" : "OK",
     "Created" : "U krijua",

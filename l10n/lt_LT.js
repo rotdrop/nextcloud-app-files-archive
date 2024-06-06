@@ -11,6 +11,7 @@ OC.L10N.register(
     "Passphrase" : "Slaptafrazė",
     "Show Passphrase" : "Rodyti slaptafrazė",
     "Mount Points" : "Prijungimo taškai",
+    "Disconnect storage" : "Atjungti saugyklą",
     "Archive" : "Archyvuoti",
     "reason unknown" : "priežastis nežinoma",
     "OK" : "Gerai",

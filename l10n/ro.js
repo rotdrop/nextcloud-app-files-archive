@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Utilizator",
     "Password" : "Parolă",
     "unknown" : "necunoscut",
+    "Disconnect storage" : "Deconectează stocarea",
     "Archive" : "Arhivă",
     "OK" : "OK",
     "Created" : "A fost creat",

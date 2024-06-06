@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Người dùng",
     "Password" : "Mật khẩu",
     "unknown" : "không biết",
+    "Disconnect storage" : "Bộ lưu trữ đã ngắt kết nối",
     "Archive" : "Lưu trữ",
     "OK" : "OK",
     "Created" : "Đã tạo",

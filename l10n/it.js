@@ -40,6 +40,7 @@ OC.L10N.register(
     "MIME type" : "Tipo MIME",
     "Passphrase" : "Frase segreta",
     "unset" : "non impostato",
+    "Disconnect storage" : "Disconnetti archiviazione",
     "basename" : "basename",
     "ok" : "OK",
     "Archive" : "Archivio",

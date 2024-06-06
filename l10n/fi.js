@@ -40,6 +40,7 @@ OC.L10N.register(
     "Show Passphrase" : "Näytä tunnuslause",
     "Mount Points" : "Liitospisteet",
     "not mounted" : "ei liitetty",
+    "Disconnect storage" : "Katkaise yhteys tallennustilaan",
     "Extract Archive" : "Pura arkisto",
     "Choose a directory to extract the archive to:" : "Valitse kansio, johon arkisto puretaan:",
     "too large" : "liian suuri",

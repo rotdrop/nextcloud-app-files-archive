@@ -100,6 +100,7 @@ OC.L10N.register(
     "Show Passphrase" : "Show Passphrase",
     "Mount Points" : "Mount Points",
     "not mounted" : "not mounted",
+    "Disconnect storage" : "فضای ذخیره را جدا کنید",
     "Common prefix {prefix} is stripped." : "Common prefix {prefix} is stripped.",
     "Not mounted, create a new mount point:" : "Not mounted, create a new mount point:",
     "base name" : "base name",

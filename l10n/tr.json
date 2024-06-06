@@ -110,6 +110,7 @@
     "Show Passphrase" : "Parolayı görüntüle",
     "Mount Points" : "Takma noktaları",
     "not mounted" : "takılmamış",
+    "Disconnect storage" : "Depolama bağlantısını kes",
     "Common prefix {prefix} is stripped." : "{prefix} ortak ön eki ayıklandı.",
     "Not mounted, create a new mount point:" : "Takılmamış. Yeni bir takma noktası ekle:",
     "base name" : "temel ad",

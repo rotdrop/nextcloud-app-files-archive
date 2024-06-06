@@ -97,6 +97,7 @@
     "Show Passphrase" : "Jelmondat megjelenítése",
     "Mount Points" : "Csatolási pontok",
     "not mounted" : "nincs csatolva",
+    "Disconnect storage" : "Tároló leválasztása",
     "Common prefix {prefix} is stripped." : "A(z) {prefix} közös előtag eltávolításra kerül.",
     "Not mounted, create a new mount point:" : "Nincs csatolva, új csatolási pont létrehozása:",
     "base name" : "alapnév",
