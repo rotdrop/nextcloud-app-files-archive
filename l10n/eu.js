@@ -108,6 +108,7 @@ OC.L10N.register(
     "Show Passphrase" : "Erakutsi pasahitza",
     "Mount Points" : "muntatze-puntuak",
     "not mounted" : "muntatu gabe",
+    "Disconnect storage" : "Deskonektatu biltegia",
     "Common prefix {prefix} is stripped." : "{prefix} aurrizki arrunta kenduta dago.",
     "Not mounted, create a new mount point:" : "Muntatu gabe, sortu muntatze-puntu berri bat:",
     "base name" : "oinarrizko izena",

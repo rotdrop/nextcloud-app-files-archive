@@ -4,6 +4,7 @@ OC.L10N.register(
     "Password" : "Lösenord",
     "bytes" : "byte",
     "unknown" : "okänt",
+    "Disconnect storage" : "Koppla bort lagring",
     "Archive" : "Arkivera",
     "OK" : "OK",
     "Created" : "Skapat",

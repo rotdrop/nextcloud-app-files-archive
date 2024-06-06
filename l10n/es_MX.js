@@ -5,6 +5,7 @@ OC.L10N.register(
     "Password" : "Contraseña",
     "bytes" : "bytes",
     "unknown" : "desconocido",
+    "Disconnect storage" : "Desconectar almacenamiento",
     "Archive" : "Archivar",
     "OK" : "OK",
     "Created" : "Creado",

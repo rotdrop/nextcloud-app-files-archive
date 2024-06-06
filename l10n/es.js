@@ -112,6 +112,7 @@ OC.L10N.register(
     "Show Passphrase" : "Mostrar frase de seguridad",
     "Mount Points" : "Puntos de montaje",
     "not mounted" : "no montado",
+    "Disconnect storage" : "Desconectar almacenamiento",
     "Common prefix {prefix} is stripped." : "El prefijo común {prefix} será removido.",
     "Not mounted, create a new mount point:" : "No está montado, cree un nuevo punto de montaje:",
     "base name" : "nombre base",

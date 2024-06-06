@@ -5,6 +5,7 @@ OC.L10N.register(
     "Password" : "პაროლ",
     "bytes" : "ბაიტები",
     "unknown" : "უცნობი",
+    "Disconnect storage" : "საცავის გათიშვა",
     "Archive" : "არქივი",
     "OK" : "კარგი",
     "Created" : "შექმნილია",

@@ -6,6 +6,7 @@ OC.L10N.register(
     "bytes" : "bytes",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",
+    "Disconnect storage" : "Disconnete archiviatzione",
     "Archive" : "Cartella",
     "OK" : "AB",
     "Created" : "Creadu",

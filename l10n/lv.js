@@ -6,6 +6,7 @@ OC.L10N.register(
     "bytes" : "baiti",
     "Security Options" : "Drošības iespējas",
     "unknown" : "nezināms",
+    "Disconnect storage" : "Atvienot glabātuvi",
     "Archive" : "Arhīvi",
     "OK" : "Labi",
     "Created" : "Izveidots",

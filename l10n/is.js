@@ -5,6 +5,7 @@ OC.L10N.register(
     "Password" : "Lykilorð",
     "bytes" : "bæti",
     "unknown" : "óþekkt",
+    "Disconnect storage" : "Aftengja geymslu",
     "Archive" : "Safn",
     "OK" : "Í lagi",
     "Created" : "Búið til þann",
