@@ -12,6 +12,7 @@ OC.L10N.register(
     "restore palette" : "restaurar la paleta",
     "Please select an item!" : "¡Seleiciona un elementu!",
     "MIME type" : "Tipu MIME",
+    "Disconnect storage" : "Desconectar l'almacenamientu",
     "Archive" : "Archivar",
     "true" : "true",
     "false" : "false",

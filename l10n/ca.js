@@ -65,6 +65,7 @@ OC.L10N.register(
     "Show Passphrase" : "Mostra la contrasenya",
     "Mount Points" : "Punts de muntatge",
     "not mounted" : "no muntat",
+    "Disconnect storage" : "Desconnecta l'emmagatzematge",
     "Common prefix {prefix} is stripped." : "El prefix comú {prefix} s'ha eliminat.",
     "strip common path prefix" : "treu el prefix de camí comú",
     "Extract Archive" : "Extreu l'arxiu",

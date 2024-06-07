@@ -99,6 +99,7 @@ OC.L10N.register(
     "Show Passphrase" : "Показване на парола",
     "Mount Points" : "Точки на монтиране",
     "not mounted" : "не е монтиран",
+    "Disconnect storage" : "Извади хранилището",
     "Common prefix {prefix} is stripped." : "Общият префикс {prefix} е премахнат.",
     "Not mounted, create a new mount point:" : "Не е монтиран, създаване на нова точка за монтиране:",
     "base name" : "базово име",
