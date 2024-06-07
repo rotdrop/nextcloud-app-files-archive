@@ -117,6 +117,7 @@
     "Show Passphrase" : "أعرُض عِبَارة المرور Passphrase",
     "Mount Points" : "نقاط التنصيب Mount Points",
     "not mounted" : "غير مُنصّب not mounted",
+    "Disconnect storage" : "قطع اتصال التخزين",
     "Common prefix {prefix} is stripped." : "تمّ تجريد البادئة {prefix}.",
     "Not mounted, create a new mount point:" : "غير مُنصّب not mounted؛ أنشِيءْ نقطة تنصيب جديدة",
     "base name" : "الاسم الأساس base name",

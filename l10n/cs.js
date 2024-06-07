@@ -102,6 +102,7 @@ OC.L10N.register(
     "Show Passphrase" : "Zobrazit heslovou frázi",
     "Mount Points" : "Přípojné body",
     "not mounted" : "nepřipojeno",
+    "Disconnect storage" : "Odpojit úložiště",
     "Common prefix {prefix} is stripped." : "Společná předpona {prefix} je odstraněna.",
     "Not mounted, create a new mount point:" : "Nepřipojeno, vytvořit nový přípojný bod:",
     "base name" : "základ názvu",
