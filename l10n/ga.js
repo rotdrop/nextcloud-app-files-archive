@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "User" : "Úsáideoir",
     "Password" : "Pasfhocal",
+    "MIME type" : "Cineál MIME",
     "Disconnect storage" : "Déan stóráil a dhícheangal",
     "Archive" : "Cartlann",
     "OK" : "Ceart go leor",
