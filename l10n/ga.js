@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "User" : "Úsáideoir",
     "Password" : "Pasfhocal",
+    "Choose a folder" : "Roghnaigh fillteán",
     "Clear Selection" : "Glan Roghnú",
     "MIME type" : "Cineál MIME",
     "Disconnect storage" : "Déan stóráil a dhícheangal",
