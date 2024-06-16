@@ -24,8 +24,6 @@ import { getInitialState } from './toolkit/services/InitialStateService.js';
 // eslint-disable-next-line
 import logoSvg from '../img/app.svg?raw';
 
-// require('files-archive.scss'); // ? still needed ?
-
 // eslint-disable-next-line
 require('./webpack-setup.js');
 
