@@ -67,6 +67,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Escoller un prefixo de cartafol",
     "Invalid path selected: \"{dir}\"." : "Seleccionou unha ruta incorrecta «{dir}».",
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: «{dir}/{base}/».",
+    "Clear Selection" : "Limpar a selección",
     "Archive Manager, Admin Settings" : "Xestor de arquivos, Axustes administrativos",
     "Archive Extraction" : "Extracción de arquivos",
     "Archive Size Limit" : "Límite de tamaño do arquivo",
