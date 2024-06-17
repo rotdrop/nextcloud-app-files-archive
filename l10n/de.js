@@ -100,6 +100,7 @@ OC.L10N.register(
     "Show Passphrase" : "Passwort anzeigen",
     "Mount Points" : "Einhänge-Punkt",
     "not mounted" : "nicht eingehängt",
+    "Disconnect storage" : "Speicher trennen",
     "Common prefix {prefix} is stripped." : "Gemeinsamer Präfix {prefix} wurde entfernt.",
     "Not mounted, create a new mount point:" : "Nicht eingehängt, einen neuen Einhänge-Punkt erzeugen:",
     "base name" : "Basisname",
