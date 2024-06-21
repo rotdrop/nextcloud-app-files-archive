@@ -159,8 +159,8 @@
             <template #actions>
               <NcActionButton @click="unmount(mountPoint, ...arguments)">
                 <template #icon>
-                  <NetworkOff v-tooltip="t(appName, 'Disconnect storage')"
-                              :size="20"
+                  <NetworkOffIcon v-tooltip="t(appName, 'Disconnect storage')"
+                                  :size="20"
                   />
                 </template>
               </NcActionButton>
@@ -246,6 +246,55 @@
           </div>
         </div>
       </li>
+      <li class="files-tab-entry flex flex-center clickable"
+          @click="showPendingJobs = !showPendingJobs"
+      >
+        <div class="files-tab-entry__avatar icon-recent-white" />
+        <div class="files-tab-entry__desc">
+          <h5 v-if="jobsArePending">
+            <span class="main-title">{{ t(appName, 'Pending Background Jobs') }}</span>
+            <span v-if="jobsArePending" class="title-annotation">({{ '' + Object.keys(pendingJobs).length }})</span>
+          </h5>
+          <h5 v-else>
+            <span class="main-title">{{ t(appName, 'No Pending Background Jobs') }}</span>
+          </h5>
+        </div>
+        <NcActions>
+          <NcActionButton v-model="showPendingJobs"
+                          :icon="'icon-triangle-' + (showPendingJobs ? 'n' : 's')"
+          />
+        </NcActions>
+      </li>
+      <li v-show="jobsArePending && showPendingJobs" class="directory-chooser files-tab-entry">
+        <div v-if="loading" class="icon-loading-small" />
+        <ul v-else-if="jobsArePending" class="pending-jobs">
+          <ListItem v-for="job in pendingJobs"
+                    :key="job.destinationPath"
+                    :force-display-actions="true"
+                    :bold="false"
+          >
+            <template #title>
+              <div>{{ job.destinationPath }}</div>
+            </template>
+            <template #actions>
+              <NcActionButton @click="cancelPendingOperation(job.target, ...arguments)">
+                <template #icon>
+                  <CancelIcon v-tooltip="t(appName, 'Cancel Job')"
+                              :size="20"
+                  />
+                </template>
+              </NcActionButton>
+            </template>
+            <template v-if="job.stripCommonPathPrefix" #extra>
+              <div>{{ t(appName, 'Job type: {type}', {type: job.target === 'mount' ? t(appName, 'mount') : t(appName, 'extract')}) }}</div>
+              <div>{{ t(appName, 'Common prefix {prefix} will be stripped.', { prefix: commonPathPrefix }) }}</div>
+            </template>
+          </ListItem>
+        </ul>
+        <div v-else>
+          {{ t(appName, 'No pending background job.') }}
+        </div>
+      </li>
     </ul>
   </div>
 </template>
@@ -262,7 +311,8 @@ import { fileInfoToNode } from '../toolkit/util/file-node-helper.js'
 import md5 from 'blueimp-md5'
 import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { translate as t, translatePlural as n } from '@nextcloud/l10n'
-import NetworkOff from 'vue-material-design-icons/NetworkOff.vue'
+import NetworkOffIcon from 'vue-material-design-icons/NetworkOff.vue'
+import CancelIcon from 'vue-material-design-icons/Cancel.vue'
 
 import { formatFileSize } from '@nextcloud/files'
 import {
@@ -286,13 +336,14 @@ export {
 export default {
   name: 'FilesTab',
   components: {
+    CancelIcon,
     FilePrefixPicker,
     ListItem,
     NcActionButton,
     NcActionCheckbox,
     NcActionInput,
     NcActions,
-    NetworkOff,
+    NetworkOffIcon,
   },
   data() {
     return {
@@ -302,10 +353,12 @@ export default {
       showArchivePassPhrase: false,
       showArchiveMounts: false,
       showArchiveExtraction: false,
+      showPendingJobs: false,
       initialState: {},
       archiveInfo: {},
       archiveStatus: null,
       archiveMounts: [],
+      pendingJobs: {},
       openMountTarget: md5(generateUrl('') + appName + '-open-archive-mount'),
       loading: 0,
       archiveMountFileInfo: {
@@ -321,8 +374,6 @@ export default {
       archiveExtractStripCommonPathPrefix: false,
       archiveExtractBackgroundJob: false,
       archivePassPhrase: undefined,
-      //
-      backgroundMountsTimer: undefined,
     }
   },
   computed: {
@@ -340,6 +391,9 @@ export default {
     },
     archiveMounted() {
       return this.archiveMounts.length > 0
+    },
+    jobsArePending() {
+      return Object.keys(this.pendingJobs).length > 0
     },
     archiveMountBaseName: {
       get() {
@@ -442,12 +496,6 @@ export default {
   mounted() {
     // this.getData()
   },
-  beforeDestroy() {
-    if (this.backgroundMountsTimer) {
-      clearInterval(this.backgroundMountsTimer)
-      this.backgroundMountsTimer = undefined
-    }
-  },
   methods: {
     info() {
       console.info.apply(null, arguments)
@@ -491,6 +539,7 @@ export default {
 
       this.getArchiveInfo(this.fileName)
       this.refreshArchiveMounts(this.fileName, true)
+      this.getPendingJobs(this.fileName, true)
     },
     async getArchiveInfo(fileName) {
       ++this.loading
@@ -505,8 +554,10 @@ export default {
         const responseData = response.data
         this.archiveInfo = responseData.archiveInfo
         this.archiveStatus = responseData.archiveStatus
-        for (const message of responseData.messages) {
-          showInfo(message)
+        if (responseData.messages) {
+          for (const message of responseData.messages) {
+            showInfo(message)
+          }
         }
         console.info('ARCHIVE INFO', this.archiveInfo)
       } catch (e) {
@@ -565,6 +616,92 @@ export default {
         emit('files:node:created', node)
       }
     },
+    getJobIdFromOperation(operation, archivePath, mountPath) {
+      return md5(operation + archivePath + mountPath)
+    },
+    getJobIdFromJob(job) {
+      return this.getJobIdFromOperation(job.target, job.sourcePath, job.destinationPath)
+    },
+    async getPendingJobs(fileName, silent) {
+      if (silent !== true) {
+        ++this.loading
+      }
+      fileName = encodeURIComponent(fileName)
+      const url = generateAppUrl('archive/schedule/{operation}/{fileName}', { operation: 'status', fileName })
+      try {
+        const response = await axios.get(url)
+        const responseData = response.data
+        console.info('BG RESPONSE', response)
+        const jobs = {}
+        for (const job of responseData) {
+          jobs[this.getJobIdFromJob(job)] = job
+        }
+        for (const jobId of Object.keys(this.pendingJobs)) {
+          if (!jobs[jobId]) {
+            Vue.delete(this.pendingJobs, jobId)
+          }
+        }
+        for (const [jobId, job] of Object.entries(jobs)) {
+          vueSet(this.pendingJobs, jobId, job)
+        }
+        console.info('PENDING JOBS', this.jobsArePending, this.pendingJobs)
+      } catch (e) {
+        console.error('ERROR', e)
+        if (e.response && e.response.data) {
+          const responseData = e.response.data
+          if (responseData.messages) {
+            for (const message of responseData.messages) {
+              showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            }
+          }
+        }
+      }
+      if (silent !== true) {
+        --this.loading
+      }
+    },
+    async cancelPendingOperation(operation) {
+      const archivePath = encodeURIComponent(this.fileInfo.path + '/' + this.fileInfo.name)
+      const mountPath = encodeURIComponent(this.archiveMountPathName)
+      const url = generateAppUrl(
+        'archive/schedule/{operation}/{archivePath}/{mountPath}',
+        {
+          operation,
+          archivePath,
+          mountPath,
+        },
+      )
+      let responseData = {}
+      try {
+        const response = await axios.delete(url, {})
+        responseData = response.data
+      } catch (e) {
+        console.error('ERROR', e)
+        if (e.response) {
+          const messages = []
+          if (e.response.data) {
+            responseData = e.response.data
+            if (responseData.messages) {
+              messages.splice(messages.length, 0, responseData.messages)
+            }
+          }
+          if (!messages.length) {
+            messages.push(t(appName, 'Cancelling the background job failed with error {status}, "{statusText}".', e.response))
+          }
+          for (const message of messages) {
+            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          }
+        }
+      }
+      if (responseData.removed) {
+        for (const job of responseData.removed) {
+          const jobId = this.getJobIdFromJob(job)
+          if (this.pendingJobs[jobId]) {
+            Vue.delete(this.pendingJobs, jobId)
+          }
+        }
+      }
+    },
     async getArchiveMounts(fileName, silent) {
       const result = {
         mounts: [],
@@ -580,8 +717,10 @@ export default {
         const responseData = response.data
         result.mounts = responseData.mounts
         result.mounted = responseData.mounted
-        for (const message of responseData.messages) {
-          showInfo(message)
+        if (responseData.messages) {
+          for (const message of responseData.messages) {
+            showInfo(message)
+          }
         }
       } catch (e) {
         console.error('ERROR', e)
@@ -660,6 +799,9 @@ export default {
           }
         }
       }
+      if (this.archiveMountBackgroundJob) {
+        this.getPendingJobs(this.fileName, true)
+      }
       this.setBusyState(false)
     },
     async unmount(mount) {
@@ -722,6 +864,9 @@ export default {
         // and cache the data for all file-ids.
         console.info('*** Archive notification for other file received', event)
         return
+      }
+      if (this.pendingJobs[destinationData.mount.archiveFileId]) {
+        delete this.pendingJobs[destinationData.mount.archiveFileId]
       }
       if (destinationData?.status === 'mount') {
         console.info('*** Mount notification received, updating mount-list', destinationData)
@@ -797,6 +942,9 @@ export default {
             showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
           }
         }
+      }
+      if (this.archiveExtractBackgroundJob) {
+        this.getPendingJobs(this.fileName, true)
       }
       this.setBusyState(false)
     },

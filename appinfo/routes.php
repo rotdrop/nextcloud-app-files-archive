@@ -78,6 +78,24 @@ return [
         'destinationPath' => null,
       ],
     ],
+    // cancel a mount or extraction operation
+    [
+      'name' => 'background_job#cancel',
+      'url' => '/archive/schedule/{operation}/{archivePath}/{destinationPath}',
+      'verb' => 'DELETE',
+      'defaults' => [
+        'destinationPath' => null,
+      ],
+    ],
+    // retrieve the list of pending jobs, or the status for the given archive
+    [
+      'name' => 'background_job#status',
+      'url' => '/archive/schedule/{operation}/{archivePath}/{destinationPath}',
+      'verb' => 'GET',
+      'defaults' => [
+        'destinationPath' => null,
+      ],
+    ],
     // patch the passphrase into the mounts for the given archive
     [
       'name' => 'mount#patch',

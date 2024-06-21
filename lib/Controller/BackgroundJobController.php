@@ -96,8 +96,13 @@ class BackgroundJobController extends Controller
    *
    * @NoAdminRequired
    */
-  public function schedule(string $operation, string $archivePath, ?string $destinationPath = null, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null)
-  {
+  public function schedule(
+    string $operation,
+    string $archivePath,
+    ?string $destinationPath = null,
+    ?string $passPhrase = null,
+    ?bool $stripCommonPathPrefix = null,
+  ):DataResponse {
     $archivePath = urldecode($archivePath);
     if ($destinationPath) {
       $destinationPath = urldecode($destinationPath);
@@ -141,5 +146,98 @@ class BackgroundJobController extends Controller
         : $this->l->t('Archive background extraction job scheduled successfully.'),
       ],
     ]);
+  }
+
+  /**
+   * Cancel any pending background job matching the given criteria.
+   *
+   * @param string $operation
+   *
+   * @param string $archivePath
+   *
+   * @param null|string $destinationPath
+   *
+   * @return DataResponse
+   *
+   * @NoAdminRequired
+   */
+  public function cancel(
+    string $operation,
+    string $archivePath,
+    ?string $destinationPath = null,
+  ):DataResponse {
+    $archivePath = urldecode($archivePath);
+    if ($destinationPath) {
+      $destinationPath = urldecode($destinationPath);
+    }
+    $failed = [];
+    $removed = [];
+    $messages = [];
+    /** @var ArchiveJob $job */
+    $jobs = $this->jobList->getJobsIterator(ArchiveJob::class, limit: null, offset: 0);
+    foreach ($jobs as $job) {
+      $this->logInfo('PATH ' . $archivePath . ' DST ' . $destinationPath . ' DATA ' . print_r($job->getArgument(), true));
+      if ($job->getUserId() == $this->userId
+          && $job->getSourcePath() == $archivePath
+          && $job->getTarget() == $operation
+          && ($destinationPath === null || $job->getDestinationPath() === $destinationPath)) {
+        $jobArguments = $job->getArgument();
+        $this->jobList->remove($job, $jobArguments);
+        if ($this->jobList->has($job, $jobArguments)) {
+          $failed[] = $job;
+          $messages[] = $this->l->t('Cancelling %s-job for archive file "%s" failed.', [
+            $operation,
+            $archivePath,
+          ]);
+        } else {
+          $removed[] = $jobArguments;
+          $this->notificationService->deleteScheduledJobNotification(
+            $job->getUserId(),
+            $job->getTarget(),
+            $job->getSourceId(),
+          );
+        }
+      }
+    }
+    $status = count($failed) > 0 ? Http::STATUS_EXPECTATION_FAILED : Http::STATUS_OK;
+    return self::dataResponse([
+      'removed' => $removed,
+      'failed' => $failed,
+      'messages' => $messages,
+    ], $status);
+  }
+
+  /**
+   * Return the list of pending mounts for the user.
+   *
+   * @param string $archivePath
+   *
+   * @param null|string $destinationPath
+   *
+   * @return DataResponse
+   *
+   * @NoAdminRequired
+   */
+  public function status(
+    string $archivePath,
+    ?string $destinationPath = null,
+  ):DataResponse {
+    $archivePath = urldecode($archivePath);
+    if ($destinationPath) {
+      $destinationPath = urldecode($destinationPath);
+    }
+    $result = [];
+    /** @var ArchiveJob $job */
+    $jobs = $this->jobList->getJobsIterator(ArchiveJob::class, limit: null, offset: 0);
+    foreach ($jobs as $job) {
+      $this->logInfo('PATH ' . $archivePath . ' DST ' . $destinationPath . ' DATA ' . print_r($job->getArgument(), true));
+      if ($job->getUserId() == $this->userId
+          && $job->getSourcePath() == $archivePath
+          && ($destinationPath === null || $job->getDestinationPath() === $destinationPath)) {
+        $result[] = $job->getArgument();
+      }
+    }
+
+    return self::dataResponse($result);
   }
 }

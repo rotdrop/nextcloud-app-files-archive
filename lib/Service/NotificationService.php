@@ -98,8 +98,7 @@ class NotificationService
     $sourceId = $job->getSourceId();
     $target = $job->getTarget();
 
-    $this->deleteNotification(
-      Notifier::TYPE_SCHEDULED,
+    $this->deleteScheduledJobNotification(
       $userId,
       target: $target,
       sourceId: $sourceId,
@@ -291,7 +290,7 @@ class NotificationService
   }
 
   /**
-   * Mark a notification of a successful mount, e.g. after unmounting.
+   * Delete a notification of a successful mount, e.g. after unmounting.
    *
    * @param string $userId
    *
@@ -308,6 +307,31 @@ class NotificationService
       userId: $userId,
       target: ArchiveJob::TARGET_MOUNT,
       destinationId: $mountPointId,
+    );
+  }
+
+  /**
+   * Delete a notification about pending operations, e.g. after the operation
+   * has been cancelled.
+   *
+   * @param string $userId
+   *
+   * @param string $target
+   *
+   * @param int $sourceId The file id of the archive file.
+   *
+   * @return void
+   */
+  public function deleteScheduledJobNotification(
+    string $userId,
+    string $target,
+    int $sourceId,
+  ):void {
+    $this->deleteNotification(
+      Notifier::TYPE_SCHEDULED,
+      userId: $userId,
+      target: $target,
+      sourceId: $sourceId,
     );
   }
 }
