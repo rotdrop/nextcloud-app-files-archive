@@ -7,6 +7,7 @@ OC.L10N.register(
     "bytes" : "bytes",
     "unknown" : "ukendt",
     "MIME type" : "MIME-type",
+    "Disconnect storage" : "Frakobl lager",
     "Archive" : "Arkivér",
     "OK" : "OK",
     "Created" : "Oprettet",
