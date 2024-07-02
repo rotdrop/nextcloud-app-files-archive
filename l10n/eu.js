@@ -77,6 +77,7 @@ OC.L10N.register(
     "Archive Extraction" : "Artxiboen erauzketa",
     "Archive Size Limit" : "Artiboaren tamaina-muga",
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "Ez onartu artxiboen erauzketa, deskonprimituta muga hori baino tamaina handiagoa duten artxiboetarako.",
+    "Diagnostics" : "Diagnostikoak",
     "Archive Manager, Personal Settings" : "Artxibo kudeatzailea, ezarpen pertsonalak",
     "Security Options" : "Segurtasun aukerak",
     "Administrative size limit: {value}" : "Tamaina-muga administratiboa: {value}",
