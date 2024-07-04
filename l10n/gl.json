@@ -218,7 +218,7 @@
     "Too Many Requests" : "Demasiadas solicitudes",
     "Request Header Fields Too Large" : "Os campos da cabeceira da solicitude son grandes de máis",
     "No Response (Nginx)" : "No Response (Nginx)",
-    "Retry With (Microsoft)" : "Reintento con (Microsoft)",
+    "Retry With (Microsoft)" : "Tentar de novo (Microsoft)",
     "Blocked by Windows Parental Controls (Microsoft)" : "Bloqueado polos controis parentais de Windows (Microsoft)",
     "Unavailable For Legal Reasons" : "Non dispoñíbel por motivos legais",
     "Client Closed Request (Nginx)" : "Solicitude pechada polo cliente (Nginx)",
