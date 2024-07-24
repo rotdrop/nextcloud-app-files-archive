@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "User" : "Usuario",
+    "Password" : "Contraseña",
     "unknown" : "desconocido",
     "Disconnect storage" : "Desconectar almacenamiento",
     "Archive" : "Archivar",
