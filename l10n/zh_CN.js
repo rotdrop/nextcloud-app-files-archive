@@ -53,6 +53,7 @@ OC.L10N.register(
     "Choose a folder" : "选择一个文件夹",
     "Invalid path selected: \"{dir}\"." : "选择了无效路径：“{dir}”。",
     "Selected path: \"{dir}/{base}/\"." : "选择的路径：“{dir}/{base}/”。",
+    "Clear Selection" : "清除选择",
     "Archive Manager, Admin Settings" : "压缩文件管理器，管理员设置",
     "Archive Extraction" : "解压压缩文件",
     "Archive Size Limit" : "压缩文件大小限制",
