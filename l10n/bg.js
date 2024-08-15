@@ -219,9 +219,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP грешка в отговор на AJAX повикване: {code} / {error}",
     "No" : "Не",
     "Yes" : "Да",
-    "Debug Information" : "Информация за отстраняване на грешки",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Вашият архивен файл {source} бeше монтиран като виртуална папка в {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Вашият архивен файл {source} е извлечен в {destination}.",
-    "Choose a prefix folder" : "Избор на префикс-папка"
+    "Debug Information" : "Информация за отстраняване на грешки"
 },
 "nplurals=2; plural=(n != 1);");

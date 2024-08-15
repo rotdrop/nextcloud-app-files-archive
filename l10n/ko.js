@@ -185,9 +185,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "AJAX 호출에 대한 HTTP 오류: {code} / {error}",
     "No" : "아니오",
     "Yes" : "예",
-    "Debug Information" : "디버그 정보",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "내 압축 파일 {source}을(를) 가상 폴더 {destination}에 마운트합니다",
-    "Your archive file {source} has been extracted to {destination}." : "내 압축 파일 {source}을(를) {destination}에 압축 해제합니다",
-    "Choose a prefix folder" : "접두사 폴더 지정"
+    "Debug Information" : "디버그 정보"
 },
 "nplurals=1; plural=0;");

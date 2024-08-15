@@ -224,9 +224,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP hibaválasz az AJAX kérésre: {code} / {error}",
     "No" : "Nem",
     "Yes" : "Igen",
-    "Debug Information" : "Hibakeresési információk",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "A(z) {source} archívumfájl csatolva lett virtuális mappaként a következő helyen: {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "A(z) {source} archívumfájl ki lett bontva a következő helyre: {destination}.",
-    "Choose a prefix folder" : "Előtagmappa kiválasztása"
+    "Debug Information" : "Hibakeresési információk"
 },
 "nplurals=2; plural=(n != 1);");

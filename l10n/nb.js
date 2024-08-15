@@ -258,9 +258,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP-feilrespons på AJAX-anrop: {code} / {error}",
     "No" : "Nei",
     "Yes" : "Ja",
-    "Debug Information" : "Feilsøkingsinformasjon",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Arkivfilen din {kilde} har blitt montert som en virtuell mappe på {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Arkivfilen din {source} er trukket ut til {destination}.",
-    "Choose a prefix folder" : "Velg en prefiksmappe"
+    "Debug Information" : "Feilsøkingsinformasjon"
 },
 "nplurals=2; plural=(n != 1);");

@@ -258,9 +258,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Resposta de erro HTTP para chamada AJAX: {code} / {error}",
     "No" : "Não",
     "Yes" : "Sim",
-    "Debug Information" : "Informações de depuração",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Seu arquivo {source} foi montado como uma pasta virtual em {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Seu arquivo {source} foi extraído para {destination}.",
-    "Choose a prefix folder" : "Escolha uma pasta de prefixo"
+    "Debug Information" : "Informações de depuração"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

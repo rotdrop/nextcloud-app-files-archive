@@ -258,9 +258,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Resposta de erro HTTP á chamada AJAX: {code} / {error}",
     "No" : "Non",
     "Yes" : "Si",
-    "Debug Information" : "Información de depuración",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "O seu arquivador {source} foi montado como un cartafol virtual en {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "O seu arquivador {source} foi extraído en {destination}.",
-    "Choose a prefix folder" : "Escoller un prefixo de cartafol"
+    "Debug Information" : "Información de depuración"
 },
 "nplurals=2; plural=(n != 1);");
