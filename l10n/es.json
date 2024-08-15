@@ -234,9 +234,6 @@
     "HTTP error response to AJAX call: {code} / {error}" : "Respuesta HTTP de error a llamada AJAX: {code} / {error}",
     "No" : "No",
     "Yes" : "Sí",
-    "Debug Information" : "Información de depuración",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Su archivador {source} fue montado como una carpeta virtual en {destination}",
-    "Your archive file {source} has been extracted to {destination}." : "Su archivador {source} fue extraído en {destination}",
-    "Choose a prefix folder" : "Seleccione una carpeta prefijo"
+    "Debug Information" : "Información de depuración"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

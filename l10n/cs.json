@@ -220,9 +220,6 @@
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP chybová odpověď na AJAX volání: {code} / {error}",
     "No" : "Ne",
     "Yes" : "Ano",
-    "Debug Information" : "Informace pro ladění",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Soubor archivu {source} byl připojen jako virtuální složke v {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Soubor archivu {source} byl rozbalen do {destination}.",
-    "Choose a prefix folder" : "Zvolte složku-předponu"
+    "Debug Information" : "Informace pro ladění"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

@@ -118,9 +118,6 @@ OC.L10N.register(
     "Missing data" : "数据丢失",
     "No" : "否",
     "Yes" : "是",
-    "Debug Information" : "调试信息",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "您的压缩文件 {source} 已作为虚拟文件夹挂载在 {destination}。",
-    "Your archive file {source} has been extracted to {destination}." : "您的压缩文件 {source} 已经被解压缩到 {destination}。",
-    "Choose a prefix folder" : "选择前缀文件夹"
+    "Debug Information" : "调试信息"
 },
 "nplurals=1; plural=0;");

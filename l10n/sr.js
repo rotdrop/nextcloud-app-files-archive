@@ -258,9 +258,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP одговор грешке на AJAX позив: {code} / {error}",
     "No" : "Не",
     "Yes" : "Да",
-    "Debug Information" : "Дибаг информације",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Ваш фајл архиве {source} је монтиран као виртуелни фолдер {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Ваш фајл архиве {source} је распакован у {destination}.",
-    "Choose a prefix folder" : "Изаберите префикс фолдер"
+    "Debug Information" : "Дибаг информације"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

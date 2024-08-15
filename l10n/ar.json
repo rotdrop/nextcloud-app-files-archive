@@ -256,9 +256,6 @@
     "HTTP error response to AJAX call: {code} / {error}" : "خطأ HTTP عند الاستجابة لاستدعاء آجاكس AJAX call ـ: {code} / {error}",
     "No" : "لا",
     "Yes" : "نعم",
-    "Debug Information" : "معلومات التنقيح debug",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "تمّ تنصيب ملف الأرشيف {source} كمجلد افتراضي في {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "تمّ استخلاص ملف الأرشيف {source} إلى {destination}.",
-    "Choose a prefix folder" : "إختَر مجلداً بادئاً prefix folder"
+    "Debug Information" : "معلومات التنقيح debug"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

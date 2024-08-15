@@ -258,9 +258,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "AJAX çağrısına HTTP hata yanıtı verildi: {code} / {error}",
     "No" : "Hayır",
     "Yes" : "Evet",
-    "Debug Information" : "Hata ayıklama bilgileri",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "{source} arşiv dosyanız {destination} sanal klasörü olarak takılacak.",
-    "Your archive file {source} has been extracted to {destination}." : "{source} arşiv dosyanız {destination} olarak ayıklanacak.",
-    "Choose a prefix folder" : "Bir ön ek klasörü seçin"
+    "Debug Information" : "Hata ayıklama bilgileri"
 },
 "nplurals=2; plural=(n > 1);");
