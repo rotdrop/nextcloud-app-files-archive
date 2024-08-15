@@ -229,9 +229,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "HTTP errore-erantzuna AJAX deiari: {code} / {error}",
     "No" : "Ez",
     "Yes" : "Bai",
-    "Debug Information" : "Arazketa informazioa",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Zure {source} artxibo-fitxategia karpeta birtual gisa muntatu da {destination}-(e)n.",
-    "Your archive file {source} has been extracted to {destination}." : "Zure {source} artxibo-fitxategia {destination}-(e)n atera da.",
-    "Choose a prefix folder" : "Aukeratu karpeta lehenetsi bat"
+    "Debug Information" : "Arazketa informazioa"
 },
 "nplurals=2; plural=(n != 1);");

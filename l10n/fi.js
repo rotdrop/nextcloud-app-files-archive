@@ -61,8 +61,6 @@ OC.L10N.register(
     "Something went wrong." : "Jokin meni pieleen.",
     "Internal Error" : "Sisäinen virhe",
     "No" : "Ei",
-    "Yes" : "Kyllä",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Arkistotiedosto {source} on liitetty virtuaalikansioksi sijaintiin {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Arkistotiedosto {source} on purettu sijaintiin {destination}."
+    "Yes" : "Kyllä"
 },
 "nplurals=2; plural=(n != 1);");

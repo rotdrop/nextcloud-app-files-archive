@@ -230,9 +230,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Erreur HTTP à un appel AJAX : {code} / {error}",
     "No" : "Non",
     "Yes" : "Oui",
-    "Debug Information" : "Information de déboggage",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Le fichier archive {source} a été monté comme dossier virtuel dans {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Le fichier archive {source} a été extrait dans {destination}.",
-    "Choose a prefix folder" : "Choisir un dossier préfixe"
+    "Debug Information" : "Information de déboggage"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

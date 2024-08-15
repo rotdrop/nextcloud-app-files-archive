@@ -258,9 +258,6 @@ OC.L10N.register(
     "HTTP error response to AJAX call: {code} / {error}" : "Freagra earráide HTTP ar ghlao AJAX: {code} / {error}",
     "No" : "Níl",
     "Yes" : "Tá",
-    "Debug Information" : "Eolas Dífhabhtaithe",
-    "Your archive file {source} has been mounted as a virtual folder at {destination}." : "Tá do chomhad cartlainne {source} gléasta mar fhillteán fíorúil ag {destination}.",
-    "Your archive file {source} has been extracted to {destination}." : "Baineadh do chomhad cartlainne {source} go {destination}.",
-    "Choose a prefix folder" : "Roghnaigh fillteán réimír"
+    "Debug Information" : "Eolas Dífhabhtaithe"
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");
