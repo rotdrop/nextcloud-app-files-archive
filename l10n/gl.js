@@ -15,7 +15,7 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "A extracción de «%1$s» a «%2$s» realizouse correctamente.",
     "Archive background mount job scheduled successfully." : "A tarefa de montaxe en segundo plano do arquivo foi programada correctamente.",
     "Archive background extraction job scheduled successfully." : "A tarefa de extracción en segundo plano do arquivo foi programada correctamente.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Produciuse un fallo ao cancelar o traballo %s para o arquivador «%s».",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Produciuse un fallo ao cancelar o traballo %s para o ficheiro do arquivador «%s».",
     "Post to endpoint \"%s\" not implemented." : "Publicar no punto final «%s» non está implementado.",
     "Post to base URL of app \"%s\" not allowed." : "A adición no URL base da aplicación «%s» non está implementada.",
     "Get from endpoint \"%s\" not implemented." : "Obter do punto final «%s» non está implementado.",
