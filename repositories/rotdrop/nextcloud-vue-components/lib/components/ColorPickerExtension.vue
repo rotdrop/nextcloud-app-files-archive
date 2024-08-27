@@ -267,25 +267,25 @@ export default {
 <style scoped lang="scss">
 .color-picker-container {
   .trigger-button {
+    background-color: var(--button-background-color);
+    color: var(--button-foreground-color);
     margin-right:0;
     border-top-right-radius:0;
     border-bottom-right-radius:0;
     &:not(:focus,:hover) {
       border-right:0;
     }
-    background-color: var(--button-background-color);
-    color: var(--button-foreground-color);
   }
   .confirm-button {
+    min-height: 44px; // in order to match NcButton
     border-top-left-radius:0;
     border-bottom-left-radius:0;
-    &:not(:focus,:hover) {
-      border-left:2px solid var(--color-background-dark);
-    }
-    min-height: 44px; // in order to match NcButton
     border: 2px solid var(--color-border-dark);
     &:hover:not(:disabled) {
       border: 2px solid var(--color-primary-element);
+    }
+    &:not(:focus,:hover) {
+      border-left:2px solid var(--color-background-dark);
     }
   }
 }
