@@ -276,6 +276,7 @@ clean: ## Tidy up local environment
 #@@ Same as clean but also removes dependencies installed by composer, bower and npm
 distclean: clean ## Clean even more, calls clean
 	rm -rf vendor
+	rm -rf vendor-bin/**/vendor
 	rm -rf node_modules
 	rm -rf lib/Toolkit/*
 .PHONY: distclean
