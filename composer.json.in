@@ -1,6 +1,6 @@
 {
   "name": "rotdrop/nextcloud-app-files-archive",
-    "description": "Inspect, mount and extract file-archives",
+  "description": "Inspect, mount and extract file-archives",
   "type": "project",
   "license": "AGPL",
   "authors": [
@@ -22,9 +22,8 @@
     "wapmorgan/unified-archive": "dev-bugfix/fix-alchemy-zippy-mtime"
   },
   "require-dev": {
-    "nextcloud/coding-standard": "*",
+    "bamarni/composer-bin-plugin": "^1.8",
     "phpmd/phpmd" : "@stable",
-    "phpunit/phpunit": "*",
     "squizlabs/php_codesniffer": "3.*",
     "zebra-north/phpcs-short-types": "^1.0"
   },
@@ -45,5 +44,12 @@
     "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
     "cs:check": "php-cs-fixer fix --dry-run --diff",
     "cs:fix": "php-cs-fixer fix"
+  },
+  "extra": {
+    "bamarni-bin": {
+      "bin-links": true,
+      "target-directory": "vendor-bin",
+      "forward-command": true
+    }
   }
 }
