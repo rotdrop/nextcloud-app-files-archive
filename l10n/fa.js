@@ -207,7 +207,6 @@ OC.L10N.register(
     "Feedback email: {AutoReport}" : "Feedback email: {AutoReport}",
     "Something went wrong." : "Something went wrong.",
     "If it should be the case that you are already logged in for a long time without interacting with the app, then the reason for this error is probably a simple timeout." : "If it should be the case that you are already logged in for a long time without interacting with the app, then the reason for this error is probably a simple timeout.",
-    "In any case it may help to logoff and logon again, as a temporary workaround. You will be redirected to the login page when you close this window." : "In any case it may help to logoff and logon again, as a temporary workaround. You will be redirected to the login page when you close this window.",
     "Unrecoverable unknown internal error, no details available" : "Unrecoverable unknown internal error, no details available",
     "Internal Error" : "Internal Error",
     "Field {RequiredField} not present in AJAX response." : "Field {RequiredField} not present in AJAX response.",
