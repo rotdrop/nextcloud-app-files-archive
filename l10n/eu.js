@@ -118,6 +118,8 @@ OC.L10N.register(
     "Extract Archive" : "Atera artxiboa",
     "Choose a directory to extract the archive to:" : "Aukeratu artxiboa ateratzeko direktorio bat:",
     "basename" : "oinarrizko izena",
+    "mount" : "muntatu",
+    "extract" : "atera",
     "ok" : "ados",
     "zip bomb" : "zip bonba",
     "too large" : "handiegia",
