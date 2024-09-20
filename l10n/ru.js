@@ -61,6 +61,7 @@ OC.L10N.register(
     "The input color values are invalid." : "Введенные значения цвета недопустимы.",
     "On-the-fly archive inspector for Nextcloud" : "Потоковый инспектор архивов для Nextcloud",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Анализируйте, монтируйте и распаковывайте архивы (zip, tar и т.д.)",
+    "pick a color" : "выберите цвет",
     "Choose a folder" : "Выберите папку",
     "Invalid path selected: \"{dir}\"." : "Выбран некорректный путь: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Выбраный путь: \"{dir}/{base}/\".",
