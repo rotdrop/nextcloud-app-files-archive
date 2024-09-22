@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Lietotājs",
     "Password" : "Parole",
     "bytes" : "baiti",
+    "Clear Selection" : "Notīrīt atlasi",
     "Security Options" : "Drošības iespējas",
     "unknown" : "nezināms",
     "Disconnect storage" : "Atvienot glabātuvi",
