@@ -30,7 +30,7 @@
     "Unknown personal setting: \"%1$s\"" : "Axuste persoal descoñecido: «%1$s»",
     "The personal setting \"%1$s\" is read-only" : "O axuste persoal «%1$s» é só de lectura",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "O valor «%1$s» para o axuste «%2$s» non é posíbel convertelo a booleano.",
-    "The target folder template \"%1$s\" must contain the archive file placeholder \"%2$s\"." : "O modelo de cartafol de destino «%1$s» ten que conter o marcador de posición do arquivador «%2$s».",
+    "The target folder template \"%1$s\" must contain the archive file placeholder \"%2$s\"." : "O modelo de cartafol de destino «%1$s» ten que conter o marcador de substitución do arquivador «%2$s».",
     "Unknown personal setting: \"%s\"." : "Axuste persoal descoñecido: «%s»",
     "Unable to parse memory size limit \"%s\"" : "Non é posíbel analizar o límite de tamaño da memoria «%s»",
     "Archive Manager" : "Xestor de arquivos",

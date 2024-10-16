@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "File or folder could not be found." : "تعذّر العثور على الملف أو المجلد",
     "The user folder for user \"%s\" could not be opened." : "تعذّر فتح مُجلّد المُستخدِم \"%s\".",
-    "The archive file \"%s\" could not be found on the server." : "تعذّر العثور على ملف الأرشف \"%s\" على الخادوم.",
+    "The archive file \"%s\" could not be found on the server." : "تعذّر العثور على ملف الأرشف \"%s\" على الخادم.",
     "Unable to open the archive file \"%s\": %s." : "تعذّر فتح ملف الأرشيف \"%s\": %s.",
     "Error: %s" : "خطأ: %s",
     "Unable to open the archive file \"%s\"." : "تعّر فتح ملف الأرشيف \"%s\".",
@@ -221,7 +221,7 @@ OC.L10N.register(
     "Request Header Fields Too Large" : "خانات ترويسة الطلب Request Header Fields كبيرةٌ جدّاً",
     "No Response (Nginx)" : "لا استجابة (Nginx)",
     "Retry With (Microsoft)" : "حاول مرة أخرى مع (Microsoft)",
-    "Blocked by Windows Parental Controls (Microsoft)" : "تمّ حظره من قِبَل الحماية الأبوية لنظام وندوز (Microsoft)",
+    "Blocked by Windows Parental Controls (Microsoft)" : "تمّ حظره من قِبَل الحماية الأبوية لنظام ويندوز (Microsoft)",
     "Unavailable For Legal Reasons" : "غير مُتاحٍ لأسبابٍ قانونيةٍ",
     "Client Closed Request (Nginx)" : "العميل أغلق الطلب (Nginx)",
     "Internal Server Error" : "خطأ داخلي في الخادم",
