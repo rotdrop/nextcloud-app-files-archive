@@ -33,7 +33,7 @@
     "The target folder template \"%1$s\" must contain the archive file placeholder \"%2$s\"." : "قالب المجلد الهدف \"%1$s\" يجب أن يحوي العنصر النائب placeholder لملف الأرشيف  \"%2$s\".",
     "Unknown personal setting: \"%s\"." : "إعدادات شخصية غير معلومة: \"%s\".",
     "Unable to parse memory size limit \"%s\"" : "لم يٌمكن احتساب أقصى حد لحجم الذاكرة \"%s\"",
-    "Archive Manager" : "مُدير الأرشيف Archive Manager",
+    "Archive Manager" : "مدير الأرشيف",
     "The archive file {source} will be mounted as a virtual folder at {destination}." : "سيتم تنصيب ملف الأرشيف {source} كمجلد افتراضي في {destination}.",
     "The archive file {source} will be extracted to {destination}." : "ملف الأرشيف {source} سيتم استخراجه إلى {destination}.",
     "Archive mount of {source} succeeded." : "تمّت عملية تنصيب الأرشيف {source} بنجاحٍ.",
