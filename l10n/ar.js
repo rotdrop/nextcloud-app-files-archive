@@ -137,7 +137,7 @@ OC.L10N.register(
     "Pending Background Jobs" : "مهام خلفية معلقة",
     "No Pending Background Jobs" : "لا توجد مهام خلفية معلقة",
     "Cancel Job" : "إلغاء المهمة",
-    "mount" : "امتطاء",
+    "mount" : "تثبيت",
     "extract" : "استخلاص",
     "Common prefix {prefix} will be stripped." : "سيتم تجريد البادئة الشائعة {prefix}.",
     "No pending background job." : "لا توجد مهام خلفية معلقة.",
