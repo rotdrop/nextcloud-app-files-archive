@@ -6,6 +6,7 @@ OC.L10N.register(
     "There is no archive file associated with this archiver instance." : "K tejto inštancii archivátora nie je priradený žiadny archívny súbor.",
     "User" : "Používateľ",
     "Password" : "Heslo",
+    "Login failed." : "Prihlásenie zlyhalo.",
     "Error, caught an exception." : "Chyba, vyskytla sa výnimka.",
     "Caused by previous exception" : "Spôsobené predchádzajúcou výnimkou",
     "bytes" : "bajty",
