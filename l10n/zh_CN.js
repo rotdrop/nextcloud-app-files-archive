@@ -99,7 +99,7 @@ OC.L10N.register(
     "zip bomb" : "zip 炸弹",
     "too large" : "太大",
     "Mount Archive" : "挂载压缩文件",
-    "Archive" : "归档",
+    "Archive" : "存档",
     "reason unknown" : "原因未知",
     "true" : "真",
     "false" : "假",
