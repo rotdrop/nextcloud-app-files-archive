@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Användare",
     "Password" : "Lösenord",
     "bytes" : "byte",
+    "Choose a folder" : "Välj en mapp",
     "unknown" : "okänt",
     "Disconnect storage" : "Koppla bort lagring",
     "Archive" : "Arkivera",
