@@ -1,5 +1,6 @@
 { "translations": {
     "Error: %s" : "Klaida: %s",
+    "User" : "Naudotojas",
     "Password" : "Slaptažodis",
     "bytes" : "baitų",
     "Security Options" : "Saugumo parinktys",
