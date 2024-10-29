@@ -11,6 +11,7 @@ OC.L10N.register(
     "MIME type" : "MIMEタイプ",
     "Disconnect storage" : "ストレージを切断する",
     "Archive" : "アーカイブ",
+    "Confirmation Required" : "確認が必要",
     "OK" : "OK",
     "Created" : "作成時刻",
     "Unauthorized" : "権限がありません",
