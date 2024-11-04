@@ -10,7 +10,7 @@
     "Unable to open the target parent folder \"%s\"." : "No fue posible abrir la carpeta superior de destino \"%s\".",
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "La carpeta destino \"%s\" ya existe y el renombrado automático no está habilitado.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "No fue posible extraer \"%1$s\" a \"%2$s\": \"%3$s\".",
-    "Extracting \"%1$s\" to \"%2$s\" succeeded." : "La extracción de \"%1$s\" a \"%2$s\" se completó exitósamente.",
+    "Extracting \"%1$s\" to \"%2$s\" succeeded." : "La extracción de \"%1$s\" a \"%2$s\" se ha completado correctamente.",
     "Archive background mount job scheduled successfully." : "Trabajo en segundo plano para el montaje de archivador se agendó exitosamente.",
     "Archive background extraction job scheduled successfully." : "Trabajo en segundo plano para la extracción del archivador se agendó exitosamente.",
     "Post to endpoint \"%s\" not implemented." : "El método Post al endpoint \"%s\" no está implementado.",
