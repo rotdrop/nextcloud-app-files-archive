@@ -16,6 +16,7 @@ OC.L10N.register(
     "Conflict" : "Konflikts",
     "Internal Server Error" : "Iekšēja servera kļūda",
     "Error" : "Kļūda",
+    "Missing data" : "Iztrūkst dati",
     "No" : "Nē",
     "Yes" : "Jā"
 },
