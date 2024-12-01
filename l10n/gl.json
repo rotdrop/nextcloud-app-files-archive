@@ -20,7 +20,7 @@
     "\"%1$s\" is already mounted on \"%2$s\"." : "«%1$s» xa está montado en «%2$s».",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Non é posíbel abrir o cartafol superior «%1$s» do punto de montaxe «%2$s»: %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "O punto de montaxe «%s» xa existe e o cambio de nome automático non está activado.",
-    "Unable to update the file cache for the mount point \"%1s\": %2$s." : "Non é posíbel actualizar a caché de ficheiros para o punto de montaxe «%1s»: %2$s.",
+    "Unable to update the file cache for the mount point \"%1s\": %2$s." : "Non é posíbel actualizar a memoria tobo de ficheiros para o punto de montaxe «%1s»: %2$s.",
     "\"%s\" is not mounted." : "«%s» non está montado.",
     "Directory \"%s\" is not a mount point." : "O directorio «%s» non é un punto de montaxe.",
     "Archive \"%1$s\" has been unmounted from \"%2$s\"." : "O arquivo «%1$s» foi desmontado de «%2$s».",
