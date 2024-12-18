@@ -105,7 +105,7 @@ class RegisterMimeTypes implements IRepairStep
         $data = array_merge($coreData, $appData);
       }
       file_put_contents($coreFile, json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-      $this->logInfo('... added mime-data ' . print_r($dataSet['appData'], true));
+      $this->logInfo('... added mime-data ' . print_r($dataSet['app'], true));
     }
 
     // @todo Check whether `occ maintenance:mimetype:update-js` and/or `occ
