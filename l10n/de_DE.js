@@ -69,7 +69,7 @@ OC.L10N.register(
     "The supplied color-string \"%s\" seems to be invalid." : "Die angegebene Farbzeichenfolge \"%s\" scheint ungültig zu sein.",
     "The input color values are invalid." : "Die eingegebenen Farbwerte sind ungültig.",
     "On-the-fly archive inspector for Nextcloud" : "On-the-Fly-Archivinspektor für Nextcloud",
-    "Inspect, mount and extract archive files (zip, tar, etc.)" : "Archiv-Dateien (zip, tar, ...) als virtuelle Speicher einhängen und entpacken.",
+    "Inspect, mount and extract archive files (zip, tar, etc.)" : "Archiv-Dateien (zip, tar, …) als virtuelle Speicher einhängen und entpacken.",
     "pick a color" : "Farbe wählen",
     "open" : "öffnen",
     "submit" : "Übermitteln",
