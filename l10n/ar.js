@@ -76,6 +76,7 @@ OC.L10N.register(
     "revert color" : "أرجِع اللون",
     "restore palette" : "إستعادة لوحة الألوان",
     "factory reset palette" : "إعادة تعيين لوحة الألوان لإعدادات المصنع",
+    "Custom Color" : "لون مُخصَّص",
     "Choose a folder" : "اختر مجلد",
     "Choose a prefix-folder" : "إختر مُجلّداً بادئاً",
     "Invalid path selected: \"{dir}\"." : "المسار المختار غير صحيح: \"{dir}\"",
