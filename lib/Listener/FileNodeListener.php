@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -53,15 +53,11 @@ class FileNodeListener implements IEventListener
   /** @var string */
   protected $appName;
 
-  /** @var IAppContainer */
-  private $appContainer;
-
   /**
    * @param IAppContainer $appContainer
    */
-  public function __construct(IAppContainer $appContainer)
+  public function __construct(protected IAppContainer $appContainer)
   {
-    $this->appContainer = $appContainer;
   }
 
   /** {@inheritdoc} */

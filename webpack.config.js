@@ -22,10 +22,10 @@ const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
 webpackConfig.entry = {
-  'admin-settings': path.join(__dirname, 'src', 'admin-settings.js'),
-  'personal-settings': path.join(__dirname, 'src', 'personal-settings.js'),
+  'admin-settings': path.join(__dirname, 'src', 'admin-settings.ts'),
+  'personal-settings': path.join(__dirname, 'src', 'personal-settings.ts'),
   'files-hooks': path.join(__dirname, 'src', 'files-hooks.ts'),
-  'files-sidebar-hooks': path.join(__dirname, 'src', 'files-sidebar-hooks.js'),
+  'files-sidebar-hooks': path.join(__dirname, 'src', 'files-sidebar-hooks.ts'),
 };
 
 webpackConfig.output = {
@@ -155,6 +155,28 @@ webpackConfig.module.rules = [
   {
     test: /\.vue$/,
     loader: 'vue-loader',
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      'vue-material-design-icons',
+      'emoji-mart-vue-fast',
+      '@rotdrop/nextcloud-vue-components',
+      '@nextcloud/vue',
+    ]),
+  },
+  {
+    test: /\.tsx?$/,
+    use: [
+      'babel-loader',
+      {
+        // Fix TypeScript syntax errors in Vue
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      '@rotdrop/nextcloud-vue-components',
+    ]),
   },
   {
     test: /\.js$/,
@@ -178,20 +200,6 @@ webpackConfig.module.rules = [
       'v-tooltip',
       'yocto-queue',
     ]),
-  },
-  {
-    test: /\.tsx?$/,
-    use: [
-      'babel-loader',
-      {
-        // Fix TypeScript syntax errors in Vue
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-        },
-      },
-    ],
-    exclude: BabelLoaderExcludeNodeModulesExcept([]),
   },
   {
     resourceQuery: /raw/,

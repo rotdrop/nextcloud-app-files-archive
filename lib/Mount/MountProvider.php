@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine
+ * @copyright 2022-2025 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -64,16 +64,16 @@ class MountProvider implements IMountProvider
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    private string $appName,
-    private IConfig $cloudConfig,
-    protected LoggerInterface $logger,
-    protected IL10N $l,
-    private IAppContainer $appContainer,
-    private IRootFolder $rootFolder,
-    private IMountManager $mountManager,
     private ArchiveMountMapper $mountMapper,
+    private IConfig $cloudConfig,
+    private IMountManager $mountManager,
+    private IRootFolder $rootFolder,
     private IUserMountCache $userMountCache,
     private NotificationService $notificationService,
+    private string $appName,
+    protected IAppContainer $appContainer,
+    protected IL10N $l,
+    protected LoggerInterface $logger,
   ) {
   }
   // phpcs:enable

@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -22,18 +22,24 @@
       {{ t(appName, 'Archive Manager, Personal Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Security Options')">
-      <TextField :value.sync="humanArchiveSizeLimit"
+      <TextField :value.sync="settings.humanArchiveSizeLimit"
                  :label="t(appName, 'Archive Size Limit')"
                  :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
                  :disabled="loading"
-                 @submit="saveTextInput('archiveSizeLimit', humanArchiveSizeLimit)"
+                 @submit="saveTextInput('archiveSizeLimit', settings.humanArchiveSizeLimit)"
       />
-      <span v-if="archiveSizeLimitAdmin > 0" :class="{ hint: true, 'admin-limit-exceeded': archiveSizeLimitAdmin < archiveSizeLimit, 'icon-error': archiveSizeLimitAdmin < archiveSizeLimit }">
-        {{ t(appName, 'Administrative size limit: {value}', { value: humanArchiveSizeLimitAdmin }) }}
+      <span v-if="isLt(0, settings.archiveSizeLimitAdmin)"
+            :class="{
+              hint: true,
+              'admin-limit-exceeded': isLt(settings.archiveSizeLimitAdmin, settings.archiveSizeLimit),
+              'icon-error': isLt(settings.archiveSizeLimitAdmin, settings.archiveSizeLimit),
+            }"
+      >
+        {{ t(appName, 'Administrative size limit: {value}', { value: settings.humanArchiveSizeLimitAdmin }) }}
       </span>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Mount Options')">
-      <TextField :value.sync="mountPointTemplate"
+      <TextField :value.sync="settings.mountPointTemplate"
                  :label="t(appName, 'Template for the default name of the mount point')"
                  :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
                  placeholder="{archiveFileName}"
@@ -41,7 +47,7 @@
       />
       <div class="settings-option">
         <input :id="id + '-mount-strip-common-prefix'"
-               v-model="mountStripCommonPathPrefixDefault"
+               v-model="settings.mountStripCommonPathPrefixDefault"
                type="checkbox"
                class="checkbox"
                @change="saveSetting('mountStripCommonPathPrefixDefault')"
@@ -52,7 +58,7 @@
       </div>
       <div class="settings-option">
         <input :id="id + '-mount-auto-rename'"
-               v-model="mountPointAutoRename"
+               v-model="settings.mountPointAutoRename"
                type="checkbox"
                class="checkbox"
                @change="saveSetting('mountPointAutoRename')"
@@ -63,7 +69,7 @@
       </div>
       <div class="settings-option">
         <input :id="id + '-mount-background-job'"
-               v-model="mountBackgroundJob"
+               v-model="settings.mountBackgroundJob"
                type="checkbox"
                class="checkbox"
                @change="saveSetting('mountBackgroundJob')"
@@ -74,7 +80,7 @@
       </div>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Extraction Options')">
-      <TextField :value.sync="extractTargetTemplate"
+      <TextField :value.sync="settings.extractTargetTemplate"
                  :label="t(appName, 'Template for the default name of the extraction folder')"
                  :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
                  placeholder="{archiveFileName}"
@@ -82,7 +88,7 @@
       />
       <div class="settings-option">
         <input :id="id + '-extract-strip-common-prefix'"
-               v-model="extractStripCommonPathPrefixDefault"
+               v-model="settings.extractStripCommonPathPrefixDefault"
                type="checkbox"
                class="checkbox"
                @change="saveSetting('extractStripCommonPathPrefixDefault')"
@@ -93,7 +99,7 @@
       </div>
       <div class="settings-option">
         <input :id="id + '-extract-auto-rename'"
-               v-model="extractTargetAutoRename"
+               v-model="settings.extractTargetAutoRename"
                type="checkbox"
                class="checkbox"
                @change="saveSetting('extractTargetAutoRename')"
@@ -104,7 +110,7 @@
       </div>
       <div class="settings-option">
         <input :id="id + '-extract-background-job'"
-               v-model="extractBackgroundJob"
+               v-model="settings.extractBackgroundJob"
                type="checkbox"
                class="checkbox"
                @change="saveSetting('extractBackgroundJob')"
@@ -116,67 +122,75 @@
     </NcSettingsSection>
   </div>
 </template>
-
-<script>
+<script setup lang="ts">
+import { appName } from './config.ts'
 import {
   NcSettingsSection,
 } from '@nextcloud/vue'
+import {
+  computed,
+  reactive,
+  ref,
+} from 'vue'
+import { translate as t } from '@nextcloud/l10n'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
-import settingsSync from './toolkit/mixins/settings-sync.js'
-import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
+import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
+import {
+  fetchSettings,
+  fetchSetting,
+  saveConfirmedSetting,
+  saveSimpleSetting,
+} from './toolkit/util/settings-sync.ts'
+import { v4 as uuidv4 } from 'uuid'
 
-export default {
-  name: 'PersonalSettings',
-  components: {
-    NcSettingsSection,
-    TextField,
-  },
-  mixins: [
-    settingsSync,
-  ],
-  data() {
-    return {
-      cloudVersionClasses,
-      archiveSizeLimit: null,
-      humanArchiveSizeLimit: '',
-      archiveSizeLimitAdmin: null,
-      humanArchiveSizeLimitAdmin: '',
-      mountStripCommonPathPrefixDefault: false,
-      mountPointTemplate: '{archiveFileName}',
-      mountPointAutoRename: false,
-      mountBackgroundJob: false,
-      extractStripCommonPathPrefixDefault: false,
-      extractTargetTemplate: '{archiveFileName}',
-      extractTargetAutoRename: false,
-      extractBackgroundJob: false,
-      id: null,
-      loading: true,
-    }
-  },
-  watch: {
-  },
-  created() {
-    this.getData()
-    this.id = this._uid
-    console.info('UID', this._uid)
-  },
-  methods: {
-    async getData() {
-      // slurp in all personal settings
-      this.fetchSettings('personal')
-      this.loading = false
-    },
-    async saveTextInput(settingsKey, value, force) {
-      if (value === undefined) {
-        value = this[settingsKey] || ''
-      }
-      return this.saveConfirmedSetting(value, 'personal', settingsKey, force)
-    },
-    async saveSetting(setting) {
-      return this.saveSimpleSetting(setting, 'personal')
-    },
-  },
+const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
+const loading = ref(true)
+const id = computed(() => uuidv4())
+
+const settings = reactive({
+  archiveSizeLimit: null as null|number,
+  humanArchiveSizeLimit: '',
+  archiveSizeLimitAdmin: null as null|number,
+  humanArchiveSizeLimitAdmin: '',
+  mountStripCommonPathPrefixDefault: false,
+  mountPointTemplate: '{archiveFileName}',
+  mountPointAutoRename: false,
+  mountBackgroundJob: false,
+  extractStripCommonPathPrefixDefault: false,
+  extractTargetTemplate: '{archiveFileName}',
+  extractTargetAutoRename: false,
+  extractBackgroundJob: false,
+})
+
+const isLt = (a: null|undefined|number, b: null|undefined|number) => a! < b!
+
+const getData = async () => {
+  // slurp in all personal settings
+  await fetchSettings({ section: 'personal', settings })
+  loading.value = false
 }
+getData()
+
+const saveTextInput = async (settingsKey: string, value?: string, force?: boolean) => {
+  if (value === undefined) {
+    value = settings[settingsKey] || ''
+  }
+  if (await saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })) {
+    if (settingsKey.endsWith('Converter')) {
+      fetchSetting({ settingsKey: 'converters', section: 'admin', settings })
+    }
+  }
+}
+
+const saveSetting = async (settingsKey: string) => {
+  if (loading.value) {
+    // avoid ping-pong by reactivity
+    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
+    return
+  }
+  return saveSimpleSetting({ settingsKey, section: 'personal', settings })
+}
+
 </script>
 <style lang="scss" scoped>
 .cloud-version {

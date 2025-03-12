@@ -1,17 +1,25 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
-    "./src/*.ts",
-    "./src/**/*.ts",
-    "./src/*.vue",
-    "./src/**/*.vue",
-    "./node_modules/webpack/**.ts",
-    "./node_modules/axios/**.ts",
+    "../../custom.d.ts",
+    "./build/ts-types/app-config.ts",
     "./node_modules/@nextcloud/**.ts",
-    "../../custom.d.ts"
+    "./node_modules/@types/**.ts",
+    "./node_modules/axios/**.ts",
+    "./node_modules/moment/**.ts",
+    "./node_modules/pinia/**.ts",
+    "./node_modules/vue-router/**.ts",
+    "./node_modules/vue/**.ts",
+    "./node_modules/webpack/**.ts",
+    "./src/**/*.ts",
+    "./src/**/*.vue",
+    "./src/*-shim.d.ts",
+    "./src/*.ts",
+    "./src/*.vue"
   ],
   "compilerOptions": {
-    "types": ["jest", "node", "vue", "vue-router"],
+    "types": ["jest", "node", "vue", "vue-router", "moment"],
+    "lib": [ "ES2024", "DOM", "DOM.Iterable" ],
     "outDir": "./dist/",
     "target": "ESNext",
     "module": "esnext",
@@ -23,7 +31,8 @@
     "declaration": false,
     "noImplicitAny": false,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "sourceMap": true
   },
   "vueCompilerOptions": {
     "target": 2.7

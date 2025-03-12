@@ -1,8 +1,6 @@
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
- *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- *
+ * @copyright 2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,25 +15,27 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
-import { appName } from './config.js';
-import { generateFilePath } from '@nextcloud/router';
-
+import { appName } from './config.ts';
 import Vue from 'vue';
-import PersonalSettings from './PersonalSettings.vue';
-
+import { createPinia, PiniaVuePlugin } from 'pinia';
 import { Tooltip } from '@nextcloud/vue';
+import FilesTab from './views/FilesTab.vue';
+import type { LegacyFileInfo } from '@nextcloud/files';
+import { translate as t, translatePlural as n } from '@nextcloud/l10n';
 
+interface FilesTabVue extends Vue {
+  update(fileInfo: LegacyFileInfo): Promise<unknown>,
+}
+
+Vue.mixin({ data() { return { appName } }, methods: { t, n } });
 Vue.directive('tooltip', Tooltip);
+Vue.use(PiniaVuePlugin);
 
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/');
+const FilesTabVue = Vue.extend(FilesTab);
+const pinia = createPinia();
 
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
+const createTabInstance = (parent: Vue):FilesTabVue => new FilesTabVue({ parent, pinia })
 
-export default new Vue({
-  el: '#personal-settings',
-  render: h => h(PersonalSettings),
-});
+export default createTabInstance;

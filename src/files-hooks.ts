@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine
+ * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,21 +17,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.js';
+import { appName } from './config.ts';
 import generateAppUrl from './toolkit/util/generate-url.js';
-import { fileInfoToNode } from './toolkit/util/file-node-helper.js';
+import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
 import { emit, subscribe } from '@nextcloud/event-bus';
 import axios from '@nextcloud/axios';
-import type { AxiosResponse, AxiosError } from 'axios';
-import type { NotificationEvent } from './toolkit/types/events.ts';
+import type { AxiosError } from 'axios';
+import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
 import { getInitialState } from './toolkit/services/InitialStateService.js';
 import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import { registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
 import { translate as t } from '@nextcloud/l10n';
+import { isAxiosErrorResponse } from './toolkit/types/axios-type-guards.ts';
 
 import logoSvg from '../img/app.svg?raw';
+import type { ArchiveMount, GetArchiveMountResponse } from './model/archive-mount';
 
-require('./webpack-setup.js');
+require('./webpack-setup.ts');
 
 const initialState = getInitialState();
 const archiveMimeTypes: Array<string> = initialState.archiveMimeTypes;
@@ -82,7 +84,7 @@ registerFileAction(new FileAction({
       : mountStatusUrl;
 
     try {
-      let response: AxiosResponse = await axios.get(mountStatusUrl);
+      const response = await axios.get<GetArchiveMountResponse>(mountStatusUrl);
       const data = response.data;
       if (data.mounted) {
         const mountPointPath = data.mounts[0].mountPointPath;
@@ -92,7 +94,7 @@ registerFileAction(new FileAction({
       }
       console.info('DATA', data);
       try {
-        response = await axios.post(mountUrl);
+        const response = await axios.post<ArchiveMount>(mountUrl);
         const data = response.data;
         console.info('DATA', data);
         const mountPointPath = data.mountPointPath;
@@ -108,43 +110,45 @@ registerFileAction(new FileAction({
           // Update files list
           emit('files:node:created', mountNode);
         }
-      } catch (e: AxiosError) {
-        const reason: AxiosError = e;
-        if (reason.message) {
-          showError(
-            t(appName, 'Failed to mount archive file "{archivePath}: {message}".', {
-              archivePath: node.path,
-              message: reason.message,
-            }), {
-              timeout: TOAST_PERMANENT_TIMEOUT,
-            });
-        } else {
-          showError(t(appName, 'Failed to mount archive file "{archivePath}".', {
-            archivePath: node.path,
-          }), {
-            timeout: TOAST_PERMANENT_TIMEOUT,
-          });
-          return null;
+      } catch (e) {
+        console.error('ERROR', e)
+        if (isAxiosErrorResponse(e)) {
+          const messages: string[] = []
+          if (e.response.data) {
+            const responseData = e.response.data as { messages?: string[] }
+            if (responseData.messages) {
+              messages.splice(messages.length, 0, ...responseData.messages)
+            }
+          }
+          if (!messages.length) {
+            messages.push(t(appName, 'Mount request failed with error {status}, "{statusText}".', {
+              status: e.response.status,
+              statusText: e.response.statusText,
+            }))
+          }
+          for (const message of messages) {
+            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          }
         }
       }
-    } catch (e: AxiosError) {
-      const reason: AxiosError = e;
-      console.error('ERROR', e);
-      if (reason.message) {
-        showError(
-          t(appName, 'Unable to obtain mount status for archive file "{archivePath}: {message}".', {
+    } catch (e) {
+      console.error('ERROR', e)
+      if (isAxiosErrorResponse(e)) {
+        const messages: string[] = []
+        if (e.response.data) {
+          const responseData = e.response.data as { messages?: string[] }
+          if (responseData.messages) {
+            messages.splice(messages.length, 0, ...responseData.messages)
+          }
+        }
+        if (!messages.length) {
+          messages.push(t(appName, 'Unable to obtain mount status for archive file "{archivePath}".', {
             archivePath: node.path,
-            message: reason.message,
-          }), {
-            timeout: TOAST_PERMANENT_TIMEOUT,
-          });
-      } else {
-        showError(t(appName, 'Unable to obtain mount status for archive file "{archivePath}".', {
-          archivePath: node.path,
-        }), {
-          timeout: TOAST_PERMANENT_TIMEOUT,
-        });
-        return null;
+          }));
+        }
+        for (const message of messages) {
+          showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+        }
       }
     }
     return null;

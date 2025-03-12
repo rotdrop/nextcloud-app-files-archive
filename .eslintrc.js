@@ -1,7 +1,7 @@
 module.exports = {
-  extends: [
-    '@nextcloud',
-  ],
+  // extends: [
+  //   '@nextcloud',
+  // ],
   globals: {
     __webpack_nonce__: true,
     __webpack_public_path__: true,
@@ -33,6 +33,12 @@ module.exports = {
       files: ['*.vue'],
       rules: {
         semi: ['error', 'never'],
+      },
+    },
+    {
+      files: ['*.ts', '*.cts', '*.mts', '*.tsx', '*.vue'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       },
     },
   ],

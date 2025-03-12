@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  -
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  -
@@ -24,11 +24,11 @@
       {{ t(appName, 'Archive Manager, Admin Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Archive Extraction')">
-      <TextField :value.sync="humanArchiveSizeLimit"
+      <TextField :value.sync="settings.humanArchiveSizeLimit"
                  :label="t(appName, 'Archive Size Limit')"
                  :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
                  :disabled="loading"
-                 @submit="saveTextInput('archiveSizeLimit', humanArchiveSizeLimit)"
+                 @submit="saveTextInput('archiveSizeLimit', settings.humanArchiveSizeLimit)"
       />
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Diagnostics')" class="diagnostics">
@@ -41,87 +41,87 @@
     </NcSettingsSection>
   </div>
 </template>
-
-<script>
+<script setup lang="ts">
+import { appName } from './config.ts'
 import {
   NcSettingsSection,
 } from '@nextcloud/vue'
 import axios from '@nextcloud/axios'
+import { translate as t } from '@nextcloud/l10n'
 import { showError /* , showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT */ } from '@nextcloud/dialogs'
-import { appName } from './config.js'
-import generateUrl from './toolkit/util/generate-url.js'
+import {
+  computed,
+  reactive,
+  ref,
+} from 'vue'
+import {
+  fetchSettings,
+  fetchSetting,
+  saveConfirmedSetting,
+} from './toolkit/util/settings-sync.ts'
+import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.js'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
-import settingsSync from './toolkit/mixins/settings-sync.js'
-import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
+import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
 
-export default {
-  name: 'AdminSettings',
-  components: {
-    NcSettingsSection,
-    TextField,
-  },
-  mixins: [
-    settingsSync,
-  ],
-  data() {
-    return {
-      cloudVersionClasses,
-      archiveSizeLimit: null,
-      humanArchiveSizeLimit: null,
-      loading: true,
-      diagnostics: {
-        formats: null,
-        drivers: null,
-      },
+const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
+const loading = ref(true)
+
+const settings = reactive({
+  archiveSizeLimit: 1 << 32,
+  humanArchiveSizeLimit: '',
+})
+
+const diagnostics = reactive({
+  formats: null as string|null,
+  drivers: null as string|null,
+})
+
+const getData = async () => {
+  // slurp in all settings
+  await fetchSettings({ section: 'admin', settings })
+  loading.value = false
+  getFormatsMatrix()
+  getDriversStatus()
+}
+getData()
+
+const saveTextInput = async (settingsKey: string, value?: string, force?: boolean) => {
+  if (value === undefined) {
+    value = settings[settingsKey] || ''
+  }
+  if (await saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })) {
+    if (settingsKey.endsWith('Converter')) {
+      fetchSetting({ settingsKey: 'converters', section: 'admin', settings })
     }
-  },
-  created() {
-    this.getData()
-  },
-  methods: {
-    async getData() {
-      // slurp in all settings
-      this.fetchSettings('admin')
-      this.loading = false
-      this.getFormatsMatrix()
-      this.getDriversStatus()
-    },
-    async saveTextInput(settingsKey, value, force) {
-      if (value === undefined) {
-        value = this[settingsKey] || ''
-      }
-      await this.saveConfirmedSetting(value, 'admin', settingsKey, force)
-    },
-    async saveSetting(setting) {
-      return this.saveSimpleSetting(setting, 'admin')
-    },
-    async getFormatsMatrix() {
-      try {
-        const response = await await axios.get(generateUrl('diagnostics/archive/formats', {}))
-        this.diagnostics.formats = response?.data?.html || null
-        if (!this.diagnostics.formats) {
-          console.error('UNEXPECTED RESPONSE', response)
-        }
-        return
-      } catch (e) {
-        console.error('ERROR', e)
-      }
-      showError(t(appName, 'Unable to query the archive-format support matrix.'))
-    },
-    async getDriversStatus() {
-      try {
-        const response = await await axios.get(generateUrl('diagnostics/archive/drivers', {}))
-        this.diagnostics.drivers = response?.data?.html || null
-        if (!this.diagnostics.formats) {
-          console.error('UNEXPECTED RESPONSE', response)
-        }
-        return
-      } catch (e) {
-        console.error('ERROR', e)
-      }
-      showError(t(appName, 'Unable to query the information about the available archive backend drivers.'))
-    },
-  },
+  }
+}
+
+const getFormatsMatrix = async () => {
+  try {
+    const response = await axios.get(generateAppUrl('diagnostics/archive/formats'))
+    diagnostics.formats = response?.data?.html || null
+    if (!diagnostics.formats) {
+      console.error('UNEXPECTED RESPONSE', response)
+    }
+    return
+  } catch (e) {
+    console.error('ERROR', e)
+  }
+  showError(t(appName, 'Unable to query the archive-format support matrix.'))
+}
+
+const getDriversStatus = async () => {
+  try {
+    const response = await axios.get(generateAppUrl('diagnostics/archive/drivers'))
+    diagnostics.drivers = response?.data?.html || null
+    if (!diagnostics.formats) {
+      console.error('UNEXPECTED RESPONSE', response)
+    }
+    return
+  } catch (e) {
+    console.error('ERROR', e)
+  }
+  showError(t(appName, 'Unable to query the information about the available archive backend drivers.'))
 }
 </script>
 <style lang="scss" scoped>

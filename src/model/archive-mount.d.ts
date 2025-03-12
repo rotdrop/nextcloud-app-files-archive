@@ -1,8 +1,6 @@
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
- *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- *
+ * @copyright 2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,18 +17,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.js';
-import { generateFilePath } from '@nextcloud/router';
+import type { FileInfoDTO } from '../toolkit/util/file-node-helper.ts'
 
-import Vue from 'vue';
-import AdminSettings from './AdminSettings.vue';
+export interface ArchiveMount {
+  id: number,
+  mountPointPath: string,
+  archivePassPhrase?: string,
+  mountFlags: number,
+  mountPoint: FileInfoDTO,
+}
 
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/');
+export interface GetArchiveMountResponse {
+  mounts: ArchiveMount[],
+  mounted: boolean,
+  messages?: string[],
+}
 
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
-
-export default new Vue({
-  el: '#admin-settings',
-  render: h => h(AdminSettings),
-});
+export {}
