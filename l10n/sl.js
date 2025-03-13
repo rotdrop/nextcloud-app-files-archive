@@ -38,7 +38,6 @@ OC.L10N.register(
     "Security Options" : "Varnostne nastavitve",
     "Mount Options" : "Možnosti priklopa",
     "unknown" : "neznano",
-    "Mount Points" : "Priklopne točke",
     "Archive Information" : "Podrobnosti arhiva",
     "archive status" : "stanje arhiva",
     "archive format" : "zapis arhiva",
@@ -49,12 +48,10 @@ OC.L10N.register(
     "common prefix" : "splošna predpona",
     "Passphrase" : "Šifrirno geslo",
     "Show Passphrase" : "Pokaži šifrirno geslo",
+    "Mount Points" : "Priklopne točke",
     "Disconnect storage" : "Odklopi shrambo",
     "Choose a directory to extract the archive to:" : "Izbor mape za razširjanje arhiva:",
     "Archive" : "Arhiv",
-    "reason unknown" : "razlog ni znan",
-    "true" : "prav",
-    "false" : "napak",
     "OK" : "V redu",
     "Created" : "Ustvarjeno",
     "Accepted" : "Sprejeto",
@@ -84,6 +81,9 @@ OC.L10N.register(
     "Missing data" : "Manjkajoči podatki",
     "No" : "Ne",
     "Yes" : "Da",
-    "Debug Information" : "Podrobnosti razhroščevanja"
+    "Debug Information" : "Podrobnosti razhroščevanja",
+    "reason unknown" : "razlog ni znan",
+    "true" : "prav",
+    "false" : "napak"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

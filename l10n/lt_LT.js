@@ -8,13 +8,12 @@ OC.L10N.register(
     "Security Options" : "Saugumo parinktys",
     "Mount Options" : "Prijungimo parinktys",
     "unknown" : "nežinomas",
-    "Mount Points" : "Prijungimo taškai",
     "MIME type" : "MIME tipas",
     "Passphrase" : "Slaptafrazė",
     "Show Passphrase" : "Rodyti slaptafrazė",
+    "Mount Points" : "Prijungimo taškai",
     "Disconnect storage" : "Atjungti saugyklą",
     "Archive" : "Archyvuoti",
-    "reason unknown" : "priežastis nežinoma",
     "OK" : "Gerai",
     "Created" : "Sukurta",
     "Bad Request" : "Bloga užklausa",
@@ -29,6 +28,7 @@ OC.L10N.register(
     "Internal Error" : "Vidinė klaida",
     "No" : "Ne",
     "Yes" : "Taip",
-    "Debug Information" : "Derinimo informacija"
+    "Debug Information" : "Derinimo informacija",
+    "reason unknown" : "priežastis nežinoma"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");
