@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -85,14 +85,14 @@ class ArchiveController extends Controller
   public function __construct(
     ?string $appName,
     IRequest $request,
-    protected string $userId,
     IConfig $cloudConfig,
-    protected LoggerInterface $logger,
-    protected IL10N $l,
-    protected IRootFolder $rootFolder,
-    private IAppContainer $appContainer,
-    protected IPreview $previewManager,
     private ArchiveServiceFactory $archiveServiceFactory,
+    protected IAppContainer $appContainer,
+    protected IL10N $l,
+    protected IPreview $previewManager,
+    protected IRootFolder $rootFolder,
+    protected LoggerInterface $logger,
+    protected string $userId,
   ) {
     parent::__construct($appName, $request);
 

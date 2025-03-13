@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -105,10 +105,10 @@ class SettingsController extends Controller
     string $appName,
     IRequest $request,
     private $userId,
-    protected LoggerInterface $logger,
-    protected IL10N $l,
     private IConfig $config,
-    private IAppContainer $appContainer,
+    protected IAppContainer $appContainer,
+    protected IL10N $l,
+    protected LoggerInterface $logger,
   ) {
     parent::__construct($appName, $request);
   }
