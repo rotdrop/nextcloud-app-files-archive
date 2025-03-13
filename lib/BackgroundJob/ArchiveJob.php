@@ -3,7 +3,7 @@
  * Recursive PDF Downloader App for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -74,11 +74,11 @@ class ArchiveJob extends QueuedJob
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ITimeFactory $timeFactory,
-    protected ILogger $logger,
-    private IUserSession $userSession,
-    private IAppContainer $appContainer,
     private ITempManager $tempManager,
+    private IUserSession $userSession,
     private NotificationService $notificationService,
+    protected IAppContainer $appContainer,
+    protected ILogger $logger,
   ) {
     parent::__construct($timeFactory);
   }
