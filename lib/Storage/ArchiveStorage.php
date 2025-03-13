@@ -78,8 +78,8 @@ class ArchiveStorage extends AbstractStorage
   /** @var string */
   protected ?string $commonPathPrefix = null;
 
-  /** @var string */
-  protected string $archivePassPhrase;
+  /** @var null|string */
+  protected ?string $archivePassPhrase;
 
   /** @var bool */
   protected bool $stripCommonPathPrefix;
