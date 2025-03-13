@@ -38,7 +38,7 @@
         <ul v-show="!loading" class="archive-info">
           <NcListItem v-if="isLt(0, archiveStatus)"
                       :class="{ 'archive-error': isLt(0, archiveStatus) }"
-                      :title="t(appName, 'archive status')"
+                      :name="t(appName, 'archive status')"
                       :bold="true"
                       :details="archiveStatusText"
           >
@@ -46,46 +46,55 @@
               <div class="icon-error" />
             </template>
           </NcListItem>
-          <NcListItem :title="t(appName, 'archive format')"
+          <NcListItem :name="t(appName, 'archive format')"
                       :bold="true"
-                      :details="archiveInfo.format || t(appName, 'unknown')"
+                      :details="archiveInfo?.format || t(appName, 'unknown')"
+                      compact
           />
-          <NcListItem :title="t(appName, 'MIME type')"
+          <NcListItem :name="t(appName, 'MIME type')"
                       :bold="true"
-                      :details="archiveInfo.mimeType || t(appName, 'unknown')"
+                      :details="archiveInfo?.mimeType || t(appName, 'unknown')"
+                      compact
           />
-          <NcListItem :title="t(appName, 'backend driver')"
+          <NcListItem :name="t(appName, 'backend driver')"
                       :bold="true"
-                      :details="archiveInfo.backendDriver || t(appName, 'unknown')"
+                      :details="archiveInfo?.backendDriver || t(appName, 'unknown')"
+                      compact
           />
-          <NcListItem :title="t(appName, 'uncompressed size')"
+          <NcListItem :name="t(appName, 'uncompressed size')"
                       :bold="true"
                       :details="humanArchiveOriginalSize"
+                      compact
           />
-          <NcListItem :title="t(appName, 'compressed size')"
+          <NcListItem :name="t(appName, 'compressed size')"
                       :bold="true"
                       :details="humanArchiveCompressedSize"
+                      compact
           />
           <NcListItem v-if="humanArchiveCompressedSize !== humanArchiveFileSize"
-                      :title="t(appName, 'archive file size')"
+                      :name="t(appName, 'archive file size')"
                       :bold="true"
                       :details="humanArchiveFileSize"
+                      compact
           />
-          <NcListItem :title="t(appName, '# archive members')"
+          <NcListItem :name="t(appName, '# archive members')"
                       :bold="true"
                       :details="numberOfArchiveMembers"
+                      compact
           />
-          <NcListItem :title="t(appName, 'common prefix')"
+          <NcListItem :name="t(appName, 'common prefix')"
                       :bold="true"
                       :details="commonPathPrefix"
+                      compact
           />
           <NcListItem v-if="archiveInfo?.comment"
                       class="archive-comment"
-                      :title="t(appName, 'creator\'s comment')"
+                      :name="t(appName, 'creator\'s comment')"
                       :bold="true"
+                      compact
           >
             <template #subtitle>
-              {{ archiveInfo.comment }}
+              {{ archiveInfo?.comment }}
             </template>
           </NcListItem>
         </ul>
@@ -487,7 +496,7 @@ const humanArchiveCompressedSize = computed(() =>
     : t(appName, 'unknown'),
 )
 const humanArchiveFileSize = computed(() =>
-  isNaN(parseInt('' + archiveInfo.value?.size))
+  !isNaN(parseInt('' + archiveInfo.value?.size))
     ? formatFileSize(archiveInfo.value!.size)
     : t(appName, 'unknown'),
 )
