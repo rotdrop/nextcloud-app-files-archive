@@ -2,9 +2,6 @@ OC.L10N.register(
     "files_archive",
     {
     "User" : "Aseqdac",
-    "true" : "idetti",
-    "false" : "ucciḍ",
-    "Confirmation Required" : "Asentem ilaq",
     "OK" : "IH",
     "Created" : "Yettwarna.",
     "Accepted" : "Yettwaqbel",
@@ -18,6 +15,9 @@ OC.L10N.register(
     "Something went wrong." : "Yella wacu ur neddi ara akken ilaq.",
     "Internal Error" : "Tuccḍa tadigant",
     "No" : "Uhu",
-    "Yes" : "Oui"
+    "Yes" : "Oui",
+    "true" : "idetti",
+    "Confirmation Required" : "Asentem ilaq",
+    "false" : "ucciḍ"
 },
 "nplurals=2; plural=(n != 1);");

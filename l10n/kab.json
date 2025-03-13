@@ -1,8 +1,5 @@
 { "translations": {
     "User" : "Aseqdac",
-    "true" : "idetti",
-    "false" : "ucciḍ",
-    "Confirmation Required" : "Asentem ilaq",
     "OK" : "IH",
     "Created" : "Yettwarna.",
     "Accepted" : "Yettwaqbel",
@@ -16,6 +13,9 @@
     "Something went wrong." : "Yella wacu ur neddi ara akken ilaq.",
     "Internal Error" : "Tuccḍa tadigant",
     "No" : "Uhu",
-    "Yes" : "Oui"
+    "Yes" : "Oui",
+    "true" : "idetti",
+    "Confirmation Required" : "Asentem ilaq",
+    "false" : "ucciḍ"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

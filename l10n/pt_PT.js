@@ -30,8 +30,6 @@ OC.L10N.register(
     "unknown" : "desconhecido",
     "Disconnect storage" : "Desligue o armazenamento",
     "Archive" : "Arquivar",
-    "true" : "verdadeiro",
-    "false" : "falso",
     "OK" : "Ok",
     "Created" : "Criado",
     "Forbidden" : "Proibido",
@@ -40,6 +38,8 @@ OC.L10N.register(
     "Internal Server Error" : "Erro Interno de Servidor",
     "Error" : "Erro",
     "No" : "Não",
-    "Yes" : "Sim"
+    "Yes" : "Sim",
+    "true" : "verdadeiro",
+    "false" : "falso"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

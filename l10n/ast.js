@@ -14,8 +14,6 @@ OC.L10N.register(
     "MIME type" : "Tipu MIME",
     "Disconnect storage" : "Desconectar l'almacenamientu",
     "Archive" : "Archivar",
-    "true" : "true",
-    "false" : "false",
     "OK" : "Normal",
     "Forbidden" : "Prohíbese",
     "Not Found" : "Nun s'atopó",
@@ -23,6 +21,8 @@ OC.L10N.register(
     "Error" : "Error",
     "Missing data" : "Falten datos",
     "No" : "Non",
-    "Yes" : "Sí"
+    "Yes" : "Sí",
+    "true" : "true",
+    "false" : "false"
 },
 "nplurals=2; plural=(n != 1);");

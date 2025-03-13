@@ -23,10 +23,8 @@
     "Choose a folder" : "Valitse kansio",
     "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
-    "unknown" : "tuntematon",
     "too large" : "liian suuri",
-    "Mount Points" : "Liitospisteet",
-    "not mounted" : "ei liitetty",
+    "unknown" : "tuntematon",
     "Archive Information" : "Arkiston tiedot",
     "archive status" : "arkiston tila",
     "archive format" : "arkistomuoto",
@@ -39,12 +37,12 @@
     "Passphrase" : "Tunnuslause",
     "archive passphrase" : "arkiston tunnuslause",
     "Show Passphrase" : "Näytä tunnuslause",
+    "Mount Points" : "Liitospisteet",
+    "not mounted" : "ei liitetty",
     "Disconnect storage" : "Katkaise yhteys tallennustilaan",
     "Extract Archive" : "Pura arkisto",
     "Choose a directory to extract the archive to:" : "Valitse kansio, johon arkisto puretaan:",
     "Archive" : "Arkisto",
-    "reason unknown" : "tuntematon syy",
-    "Confirmation Required" : "Vahvistus vaaditaan",
     "OK" : "OK",
     "Created" : "Luotu",
     "Accepted" : "Hyväksytty",
@@ -59,6 +57,8 @@
     "Something went wrong." : "Jokin meni pieleen.",
     "Internal Error" : "Sisäinen virhe",
     "No" : "Ei",
-    "Yes" : "Kyllä"
+    "Yes" : "Kyllä",
+    "reason unknown" : "tuntematon syy",
+    "Confirmation Required" : "Vahvistus vaaditaan"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
