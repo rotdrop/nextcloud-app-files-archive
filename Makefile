@@ -106,8 +106,6 @@ WEBPACK_DEPS =\
  $(L10N_FILES)\
  $(TS_APP_CONFIG)
 
-WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
-
 include $(DEV_LIB_DIR)/makefile/npm.mk
 
 #@@ Run phpcs on the PHP code
@@ -172,12 +170,6 @@ else\
 fi
 
 .PHONY: appstore
-
-#@@ Removes WebPack builds
-webpack-clean:
-	rm -rf ./js/*
-	rm -rf ./css/*
-.PHONY: webpack-clean
 
 #@@ Removes build files
 clean: ## Tidy up local environment
