@@ -1,21 +1,21 @@
 #!/bin/bash
 
 if [ -z "${DRY+x}" ]; then
-    DRY=echo
+    DRY="echo"
 fi
 
-APPDIR=$(realpath $(dirname $0)/..)
+APPDIR=$(realpath "$1")
 
 CORE_LOCK=${APPDIR}/../../3rdparty/composer.lock
 LOCK=${APPDIR}/composer.lock
 CONFIG=${APPDIR}/composer.json
 
-{ ! [ -f $LOCK ] || ! [ -f $CORE_LOCK ] ; } && exit 0
+{ ! [ -f "$LOCK" ] || ! [ -f "$CORE_LOCK" ] ; } && exit 0
 
 WD=$(mktemp -d)
 
 function cleanup() {
-    rm -rf $WD
+    rm -rf "$WD"
 }
 
 trap cleanup EXIT
@@ -32,20 +32,20 @@ function packageVersions() {
     # done < <(jq '.packages[]|{(.name): .version}' < $LOCK|sed -e 's/[{}]//g' -e '/^$/d'|sort)
     # echo $PREV
     # echo '}'
-    jq '.packages[]|{(.name): .version}' < $LOCK|sed -e 's/[{}]//g' -e '/^$/d'|sort
+    jq '.packages[]|{(.name): .version}' < "$LOCK"|sed -e 's/[{}]//g' -e '/^$/d'|sort
 }
 
 function packageVersion() {
     local PKG=$1
     local LOCK=$2
-    grep '"'$PKG'"' $LOCK|awk '{ print $2; }'|sed 's/"//g'
+    grep '"'"$PKG"'"' "$LOCK"|awk '{ print $2; }'|sed 's/"//g'
 }
 
 CORE_VERSIONS=$WD/core-versions
 VERSIONS=$WD/versions
 
-packageVersions $CORE_LOCK > $CORE_VERSIONS
-packageVersions $LOCK > $VERSIONS
+packageVersions "$CORE_LOCK" > "$CORE_VERSIONS"
+packageVersions "$LOCK" > "$VERSIONS"
 
 #diff -u $CORE_VERSIONS $VERSIONS
 
