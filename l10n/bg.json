@@ -204,6 +204,7 @@
     "No" : "Не",
     "Yes" : "Да",
     "Debug Information" : "Информация за отстраняване на грешки",
+    "The quick brown fox jumps over the lazy dog." : "The quick brown fox jumps over the lazy dog. /изречение -  панграма, което съдържа всички букви от английската азбука/",
     "reason unknown" : "неизвестна причина",
     "Unable to query the initial value of all settings: {message}" : "Не е възможно да се направи запитване за първоначалната стойност на всички настройки: {съобщение}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Не е възможно да се направи запитване за първоначалната стойност на {settingsKey}: {message}",

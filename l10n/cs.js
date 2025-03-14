@@ -243,6 +243,7 @@ OC.L10N.register(
     "No" : "Ne",
     "Yes" : "Ano",
     "Debug Information" : "Informace pro ladění",
+    "The quick brown fox jumps over the lazy dog." : "Příliš žluťoučký kůň úpěl ďábelské ódy.",
     "reason unknown" : "příčina neznámá",
     "Unable to query the initial value of all settings: {message}" : "Nedaří se dotazovat úvodní hodnotu všech nastavení: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Nedaří se dotázat na úvodní hodnotu {settingsKey}: {message}",
