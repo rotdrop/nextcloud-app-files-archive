@@ -243,6 +243,7 @@ OC.L10N.register(
     "No" : "لا",
     "Yes" : "نعم",
     "Debug Information" : "معلومات التنقيح debug",
+    "The quick brown fox jumps over the lazy dog." : "الثعلب البني السريع قفز على الكلب الكسول The quick brown fox jumps over the lazy dog.",
     "reason unknown" : "السبب غير معلوم",
     "Unable to query the initial value of all settings: {message}" : "تعذّر الاستعلام عن القيمة الابتدائية لكل الإعدادات: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "تعذّر الاستعلام عن القيمة الابتدائية لـ{settingsKey}:{message}",
