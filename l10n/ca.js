@@ -36,6 +36,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Trieu una carpeta-prefix",
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
+    "Clear Selection" : "Buida la selecció",
     "Archive Manager, Admin Settings" : "Gestor d'arxius, Paràmetres d'administració",
     "Archive Extraction" : "Extracció d'arxius",
     "Archive Size Limit" : "Límit de mida de l'arxiu",
