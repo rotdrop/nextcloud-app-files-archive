@@ -1,5 +1,6 @@
 { "translations": {
     "User" : "Kasutaja",
+    "Password" : "Salasõna",
     "unknown" : "tundmatu",
     "Disconnect storage" : "Ühenda andmehoidla lahti",
     "Archive" : "Arhiiv",
@@ -10,7 +11,7 @@
     "Conflict" : "Konflikt",
     "Internal Server Error" : "Serveri sisemine viga",
     "Error" : "Viga",
-    "No" : "Ei",
-    "Yes" : "Jah"
+    "Yes" : "Jah",
+    "No" : "Ei"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

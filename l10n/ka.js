@@ -12,7 +12,7 @@ OC.L10N.register(
     "Conflict" : "Conflict",
     "Internal Server Error" : "Internal Server Error",
     "Error" : "Error",
-    "No" : "No",
-    "Yes" : "Yes"
+    "Yes" : "Yes",
+    "No" : "No"
 },
 "nplurals=2; plural=(n!=1);");

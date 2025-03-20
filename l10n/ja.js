@@ -19,8 +19,8 @@ OC.L10N.register(
     "Conflict" : "競合",
     "Internal Server Error" : "サーバー内部エラー",
     "Error" : "エラー",
-    "No" : "いいえ",
     "Yes" : "はい",
+    "No" : "いいえ",
     "Confirmation Required" : "確認が必要"
 },
 "nplurals=1; plural=0;");

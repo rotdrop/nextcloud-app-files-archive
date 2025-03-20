@@ -15,7 +15,7 @@ OC.L10N.register(
     "Conflict" : "Stangast á",
     "Internal Server Error" : "Innri villa",
     "Error" : "Villa",
-    "No" : "Nei",
-    "Yes" : "Já"
+    "Yes" : "Já",
+    "No" : "Nei"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

@@ -13,7 +13,7 @@ OC.L10N.register(
     "Conflict" : "Конфликт",
     "Internal Server Error" : "Внатрешна серверска грешка",
     "Error" : "Грешка",
-    "No" : "Не",
-    "Yes" : "Да"
+    "Yes" : "Да",
+    "No" : "Не"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");
