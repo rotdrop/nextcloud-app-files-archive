@@ -16,7 +16,7 @@ OC.L10N.register(
     "Conflict" : "Cuntierra",
     "Internal Server Error" : "Errore internu de su serbidore",
     "Error" : "Errore",
-    "No" : "No",
-    "Yes" : "Si"
+    "Yes" : "Si",
+    "No" : "No"
 },
 "nplurals=2; plural=(n != 1);");

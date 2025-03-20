@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "User" : "Kasutaja",
+    "Password" : "Salasõna",
     "unknown" : "tundmatu",
     "Disconnect storage" : "Ühenda andmehoidla lahti",
     "Archive" : "Arhiiv",
@@ -12,7 +13,7 @@ OC.L10N.register(
     "Conflict" : "Konflikt",
     "Internal Server Error" : "Serveri sisemine viga",
     "Error" : "Viga",
-    "No" : "Ei",
-    "Yes" : "Jah"
+    "Yes" : "Jah",
+    "No" : "Ei"
 },
 "nplurals=2; plural=(n != 1);");

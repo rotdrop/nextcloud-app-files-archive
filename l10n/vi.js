@@ -14,7 +14,7 @@ OC.L10N.register(
     "Internal Server Error" : "Lỗi máy chủ.",
     "Error" : "Lỗi",
     "Missing data" : "Thiếu dữ liệu",
-    "No" : "Không",
-    "Yes" : "Có"
+    "Yes" : "Có",
+    "No" : "Không"
 },
 "nplurals=1; plural=0;");

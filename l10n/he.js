@@ -15,7 +15,7 @@ OC.L10N.register(
     "Conflict" : "התנגשות",
     "Internal Server Error" : "שגיאה פנימית בשרת",
     "Error" : "שגיאה",
-    "No" : "לא",
-    "Yes" : "כן"
+    "Yes" : "כן",
+    "No" : "לא"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

@@ -58,8 +58,8 @@ OC.L10N.register(
     "Feedback email: {AutoReport}" : "Palautteen sähköposti: {AutoReport}",
     "Something went wrong." : "Jokin meni pieleen.",
     "Internal Error" : "Sisäinen virhe",
-    "No" : "Ei",
     "Yes" : "Kyllä",
+    "No" : "Ei",
     "reason unknown" : "tuntematon syy",
     "Confirmation Required" : "Vahvistus vaaditaan"
 },

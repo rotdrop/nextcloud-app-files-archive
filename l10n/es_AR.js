@@ -14,7 +14,7 @@ OC.L10N.register(
     "Internal Server Error" : "Error Interno del Servidor",
     "Error" : "Error",
     "Missing data" : "Faltan datos",
-    "No" : "No",
-    "Yes" : "Si"
+    "Yes" : "Si",
+    "No" : "No"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -13,7 +13,7 @@ OC.L10N.register(
     "Conflict" : "Përplasje",
     "Internal Server Error" : "Gabim i Brendshëm Shërbyesi",
     "Error" : "Gabim",
-    "No" : "Jo",
-    "Yes" : "Yes"
+    "Yes" : "Yes",
+    "No" : "Jo"
 },
 "nplurals=2; plural=(n != 1);");

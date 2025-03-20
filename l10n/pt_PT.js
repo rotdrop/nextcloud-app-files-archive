@@ -37,8 +37,8 @@ OC.L10N.register(
     "Conflict" : "Conflito",
     "Internal Server Error" : "Erro Interno de Servidor",
     "Error" : "Erro",
-    "No" : "Não",
     "Yes" : "Sim",
+    "No" : "Não",
     "true" : "verdadeiro",
     "false" : "falso"
 },

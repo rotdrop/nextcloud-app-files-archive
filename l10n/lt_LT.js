@@ -26,8 +26,8 @@ OC.L10N.register(
     "Error" : "Klaida",
     "Something went wrong." : "Kažkas nutiko.",
     "Internal Error" : "Vidinė klaida",
-    "No" : "Ne",
     "Yes" : "Taip",
+    "No" : "Ne",
     "Debug Information" : "Derinimo informacija",
     "reason unknown" : "priežastis nežinoma"
 },

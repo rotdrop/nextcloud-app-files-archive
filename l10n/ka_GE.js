@@ -14,7 +14,7 @@ OC.L10N.register(
     "Conflict" : "კონფლიქტი",
     "Internal Server Error" : "შიდა სერვერის შეცდომა",
     "Error" : "შეცდომა",
-    "No" : "არა",
-    "Yes" : "კი"
+    "Yes" : "კი",
+    "No" : "არა"
 },
 "nplurals=2; plural=(n!=1);");

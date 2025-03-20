@@ -14,7 +14,7 @@ OC.L10N.register(
     "Internal Server Error" : "Galat Server Internal",
     "Error" : "Galat",
     "Missing data" : "Data tidak ada",
-    "No" : "Tidak",
-    "Yes" : "Ya"
+    "Yes" : "Ya",
+    "No" : "Tidak"
 },
 "nplurals=1; plural=0;");

@@ -17,7 +17,7 @@ OC.L10N.register(
     "Internal Server Error" : "Internt Serverfel",
     "Error" : "Fel",
     "Missing data" : "Saknad data",
-    "No" : "Nej",
-    "Yes" : "Ja"
+    "Yes" : "Ja",
+    "No" : "Nej"
 },
 "nplurals=2; plural=(n != 1);");
