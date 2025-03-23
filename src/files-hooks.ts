@@ -18,7 +18,7 @@
  */
 
 import { appName } from './config.ts';
-import generateAppUrl from './toolkit/util/generate-url.js';
+import generateAppUrl from './toolkit/util/generate-url.ts';
 import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
 import { emit, subscribe } from '@nextcloud/event-bus';
 import axios from '@nextcloud/axios';

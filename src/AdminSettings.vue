@@ -56,10 +56,9 @@ import {
 } from 'vue'
 import {
   fetchSettings,
-  fetchSetting,
   saveConfirmedSetting,
 } from './toolkit/util/settings-sync.ts'
-import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.js'
+import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.ts'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
 import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
 
