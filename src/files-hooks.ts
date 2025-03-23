@@ -22,21 +22,21 @@ import generateAppUrl from './toolkit/util/generate-url.ts';
 import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
 import { emit, subscribe } from '@nextcloud/event-bus';
 import axios from '@nextcloud/axios';
-import type { AxiosError } from 'axios';
 import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
-import { getInitialState } from './toolkit/services/InitialStateService.js';
+import getInitialState from './toolkit/util/initial-state.ts';
 import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import { registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
 import { translate as t } from '@nextcloud/l10n';
 import { isAxiosErrorResponse } from './toolkit/types/axios-type-guards.ts';
+import type { InitialState } from './types/initial-state.d.ts';
 
 import logoSvg from '../img/app.svg?raw';
 import type { ArchiveMount, GetArchiveMountResponse } from './model/archive-mount';
 
 require('./webpack-setup.ts');
 
-const initialState = getInitialState();
-const archiveMimeTypes: Array<string> = initialState.archiveMimeTypes;
+const initialState = getInitialState<InitialState>();
+const archiveMimeTypes: Array<string> = initialState?.archiveMimeTypes || [];
 
 subscribe('notifications:notification:received', (event: NotificationEvent) => {
   if (event?.notification?.app !== appName) {
@@ -79,7 +79,7 @@ registerFileAction(new FileAction({
 
     const mountStatusUrl = generateAppUrl('archive/mount/{fullPath}', { fullPath }, undefined);
 
-    const mountUrl = initialState.mountBackgroundJob
+    const mountUrl = !!initialState?.mountBackgroundJob
       ? generateAppUrl('archive/schedule/mount/{fullPath}', { fullPath }, undefined)
       : mountStatusUrl;
 
@@ -98,7 +98,7 @@ registerFileAction(new FileAction({
         const data = response.data;
         console.info('DATA', data);
         const mountPointPath = data.mountPointPath;
-        if (!initialState.mountBackgroundJob) {
+        if (!initialState?.mountBackgroundJob) {
           showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', {
             archivePath: node.path,
             mountPointPath,

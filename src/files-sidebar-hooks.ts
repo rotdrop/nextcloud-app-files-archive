@@ -19,8 +19,9 @@
 
 import { appName } from './config.ts';
 import { translate as t } from '@nextcloud/l10n';
-import { getInitialState } from './toolkit/services/InitialStateService.js';
+import getInitialState from './toolkit/util/initial-state.ts';
 import type { LegacyFileInfo } from '@nextcloud/files';
+import type { InitialState } from './types/initial-state.d.ts';
 
 // eslint-disable-next-line
 import logoSvg from '../img/app.svg?raw';
@@ -34,7 +35,7 @@ interface FilesTab extends Vue {
 
 let TabInstance: undefined|FilesTab = undefined;
 
-const initialState = getInitialState();
+const initialState = getInitialState<InitialState>();
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -48,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
       iconSvg: logoSvg,
 
       enabled(fileInfo: LegacyFileInfo) {
-        return initialState.archiveMimeTypes.indexOf(fileInfo.mimetype) >= 0;
+        return initialState && initialState.archiveMimeTypes.indexOf(fileInfo.mimetype) >= 0;
       },
 
       async mount<VueType extends Vue>(el: HTMLElement, fileInfo: LegacyFileInfo, context: VueType) {

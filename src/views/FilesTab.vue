@@ -319,7 +319,7 @@ import {
   onUnmounted,
   nextTick,
 } from 'vue'
-import { getInitialState } from '../toolkit/services/InitialStateService.js'
+import getInitialState from '../toolkit/util/initial-state.ts'
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
@@ -345,13 +345,7 @@ import type { LegacyFileInfo, Node } from '@nextcloud/files'
 import { isAxiosErrorResponse } from '../toolkit/types/axios-type-guards.ts'
 import type { NextcloudEvents } from '@nextcloud/event-bus'
 import type { ArchiveMount, GetArchiveMountResponse } from '../model/archive-mount.d.ts'
-
-interface InitialState {
-  mountStripCommonPathPrefixDefault?: boolean,
-  extractStripCommonPathPrefixDefault?: boolean,
-  mountBackgroundJob?: boolean,
-  extractBackgroundJob?: boolean,
-}
+import type { InitialState } from '../types/initial-state.d.ts'
 
 interface ArchiveInfo {
   commonPathPrefix: string,
@@ -401,12 +395,12 @@ const archiveMounts = ref<ArchiveMount[]>([])
 const pendingJobs = ref<Record<string, ArchiveJob> >({})
 const jobsArePending = computed(() => Object.keys(pendingJobs.value).length > 0)
 
-const initialState = getInitialState() as InitialState
+const initialState = getInitialState<InitialState>()
 
-const archiveMountStripCommonPathPrefix = ref(!!initialState.mountStripCommonPathPrefixDefault)
-const archiveExtractStripCommonPathPrefix = ref(!!initialState.extractStripCommonPathPrefixDefault)
-const archiveMountBackgroundJob = ref(!!initialState.mountBackgroundJob)
-const archiveExtractBackgroundJob = ref(!!initialState.extractBackgroundJob)
+const archiveMountStripCommonPathPrefix = ref(!!initialState?.mountStripCommonPathPrefixDefault)
+const archiveExtractStripCommonPathPrefix = ref(!!initialState?.extractStripCommonPathPrefixDefault)
+const archiveMountBackgroundJob = ref(!!initialState?.mountBackgroundJob)
+const archiveExtractBackgroundJob = ref(!!initialState?.extractBackgroundJob)
 const archivePassPhrase = ref<undefined|string>(undefined)
 
 const showArchiveInfo = ref(true)
@@ -545,10 +539,10 @@ const setBusyState = (_state: boolean) => {}
  * Fetch some needed data ...
  */
 const getData = async () => {
-  archiveMountStripCommonPathPrefix.value = !!initialState.mountStripCommonPathPrefixDefault
-  archiveExtractStripCommonPathPrefix.value = !!initialState.extractStripCommonPathPrefixDefault
-  archiveMountBackgroundJob.value = !!initialState.mountBackgroundJob
-  archiveExtractBackgroundJob.value = !!initialState.extractBackgroundJob
+  archiveMountStripCommonPathPrefix.value = !!initialState?.mountStripCommonPathPrefixDefault
+  archiveExtractStripCommonPathPrefix.value = !!initialState?.extractStripCommonPathPrefixDefault
+  archiveMountBackgroundJob.value = !!initialState?.mountBackgroundJob
+  archiveExtractBackgroundJob.value = !!initialState?.extractBackgroundJob
 
   if (!fileName.value) {
     return
