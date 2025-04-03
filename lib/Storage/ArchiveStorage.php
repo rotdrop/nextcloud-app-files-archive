@@ -34,17 +34,17 @@ use Icewind\Streams\CountWrapper;
 use Icewind\Streams\IteratorDirectory;
 
 use OCP\AppFramework\IAppContainer;
-
-use OCP\Files\FileInfo;
-use OCP\Files\File;
-use OCP\Files\Cache\ICacheEntry;
 use OCP\Cache\CappedMemoryCache;
+use OCP\Files\Cache\ICacheEntry;
+use OCP\Files\Cache\IScanner;
+use OCP\Files\File;
+use OCP\Files\FileInfo;
+use OCP\Files\Storage\IStorage;
 
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
-
-use OCA\FilesArchive\Service\ArchiveServiceFactory;
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Service\ArchiveServiceFactory;
+use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 
 // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 
@@ -163,7 +163,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function getScanner($path = '', $storage = null)
+  public function getScanner(string $path = '', ?IStorage $storage = null): IScanner
   {
     if ($storage) {
       return parent::getScanner($path, $storage);
@@ -346,7 +346,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function isReadable($path)
+  public function isReadable($path): bool
   {
     // at least check whether it exists
     // subclasses might want to implement this more thoroughly
@@ -354,14 +354,14 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function isUpdatable($path)
+  public function isUpdatable($path): bool
   {
     // return $this->file_exists($path);
     return false; // readonly for now
   }
 
   /** {@inheritdoc} */
-  public function isSharable($path)
+  public function isSharable($path): bool
   {
     // sharing cannot work in general as the database access need additional
     // credentials
@@ -369,7 +369,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function filemtime($path)
+  public function filemtime($path):int|false
   {
     $path = trim($path, self::PATH_SEPARATOR);
     $result = false;
@@ -404,7 +404,7 @@ class ArchiveStorage extends AbstractStorage
    * @param int $time This is the storage_mtime column of the filecache table
    * for the given $path.
    */
-  public function hasUpdated($path, $time)
+  public function hasUpdated($path, $time): bool
   {
     /** @var ICacheEntry $rootEntry */
     $rootEntry = $this->getCache()->get('');
@@ -441,7 +441,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function test()
+  public function test(): bool
   {
     return $this->archiveService->canOpen($this->archiveFile);
   }
@@ -459,7 +459,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function file_exists($path)
+  public function file_exists(string $path): bool
   {
     if ($this->rootId > 0) {
       if (!$this->fileCacheCache->hasKey($path)) {
@@ -472,13 +472,13 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function unlink($path)
+  public function unlink(string $path): bool
   {
     return false;
   }
 
   /** {@inheritdoc} */
-  public function opendir($path)
+  public function opendir(string $path)
   {
     if (!$this->is_dir($path)) {
       return false;
@@ -526,13 +526,13 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function mkdir($path)
+  public function mkdir(string $path): bool
   {
     return false;
   }
 
   /** {@inheritdoc} */
-  public function is_dir($path)
+  public function is_dir($path): bool
   {
     if ($this->rootId > 0) {
       /** @var ICacheEntry $cacheEntry */
@@ -555,7 +555,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function is_file($path)
+  public function is_file($path): bool
   {
     if ($this->rootId > 0) {
       /** @var ICacheEntry $cacheEntry */
@@ -631,7 +631,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function writeStream(string $path, $stream, int $size = null): int
+  public function writeStream(string $path, $stream, ?int $size = null): int
   {
     return 0;
   }
@@ -656,7 +656,7 @@ class ArchiveStorage extends AbstractStorage
   }
 
   /** {@inheritdoc} */
-  public function rename($path1, $path2)
+  public function rename($path1, $path2): bool
   {
     return false;
   }
