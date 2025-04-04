@@ -1,9 +1,21 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Faili või kausta ei leidu.",
+    "Post to endpoint \"%s\" not implemented." : "Päring „%s“ otspunkti pole implementeeritud.",
+    "Get from endpoint \"%s\" not implemented." : "Get-meetodiga päring „%s“ otspunkti pole implementeeritud.",
     "Only the passphrase may be changed for an existing mount." : "Olemasoleva haakepunkti puhul saad muuta vaid salafraasi",
     "User" : "Kasutaja",
     "Password" : "Salasõna",
+    "pick a color" : "vali värv",
+    "open" : "ava",
+    "submit" : "saada",
+    "Custom Color" : "Sinu valitud värv",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Näidatud andmed pole korrektne svg-vormingus pilt: „{data}“.",
+    "Choose a folder" : "Vali kaust",
+    "Please select an item!" : "Palun vali objekt!",
+    "Reset Changes" : "Lähtesta muudatused",
+    "Clear Selection" : "Kustuta valik",
     "ok" : "sobib",
     "zip bomb" : "võimalik kahjulik zip-fail",
     "too large" : "liiga suur",
@@ -24,6 +36,7 @@ OC.L10N.register(
     "Internal Server Error" : "Serveri sisemine viga",
     "Error" : "Viga",
     "Yes" : "Jah",
-    "No" : "Ei"
+    "No" : "Ei",
+    "The quick brown fox jumps over the lazy dog." : "Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis."
 },
 "nplurals=2; plural=(n != 1);");
