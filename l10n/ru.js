@@ -65,6 +65,7 @@ OC.L10N.register(
     "Choose a folder" : "Выберите папку",
     "Invalid path selected: \"{dir}\"." : "Выбран некорректный путь: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Выбраный путь: \"{dir}/{base}/\".",
+    "Clear Selection" : "Отменить выбор",
     "Archive Manager, Admin Settings" : "Менеджер архивов, Настройки администратора",
     "Archive Extraction" : "Распаковка архива",
     "Archive Size Limit" : "Ограничение размера архива",
