@@ -77,6 +77,7 @@ OC.L10N.register(
     "restore palette" : "إستعادة لوحة الألوان",
     "factory reset palette" : "إعادة تعيين لوحة الألوان لإعدادات المصنع",
     "Custom Color" : "لون مُخصَّص",
+    "Provided data is not a valid SVG image: \"{data}\"." : "البيانات المُعطَاة لاتُمثِّل صورة SVG صحيحة: \"{data}\".",
     "Choose a folder" : "اختر مجلد",
     "Choose a prefix-folder" : "إختر مُجلّداً بادئاً",
     "Invalid path selected: \"{dir}\"." : "المسار المختار غير صحيح: \"{dir}\"",
