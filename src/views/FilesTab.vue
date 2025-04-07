@@ -562,8 +562,6 @@ const getData = async () => {
  * @param newFileInfo the current file FileInfo
  */
 const update = async (newFileInfo: LegacyFileInfo) => {
-  console.info('FILE INFO', newFileInfo)
-
   fileInfo.value = newFileInfo
 
   /* this.fileList = OCA.Files.App.currentFileList
@@ -605,9 +603,6 @@ const getArchiveInfo = async (fileName: string) => {
         showInfo(message)
       }
     }
-    console.info('ARCHIVE INFO', {
-      archiveInfo: { ...archiveInfo.value },
-    })
   } catch (e) {
     console.error('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
@@ -636,7 +631,6 @@ const refreshArchiveMounts = async (filename: string, noEmit?: boolean) => {
   const oldMounts = [...archiveMounts.value]
   const mounts = await getArchiveMounts(filename, false)
   archiveMounts.value = mounts.mounts
-  console.info('MOUNTS', { archiveMounts: { ...archiveMounts.value } })
   if (noEmit) {
     // do no emit birth during initialization
     return
@@ -652,14 +646,12 @@ const refreshArchiveMounts = async (filename: string, noEmit?: boolean) => {
     const node = fileInfoToNode(mount.mountPoint)
     node.attributes['is-mount-root'] = true
 
-    console.info('EMIT DELETED', node)
     emit('files:node:deleted', node)
   }
   for (const mount of newMounts) {
     const node = fileInfoToNode(mount.mountPoint)
     node.attributes['is-mount-root'] = true
 
-    console.info('EMIT CREATED', node)
     emit('files:node:created', node)
   }
 }
@@ -681,7 +673,6 @@ const getPendingJobs = async (fileName: string, silent?: boolean) => {
   try {
     const response = await axios.get<ArchiveJob[]>(url)
     const responseData = response.data
-    console.info('BG RESPONSE', response)
     const jobs = {}
     for (const job of responseData) {
       jobs[getJobIdFromJob(job)] = job
@@ -694,10 +685,6 @@ const getPendingJobs = async (fileName: string, silent?: boolean) => {
     for (const [jobId, job] of Object.entries(jobs)) {
       vueSet(pendingJobs.value, jobId, job)
     }
-    console.info('PENDING JOBS', {
-      jobsArePending: jobsArePending.value,
-      pendingJobs: { ...pendingJobs.value },
-    })
   } catch (e) {
     console.error('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
@@ -760,8 +747,8 @@ const cancelPendingOperation = async (operation: 'extract'|'mount') => {
   if (responseData.removed) {
     for (const job of responseData.removed) {
       const jobId = getJobIdFromJob(job)
-      if (pendingJobs[jobId]) {
-        vueDel(pendingJobs, jobId)
+      if (pendingJobs.value[jobId]) {
+        vueDel(pendingJobs.value, jobId)
       }
     }
   }
@@ -843,7 +830,6 @@ const mountArchive = async () => {
         const node = fileInfoToNode(response.data.mountPoint)
         node.attributes['is-mount-root'] = true
 
-        console.info('EMIT CREATED', node)
         emit('files:node:created', node)
       }
     }
@@ -875,7 +861,6 @@ const mountArchive = async () => {
 }
 
 const unmount = async (mount: ArchiveMount) => {
-  console.info('UNMOUNT MOUNT', mount)
   const cloudUser = getCurrentUser()
   const url = generateRemoteUrl('dav/files/' + cloudUser!.uid + mount.mountPointPath)
   setBusyState(true)
@@ -890,7 +875,6 @@ const unmount = async (mount: ArchiveMount) => {
     const node = fileInfoToNode(mount.mountPoint)
     node.attributes['is-mount-root'] = true
 
-    console.info('EMIT DELETED')
     emit('files:node:deleted', node)
   } catch (e) {
     console.error('ERROR', e)
@@ -947,7 +931,6 @@ const extractArchive = async () => {
       const node = fileInfoToNode(response.data.targetFolder)
       node.attributes['is-mount-root'] = true
 
-      console.info('EMIT CREATED')
       emit('files:node:created', node)
     }
   } catch (e) {
@@ -1066,8 +1049,9 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
     console.info('*** Archive notification for other file received', event)
     return
   }
-  if (pendingJobs[destinationData.mount.archiveFileId]) {
-    delete pendingJobs[destinationData.mount.archiveFileId]
+  const jobId = getJobIdFromOperation('mount', mount.archiveFilePath, mount.mountPointPath)
+  if (pendingJobs.value[jobId]) {
+    delete pendingJobs.value[jobId]
   }
   console.info('*** Mount notification received, updating mount-list', destinationData)
   const mountFileId = destinationData.id
