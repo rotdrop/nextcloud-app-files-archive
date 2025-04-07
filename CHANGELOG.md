@@ -18,6 +18,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - convert to Vue Composition API and Typescript
 
+### Remarks
+
+Starting with NC31 the (unfortunately unofficial) interface for
+defining storages has changed. Starting from NC v31 the underlying
+abstract base class is strongly type-hinted. Before v31 it was
+"sloppy". This introduces a code bifurcation in lib/Storage which
+hopefully can be abandoned when NC V29 and v30 are obsoleted,
+i.e. when Nextcloud v33 is released.
+
 ## [1.2.4-rc7] - 2024-05-29
 
 ### Fixed
