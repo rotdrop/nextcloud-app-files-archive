@@ -39,6 +39,7 @@ const initialState = getInitialState<InitialState>();
 const archiveMimeTypes: Array<string> = initialState?.archiveMimeTypes || [];
 
 subscribe('notifications:notification:received', (event: NotificationEvent) => {
+  console.debug('FILES_ARCHIVE NOTIFICATION RECEIVED', { event });
   if (event?.notification?.app !== appName) {
     return;
   }
@@ -46,10 +47,16 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
   if (!successData?.destination?.status || !successData?.destination?.folder) {
     return;
   }
-  const node = fileInfoToNode(successData.destination.folder);
-  node.attributes['is-mount-root'] = true;
+  try {
+    const node = fileInfoToNode(JSON.parse(successData.destination.folder));
+    node.attributes['is-mount-root'] = true;
 
-  emit('files:node:created', node);
+    console.debug('FILES_ARCHIVE EMIT NODE CREATED', { node });
+
+    emit('files:node:created', node);
+  } catch (error) {
+    console.error('Error, unable to decode mount folder node', { event });
+  }
 });
 
 registerFileAction(new FileAction({

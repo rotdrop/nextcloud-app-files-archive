@@ -19,11 +19,24 @@
 
 import type { FileInfoDTO } from '../toolkit/util/file-node-helper.ts'
 
-export interface ArchiveMount {
+export interface ArchiveMountEntity {
   id: number,
+  userId: string,
+
+  mountPointFileId: number,
   mountPointPath: string,
+  mountPointPathHash: string,
+
+  archiveFileId: number,
+  archiveFilePath: string,
+  archiveFilePathHash: string,
+
   archivePassPhrase?: string,
+
   mountFlags: number,
+}
+
+export interface ArchiveMount extends ArchiveMountEntity {
   mountPoint: FileInfoDTO,
 }
 

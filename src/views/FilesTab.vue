@@ -344,7 +344,11 @@ import axios from '@nextcloud/axios'
 import type { LegacyFileInfo, Node } from '@nextcloud/files'
 import { isAxiosErrorResponse } from '../toolkit/types/axios-type-guards.ts'
 import type { NextcloudEvents } from '@nextcloud/event-bus'
-import type { ArchiveMount, GetArchiveMountResponse } from '../model/archive-mount.d.ts'
+import type {
+  ArchiveMount,
+  ArchiveMountEntity,
+  GetArchiveMountResponse,
+} from '../model/archive-mount.d.ts'
 import type { InitialState } from '../types/initial-state.d.ts'
 
 interface ArchiveInfo {
@@ -1041,7 +1045,22 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
     return
   }
   const destinationData = event?.notification?.messageRichParameters?.destination
-  if (destinationData?.mount?.archiveFileId !== archiveFileId.value) {
+  if (destinationData?.status !== 'mount') {
+    return // nothing special ATM
+  }
+  const mountData = destinationData?.mount
+  if (!mountData) {
+    console.error('No mount info in mount notification event')
+    return
+  }
+  let mount: ArchiveMountEntity
+  try {
+    mount = JSON.parse(mountData)
+  } catch (error) {
+    console.error('files_archive, unable to decode mount entity', { event, mountData })
+    return
+  }
+  if (mount.archiveFileId !== archiveFileId.value) {
     // not for us, in the future we may want to maintain a store
     // and cache the data for all file-ids.
     console.info('*** Archive notification for other file received', event)
@@ -1050,14 +1069,14 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
   if (pendingJobs[destinationData.mount.archiveFileId]) {
     delete pendingJobs[destinationData.mount.archiveFileId]
   }
-  if (destinationData?.status === 'mount') {
-    console.info('*** Mount notification received, updating mount-list', destinationData)
-    const mountFileId = destinationData.id
-    const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
-    if (mountIndex === -1) {
-      const mount = destinationData.mount
-      mount.mountPoint = destinationData.folder
-      archiveMounts.value.push(mount)
+  console.info('*** Mount notification received, updating mount-list', destinationData)
+  const mountFileId = destinationData.id
+  const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
+  if (mountIndex === -1) {
+    try {
+      archiveMounts.value.push({ ...mount, mountPoint: JSON.parse(destinationData.folder) })
+    } catch (error) {
+      console.error('Unable to decode mount point folder file-info record.', { destinationData })
     }
   }
 }
@@ -1084,7 +1103,10 @@ const onMountPointDeleted = (mountPoint: Node) => {
     archiveMounts.value.splice(mountIndex, 1)
     console.info('RECORD UNMOUNT', mountPoint)
   } else {
-    console.info('DELETE OF NODE NOT FOR US', mountPoint)
+    console.info('DELETE OF NODE NOT FOR US', {
+      mountPoint,
+      archiveMounts: archiveMounts.value,
+    })
   }
 }
 

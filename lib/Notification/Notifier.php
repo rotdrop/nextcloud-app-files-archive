@@ -3,7 +3,7 @@
  * Recursive PDF Downloader App for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -107,7 +107,7 @@ class Notifier implements INotifier
     $richSubstitutions = [
       'source' => [
         'type' => 'file',
-        'id' => $parameters['sourceId'],
+        'id' => (string)$parameters['sourceId'],
         'name' => $parameters['sourceBaseName'],
         'path' => $parameters['sourcePath'],
         'link' => $this->urlGenerator->linkToRouteAbsolute('files.viewcontroller.showFile', [
@@ -140,7 +140,7 @@ class Notifier implements INotifier
 
         $richSubstitutions['destination'] = [
           'type' => 'file',
-          'id' => $parameters['destinationId'],
+          'id' => (string)$parameters['destinationId'],
           'name' => $parameters['destinationBaseName'],
           'path' => $parameters['destinationPath'],
           'link' => $this->urlGenerator->linkToRouteAbsolute('files.viewcontroller.showFile', [
@@ -155,13 +155,13 @@ class Notifier implements INotifier
           foreach ($destinations as $destination) {
             $relativePath = $this->getUserFolder()->getRelativePath($destination->getPath());
             if ($relativePath == $parameters['destinationPath']) {
-              $richSubstitutions['destination']['folder'] = $this->formatNode($destination);
+              $richSubstitutions['destination']['folder'] = json_encode($this->formatNode($destination));
               if ($subjectType & self::TYPE_MOUNT) {
                 $richSubstitutions['destination']['status'] = 'mount';
                 // this was the folder, if we had an async mount request, we
                 // also supply the mount-table entry.
                 $mountEntity = $this->mountMapper->findByMountPointFileId($parameters['destinationId']);
-                $richSubstitutions['destination']['mount'] = $mountEntity->jsonSerialize();
+                $richSubstitutions['destination']['mount'] = json_encode($mountEntity->jsonSerialize());
               } else {
                 $richSubstitutions['destination']['status'] = 'extract';
               }
