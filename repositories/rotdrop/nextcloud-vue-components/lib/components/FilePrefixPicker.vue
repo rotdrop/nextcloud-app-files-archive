@@ -32,7 +32,17 @@
           {{ pathInfo.dirName + (pathInfo.dirName !== '/' ? '/' : '') }}
         </a>
       </div>
-      <SettingsInputText v-if="!onlyDirName"
+      <TextFieldWithSubmitButton v-if="!onlyDirName"
+                                 v-model="pathInfo.baseName"
+                                 v-tooltip="unclippedPopup(pathInfo.baseName)"
+                                 label=""
+                                 class="flex-grow"
+                                 :placeholder="placeholder"
+                                 :readonly="readonly === 'basename'"
+                                 :disabled="disabled"
+                                 @update="emit('update', pathInfo)"
+      />
+      <!-- <SettingsInputText v-if="!onlyDirName"
                          v-model="pathInfo.baseName"
                          v-tooltip="unclippedPopup(pathInfo.baseName)"
                          label=""
@@ -41,7 +51,7 @@
                          :readonly="readonly === 'basename'"
                          :disabled="disabled"
                          @update="emit('update', pathInfo)"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -61,7 +71,7 @@ import {
   TOAST_PERMANENT_TIMEOUT,
   FilePickerType,
 } from '@nextcloud/dialogs'
-import SettingsInputText from '../components/SettingsInputText.vue'
+import TextFieldWithSubmitButton from './TextFieldWithSubmitButton.vue'
 import { translate as t } from '@nextcloud/l10n'
 import '@nextcloud/dialogs/style.css'
 
