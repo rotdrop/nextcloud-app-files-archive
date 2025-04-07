@@ -183,7 +183,7 @@
           <FilePrefixPicker v-model="archiveMountFileInfo"
                             :hint="t(appName, 'Not mounted, create a new mount point:')"
                             :placeholder="t(appName, 'base name')"
-                            @update="mountArchive"
+                            @submit="mountArchive"
           />
           <div class="flex flex-center">
             <div class="label"
@@ -229,7 +229,7 @@
           <FilePrefixPicker v-model="archiveExtractFileInfo"
                             :hint="t(appName, 'Choose a directory to extract the archive to:')"
                             :placeholder="t(appName, 'basename')"
-                            @update="extractArchive"
+                            @submit="extractArchive"
           />
           <div class="flex flex-center">
             <div class="label"

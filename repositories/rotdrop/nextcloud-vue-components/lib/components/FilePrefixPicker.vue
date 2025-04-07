@@ -40,18 +40,8 @@
                                  :placeholder="placeholder"
                                  :readonly="readonly === 'basename'"
                                  :disabled="disabled"
-                                 @update="emit('update', pathInfo)"
+                                 @submit="emit('submit', pathInfo)"
       />
-      <!-- <SettingsInputText v-if="!onlyDirName"
-                         v-model="pathInfo.baseName"
-                         v-tooltip="unclippedPopup(pathInfo.baseName)"
-                         label=""
-                         class="flex-grow"
-                         :placeholder="placeholder"
-                         :readonly="readonly === 'basename'"
-                         :disabled="disabled"
-                         @update="emit('update', pathInfo)"
-      /> -->
     </div>
   </div>
 </template>
@@ -101,7 +91,7 @@ const props = withDefaults(
 
 const emit = defineEmits([
     'input',
-    'update',
+    'submit',
     'error:invalid-dir-name',
     'update:dirName',
 ])
@@ -153,10 +143,10 @@ const openFilePicker = async () => {
       dir = ''
     }
     showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: pathInfo.value.baseName }))
-        emit('update:dirName', dir, pathInfo.value.baseName)
+    emit('update:dirName', dir, pathInfo.value.baseName)
     vueSet(pathInfo.value, 'dirName', dir)
     if (props.onlyDirName) {
-      emit('update', pathInfo.value)
+      emit('submit', pathInfo.value)
     }
   }
 }
