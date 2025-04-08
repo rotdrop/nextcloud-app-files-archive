@@ -349,6 +349,7 @@ import type {
   ArchiveMountEntity,
   GetArchiveMountResponse,
 } from '../model/archive-mount.d.ts'
+import { setSidebarNodeBusy as setBusyState } from '../toolkit/util/nextcloud-sidebar-root.ts'
 import type { InitialState } from '../types/initial-state.d.ts'
 
 interface ArchiveInfo {
@@ -529,15 +530,6 @@ const openMountOptionsMenu = () => {
 const openExtractionOptionsMenu = () => {
   extractionOptionsComponent.value?.openMenu()
 }
-
-/**
- * This used to turn on a busy indicator on the current row of the file-list.
- *
- * @param _state TBD.
- *
- * @todo Find out if this still can be achieved.
- */
-const setBusyState = (_state: boolean) => {}
 
 /**
  * Fetch some needed data ...
