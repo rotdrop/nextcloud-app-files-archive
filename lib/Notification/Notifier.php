@@ -258,7 +258,6 @@ class Notifier implements INotifier
     }
 
     $subject = str_replace($placeholders, $replacements, $notification->getRichSubject());
-    $this->logInfo('PARSED SUBJECT -> ' . $subject);
     $notification->setParsedSubject($subject);
   }
 
