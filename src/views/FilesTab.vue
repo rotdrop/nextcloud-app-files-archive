@@ -379,6 +379,8 @@ interface ArchiveJob {
   authToken: string,
 }
 
+setBusyState(false) // needs to be done once while in setup mode
+
 const archivePassPhraseComponent = ref<null|typeof NcActionInput>(null)
 const mountOptionsComponent = ref<null|typeof NcActions>(null)
 const extractionOptionsComponent = ref<null|typeof NcActions>(null)
