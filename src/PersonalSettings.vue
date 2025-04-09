@@ -142,6 +142,7 @@ import {
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
 import { v4 as uuidv4 } from 'uuid'
+import logger from './console.ts'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
 const loading = ref(true)
@@ -185,7 +186,7 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
 const saveSetting = async (settingsKey: string) => {
   if (loading.value) {
     // avoid ping-pong by reactivity
-    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
+    logger.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
     return
   }
   return saveSimpleSetting({ settingsKey, section: 'personal', settings })

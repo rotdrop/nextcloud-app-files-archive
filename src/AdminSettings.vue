@@ -61,6 +61,7 @@ import {
 import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.ts'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
 import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
+import logger from './console.ts'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
 const loading = ref(true)
@@ -96,11 +97,11 @@ const getFormatsMatrix = async () => {
     const response = await axios.get(generateAppUrl('diagnostics/archive/formats'))
     diagnostics.formats = response?.data?.html || null
     if (!diagnostics.formats) {
-      console.error('UNEXPECTED RESPONSE', response)
+      logger.error('UNEXPECTED RESPONSE', response)
     }
     return
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
   }
   showError(t(appName, 'Unable to query the archive-format support matrix.'))
 }
@@ -110,11 +111,11 @@ const getDriversStatus = async () => {
     const response = await axios.get(generateAppUrl('diagnostics/archive/drivers'))
     diagnostics.drivers = response?.data?.html || null
     if (!diagnostics.formats) {
-      console.error('UNEXPECTED RESPONSE', response)
+      logger.error('UNEXPECTED RESPONSE', response)
     }
     return
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
   }
   showError(t(appName, 'Unable to query the information about the available archive backend drivers.'))
 }

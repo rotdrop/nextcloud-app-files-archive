@@ -42,12 +42,12 @@
     "@nextcloud/router": "^2.2.1",
     "@nextcloud/stylelint-config": "^2.1.2",
     "@nextcloud/vue": "^8.10.0",
-    "@nextcloud/webpack-vue-config": "^6.0.0",
+    "@nextcloud/webpack-vue-config": "~6.2.0",
     "@rotdrop/nextcloud-vue-components": "file:repositories/rotdrop/nextcloud-vue-components",
     "@types/uuid": "^10.0.0",
     "axios": "*",
     "babel-jest": "^29.6.4",
-    "babel-loader": "^9.1.0",
+    "babel-loader": "^9.0.0",
     "babel-loader-exclude-node-modules-except": "^1.2.1",
     "content-disposition": "*",
     "csso-webpack-plugin": "^2.0.0-beta.3",
@@ -58,6 +58,8 @@
     "mini-css-extract-plugin": "^2.6.1",
     "sass": "^1.53.0",
     "sass-loader": "^16.0.0",
+    "stacktrace-gps": "github:stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a",
+    "stacktrace-js": "^2.0.2",
     "svgo-loader": "^4.0.0",
     "uuid": "^11.1.0",
     "vue": "^2.7.15",
@@ -68,7 +70,7 @@
     "xml2js": "*"
   },
   "engines": {
-    "node": "^16.0.0",
-    "npm": "^8.0.0"
+    "node": "^22.0.0",
+    "npm": "^10.0.0"
   }
 }

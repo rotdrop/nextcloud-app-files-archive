@@ -350,6 +350,7 @@ import type {
   GetArchiveMountResponse,
 } from '../model/archive-mount.d.ts'
 import { setSidebarNodeBusy as setBusyState } from '../toolkit/util/nextcloud-sidebar-root.ts'
+import logger from '../console.ts'
 import type { InitialState } from '../types/initial-state.d.ts'
 
 interface ArchiveInfo {
@@ -558,7 +559,7 @@ const update = async (newFileInfo: LegacyFileInfo) => {
 
   /* this.fileList = OCA.Files.App.currentFileList
    * this.fileList.$el.off('updated').on('updated', function(event) {
-   *   console.info('FILE LIST UPDATED, ARGS', arguments)
+   *   logger.info('FILE LIST UPDATED, ARGS', arguments)
    * }) */
   archiveMountBaseName.value = fileInfo.value.name.split('.')[0]
   archiveMountDirName.value = fileInfo.value.path
@@ -596,7 +597,7 @@ const getArchiveInfo = async (fileName: string) => {
       }
     }
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data as ArchiveInfoResponse
       archiveInfo.value = responseData.archiveInfo
@@ -678,7 +679,7 @@ const getPendingJobs = async (fileName: string, silent?: boolean) => {
       vueSet(pendingJobs.value, jobId, job)
     }
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data as { messages?: string[] }
       if (responseData.messages) {
@@ -714,7 +715,7 @@ const cancelPendingOperation = async (operation: 'extract'|'mount') => {
     const response = await axios.delete<CancelJobResponse>(url, {})
     responseData = response.data
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     if (isAxiosErrorResponse(e)) {
       const messages: string[] = []
       if (e.response.data) {
@@ -767,7 +768,7 @@ const getArchiveMounts = async (fileName: string, silent?: boolean) => {
       }
     }
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data as GetArchiveMountResponse
       result.mounts = responseData.mounts
@@ -826,7 +827,7 @@ const mountArchive = async () => {
       }
     }
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     if (isAxiosErrorResponse(e)) {
       const messages: string[] = []
       if (e.response.data) {
@@ -862,14 +863,14 @@ const unmount = async (mount: ArchiveMount) => {
     if (mountIndex >= 0) {
       archiveMounts.value.splice(mountIndex, 1)
     } else {
-      console.error('UNABLE TO FIND DELETED MOUNT IN LIST', mount, archiveMounts)
+      logger.error('UNABLE TO FIND DELETED MOUNT IN LIST', mount, archiveMounts)
     }
     const node = fileInfoToNode(mount.mountPoint)
     node.attributes['is-mount-root'] = true
 
     emit('files:node:deleted', node)
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     const messages: string[] = []
     if (isAxiosErrorResponse(e)) {
       // attempt parsing Sabre exception is available
@@ -926,7 +927,7 @@ const extractArchive = async () => {
       emit('files:node:created', node)
     }
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     if (isAxiosErrorResponse(e)) {
       const messages: string[] = []
       if (e.response.data) {
@@ -970,7 +971,7 @@ const setPassPhrase = async () => {
   try {
     await axios.patch(url, requestData)
   } catch (e) {
-    console.error('ERROR', e)
+    logger.error('ERROR', e)
     if (isAxiosErrorResponse(e)) {
       const messages: string[] = []
       if (e.response.data) {
@@ -1025,34 +1026,34 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
   }
   const mountData = destinationData?.mount
   if (!mountData) {
-    console.error('No mount info in mount notification event')
+    logger.error('No mount info in mount notification event')
     return
   }
   let mount: ArchiveMountEntity
   try {
     mount = JSON.parse(mountData)
   } catch (error) {
-    console.error('files_archive, unable to decode mount entity', { event, mountData })
+    logger.error('files_archive, unable to decode mount entity', { event, mountData })
     return
   }
   if (mount.archiveFileId !== archiveFileId.value) {
     // not for us, in the future we may want to maintain a store
     // and cache the data for all file-ids.
-    console.info('*** Archive notification for other file received', event)
+    logger.info('*** Archive notification for other file received', event)
     return
   }
   const jobId = getJobIdFromOperation('mount', mount.archiveFilePath, mount.mountPointPath)
   if (pendingJobs.value[jobId]) {
     delete pendingJobs.value[jobId]
   }
-  console.info('*** Mount notification received, updating mount-list', destinationData)
+  logger.info('*** Mount notification received, updating mount-list', destinationData)
   const mountFileId = destinationData.id
   const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
   if (mountIndex === -1) {
     try {
       archiveMounts.value.push({ ...mount, mountPoint: JSON.parse(destinationData.folder) })
     } catch (error) {
-      console.error('Unable to decode mount point folder file-info record.', { destinationData })
+      logger.error('Unable to decode mount point folder file-info record.', { destinationData })
     }
   }
 }
@@ -1062,13 +1063,13 @@ const onMountPointRenamed = (mountPoint: Node) => {
   const mountFileId = mountPoint.fileid
   const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
   if (mountIndex >= 0) {
-    console.info('BERFORE RENAME', { ...archiveMounts[mountIndex] })
+    logger.info('BERFORE RENAME', { ...archiveMounts[mountIndex] })
     vueSet(archiveMounts[mountIndex], 'mountPoint', mountPoint)
     vueSet(archiveMounts[mountIndex], 'mountPointPath', mountPoint.path)
     vueSet(archiveMounts[mountIndex], 'mountPointPathHash', md5(mountPoint.path))
-    console.info('AFTER RENAME', { ...archiveMounts[mountIndex] })
+    logger.info('AFTER RENAME', { ...archiveMounts[mountIndex] })
   } else {
-    console.info('RENAME OF NODE NOT FOR US', mountPoint)
+    logger.info('RENAME OF NODE NOT FOR US', mountPoint)
   }
 }
 
@@ -1077,9 +1078,9 @@ const onMountPointDeleted = (mountPoint: Node) => {
   const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
   if (mountIndex >= 0) {
     archiveMounts.value.splice(mountIndex, 1)
-    console.info('RECORD UNMOUNT', mountPoint)
+    logger.info('RECORD UNMOUNT', mountPoint)
   } else {
-    console.info('DELETE OF NODE NOT FOR US', {
+    logger.info('DELETE OF NODE NOT FOR US', {
       mountPoint,
       archiveMounts: archiveMounts.value,
     })

@@ -28,9 +28,9 @@ import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dial
 import { registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
 import { translate as t } from '@nextcloud/l10n';
 import { isAxiosErrorResponse } from './toolkit/types/axios-type-guards.ts';
-import type { InitialState } from './types/initial-state.d.ts';
-
+import logger from './console.ts';
 import logoSvg from '../img/app.svg?raw';
+import type { InitialState } from './types/initial-state.d.ts';
 import type { ArchiveMount, GetArchiveMountResponse } from './model/archive-mount';
 
 require('./webpack-setup.ts');
@@ -39,7 +39,7 @@ const initialState = getInitialState<InitialState>();
 const archiveMimeTypes: Array<string> = initialState?.archiveMimeTypes || [];
 
 subscribe('notifications:notification:received', (event: NotificationEvent) => {
-  console.debug('FILES_ARCHIVE NOTIFICATION RECEIVED', { event });
+  logger.debug('FILES_ARCHIVE NOTIFICATION RECEIVED', { event });
   if (event?.notification?.app !== appName) {
     return;
   }
@@ -51,11 +51,11 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
     const node = fileInfoToNode(JSON.parse(successData.destination.folder));
     node.attributes['is-mount-root'] = true;
 
-    console.debug('FILES_ARCHIVE EMIT NODE CREATED', { node });
+    logger.debug('FILES_ARCHIVE EMIT NODE CREATED', { node });
 
     emit('files:node:created', node);
   } catch (error) {
-    console.error('Error, unable to decode mount folder node', { event });
+    logger.error('Error, unable to decode mount folder node', { event });
   }
 });
 
@@ -99,11 +99,11 @@ registerFileAction(new FileAction({
         showError(t(appName, 'The archive "{archivePath}" is already mounted on "{mountPointPath}".', { archivePath: node.path, mountPointPath }), { timeout: TOAST_PERMANENT_TIMEOUT });
         return null;
       }
-      console.info('DATA', data);
+      logger.info('DATA', data);
       try {
         const response = await axios.post<ArchiveMount>(mountUrl);
         const data = response.data;
-        console.info('DATA', data);
+        logger.info('DATA', data);
         const mountPointPath = data.mountPointPath;
         if (!initialState?.mountBackgroundJob) {
           showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', {
@@ -112,13 +112,13 @@ registerFileAction(new FileAction({
           }));
           const mountNode = fileInfoToNode(data.mountPoint);
           mountNode.attributes['is-mount-root'] = true
-          console.info('MOUNT NODE', mountNode);
+          logger.info('MOUNT NODE', mountNode);
 
           // Update files list
           emit('files:node:created', mountNode);
         }
       } catch (e) {
-        console.error('ERROR', e)
+        logger.error('ERROR', e)
         if (isAxiosErrorResponse(e)) {
           const messages: string[] = []
           if (e.response.data) {
@@ -139,7 +139,7 @@ registerFileAction(new FileAction({
         }
       }
     } catch (e) {
-      console.error('ERROR', e)
+      logger.error('ERROR', e)
       if (isAxiosErrorResponse(e)) {
         const messages: string[] = []
         if (e.response.data) {

@@ -20,6 +20,7 @@
 import { appName } from './config.ts';
 import { translate as t } from '@nextcloud/l10n';
 import getInitialState from './toolkit/util/initial-state.ts';
+import logger from './console.ts';
 import type { LegacyFileInfo } from '@nextcloud/files';
 import type { InitialState } from './types/initial-state.d.ts';
 
@@ -53,7 +54,7 @@ window.addEventListener('DOMContentLoaded', () => {
       },
 
       async mount<VueType extends Vue>(el: HTMLElement, fileInfo: LegacyFileInfo, context: VueType) {
-        console.info('FILES ARCHIVE SIDEBAR LOAD');
+        logger.info('FILES ARCHIVE SIDEBAR LOAD');
         const FilesTabAsset = (await import('./files-tab.ts'));
         const factory = FilesTabAsset.default;
 
