@@ -42,22 +42,26 @@ declare module '@nextcloud/vue' {
     },
   };
   const NcActionCheckbox: Vue & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     'onUpdate:checked': (value: boolean) => any,
   };
   const NcButton: Vue;
 
   export declare class Color {
+
     constructor(r: number, g: number, b: number, name?: string);
+    // eslint-disable-next-line no-use-before-define
     declare ['constructor']: typeof Color;
     r: number;
     g: number;
     b: number;
     name?: string;
     readonly color: string;
+
   }
   const NcColorPicker: Vue & {
     palette: Color[],
-  }
+  };
 
   const NcCounterBubble: Vue;
   const NcDateTimePicker: Vue;
@@ -136,7 +140,7 @@ declare module '@nextcloud/vue' {
     NcSettingsSection,
     NcTextField,
     Tooltip,
-  }
+  };
 }
 
 declare module '@nextcloud/vue';
