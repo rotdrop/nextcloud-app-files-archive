@@ -1,0 +1,41 @@
+#!/usr/bin/php
+<?php
+require __DIR__.'/../vendor/autoload.php';
+if (!isset($argv[1])) die('Usage: '.__FILE__.' <mp3file>'.PHP_EOL);
+
+$s = new wapmorgan\BinaryStream\BinaryStream($argv[1]);
+$s->loadConfiguration(__DIR__.'/../conf/mp3.conf');
+function convertText($content) { return ($content[0] == 0x00) ? mb_convert_encoding(substr($content, 1), 'utf-8', 'ISO-8859-1') : substr($content, 1); }
+if ($s->compare(3, 'ID3')) {
+    $header = $s->readGroup('id3v2');
+    $header_size = null;
+    for ($i = 0; $i < 4; $i++) {
+        $header_size .= decbin(ord($header['size'][$i]));
+    }
+    $header_size = bindec($header_size);
+    $group = ($header['version'] == 2) ? 'id3v232' : 'id3v234';
+    $tags_2 = array();
+    while (!$s->compare(3, "\00\00\00")) {
+        $frame = $s->readGroup($group);
+        $frame_content = $s->readString($frame['size']);
+        switch ($frame['id']) {
+            case 'TIT2': case 'TT2': $tags_2['song'] = convertText($frame_content); break;
+            case 'TALB': case 'TAL': $tags_2['album'] = convertText($frame_content); break;
+            case 'TPE1': case 'TP1': $tags_2['artist'] = convertText($frame_content); break;
+            case 'TYER': case 'TYE': $tags_2['year'] = convertText($frame_content); break;
+            case 'COMM': case 'COM':
+                $frame_content = substr(convertText($frame_content), 3);
+                $tags_2['comment'] = strpos($frame_content, "\00") ? substr($frame_content, strpos($frame_content, "\00") + 1) : $frame_content;
+                break;
+            case 'TRCK': case 'TRK': $tags_2['track'] = convertText($frame_content); break;
+            case 'TCON': case 'TCO': $tags_2['genre'] = convertText($frame_content); break;
+        }
+    }
+    var_dump($tags_2);
+}
+
+$s->go(-128);
+if ($s->compare(3, 'TAG')) {
+    $tags = $s->readGroup('id3v1');
+    var_dump(array_map(function ($item) { return trim($item); }, $tags));
+}
