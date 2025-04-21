@@ -34,7 +34,7 @@ interface FilesTab extends Vue {
    update(fileInfo: LegacyFileInfo): Promise<unknown>,
 }
 
-let TabInstance: undefined|FilesTab = undefined;
+let TabInstance: undefined|FilesTab;
 
 const initialState = getInitialState<InitialState>();
 

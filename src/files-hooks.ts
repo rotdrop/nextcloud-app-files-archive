@@ -86,7 +86,7 @@ registerFileAction(new FileAction({
 
     const mountStatusUrl = generateAppUrl('archive/mount/{fullPath}', { fullPath }, undefined);
 
-    const mountUrl = !!initialState?.mountBackgroundJob
+    const mountUrl = initialState?.mountBackgroundJob
       ? generateAppUrl('archive/schedule/mount/{fullPath}', { fullPath }, undefined)
       : mountStatusUrl;
 
@@ -111,41 +111,41 @@ registerFileAction(new FileAction({
             mountPointPath,
           }));
           const mountNode = fileInfoToNode(data.mountPoint);
-          mountNode.attributes['is-mount-root'] = true
+          mountNode.attributes['is-mount-root'] = true;
           logger.info('MOUNT NODE', mountNode);
 
           // Update files list
           emit('files:node:created', mountNode);
         }
       } catch (e) {
-        logger.error('ERROR', e)
+        logger.error('ERROR', e);
         if (isAxiosErrorResponse(e)) {
-          const messages: string[] = []
+          const messages: string[] = [];
           if (e.response.data) {
-            const responseData = e.response.data as { messages?: string[] }
+            const responseData = e.response.data as { messages?: string[] };
             if (responseData.messages) {
-              messages.splice(messages.length, 0, ...responseData.messages)
+              messages.splice(messages.length, 0, ...responseData.messages);
             }
           }
           if (!messages.length) {
             messages.push(t(appName, 'Mount request failed with error {status}, "{statusText}".', {
               status: e.response.status,
               statusText: e.response.statusText,
-            }))
+            }));
           }
           for (const message of messages) {
-            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT });
           }
         }
       }
     } catch (e) {
-      logger.error('ERROR', e)
+      logger.error('ERROR', e);
       if (isAxiosErrorResponse(e)) {
-        const messages: string[] = []
+        const messages: string[] = [];
         if (e.response.data) {
-          const responseData = e.response.data as { messages?: string[] }
+          const responseData = e.response.data as { messages?: string[] };
           if (responseData.messages) {
-            messages.splice(messages.length, 0, ...responseData.messages)
+            messages.splice(messages.length, 0, ...responseData.messages);
           }
         }
         if (!messages.length) {
@@ -154,7 +154,7 @@ registerFileAction(new FileAction({
           }));
         }
         for (const message of messages) {
-          showError(message, { timeout: TOAST_PERMANENT_TIMEOUT })
+          showError(message, { timeout: TOAST_PERMANENT_TIMEOUT });
         }
       }
     }

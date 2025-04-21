@@ -19,7 +19,7 @@
 
 import { appName } from './config.ts';
 import Vue from 'vue';
-import { createPinia, PiniaVuePlugin } from 'pinia';
+// import { createPinia, PiniaVuePlugin } from 'pinia';
 import { Tooltip } from '@nextcloud/vue';
 import FilesTab from './views/FilesTab.vue';
 import type { LegacyFileInfo } from '@nextcloud/files';
@@ -29,13 +29,13 @@ interface FilesTabVue extends Vue {
   update(fileInfo: LegacyFileInfo): Promise<unknown>,
 }
 
-Vue.mixin({ data() { return { appName } }, methods: { t, n } });
+Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
 Vue.directive('tooltip', Tooltip);
 Vue.use(PiniaVuePlugin);
 
 const FilesTabVue = Vue.extend(FilesTab);
-const pinia = createPinia();
+// const pinia = createPinia();
 
-const createTabInstance = (parent: Vue):FilesTabVue => new FilesTabVue({ parent, pinia })
+const createTabInstance = (parent: Vue):FilesTabVue => new FilesTabVue({ parent/*, pinia */ });
 
 export default createTabInstance;

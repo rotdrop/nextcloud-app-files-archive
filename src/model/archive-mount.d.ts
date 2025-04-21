@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type { FileInfoDTO } from '../toolkit/util/file-node-helper.ts'
+import type { FileInfoDTO } from '../toolkit/util/file-node-helper.ts';
 
 export interface ArchiveMountEntity {
   id: number,
@@ -46,4 +46,4 @@ export interface GetArchiveMountResponse {
   messages?: string[],
 }
 
-export {}
+export {};
