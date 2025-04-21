@@ -86,7 +86,6 @@ declare module '@nextcloud/vue' {
     value: string|number;
   };
 
-  const NcActionCheckbox: Vue;
   const Tooltip: typeof VTooltip;
 
   const NcContent: Vue;
@@ -148,7 +147,7 @@ declare module '@nextcloud/vue';
 declare module '@nextcloud/vue/dist/Directives/*.js' {
   import type { DirectiveOptions } from 'vue';
 
-  const DirectiveVue: DirectiveOptions<>;
+  const DirectiveVue: DirectiveOptions;
 
   export default DirectiveVue;
 }
