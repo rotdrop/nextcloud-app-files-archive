@@ -77,6 +77,7 @@ OC.L10N.register(
     "restore palette" : "paleti geri yükle",
     "factory reset palette" : "paleti ilk durumuna sıfırla",
     "Custom Color" : "Özel renk",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Belirtilen veri geçerli bir SVG görseli değil: \"{data}\".",
     "Choose a folder" : "Bir klasör seçin",
     "Choose a prefix-folder" : "Bir ön ek klasörü seçin",
     "Invalid path selected: \"{dir}\"." : "Seçilmiş yol geçersiz: \"{dir}\".",
