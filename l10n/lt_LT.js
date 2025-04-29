@@ -1,10 +1,12 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Nepavyko rasti failo ar aplanko.",
     "Error: %s" : "Klaida: %s",
     "User" : "Naudotojas",
     "Password" : "Slaptažodis",
     "bytes" : "baitų",
+    "Custom Color" : "Tinkinta spalva",
     "Security Options" : "Saugumo parinktys",
     "Mount Options" : "Prijungimo parinktys",
     "unknown" : "nežinomas",
@@ -29,6 +31,7 @@ OC.L10N.register(
     "Yes" : "Taip",
     "No" : "Ne",
     "Debug Information" : "Derinimo informacija",
+    "The quick brown fox jumps over the lazy dog." : "Įlinkusi fechtuotojo špaga blykčiodama gręžė apvalų arbūzą.",
     "reason unknown" : "priežastis nežinoma"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");
