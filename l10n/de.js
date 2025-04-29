@@ -258,8 +258,8 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf \"{displayValue}\" gesetzt",
     "Setting \"{setting}\" has been unset successfully." : "Die Einstellung \"{setting}\" wurde erfolgreich gelöscht.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert \"{value}\" setzen: {message}",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "Fehler beim Einbinden der Archivdatei \"{archivePath}: {message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "Fehler beim Einbinden der Archivdatei \"{archivePath}\".",
+    "Failed to mount archive file \"{archivePath}: {message}\"." : "Archivdatei konnte nicht eingebunden werden \"{archivePath}: {message}\".",
+    "Failed to mount archive file \"{archivePath}\"." : "Archivdatei \"{archivePath}\" konnte nicht eingebunden werden.",
     "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Einbindungsstatus für das Archiv \"{archivePath}: {message}\" konnte nicht abgerufen werden.",
     "false" : "falsch"
 },

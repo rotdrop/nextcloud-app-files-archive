@@ -41,9 +41,9 @@
     "Your archive file {source} has been mounted as a virtual folder at {destination}. In order to unmount it it is safe to just delete the mount point {destination}. This will do no harm to the archive file and just issue an \"unmount\" action. Please note that the virtual folder is read-only." : "Ihre Archivdatei {source} wurde als virtueller Ordner unter {destination} bereitgestellt. Um die Bereitstellung aufzuheben, können Sie einfach den Bereitstellungspunkt {destination} löschen. Dadurch wird die Archivdatei nicht beschädigt, es wird lediglich eine \"Unmount\"-Aktion ausgeführt. Bitte beachten Sie, dass der virtuelle Ordner schreibgeschützt ist.",
     "Your archive file {source} has been extracted to {destination}. The archive contents reside there as ordinary files. Please feel free to use those as it pleases you. There is not automatic cleanup, the extracted files will remain in your file-space until you delete them manually. Just delete the folder {destination} if you have no more use of those files. Please note also that any changes committed to the extracted files will not be written back to the archive file {source}." : "Ihre Archivdatei {source} wurde nach {destination} entpackt. Die Archivinhalte liegen dort als gewöhnliche Dateien vor. Sie können diese nach Belieben verwenden. Es erfolgt keine automatische Bereinigung. Die entpackten Dateien verbleiben in Ihrem Dateibereich, bis sie manuell gelöscht werden. Wenn die Dateien nicht mehr benötigt werden, löschen Sie einfach den Ordner {destination}. Bitte beachten Sie auch, dass an den entpackten Dateien vorgenommene Änderungen nicht in die Archivdatei {source} zurückgeschrieben werden.",
     "Mounting {source} at {destination} has failed: {message}" : "Einhängen von {source} unter {destination} ist fehlgeschlagen: {message}",
-    "Extracting {source} to {destination} has failed: {message}" : "Fehler beim Extrahieren von {source} nach {destination}: {message}",
+    "Extracting {source} to {destination} has failed: {message}" : "{source} konnte nicht nach {destination} extrahiert werden. Fehler: {message}",
     "Mounting {source} at {destination} has failed." : "Einhängen von {source} unter {destination} ist fehlgeschlagen.",
-    "Extacting {source} to {destination} bas failed." : "Das Entpacken von {source} nach {destination} ist fehlgeschlagen.",
+    "Extacting {source} to {destination} bas failed." : "{source} konnte nicht nach {destination} extrahiert werden.",
     "Unsupported subject: \"%s\"." : "Nicht unterstützter Betreff: \"%s\".",
     "Archive Explorer" : "Archiv-Explorer",
     "Unable to detect the archive format of \"%1$s\"." : "Archivformat von \"%1$s\" kann nicht erkannt werden.",
@@ -256,8 +256,8 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf \"{displayValue}\" gesetzt",
     "Setting \"{setting}\" has been unset successfully." : "Die Einstellung \"{setting}\" wurde erfolgreich gelöscht.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert \"{value}\" setzen: {message}",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "Fehler beim Einbinden der Archivdatei \"{archivePath}: {message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "Fehler beim Einbinden der Archivdatei \"{archivePath}\".",
+    "Failed to mount archive file \"{archivePath}: {message}\"." : "Archivdatei konnte nicht eingebunden werden \"{archivePath}: {message}\".",
+    "Failed to mount archive file \"{archivePath}\"." : "Archivdatei \"{archivePath}\" konnte nicht eingebunden werden.",
     "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Einbindungsstatus für das Archiv \"{archivePath}: {message}\" konnte nicht abgerufen werden.",
     "false" : "falsch"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
