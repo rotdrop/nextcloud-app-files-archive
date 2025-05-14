@@ -190,7 +190,7 @@ OC.L10N.register(
     "Length Required" : "Comprimento Necessário",
     "Precondition Failed" : "Pré-condição Falhou",
     "Request Entity Too Large" : "Entidade de Solicitação Muito Grande",
-    "Request-URI Too Long" : "Pedido-URI Muito Longo",
+    "Request-URI Too Long" : " URI Muito Longo",
     "Unsupported Media Type" : "Tipo de Mídia não Suportado",
     "Requested Range Not Satisfiable" : "Intervalo Solicitado Não Satisfatório",
     "Expectation Failed" : "Falha na Expectativa",
