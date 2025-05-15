@@ -33,6 +33,7 @@ OC.L10N.register(
     "too large" : "liiga suur",
     "unknown" : "tundmatu",
     "Patching the passphrase failed with error {status}, \"{statusText}\"." : "Salafraasi paikamine ei õnnestunud ja tekkis viga {status}, „{statusText}“.",
+    "MIME type" : "Vorming",
     "Passphrase" : "Salafraas",
     "archive passphrase" : "arhiivi salafraas",
     "Show Passphrase" : "Näita salafraasi",
