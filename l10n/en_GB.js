@@ -257,10 +257,6 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Unconfirmed, reverting to old value.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Setting \"{setting}\" has been unset successfully.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Could not set value for \"{settingsKey}\" to \"{value}\": {message}",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "Failed to mount archive file \"{archivePath}: {message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "Failed to mount archive file \"{archivePath}\".",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Unable to obtain mount status for archive file \"{archivePath}: {message}\".",
-    "false" : "false"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
 },
 "nplurals=2; plural=(n != 1);");

@@ -255,10 +255,6 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Ubekreftet, går tilbake til gammel verdi.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Sett verdien for «{settingsKey}» til «{displayValue}»",
     "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "Montering av arkivfilen \"{archivePath}\" feilet: \"{message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "Montering av arkivfilen \"{archivePath}\" feilet.",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Kan ikke hente monteringsstatus for arkivfilen \"{archivePath}: {message}\".",
-    "false" : "falsk"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}"
 },
 "nplurals=2; plural=(n != 1);");

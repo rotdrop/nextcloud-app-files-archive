@@ -17,7 +17,6 @@ OC.L10N.register(
     "Yes" : "Oui",
     "No" : "Uhu",
     "true" : "idetti",
-    "Confirmation Required" : "Asentem ilaq",
-    "false" : "ucciḍ"
+    "Confirmation Required" : "Asentem ilaq"
 },
 "nplurals=2; plural=(n != 1);");

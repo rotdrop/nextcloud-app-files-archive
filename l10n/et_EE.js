@@ -51,7 +51,6 @@ OC.L10N.register(
     "Yes" : "Jah",
     "No" : "Ei",
     "The quick brown fox jumps over the lazy dog." : "Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis.",
-    "true" : "tõene",
-    "false" : "väär"
+    "true" : "tõene"
 },
 "nplurals=2; plural=(n != 1);");

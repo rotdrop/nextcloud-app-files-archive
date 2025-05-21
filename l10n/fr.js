@@ -255,10 +255,6 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Non confirmé, remis à sa valeur initiale.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Le paramètre \"{settingsKey}\" a maintenant comme valeur {displayValue}.",
     "Setting \"{setting}\" has been unset successfully." : "Le paramètre \"{setting}\" a été désactivé avec succès.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value}: {message}.",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "Échec du montage du fichier d'archive \"{archivePath}: {message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "Échec du montage du fichier d'archive \"{archivePath}\".",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Impossible d'obtenir le statut de montage pour le fichier d'archive « {archivePath} : {message} ».",
-    "false" : "faux"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value}: {message}."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

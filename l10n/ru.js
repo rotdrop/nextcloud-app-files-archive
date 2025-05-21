@@ -221,7 +221,6 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Нет подтверждения, будет возвращено старое значение.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успешно установлено значение \"{settingsKey}\" в \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Настройка \"{setting}\" была успешно отключена.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не удалось установить значение \"{settingsKey}\" в \"{value}\": {message}",
-    "false" : "ложь"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не удалось установить значение \"{settingsKey}\" в \"{value}\": {message}"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

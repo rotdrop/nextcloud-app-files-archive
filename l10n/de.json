@@ -255,10 +255,6 @@
     "Unconfirmed, reverting to old value." : "Bestätigung nicht erteilt, setze auf den alten Wert zurück.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Der Wert für die Einstellung \"{settingsKey}\" wurde auf \"{displayValue}\" gesetzt",
     "Setting \"{setting}\" has been unset successfully." : "Die Einstellung \"{setting}\" wurde gelöscht.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Wert für die Einstellung \"{settingsKey}\" konnte nicht auf den Wert \"{value}\" gesetzt werden: {message}",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "Archivdatei konnte nicht eingebunden werden \"{archivePath}: {message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "Archivdatei \"{archivePath}\" konnte nicht eingebunden werden.",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Einbindungsstatus für das Archiv \"{archivePath}: {message}\" konnte nicht abgerufen werden.",
-    "false" : "falsch"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Wert für die Einstellung \"{settingsKey}\" konnte nicht auf den Wert \"{value}\" gesetzt werden: {message}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
