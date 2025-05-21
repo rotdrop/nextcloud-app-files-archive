@@ -255,10 +255,6 @@
     "Unconfirmed, reverting to old value." : "未確認，回復到舊值。",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "成功設定「{settingsKey}」的值為「{displayValue}」",
     "Setting \"{setting}\" has been unset successfully." : "設定「{setting}」已成功取消設定。",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "無法將“{settingsKey}”的值設置為“{value}”",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "無法掛載封存檔案 「{archivePath}：{message}」。",
-    "Failed to mount archive file \"{archivePath}\"." : "無法掛載封存檔案 「{archivePath}」。",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "無法獲取封存檔案 「{archivePath}」的掛載狀態：{message}。",
-    "false" : "錯"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "無法將“{settingsKey}”的值設置為“{value}”"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

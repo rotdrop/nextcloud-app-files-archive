@@ -255,10 +255,6 @@
     "Unconfirmed, reverting to old value." : "Não confirmado, revertendo para valor anterior.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Valor definido com sucesso para \"{settingsKey}\" como \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "A configuração \"{setting}\" foi desativada com sucesso.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" como \"{value}\": {message}",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "Falha ao montar o arquivo compactado \"{archivePath}: {message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "Falha ao montar o arquivo compactado \"{archivePath}\".",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "Não foi possível obter o status de montagem do arquivo compactado \"{archivePath}: {message}\".",
-    "false" : "falso"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" como \"{value}\": {message}"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

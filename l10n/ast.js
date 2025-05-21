@@ -22,7 +22,6 @@ OC.L10N.register(
     "Missing data" : "Falten datos",
     "Yes" : "Sí",
     "No" : "Non",
-    "true" : "true",
-    "false" : "false"
+    "true" : "true"
 },
 "nplurals=2; plural=(n != 1);");

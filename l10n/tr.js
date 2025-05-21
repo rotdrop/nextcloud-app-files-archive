@@ -257,10 +257,6 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Onaylanmadı. Eski değere geri dönülüyor.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\", \"{displayValue}\" değerine ayarlandı",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ayarı kaldırıldı.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\", {value} değerine ayarlanamadı: {message}.",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "\"{archivePath} arşiv dosyası takılamadı: {message}\".",
-    "Failed to mount archive file \"{archivePath}\"." : "\"{archivePath} arşiv dosyası takılamadı.",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "\"{archivePath}\" arşiv dosyasının takılma durumu alınamadı: {message}\".",
-    "false" : "yanlış"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\", {value} değerine ayarlanamadı: {message}."
 },
 "nplurals=2; plural=(n > 1);");

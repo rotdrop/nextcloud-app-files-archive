@@ -20,7 +20,6 @@
     "Missing data" : "Falten datos",
     "Yes" : "Sí",
     "No" : "Non",
-    "true" : "true",
-    "false" : "false"
+    "true" : "true"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

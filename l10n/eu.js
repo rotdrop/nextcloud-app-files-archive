@@ -231,7 +231,6 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Berretsi gabe, aurreko baliora itzultzen.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\" \"{displayValue}\" baliora ondo ezarri da",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ezarpena behar bezala baliogabetu da.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}",
-    "false" : "gezurra"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}"
 },
 "nplurals=2; plural=(n != 1);");

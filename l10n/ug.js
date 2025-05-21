@@ -255,10 +255,6 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "جەزملەشتۈرۈلمىگەن ، كونا قىممەتكە قايتقان.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "مۇۋەپپەقىيەتلىك ھالدا \"{settingsKey}\" نىڭ قىممىتىنى \"{displayValue}\" قىلىپ بەلگىلەڭ.",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" نى تەڭشەش ئوڭۇشلۇق بولمىدى.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}",
-    "Failed to mount archive file \"{archivePath}: {message}\"." : "ئارخىپ ھۆججىتى \"{archivePath}: {message}\" نى قاچىلىمىدى.",
-    "Failed to mount archive file \"{archivePath}\"." : "ئارخىپ ھۆججىتى \"{archivePath}\" نى قاچىلىمىدى.",
-    "Unable to obtain mount status for archive file \"{archivePath}: {message}\"." : "ئارخىپ ھۆججىتى \"{archivePath}: {message}\" نىڭ ئورنىتىش ھالىتىگە ئېرىشەلمىدى.",
-    "false" : "false"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}"
 },
 "nplurals=2; plural=(n != 1);");

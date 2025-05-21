@@ -179,7 +179,6 @@
     "Unconfirmed, reverting to old value." : "Ubekræftet, tilbage til gammel værdi.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Værdi for \"{settingsKey}\" sat til \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Indstillingen \"{setting}\" er blevet ikke-markeret med succes.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke sætte værdi for \"{settingsKey}\" til \"{value}\": {message}",
-    "false" : "falsk"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke sætte værdi for \"{settingsKey}\" til \"{value}\": {message}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
