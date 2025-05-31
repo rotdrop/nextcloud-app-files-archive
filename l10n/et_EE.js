@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "File or folder could not be found." : "Faili või kausta ei leidu.",
+    "Error: %s" : "Viga: %s",
     "Post to endpoint \"%s\" not implemented." : "Päring „%s“ otspunkti pole implementeeritud.",
     "Post to base URL of app \"%s\" not allowed." : "Post-meetodiga päring „%s“ saidi põhiaadressi pihta pole lubatud.",
     "Get from endpoint \"%s\" not implemented." : "Get-meetodiga päring „%s“ otspunkti pole implementeeritud.",
