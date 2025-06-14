@@ -23,6 +23,7 @@ OC.L10N.register(
     "pick a color" : "wybierz kolor",
     "Choose a folder" : "Wybierz katalog",
     "Click to submit your changes." : "Kliknij, aby przesłać zmiany.",
+    "Clear Selection" : "Wyczyść zaznaczenie",
     "Diagnostics" : "Diagnostyka",
     "Archive Formats" : "Formaty archiwów",
     "Supported Drivers" : "Obsługiwane sterowniki",
