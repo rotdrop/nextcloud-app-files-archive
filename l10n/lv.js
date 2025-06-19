@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "The target folder \"%s\" already exists and auto-rename is not enabled." : "Mērķa mape \"%s\" jau pastāv, un automātiskā pārdēvēšana nav iespējota.",
+    "The mount point \"%s\" already exists and auto-rename is not enabled." : "Montēšanas punkts \"%s\" jau pastāv, un automātiskā pārdēvēšana nav iespējota.",
     "Archive Explorer" : "Arhīvu izpētītājs",
     "User" : "Lietotājs",
     "Password" : "Parole",
