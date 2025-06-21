@@ -30,7 +30,7 @@ OC.L10N.register(
     "Unknown admin setting: \"%1$s\"" : "Unbekannte Verwaltungseinstellungen: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Die Verwaltungseinstellung \"%1$s\" kann nur gelesen werden.",
     "Unknown personal setting: \"%1$s\"" : "Unbekannte persönliche Einstellung: \"%1$s\"",
-    "The personal setting \"%1$s\" is read-only" : "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden.",
+    "The personal setting \"%1$s\" is read-only" : "Die persönliche Einstellung \"%1$s\" kann nur gelesen werden.",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Der Wert \"%1$s\" für die Einstellung \"%2$s\" kann nicht in einen Wahrheitswert konvertiert werden.",
     "The target folder template \"%1$s\" must contain the archive file placeholder \"%2$s\"." : "Die Schablone für den Zielordnernamen \"%1$s\" muss den Platzhalter \"%2$s\" für den Archivnamen enthalten.",
     "Unknown personal setting: \"%s\"." : "Unbekannte persönliche Einstellung: \"%s\"",
