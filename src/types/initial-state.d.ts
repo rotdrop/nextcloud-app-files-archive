@@ -21,6 +21,7 @@ export interface InitialState {
   mountStripCommonPathPrefixDefault: boolean,
   extractStripCommonPathPrefixDefault: boolean,
   mountBackgroundJob: boolean,
+  mountByLeftClick: boolean,
   extractBackgroundJob: boolean,
   archiveMimeTypes: string[],
 }

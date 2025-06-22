@@ -82,6 +82,9 @@ class SettingsController extends Controller
   public const EXTRACT_BACKGROUND_JOB = 'extractBackgroundJob';
   public const EXTRACT_BACKGROUND_JOB_DEFAULT = false;
 
+  public const MOUNT_BY_LEFT_CLICK = 'mountByLeftClick';
+  public const MOUNT_BY_LEFT_CLICK_DEFAULT = false;
+
   /**
    * @var array<string, array>
    *
@@ -98,6 +101,7 @@ class SettingsController extends Controller
     self::EXTRACT_TARGET_TEMPLATE => [ 'rw' => true, 'default' => self::FOLDER_TEMPLATE_DEFAULT ],
     self::MOUNT_BACKGROUND_JOB => [ 'rw' => true, 'default' => self::MOUNT_BACKGROUND_JOB_DEFAULT ],
     self::EXTRACT_BACKGROUND_JOB => [ 'rw' => true, 'default' => self::EXTRACT_BACKGROUND_JOB_DEFAULT ],
+    self::MOUNT_BY_LEFT_CLICK => [ 'rw' => true, 'default' => self::MOUNT_BY_LEFT_CLICK_DEFAULT ],
   ];
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
@@ -256,12 +260,13 @@ class SettingsController extends Controller
           return self::grumble($t->getMessage());
         }
         break;
-      case self::MOUNT_BACKGROUND_JOB:
       case self::EXTRACT_BACKGROUND_JOB:
-      case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
       case self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
-      case self::MOUNT_POINT_AUTO_RENAME:
       case self::EXTRACT_TARGET_AUTO_RENAME:
+      case self::MOUNT_BACKGROUND_JOB:
+      case self::MOUNT_BY_LEFT_CLICK:
+      case self::MOUNT_POINT_AUTO_RENAME:
+      case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
           return self::grumble(
@@ -367,14 +372,15 @@ class SettingsController extends Controller
             $humanValue = '';
           }
           break;
-        case self::MOUNT_BACKGROUND_JOB:
         case self::EXTRACT_BACKGROUND_JOB:
-        case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
         case self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
-        case self::MOUNT_POINT_AUTO_RENAME:
         case self::EXTRACT_TARGET_AUTO_RENAME:
-        case self::MOUNT_POINT_TEMPLATE:
         case self::EXTRACT_TARGET_TEMPLATE:
+        case self::MOUNT_BACKGROUND_JOB:
+        case self::MOUNT_BY_LEFT_CLICK:
+        case self::MOUNT_POINT_AUTO_RENAME:
+        case self::MOUNT_POINT_TEMPLATE:
+        case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
           break;
         default:
           return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $oneSetting));

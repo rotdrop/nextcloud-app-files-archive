@@ -18,20 +18,16 @@
  */
 
 import { appName } from './config.ts';
-import generateAppUrl from './toolkit/util/generate-url.ts';
 import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
 import { emit, subscribe } from '@nextcloud/event-bus';
-import axios from '@nextcloud/axios';
 import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
 import getInitialState from './toolkit/util/initial-state.ts';
-import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import { registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
 import { translate as t } from '@nextcloud/l10n';
-import { isAxiosErrorResponse } from './toolkit/types/axios-type-guards.ts';
 import logger from './console.ts';
 import logoSvg from '../img/app.svg?raw';
 import type { InitialState } from './types/initial-state.d.ts';
-import type { ArchiveMount, GetArchiveMountResponse } from './model/archive-mount';
+import mount from './services/mount.ts';
 
 require('./webpack-setup.ts');
 
@@ -81,83 +77,15 @@ registerFileAction(new FileAction({
     return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
   },
   async exec(node: Node/* , view: View, dir: string */) {
-
-    const fullPath = encodeURIComponent(node.path);
-
-    const mountStatusUrl = generateAppUrl('archive/mount/{fullPath}', { fullPath }, undefined);
-
-    const mountUrl = initialState?.mountBackgroundJob
-      ? generateAppUrl('archive/schedule/mount/{fullPath}', { fullPath }, undefined)
-      : mountStatusUrl;
-
-    try {
-      const response = await axios.get<GetArchiveMountResponse>(mountStatusUrl);
-      const data = response.data;
-      if (data.mounted) {
-        const mountPointPath = data.mounts[0].mountPointPath;
-        // make it relative
-        showError(t(appName, 'The archive "{archivePath}" is already mounted on "{mountPointPath}".', { archivePath: node.path, mountPointPath }), { timeout: TOAST_PERMANENT_TIMEOUT });
-        return null;
-      }
-      logger.info('DATA', data);
-      try {
-        const response = await axios.post<ArchiveMount>(mountUrl);
-        const data = response.data;
-        logger.info('DATA', data);
-        const mountPointPath = data.mountPointPath;
-        if (!initialState?.mountBackgroundJob) {
-          showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', {
-            archivePath: node.path,
-            mountPointPath,
-          }));
-          const mountNode = fileInfoToNode(data.mountPoint);
-          mountNode.attributes['is-mount-root'] = true;
-          logger.info('MOUNT NODE', mountNode);
-
-          // Update files list
-          emit('files:node:created', mountNode);
-        }
-      } catch (e) {
-        logger.error('ERROR', e);
-        if (isAxiosErrorResponse(e)) {
-          const messages: string[] = [];
-          if (e.response.data) {
-            const responseData = e.response.data as { messages?: string[] };
-            if (responseData.messages) {
-              messages.splice(messages.length, 0, ...responseData.messages);
-            }
-          }
-          if (!messages.length) {
-            messages.push(t(appName, 'Mount request failed with error {status}, "{statusText}".', {
-              status: e.response.status,
-              statusText: e.response.statusText,
-            }));
-          }
-          for (const message of messages) {
-            showError(message, { timeout: TOAST_PERMANENT_TIMEOUT });
-          }
-        }
-      }
-    } catch (e) {
-      logger.error('ERROR', e);
-      if (isAxiosErrorResponse(e)) {
-        const messages: string[] = [];
-        if (e.response.data) {
-          const responseData = e.response.data as { messages?: string[] };
-          if (responseData.messages) {
-            messages.splice(messages.length, 0, ...responseData.messages);
-          }
-        }
-        if (!messages.length) {
-          messages.push(t(appName, 'Unable to obtain mount status for archive file "{archivePath}".', {
-            archivePath: node.path,
-          }));
-        }
-        for (const message of messages) {
-          showError(message, { timeout: TOAST_PERMANENT_TIMEOUT });
-        }
-      }
-    }
-    return null;
+    return await mount(node.path);
   },
 }));
+
+if (initialState?.mountByLeftClick) {
+  OCA.Viewer.registerHandler({
+    id: 'files_archive',
+    mimes: archiveMimeTypes,
+    component: () => import('./FilesArchivePseudoViewer.vue'),
+    canCompare: false,
+  });
+}
