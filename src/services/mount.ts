@@ -33,6 +33,20 @@ import { translate as t } from '@nextcloud/l10n';
 
 const initialState = getInitialState<InitialState>();
 
+const openMountPoint = async (mountNode: Node, view: View) => {
+  // maybe also navigate to the folder (of course only on synchronous mount requests)
+  try {
+    await OCP.Files.Router.goToRoute(
+      null,
+      { view: view.id, fileid: String(mountNode.fileid) },
+      { dir: mountNode.path },
+    );
+  } catch (error) {
+    logger.error(error);
+    showError(t(appName, 'Mounting the archive was seemingly successful, but navigating to the mount point failed: "{error}".', { error }));
+  }
+};
+
 const mount = async (node: Node, view: View) => {
   const savedNodeStatus = node.status;
 
@@ -44,9 +58,16 @@ const mount = async (node: Node, view: View) => {
     const response = await axios.get<GetArchiveMountResponse>(mountStatusUrl);
     const data = response.data;
     if (data.mounted) {
-      const mountPointPath = data.mounts[0].mountPointPath;
+      node.status = NodeStatus.LOADING;
+      emit('files:node:updated', node);
+      const mount = data.mounts[0];
+      const mountNode = fileInfoToNode(mount.mountPoint);
+      const mountPointPath = mount.mountPointPath;
       // make it relative
       showError(t(appName, 'The archive "{archivePath}" is already mounted on "{mountPointPath}".', { archivePath: node.path, mountPointPath }), { timeout: TOAST_PERMANENT_TIMEOUT });
+      await openMountPoint(mountNode, view);
+      node.status = savedNodeStatus;
+      emit('files:node:updated', node);
       return null;
     }
     try {
@@ -80,16 +101,8 @@ const mount = async (node: Node, view: View) => {
         emit('files:node:created', mountNode);
 
         // maybe also navigate to the folder (of course only on synchronous mount requests)
-        try {
-          await OCP.Files.Router.goToRoute(
-            null,
-            { view: view.id, fileid: String(mountNode.fileid) },
-            { dir: mountNode.path },
-          );
-        } catch (error) {
-          logger.error(error);
-          showError(t(appName, 'Mounting the archive was seemingly successful, but navigating to the mount point failed: "{error}".', { error }));
-        }
+        await openMountPoint(mountNode, view);
+
         node.status = undefined;
         emit('files:node:updated', node);
       }
