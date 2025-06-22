@@ -23,6 +23,7 @@ import getInitialState from '../toolkit/util/initial-state.ts';
 import logger from '../console.ts';
 import type { ArchiveMount, GetArchiveMountResponse } from '../model/archive-mount';
 import type { InitialState } from '../types/initial-state.d.ts';
+import { Node, NodeStatus, View } from '@nextcloud/files';
 import { appName } from '../config.ts';
 import { emit } from '@nextcloud/event-bus';
 import { fileInfoToNode } from '../toolkit/util/file-node-helper.ts';
@@ -32,8 +33,10 @@ import { translate as t } from '@nextcloud/l10n';
 
 const initialState = getInitialState<InitialState>();
 
-const mount = async (path: string) => {
-  const encodedPath = encodeURIComponent(path);
+const mount = async (node: Node, view: View) => {
+  const savedNodeStatus = node.status;
+
+  const encodedPath = encodeURIComponent(node.path);
 
   const mountStatusUrl = generateAppUrl('archive/mount/{encodedPath}', { encodedPath }, undefined);
 
@@ -43,7 +46,7 @@ const mount = async (path: string) => {
     if (data.mounted) {
       const mountPointPath = data.mounts[0].mountPointPath;
       // make it relative
-      showError(t(appName, 'The archive "{archivePath}" is already mounted on "{mountPointPath}".', { archivePath: path, mountPointPath }), { timeout: TOAST_PERMANENT_TIMEOUT });
+      showError(t(appName, 'The archive "{archivePath}" is already mounted on "{mountPointPath}".', { archivePath: node.path, mountPointPath }), { timeout: TOAST_PERMANENT_TIMEOUT });
       return null;
     }
     try {
@@ -54,17 +57,19 @@ const mount = async (path: string) => {
         logger.info('DATA', data);
         const mountPointPath = data.targetPath;
         showSuccess(t(appName, 'The archive "{archivePath}" will be mounted asynchronously on "{mountPointPath}", you will be notified on completion.', {
-          archivePath: path,
+          archivePath: node.path,
           mountPointPath,
         }));
       } else {
+        node.status = NodeStatus.LOADING;
+        emit('files:node:updated', node);
         const mountUrl = mountStatusUrl;
         const response = await axios.post<ArchiveMount>(mountUrl);
         const data = response.data;
         logger.info('DATA', data);
         const mountPointPath = data.mountPointPath;
         showSuccess(t(appName, 'The archive "{archivePath}" has been mounted on "{mountPointPath}".', {
-          archivePath: path,
+          archivePath: node.path,
           mountPointPath,
         }));
         const mountNode = fileInfoToNode(data.mountPoint);
@@ -73,6 +78,20 @@ const mount = async (path: string) => {
 
         // Update files list
         emit('files:node:created', mountNode);
+
+        // maybe also navigate to the folder (of course only on synchronous mount requests)
+        try {
+          await OCP.Files.Router.goToRoute(
+            null,
+            { view: view.id, fileid: String(mountNode.fileid) },
+            { dir: mountNode.path },
+          );
+        } catch (error) {
+          logger.error(error);
+          showError(t(appName, 'Mounting the archive was seemingly successful, but navigating to the mount point failed: "{error}".', { error }));
+        }
+        node.status = undefined;
+        emit('files:node:updated', node);
       }
     } catch (e) {
       logger.error('ERROR', e);
@@ -107,7 +126,7 @@ const mount = async (path: string) => {
       }
       if (!messages.length) {
         messages.push(t(appName, 'Unable to obtain mount status for archive file "{archivePath}".', {
-          archivePath: path,
+          archivePath: node.path,
         }));
       }
       for (const message of messages) {
@@ -115,6 +134,8 @@ const mount = async (path: string) => {
       }
     }
   }
+  node.status = savedNodeStatus;
+  emit('files:node:updated', node);
   return null;
 };
 

@@ -22,7 +22,7 @@ import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
 import { emit, subscribe } from '@nextcloud/event-bus';
 import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
 import getInitialState from './toolkit/util/initial-state.ts';
-import { registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
+import { DefaultType, registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
 import { translate as t } from '@nextcloud/l10n';
 import logger from './console.ts';
 import logoSvg from '../img/app.svg?raw';
@@ -76,16 +76,7 @@ registerFileAction(new FileAction({
     }
     return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
   },
-  async exec(node: Node/* , view: View, dir: string */) {
-    return await mount(node.path);
-  },
+  exec: mount,
+  default: initialState?.mountByLeftClick ? DefaultType.DEFAULT : undefined,
+  order: -1000,
 }));
-
-if (initialState?.mountByLeftClick) {
-  OCA.Viewer.registerHandler({
-    id: 'files_archive',
-    mimes: archiveMimeTypes,
-    component: () => import('./FilesArchivePseudoViewer.vue'),
-    canCompare: false,
-  });
-}
