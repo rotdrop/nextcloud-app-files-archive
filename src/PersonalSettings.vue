@@ -187,9 +187,9 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
   if (value === undefined) {
     value = settings[settingsKey] || ''
   }
-  if (await saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })) {
+  if (await saveConfirmedSetting({ value, section: 'personal', settingsKey, force, settings })) {
     if (settingsKey.endsWith('Converter')) {
-      fetchSetting({ settingsKey: 'converters', section: 'admin', settings })
+      fetchSetting({ settingsKey: 'converters', section: 'personal', settings })
     }
   }
 }
