@@ -4,11 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.2.7-rc1] -- 2025-04-12
+## [1.2.7] -- 2025-06-22
+
+### Added
+
+- optionally make mounting the archive the default action when
+  clicking on the file, this means:
+  - the action will still be visible in the action/context
+    menu, but just like clicking on a folder will navigate to that
+    folder, clicking on the archive file will now first mount it and
+    then navigate to the mount point, i.e. open the mounted directory tree
+  - if an archive is already mounted, then clicking on the archive (if
+    configured) will still display a notice that this is the case and
+    the also will navigate to the mounted archive folder.
+  - if asynchronous mounting is the default then a simple click will
+    still initiate the mount background job, but that's it in this case.
 
 ### Fixed
 
 - WIP: composer dependencies with NC29
+
+- some of the personal settings tried to access admin settings which
+  luckily did not work. Fix this and store all values in the personal
+  settings of the respective user.
 
 ## [1.2.6] -- 2025-04-09
 
