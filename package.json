@@ -1,6 +1,6 @@
 {
   "name": "files-archive",
-  "version": "1.2.7-rc1",
+  "version": "1.2.7",
   "private": true,
   "description": "On-the-fly archive inspector for Nextcloud",
   "homepage": "https://github.com/rotdrop/nextcloud-app-files-archive.git",
@@ -33,7 +33,7 @@
     "@nextcloud/axios": "^2.4.0",
     "@nextcloud/babel-config": "^1.0.0",
     "@nextcloud/browserslist-config": "^2.2.0",
-    "@nextcloud/dialogs": "^5.1.1",
+    "@nextcloud/dialogs": "^6.0.0",
     "@nextcloud/eslint-config": "^8.2.1",
     "@nextcloud/event-bus": "^3.1.0",
     "@nextcloud/files": "^3.1.0",

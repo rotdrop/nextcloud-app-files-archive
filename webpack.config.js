@@ -88,6 +88,7 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
   }),
   new MiniCssExtractPlugin({
     filename: 'css/[name]-[contenthash].css',
+    ignoreOrder: true,
   }),
   new CssoWebpackPlugin(
     {

@@ -78,6 +78,17 @@
           {{ t(appName, 'default to scheduling mount requests as background job') }}
         </label>
       </div>
+      <div class="settings-option">
+        <input :id="id + '-mount-by-left-click'"
+               v-model="settings.mountByLeftClick"
+               type="checkbox"
+               class="checkbox"
+               @change="saveSetting('mountByLeftClick')"
+        >
+        <label :for="id + '-mount-by-left-click'">
+          {{ t(appName, 'mount the archive as default action by a simple click') }}
+        </label>
+      </div>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Extraction Options')">
       <TextField :value.sync="settings.extractTargetTemplate"
@@ -176,9 +187,9 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
   if (value === undefined) {
     value = settings[settingsKey] || ''
   }
-  if (await saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })) {
+  if (await saveConfirmedSetting({ value, section: 'personal', settingsKey, force, settings })) {
     if (settingsKey.endsWith('Converter')) {
-      fetchSetting({ settingsKey: 'converters', section: 'admin', settings })
+      fetchSetting({ settingsKey: 'converters', section: 'personal', settings })
     }
   }
 }

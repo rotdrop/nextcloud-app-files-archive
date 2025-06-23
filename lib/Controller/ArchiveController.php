@@ -101,7 +101,7 @@ class ArchiveController extends Controller
     $this->archiveSizeLimit = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
-   $this->targetBaseNameTemplate = $cloudConfig->getUserValue(
+    $this->targetBaseNameTemplate = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::EXTRACT_TARGET_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
 
     $this->mountPointTemplate = $cloudConfig->getUserValue(
