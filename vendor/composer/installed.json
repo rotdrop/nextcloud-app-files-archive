@@ -1031,23 +1031,23 @@
         },
         {
             "name": "symfony/polyfill-php84",
-            "version": "v1.31.0",
-            "version_normalized": "1.31.0.0",
+            "version": "v1.32.0",
+            "version_normalized": "1.32.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php84.git",
-                "reference": "e5493eb51311ab0b1cc2243416613f06ed8f18bd"
+                "reference": "000df7860439609837bbe28670b0be15783b7fbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php84/zipball/e5493eb51311ab0b1cc2243416613f06ed8f18bd",
-                "reference": "e5493eb51311ab0b1cc2243416613f06ed8f18bd",
+                "url": "https://api.github.com/repos/symfony/polyfill-php84/zipball/000df7860439609837bbe28670b0be15783b7fbf",
+                "reference": "000df7860439609837bbe28670b0be15783b7fbf",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2"
             },
-            "time": "2024-09-09T12:04:04+00:00",
+            "time": "2025-02-20T12:04:08+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -1090,7 +1090,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php84/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-php84/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -1206,12 +1206,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wapmorgan/UnifiedArchive.git",
-                "reference": "1965fdb341920b48e47fd026f3cf13bde63a5499"
+                "reference": "6ab59c823d5a91ba32f922f98140d018f3d74e0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wapmorgan/UnifiedArchive/zipball/1965fdb341920b48e47fd026f3cf13bde63a5499",
-                "reference": "1965fdb341920b48e47fd026f3cf13bde63a5499",
+                "url": "https://api.github.com/repos/wapmorgan/UnifiedArchive/zipball/6ab59c823d5a91ba32f922f98140d018f3d74e0d",
+                "reference": "6ab59c823d5a91ba32f922f98140d018f3d74e0d",
                 "shasum": ""
             },
             "require": {
@@ -1243,7 +1243,7 @@
                 "symfony/console": "Requirement for cam (Console Archive Manager)",
                 "wapmorgan/cab-archive": "[pure] native CAB support"
             },
-            "time": "2025-02-16T21:36:59+00:00",
+            "time": "2025-06-18T12:46:17+00:00",
             "default-branch": true,
             "bin": [
                 "bin/cam"

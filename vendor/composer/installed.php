@@ -3,7 +3,7 @@
         'name' => 'rotdrop/nextcloud-app-files-archive',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '0b818752d976199f570035689f5eba9fc9c54f29',
+        'reference' => 'a6383f42e11e5a4c1ad5b4c8fe6ccd1e8453db4c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -118,7 +118,7 @@
         'rotdrop/nextcloud-app-files-archive' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '0b818752d976199f570035689f5eba9fc9c54f29',
+            'reference' => 'a6383f42e11e5a4c1ad5b4c8fe6ccd1e8453db4c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -188,9 +188,9 @@
             'dev_requirement' => false,
         ),
         'symfony/polyfill-php84' => array(
-            'pretty_version' => 'v1.31.0',
-            'version' => '1.31.0.0',
-            'reference' => 'e5493eb51311ab0b1cc2243416613f06ed8f18bd',
+            'pretty_version' => 'v1.32.0',
+            'version' => '1.32.0.0',
+            'reference' => '000df7860439609837bbe28670b0be15783b7fbf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php84',
             'aliases' => array(),
@@ -229,7 +229,7 @@
         'wapmorgan/unified-archive' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '1965fdb341920b48e47fd026f3cf13bde63a5499',
+            'reference' => '6ab59c823d5a91ba32f922f98140d018f3d74e0d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../wapmorgan/unified-archive',
             'aliases' => array(
