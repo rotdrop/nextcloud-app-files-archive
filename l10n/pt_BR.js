@@ -73,7 +73,7 @@ OC.L10N.register(
     "pick a color" : "escolha uma cor",
     "open" : "abrir",
     "submit" : "enviar",
-    "revert color" : "reverter cor",
+    "undo color choice" : "desfazer escolha da cor",
     "restore palette" : "restaurar paleta",
     "factory reset palette" : "reinicializar paleta",
     "Custom Color" : "Cor Personalizada",
