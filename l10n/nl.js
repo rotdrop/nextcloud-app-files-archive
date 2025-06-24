@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "File or folder could not be found." : "Bestand of map kon niet worden gevonden",
+    "Error: %s" : "Fout: %s",
     "Post to endpoint \"%s\" not implemented." : "'Post' aanvraag naar eindpunt \"%s\" is niet geïmplementeerd",
     "Post to base URL of app \"%s\" not allowed." : "'Post' aanvraag naar basis URL of de \" %s\" is niet geïmplementeerd",
     "Get from endpoint \"%s\" not implemented." : "'Get' aanvraag naar eindpunt \"%s\" is niet geïmplementeerd",
