@@ -1,7 +1,14 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Error: %s" : "Грешка: %s",
+    "User" : "Корисник",
     "Password" : "Лозинка",
+    "bytes" : "бајти",
+    "open" : "отвори",
+    "submit" : "испрати",
+    "Choose a folder" : "Избери папка",
+    "ok" : "добро",
     "unknown" : "непознат",
     "Disconnect storage" : "Исклучи складиште",
     "Archive" : "Архива",
