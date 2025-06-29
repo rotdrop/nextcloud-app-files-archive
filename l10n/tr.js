@@ -73,6 +73,7 @@ OC.L10N.register(
     "pick a color" : "bir renk seçin",
     "open" : "aç",
     "submit" : "gönder",
+    "undo color choice" : "renk seçimini geri al",
     "restore palette" : "paleti geri yükle",
     "factory reset palette" : "paleti ilk durumuna sıfırla",
     "Custom Color" : "Özel renk",
