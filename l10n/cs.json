@@ -46,6 +46,7 @@
     "Extacting {source} to {destination} bas failed." : "Rozbalování {source} do {destination} se nezdařilo.",
     "Unsupported subject: \"%s\"." : "Nepodporovaný předmět: „%s.",
     "Archive Explorer" : "Průzkumník archivu",
+    "pass through" : "průchod",
     "Unable to detect the archive format of \"%1$s\"." : "Nebylo možné zjistit formát archivu „%1$s“.",
     "Archive format of \"%1$s\" detected as \"%2$s\", but there is no backend driver installed which can decompress \".%3$s\" files." : "Formát archivu„%1$s“ rozpoznán jako „%2$s“, ale není přítomen žádný ovladač podpůrné vrstvy, který by dokázal rozbalit soubory „.%3$s“.",
     "Unable to deal with tar-files. Please check the installation of the app." : "Nebylo možné nějak naložit s tar soubory. Zkontrolujte instalaci aplikace.",

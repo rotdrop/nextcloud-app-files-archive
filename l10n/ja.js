@@ -5,6 +5,8 @@ OC.L10N.register(
     "The admin setting \"%1$s\" is read-only" : " 管理者設定\"%1$s\"は読み取り専用です",
     "User" : "ユーザー",
     "Password" : "パスワード",
+    "%1$s (renamed)" : "%1$s (リネーム済み)",
+    "renamed file" : "リネーム済みファイル",
     "bytes" : "バイト",
     "Clear Selection" : "セッションクリア",
     "unknown" : "不明",

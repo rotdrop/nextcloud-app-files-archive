@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "File or folder could not be found." : "Nepavyko rasti failo ar aplanko.",
     "Error: %s" : "Klaida: %s",
+    "not found" : "nerasta",
     "User" : "Naudotojas",
     "Password" : "Slaptažodis",
     "bytes" : "baitų",
