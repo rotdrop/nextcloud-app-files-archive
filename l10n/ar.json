@@ -46,6 +46,7 @@
     "Extacting {source} to {destination} bas failed." : "فشل استخراج {source} إلى {destination}.",
     "Unsupported subject: \"%s\"." : "مادة غير مدعومة: \"%s\".",
     "Archive Explorer" : "مستكشف الأرشيف Archive Explorer",
+    "pass through" : "عبور",
     "Unable to detect the archive format of \"%1$s\"." : "يتعذّر التعرُّف على تنسيق الأرشيف لـ \"%1$s\".",
     "Archive format of \"%1$s\" detected as \"%2$s\", but there is no backend driver installed which can decompress \".%3$s\" files." : "تمّ التعرُّف على تنسيق الأرشيف لـ \"%1$s\" باعتباره \"%2$s\", لكن لا توجد على الخادوم برمجية مثبتة مناسبة لفك ضغط الملفات التي هي من النوع  \".%3$s\".",
     "Unable to deal with tar-files. Please check the installation of the app." : "يتعذّر التعامل مع الملفات المؤرشفة ذات الامتداد .tar. تأكد رجاءً من تثبيت التطبيق المناسب للتعامل معها.",
