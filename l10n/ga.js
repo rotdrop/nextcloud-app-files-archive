@@ -74,6 +74,7 @@ OC.L10N.register(
     "Caused by previous exception" : "De bharr eisceachta roimhe seo",
     "%1$s (renamed)" : "%1$s (athainmnithe)",
     "renamed file" : "comhad athainmnithe",
+    "Unable to sanitize filename \"%s\"." : "Ní féidir ainm comhaid \"%s\" a shláintiú.",
     "bytes" : "bearta",
     "The supplied color-string \"%s\" seems to be invalid." : "Is cosúil go bhfuil an teaghrán datha soláthraithe \"%s\" neamhbhailí.",
     "The input color values are invalid." : "Tá na luachanna datha ionchuir neamhbhailí.",
