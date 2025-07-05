@@ -1,0 +1,26 @@
+{ "translations": {
+    "Unknown admin setting: \"%1$s\"" : "Unknown admin setting: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "The admin setting \"%1$s\" is read-only",
+    "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean.",
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
+    "User" : "Mtumiaji",
+    "Password" : "Nenosiri",
+    "Login succeeded." : "Uingiaji umefanikiwa",
+    "Login failed." : "Uingiaji umeshindikana",
+    "Error, caught an exception." : "Error, caught an exception.",
+    "Caused by previous exception" : "Caused by previous exception",
+    "%1$s (renamed)" : "%1$s (iliyopew jina jipya)",
+    "renamed file" : "Faili iliyopewa jina jipya",
+    "Unable to sanitize filename \"%s\"." : "Unable to sanitize filename \"%s\".",
+    "Disconnect storage" : "Achanisha uhifadhi",
+    "OK" : "OK",
+    "Created" : "Imetengenezwa",
+    "Forbidden" : "Imezuiliwa",
+    "Not Found" : "Haipatikani",
+    "Internal Server Error" : "Hitilafu ya ndani ya seva",
+    "Error" : "Hitilafu",
+    "Yes" : "Ndiyo",
+    "No" : "Hapana",
+    "true" : "kweli"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
