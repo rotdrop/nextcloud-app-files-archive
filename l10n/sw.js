@@ -14,6 +14,7 @@ OC.L10N.register(
     "%1$s (renamed)" : "%1$s (iliyopew jina jipya)",
     "renamed file" : "Faili iliyopewa jina jipya",
     "Unable to sanitize filename \"%s\"." : "Unable to sanitize filename \"%s\".",
+    "bytes" : "bytes",
     "Disconnect storage" : "Achanisha uhifadhi",
     "OK" : "OK",
     "Created" : "Imetengenezwa",
