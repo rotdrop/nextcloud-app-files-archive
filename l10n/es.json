@@ -46,6 +46,7 @@
     "Extacting {source} to {destination} bas failed." : "La extracción de {source} en {destination} ha fallado.",
     "Unsupported subject: \"%s\"." : "Asunto no soportado: \"%s\".",
     "Archive Explorer" : "Explorador de archivadores",
+    "Unable to find any of the fallback converters \"%s\"." : "No fue posible ubicar ninguno de los convertidores alternativos \"%s\".",
     "not found" : "no encontrado",
     "pass through" : "traspaso",
     "Universal converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "El conversor universal \"%1$s\" ha fallado al intentar convertir el tipo MIME \"%2$s\"",
