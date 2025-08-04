@@ -45,6 +45,7 @@
     "Internal Error" : "Interne fout",
     "Missing data" : "Ontbrekende gegevens",
     "Yes" : "Ja",
-    "No" : "Nee"
+    "No" : "Nee",
+    "Debug Information" : "Foutopsporingsinformatie"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
