@@ -47,6 +47,7 @@ OC.L10N.register(
     "Internal Error" : "Interne fout",
     "Missing data" : "Ontbrekende gegevens",
     "Yes" : "Ja",
-    "No" : "Nee"
+    "No" : "Nee",
+    "Debug Information" : "Foutopsporingsinformatie"
 },
 "nplurals=2; plural=(n != 1);");
