@@ -20,6 +20,7 @@ OC.L10N.register(
     "Not Found" : "Nav atrasts",
     "Conflict" : "Konflikts",
     "Internal Server Error" : "Iekšēja servera kļūda",
+    "Loop Detected (WebDAV)" : "Noteikta cilpa (WebDAV)",
     "Error" : "Kļūda",
     "Missing data" : "Iztrūkst dati",
     "Yes" : "Jā",
