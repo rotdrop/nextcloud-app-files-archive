@@ -60,7 +60,7 @@ import {
 } from './toolkit/util/settings-sync.ts'
 import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.ts'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
-import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
+import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
 import logger from './console.ts'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
