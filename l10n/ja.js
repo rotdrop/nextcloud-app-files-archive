@@ -13,6 +13,9 @@ OC.L10N.register(
     "MIME type" : "MIMEタイプ",
     "Disconnect storage" : "ストレージを切断する",
     "Archive" : "アーカイブ",
+    "Yes" : "はい",
+    "No" : "いいえ",
+    "Confirmation Required" : "確認が必要",
     "OK" : "OK",
     "Created" : "作成時刻",
     "Unauthorized" : "権限がありません",
@@ -20,9 +23,6 @@ OC.L10N.register(
     "Not Found" : "見つかりませんでした",
     "Conflict" : "競合",
     "Internal Server Error" : "サーバー内部エラー",
-    "Error" : "エラー",
-    "Yes" : "はい",
-    "No" : "いいえ",
-    "Confirmation Required" : "確認が必要"
+    "Error" : "エラー"
 },
 "nplurals=1; plural=0;");

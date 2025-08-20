@@ -47,6 +47,10 @@ OC.L10N.register(
     "Extract Archive" : "Pura arkisto",
     "Choose a directory to extract the archive to:" : "Valitse kansio, johon arkisto puretaan:",
     "Archive" : "Arkisto",
+    "Yes" : "Kyllä",
+    "No" : "Ei",
+    "reason unknown" : "tuntematon syy",
+    "Confirmation Required" : "Vahvistus vaaditaan",
     "OK" : "OK",
     "Created" : "Luotu",
     "Accepted" : "Hyväksytty",
@@ -59,10 +63,6 @@ OC.L10N.register(
     "Error" : "Virhe",
     "Feedback email: {AutoReport}" : "Palautteen sähköposti: {AutoReport}",
     "Something went wrong." : "Jokin meni pieleen.",
-    "Internal Error" : "Sisäinen virhe",
-    "Yes" : "Kyllä",
-    "No" : "Ei",
-    "reason unknown" : "tuntematon syy",
-    "Confirmation Required" : "Vahvistus vaaditaan"
+    "Internal Error" : "Sisäinen virhe"
 },
 "nplurals=2; plural=(n != 1);");

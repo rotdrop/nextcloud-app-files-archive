@@ -2,6 +2,10 @@ OC.L10N.register(
     "files_archive",
     {
     "User" : "Aseqdac",
+    "Yes" : "Oui",
+    "No" : "Uhu",
+    "true" : "idetti",
+    "Confirmation Required" : "Asentem ilaq",
     "OK" : "IH",
     "Created" : "Yettwarna.",
     "Accepted" : "Yettwaqbel",
@@ -13,10 +17,6 @@ OC.L10N.register(
     "Aborted" : "Ittwasefsex",
     "Error" : "Erreur",
     "Something went wrong." : "Yella wacu ur neddi ara akken ilaq.",
-    "Internal Error" : "Tuccḍa tadigant",
-    "Yes" : "Oui",
-    "No" : "Uhu",
-    "true" : "idetti",
-    "Confirmation Required" : "Asentem ilaq"
+    "Internal Error" : "Tuccḍa tadigant"
 },
 "nplurals=2; plural=(n != 1);");

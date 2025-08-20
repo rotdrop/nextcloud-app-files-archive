@@ -14,6 +14,8 @@ OC.L10N.register(
     "unknown" : "непознат",
     "Disconnect storage" : "Исклучи складиште",
     "Archive" : "Архива",
+    "Yes" : "Да",
+    "No" : "Не",
     "OK" : "Добро",
     "Created" : "Креирано",
     "Unauthorized" : "Неавторизирано",
@@ -21,8 +23,6 @@ OC.L10N.register(
     "Not Found" : "Не е пронајдено",
     "Conflict" : "Конфликт",
     "Internal Server Error" : "Внатрешна серверска грешка",
-    "Error" : "Грешка",
-    "Yes" : "Да",
-    "No" : "Не"
+    "Error" : "Грешка"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

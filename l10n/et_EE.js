@@ -107,6 +107,11 @@ OC.L10N.register(
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Arhiivi haakimine justkui toimis, aga selle avamisel tekkis viga: „{error}“.",
     "The archive \"{archivePath}\" will be mounted asynchronously on \"{mountPointPath}\", you will be notified on completion." : "„{archivePath}“ arhiiv haagiti asünkroonselt asukohta „{mountPointPath}“ ning toimingu lõppemisel saad asjakohase teavituse.",
     "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "„{archivePath}“ arhiiv on haagitud asukohta „{mountPointPath}“.",
+    "Yes" : "Jah",
+    "No" : "Ei",
+    "The quick brown fox jumps over the lazy dog." : "Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis.",
+    "true" : "tõene",
+    "Confirmation Required" : "Kinnitus on vajalik",
     "OK" : "Sobib",
     "Created" : "Loodud",
     "Moved Permanently" : "Jäädavalt  teisaldatud",
@@ -153,11 +158,6 @@ OC.L10N.register(
     "Internal Error" : "Sisemine viga",
     "Field {RequiredField} not present in AJAX response." : "AJAX-i päringu vastuses puudub vajalik väli: {RequiredField}",
     "Missing data" : "Andmed puuduvad",
-    "Yes" : "Jah",
-    "No" : "Ei",
-    "Debug Information" : "Teave veaotsingu jaoks",
-    "The quick brown fox jumps over the lazy dog." : "Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis.",
-    "true" : "tõene",
-    "Confirmation Required" : "Kinnitus on vajalik"
+    "Debug Information" : "Teave veaotsingu jaoks"
 },
 "nplurals=2; plural=(n != 1);");

@@ -10,6 +10,8 @@ OC.L10N.register(
     "unknown" : "okänt",
     "Disconnect storage" : "Koppla bort lagring",
     "Archive" : "Arkivera",
+    "Yes" : "Ja",
+    "No" : "Nej",
     "OK" : "OK",
     "Created" : "Skapat",
     "Unauthorized" : "Obehörig",
@@ -18,8 +20,6 @@ OC.L10N.register(
     "Conflict" : "Konflikt",
     "Internal Server Error" : "Internt Serverfel",
     "Error" : "Fel",
-    "Missing data" : "Saknad data",
-    "Yes" : "Ja",
-    "No" : "Nej"
+    "Missing data" : "Saknad data"
 },
 "nplurals=2; plural=(n != 1);");

@@ -103,6 +103,12 @@ OC.L10N.register(
     "Choose a directory to extract the archive to:" : "选择解压的目标目录：",
     "Mount Archive" : "挂载压缩文件",
     "Archive" : "存档",
+    "Yes" : "是",
+    "No" : "否",
+    "reason unknown" : "原因未知",
+    "true" : "真",
+    "Confirmation Required" : "需要确认",
+    "Unconfirmed, reverting to old value." : "没有确认，回退到之前的值。",
     "OK" : "确定",
     "Created" : "已创建",
     "Accepted" : "已接受",
@@ -117,12 +123,6 @@ OC.L10N.register(
     "Internal Server Error" : "内部服务器错误",
     "Error" : "错误",
     "Missing data" : "数据丢失",
-    "Yes" : "是",
-    "No" : "否",
-    "Debug Information" : "调试信息",
-    "reason unknown" : "原因未知",
-    "true" : "真",
-    "Confirmation Required" : "需要确认",
-    "Unconfirmed, reverting to old value." : "没有确认，回退到之前的值。"
+    "Debug Information" : "调试信息"
 },
 "nplurals=1; plural=0;");

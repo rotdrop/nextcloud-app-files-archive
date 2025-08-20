@@ -7,6 +7,8 @@ OC.L10N.register(
     "unknown" : "לא ידוע",
     "Disconnect storage" : "ניתוק אחסון",
     "Archive" : "לארכיון",
+    "Yes" : "כן",
+    "No" : "לא",
     "OK" : "אישור",
     "Created" : "מועד היצירה",
     "Unauthorized" : "אין הרשאה",
@@ -14,8 +16,6 @@ OC.L10N.register(
     "Not Found" : "לא נמצא",
     "Conflict" : "התנגשות",
     "Internal Server Error" : "שגיאה פנימית בשרת",
-    "Error" : "שגיאה",
-    "Yes" : "כן",
-    "No" : "לא"
+    "Error" : "שגיאה"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");
