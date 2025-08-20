@@ -6,6 +6,8 @@ OC.L10N.register(
     "unknown" : "không biết",
     "Disconnect storage" : "Bộ lưu trữ đã ngắt kết nối",
     "Archive" : "Lưu trữ",
+    "Yes" : "Có",
+    "No" : "Không",
     "OK" : "OK",
     "Created" : "Đã tạo",
     "Forbidden" : "Bị cấm",
@@ -13,8 +15,6 @@ OC.L10N.register(
     "Conflict" : "Xung đột",
     "Internal Server Error" : "Lỗi máy chủ.",
     "Error" : "Lỗi",
-    "Missing data" : "Thiếu dữ liệu",
-    "Yes" : "Có",
-    "No" : "Không"
+    "Missing data" : "Thiếu dữ liệu"
 },
 "nplurals=1; plural=0;");

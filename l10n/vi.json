@@ -4,6 +4,8 @@
     "unknown" : "không biết",
     "Disconnect storage" : "Bộ lưu trữ đã ngắt kết nối",
     "Archive" : "Lưu trữ",
+    "Yes" : "Có",
+    "No" : "Không",
     "OK" : "OK",
     "Created" : "Đã tạo",
     "Forbidden" : "Bị cấm",
@@ -11,8 +13,6 @@
     "Conflict" : "Xung đột",
     "Internal Server Error" : "Lỗi máy chủ.",
     "Error" : "Lỗi",
-    "Missing data" : "Thiếu dữ liệu",
-    "Yes" : "Có",
-    "No" : "Không"
+    "Missing data" : "Thiếu dữ liệu"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

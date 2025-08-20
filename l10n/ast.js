@@ -15,14 +15,14 @@ OC.L10N.register(
     "MIME type" : "Tipu MIME",
     "Disconnect storage" : "Desconectar l'almacenamientu",
     "Archive" : "Archivar",
+    "Yes" : "Sí",
+    "No" : "Non",
+    "true" : "true",
     "OK" : "Normal",
     "Forbidden" : "Prohíbese",
     "Not Found" : "Nun s'atopó",
     "Internal Server Error" : "Error internu del sirvidor",
     "Error" : "Error",
-    "Missing data" : "Falten datos",
-    "Yes" : "Sí",
-    "No" : "Non",
-    "true" : "true"
+    "Missing data" : "Falten datos"
 },
 "nplurals=2; plural=(n != 1);");

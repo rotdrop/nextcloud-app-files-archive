@@ -26,6 +26,8 @@ OC.L10N.register(
     "MIME type" : "MIME type",
     "Disconnect storage" : "Verbinding met opslag verbreken",
     "Archive" : "Archiveren",
+    "Yes" : "Ja",
+    "No" : "Nee",
     "OK" : "OK",
     "Created" : "Gemaakt",
     "Accepted" : "Geaccepteerd",
@@ -46,8 +48,6 @@ OC.L10N.register(
     "Error" : "Fout",
     "Internal Error" : "Interne fout",
     "Missing data" : "Ontbrekende gegevens",
-    "Yes" : "Ja",
-    "No" : "Nee",
     "Debug Information" : "Foutopsporingsinformatie"
 },
 "nplurals=2; plural=(n != 1);");

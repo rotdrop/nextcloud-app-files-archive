@@ -58,6 +58,10 @@ OC.L10N.register(
     "Disconnect storage" : "Odklopi shrambo",
     "Choose a directory to extract the archive to:" : "Izbor mape za razširjanje arhiva:",
     "Archive" : "Arhiv",
+    "Yes" : "Da",
+    "No" : "Ne",
+    "reason unknown" : "razlog ni znan",
+    "true" : "prav",
     "OK" : "V redu",
     "Created" : "Ustvarjeno",
     "Accepted" : "Sprejeto",
@@ -85,10 +89,6 @@ OC.L10N.register(
     "Something went wrong." : "Prišlo je do napake ...",
     "Internal Error" : "Notranja napaka",
     "Missing data" : "Manjkajoči podatki",
-    "Yes" : "Da",
-    "No" : "Ne",
-    "Debug Information" : "Podrobnosti razhroščevanja",
-    "reason unknown" : "razlog ni znan",
-    "true" : "prav"
+    "Debug Information" : "Podrobnosti razhroščevanja"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

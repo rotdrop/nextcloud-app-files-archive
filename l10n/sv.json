@@ -8,6 +8,8 @@
     "unknown" : "okänt",
     "Disconnect storage" : "Koppla bort lagring",
     "Archive" : "Arkivera",
+    "Yes" : "Ja",
+    "No" : "Nej",
     "OK" : "OK",
     "Created" : "Skapat",
     "Unauthorized" : "Obehörig",
@@ -16,8 +18,6 @@
     "Conflict" : "Konflikt",
     "Internal Server Error" : "Internt Serverfel",
     "Error" : "Fel",
-    "Missing data" : "Saknad data",
-    "Yes" : "Ja",
-    "No" : "Nej"
+    "Missing data" : "Saknad data"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
