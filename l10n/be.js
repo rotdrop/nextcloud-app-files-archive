@@ -12,6 +12,7 @@ OC.L10N.register(
     "Archive" : "Архіў",
     "Yes" : "Так",
     "No" : "Не",
+    "The quick brown fox jumps over the lazy dog." : "У рудога вераб'я ў сховішчы пад фатэлем ляжаць нейкія гаючыя зёлкі.",
     "OK" : "OK",
     "Internal Server Error" : "Унутраная памылка сервера",
     "Error" : "Памылка",
