@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "User" : "Aseqdac",
+    "Password" : "Awal n uɛeddi",
     "Yes" : "Oui",
     "No" : "Uhu",
     "true" : "idetti",
