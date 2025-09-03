@@ -57,6 +57,8 @@ OC.L10N.register(
     "Login failed." : "Login mislykkedes.",
     "Error, caught an exception." : "Fejl, fangede en undtagelse.",
     "Caused by previous exception" : "Årsag til tidligere undtagelse",
+    "%1$s (renamed)" : "%1$s (omdøbt)",
+    "renamed file" : "omdøbt fil",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "Den angivne farvestreng \"%s\" synes at være ugyldig.",
     "The input color values are invalid." : "Farveværdierne for input er ugyldige.",
