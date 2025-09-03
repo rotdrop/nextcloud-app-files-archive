@@ -14,6 +14,7 @@ OC.L10N.register(
     "No" : "Не",
     "The quick brown fox jumps over the lazy dog." : "У рудога вераб'я ў сховішчы пад фатэлем ляжаць нейкія гаючыя зёлкі.",
     "OK" : "OK",
+    "Conflict" : "Канфлікт",
     "Internal Server Error" : "Унутраная памылка сервера",
     "Error" : "Памылка",
     "Something went wrong." : "Нешта пайшло не так.",
