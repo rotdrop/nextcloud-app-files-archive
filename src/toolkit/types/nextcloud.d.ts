@@ -38,17 +38,7 @@ declare global {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       [key: string]: any,
     },
-    Viewer: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      [key: string]: any,
-    },
   };
-  const OCP: {
-    Files: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      [key: string]: any,
-    },
-  },
 }
 
 export {};
