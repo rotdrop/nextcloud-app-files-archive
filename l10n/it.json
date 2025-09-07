@@ -23,6 +23,7 @@
     "Unable to deal with tar-files. Please check the installation of the app." : "Impossibile gestire i file tar. Controlla l'installazione dell'app.",
     "The archive format of \"%1$s\" has been detected as \"%2$s\", but there is no backend driver installed which can deal with this format." : "Il formato di archivio di \"%1$s\" è stato rilevato come \"%2$s\", ma non è installato alcun driver backend in grado di gestire questo formato.",
     "The \"%1$s\" driver could handle this format, but it is not installed." : "Il driver \"%1$s\" potrebbe gestire questo formato, ma non è installato.",
+    "Installation instructions:" : "Istruzioni per l'installazione:",
     "The \"%1$s\" driver claims to handle this format, but cannot extract the archive content." : "Il driver \"%1$s\" dichiara di gestire questo formato, ma non riesce a estrarre il contenuto dell'archivio.",
     "Unable to open archive file %s (%s)" : "Impossibile aprire il file di archivio %s (%s)",
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "La dimensione dell'archivio non compresso \"%1$s\" è troppo grande: %2$s > %3$s",
