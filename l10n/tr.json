@@ -57,7 +57,7 @@
     "Unable to deal with tar-files. Please check the installation of the app." : "Tar dosyaları işlenemiyor. Lütfen uygulamanın kurulu olup olmadığnı denetleyin.",
     "The archive format of \"%1$s\" has been detected as \"%2$s\", but there is no backend driver installed which can deal with this format." : "\"%1$s\" için arşiv biçimi \"%2$s\" olarak algılandı. Ancak bu biçimi işleyebilecek bir arka yüz sürücüsü kurulu değil.",
     "The \"%1$s\" driver could handle this format, but it is not installed." : "\"%1$s\" sürücüsü bu biçimi işleyebilir, ancak kurulu değil.",
-    "Installation instructions:" : "Kurulum bilgileri:",
+    "Installation instructions:" : "Kurulum yönergesi:",
     "The \"%1$s\" driver claims to handle this format, but cannot extract the archive content." : "\"%1$s\" sürücüsü bu biçimi işleyebildiğini iddia ediyor, ancak arşiv içeriğini ayıklayamadı.",
     "Unable to open archive file %s (%s)" : "%s arşiv dosyası açılamadı (%s)",
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "\"%1$s\" arşiv dosyasının sıkıştırılmamış boyutu çok büyük: %2$s > %3$s",
