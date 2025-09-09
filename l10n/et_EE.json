@@ -23,6 +23,8 @@
     "Unable to find any of the fallback converters \"%s\"." : "Ühtegi tagavarakonverterit ei leidu: „%s“.",
     "not found" : "ei leidu",
     "pass through" : "ilma teisenduseta",
+    "Universal converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "Universaalsel teisendajal „%1$s“ ei õnnestunud MIME-tüübi „%2$s“ teisendamine",
+    "Converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "Teisendajal „%1$s“ ei õnnestunud MIME-tüübi „%2$s“ teisendamine",
     "Unable to determine the version of the helper program \"%1$s\", is it installed?" : "Abirakenduse versiooni ei õnnestu tuvastada, kas „%1$s“ on ikka paigaldatud?",
     "Unable to detect the archive format of \"%1$s\"." : "Arhiivivormingut pole võimalik tuvastada: „%1$s“.",
     "Archive format of \"%1$s\" detected as \"%2$s\", but there is no backend driver installed which can decompress \".%3$s\" files." : "„%1$s“ arhiivifaili vorming on tuvastatud kui „%2$s“, aga taustateenusel pole paigaldatud draiverit, mis oskaks „.%3$s“ faile lahti pakkida.",
