@@ -2,6 +2,7 @@ OC.L10N.register(
     "files_archive",
     {
     "Error: %s" : "Памылка: %s",
+    "Installation instructions:" : "Інструкцыя па ўсталяванні:",
     "User" : "Карыстальнік",
     "Password" : "Пароль",
     "%1$s (renamed)" : "%1$s (перайменаваны)",
