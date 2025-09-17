@@ -20,6 +20,7 @@ OC.L10N.register(
     "The input color values are invalid." : "Wprowadzone wartości kolorów są nieprawidłowe.",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Sprawdź, zamontuj i rozpakuj pliki archiwów (zip, tar itp.)",
     "pick a color" : "wybierz kolor",
+    "submit" : "zatwierdź",
     "Choose a folder" : "Wybierz katalog",
     "Click to submit your changes." : "Kliknij, aby przesłać zmiany.",
     "Clear Selection" : "Wyczyść zaznaczenie",
