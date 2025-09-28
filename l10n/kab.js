@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "User" : "Aseqdac",
     "Password" : "Awal n uɛeddi",
-    "Yes" : "Oui",
+    "Yes" : "Ih",
     "No" : "Uhu",
     "true" : "idetti",
     "Confirmation Required" : "Asentem ilaq",
