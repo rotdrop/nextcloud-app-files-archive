@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "User" : "Notandi",
     "Password" : "Lykilorð",
+    "%1$s (renamed)" : "%1$s (endurnefnd)",
+    "renamed file" : "endurnefndi skrá",
     "bytes" : "bæti",
     "unknown" : "óþekkt",
     "Disconnect storage" : "Aftengja geymslu",
