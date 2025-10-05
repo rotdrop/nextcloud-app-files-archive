@@ -56,6 +56,7 @@ OC.L10N.register(
     "Unable to determine the version of the helper program \"%1$s\", is it installed?" : "Não foi possível determinar a versão do programa auxiliar \"%1$s\", ele está instalado?",
     "Cloud installation problem: instance id is missing." : "Problema na instalação na nuvem: ID da instância ausente.",
     "App-data root-folder does not exist." : "A pasta raiz dos dados do aplicativo não existe.",
+    "App-storage sub-folder \"%s\" does not exist and cannot be created." : "A subpasta \"%s\" do armazenamento do aplicativo não existe e não pode ser criada.",
     "Unable to detect the archive format of \"%1$s\"." : "Não foi possível detectar o formato de arquivo de \"%1$s\".",
     "Archive format of \"%1$s\" detected as \"%2$s\", but there is no backend driver installed which can decompress \".%3$s\" files." : "Formato de arquivo \"%1$s\" detectado como \"%2$s\", mas não há driver de back-end instalado que possa descompactar arquivos \".%3$s\".",
     "Unable to deal with tar-files. Please check the installation of the app." : "Não é possível lidar com arquivos tar. Por favor, verifique a instalação do aplicativo.",
