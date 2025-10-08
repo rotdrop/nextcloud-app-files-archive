@@ -14,6 +14,7 @@ OC.L10N.register(
     "MIME type" : "Тып MIME",
     "Disconnect storage" : "Адлучыць сховішча",
     "Archive" : "Архіў",
+    "close" : "закрыць",
     "No" : "Не",
     "Yes" : "Так",
     "The quick brown fox jumps over the lazy dog." : "У рудога вераб'я ў сховішчы пад фатэлем ляжаць нейкія гаючыя зёлкі.",
