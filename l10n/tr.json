@@ -30,7 +30,7 @@
     "Unknown personal setting: \"%1$s\"" : "\"%1$s\" kişisel ayarı bilinmiyor",
     "The personal setting \"%1$s\" is read-only" : "\"%1$s\" kişisel ayarı salt okunur",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "\"%2$s\" ayarı için \"%1$s\" değeri boolean biçimine dönüştürülemez.",
-    "The target folder template \"%1$s\" must contain the archive file placeholder \"%2$s\"." : "\"%1$s\" hedef klasör kalıbında \"%2$s\" arşiv dosyası yer belirteci bulunmalıdır.",
+    "The target folder template \"%1$s\" must contain the archive file placeholder \"%2$s\"." : "\"%1$s\" hedef klasör kalıbında \"%2$s\" arşiv dosyası yer belirticisi bulunmalıdır.",
     "Unknown personal setting: \"%s\"." : "\"%s\" kişisel ayarı bilinmiyor",
     "Unable to parse memory size limit \"%s\"" : "\"%s\" bellek boyutu sınırı işlenemedi",
     "Archive Manager" : "Arşiv yöneticisi",

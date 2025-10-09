@@ -169,7 +169,7 @@
     "The archive \"{archivePath}\" will be mounted asynchronously on \"{mountPointPath}\", you will be notified on completion." : "Das Archiv \"{archivePath}\" wird asynchron auf \"{mountPointPath}\" eingehängt. Du wirst nach Abschluss benachrichtigt.",
     "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "Das Archiv \"{archivePath}\" wurde unter \"{mountPointPath}\" eingebunden.",
     "Unable to obtain mount status for archive file \"{archivePath}\"." : "Bereitstellungsstatus für Archivdatei \"{archivePath}\" kann nicht abgerufen werden.",
-    "close" : "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
+    "close" : "Schließen",
     "No" : "Nein",
     "Yes" : "Ja",
     "The quick brown fox jumps over the lazy dog." : "Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.",

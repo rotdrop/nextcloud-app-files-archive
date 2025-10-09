@@ -105,6 +105,7 @@
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Arhiivi haakimine justkui toimis, aga selle avamisel tekkis viga: „{error}“.",
     "The archive \"{archivePath}\" will be mounted asynchronously on \"{mountPointPath}\", you will be notified on completion." : "„{archivePath}“ arhiiv haagiti asünkroonselt asukohta „{mountPointPath}“ ning toimingu lõppemisel saad asjakohase teavituse.",
     "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "„{archivePath}“ arhiiv on haagitud asukohta „{mountPointPath}“.",
+    "close" : "sulge",
     "No" : "Ei",
     "Yes" : "Jah",
     "The quick brown fox jumps over the lazy dog." : "Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis.",
