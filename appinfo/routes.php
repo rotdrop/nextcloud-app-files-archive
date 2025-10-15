@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -141,39 +141,6 @@ return [
       'name' => 'diagnostics#archiveFormat',
       'url' => '/diagnostics/archive/format/{format}',
       'verb' => 'GET',
-    ],
-    /**
-     * Attempt a catch all ...
-     */
-    [
-      'name' => 'catch_all#post',
-      'postfix' => 'post',
-      'url' => '/{a}/{b}/{c}/{d}/{e}/{f}/{g}',
-      'verb' => 'POST',
-      'defaults' => [
-        'a' => '',
-        'b' => '',
-        'c' => '',
-        'd' => '',
-        'e' => '',
-        'f' => '',
-        'g' => '',
-      ],
-    ],
-    [
-      'name' => 'catch_all#get',
-      'postfix' => 'get',
-      'url' => '/{a}/{b}/{c}/{d}/{e}/{f}/{g}',
-      'verb' => 'GET',
-      'defaults' => [
-        'a' => '',
-        'b' => '',
-        'c' => '',
-        'd' => '',
-        'e' => '',
-        'f' => '',
-        'g' => '',
-      ],
     ],
   ],
 ];
