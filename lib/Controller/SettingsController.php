@@ -24,14 +24,15 @@ namespace OCA\FilesArchive\Controller;
 
 use InvalidArgumentException;
 
-use Psr\Log\LoggerInterface;
 use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\Attribute;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\IAppContainer;
-use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 
 use OCA\FilesArchive\Constants;
 
@@ -236,9 +237,8 @@ class SettingsController extends Controller
    * @param mixed $value
    *
    * @return Response
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function setPersonal(string $setting, mixed $value):Response
   {
     if (!isset(self::PERSONAL_SETTINGS[$setting])) {
@@ -332,9 +332,8 @@ class SettingsController extends Controller
    * requested one.
    *
    * @return Response
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function getPersonal(?string $setting = null):Response
   {
     if ($setting === null) {

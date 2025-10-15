@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@ use OC\Files\Storage\Wrapper\Wrapper as WrapperStorage;
 use Psr\Log\LoggerInterface;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IPreview;
@@ -131,9 +132,8 @@ class MountController extends Controller
    * @param null|bool $stripCommonPathPrefix
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function mount(
     string $archivePath,
     ?string $mountPointPath = null,
@@ -258,9 +258,8 @@ class MountController extends Controller
    * @param string $archivePath
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function unmount(string $archivePath)
   {
     $archivePath = urldecode($archivePath);
@@ -337,9 +336,8 @@ class MountController extends Controller
    * @param string $archivePath
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function mountStatus(string $archivePath):DataResponse
   {
     $archivePath = urldecode($archivePath);
@@ -367,9 +365,8 @@ class MountController extends Controller
    * mount. ATM only the passphrase may be changed.
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function patch(string $archivePath, array $changeSet = [])
   {
     if (empty($changeSet)) {

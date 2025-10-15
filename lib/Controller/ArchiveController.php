@@ -24,28 +24,28 @@ namespace OCA\FilesArchive\Controller;
 
 use Throwable;
 
-use Psr\Log\LoggerInterface;
-use OCP\IRequest;
-use OCP\IConfig;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\Attribute;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\IAppContainer;
 use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException as FileNotFoundException;
-use OCP\Lock\ILockingProvider;
+use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IPreview;
+use OCP\IRequest;
+use OCP\Lock\ILockingProvider;
+use Psr\Log\LoggerInterface;
 
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
-
-use OCA\FilesArchive\Service\ArchiveServiceFactory;
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
-use OCA\FilesArchive\Storage\ArchiveStorage;
 use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Service\ArchiveServiceFactory;
+use OCA\FilesArchive\Storage\ArchiveStorage;
+use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 
 /**
  * AJAX endpoint for archive operations and info.
@@ -118,9 +118,8 @@ class ArchiveController extends Controller
    * @param null|string $passPhrase
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function info(string $archivePath, ?string $passPhrase = null):DataResponse
   {
     $archivePath = urldecode($archivePath);
@@ -191,9 +190,8 @@ class ArchiveController extends Controller
    * @param bool $stripCommonPathPrefix
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function extract(string $archivePath, ?string $targetPath, ?string $passPhrase = null, bool $stripCommonPathPrefix = false):DataResponse
   {
     $archivePath = urldecode($archivePath);

@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -26,23 +26,23 @@ use Throwable;
 
 use OC\Files\Storage\Wrapper\Wrapper as WrapperStorage;
 
-use Psr\Log\LoggerInterface;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\Attribute;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\IRequest;
+use OCP\AppFramework\Http\Response;
+use OCP\BackgroundJob\IJobList;
+use OCP\Files\File;
+use OCP\Files\IRootFolder;
 use OCP\IConfig;
 use OCP\IL10N;
-use OCP\BackgroundJob\IJobList;
-use OCP\Files\IRootFolder;
-use OCP\Files\File;
-
-use OCA\FilesArchive\Toolkit\Service\UserScopeService;
+use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 
 use OCA\FilesArchive\BackgroundJob\ArchiveJob;
-use OCA\FilesArchive\Service\NotificationService;
 use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Service\NotificationService;
+use OCA\FilesArchive\Toolkit\Service\UserScopeService;
 
 /**
  * Schedule background jobs for archive mounting or extraction.
@@ -93,9 +93,8 @@ class BackgroundJobController extends Controller
    * @param null|bool $stripCommonPathPrefix
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function schedule(
     string $operation,
     string $archivePath,
@@ -158,9 +157,8 @@ class BackgroundJobController extends Controller
    * @param null|string $destinationPath
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function cancel(
     string $operation,
     string $archivePath,
@@ -215,9 +213,8 @@ class BackgroundJobController extends Controller
    * @param null|string $destinationPath
    *
    * @return DataResponse
-   *
-   * @NoAdminRequired
    */
+  #[Attribute\NoAdminRequired]
   public function status(
     string $archivePath,
     ?string $destinationPath = null,
