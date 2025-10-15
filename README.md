@@ -6,6 +6,7 @@
 - [Intro](#intro)
 - [Details](#details)
   - [State](#state)
+  - [Installation](#installation)
   - [Usage](#usage)
   - [Supported Archive Formats](#supported-archive-formats)
   - [Security](#security)
@@ -47,6 +48,10 @@ file-system are available.
 ### State
 
 Works for me.
+
+### Installation
+
+See ![file list](INSTALL.md).
 
 ### Usage
 
