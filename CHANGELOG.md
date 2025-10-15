@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.8] -- 2025-10-15
+
+### Added
+
+- claim to support NC32, drop NC29.
+
+### Fixed
+
+- workaround issues in Nextcloud core which notoriously copies also
+  the permissions out of read-only storage to the destination of a
+  copy operation. See https://github.com/rotdrop/nextcloud-app-files-archive/issues/55.
+- translations courtesy of the Nextcloud language team
+
 ## [1.2.7] -- 2025-06-22
 
 ### Added
