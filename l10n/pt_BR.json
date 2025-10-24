@@ -49,7 +49,7 @@
     "Universal converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "Conversor universal \"%1$s\" falhou ao tentar converter o tipo MIME \"%2$s\"",
     "Converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "Conversor \"%1$s\" falhou ao tentar converter o tipo MIME \"%2$s\"",
     "Unable to determine the version of the helper program \"%1$s\", is it installed?" : "Não foi possível determinar a versão do programa auxiliar \"%1$s\", ele está instalado?",
-    "Cloud installation problem: instance id is missing." : "Problema na instalação na nuvem: ID da instância ausente.",
+    "Cloud installation problem: instance id is missing." : "Problema na instalação da nuvem: ID da instância ausente.",
     "App-data root-folder does not exist." : "A pasta raiz dos dados do aplicativo não existe.",
     "App-storage sub-folder \"%s\" does not exist and cannot be created." : "A subpasta \"%s\" do armazenamento do aplicativo não existe e não pode ser criada.",
     "Unable to detect the archive format of \"%1$s\"." : "Não foi possível detectar o formato de arquivo de \"%1$s\".",
