@@ -51,6 +51,8 @@ OC.L10N.register(
     "Universal converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "Univerzálnímu konvertoru „%1$s“ se nepodařil pokus o převod MIME typu „%2$s“",
     "Converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "Konvertoru „%1$s“ se nepodař pokus o převedení MIME typu „%2$s“",
     "Unable to determine the version of the helper program \"%1$s\", is it installed?" : "Nedaří se zjistit verzi pomocného programu „%1$s“ – je nainstalovaný?",
+    "Cloud installation problem: instance id is missing." : "Problém instalace cloudu: chybí identifikátor instance.",
+    "App-data root-folder does not exist." : "Kořenová složka pro App-data neexistuje.",
     "Unable to detect the archive format of \"%1$s\"." : "Nebylo možné zjistit formát archivu „%1$s“.",
     "Archive format of \"%1$s\" detected as \"%2$s\", but there is no backend driver installed which can decompress \".%3$s\" files." : "Formát archivu„%1$s“ rozpoznán jako „%2$s“, ale není přítomen žádný ovladač podpůrné vrstvy, který by dokázal rozbalit soubory „.%3$s“.",
     "Unable to deal with tar-files. Please check the installation of the app." : "Nebylo možné nějak naložit s tar soubory. Zkontrolujte instalaci aplikace.",
