@@ -24,12 +24,12 @@ use OCP\Util;
 
 $serverVersion = Util::getVersion();
 
+// phpcs:disable
+
 if ($serverVersion[0] >= 31) {
   /** NC31 and above */
-  class ArchiveStorage extends ArchiveStorageNC31
-  {}
+  class ArchiveStorage extends ArchiveStorageNC31 {}
 } else {
   /** NC30 and below */
-  class ArchiveStorage extends ArchiveStoragePreNC31
-  {}
+  class ArchiveStorage extends ArchiveStoragePreNC31 {}
 }
