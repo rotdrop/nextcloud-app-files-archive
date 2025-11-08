@@ -50,6 +50,7 @@ OC.L10N.register(
     "There is no archive file associated with this archiver instance." : "Няма архивен файл, свързан с този екземпляр на архиватора.",
     "Please install the \"%s\" program on the server." : "Моля, инсталирайте програмата „%s“ на сървъра.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблем с инсталирането; необходимият ресурс „%1$s“ от тип „%2$s“ не е инсталиран на сървъра, моля, свържете се със системния администратор!",
+    "User" : "Потребител",
     "Password" : "Парола",
     "bytes" : "байта",
     "The supplied color-string \"%s\" seems to be invalid." : "Предоставеният низ за цвят „%s“ изглежда е невалиден.",
