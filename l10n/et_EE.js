@@ -127,6 +127,7 @@ OC.L10N.register(
     "Caused by previous exception" : "Põhjustatud eelmise vea poolt",
     "OK" : "Sobib",
     "Created" : "Loodud",
+    "Accepted" : "Vastuvõetud",
     "Moved Permanently" : "Jäädavalt  teisaldatud",
     "Found" : "Leitud",
     "See Other" : "Vaata teist aadressi",
