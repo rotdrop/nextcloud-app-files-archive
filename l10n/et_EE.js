@@ -51,6 +51,7 @@ OC.L10N.register(
     "renamed file" : "muudetud nimega fail",
     "Unable to sanitize filename \"%s\"." : "„%s“ failinime puhastamine polnud võimalik.",
     "bytes" : "baiti",
+    "The supplied color-string \"%s\" seems to be invalid." : "Sisestatud värvikood „%s“ tundub olema vigane.",
     "The input color values are invalid." : "Sisestatud värvide väärtused on vigased.",
     "On-the-fly archive inspector for Nextcloud" : "Lennult toimiv arhiivifailide haldur Nextcloudi jaoks",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Uuri, haagi ja paki lahti arhiivifaile (zip, tar, jne.)",
