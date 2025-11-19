@@ -69,6 +69,7 @@ OC.L10N.register(
     "Disallow archive extraction for archives with decompressed size larger than this limit." : "ບໍ່ອະນຸຍາດໃຫ້ສະກັດໄຟລ໌ບີບອັດທີ່ມີຂະໜາດຫຼັງຂະຫຍາຍໃຫຍ່ກວ່າຂີດຈຳກັດນີ້.",
     "Administrative size limit: {value}" : "ຂີດຈຳກັດຂະໜາດໂດຍຜູ້ເບິ່ງແຍງລະບົບ: {value}",
     "unknown" : "ບໍ່ຮູ້",
+    "Disconnect storage" : "Disconnect storage",
     "basename" : "ຊື່ພື້ນຖານ",
     "Archive" : "ບ່ອນເກັບ",
     "close" : "ປິດ",
