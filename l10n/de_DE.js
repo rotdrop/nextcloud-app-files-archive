@@ -237,7 +237,7 @@ OC.L10N.register(
     "Requested Range Not Satisfiable" : "Angeforderter Bereich nicht erfüllbar",
     "Expectation Failed" : "Erwartung fehlgeschlagen",
     "I'm a teapot (RFC 2324)" : "Ich bin eine Teekanne (RFC 2324)",
-    "Enhance Your Calm (Twitter)" : "Verstärke Deine Ruhe (Twitter)",
+    "Enhance Your Calm (Twitter)" : "Ihre Ruhe verstärken (Twitter)",
     "Unprocessable Entity (WebDAV)" : "Nicht verarbeitbare Entität (WebDAV)",
     "Locked (WebDAV)" : "Gesperrt (WebDAV)",
     "Failed Dependency (WebDAV)" : "Fehlgeschlagene Abhängigkeit (WebDAV)",
