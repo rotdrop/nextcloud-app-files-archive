@@ -13,6 +13,8 @@ OC.L10N.register(
     "Yes" : "Ya",
     "OK" : "OK",
     "Created" : "Dibuat",
+    "Accepted" : "Diterima",
+    "Unauthorized" : "Tidak berwenang",
     "Forbidden" : "Terlarang",
     "Not Found" : "Tidak ditemukan",
     "Conflict" : "Konflik",
