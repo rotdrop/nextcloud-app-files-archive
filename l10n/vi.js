@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Người dùng",
     "Password" : "Mật khẩu",
     "unknown" : "không biết",
+    "MIME type" : "MIME type",
     "Disconnect storage" : "Bộ lưu trữ đã ngắt kết nối",
     "Archive" : "Lưu trữ",
     "close" : "đóng",
