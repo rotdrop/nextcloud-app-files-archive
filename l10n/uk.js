@@ -240,7 +240,7 @@ OC.L10N.register(
     "Blocked by Windows Parental Controls (Microsoft)" : "Заблоковано засобами батьківського контролю Windows (Microsoft)",
     "Unavailable For Legal Reasons" : "Недоступно з юридичних причин",
     "Client Closed Request (Nginx)" : "Закритий запит клієнта (Nginx)",
-    "Internal Server Error" : "Внутрішня помилка серверу",
+    "Internal Server Error" : "Внутрішня помилка сервера",
     "Not Implemented" : "Не виконано",
     "Bad Gateway" : "Поганий шлюз",
     "Service Unavailable" : "Послуга недоступна",
