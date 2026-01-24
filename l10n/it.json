@@ -20,7 +20,7 @@
     "App-storage sub-folder \"%s\" does not exist and cannot be created." : "Sottocartella di archiviazione dell' app\"%s\" non esiste e non può essere creato.",
     "Unable to detect the archive format of \"%1$s\"." : "Impossibile rilevare il formato dell'archivio\"%1$s\".",
     "Archive format of \"%1$s\" detected as \"%2$s\", but there is no backend driver installed which can decompress \".%3$s\" files." : "Formato di archivio di \"%1$s\"rilevato come \"%2$s\", ma non è installato alcun driver backend in grado di decomprimere \".%3$s\" file.",
-    "Unable to deal with tar-files. Please check the installation of the app." : "Impossibile gestire i file tar. Controlla l'installazione dell'app.",
+    "Unable to deal with tar-files. Please check the installation of the app." : "Impossibile gestire i file tar. Controlla l'installazione dell'applicazione.",
     "The archive format of \"%1$s\" has been detected as \"%2$s\", but there is no backend driver installed which can deal with this format." : "Il formato di archivio di \"%1$s\" è stato rilevato come \"%2$s\", ma non è installato alcun driver backend in grado di gestire questo formato.",
     "The \"%1$s\" driver could handle this format, but it is not installed." : "Il driver \"%1$s\" potrebbe gestire questo formato, ma non è installato.",
     "Installation instructions:" : "Istruzioni per l'installazione:",
