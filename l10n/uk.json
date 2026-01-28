@@ -40,7 +40,7 @@
     "Mounting {source} at {destination} has failed: {message}" : "Не вдалося змонтувати {source} на {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Не вдалося розпакувати {source} на {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Не вдалося змонтувати {source} на {destination}.",
-    "Extacting {source} to {destination} bas failed." : "Не вдалося виконати екстракцію {source} на {destination} bas.",
+    "Extacting {source} to {destination} bas failed." : "Не вдалося видобути з {source} до {destination} через bas.",
     "Unsupported subject: \"%s\"." : "Непідтримувана тема: \"%s\".",
     "Archive Explorer" : "Провідник архіву",
     "Unable to find any of the fallback converters \"%s\"." : "Не вдалося знайти жодного з резервних конвертерів \"%s\".",
