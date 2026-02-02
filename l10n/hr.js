@@ -1,6 +1,14 @@
 OC.L10N.register(
     "files_archive",
     {
+    "File or folder could not be found." : "Datoteka ili mapa nije pronađena.",
+    "The user folder for user \"%s\" could not be opened." : "Korisnička mapa za korisnika „%s” nije se mogla otvoriti.",
+    "The archive file \"%s\" could not be found on the server." : "Arhivska datoteka „%s” nije pronađena na poslužitelju.",
+    "Unable to open the archive file \"%s\": %s." : "Nije moguće otvoriti arhivsku datoteku „%s”: %s.",
+    "Error: %s" : "Pogreška: %s",
+    "Unable to open the archive file \"%s\"." : "Nije moguće otvoriti arhivsku datoteku „%s”.",
+    "The archive file \"%1$s\" appears to be a zip-bomb: uncompressed size %2$s > admin limit %3$s." : "Arhivska datoteka „%1$s” izgleda kao zip-bomba: raspakirana veličina %2$s veća je od administratorskog ograničenja %3$s.",
+    "The archive file \"%1$s\" is too large: uncompressed size %2$s > user limit %3$s." : "Arhivska datoteka „%1$s” prevelika je: raspakirana veličina %2$s veća je od korisničkog ograničenja %3$s.",
     "User" : "@string/user_icon",
     "Password" : "Zaporka",
     "%1$s (renamed)" : "%1$s (preimenovano)",
