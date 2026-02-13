@@ -75,6 +75,7 @@ OC.L10N.register(
     "pick a color" : "vyberte farbu",
     "open" : "otvoriť",
     "submit" : "odoslať",
+    "undo color choice" : "zrušiť výber farby",
     "restore palette" : "obnoviť paletu",
     "factory reset palette" : "obnoviť paletu do továrneho nastavenia",
     "Custom Color" : "Vlastná farba",
