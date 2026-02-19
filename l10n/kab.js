@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "User" : "Aseqdac",
     "Password" : "Awal n uɛeddi",
+    "unknown" : "arussin",
     "No" : "Uhu",
     "Yes" : "Ih",
     "true" : "idetti",
