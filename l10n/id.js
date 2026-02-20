@@ -43,18 +43,6 @@ OC.L10N.register(
     "close" : "tutup",
     "No" : "Tidak",
     "Yes" : "Ya",
-    "true" : "benar",
-    "Error, caught an exception." : "Kesalahan, terjadi pengecualian.",
-    "Caused by previous exception" : "Disebabkan oleh pengecualian sebelumnya",
-    "OK" : "OK",
-    "Created" : "Dibuat",
-    "Accepted" : "Diterima",
-    "Unauthorized" : "Tidak berwenang",
-    "Forbidden" : "Terlarang",
-    "Not Found" : "Tidak ditemukan",
-    "Conflict" : "Konflik",
-    "Internal Server Error" : "Galat Server Internal",
-    "Error" : "Galat",
-    "Missing data" : "Data tidak ada"
+    "true" : "benar"
 },
 "nplurals=1; plural=0;");

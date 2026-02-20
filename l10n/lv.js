@@ -15,15 +15,6 @@ OC.L10N.register(
     "Disconnect storage" : "Atvienot krātuvi",
     "Archive" : "Arhīvi",
     "No" : "Nē",
-    "Yes" : "Jā",
-    "OK" : "Labi",
-    "Created" : "Izveidots",
-    "Forbidden" : "Aizliegts",
-    "Not Found" : "Nav atrasts",
-    "Conflict" : "Konflikts",
-    "Internal Server Error" : "Iekšēja servera kļūda",
-    "Loop Detected (WebDAV)" : "Noteikta cilpa (WebDAV)",
-    "Error" : "Kļūda",
-    "Missing data" : "Iztrūkst dati"
+    "Yes" : "Jā"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

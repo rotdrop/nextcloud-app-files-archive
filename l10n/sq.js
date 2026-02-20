@@ -8,13 +8,6 @@ OC.L10N.register(
     "Archive" : "Arkiva",
     "close" : "mbyll",
     "No" : "Jo",
-    "Yes" : "Yes",
-    "OK" : "OK",
-    "Created" : "U krijua",
-    "Forbidden" : "E ndaluar",
-    "Not Found" : "Nuk u gjet",
-    "Conflict" : "Përplasje",
-    "Internal Server Error" : "Gabim i Brendshëm Shërbyesi",
-    "Error" : "Gabim"
+    "Yes" : "Yes"
 },
 "nplurals=2; plural=(n != 1);");

@@ -108,25 +108,6 @@
     "reason unknown" : "原因未知",
     "true" : "真",
     "Confirmation Required" : "需要确认",
-    "Unconfirmed, reverting to old value." : "没有确认，回退到之前的值。",
-    "Error, caught an exception." : "错误，捕获到异常",
-    "Caused by previous exception" : "由之前的异常造成",
-    "OK" : "确定",
-    "Created" : "已创建",
-    "Accepted" : "已接受",
-    "No Content" : "没有内容",
-    "Reset Content" : "重置内容",
-    "Partial Content" : "部分内容",
-    "(Unused)" : "(未使用)",
-    "Unauthorized" : "未经授权",
-    "Forbidden" : "禁止",
-    "Not Found" : "没有找到",
-    "Conflict" : "冲突",
-    "Unsupported Media Type" : "不支持的媒体类型",
-    "Internal Server Error" : "内部服务器错误",
-    "Aborted" : "放弃",
-    "Error" : "错误",
-    "Missing data" : "数据丢失",
-    "Debug Information" : "调试信息"
+    "Unconfirmed, reverting to old value." : "没有确认，回退到之前的值。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

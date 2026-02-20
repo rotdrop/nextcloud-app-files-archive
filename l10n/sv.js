@@ -13,15 +13,6 @@ OC.L10N.register(
     "Archive" : "Arkivera",
     "close" : "stäng",
     "No" : "Nej",
-    "Yes" : "Ja",
-    "OK" : "OK",
-    "Created" : "Skapat",
-    "Unauthorized" : "Obehörig",
-    "Forbidden" : "Förbjuden",
-    "Not Found" : "Inte hittad",
-    "Conflict" : "Konflikt",
-    "Internal Server Error" : "Internt Serverfel",
-    "Error" : "Fel",
-    "Missing data" : "Saknad data"
+    "Yes" : "Ja"
 },
 "nplurals=2; plural=(n != 1);");

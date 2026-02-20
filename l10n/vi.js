@@ -9,14 +9,6 @@ OC.L10N.register(
     "Archive" : "Lưu trữ",
     "close" : "đóng",
     "No" : "Không",
-    "Yes" : "Có",
-    "OK" : "OK",
-    "Created" : "Đã tạo",
-    "Forbidden" : "Bị cấm",
-    "Not Found" : "Không tìm thấy",
-    "Conflict" : "Xung đột",
-    "Internal Server Error" : "Lỗi máy chủ.",
-    "Error" : "Lỗi",
-    "Missing data" : "Thiếu dữ liệu"
+    "Yes" : "Có"
 },
 "nplurals=1; plural=0;");

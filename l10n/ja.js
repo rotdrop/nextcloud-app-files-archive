@@ -18,15 +18,6 @@ OC.L10N.register(
     "close" : "閉じる",
     "No" : "いいえ",
     "Yes" : "はい",
-    "Confirmation Required" : "確認が必要",
-    "OK" : "OK",
-    "Created" : "作成時刻",
-    "See Other" : "その他を見る",
-    "Unauthorized" : "権限がありません",
-    "Forbidden" : "禁止された",
-    "Not Found" : "見つかりませんでした",
-    "Conflict" : "競合",
-    "Internal Server Error" : "サーバー内部エラー",
-    "Error" : "エラー"
+    "Confirmation Required" : "確認が必要"
 },
 "nplurals=1; plural=0;");
