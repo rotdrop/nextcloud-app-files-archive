@@ -28,7 +28,7 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
@@ -111,7 +111,7 @@ class SettingsController extends Controller
     IRequest $request,
     private $userId,
     private IConfig $config,
-    protected IAppContainer $appContainer,
+    protected ContainerInterface $appContainer,
     protected IL10N $l,
     protected LoggerInterface $logger,
   ) {

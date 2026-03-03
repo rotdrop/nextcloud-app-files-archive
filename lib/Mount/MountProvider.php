@@ -40,7 +40,7 @@ use OCP\Files\IRootFolder;
 use OCP\IUser;
 use OCP\IL10N;
 use OCP\IConfig;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\Lock\ILockingProvider as Locks;
 
 use OCA\FilesArchive\Controller\SettingsController;
@@ -71,7 +71,7 @@ class MountProvider implements IMountProvider
     private IUserMountCache $userMountCache,
     private NotificationService $notificationService,
     private string $appName,
-    protected IAppContainer $appContainer,
+    protected ContainerInterface $appContainer,
     protected IL10N $l,
     protected LoggerInterface $logger,
   ) {

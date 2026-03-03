@@ -33,7 +33,7 @@ use Icewind\Streams\CallbackWrapper;
 use Icewind\Streams\CountWrapper;
 use Icewind\Streams\IteratorDirectory;
 
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 
 use OCP\Files\FileInfo;
 use OCP\Files\File;
@@ -66,8 +66,8 @@ class ArchiveStoragePreNC31 extends AbstractStorage
   /** @var string */
   protected $appName;
 
-  /** @var IAppContainer */
-  protected IAppContainer $appContainer;
+  /** @var ContainerInterface */
+  protected ContainerInterface $appContainer;
 
   /** @var ArchiveService */
   protected ArchiveService $archiveService;

@@ -29,7 +29,7 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
@@ -87,7 +87,7 @@ class ArchiveController extends Controller
     IRequest $request,
     IConfig $cloudConfig,
     private ArchiveServiceFactory $archiveServiceFactory,
-    protected IAppContainer $appContainer,
+    protected ContainerInterface $appContainer,
     protected IL10N $l,
     protected IPreview $previewManager,
     protected IRootFolder $rootFolder,

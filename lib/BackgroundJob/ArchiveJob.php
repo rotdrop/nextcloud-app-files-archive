@@ -32,7 +32,7 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http;
 use OCP\ITempManager;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\IUserSession;
 
 use OCA\FilesArchive\Toolkit\Service\UserScopeService;
@@ -77,7 +77,7 @@ class ArchiveJob extends QueuedJob
     private ITempManager $tempManager,
     private IUserSession $userSession,
     private NotificationService $notificationService,
-    protected IAppContainer $appContainer,
+    protected ContainerInterface $appContainer,
     protected ILogger $logger,
   ) {
     parent::__construct($timeFactory);

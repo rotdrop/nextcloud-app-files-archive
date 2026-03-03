@@ -22,7 +22,7 @@
 
 namespace OCA\FilesArchive\Listener;
 
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Files\Events\Node\NodeCopiedEvent;
@@ -56,9 +56,9 @@ class NodeCopiedListener implements IEventListener
   protected $appName;
 
   /**
-   * @param IAppContainer $appContainer
+   * @param ContainerInterface $appContainer
    */
-  public function __construct(protected IAppContainer $appContainer)
+  public function __construct(protected ContainerInterface $appContainer)
   {
   }
 

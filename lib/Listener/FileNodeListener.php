@@ -33,7 +33,7 @@ use OCP\Files\Node;
 use OCP\Files\File;
 use OCP\Files\FileInfo;
 use OCP\Files\Mount\IMountManager;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
@@ -54,9 +54,9 @@ class FileNodeListener implements IEventListener
   protected $appName;
 
   /**
-   * @param IAppContainer $appContainer
+   * @param ContainerInterface $appContainer
    */
-  public function __construct(protected IAppContainer $appContainer)
+  public function __construct(protected ContainerInterface $appContainer)
   {
   }
 
