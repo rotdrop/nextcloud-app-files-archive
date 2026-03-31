@@ -9,6 +9,7 @@ OC.L10N.register(
     "%1$s (renamed)" : "%1$s (pervadinta)",
     "renamed file" : "pervadintas failas",
     "bytes" : "baitų",
+    "submit" : "pateikti",
     "Custom Color" : "Tinkinta spalva",
     "Security Options" : "Saugumo parinktys",
     "Mount Options" : "Prijungimo parinktys",
