@@ -1,6 +1,8 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Unknown admin setting: \"%1$s\"" : "Okänd administratörsinställning: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "Administratörsinställningen \"%1$s\" är skrivskyddad",
     "User" : "Användare",
     "Password" : "Lösenord",
     "%1$s (renamed)" : "%1$s (omdöpt)",
