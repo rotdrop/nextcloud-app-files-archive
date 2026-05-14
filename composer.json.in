@@ -27,9 +27,7 @@
   },
   "require-dev": {
     "bamarni/composer-bin-plugin": "^1.8",
-    "phpmd/phpmd" : "@stable",
-    "squizlabs/php_codesniffer": "3.*",
-    "zebra-north/phpcs-short-types": "^1.0"
+    "cweagans/composer-patches": "^2.0"
   },
   "config": {
     "optimize-autoloader": true,
@@ -38,7 +36,8 @@
       "php": "8.4"
     },
     "allow-plugins": {
-      "bamarni/composer-bin-plugin": true
+      "bamarni/composer-bin-plugin": true,
+      "cweagans/composer-patches": true
     }
   },
   "repositories": [
@@ -54,9 +53,14 @@
   },
   "extra": {
     "bamarni-bin": {
-      "bin-links": true,
+      "bin-links": false,
       "target-directory": "vendor-bin",
       "forward-command": true
+    },
+    "patches": {
+      "jarodxxx/zippy": {
+        "Fix PHP 8 deprecations bloating the log files": "composer-patches/jarodxxx/zippy/fix-deprecations.patch"
+      }
     }
   }
 }
