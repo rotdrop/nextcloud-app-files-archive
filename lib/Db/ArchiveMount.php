@@ -59,20 +59,20 @@ class ArchiveMount extends Entity implements JsonSerializable
   ];
   public const MOUNT_FLAGS_MASK = self::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
 
-  public int $id;
-  protected string $userId;
+  public $id;
+  protected $userId;
 
-  protected int $mountPointFileId;
-  protected string $mountPointPath;
-  protected string $mountPointPathHash;
+  protected $mountPointFileId;
+  protected $mountPointPath;
+  protected $mountPointPathHash;
 
-  protected int $archiveFileId;
-  protected string $archiveFilePath;
-  protected string $archiveFilePathHash;
+  protected $archiveFileId;
+  protected $archiveFilePath;
+  protected $archiveFilePathHash;
 
-  protected string $archivePassPhrase;
+  protected $archivePassPhrase;
 
-  protected int $mountFlags;
+  protected $mountFlags;
 
   /** CTOR */
   public function __construct()
