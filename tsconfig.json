@@ -2,8 +2,10 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
     "../../custom.d.ts",
+    "../../window.d.ts",
     "./build/ts-types/app-config.ts",
     "./node_modules/@nextcloud/**.ts",
+    "./node_modules/@nextcloud/**.d.ts",
     "./node_modules/@types/**.ts",
     "./node_modules/axios/**.ts",
     "./node_modules/moment/**.ts",
@@ -20,6 +22,7 @@
   "compilerOptions": {
     "types": ["jest", "node", "vue", "vue-router", "moment"],
     "lib": [ "ES2024", "DOM", "DOM.Iterable" ],
+    "rootDir": "./",
     "outDir": "./dist/",
     "target": "ESNext",
     "module": "esnext",

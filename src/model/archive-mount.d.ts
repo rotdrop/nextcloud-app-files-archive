@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2025 Claus-Justus Heine
+ * @copyright 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,30 +20,30 @@
 import type { FileInfoDTO } from '../toolkit/util/file-node-helper.ts';
 
 export interface ArchiveMountEntity {
-  id: number,
-  userId: string,
+  id: number;
+  userId: string;
 
-  mountPointFileId: number,
-  mountPointPath: string,
-  mountPointPathHash: string,
+  mountPointFileId: string; // avoid integer overflow with snowflake ids
+  mountPointPath: string;
+  mountPointPathHash: string;
 
-  archiveFileId: number,
-  archiveFilePath: string,
-  archiveFilePathHash: string,
+  archiveFileId: string; // avoid integer overflow with snowflake ids
+  archiveFilePath: string;
+  archiveFilePathHash: string;
 
-  archivePassPhrase?: string,
+  archivePassPhrase?: string;
 
-  mountFlags: number,
+  mountFlags: number;
 }
 
 export interface ArchiveMount extends ArchiveMountEntity {
-  mountPoint: FileInfoDTO,
+  mountPoint: FileInfoDTO;
 }
 
 export interface GetArchiveMountResponse {
-  mounts: ArchiveMount[],
-  mounted: boolean,
-  messages?: string[],
+  mounts: ArchiveMount[];
+  mounted: boolean;
+  messages?: string[];
 }
 
 export {};

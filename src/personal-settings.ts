@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025, 2026, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -17,25 +17,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
-import { appName } from './config.ts';
-import { generateFilePath } from '@nextcloud/router';
-
-import Vue from 'vue';
+import Tooltip from '@rotdrop/nextcloud-vue-components/lib/directives/Tooltip';
+import { createApp } from 'vue';
 import PersonalSettings from './PersonalSettings.vue';
+import { appName } from './config.ts';
 
-import { Tooltip } from '@nextcloud/vue';
+import './webpack-setup.ts';
 
-Vue.directive('tooltip', Tooltip);
-
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/');
-
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
-
-export default new Vue({
-  el: '#personal-settings',
-  render: h => h(PersonalSettings),
-});
+const app = createApp(PersonalSettings);
+app.directive('tooltip', Tooltip);
+app.mount(`#${appName}-personal-settings`);

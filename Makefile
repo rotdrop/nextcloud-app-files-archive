@@ -9,9 +9,13 @@ APP_INFO = $(SRCDIR)/appinfo/info.xml
 XPATH = $(shell which xpath 2> /dev/null)
 ifneq ($(XPATH),)
 APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
+CLOUD_MIN_VERSION = $(shell $(XPATH) -q -e 'string(/info/dependencies/nextcloud/@max-version)' $(APP_INFO))
+CLOUD_MAX_VERSION = $(shell $(XPATH) -q -e 'string(/info/dependencies/nextcloud/@max-version)' $(APP_INFO))
 else
 $(warning The xpath binary could not be found, falling back to using the CWD as app-name)
 APP_NAME = $(notdir $(CURDIR))
+CLOUD_MIN_VERSION = $(shell grep OC_VersionString version.php|sed -E -e 's/^[^0-9]+([0-9]{2}).*$/\1/g')
+CLOUD_MAX_VERSION = $(CLOUD_MAX_VERSION)
 endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
@@ -90,6 +94,7 @@ APP_TOOLKIT_NS = FilesArchive
 
 include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
+include $(DEV_LIB_DIR)/makefile/ts-notification-api.mk
 
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name "*.ts")\
@@ -104,7 +109,8 @@ WEBPACK_DEPS =\
  $(JS_FILES)\
  $(IMG_FILES)\
  $(L10N_FILES)\
- $(TS_APP_CONFIG)
+ $(TS_APP_CONFIG)\
+ $(TS_NOTIFICATION_API)
 
 include $(DEV_LIB_DIR)/makefile/npm.mk
 

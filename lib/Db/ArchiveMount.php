@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine
+ * @copyright 2022, 2024, 2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -59,20 +59,20 @@ class ArchiveMount extends Entity implements JsonSerializable
   ];
   public const MOUNT_FLAGS_MASK = self::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
 
-  public $id;
-  protected $userId;
+  public int $id;
+  protected string $userId;
 
-  protected $mountPointFileId;
-  protected $mountPointPath;
-  protected $mountPointPathHash;
+  protected int $mountPointFileId;
+  protected string $mountPointPath;
+  protected string $mountPointPathHash;
 
-  protected $archiveFileId;
-  protected $archiveFilePath;
-  protected $archiveFilePathHash;
+  protected int $archiveFileId;
+  protected string $archiveFilePath;
+  protected string $archiveFilePathHash;
 
-  protected $archivePassPhrase;
+  protected string $archivePassPhrase;
 
-  protected $mountFlags;
+  protected int $mountFlags;
 
   /** CTOR */
   public function __construct()
@@ -126,11 +126,11 @@ class ArchiveMount extends Entity implements JsonSerializable
       'id' => $this->id,
       'userId' => $this->userId,
 
-      'mountPointFileId' => $this->mountPointFileId,
+      'mountPointFileId' => (string)$this->mountPointFileId, // convert to string to avoid integer overflow with JS
       'mountPointPath' => $this->mountPointPath,
       'mountPointPathHash' => $this->mountPointPathHash,
 
-      'archiveFileId' => $this->archiveFileId,
+      'archiveFileId' => (string)$this->archiveFileId, // convert to string to avoid integer overflow with JS
       'archiveFilePath' => $this->archiveFilePath,
       'archiveFilePathHash' => $this->archiveFilePathHash,
 

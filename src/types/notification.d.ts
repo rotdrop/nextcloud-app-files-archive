@@ -1,9 +1,6 @@
-<?php
 /**
- * Archive Manager for Nextcloud
- *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,8 +17,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-script($appName, $assets['js']['asset']);
-style($appName, $assets['css']['asset']);
+import type { components as NotificationComponents } from '../../build/ts-types/notification-api.d.ts';
 
-?>
-<div id="<?= $appName ?>-personal-settings"></div>
+export type DestinationParameter = NotificationComponents['schemas']['RichObjectParameter'] & {
+  status: 'mount'|'extract';
+  mount: string; // JSON encoded data describing the folder
+  folder: string; // JSON encoded data describing the mount database entity
+};
+
+export {};

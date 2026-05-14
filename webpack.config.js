@@ -1,15 +1,15 @@
+const webpackConfig = require('@nextcloud/webpack-vue-config');
 const BabelLoaderExcludeNodeModulesExcept = require('babel-loader-exclude-node-modules-except');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
-const DeadCodePlugin = require('webpack-deadcode-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin2');
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const webpackConfig = require('@nextcloud/webpack-vue-config');
+const DeadCodePlugin = require('webpack-deadcode-plugin');
+const Visualizer = require('webpack-visualizer-plugin2');
 const xml2js = require('xml2js');
 
 const infoFile = path.join(__dirname, 'appinfo/info.xml');
@@ -54,7 +54,7 @@ const svgoOptions = {
         overrides: {
           // viewBox is required to resize SVGs with CSS.
           // @see https://github.com/svg/svgo/issues/1128
-          removeViewBox: false,
+          // removeViewBox: false,
         },
       },
     },
@@ -94,7 +94,7 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     {
       pluginOutputPostfix: productionMode ? null : 'min',
     },
-    productionMode ? /\.css$/ : /^$/
+    productionMode ? /\.css$/ : /^$/,
   ),
   new DeadCodePlugin({
     patterns: [
