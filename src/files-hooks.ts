@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024, 2025, 2026 Claus-Justus Heine
+ * @copyright 2022-2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 
 import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
 import type { InitialState } from './types/initial-state.d.ts';
+import type { DestinationParameter } from './types/notification.d.ts';
 
 import { emit, subscribe } from '@nextcloud/event-bus';
 import {
@@ -46,14 +47,13 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
   if (event?.notification?.app !== appName) {
     return;
   }
-  const successData = event.notification?.messageRichParameters;
-  // @ts-expect-error 2339 Too lazy to model all these types.
-  if (!successData?.destination?.status || !successData?.destination?.folder) {
+  const destinationData = event?.notification?.messageRichParameters?.destination as DestinationParameter;
+
+  if (!destinationData?.status || !destinationData?.folder) {
     return;
   }
   try {
-    // @ts-expect-error 2339 Too lazy to model all these types.
-    const node = fileInfoToNode(JSON.parse(successData.destination.folder));
+    const node = fileInfoToNode(JSON.parse(destinationData.folder));
     node.attributes['is-mount-root'] = true;
 
     logger.debug('FILES_ARCHIVE EMIT NODE CREATED', { node });
@@ -66,13 +66,13 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
 
 registerFileAction({
   id: appName,
-  displayName(_context: ActionContext) {
+  displayName(_context) {
     return t(appName, 'Mount Archive');
   },
-  title(/* files: Node[], view: View */) {
+  title(_context: ActionContext) {
     return t(appName, 'Mount Archive');
   },
-  iconSvgInline(/* files: Node[], view: View) */) {
+  iconSvgInline(_context: ActionContext) {
     return logoSvg;
   },
   enabled(context: ActionContext) {
