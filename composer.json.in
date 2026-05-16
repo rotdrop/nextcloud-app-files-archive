@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "jarodxxx/zippy": "^1.0.2",
+    "rotdrop/alchemy-zippy": "*",
     "gemorroj/archive7z": "^5.4",
     "nelexa/zip": "^4.0",
     "pear/archive_tar": "^1.4",
@@ -43,9 +43,11 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/jarodxxx/Zippy.git"
+      "url": "https://github.com/rotdrop/alchemy-zippy.git"
     }
   ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "scripts": {
     "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
     "cs:check": "php-cs-fixer fix --dry-run --diff",
