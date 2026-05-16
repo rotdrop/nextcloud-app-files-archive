@@ -214,7 +214,7 @@ const saveSetting = async (settingsKey: string) => {
     --cloud-theme-filter: var(--background-invert-if-dark);
   }
 }
-:deep(.templateroot) {
+.templateroot :deep() {
   h1.title {
     margin: 30px 30px 0px;
     font-size:revert;

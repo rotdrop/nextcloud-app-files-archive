@@ -131,7 +131,7 @@ async function getDriversStatus() {
     --cloud-theme-filter: none;
   }
 }
-:deep(.templateroot) {
+.templateroot :deep() {
   h1.title {
     margin: 30px 30px 0px;
     font-size:revert;
