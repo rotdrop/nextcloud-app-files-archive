@@ -26,6 +26,8 @@ import logoSvg from '../img/app.svg?raw';
 import { appName } from './config.ts';
 import getInitialState from './toolkit/util/initial-state.ts';
 
+import './webpack-setup.ts';
+
 const sidebarTabTag = `${appName}-files-sidebar-tab` as const;
 
 if (window.customElements.get(sidebarTabTag) === undefined) {
