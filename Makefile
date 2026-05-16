@@ -2,26 +2,14 @@
 # later. See the COPYING file.
 SRCDIR = .
 ABSSRCDIR = $(CURDIR)
-#
-# try to parse the info.xml if we can, only then fall-back to the directory name
-#
-APP_INFO = $(SRCDIR)/appinfo/info.xml
-XPATH = $(shell which xpath 2> /dev/null)
-ifneq ($(XPATH),)
-APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
-CLOUD_MIN_VERSION = $(shell $(XPATH) -q -e 'string(/info/dependencies/nextcloud/@max-version)' $(APP_INFO))
-CLOUD_MAX_VERSION = $(shell $(XPATH) -q -e 'string(/info/dependencies/nextcloud/@max-version)' $(APP_INFO))
-else
-$(warning The xpath binary could not be found, falling back to using the CWD as app-name)
-APP_NAME = $(notdir $(CURDIR))
-CLOUD_MIN_VERSION = $(shell grep OC_VersionString version.php|sed -E -e 's/^[^0-9]+([0-9]{2}).*$/\1/g')
-CLOUD_MAX_VERSION = $(CLOUD_MAX_VERSION)
-endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
-ABSBUILDDIR = $(CURDIR)/build
+ABSBUILDDIR = $(ABSSRCDIR)/build
 BUILD_TOOLS_DIR = $(BUILDDIR)/tools
 DOWNLOADS_DIR = ./downloads
+CONFIG_DIR = ./config
+
+include $(DEV_LIB_DIR)/makefile/setup.mk
 
 SILENT = @
 
@@ -31,7 +19,7 @@ PHP = $(shell which php 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
-PHPUNIT = ./vendor/bin/phpunit
+PHPUNIT = ./vendor-bin/phpunit/vendor/bin/phpunit
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
