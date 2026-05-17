@@ -1,8 +1,6 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
- *
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- *
+ * @author Claus-Justus Heine
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,12 +17,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const onDocumentLoaded = (callback: () => void) => {
-  if (document.readyState !== 'loading') {
-    callback();
+import type { INode } from '@nextcloud/files';
+
+import { emit } from '@nextcloud/event-bus';
+import { NodeStatus } from '@nextcloud/files';
+
+const busyNodes: INode[] = [];
+
+export const setFileNodeBusy = (node?: INode, state: boolean = true) => {
+  if (node && state) {
+    node.status = NodeStatus.LOADING;
+    emit('files:node:updated', node);
+    busyNodes.push(node);
   } else {
-    document.addEventListener('DOMContentLoaded', callback);
+    for (const node of busyNodes) {
+      node.status = undefined;
+      emit('files:node:updated', node);
+    }
+    busyNodes.splice(0, busyNodes.length);
   }
 };
 
-export default onDocumentLoaded;
+export const clearFileNodeBusy = () => setFileNodeBusy(undefined, false);
