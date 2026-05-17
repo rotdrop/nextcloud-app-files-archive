@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine
+ * @copyright 2022-2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,19 +17,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.ts';
-import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
-import { emit, subscribe } from '@nextcloud/event-bus';
 import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
-import getInitialState from './toolkit/util/initial-state.ts';
-import { DefaultType, registerFileAction, FileAction, Node, Permission } from '@nextcloud/files';
-import { translate as t } from '@nextcloud/l10n';
-import logger from './console.ts';
-import logoSvg from '../img/app.svg?raw';
 import type { InitialState } from './types/initial-state.d.ts';
-import mount from './services/mount.ts';
+import type { DestinationParameter } from './types/notification.d.ts';
 
-require('./webpack-setup.ts');
+import { emit, subscribe } from '@nextcloud/event-bus';
+import {
+  type ActionContext,
+
+  DefaultType,
+  Permission,
+  registerFileAction,
+} from '@nextcloud/files';
+import { translate as t } from '@nextcloud/l10n';
+import logoSvg from '../img/app.svg?raw';
+import { appName } from './config.ts';
+import logger from './console.ts';
+import mount from './services/mount.ts';
+import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
+import getInitialState from './toolkit/util/initial-state.ts';
+
+import './webpack-setup.ts';
 
 const initialState = getInitialState<InitialState>();
 const archiveMimeTypes: Array<string> = initialState?.archiveMimeTypes || [];
@@ -39,44 +47,45 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
   if (event?.notification?.app !== appName) {
     return;
   }
-  const successData = event.notification?.messageRichParameters;
-  if (!successData?.destination?.status || !successData?.destination?.folder) {
+  const destinationData = event?.notification?.messageRichParameters?.destination as DestinationParameter;
+
+  if (!destinationData?.status || !destinationData?.folder) {
     return;
   }
   try {
-    const node = fileInfoToNode(JSON.parse(successData.destination.folder));
+    const node = fileInfoToNode(JSON.parse(destinationData.folder));
     node.attributes['is-mount-root'] = true;
 
     logger.debug('FILES_ARCHIVE EMIT NODE CREATED', { node });
 
     emit('files:node:created', node);
   } catch (error) {
-    logger.error('Error, unable to decode mount folder node', { event });
+    logger.error('Error, unable to decode mount folder node', { error, event });
   }
 });
 
-registerFileAction(new FileAction({
+registerFileAction({
   id: appName,
-  displayName(/* nodes: Node[], view: View */) {
+  displayName(_context) {
     return t(appName, 'Mount Archive');
   },
-  title(/* files: Node[], view: View */) {
+  title(_context: ActionContext) {
     return t(appName, 'Mount Archive');
   },
-  iconSvgInline(/* files: Node[], view: View) */) {
+  iconSvgInline(_context: ActionContext) {
     return logoSvg;
   },
-  enabled(nodes: Node[]/* , view: View) */) {
-    if (nodes.length !== 1) {
+  enabled(context: ActionContext) {
+    if (context.nodes.length !== 1) {
       return false;
     }
-    const node = nodes[0];
+    const node = context.nodes[0];
     if (!(node.permissions & Permission.READ)) {
       return false;
     }
     return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
   },
-  exec: mount,
+  exec: (context) => mount(context.nodes[0], context.view),
   default: initialState?.mountByLeftClick ? DefaultType.DEFAULT : undefined,
   order: -1000,
-}));
+});

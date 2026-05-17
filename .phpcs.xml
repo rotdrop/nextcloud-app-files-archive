@@ -2,7 +2,7 @@
 <ruleset name="CJH">
   <description>CJH Custom Code-Sniffer Standard</description>
 
-  <arg name="bootstrap" value="vendor/zebra-north/phpcs-short-types/short-types.php"/>
+  <!-- arg name="bootstrap" value="vendor/zebra-north/phpcs-short-types/short-types.php"/ -->
 
   <rule ref="PSR2">
     <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>

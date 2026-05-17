@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,10 +28,11 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
-use Psr\Container\ContainerInterface;
+use OCP\Config\IUserConfig;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 use OCA\FilesArchive\Constants;
@@ -111,6 +112,7 @@ class SettingsController extends Controller
     IRequest $request,
     private $userId,
     private IConfig $config,
+    private IUserConfig $userConfig,
     protected ContainerInterface $appContainer,
     protected IL10N $l,
     protected LoggerInterface $logger,
@@ -267,6 +269,7 @@ class SettingsController extends Controller
       case self::MOUNT_BY_LEFT_CLICK:
       case self::MOUNT_POINT_AUTO_RENAME:
       case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
+        $oldValue = filter_var($oldValue, FILTER_VALIDATE_BOOLEAN);
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
           return self::grumble(
@@ -276,8 +279,6 @@ class SettingsController extends Controller
         }
         if ($newValue === (self::PERSONAL_SETTINGS[$setting]['default'] ?? false)) {
           $newValue = null;
-        } else {
-          $newValue = (int)$newValue;
         }
         break;
       case self::MOUNT_POINT_TEMPLATE:
@@ -306,7 +307,12 @@ class SettingsController extends Controller
       $this->config->deleteUserValue($this->userId, $this->appName, $setting);
       $newValue = self::PERSONAL_SETTINGS[$setting]['default'] ?? null;
     } else {
-      $this->config->setUserValue($this->userId, $this->appName, $setting, $newValue);
+      if (is_bool($newValue)) {
+        // bool is not accepted by the deprecated setUserValue()
+        $this->userConfig->setValueBool($this->userId, $this->appName, $setting, $newValue);
+      } else {
+        $this->config->setUserValue($this->userId, $this->appName, $setting, $newValue);
+      }
     }
 
     switch ($setting) {
@@ -380,6 +386,7 @@ class SettingsController extends Controller
         case self::MOUNT_POINT_AUTO_RENAME:
         case self::MOUNT_POINT_TEMPLATE:
         case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
+          $value = !!$value;
           break;
         default:
           return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $oneSetting));

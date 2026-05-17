@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -19,18 +19,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.ts';
-import { generateFilePath } from '@nextcloud/router';
-
-import Vue from 'vue';
+import Tooltip from '@rotdrop/nextcloud-vue-components/lib/directives/Tooltip';
+import { createApp } from 'vue';
 import AdminSettings from './AdminSettings.vue';
+import { appName } from './config.ts';
 
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/');
+import './webpack-setup.ts';
 
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
-
-export default new Vue({
-  el: '#admin-settings',
-  render: h => h(AdminSettings),
-});
+const app = createApp(AdminSettings);
+app.directive('tooltip', Tooltip);
+app.mount(`#${appName}-admin-settings`);

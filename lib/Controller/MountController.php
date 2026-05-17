@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -200,7 +200,7 @@ class MountController extends Controller
       $parentFolder = $userFolder->get($mountPointDirName);
     } catch (Throwable $t) {
       $this->logException($t);
-      return self::grumnle($this->l->t(
+      return self::grumble($this->l->t(
         'Unable to open parent folder "%1$s" of mount point "%2$s": %3$s.', [
           $mountPointDirName, $mountPointBaseName, $t->getMessage()
         ]));

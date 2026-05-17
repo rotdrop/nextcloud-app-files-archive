@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  -
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  -
@@ -19,12 +19,12 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <div :class="['templateroot', ...cloudVersionClasses]">
+  <div class="templateroot" :class="[...cloudVersionClasses]">
     <h1 class="title">
       {{ t(appName, 'Archive Manager, Admin Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Archive Extraction')">
-      <TextField :value.sync="settings.humanArchiveSizeLimit"
+      <TextField v-model:value="settings.humanArchiveSizeLimit"
                  :label="t(appName, 'Archive Size Limit')"
                  :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
                  :disabled="loading"
@@ -34,40 +34,41 @@
     <NcSettingsSection :name="t(appName, 'Diagnostics')" class="diagnostics">
       <h3>{{ t(appName, "Archive Formats") }}</h3>
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <pre :class="{ loading: diagnostics.formats === null, diagnostics_output: true, ansi_color_bg_black: true }" v-html="diagnostics.formats" />
+      <pre class="diagnostics_output ansi_color_bg_black" :class="{ loading: diagnostics.formats === null }" v-html="diagnostics.formats" />
       <h3>{{ t(appName, "Supported Drivers") }}</h3>
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <pre :class="{ loading: diagnostics.drivers === null, diagnostics_output: true, ansi_color_bg_black: true }" v-html="diagnostics.drivers" />
+      <pre class="diagnostics_output ansi_color_bg_black" :class="{ loading: diagnostics.drivers === null }" v-html="diagnostics.drivers" />
     </NcSettingsSection>
   </div>
 </template>
+
 <script setup lang="ts">
-import { appName } from './config.ts'
+import axios from '@nextcloud/axios'
+import { showError /* , showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT */ } from '@nextcloud/dialogs'
+import { translate as t } from '@nextcloud/l10n'
 import {
   NcSettingsSection,
 } from '@nextcloud/vue'
-import axios from '@nextcloud/axios'
-import { translate as t } from '@nextcloud/l10n'
-import { showError /* , showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT */ } from '@nextcloud/dialogs'
 import {
   computed,
   reactive,
   ref,
 } from 'vue'
+import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
+import { appName } from './config.ts'
+import logger from './console.ts'
+import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
+import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.ts'
 import {
   fetchSettings,
   saveConfirmedSetting,
 } from './toolkit/util/settings-sync.ts'
-import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.ts'
-import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
-import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
-import logger from './console.ts'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
 const loading = ref(true)
 
 const settings = reactive({
-  archiveSizeLimit: 1 << 32,
+  archiveSizeLimit: 0x100000000,
   humanArchiveSizeLimit: '',
 })
 
@@ -92,7 +93,8 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
   return saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })
 }
 
-const getFormatsMatrix = async () => {
+/** TBD */
+async function getFormatsMatrix() {
   try {
     const response = await axios.get(generateAppUrl('diagnostics/archive/formats'))
     diagnostics.formats = response?.data?.html || null
@@ -106,7 +108,8 @@ const getFormatsMatrix = async () => {
   showError(t(appName, 'Unable to query the archive-format support matrix.'))
 }
 
-const getDriversStatus = async () => {
+/** TBD */
+async function getDriversStatus() {
   try {
     const response = await axios.get(generateAppUrl('diagnostics/archive/drivers'))
     diagnostics.drivers = response?.data?.html || null
@@ -120,6 +123,7 @@ const getDriversStatus = async () => {
   showError(t(appName, 'Unable to query the information about the available archive backend drivers.'))
 }
 </script>
+
 <style lang="scss" scoped>
 .cloud-version {
   --cloud-theme-filter: var(--background-invert-if-dark);
@@ -127,7 +131,7 @@ const getDriversStatus = async () => {
     --cloud-theme-filter: none;
   }
 }
-.templateroot::v-deep {
+.templateroot :deep() {
   h1.title {
     margin: 30px 30px 0px;
     font-size:revert;
@@ -169,7 +173,7 @@ const getDriversStatus = async () => {
 }
 // solarized colors for SensioLabs\AnsiConverter
 [data-themes*='dark'] {
-  .templateroot::v-deep .diagnostics *:not(.loading) {
+  .templateroot :deep(.diagnostics *:not(.loading)) {
     &.ansi_color_fg_black { color: #073642 }
     &.ansi_color_bg_black { background-color: #073642 }
     &.ansi_color_fg_red { color: #dc322f }
@@ -205,7 +209,7 @@ const getDriversStatus = async () => {
   }
 }
 [data-themes*='light'], [data-themes*='default'] {
-  .templateroot::v-deep .diagnostics *:not(.loading) {
+  .templateroot :deep(.diagnostics *:not(.loading)) {
     &.ansi_color_fg_black { color: #eee8d5 }
     &.ansi_color_bg_black { background-color: #eee8d5 }
     &.ansi_color_fg_red { color: #dc322f }

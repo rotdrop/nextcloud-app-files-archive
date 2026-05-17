@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -17,20 +17,20 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <div :class="['templateroot', appName, ...cloudVersionClasses]">
+  <div class="templateroot" :class="[appName, ...cloudVersionClasses]">
     <h1 class="title">
       {{ t(appName, 'Archive Manager, Personal Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Security Options')">
-      <TextField :value.sync="settings.humanArchiveSizeLimit"
+      <TextField v-mode:value="settings.humanArchiveSizeLimit"
                  :label="t(appName, 'Archive Size Limit')"
                  :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
                  :disabled="loading"
                  @submit="saveTextInput('archiveSizeLimit', settings.humanArchiveSizeLimit)"
       />
       <span v-if="isLt(0, settings.archiveSizeLimitAdmin)"
+            class="hint"
             :class="{
-              hint: true,
               'admin-limit-exceeded': isLt(settings.archiveSizeLimitAdmin, settings.archiveSizeLimit),
               'icon-error': isLt(settings.archiveSizeLimitAdmin, settings.archiveSizeLimit),
             }"
@@ -39,7 +39,7 @@
       </span>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Mount Options')">
-      <TextField :value.sync="settings.mountPointTemplate"
+      <TextField v-model:value="settings.mountPointTemplate"
                  :label="t(appName, 'Template for the default name of the mount point')"
                  :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
                  placeholder="{archiveFileName}"
@@ -91,7 +91,7 @@
       </div>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Extraction Options')">
-      <TextField :value.sync="settings.extractTargetTemplate"
+      <TextField v-model:value="settings.extractTargetTemplate"
                  :label="t(appName, 'Template for the default name of the extraction folder')"
                  :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
                  placeholder="{archiveFileName}"
@@ -133,27 +133,28 @@
     </NcSettingsSection>
   </div>
 </template>
+
 <script setup lang="ts">
-import { appName } from './config.ts'
+import { translate as t } from '@nextcloud/l10n'
 import {
   NcSettingsSection,
 } from '@nextcloud/vue'
+import { v4 as uuidv4 } from 'uuid'
 import {
   computed,
   reactive,
   ref,
 } from 'vue'
-import { translate as t } from '@nextcloud/l10n'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
+import { appName } from './config.ts'
+import logger from './console.ts'
 import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
 import {
-  fetchSettings,
   fetchSetting,
+  fetchSettings,
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
-import { v4 as uuidv4 } from 'uuid'
-import logger from './console.ts'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
 const loading = ref(true)
@@ -161,17 +162,18 @@ const id = computed(() => uuidv4())
 
 const settings = reactive({
   archiveSizeLimit: null as null|number,
-  humanArchiveSizeLimit: '',
   archiveSizeLimitAdmin: null as null|number,
-  humanArchiveSizeLimitAdmin: '',
-  mountStripCommonPathPrefixDefault: false,
-  mountPointTemplate: '{archiveFileName}',
-  mountPointAutoRename: false,
-  mountBackgroundJob: false,
-  extractStripCommonPathPrefixDefault: false,
-  extractTargetTemplate: '{archiveFileName}',
-  extractTargetAutoRename: false,
   extractBackgroundJob: false,
+  extractStripCommonPathPrefixDefault: false,
+  extractTargetAutoRename: false,
+  extractTargetTemplate: '{archiveFileName}',
+  humanArchiveSizeLimit: '',
+  humanArchiveSizeLimitAdmin: '',
+  mountBackgroundJob: false,
+  mountByLeftClick: false,
+  mountPointAutoRename: false,
+  mountPointTemplate: '{archiveFileName}',
+  mountStripCommonPathPrefixDefault: false,
 })
 
 const isLt = (a: null|undefined|number, b: null|undefined|number) => a! < b!
@@ -204,6 +206,7 @@ const saveSetting = async (settingsKey: string) => {
 }
 
 </script>
+
 <style lang="scss" scoped>
 .cloud-version {
   --cloud-theme-filter: none;
@@ -211,7 +214,7 @@ const saveSetting = async (settingsKey: string) => {
     --cloud-theme-filter: var(--background-invert-if-dark);
   }
 }
-.templateroot::v-deep {
+.templateroot :deep() {
   h1.title {
     margin: 30px 30px 0px;
     font-size:revert;

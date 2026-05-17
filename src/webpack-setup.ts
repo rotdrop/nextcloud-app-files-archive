@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -17,15 +17,19 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
-import { appName } from './config.ts';
+import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
 import { generateFilePath } from '@nextcloud/router';
-import { onRequestTokenUpdate, getRequestToken } from '@nextcloud/auth';
+import { appName } from './config.ts';
+
+declare global {
+  var __webpack_public_path__: string;
+  var __webpack_nonce__: string;
+}
 
 __webpack_public_path__ = generateFilePath(appName, '', '');
-__webpack_nonce__ = btoa(getRequestToken());
+__webpack_nonce__ = btoa(getRequestToken() || '');
 
 // this may not be necessary as the actual secret value does not change
 onRequestTokenUpdate(function(token) {

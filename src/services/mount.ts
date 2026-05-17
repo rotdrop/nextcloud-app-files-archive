@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2025 Claus-Justus Heine
+ * @copyright 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,37 +17,39 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type { INode, IView } from '@nextcloud/files';
+import type { ArchiveMount, GetArchiveMountResponse } from '../model/archive-mount.d.ts';
+import type { InitialState } from '../types/initial-state.d.ts';
+
 import axios from '@nextcloud/axios';
+import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
+import { emit } from '@nextcloud/event-bus';
+import { NodeStatus } from '@nextcloud/files';
+import { translate as t } from '@nextcloud/l10n';
+import { appName } from '../config.ts';
+import logger from '../console.ts';
+import { isAxiosErrorResponse } from '../toolkit/types/axios-type-guards.ts';
+import { fileInfoToNode } from '../toolkit/util/file-node-helper.ts';
 import generateAppUrl from '../toolkit/util/generate-url.ts';
 import getInitialState from '../toolkit/util/initial-state.ts';
-import logger from '../console.ts';
-import type { ArchiveMount, GetArchiveMountResponse } from '../model/archive-mount';
-import type { InitialState } from '../types/initial-state.d.ts';
-import { Node, NodeStatus, View } from '@nextcloud/files';
-import { appName } from '../config.ts';
-import { emit } from '@nextcloud/event-bus';
-import { fileInfoToNode } from '../toolkit/util/file-node-helper.ts';
-import { isAxiosErrorResponse } from '../toolkit/types/axios-type-guards.ts';
-import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
-import { translate as t } from '@nextcloud/l10n';
 
 const initialState = getInitialState<InitialState>();
 
-const openMountPoint = async (mountNode: Node, view: View) => {
+const openMountPoint = async (mountNode: INode, view: IView) => {
   // maybe also navigate to the folder (of course only on synchronous mount requests)
   try {
     await OCP.Files.Router.goToRoute(
       null,
-      { view: view.id, fileid: String(mountNode.fileid) },
+      { view: view.id, fileid: String(mountNode.id) },
       { dir: mountNode.path },
     );
   } catch (error) {
     logger.error(error);
-    showError(t(appName, 'Mounting the archive was seemingly successful, but navigating to the mount point failed: "{error}".', { error }));
+    showError(t(appName, 'Mounting the archive was seemingly successful, but navigating to the mount point failed: "{error}".', { error: error + '' }));
   }
 };
 
-const mount = async (node: Node, view: View) => {
+const mount = async (node: INode, view: IView) => {
   const savedNodeStatus = node.status;
 
   const encodedPath = encodeURIComponent(node.path);
@@ -73,7 +75,7 @@ const mount = async (node: Node, view: View) => {
     try {
       if (initialState?.mountBackgroundJob) {
         const mountUrl = generateAppUrl('archive/schedule/mount/{encodedPath}', { encodedPath }, undefined);
-        const response = await axios.post<{ targetPath: string, jobType: string, messages: string[] }>(mountUrl);
+        const response = await axios.post<{ targetPath: string; jobType: string; messages: string[] }>(mountUrl);
         const data = response.data;
         logger.info('DATA', data);
         const mountPointPath = data.targetPath;
