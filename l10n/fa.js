@@ -65,6 +65,8 @@ OC.L10N.register(
     "factory reset palette" : "factory reset palette",
     "Choose a folder" : "Choose a folder",
     "Choose a prefix-folder" : "Choose a prefix-folder",
+    "Choose {file}" : "انتخاب {file}",
+    "Choose" : "انتخاب کنید",
     "Invalid path selected: \"{dir}\"." : "Invalid path selected: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Selected path: \"{dir}/{base}/\".",
     "Archive Manager, Admin Settings" : "Archive Manager, Admin Settings",
