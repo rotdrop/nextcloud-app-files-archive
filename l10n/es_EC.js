@@ -63,6 +63,7 @@ OC.L10N.register(
     "factory reset palette" : "restablecer paleta a valores predeterminados",
     "Choose a folder" : "Elegir una carpeta",
     "Choose a prefix-folder" : "Elije un prefijo de carpeta",
+    "Choose" : "Seleccionar",
     "Invalid path selected: \"{dir}\"." : "Ruta seleccionada no válida: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: \"{dir}/{base}/\".",
     "Archive Manager, Admin Settings" : "Gestor de archivos de archivo, Configuración de administrador",

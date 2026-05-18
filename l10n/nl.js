@@ -19,6 +19,8 @@ OC.L10N.register(
     "renamed file" : "bestand hernoemd",
     "bytes" : "bytes",
     "submit" : "versturen",
+    "Choose {file}" : "Kies {file}",
+    "Choose" : "Kies",
     "unknown" : "onbekend",
     "MIME type" : "MIME type",
     "Disconnect storage" : "Verbinding met opslag verbreken",

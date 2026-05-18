@@ -10,6 +10,8 @@ OC.L10N.register(
     "open" : "отвори",
     "submit" : "испрати",
     "Choose a folder" : "Избери папка",
+    "Choose {file}" : "Избери {file}",
+    "Choose" : "Избери",
     "ok" : "добро",
     "unknown" : "непознат",
     "Disconnect storage" : "Исклучи складиште",
