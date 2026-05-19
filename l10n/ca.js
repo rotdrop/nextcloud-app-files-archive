@@ -32,6 +32,8 @@ OC.L10N.register(
     "On-the-fly archive inspector for Nextcloud" : "Inspector d'arxius sobre la marxa per a Nextcloud",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Inspeccioneu, munteu i extreu fitxers d'arxiu (zip, tar, etc.)",
     "Choose a prefix-folder" : "Trieu una carpeta-prefix",
+    "Choose {file}" : "Tria {file}",
+    "Choose" : "Tria",
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
     "Clear Selection" : "Buida la selecció",

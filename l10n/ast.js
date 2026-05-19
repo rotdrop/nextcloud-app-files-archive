@@ -11,6 +11,8 @@ OC.L10N.register(
     "open" : "abrir",
     "submit" : "unviar",
     "restore palette" : "restaurar la paleta",
+    "Choose {file}" : "Escoyer «{file}»",
+    "Choose" : "Escoyer",
     "Please select an item!" : "¡Seleiciona un elementu!",
     "MIME type" : "Tipu MIME",
     "Disconnect storage" : "Desconectar l'almacenamientu",
