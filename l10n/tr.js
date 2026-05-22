@@ -163,7 +163,7 @@ OC.L10N.register(
     "not mounted" : "takılmamış",
     "Disconnect storage" : "Depolama alanının bağlantısını kes",
     "Common prefix {prefix} is stripped." : "{prefix} ortak ön eki ayıklandı.",
-    "Not mounted, create a new mount point:" : "Takılmamış. Yeni bir takma noktası ekle:",
+    "Not mounted, create a new mount point:" : "Takılmamış. Yeni bir takma noktası oluştur:",
     "base name" : "temel ad",
     "strip common path prefix" : "ortak yol ön eki ayıklansın",
     "schedule as background job" : "arka plan görevi olarak zamanla",
