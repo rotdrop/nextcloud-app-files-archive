@@ -4,6 +4,8 @@ OC.L10N.register(
     "User" : "Utente",
     "Password" : "Crae",
     "bytes" : "bytes",
+    "Choose {file}" : "Sèbera {file}",
+    "Choose" : "Sèbera",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",
     "Disconnect storage" : "Disconnete archiviatzione",

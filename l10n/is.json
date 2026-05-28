@@ -4,6 +4,8 @@
     "%1$s (renamed)" : "%1$s (endurnefnd)",
     "renamed file" : "endurnefndi skrá",
     "bytes" : "bæti",
+    "Choose {file}" : "Veldu {file}",
+    "Choose" : "Velja",
     "unknown" : "óþekkt",
     "Disconnect storage" : "Aftengja geymslu",
     "Archive" : "Safn",

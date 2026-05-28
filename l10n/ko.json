@@ -46,6 +46,8 @@
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "압축 파일을 검사, 마운트, 해제합니다 (zip. tar 등)",
     "Choose a folder" : "폴더 선택",
     "Choose a prefix-folder" : "접두사 폴더 지정",
+    "Choose {file}" : "{file} 선택",
+    "Choose" : "선택",
     "Invalid path selected: \"{dir}\"." : "잘못된 경로가 지정됨: \"{dir}\"",
     "Selected path: \"{dir}/{base}/\"." : "지정한 경로: \"{dir}/{base}/\"",
     "Reset Changes" : "변경 사항 초기화",

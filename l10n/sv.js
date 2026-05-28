@@ -10,6 +10,8 @@ OC.L10N.register(
     "bytes" : "byte",
     "submit" : "skicka",
     "Choose a folder" : "Välj en mapp",
+    "Choose {file}" : "Välj {file}",
+    "Choose" : "Välj",
     "unknown" : "okänt",
     "Disconnect storage" : "Koppla bort lagring",
     "Archive" : "Arkivera",

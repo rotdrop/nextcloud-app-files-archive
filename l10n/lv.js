@@ -9,6 +9,7 @@ OC.L10N.register(
     "%1$s (renamed)" : "%1$s (pārdēvēta)",
     "renamed file" : "pārdēvēja datni",
     "bytes" : "baiti",
+    "Choose" : "Izvēlēties",
     "Clear Selection" : "Notīrīt atlasi",
     "Security Options" : "Drošības iespējas",
     "unknown" : "nezināms",
