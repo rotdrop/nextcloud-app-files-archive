@@ -81,7 +81,7 @@ trait TargetPathTrait
       } else {
         $destinationBaseName = $this->defaultTargetBaseName($archivePath);
       }
-      $destinationPath = $destinationDirName . Constants::PATH_SEPARATOR . $destinationBaseName;
+      $destinationPath = rtrim($destinationDirName, Constants::PATH_SEPARATOR) . Constants::PATH_SEPARATOR . $destinationBaseName;
     } else {
       $destinationInfo = pathinfo($destinationPath);
       $destinationBaseName = $destinationInfo['basename'];
