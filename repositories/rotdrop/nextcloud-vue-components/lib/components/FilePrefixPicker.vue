@@ -125,7 +125,7 @@ watch(pathName, () => {
 
 onBeforeMount(() => {
   pathInfo.dirName = props.modelValue?.dirName || ''
-  pathInfo.baseName = props.value?.baseName || ''
+  pathInfo.baseName = props.modelValue?.baseName || ''
   if (!pathInfo.baseName && props.baseName) {
     vueSet(pathInfo, 'baseName', props.baseName)
   }
