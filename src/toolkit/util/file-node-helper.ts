@@ -53,7 +53,7 @@ export const fileInfoToNode = (fileInfo: FileInfoDTO, owner?: string) => {
     throw new Error(`${fileInfo.path} is located outside of the front end user file space ${userFrontEndFolder}.`);
   }
   const nodeData = {
-    id: fileInfo.fileid,
+    id: parseInt(fileInfo.fileid, 10),
     source: generateRemoteUrl(join('dav/files', owner, fileInfo.relativePath)),
     root: `/files/${owner}`,
     mime: fileInfo.mime,
