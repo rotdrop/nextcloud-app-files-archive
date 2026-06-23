@@ -39,8 +39,8 @@ archive file as "external" mount into the current directory. This
 mount is "movable" and can be renamed or moved into another folder.
 
 The app further adds an entry to the details-view in the right
-side-bar wheren archive information is displayed, and controls for
-mounting and extracing the archive to any location in the cloud
+side-bar where archive information is displayed, and controls for
+mounting and extracting the archive to any location in the cloud
 file-system are available.
 
 ## Details
@@ -125,7 +125,7 @@ supported. There are some caveats, however:
 - Unfortunately, the Nextcloud CRON-jobs need to have access to the
   file-space as they periodically scan the file-system. However, the
   cron-jobs run unauthenticated. In order to make this work, the
-  archvie passwords for the active mounts are stored in the app's
+  archive passwords for the active mounts are stored in the app's
   database table. The passwords are encrypted with the server
   password. However, that is stored in plain-text in the `config.php`
   of the Nextcloud instance running on the server.
