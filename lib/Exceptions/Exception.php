@@ -23,7 +23,7 @@
 namespace OCA\FilesArchive\Exceptions;
 
 /**
- * Exception class abstaction.
+ * Exception class abstraction.
  */
 class Exception extends \Exception
 {

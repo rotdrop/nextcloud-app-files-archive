@@ -219,7 +219,7 @@ class Notifier implements INotifier
           if ($subjectType & self::TYPE_MOUNT) {
             $subjectTemplate = $l->t('Mounting {source} at {destination} has failed.');
           } else {
-            $subjectTemplate = $l->t('Extacting {source} to {destination} bas failed.');
+            $subjectTemplate = $l->t('Extracting {source} to {destination} has failed.');
           }
         }
         break;
