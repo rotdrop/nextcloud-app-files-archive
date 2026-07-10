@@ -1,8 +1,8 @@
 # nextcloud-app-toolkit-js
 
-## Description
+**This is the legacy version for Vue2**
 
-Vue3 feature/branch
+## Description
 
 Some common javascript code for some of my Nextcloud apps. The Idea is to use `git
 subtree` or maybe
