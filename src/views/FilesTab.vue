@@ -30,6 +30,7 @@
         <NcActions>
           <NcActionButton v-model="showArchiveInfo"
                           :icon="'icon-triangle-' + (showArchiveInfo ? 'n' : 's')"
+                          @click.stop
           />
         </NcActions>
       </li>
@@ -145,6 +146,7 @@
         <NcActions>
           <NcActionButton v-model="showArchiveMounts"
                           :icon="'icon-triangle-' + (showArchiveMounts ? 'n' : 's')"
+                          @click.stop
           />
         </NcActions>
       </li>
@@ -218,6 +220,7 @@
         <NcActions>
           <NcActionButton v-model="showArchiveExtraction"
                           :icon="'icon-triangle-' + (showArchiveExtraction ? 'n' : 's')"
+                          @click.stop
           />
         </NcActions>
       </li>
@@ -268,6 +271,7 @@
         <NcActions>
           <NcActionButton v-model="showPendingJobs"
                           :icon="'icon-triangle-' + (showPendingJobs ? 'n' : 's')"
+                          @click.stop
           />
         </NcActions>
       </li>
