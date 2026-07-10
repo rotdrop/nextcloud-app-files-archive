@@ -1,0 +1,14 @@
+{
+  "publicPath": "",
+  "js": [
+    "js/admin-settings-df799b67cb5633f8391c.js",
+    "js/personal-settings-af95a76b68e57dfa2440.js",
+    "js/files-hooks-b3027db2ffcf1c143fd4.js",
+    "js/files-sidebar-hooks-b5dc7c93e48383d63d47.js"
+  ],
+  "css": [
+    "css/admin-settings-f1b7cc16e7c5e60cde8b.css",
+    "css/personal-settings-7e640ac548297622d6a8.css",
+    "css/files-hooks-056d395c23c682271b63.css"
+  ]
+}

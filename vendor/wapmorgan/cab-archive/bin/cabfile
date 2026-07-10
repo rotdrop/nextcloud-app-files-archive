@@ -1,0 +1,53 @@
+#!/usr/bin/php
+<?php
+use wapmorgan\CabArchive\TerminalInfo;
+require __DIR__.'/../vendor/autoload.php';
+
+if (!isset($argv[1])) die('Usage: '.basename(__FILE__).' <cab> [<operation>] [--content]'.PHP_EOL
+    .'Operations:'.PHP_EOL
+    .' - header  - show raw cab header'.PHP_EOL
+    .' - folders - show all folders within cab'.PHP_EOL
+    .' - blocks  - show all blocks within cab'.PHP_EOL
+    .' - files   - show files list within cab'.PHP_EOL
+    .' - [filename] - show information about files within cab'.PHP_EOL
+    .'                If you set --content option, it will print content of the file'.PHP_EOL
+    .'                If you set --extract option, it will extract file in current folder'.PHP_EOL);
+
+$width = TerminalInfo::isInteractive() ? (TerminalInfo::getWidth() - 30) : 50;
+
+$cab = new CabArchive($argv[1]);
+
+$mode = isset($argv[2]) ? $argv[2] : 'files';
+
+switch ($mode) {
+    case 'header':
+        var_dump($cab->getCabHeader());
+        break;
+
+    case 'folders':
+        var_dump($cab->getCabFolders());
+        break;
+
+    case 'blocks':
+        foreach ($cab->getCabBlocks() as $folder_id => $blocks) {
+            foreach ($blocks as $block_id => $block_data) {
+                echo $folder_id.':'.$block_id.': from '.$block_data['uncompOffset'].' to '.($block_data['uncompOffset'] + $block_data['uncompSize']).' (packed size '.$block_data['compSize'].')'.PHP_EOL;
+            }
+        }
+        break;
+
+    case 'files':
+        foreach ($cab->getFileNames() as $file) {
+            $data = $cab->getFileData($file);
+            printf('[%-'.$width.'s] uncomp: %d comp: %d'.PHP_EOL, $file, $data->size, $data->packedSize);
+        }
+        break;
+
+    default:
+        var_dump($cab->getFileData($mode));
+        if (in_array('--content', $argv))
+            var_dump($cab->getFileContent($mode));
+        else if (in_array('--extract', $argv))
+            var_dump($cab->extract(getcwd(), [$mode]));
+        break;
+}
