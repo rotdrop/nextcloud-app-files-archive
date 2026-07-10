@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2024, 2025, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2024-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -20,7 +20,7 @@
 
 import { getCurrentUser } from '@nextcloud/auth';
 import { join } from 'path';
-import { File, Folder, FileType } from '@nextcloud/files';
+import { File, Folder, FileType, type NodeData } from '@nextcloud/files';
 import { generateRemoteUrl } from '@nextcloud/router';
 
 export interface FileInfoDTO {
@@ -52,7 +52,7 @@ export const fileInfoToNode = (fileInfo: FileInfoDTO, owner?: string) => {
   if (fileInfo.topLevelFolder !== userFrontEndFolder) {
     throw new Error(`${fileInfo.path} is located outside of the front end user file space ${userFrontEndFolder}.`);
   }
-  const nodeData = {
+  const nodeData: NodeData = {
     id: parseInt(fileInfo.fileid, 10),
     source: generateRemoteUrl(join('dav/files', owner, fileInfo.relativePath)),
     root: `/files/${owner}`,
