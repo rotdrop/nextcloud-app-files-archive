@@ -404,7 +404,7 @@ const extractionOptionsComponent = ref<null|typeof NcActions>(null)
 
 const loading = ref(0)
 
-const fileName = computed(() => props.node ? props.node.path + '/' + props.node.basename : null)
+const fileName = computed(() => props.node ? props.node.path : null)
 const archiveFileId = computed(() => props.node?.id)
 
 const ArchiveStatusOk = 0
@@ -592,7 +592,7 @@ async function update() {
    *   logger.info('FILE LIST UPDATED, ARGS', arguments)
    * }) */
   archiveMountBaseName.value = props.node.basename.split('.')[0]
-  archiveMountDirName.value = props.node.path
+  archiveMountDirName.value = props.node.dirname
 
   archiveExtractBaseName.value = archiveMountBaseName.value
   archiveExtractDirName.value = archiveMountDirName.value
