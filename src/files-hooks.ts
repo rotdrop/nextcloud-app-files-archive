@@ -17,14 +17,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type { ActionContext } from '@nextcloud/files';
 import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
 import type { InitialState } from './types/initial-state.d.ts';
 import type { DestinationParameter } from './types/notification.d.ts';
 
 import { emit, subscribe } from '@nextcloud/event-bus';
 import {
-  type ActionContext,
-
   DefaultType,
   Permission,
   registerFileAction,
