@@ -4,7 +4,7 @@
  * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
  *
  * @author Claus-Justus Heine
- * @copyright 2024-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,34 +22,27 @@
  */
 
 declare module '@nextcloud/vue' {
-  import type { VTooltip } from 'floating-vue';
-  import type { Component as Vue } from 'vue';
+  import Vue from 'vue';
+  import { VTooltip } from 'floating-vue';
 
   const NcActionButton: Vue;
   const NcActionCaption: Vue;
-  const NcActionInput: Vue;
   const NcActionLink: Vue;
   const NcActionRadio: Vue;
   const NcActionRouter: Vue;
   const NcActionSeparator: Vue;
-  const NcActionTextEditable: Vue;
   const NcActions: Vue & {
-    open: boolean;
-    opened: boolean;
-    closeMenu(returnFocus?: boolean): void;
-    openMenu(event?: Event): void;
+    opened: boolean,
+    closeMenu(returnFocus?: boolean):void,
+    openMenu(event?: Event):void,
     $refs: Record<string, Vue> & {
-      menuButton: Vue;
-    };
+      menuButton: Vue,
+    },
   };
-  const NcActionCheckbox: Vue & {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    'onUpdate:checked': (value: boolean) => any;
-  };
+  const NcActionCheckbox: Vue;
   const NcButton: Vue;
 
   export declare class Color {
-
     constructor(r: number, g: number, b: number, name?: string);
     declare ['constructor']: typeof Color;
     r: number;
@@ -57,99 +50,49 @@ declare module '@nextcloud/vue' {
     b: number;
     name?: string;
     readonly color: string;
-
   }
   const NcColorPicker: Vue & {
-    palette: Color[];
-  };
+    palette: Color[],
+  }
 
   const NcCounterBubble: Vue;
-  const NcDateTimePicker: Vue;
-  const NcDialog: Vue;
 
-  const NcListItem: Vue & {
-    forceDisplayActions: true;
-    $refs: Record<string, Vue> & {
-      actions: NcActions;
-    };
-  };
+  const NcListItem: Vue;
   const NcListItemIcon: Vue;
-  const NcModal: Vue & {
-    close: () => void;
-  };
   const NcProgressBar: Vue;
-  const NcRichContenteditable: Vue;
-  const NcRichText: Vue;
   const NcSelect: Vue & {
     localLabel: string;
     search: string;
   };
-
   const NcSettingsSection: Vue;
-  const NcTextArea: Vue;
 
   const NcTextField: Vue & {
     value: string|number;
   };
 
+  const NcActionCheckbox: Vue;
   const Tooltip: typeof VTooltip;
-
-  const NcContent: Vue;
-  const NcAppContent: Vue;
-  const NcAppNavigation: Vue;
-  const NcAppNavigationItem: Vue;
-  const NcAppNavigationSettings: Vue;
-  const NcAppSidebar: Vue;
-  const NcAppSidebarTab: Vue;
-  const NcCheckboxRadioSwitch: Vue;
-  const NcEllipsisedOption: Vue;
-  const NcEmptyContent: Vue;
-  const NcPasswordField: Vue;
-  const NcPopover: Vue & {
-    getPopoverContentElement: () => HTMLElement;
-    internalShown: boolean;
-  };
 
   export {
     NcActionButton,
     NcActionCaption,
     NcActionCheckbox,
-    NcActionInput,
     NcActionLink,
     NcActionRadio,
     NcActionRouter,
-    NcActions,
     NcActionSeparator,
-    NcActionTextEditable,
-    NcAppContent,
-    NcAppNavigation,
-    NcAppNavigationItem,
-    NcAppNavigationSettings,
-    NcAppSidebar,
-    NcAppSidebarTab,
+    NcActions,
     NcButton,
-    NcCheckboxRadioSwitch,
     NcColorPicker,
-    NcContent,
     NcCounterBubble,
-    NcDateTimePicker,
-    NcDialog,
-    NcEllipsisedOption,
-    NcEmptyContent,
     NcListItem,
     NcListItemIcon,
-    NcModal,
-    NcPasswordField,
-    NcPopover,
     NcProgressBar,
-    NcRichContenteditable,
-    NcRichText,
     NcSelect,
     NcSettingsSection,
-    NcTextArea,
     NcTextField,
     Tooltip,
-  };
+  }
 }
 
 declare module '@nextcloud/vue';
@@ -157,7 +100,7 @@ declare module '@nextcloud/vue';
 declare module '@nextcloud/vue/dist/Directives/*.js' {
   import type { DirectiveOptions } from 'vue';
 
-  const DirectiveVue: DirectiveOptions;
+  const DirectiveVue: DirectiveOptions<>;
 
   export default DirectiveVue;
 }

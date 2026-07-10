@@ -1,6 +1,6 @@
 <!--
  - @author Claus-Justus Heine
- - @copyright 2024, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -18,32 +18,37 @@
  -->
 <template>
   <div v-tooltip="tooltipToShow"
-       class="input-wrapper"
-       :class="[{ empty, required }, ...actionClasses]"
+       :class="['input-wrapper', { empty, required }, ...actionClasses]"
   >
     <label v-if="!labelOutside && inputLabel" :for="selectId" class="select-with-submit-button-label">
       {{ inputLabel }}
     </label>
-    <div class="alignment-wrapper" :class="[...flexContainerClasses]">
-      <div v-if="$slots.alignedBefore" class="aligned-before, " :class="[...flexItemClasses]">
+    <div :class="['alignment-wrapper', ...flexContainerClasses]">
+      <div v-if="$slots.alignedBefore" :class="['aligned-before', ...flexItemClasses]">
         <slot name="alignedBefore" />
       </div>
-      <div class="select-combo-wrapper" :class="[{ loading, actions: $slots.actions || clearAction || resetAction, submit: submitButton }, ...flexItemClasses, ...actionClasses]">
+      <div :class="['select-combo-wrapper', { loading, actions: $slots.actions || clearAction || resetAction, submit: submitButton }, ...flexItemClasses, ...actionClasses]">
         <NcSelect ref="ncSelect"
                   v-bind="$attrs"
                   v-model="modelValue"
                   :multiple="props.multiple"
-                  :labelOutside="true"
+                  :label-outside="true"
                   :clearable="props.clearable"
                   :disabled="props.disabled"
                   :required="props.required"
-                  :inputId="selectId"
+                  :input-id="selectId"
+                  v-on="$listeners"
                   @open="active = true"
                   @close="active = false"
         >
-          <!-- pass through slots -->
-          <template v-for="(_, slotName) in $slots" #[slotName]="slotData">
-            <slot :name="slotName" v-bind="slotData" />
+          <!-- pass through scoped slots -->
+          <template v-for="(_, scopedSlotName) in $scopedSlots" #[scopedSlotName]="slotData">
+            <slot :name="scopedSlotName" v-bind="slotData" />
+          </template>
+
+          <!-- pass through normal slots -->
+          <template v-for="(_, slotName) in $slots" #[slotName]>
+            <slot :name="slotName" />
           </template>
 
           <!-- after iterating over slots and scopedSlots, you can customize them like this -->
@@ -63,8 +68,7 @@
       </div>
       <NcActions v-if="$slots.actions || clearAction || resetAction"
                  :disabled="disabled"
-                 class="aligned-after"
-                 :class="[...flexItemClasses]"
+                 :class="['aligned-after', ...flexItemClasses]"
       >
         <slot name="actions" />
         <NcActionButton v-if="resetAction"
@@ -80,7 +84,7 @@
           {{ t(appName, 'Clear Selection') }}
         </NcActionButton>
       </NcActions>
-      <div v-if="$slots.alignedAfter" class="aligned-after" :class="[...flexItemClasses]">
+      <div v-if="$slots.alignedAfter" :class="['aligned-after', ...flexItemClasses]">
         <slot name="alignedAfter" />
       </div>
     </div>
@@ -89,65 +93,58 @@
     </p>
   </div>
 </template>
-
 <script setup lang="ts">
-import { translate as t } from '@nextcloud/l10n'
 import {
-  NcActionButton,
   NcActions,
+  NcActionButton,
   NcSelect,
 } from '@nextcloud/vue'
-import { v4 as uuidv4 } from 'uuid'
+import { appName } from '../config.ts'
+import { translate as t } from '@nextcloud/l10n'
 import {
   computed,
   ref,
   watch,
 } from 'vue'
-import { appName } from '../config.ts'
+import { v4 as uuidv4 } from 'uuid'
 
 type ItemType = string|number|Record<string, unknown>
 type ValueType = ItemType|ItemType[]
 
-defineOptions({
-  name: 'SelectWithSubmitButton',
-  inheritAttrs: false,
-})
-
 const props = withDefaults(
   defineProps<{
-    modelValue?: ValueType
+    modelValue?: ValueType,
     // show an loading indicator on the wrapper select
-    loading?: boolean
-    disabled?: boolean
+    loading?: boolean,
+    disabled?: boolean,
     // clearable allows deselection of the last item
-    clearable?: boolean
+    clearable?: boolean,
     /**
      * Allow selection of multiple options
      *
      * @see https://vue-select.org/api/props.html#multiple
      */
-    multiple?: boolean
+    multiple?: boolean,
     // required blocks the final submit if no value is selected
-    required?: boolean
-    labelOutside?: boolean
-    inputLabel?: string
-    inputId?: string
-    hint?: string
-    tooltip?: Record<string, string>|string|boolean
-    flexContainerClasses?: string[]
-    flexItemClasses?: string[]
+    required?: boolean,
+    labelOutside?: boolean,
+    inputLabel?: string,
+    inputId?: string,
+    hint?: string,
+    tooltip?: Record<string, string>|string|boolean,
+    flexContainerClasses?: string[],
+    flexItemClasses?: string[],
     // configure default button and action additions
-    submitButton?: boolean
-    clearAction?: boolean
-    resetAction?: boolean
-    resetState?: ValueType
-  }>(),
-  {
+    submitButton?: boolean,
+    clearAction?: boolean,
+    resetAction?: boolean,
+    resetState?: ValueType,
+  }>(), {
     modelValue: undefined,
     loading: false,
     disabled: false,
     // clearable allows deselection of the last item
-    clearable: true, // eslint-disable-line vue/no-boolean-default
+    clearable: true,
     /**
      * Allow selection of multiple options
      *
@@ -164,19 +161,12 @@ const props = withDefaults(
     flexContainerClasses: () => ['flex-justify-left', 'flex-align-center'],
     flexItemClasses: () => ['flex-justify-left', 'flex-align-center'],
     // configure default button and action additions
-    submitButton: true, // eslint-disable-line vue/no-boolean-default
+    submitButton: true,
     clearAction: false,
     resetAction: false,
     resetState: undefined,
   },
 )
-
-const emit = defineEmits([
-  'error',
-  'input',
-  'update',
-  'update:modelValue',
-])
 
 const modelValue = ref<undefined|ValueType>(props.modelValue)
 const active = ref(false)
@@ -184,15 +174,9 @@ const ncSelect = ref<null|typeof NcSelect>(null)
 
 const actionClasses = computed(() => {
   const classes: string[] = []
-  if (props.submitButton) {
-    classes.push('submit-button')
-  }
-  if (props.clearAction) {
-    classes.push('clear-action')
-  }
-  if (props.resetAction) {
-    classes.push('reset-action')
-  }
+  props.submitButton && classes.push('submit-button')
+  props.clearAction && classes.push('clear-action')
+  props.resetAction && classes.push('reset-action')
   return classes
 })
 
@@ -217,9 +201,14 @@ defineExpose({
 })
 
 // receive updates from the parent ...
-watch(() => props.modelValue, (newValue) => {
-  modelValue.value = newValue
-})
+watch(() => props.modelValue, (newValue) => { modelValue.value = newValue })
+
+const emit = defineEmits([
+  'error',
+  'input',
+  'update',
+  'update:modelValue',
+])
 
 const emitInput = (value: ValueType|undefined) => {
   emit('input', value)
@@ -243,16 +232,25 @@ const clearSelection = () => {
   emitInput(props.multiple ? [] : undefined)
 }
 </script>
-
+<script lang="ts">
+export default {
+  name: 'SelectWithSubmitButton',
+  inheritAttrs: false,
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue',
+  },
+}
+</script>
 <style lang="scss" scoped>
-.input-wrapper :deep() {
+.input-wrapper {
   position:relative;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
   margin: 0 0 var(--default-grid-baseline);
-  .alignment-wrapper {
+  &::v-deep .alignment-wrapper {
     display: flex;
     flex-grow: 1;
     max-width: 100%;
@@ -305,7 +303,7 @@ const clearSelection = () => {
       max-width:100%;
       margin: 0 0 0;
     }
-    &.submit-button :deep(.v-select.select) {
+    &.submit-button::v-deep .v-select.select {
       .vs__dropdown-toggle {
         // substract the round borders for the overlay
         padding-right: calc(var(--default-clickable-area) - var(--vs-border-radius));
@@ -339,7 +337,7 @@ const clearSelection = () => {
     }
   }
   &.empty.required:not(.loading) {
-    .v-select.select :deep(.vs__dropdown-toggle) {
+    .v-select.select::v-deep .vs__dropdown-toggle {
       border-color: red;
     }
   }
@@ -349,7 +347,6 @@ const clearSelection = () => {
   }
 }
 </style>
-
 <style lang="scss">
 [csstag="vue-tooltip-data-popup"].v-popper--theme-tooltip {
   .v-popper__inner div div {

@@ -12,7 +12,6 @@
   ],
   "compilerOptions": {
     "types": ["jest", "node", "vue", "vue-router"],
-    "rootDir": "./",
     "outDir": "./dist/",
     "target": "ESNext",
     "module": "esnext",

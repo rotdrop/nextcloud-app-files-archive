@@ -1,6 +1,8 @@
 # nextcloud-vue-components
 A loose collection of Vue components that I use in several of my projects.
 
+**This is the legacy version vor Vue2**
+
 The purpose of this repository is to factor out common code that I use in several other Nextcloud apps.
 
 **This is public, so you are invited to use these things, but I do not plan to make this a well-maintained Vue library.**
