@@ -41,7 +41,7 @@ const openMountPoint = async (mountNode: INode, view: IView) => {
     await OCP.Files.Router.goToRoute(
       null,
       { view: view.id, fileid: String(mountNode.id) },
-      { dir: mountNode.path },
+      { dir: mountNode.dirname },
     );
   } catch (error) {
     logger.error(error);

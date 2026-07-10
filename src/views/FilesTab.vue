@@ -30,6 +30,7 @@
         <NcActions>
           <NcActionButton v-model="showArchiveInfo"
                           :icon="'icon-triangle-' + (showArchiveInfo ? 'n' : 's')"
+                          @click.stop=""
           />
         </NcActions>
       </li>
@@ -108,17 +109,7 @@
           </h5>
         </div>
         <NcActions :forceMenu="true">
-          <NcActionInput v-if="showArchivePassPhrase"
-                         ref="archivePassPhraseComponent"
-                         v-model="archivePassPhrase"
-                         type="text"
-                         icon="icon-password"
-                         @submit="setPassPhrase"
-          >
-            {{ t(appName, 'archive passphrase') }}
-          </NcActionInput>
-          <NcActionInput v-else
-                         ref="archivePassPhraseComponent"
+          <NcActionInput ref="archivePassPhraseComponent"
                          v-model="archivePassPhrase"
                          type="password"
                          icon="icon-password"
@@ -126,9 +117,6 @@
           >
             {{ t(appName, 'archive passphrase') }}
           </NcActionInput>
-          <NcActionCheckbox @change="togglePassPhraseVisibility">
-            {{ t(appName, 'Show Passphrase') }}
-          </NcActionCheckbox>
         </NcActions>
       </li>
       <li class="files-tab-entry flex flex-center clickable"
@@ -145,6 +133,7 @@
         <NcActions>
           <NcActionButton v-model="showArchiveMounts"
                           :icon="'icon-triangle-' + (showArchiveMounts ? 'n' : 's')"
+                          @click.stop=""
           />
         </NcActions>
       </li>
@@ -218,6 +207,7 @@
         <NcActions>
           <NcActionButton v-model="showArchiveExtraction"
                           :icon="'icon-triangle-' + (showArchiveExtraction ? 'n' : 's')"
+                          @click.stop=""
           />
         </NcActions>
       </li>
@@ -268,6 +258,7 @@
         <NcActions>
           <NcActionButton v-model="showPendingJobs"
                           :icon="'icon-triangle-' + (showPendingJobs ? 'n' : 's')"
+                          @click.stop=""
           />
         </NcActions>
       </li>
@@ -335,10 +326,10 @@ import {
   NcActions,
   NcListItem,
 } from '@nextcloud/vue'
+import vTooltip from '@rotdrop/nextcloud-vue-components/lib/directives/Tooltip'
 import { md5 } from 'js-md5'
 import {
   computed,
-  nextTick,
   onBeforeMount,
   onUnmounted,
   ref,
@@ -390,7 +381,17 @@ const props = withDefaults(defineProps<{
   view: undefined,
 })
 
-logger.info('PROPS', { props })
+logger.info(
+  'PROPS',
+  {
+    props,
+    node: {
+      path: props.node.path,
+      basename: props.node.basename,
+      dirname: props.node.dirname,
+    },
+  },
+)
 
 const setBusyState = (state: boolean) => {
   setFileNodeBusy(props.node, state)
@@ -404,7 +405,7 @@ const extractionOptionsComponent = ref<null|typeof NcActions>(null)
 
 const loading = ref(0)
 
-const fileName = computed(() => props.node ? props.node.path + '/' + props.node.basename : null)
+const fileName = computed(() => props.node ? props.node.path : null)
 const archiveFileId = computed(() => props.node?.id)
 
 const ArchiveStatusOk = 0
@@ -428,7 +429,6 @@ const archiveExtractBackgroundJob = ref(!!initialState?.extractBackgroundJob)
 const archivePassPhrase = ref<undefined|string>(undefined)
 
 const showArchiveInfo = ref(true)
-const showArchivePassPhrase = ref(false)
 const showArchiveMounts = ref(false)
 const showArchiveExtraction = ref(false)
 const showPendingJobs = ref(false)
@@ -498,9 +498,6 @@ const archiveStatusText = computed(() => {
   return t(appName, 'unknown')
 })
 
-// const archiveFileDirName = computed(() => props.node?.path)
-// const archiveFileBaseName = computed(() => props.node?.name)
-// const archiveFilePathName = computed(() => props.node?.path + '/' + props.node?.name)
 const archiveMounted = computed(() => archiveMounts.value.length > 0)
 // const archiveInfoText = computed(() => JSON.stringify(archiveInfo.value, null, 2))
 const humanArchiveOriginalSize = computed(
@@ -571,7 +568,7 @@ const getData = async () => {
 }
 
 watch(
-  props.node,
+  () => props.node,
   async () => {
     logger.debug('Node has changed', {
       node: { ...props.node },
@@ -592,7 +589,7 @@ async function update() {
    *   logger.info('FILE LIST UPDATED, ARGS', arguments)
    * }) */
   archiveMountBaseName.value = props.node.basename.split('.')[0]
-  archiveMountDirName.value = props.node.path
+  archiveMountDirName.value = props.node.dirname
 
   archiveExtractBaseName.value = archiveMountBaseName.value
   archiveExtractDirName.value = archiveMountDirName.value
@@ -1004,11 +1001,7 @@ const extractArchive = async () => {
 }
 
 const setPassPhrase = async () => {
-  const newPassPhrase: string = showArchivePassPhrase.value
-    ? archivePassPhraseComponent.value!.$el.querySelector<HTMLInputElement>('input[type="text"]')?.value || ''
-    : archivePassPhraseComponent.value!.$el.querySelector<HTMLInputElement>('input[type="password"]')?.value || ''
-  archivePassPhrase.value = newPassPhrase
-
+  logger.info('PASPHRASE', { archivePassPhrase })
   // patch it into existing mounts if any
   const archivePath = encodeURIComponent(fileName.value!)
   const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}', { archivePath })
@@ -1044,24 +1037,6 @@ const setPassPhrase = async () => {
   setBusyState(false)
 }
 
-const togglePassPhraseVisibility = async () => {
-  // this is sooo complicated because the NC NcAction controls are
-  // seemingly only pro-forma vue-controls. There is no working
-  // v-model support, e.g.
-  let visibleElement = showArchivePassPhrase.value
-    ? archivePassPhraseComponent.value!.$el.querySelector<HTMLInputElement>('input[type="text"]')!
-    : archivePassPhraseComponent.value!.$el.querySelector<HTMLInputElement>('input[type="password"]')!
-  const currentValue: string = visibleElement.value
-
-  showArchivePassPhrase.value = !showArchivePassPhrase.value
-  await nextTick()
-
-  visibleElement = showArchivePassPhrase.value
-    ? archivePassPhraseComponent.value!.$el.querySelector<HTMLInputElement>('input[type="text"]')!
-    : archivePassPhraseComponent.value!.$el.querySelector<HTMLInputElement>('input[type="password"]')!
-  visibleElement.value = currentValue
-}
-
 const filesAppMountPointUrl = (mountPoint: ArchiveMount) => {
   return generateUrl('/apps/files') + '?dir=' + encodeURIComponent(mountPoint.mountPointPath)
 }
@@ -1070,41 +1045,47 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
   if (event?.notification?.app !== appName) {
     return
   }
+  logger.info('APP NOTIFICATION RECEIVED', { event })
   const destinationData = event?.notification?.messageRichParameters?.destination as DestinationParameter
-  if (destinationData?.status !== 'mount') {
-    return // nothing special ATM
-  }
-  const mountData = destinationData?.mount
-  if (!mountData) {
-    logger.error('No mount info in mount notification event')
-    return
-  }
-  let mount: ArchiveMountEntity
-  try {
-    mount = JSON.parse(mountData)
-  } catch (error) {
-    logger.error('files_archive, unable to decode mount entity', { event, mountData, error })
-    return
-  }
-  if (mount.archiveFileId !== archiveFileId.value) {
-    // not for us, in the future we may want to maintain a store
-    // and cache the data for all file-ids.
-    logger.info('*** Archive notification for other file received', event)
-    return
-  }
-  const jobId = getJobIdFromOperation('mount', mount.archiveFilePath, mount.mountPointPath)
-  if (pendingJobs.value[jobId]) {
-    delete pendingJobs.value[jobId]
-  }
-  logger.info('*** Mount notification received, updating mount-list', destinationData)
-  const mountFileId = destinationData.id
-  const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
-  if (mountIndex === -1) {
-    try {
-      archiveMounts.value.push({ ...mount, mountPoint: JSON.parse(destinationData.folder) })
-    } catch (error) {
-      logger.error('Unable to decode mount point folder file-info record.', { destinationData, error })
+  switch (destinationData?.status) {
+    case 'mount': {
+      const mountData = destinationData?.mount
+      if (!mountData) {
+        logger.error('No mount info in mount notification event')
+        return
+      }
+      let mount: ArchiveMountEntity
+      try {
+        mount = JSON.parse(mountData)
+      } catch (error) {
+        logger.error('files_archive, unable to decode mount entity', { event, mountData, error })
+        return
+      }
+      if (mount.archiveFileId !== archiveFileId.value) {
+        // not for us, in the future we may want to maintain a store
+        // and cache the data for all file-ids.
+        logger.info('*** Archive notification for other file received', event)
+        return
+      }
+      const jobId = getJobIdFromOperation('mount', mount.archiveFilePath, mount.mountPointPath)
+      if (pendingJobs.value[jobId]) {
+        delete pendingJobs.value[jobId]
+      }
+      logger.info('*** Mount notification received, updating mount-list', destinationData)
+      const mountFileId = destinationData.id
+      const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
+      if (mountIndex === -1) {
+        try {
+          archiveMounts.value.push({ ...mount, mountPoint: JSON.parse(destinationData.folder) })
+        } catch (error) {
+          logger.error('Unable to decode mount point folder file-info record.', { destinationData, error })
+        }
+      }
+      break
     }
+    case 'extract':
+      logger.info('EXTRACT, SHOULD DO SOMETHING')
+      break
   }
 }
 
