@@ -233,9 +233,9 @@ class ArchiveJob extends QueuedJob
       $archivePassPhrase = $this->getArchivePassphrase();
       $stripCommonPathPrefix = $this->getStripCommonPathPrefix();
 
-      // @todo The use of controller classes at this point is abuse, their
+      // @todo The use of controller classes at this point is abuse, there
       // should be common service classes providing the required functionality
-      // which are then shared by the backgroun job and the frontend
+      // which are then shared by the background job and the frontend
       // controller classes.
       switch ($this->getTarget()) {
         case self::TARGET_MOUNT:

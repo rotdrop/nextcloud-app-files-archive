@@ -12,9 +12,9 @@
 
 ## "Official" Releases
 
-This app is available throught the
+This app is available through the
 [Nextcloud app-store](https://apps.nextcloud.com/apps/files_archive)
-and show up automatically in the app-installation option of you
+and shows up automatically in the app-installation option of your
 Nextcloud instance if you are logged in as administrator. The goal is
 to have working versions for the most recent three (3) releases of
 nextcloud available through the Nextcloud app-store.
@@ -79,7 +79,7 @@ So:
     - **pull request to improve this part of the documentation are very welcome**
 - build the app with
   - `make build` to generate a production version of the app
-  - `make dev` to generate a development version debuging info
+  - `make dev` to generate a development version with debugging info
     compiled in. This mostly affects the generated JavaScript assets.
   - in case you run `make` repeatedly (perhaps after adjusting things
     to your liking) and it fails: try to run `make realclean` in order
