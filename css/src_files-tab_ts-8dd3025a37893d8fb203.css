@@ -1,0 +1,81 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-3.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/views/FilesTab.vue?vue&type=style&index=0&id=d56e0e50&lang=scss&scoped=true ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************/
+.files-tab .flex[data-v-d56e0e50] {
+  display: flex;
+}
+.files-tab .flex.flex-center[data-v-d56e0e50] {
+  align-items: center;
+}
+.files-tab .flex.flex-wrap[data-v-d56e0e50] {
+  flex-wrap: wrap;
+}
+.files-tab .flex .flex-grow[data-v-d56e0e50] {
+  flex-grow: 1;
+}
+.files-tab a.icon[data-v-d56e0e50] {
+  background-position: left;
+  padding-left: 20px;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper:not(.archive-comment) .list-item-content__wrapper {
+  height: 24px;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper:not(.archive-comment) a.list-item {
+  padding: 0;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper.archive-comment a.list-item {
+  padding: 8px 0;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper.archive-comment a.list-item .line-two__subtitle {
+  max-width: 100%;
+  white-space: normal;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper.archive-error .line-one__details {
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}
+.files-tab .files-tab-entry[data-v-d56e0e50] {
+  min-height: 44px;
+}
+.files-tab .files-tab-entry.clickable[data-v-d56e0e50], .files-tab .files-tab-entry.clickable *[data-v-d56e0e50] {
+  cursor: pointer;
+}
+.files-tab .files-tab-entry .files-tab-entry__avatar[data-v-d56e0e50] {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 18px;
+  background-color: var(--color-text-maxcontrast);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.files-tab .files-tab-entry .files-tab-entry__desc[data-v-d56e0e50] {
+  flex: 1 1;
+  padding: 8px;
+  line-height: 1.2em;
+  min-width: 0;
+}
+.files-tab .files-tab-entry .files-tab-entry__desc h5[data-v-d56e0e50] {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: inherit;
+}
+.files-tab .files-tab-entry.directory-chooser .dirname[data-v-d56e0e50] {
+  font-weight: bold;
+  font-family: monospace;
+}
+.files-tab .files-tab-entry.directory-chooser .dirname .button[data-v-d56e0e50] {
+  display: block;
+}
+.files-tab .files-tab-entry.directory-chooser .label[data-v-d56e0e50] {
+  padding-right: 0.5ex;
+}
+.files-tab .files-tab-entry[data-v-d56e0e50] {
+  /* ::v-deep .archive-mounts {
+     .list-item-content > .list-item-content__actions {
+     display: block !important;
+     }
+     } */
+}
