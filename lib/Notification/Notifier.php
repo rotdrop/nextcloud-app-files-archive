@@ -3,7 +3,7 @@
  * Recursive PDF Downloader App for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -224,7 +224,9 @@ class Notifier implements INotifier
         }
         break;
       default:
-        throw new InvalidArgumentException($l->t('Unsupported subject: "%s".', $notification->getSubject()));
+        // TRANSLATORS: "notification subject" refers the head-line of a
+        // TRANSLATORS: notificiation of the Nextcloud push-notification framework.
+        throw new InvalidArgumentException($l->t('Internal error, unsupported notification subject: "%1s".', $notification->getSubject()));
     }
 
     $notification->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath($this->appName, 'app-dark.svg')));
