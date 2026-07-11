@@ -5,6 +5,7 @@ js/
 lib/Toolkit/
 php-toolkit/Service/RequestService.php
 php-toolkit/Service/GroupFoldersService.php
+php-toolkit/Controller/EntityRepositoryControllerTrait.php
 src/toolkit/util/pangram.js
 src/toolkit/util/file-download.js
 src/toolkit/util/on-document-loaded.js
