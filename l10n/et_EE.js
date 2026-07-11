@@ -54,14 +54,13 @@ OC.L10N.register(
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "„%1$s“ fail on lahtipakituna liiga suur: %2$s > %3$s",
     "Please install the \"%s\" program on the server." : "Palun paigalda serverisse „%s“ programm.",
     "Unknown search topic \"%1$s\"" : "Tundmatu otsinguteema: „%1$s“",
-    "Shared folder with id \"%1$s\" does not exist." : "Jagatud kausta tunnusega „%1$s“ pole olemas.",
+    "Shared folder with ID \"%1$s\" does not exist." : "Jagatud kausta tunnusega „%1$s“ pole olemas.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "Jagatud kaust on haakepunktis „%1$s“ juba olemas, selle loomine pole võimalik.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "Jagatud kausta haakepunktis „%1$s“ pole olemas, „%2$s“ grupi lisamine pole võimalik.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "Jagatud kausta haakepunktis „%1$s“ pole olemas, „%2$s“ grupi eemaldamine pole võimalik.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "Jagatud kausta haakepunktis „%1$s“ pole olemas, haldajat „%2$s“ pole võimalik muuta.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot set permissions for group \"%2$s\"." : "Jagatud kausta haakepunktis „%1$s“ pole olemas, „%2$s“ grupi õigusi ei saa määrata.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot change its mount-point to \"%2$s\"." : "Jagatud kausta haakepunktis „%1$s“ pole olemas, „%2$s“ muutmine uueks haakepunktis pole võimalik.",
-    "Shared folder with ID \"%1$s\" does not exist." : "Jagatud kausta tunnusega „%1$s“ pole olemas.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Paigaldusviga: „%2$s“ tüüpi nõutav ressurss „%1$s“ pole serverisse paigaldatud. Palun võta ühendust süsteemi peakasutajaga!",
     "User" : "Kasutaja",
     "Password" : "Salasõna",
@@ -124,7 +123,6 @@ OC.L10N.register(
     "Passphrase" : "Salafraas",
     "unset" : "määramata",
     "archive passphrase" : "arhiivi salafraas",
-    "Show Passphrase" : "Näita salafraasi",
     "Mount Points" : "Haakepunktid",
     "not mounted" : "haakimata",
     "Disconnect storage" : "Ühenda andmehoidla lahti",
@@ -156,6 +154,8 @@ OC.L10N.register(
     "Setting \"{settingsKey}\" has been unset successfully." : "„{settingsKey}“ võtme väärtustuse eemaldamine õnnestus.",
     "Confirmation Required" : "Kinnitus on vajalik",
     "Setting \"{setting}\" has been unset successfully." : "„{setting}“ võtme väärtustuse eemaldamine õnnestus.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "„{settingsKey}“ võtme väärtustamine uue „{value}“ väärtusega ei õnnestunud: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "„{settingsKey}“ võtme väärtustamine uue „{value}“ väärtusega ei õnnestunud: {message}",
+    "Shared folder with id \"%1$s\" does not exist." : "Jagatud kausta tunnusega „%1$s“ pole olemas.",
+    "Show Passphrase" : "Näita salafraasi"
 },
 "nplurals=2; plural=(n != 1);");

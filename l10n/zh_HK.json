@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "在 {destination} 掛載 {source} 失敗：{message}",
     "Extracting {source} to {destination} has failed: {message}" : "將 {source} 提取到 {destination} 失敗：{message}",
     "Mounting {source} at {destination} has failed." : "在 {destination} 掛載 {source} 失敗。",
-    "Extacting {source} to {destination} bas failed." : "將 {source} 提取到 {destination} 失敗。",
     "Unsupported subject: \"%s\"." : "不支援的主題：“%s”。",
     "Archive Explorer" : "封存檔案瀏覽器",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "必須且只能指定查詢參數「%1$s」或「%2$s」其中一個。",
@@ -70,14 +69,13 @@
     "There is no archive file associated with this archiver instance." : "沒有與此封存程式實體相關的封存檔案。",
     "Please install the \"%s\" program on the server." : "請在伺服器上安裝“%s”程序。",
     "Unknown search topic \"%1$s\"" : "未知的搜尋主題「%1$s」",
-    "Shared folder with id \"%1$s\" does not exist." : "ID 為「%1$s」的分享資料夾不存在。",
+    "Shared folder with ID \"%1$s\" does not exist." : "ID 為「%1$s」的分享資料夾不存在。",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "掛載點為「%1$s」的分享資料夾已存在，無法建立。",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "掛載點為「%1$s」的分享資料夾不存在，無法新增群組「%2$s」。",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "掛載點為「%1$s」的分享資料夾不存在，無法移除群組「%2$s」。",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "掛載點為「%1$s」的分享資料夾不存在，無法修改管理者「%2$s」。",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot set permissions for group \"%2$s\"." : "掛載點為「%1$s」的分享資料夾不存在，無法設定「%2$s」群組的權限。",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot change its mount-point to \"%2$s\"." : "掛載點為「%1$s」的分享資料夾不存在，無法變更其掛載點為「%2$s」。",
-    "Shared folder with ID \"%1$s\" does not exist." : "ID 為「%1$s」的分享資料夾不存在。",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "安裝問題； 伺服器上沒有安裝所需的類型為「%2$s」的資源「%1$s」，請聯繫系統管理員！",
     "User" : "用戶",
     "Password" : "密碼",
@@ -156,7 +154,6 @@
     "Passphrase" : "密碼片語",
     "unset" : "解除設置",
     "archive passphrase" : "封存密碼片語",
-    "Show Passphrase" : "顯示密碼片語",
     "Mount Points" : "掛載點",
     "not mounted" : "未掛載",
     "Disconnect storage" : "解除連結儲存空間",
@@ -201,6 +198,9 @@
     "Unconfirmed, reverting to old value." : "未確認，回復到舊值。",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "成功設定「{settingsKey}」的值為「{displayValue}」",
     "Setting \"{setting}\" has been unset successfully." : "設定「{setting}」已成功取消設定。",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "無法將“{settingsKey}”的值設置為“{value}”"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "無法將“{settingsKey}”的值設置為“{value}”",
+    "Extacting {source} to {destination} bas failed." : "將 {source} 提取到 {destination} 失敗。",
+    "Shared folder with id \"%1$s\" does not exist." : "ID 為「%1$s」的分享資料夾不存在。",
+    "Show Passphrase" : "顯示密碼片語"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

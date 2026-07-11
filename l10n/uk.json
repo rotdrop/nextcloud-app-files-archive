@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "Не вдалося змонтувати {source} на {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Не вдалося розпакувати {source} на {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Не вдалося змонтувати {source} на {destination}.",
-    "Extacting {source} to {destination} bas failed." : "Не вдалося видобути з {source} до {destination} через bas.",
     "Unsupported subject: \"%s\"." : "Непідтримувана тема: \"%s\".",
     "Archive Explorer" : "Провідник архіву",
     "Unable to find any of the fallback converters \"%s\"." : "Не вдалося знайти жодного з резервних конвертерів \"%s\".",
@@ -138,7 +137,6 @@
     "Passphrase" : "Парольна фраза",
     "unset" : "unset",
     "archive passphrase" : "ключова фраза архіву",
-    "Show Passphrase" : "Показати ключову фразу",
     "Mount Points" : "Mount Points",
     "not mounted" : "не встановлено",
     "Disconnect storage" : "Від’єднати сховище",
@@ -181,6 +179,8 @@
     "Unconfirmed, reverting to old value." : "Непідтверджений, повертається до старого значення.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успішно встановлено значення для \"{settingsKey}\" на \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Параметр \"{setting}\" успішно скинуто.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не вдалося встановити значення для \"{settingsKey}\" на \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не вдалося встановити значення для \"{settingsKey}\" на \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "Не вдалося видобути з {source} до {destination} через bas.",
+    "Show Passphrase" : "Показати ключову фразу"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

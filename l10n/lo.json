@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "ການເຊື່ອມຕໍ່ {source} ທີ່ {destination} ລົ້ມເຫຼວ: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "ການສະກັດ {source} ໄປຍັງ {destination} ລົ້ມເຫຼວ: {message}",
     "Mounting {source} at {destination} has failed." : "ການເຊື່ອມຕໍ່ {source} ທີ່ {destination} ລົ້ມເຫຼວ.",
-    "Extacting {source} to {destination} bas failed." : "ການສະກັດ {source} ໄປຍັງ {destination} ລົ້ມເຫຼວ.",
     "Unsupported subject: \"%s\"." : "ຫົວຂໍ້ບໍ່ຮອງຮັບ: \"%s\".",
     "Archive Explorer" : "ໂຕສຳຫຼວດໄຟລ໌ບີບອັດ",
     "Unable to find any of the fallback converters \"%s\"." : "ບໍ່ພົບໂຕແປງສຳຮອງໃດໆ \"%s\".",
@@ -64,7 +63,6 @@
     "There is no archive file associated with this archiver instance." : "ບໍ່ມີໄຟລ໌ບີບອັດທີ່ກ່ຽວຂ້ອງກັບໂຕຈັດການໄຟລ໌ບີບອັດນີ້.",
     "Please install the \"%s\" program on the server." : "ກະລຸນາຕິດຕັ້ງໂປຣແກຣມ \"%s\" ໃນເຊີບເວີ.",
     "Unknown search topic \"%1$s\"" : "ຫົວຂໍ້ຄົ້ນຫາທີ່ບໍ່ຮູ້ຈັກ \"%1$s\"",
-    "Shared folder with id \"%1$s\" does not exist." : "ໂຟນເດີທີ່ແບ່ງປັນດ້ວຍໄອດີ \"%1$s\" ບໍ່ມີຢູ່.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "ໂຟນເດີທີ່ແບ່ງປັນສຳລັບຈຸດເຊື່ອມຕໍ່ \"%1$s\" ມີຢູ່ແລ້ວ, ບໍ່ສາມາດສ້າງໄດ້.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "ໂຟນເດີທີ່ແບ່ງປັນສຳລັບຈຸດເຊື່ອມຕໍ່ \"%1$s\" ບໍ່ມີຢູ່, ບໍ່ສາມາດເພີ່ມກຸ່ມ \"%2$s\" ໄດ້.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "ໂຟນເດີທີ່ແບ່ງປັນສຳລັບຈຸດເຊື່ອມຕໍ່ \"%1$s\" ບໍ່ມີຢູ່, ບໍ່ສາມາດລຶບກຸ່ມ \"%2$s\" ອອກໄດ້.",
@@ -149,7 +147,6 @@
     "Passphrase" : "ລະຫັດຜ່ານ",
     "unset" : "ບໍ່ໄດ້ຕັ້ງຄ່າ",
     "archive passphrase" : "ລະຫັດຜ່ານໄຟລ໌ບີບອັດ",
-    "Show Passphrase" : "ສະແດງລະຫັດຜ່ານ",
     "Mount Points" : "ຈຸດເຊື່ອມຕໍ່",
     "not mounted" : "ບໍ່ໄດ້ເຊື່ອມຕໍ່",
     "Disconnect storage" : "ຕັດການເຊື່ອມຕໍ່ບ່ອນເກັບຂໍ້ມູນ",
@@ -192,6 +189,9 @@
     "Unconfirmed, reverting to old value." : "ບໍ່ໄດ້ຢືນຢັນ, ກັບຄືນສູ່ຄ່າເກົ່າ.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "ຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{displayValue}\" ສຳເລັດແລ້ວ",
     "Setting \"{setting}\" has been unset successfully." : "ຍົກເລີກການຕັ້ງຄ່າ \"{setting}\" ສຳເລັດແລ້ວ.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "ບໍ່ສາມາດຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{value}\" ໄດ້: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "ບໍ່ສາມາດຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{value}\" ໄດ້: {message}",
+    "Extacting {source} to {destination} bas failed." : "ການສະກັດ {source} ໄປຍັງ {destination} ລົ້ມເຫຼວ.",
+    "Shared folder with id \"%1$s\" does not exist." : "ໂຟນເດີທີ່ແບ່ງປັນດ້ວຍໄອດີ \"%1$s\" ບໍ່ມີຢູ່.",
+    "Show Passphrase" : "ສະແດງລະຫັດຜ່ານ"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

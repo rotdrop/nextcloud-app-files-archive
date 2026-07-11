@@ -37,7 +37,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Монтирането на {source} в {destination} е неуспешно: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Извличането на {source} в {destination} е неуспешно: {message}",
     "Mounting {source} at {destination} has failed." : "Монтирането на {source} в {destination} е неуспешно.",
-    "Extacting {source} to {destination} bas failed." : "Извличането на {source} в {destination} е неуспешно.",
     "Unsupported subject: \"%s\"." : "Неподдържан субект/тема/: „%s“.",
     "Archive Explorer" : " Преглед на архиви",
     "not found" : "не е намерен",
@@ -109,7 +108,6 @@ OC.L10N.register(
     "Passphrase" : "Парола",
     "unset" : "да не се задава",
     "archive passphrase" : "архивиране на парола",
-    "Show Passphrase" : "Показване на парола",
     "Mount Points" : "Точки на монтиране",
     "not mounted" : "не е монтиран",
     "Disconnect storage" : "Извади хранилището",
@@ -141,6 +139,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Непотвърдено, връща се към старата стойност.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успешно зададена стойност за \"{settingsKey}\" на \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Задаването на \"{setting}\" е отменено успешно.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не може да се зададе стойност за \"{settingsKey}\" на \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не може да се зададе стойност за \"{settingsKey}\" на \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "Извличането на {source} в {destination} е неуспешно.",
+    "Show Passphrase" : "Показване на парола"
 },
 "nplurals=2; plural=(n != 1);");

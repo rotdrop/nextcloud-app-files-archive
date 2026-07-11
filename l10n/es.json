@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "El montaje de {source} en {destination} ha fallado: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "La extracción de {source} en {destination} ha fallado: {message}",
     "Mounting {source} at {destination} has failed." : "El montaje de {source} en {destination} ha fallado.",
-    "Extacting {source} to {destination} bas failed." : "La extracción de {source} en {destination} ha fallado.",
     "Unsupported subject: \"%s\"." : "Asunto no soportado: \"%s\".",
     "Archive Explorer" : "Explorador de archivadores",
     "Unable to find any of the fallback converters \"%s\"." : "No fue posible ubicar ninguno de los convertidores alternativos \"%s\".",
@@ -139,7 +138,6 @@
     "Passphrase" : "frase de seguridad",
     "unset" : "Desconfigurar",
     "archive passphrase" : "frase de seguridad del archivador",
-    "Show Passphrase" : "Mostrar frase de seguridad",
     "Mount Points" : "Puntos de montaje",
     "not mounted" : "no montado",
     "Disconnect storage" : "Desconectar almacenamiento",
@@ -182,6 +180,8 @@
     "Unconfirmed, reverting to old value." : "No fue confirmado, revirtiendo a valor antiguo.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se estableció exitosamente el valor para \"{settingsKey}\" a \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se reestableció exitosamente.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No fue posible establecer el valor de \"{settingsKey}\" a \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No fue posible establecer el valor de \"{settingsKey}\" a \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "La extracción de {source} en {destination} ha fallado.",
+    "Show Passphrase" : "Mostrar frase de seguridad"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

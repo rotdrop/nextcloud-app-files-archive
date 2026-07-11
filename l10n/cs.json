@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "Připojování {source} do {destination} se nezdařilo: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Rozbalování {source} do {destination} se nezdařilo: {message}",
     "Mounting {source} at {destination} has failed." : "Připojování {source} do {destination} se nezdařilo.",
-    "Extacting {source} to {destination} bas failed." : "Rozbalování {source} do {destination} se nezdařilo.",
     "Unsupported subject: \"%s\"." : "Nepodporovaný předmět: „%s.",
     "Archive Explorer" : "Průzkumník archivu",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Je třebá zadat právě jeden z parametrů dotazu „%1$s“ a „%2$s“.",
@@ -69,14 +68,13 @@
     "There is no archive file associated with this archiver instance." : "Tomuto (typu) souboru s archivem není přiřazena žádná instance archivátoru.",
     "Please install the \"%s\" program on the server." : "Nainstalujte na server program „%s“.",
     "Unknown search topic \"%1$s\"" : "Neznámé téma hledání „%1$s“",
-    "Shared folder with id \"%1$s\" does not exist." : "Sdílená složka s identif. „%1$s“ neexistuje.",
+    "Shared folder with ID \"%1$s\" does not exist." : "Sdílená složka s identifikátorem „%1$s“ neexistuje.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "Sdílená složka pro přípojný bod „%1$s“ už existuje – není proto možné ji vytvořit.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "Sdílená složka pro přípojný bod „%1$s“ neexistuje – není proto možné přidat skupinu „%2$s“.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "Sdílená složka pro přípojný bod „%1$s“ neexistuje – není proto možné odebrat skupinu „%2$s“.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "Sdílená složka pro přípojný bod „%1$s“ neexistuje – není proto možné změnit nadřízeného „%2$s“.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot set permissions for group \"%2$s\"." : "Sdílená složka pro přípojný bod „%1$s“ neexistuje – není proto možné nastavit oprávnění pro skupinu „%2$s“.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot change its mount-point to \"%2$s\"." : "Sdílená složka pro přípojný bod „%1$s“ neexistuje – není proto možné změnit její přípojný bod na „%2$s“.",
-    "Shared folder with ID \"%1$s\" does not exist." : "Sdílená složka s identifikátorem „%1$s“ neexistuje.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problém s instalací: potřebný prostředek „%1$s“ typu „%2$s“ není na serveru nainstalovaný – obraťte se na jeho správce!",
     "User" : "Uživatel",
     "Password" : "Heslo",
@@ -155,7 +153,6 @@
     "Passphrase" : "Heslová fráze",
     "unset" : "zrušit nastavení",
     "archive passphrase" : "heslová fráze k archivu",
-    "Show Passphrase" : "Zobrazit heslovou frázi",
     "Mount Points" : "Přípojné body",
     "not mounted" : "nepřipojeno",
     "Disconnect storage" : "Odpojit úložiště",
@@ -200,6 +197,9 @@
     "Unconfirmed, reverting to old value." : "Nepotvrzeno – vrací se na původní hodnotu.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Úspěšně nastavena hodnota pro „{settingsKey}“ na „{displayValue}",
     "Setting \"{setting}\" has been unset successfully." : "Nastavení „{setting}“ bylo úspěšně zrušeno.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nedaří se nastavit hodnotu pro „{settingsKey}“ na „{value}“: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nedaří se nastavit hodnotu pro „{settingsKey}“ na „{value}“: {message}",
+    "Extacting {source} to {destination} bas failed." : "Rozbalování {source} do {destination} se nezdařilo.",
+    "Shared folder with id \"%1$s\" does not exist." : "Sdílená složka s identif. „%1$s“ neexistuje.",
+    "Show Passphrase" : "Zobrazit heslovou frázi"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }
