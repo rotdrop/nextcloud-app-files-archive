@@ -42,7 +42,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Η προσάρτηση {source} στο {destination} απέτυχε: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Η εξαγωγή {source} στο {destination} απέτυχε: {message}",
     "Mounting {source} at {destination} has failed." : "Η προσάρτηση {source} στο {destination} απέτυχε.",
-    "Extacting {source} to {destination} bas failed." : "Η εξαγωγή {source} στο {destination} απέτυχε.",
     "Unsupported subject: \"%s\"." : "Μη υποστηριζόμενο θέμα: \"%s\".",
     "Archive Explorer" : "Εξερεύνηση Αρχείων",
     "Unable to find any of the fallback converters \"%s\"." : "Αδυναμία εύρεσης οποιουδήποτε από τους εφεδρικούς μετατροπείς \"%s\".",
@@ -141,7 +140,6 @@ OC.L10N.register(
     "Passphrase" : "Φράση Πρόσβασης",
     "unset" : "μη ορισμένο",
     "archive passphrase" : "φράση πρόσβασης αρχείου",
-    "Show Passphrase" : "Εμφάνιση Φράσης Πρόσβασης",
     "Mount Points" : "Σημεία Προσάρτησης",
     "not mounted" : "δεν είναι προσαρτημένο",
     "Disconnect storage" : "Αποσύνδεση αποθηκευτικού χώρου",
@@ -184,6 +182,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Μη επιβεβαιωμένο, επιστροφή στην παλιά τιμή.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Επιτυχής ρύθμιση της τιμής για \"{settingsKey}\" σε \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Η ρύθμιση \"{setting}\" έχει απενεργοποιηθεί με επιτυχία.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ρύθμισης της τιμής για \"{settingsKey}\" σε \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ρύθμισης της τιμής για \"{settingsKey}\" σε \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "Η εξαγωγή {source} στο {destination} απέτυχε.",
+    "Show Passphrase" : "Εμφάνιση Φράσης Πρόσβασης"
 },
 "nplurals=2; plural=(n != 1);");

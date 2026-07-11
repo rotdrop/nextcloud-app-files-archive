@@ -42,7 +42,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Pripájanie {source} do {destination} zlyhalo: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Rozbaľovanie {source} do {destination} zlyhalo: {message}",
     "Mounting {source} at {destination} has failed." : "Pripájanie {source} do {destination} zlyhalo.",
-    "Extacting {source} to {destination} bas failed." : "Rozbaľovanie {source} do {destination} zlyhalo.",
     "Unsupported subject: \"%s\"." : "Nepodporovaný objekt: \"%s\".",
     "Archive Explorer" : "Prieskumník archívov",
     "not found" : "nenájdené",
@@ -136,7 +135,6 @@ OC.L10N.register(
     "Passphrase" : "Heslo",
     "unset" : "nenastavené",
     "archive passphrase" : "heslo archívu",
-    "Show Passphrase" : "Zobraziť Heslo",
     "Mount Points" : "Prípojné body",
     "not mounted" : "nepripojené",
     "Disconnect storage" : "Odpojiť úložisko",
@@ -177,6 +175,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Nepodarilo sa overiť, vraciam pôvodnú hodnotu.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Úspešne nastavená hodnota \"{settingsKey}\" na \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Nastavenie {setting} bolo úspešne zrušené.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "Rozbaľovanie {source} do {destination} zlyhalo.",
+    "Show Passphrase" : "Zobraziť Heslo"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

@@ -37,7 +37,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "No se pudo realizar el montaje de {source} en {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "No se pudo realizar la extracción de {source} a {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "No se pudo realizar el montaje de {source} en {destination}.",
-    "Extacting {source} to {destination} bas failed." : "No se pudo realizar la extracción de {source} a {destination}.",
     "Unsupported subject: \"%s\"." : "Sujeto no admitido: \"%s\".",
     "Archive Explorer" : "Explorador de archivos de archivo",
     "not found" : "no encontrado",
@@ -105,7 +104,6 @@ OC.L10N.register(
     "Passphrase" : "Frase de contraseña",
     "unset" : "no establecido",
     "archive passphrase" : "frase de contraseña del archivo de archivo",
-    "Show Passphrase" : "Mostrar frase de contraseña",
     "Mount Points" : "Puntos de montaje",
     "not mounted" : "no montado",
     "Disconnect storage" : "Desconectar almacenamiento",
@@ -137,6 +135,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "No confirmado, se vuelve al valor anterior.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se ha establecido correctamente el valor para \"{settingsKey}\" en \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se ha desactivado correctamente.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No se pudo establecer el valor para \"{settingsKey}\" en \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No se pudo establecer el valor para \"{settingsKey}\" en \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "No se pudo realizar la extracción de {source} a {destination}.",
+    "Show Passphrase" : "Mostrar frase de contraseña"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

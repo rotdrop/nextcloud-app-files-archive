@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "Није успело монтирање {source} у {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Није успело рааспакивање {source} у {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Није успело монтирање {source} у {destination}.",
-    "Extacting {source} to {destination} bas failed." : "Није успело рааспакивање {source} у {destination}.",
     "Unsupported subject: \"%s\"." : "Неподржани субјекат: „%s.",
     "Archive Explorer" : "Истраживач архива",
     "Unable to find any of the fallback converters \"%s\"." : "Не може да се пронађе ниједан конвертер за случај нужде „%s”.",
@@ -141,7 +140,6 @@
     "Passphrase" : "Вишеделна лозинка",
     "unset" : "уклони",
     "archive passphrase" : "вишеделна лозинка архиве",
-    "Show Passphrase" : "Прикажи випеделну лозинку",
     "Mount Points" : "Тачке монтирања",
     "not mounted" : "није монтирано",
     "Disconnect storage" : "Искључи складиште",
@@ -184,6 +182,8 @@
     "Unconfirmed, reverting to old value." : "Није потврђено, враћа се стара вредност.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Вредност „{settingsKey}” је успешно постављена на „{displayValue}”",
     "Setting \"{setting}\" has been unset successfully." : "Подешавање „{setting}” је успешно обрисано.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Вредност „{settingsKey}” не може да се постави на „{value}”: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Вредност „{settingsKey}” не може да се постави на „{value}”: {message}",
+    "Extacting {source} to {destination} bas failed." : "Није успело рааспакивање {source} у {destination}.",
+    "Show Passphrase" : "Прикажи випеделну лозинку"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }
