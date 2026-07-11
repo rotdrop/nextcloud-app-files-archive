@@ -32,6 +32,7 @@ import { translate as t } from '@nextcloud/l10n';
 import logoSvg from '../img/app.svg?raw';
 import { appName } from './config.ts';
 import logger from './console.ts';
+import extract from './services/extract.ts';
 import mount from './services/mount.ts';
 import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
 import getInitialState from './toolkit/util/initial-state.ts';
@@ -87,4 +88,29 @@ registerFileAction({
   exec: (context) => mount(context.nodes[0], context.view),
   default: initialState?.mountByLeftClick ? DefaultType.DEFAULT : undefined,
   order: -1000,
+});
+
+registerFileAction({
+  id: appName + '-extract',
+  displayName(_context) {
+    return t(appName, 'Extract here');
+  },
+  title(_context: ActionContext) {
+    return t(appName, 'Extract the archive to a new folder in the current directory');
+  },
+  iconSvgInline(_context: ActionContext) {
+    return logoSvg;
+  },
+  enabled(context: ActionContext) {
+    if (context.nodes.length !== 1) {
+      return false;
+    }
+    const node = context.nodes[0];
+    if (!(node.permissions & Permission.READ)) {
+      return false;
+    }
+    return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
+  },
+  exec: (context) => extract(context.nodes[0]),
+  order: -999,
 });

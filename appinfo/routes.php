@@ -125,6 +125,9 @@ return [
       'name' => 'archive#extract',
       'url' => '/archive/extract/{archivePath}/{targetPath}',
       'verb' => 'POST',
+      'defaults' => [
+        'targetPath' => null,
+      ],
     ],
     // diagnostics output
     [
