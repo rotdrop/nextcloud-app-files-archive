@@ -183,7 +183,7 @@ class BackgroundJobController extends Controller
         $this->jobList->remove($job, $jobArguments);
         if ($this->jobList->has($job, $jobArguments)) {
           $failed[] = $job;
-          $messages[] = $this->l->t('Cancelling %s-job for archive file "%s" failed.', [
+          $messages[] = $this->l->t('Cancelling %1$s-job for archive file "%2$s" failed.', [
             $operation,
             $archivePath,
           ]);
