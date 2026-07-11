@@ -42,7 +42,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Le montage de {source} dans {destination} a échoué : {message}",
     "Extracting {source} to {destination} has failed: {message}" : "L'extraction de {source} dans {destination} a échoué : {message}",
     "Mounting {source} at {destination} has failed." : "Le montage de {source} dans {destination} a échoué.",
-    "Extacting {source} to {destination} bas failed." : "L'extraction de {source} dans {destination} a échoué.",
     "Unsupported subject: \"%s\"." : "Sujet non supporté : \"%s\".",
     "Archive Explorer" : "Explorateur d'archive",
     "Unable to find any of the fallback converters \"%s\"." : "Impossible de trouver l'un des convertisseurs de secours \"%s\".",
@@ -140,7 +139,6 @@ OC.L10N.register(
     "Passphrase" : "Mot de passe",
     "unset" : "indéterminé",
     "archive passphrase" : "mot de passe de l'archive",
-    "Show Passphrase" : "Montrer le mot de passe",
     "Mount Points" : "Points de montage",
     "not mounted" : "non monté",
     "Disconnect storage" : "Déconnecter le stockage",
@@ -183,6 +181,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Non confirmé, rétabli à l'ancienne value.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Le paramètre \"{settingsKey}\" a été défini à {displayValue} avec succès.",
     "Setting \"{setting}\" has been unset successfully." : "Le paramètre \"{setting}\" a été désactivé avec succès.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value} : {message}."
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value} : {message}.",
+    "Extacting {source} to {destination} bas failed." : "L'extraction de {source} dans {destination} a échoué.",
+    "Show Passphrase" : "Montrer le mot de passe"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

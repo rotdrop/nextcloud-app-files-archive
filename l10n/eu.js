@@ -37,7 +37,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "{source} {destination}-(e)n muntatzeak huts egin du: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "{source} {destination}-(e)n ateratzeak huts egin du: {message}",
     "Mounting {source} at {destination} has failed." : "{source} {destination}-(e)n muntatzeak huts egin du.",
-    "Extacting {source} to {destination} bas failed." : "{source} {destination}-(e)n ateratzeak huts egin du.",
     "Unsupported subject: \"%s\"." : "Euskarririk gabeko gaia: \"%s\".",
     "Archive Explorer" : "Artxiboen arakatzailea",
     "not found" : "ez da aurkitu",
@@ -117,7 +116,6 @@ OC.L10N.register(
     "Passphrase" : "Pasahitza",
     "unset" : "ezarri gabe",
     "archive passphrase" : "artxiboaren pasahitza",
-    "Show Passphrase" : "Erakutsi pasahitza",
     "Mount Points" : "muntatze-puntuak",
     "not mounted" : "muntatu gabe",
     "Disconnect storage" : "Deskonektatu biltegia",
@@ -151,6 +149,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Berretsi gabe, aurreko baliora itzultzen.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\" \"{displayValue}\" baliora ondo ezarri da",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ezarpena behar bezala baliogabetu da.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}",
+    "Extacting {source} to {destination} bas failed." : "{source} {destination}-(e)n ateratzeak huts egin du.",
+    "Show Passphrase" : "Erakutsi pasahitza"
 },
 "nplurals=2; plural=(n != 1);");

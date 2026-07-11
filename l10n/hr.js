@@ -42,7 +42,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Montiranje {source} na {destination} nije uspjelo: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Raspakiravanje {source} u {destination} nije uspjelo: {message}",
     "Mounting {source} at {destination} has failed." : "Montiranje {source} na {destination} nije uspjelo.",
-    "Extacting {source} to {destination} bas failed." : "Raspakiravanje {source} u {destination} nije uspjelo.",
     "Unsupported subject: \"%s\"." : "Nepodržan predmet: „%s”.",
     "Archive Explorer" : "Istraživač arhiva",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Mora biti naveden točno jedan od parametara upita „%1$s” i „%2$s”.",
@@ -69,7 +68,6 @@ OC.L10N.register(
     "There is no archive file associated with this archiver instance." : "S ovom instancom arhivera nije povezana nijedna arhivska datoteka.",
     "Please install the \"%s\" program on the server." : "Instaliraj program „%s” na poslužitelju.",
     "Unknown search topic \"%1$s\"" : "Nepoznata tema pretraživanja „%1$s”.",
-    "Shared folder with id \"%1$s\" does not exist." : "Dijeljena mapa s ID-jem „%1$s” ne postoji.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "Dijeljena mapa za točku montiranja „%1$s” već postoji i nije je moguće stvoriti.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "Dijeljena mapa za točku montiranja „%1$s” ne postoji i nije moguće dodati grupu „%2$s”.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "Dijeljena mapa za točku montiranja „%1$s” ne postoji, nije moguće ukloniti grupu „%2$s”.",
@@ -154,7 +152,6 @@ OC.L10N.register(
     "Passphrase" : "Lozinka",
     "unset" : "nije postavljena",
     "archive passphrase" : "lozinka arhive",
-    "Show Passphrase" : "Prikaži lozinku",
     "Mount Points" : "Točke montiranja",
     "not mounted" : "nije montirano",
     "Disconnect storage" : "Odspoji pohranu",
@@ -199,6 +196,9 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Nije potvrđeno, vraćanje na staru vrijednost.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Vrijednost za „{settingsKey}” uspješno je postavljena na „{displayValue}”.",
     "Setting \"{setting}\" has been unset successfully." : "Postavka „{setting}” uspješno je uklonjena.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nije moguće postaviti vrijednost za „{settingsKey}” na „{value}”: {message}."
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nije moguće postaviti vrijednost za „{settingsKey}” na „{value}”: {message}.",
+    "Extacting {source} to {destination} bas failed." : "Raspakiravanje {source} u {destination} nije uspjelo.",
+    "Shared folder with id \"%1$s\" does not exist." : "Dijeljena mapa s ID-jem „%1$s” ne postoji.",
+    "Show Passphrase" : "Prikaži lozinku"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

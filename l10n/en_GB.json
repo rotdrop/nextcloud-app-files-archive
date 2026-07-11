@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "Mounting {source} at {destination} has failed: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Extracting {source} to {destination} has failed: {message}",
     "Mounting {source} at {destination} has failed." : "Mounting {source} at {destination} has failed.",
-    "Extacting {source} to {destination} bas failed." : "Extacting {source} to {destination} bas failed.",
     "Unsupported subject: \"%s\"." : "Unsupported subject: \"%s\".",
     "Archive Explorer" : "Archive Explorer",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified.",
@@ -70,14 +69,13 @@
     "There is no archive file associated with this archiver instance." : "There is no archive file associated with this archiver instance.",
     "Please install the \"%s\" program on the server." : "Please install the \"%s\" program on the server.",
     "Unknown search topic \"%1$s\"" : "Unknown search topic \"%1$s\"",
-    "Shared folder with id \"%1$s\" does not exist." : "Shared folder with id \"%1$s\" does not exist.",
+    "Shared folder with ID \"%1$s\" does not exist." : "Shared folder with ID \"%1$s\" does not exist.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "Shared folder for mount-point \"%1$s\" already exists, cannot create it.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot set permissions for group \"%2$s\"." : "Shared folder for mount-point \"%1$s\" does not exist, cannot set permissions for group \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot change its mount-point to \"%2$s\"." : "Shared folder for mount-point \"%1$s\" does not exist, cannot change its mount-point to \"%2$s\".",
-    "Shared folder with ID \"%1$s\" does not exist." : "Shared folder with ID \"%1$s\" does not exist.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
     "User" : "User",
     "Password" : "Password",
@@ -156,7 +154,6 @@
     "Passphrase" : "Passphrase",
     "unset" : "unset",
     "archive passphrase" : "archive passphrase",
-    "Show Passphrase" : "Show Passphrase",
     "Mount Points" : "Mount Points",
     "not mounted" : "not mounted",
     "Disconnect storage" : "Disconnect storage",
@@ -201,6 +198,9 @@
     "Unconfirmed, reverting to old value." : "Unconfirmed, reverting to old value.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Setting \"{setting}\" has been unset successfully.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Could not set value for \"{settingsKey}\" to \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "Extacting {source} to {destination} bas failed.",
+    "Shared folder with id \"%1$s\" does not exist." : "Shared folder with id \"%1$s\" does not exist.",
+    "Show Passphrase" : "Show Passphrase"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
