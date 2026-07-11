@@ -42,7 +42,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "فشل تنصيب الـ {source} في {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "فشل استخراج {source} إلى {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "فشل تنصيب الـ {source} في {destination}.",
-    "Extacting {source} to {destination} bas failed." : "فشل استخراج {source} إلى {destination}.",
     "Unsupported subject: \"%s\"." : "مادة غير مدعومة: \"%s\".",
     "Archive Explorer" : "مستكشف الأرشيف Archive Explorer",
     "not found" : "غير موجود",
@@ -134,7 +133,6 @@ OC.L10N.register(
     "Passphrase" : "عِبَارة المرور Passphrase",
     "unset" : "غير مُعيّن",
     "archive passphrase" : "عِبَارة المرور Passphrase للأرشيف",
-    "Show Passphrase" : "أعرُض عِبَارة المرور Passphrase",
     "Mount Points" : "نقاط التنصيب Mount Points",
     "not mounted" : "غير مُنصّب not mounted",
     "Disconnect storage" : "قطع اتصال التخزين",
@@ -175,6 +173,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "لم يتم التأكيد؛ و تمتّ استعادة القيمة القديمة.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "تمّ تعيين \"{settingKey}\" بــ \"{displayValue}\" بنجاح",
     "Setting \"{setting}\" has been unset successfully." : "تمّ إلغاء الإعداد \"{setting}\" بنجاح.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "تعذّر تعيين \"{settingsKeys}\" بــ \"{value}\":{message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "تعذّر تعيين \"{settingsKeys}\" بــ \"{value}\":{message}",
+    "Extacting {source} to {destination} bas failed." : "فشل استخراج {source} إلى {destination}.",
+    "Show Passphrase" : "أعرُض عِبَارة المرور Passphrase"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

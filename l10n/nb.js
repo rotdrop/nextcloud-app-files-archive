@@ -42,7 +42,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Montering av {source} på {destination} mislyktes: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Utpakking av {source} til {destination} mislyktes: {message}",
     "Mounting {source} at {destination} has failed." : "Montering av {source} på {destination} mislyktes.",
-    "Extacting {source} to {destination} bas failed." : "Kunne ikke utveksle {source} til {destination} bas.",
     "Unsupported subject: \"%s\"." : "Emne som ikke støttes: \"%s\".",
     "Archive Explorer" : "Arkivutforsker",
     "not found" : "Ikke funnet",
@@ -132,7 +131,6 @@ OC.L10N.register(
     "Passphrase" : "Passord",
     "unset" : "deaktivert",
     "archive passphrase" : "arkivpassord",
-    "Show Passphrase" : "Vis passordfrase",
     "Mount Points" : "Mount Points",
     "not mounted" : "ikke montert",
     "Disconnect storage" : "Koble fra lager",
@@ -173,6 +171,8 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Ubekreftet, går tilbake til gammel verdi.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Sett verdien for «{settingsKey}» til «{displayValue}»",
     "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}",
+    "Extacting {source} to {destination} bas failed." : "Kunne ikke utveksle {source} til {destination} bas.",
+    "Show Passphrase" : "Vis passordfrase"
 },
 "nplurals=2; plural=(n != 1);");

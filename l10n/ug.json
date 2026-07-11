@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "{source} {destination} نى ئورنىتىش مەغلۇب بولدى: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "{source} دىن {destination} گە چىقىرىش مەغلۇب بولدى: {message}",
     "Mounting {source} at {destination} has failed." : "{source} {destination} نى ئورنىتىش مەغلۇب بولدى.",
-    "Extacting {source} to {destination} bas failed." : "{source} دىن {destination} bas نى چىقىرىش مەغلۇب بولدى.",
     "Unsupported subject: \"%s\"." : "قوللىمايدىغان تېما: \"%s\".",
     "Archive Explorer" : "ئارخىپ كۆرگۈچ",
     "Unable to find any of the fallback converters \"%s\"." : "ئىشلەتكىلى بولىدىغان ھېچبىر ئايلاندۇرغۇچ \"%s\" نى تاپالمىدى.",
@@ -64,7 +63,6 @@
     "There is no archive file associated with this archiver instance." : "بۇ ئارخىپ مىسالى بىلەن مۇناسىۋەتلىك ئارخىپ ھۆججىتى يوق.",
     "Please install the \"%s\" program on the server." : "مۇلازىمېتىرغا «%s» پروگراممىسىنى قاچىلاڭ.",
     "Unknown search topic \"%1$s\"" : "نامەلۇم ئىزدەش تىمىسى \"%1$s\"",
-    "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" id دىكى ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "ئورنىتىش-نوقتىسى\"%1$s\" دىكى ئورتاقلاشقان قىسقۇچ ئاللىبۇرۇن مەۋجۇت، ئۇنى قۇرغىلى بولمايدۇ.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "\"%1$s\" ئورنىتىش نۇقتىسى ئۈچۈن ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس، \"%2$s\" گۇرۇپپىسىنى قوشقىلى بولمايدۇ.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "\"%1$s\" ئورنىتىش نۇقتىسى ئۈچۈن ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس، \"%2$s\" گۇرۇپپىسىنى ئۆچۈرەلمەيدۇ.",
@@ -149,7 +147,6 @@
     "Passphrase" : "پارول",
     "unset" : "ئورناتما",
     "archive passphrase" : "ئارخىپ ئىم",
-    "Show Passphrase" : "پارولنى كۆرسەت",
     "Mount Points" : "تاغ نۇقتىلىرى",
     "not mounted" : "ئورنىتىلمىغان",
     "Disconnect storage" : "ساقلاشنى ئۈزۈڭ",
@@ -192,6 +189,9 @@
     "Unconfirmed, reverting to old value." : "جەزملەشتۈرۈلمىگەن ، كونا قىممەتكە قايتقان.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "مۇۋەپپەقىيەتلىك ھالدا \"{settingsKey}\" نىڭ قىممىتىنى \"{displayValue}\" قىلىپ بەلگىلەڭ.",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" نى تەڭشەش ئوڭۇشلۇق بولمىدى.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}",
+    "Extacting {source} to {destination} bas failed." : "{source} دىن {destination} bas نى چىقىرىش مەغلۇب بولدى.",
+    "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" id دىكى ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس.",
+    "Show Passphrase" : "پارولنى كۆرسەت"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
