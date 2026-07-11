@@ -40,7 +40,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "A montagem de {source} em {destination} falhou: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "A extração de {source} para {destination} falhou: {message}",
     "Mounting {source} at {destination} has failed." : "A montagem de {source} em {destination} falhou.",
-    "Extacting {source} to {destination} bas failed." : "A extração de {source} para {destination} falhou.",
     "Unsupported subject: \"%s\"." : "Assunto não suportado: \"%s\".",
     "Archive Explorer" : "Explorador de Arquivos Compactados",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "É necessário especificar exatamente um dos parâmetros de consulta \"%1$s\" e \"%2$s\".",
@@ -70,14 +69,13 @@
     "There is no archive file associated with this archiver instance." : "Não há arquivo compactado associado com esta instância do arquivador.",
     "Please install the \"%s\" program on the server." : "Por favor, instale o programa \"%s\" no servidor.",
     "Unknown search topic \"%1$s\"" : "Tópico de pesquisa \"%1$s\" desconhecido",
-    "Shared folder with id \"%1$s\" does not exist." : "A pasta compartilhada com o ID \"%1$s\" não existe.",
+    "Shared folder with ID \"%1$s\" does not exist." : "Pasta compartilhada com ID \"%1$s\" não existe.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "A pasta compartilhada para o ponto de montagem \"%1$s\" já existe. Não é possível criá-la.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "A pasta compartilhada para o ponto de montagem \"%1$s\" não existe. Não é possível adicionar o grupo \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "A pasta compartilhada para o ponto de montagem \"%1$s\" não existe. Não é possível remover o grupo \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot modify manager \"%2$s\"." : "A pasta compartilhada para o ponto de montagem \"%1$s\" não existe. Não é possível modificar o gerenciador \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot set permissions for group \"%2$s\"." : "A pasta compartilhada para o ponto de montagem \"%1$s\" não existe. Não é possível definir as permissões para o grupo \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot change its mount-point to \"%2$s\"." : "A pasta compartilhada para o ponto de montagem \"%1$s\" não existe. Não é possível mudar seu ponto de montagem para \"%2$s\".",
-    "Shared folder with ID \"%1$s\" does not exist." : "Pasta compartilhada com ID \"%1$s\" não existe.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalação; o recurso necessário \"%1$s\" do tipo \"%2$s\" não está instalado no servidor, entre em contato com o administrador do sistema!",
     "User" : "Usuário",
     "Password" : "Senha",
@@ -156,7 +154,6 @@
     "Passphrase" : "Frase-passe",
     "unset" : "não definida",
     "archive passphrase" : "frase-passe do arquivo compactado",
-    "Show Passphrase" : "Mostrar Frase-passe",
     "Mount Points" : "Pontos de Montagem",
     "not mounted" : "não montado",
     "Disconnect storage" : "Desconectar armazenamento",
@@ -201,6 +198,9 @@
     "Unconfirmed, reverting to old value." : "Não confirmado, revertendo para valor anterior.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Valor definido com sucesso para \"{settingsKey}\" como \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "A configuração \"{setting}\" foi desativada com sucesso.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" como \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" como \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "A extração de {source} para {destination} falhou.",
+    "Shared folder with id \"%1$s\" does not exist." : "A pasta compartilhada com o ID \"%1$s\" não existe.",
+    "Show Passphrase" : "Mostrar Frase-passe"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

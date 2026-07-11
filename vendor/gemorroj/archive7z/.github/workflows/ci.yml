@@ -1,0 +1,134 @@
+name: Continuous Integration
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.0'
+            p7zip: '7zip'
+            job-description: 'Ubuntu; PHP 8.0; latest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.0'
+            p7zip: '7zip'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.0; lowest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.1'
+            p7zip: '7zip'
+            job-description: 'Ubuntu; PHP 8.1; latest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.1'
+            p7zip: '7zip'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.1; lowest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.2'
+            p7zip: '7zip'
+            job-description: 'Ubuntu; PHP 8.2; latest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.2'
+            p7zip: '7zip'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.2; lowest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.3'
+            p7zip: '7zip'
+            job-description: 'Ubuntu; PHP 8.3; latest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.3'
+            p7zip: '7zip'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.3; lowest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.4'
+            p7zip: '7zip'
+            job-description: 'Ubuntu; PHP 8.4; latest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.4'
+            p7zip: '7zip'
+            composer-flags: '--prefer-lowest'
+            job-description: 'Ubuntu; PHP 8.4; lowest-deps; 7zip'
+
+          - operating-system: 'windows-latest'
+            php-version: '8.4'
+            p7zip: '7zip'
+            job-description: 'Windows; PHP 8.4; latest-deps; 7zip'
+
+          - operating-system: 'macos-latest'
+            php-version: '8.4'
+            p7zip: '7zip'
+            job-description: 'MacOS; PHP 8.4; latest-deps; 7zip'
+
+          - operating-system: 'ubuntu-latest'
+            php-version: '8.4'
+            p7zip: 'p7zip'
+            job-description: 'Ubuntu; PHP 8.4; latest-deps; p7zip'
+
+    name: ${{ matrix.job-description }}
+
+    runs-on: ${{ matrix.operating-system }}
+
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup p7zip Ubuntu
+        if: ${{ matrix.operating-system == 'ubuntu-latest' && matrix.p7zip == 'p7zip' }}
+        run: sudo apt install p7zip-full p7zip-rar
+      - name: Setup 7zip Ubuntu
+        if: ${{ matrix.operating-system == 'ubuntu-latest' && matrix.p7zip == '7zip' }}
+        run: |
+          curl -L https://7-zip.org/a/7z2409-linux-x64.tar.xz > 7z2409-linux-x64.tar.xz
+          tar xJvf 7z2409-linux-x64.tar.xz
+          sudo cp 7zz /usr/bin/7zz
+          sudo cp 7zzs /usr/bin/7zzs
+      - name: Setup 7zip MacOs
+        if: matrix.operating-system == 'macos-latest'
+        run: |
+          curl -L https://7-zip.org/a/7z2409-mac.tar.xz > 7z2409-mac.tar.xz
+          tar xJvf 7z2409-mac.tar.xz
+          sudo cp 7zz /usr/local/bin/7zz
+      - name: Setup 7zip Windows
+        if: matrix.operating-system == 'windows-latest'
+        run: Install-Module 7Zip4PowerShell -Force
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          retry_wait_seconds: 30
+          command: |
+            composer update --optimize-autoloader --no-interaction --ansi --no-progress --prefer-dist ${{ matrix.composer-flags }}
+            composer info -D
+
+      - name: Tests
+        run: vendor/bin/phpunit --configuration phpunit.xml.dist

@@ -32,7 +32,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "{source}을(를) {destination}에 마운트하지 못함: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "{source}을(를) {destination}에 압축 해제하지 못함: {message}",
     "Mounting {source} at {destination} has failed." : "{source}을(를) {destination}에 마운트하지 못했습니다",
-    "Extacting {source} to {destination} bas failed." : "{source}을(를) {destination}에 압축 해제하지 못했습니다",
     "Archive Explorer" : "압축 파일 탐색기",
     "Installation instructions:" : "설치 방법:",
     "Unable to open archive file %s (%s)" : "압축 파일 %s을(를) 열 수 없음 (%s)",
@@ -108,6 +107,7 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "확인되지 않음, 이전 값으로 되돌림",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\"을(를) \"{displayValue}\"(으)로 설정함",
     "Setting \"{setting}\" has been unset successfully." : "설정 \"{setting}\"이(가) 해제되었습니다",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\"을(를) \"{value}\"(으)로 설정할 수 없음: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\"을(를) \"{value}\"(으)로 설정할 수 없음: {message}",
+    "Extacting {source} to {destination} bas failed." : "{source}을(를) {destination}에 압축 해제하지 못했습니다"
 },
 "nplurals=1; plural=0;");

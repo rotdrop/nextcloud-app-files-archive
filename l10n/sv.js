@@ -13,6 +13,7 @@ OC.L10N.register(
     "Choose {file}" : "Välj {file}",
     "Choose" : "Välj",
     "unknown" : "okänt",
+    "MIME type" : "MIME-typ",
     "Disconnect storage" : "Koppla bort lagring",
     "Archive" : "Arkivera",
     "close" : "stäng",

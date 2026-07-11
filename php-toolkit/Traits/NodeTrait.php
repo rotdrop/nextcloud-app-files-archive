@@ -71,7 +71,7 @@ trait NodeTrait
       $topLevelFolder = $topLevelFolder->getPath();
     }
     return [
-      'fileid' => (string)$node->getId(), // avoid integer overflow with Javascript, convert to string
+      'fileid' => (int)$node->getId(), // may overflow in JS, but for NC32 the JS code expects a number
       'path' => $path,
       'topLevelFolder' => $topLevelFolder,
       'relativePath' => $relativePath,

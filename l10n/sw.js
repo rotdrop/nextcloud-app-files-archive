@@ -42,7 +42,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Imeshindwa kupachika {source} katika {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Imeshindwa kutoa {source} hadi {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Imeshindwa kupachika {source} katika {destination}.",
-    "Extacting {source} to {destination} bas failed." : "Imeshindwa kutuma {source} hadi {destination}.",
     "Unsupported subject: \"%s\"." : "Mada isiyotumika: \"%s\".",
     "Archive Explorer" : "Mchunguzi wa kumbukumbu",
     "Unable to find any of the fallback converters \"%s\"." : "Haijaweza kupata kigeuzi chochote kati ya njia mbadala \"%s\".",
@@ -64,7 +63,6 @@ OC.L10N.register(
     "There is no archive file associated with this archiver instance." : "Hakuna faili ya kumbukumbu inayohusishwa na tukio hili la kumbukumbu.",
     "Please install the \"%s\" program on the server." : "Tafadhali sakinisha programu ya \"%s\" kwenye seva.",
     "Unknown search topic \"%1$s\"" : "Mada ya utafutaji isiyojulikana \"%1$s\"",
-    "Shared folder with id \"%1$s\" does not exist." : "Folda inayoshirikiwa yenye kitambulisho \"%1$s\" haipo.",
     "Shared folder for mount-point \"%1$s\" already exists, cannot create it." : "Folda inayoshirikiwa ya sehemu ya kupachika \"%1$s\" tayari ipo, haiwezi kuiunda.",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot add group \"%2$s\"." : "Folda inayoshirikiwa ya sehemu ya kupachika \"%1$s\" haipo, haiwezi kuongeza kikundi \"%2$s\".",
     "Shared folder for mount-point \"%1$s\" does not exist, cannot remove group \"%2$s\"." : "Folda inayoshirikiwa ya sehemu ya kupachika \"%1$s\" haipo, haiwezi kuondoa kikundi \"%2$s\".",
@@ -149,7 +147,6 @@ OC.L10N.register(
     "Passphrase" : "Nenosiri",
     "unset" : "haijawekwa",
     "archive passphrase" : "nenosiri la kumbukumbu",
-    "Show Passphrase" : "Onesha nenosiri",
     "Mount Points" : "Sehemu ya kupachika",
     "not mounted" : "Haijapachikwa",
     "Disconnect storage" : "Achanisha uhifadhi",
@@ -192,6 +189,9 @@ OC.L10N.register(
     "Unconfirmed, reverting to old value." : "Haijathibitishwa, inarudi kwa thamani ya zamani.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Kwa mafanikio imeweka thamani ya \"{settingsKey}\" kwa\"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Mpangilio \"{setting}\" haijawekwa kwa mafanikio.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Haikuweza kuweka thamani ya \"{settingsKey}\" kwa \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Haikuweza kuweka thamani ya \"{settingsKey}\" kwa \"{value}\": {message}",
+    "Extacting {source} to {destination} bas failed." : "Imeshindwa kutuma {source} hadi {destination}.",
+    "Shared folder with id \"%1$s\" does not exist." : "Folda inayoshirikiwa yenye kitambulisho \"%1$s\" haipo.",
+    "Show Passphrase" : "Onesha nenosiri"
 },
 "nplurals=2; plural=(n != 1);");

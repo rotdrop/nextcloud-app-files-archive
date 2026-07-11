@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -17,24 +17,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import axios from '@nextcloud/axios';
+import { appName } from '../../config.ts';
+import { set as vueSet } from 'vue';
 import {
   showError,
-  showInfo,
   showSuccess,
+  showInfo,
   TOAST_PERMANENT_TIMEOUT,
 } from '@nextcloud/dialogs';
-import { translate as t } from '@nextcloud/l10n';
+import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
-import deepEqual from 'deep-equal';
-import { appName } from '../../config.ts';
+import { translate as t } from '@nextcloud/l10n';
 import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
 import dialogConfirm from './dialog-confirm.ts';
+import deepEqual from 'deep-equal';
 
 interface FetchSettingsArgs {
-  section: 'admin'|'personal';
+  section: 'admin'|'personal',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>;
+  settings: Record<string, any>,
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,7 +57,7 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
     // Object.assign(settings, response.data);
     for (const [key, value] of Object.entries(response.data)) {
       if (!equals(settings[key], value)) {
-        settings[key] = value;
+        vueSet(settings, key, value);
       }
     }
     return true;
@@ -77,10 +78,10 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
 }
 
 interface FetchSettingArgs {
-  settingsKey: string;
-  section: 'admin'|'personal';
+  settingsKey: string,
+  section: 'admin'|'personal',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>;
+  settings: Record<string, any>,
 }
 
 /**
@@ -98,7 +99,7 @@ async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), {});
     if (!equals(settings[settingsKey], response.data.value)) {
-      settings[settingsKey] = response.data.value;
+      vueSet(settings, settingsKey, response.data.value);
     }
     return true;
   } catch (e) {
@@ -121,12 +122,12 @@ async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs
 }
 
 interface SaveSimpleSettingArgs {
-  settingsKey: string;
-  section: 'admin'|'personal';
+  settingsKey: string,
+  section: 'admin'|'personal',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string) => any;
+  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string) => any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>;
+  settings: Record<string, any>,
 }
 
 /**
@@ -144,9 +145,6 @@ interface SaveSimpleSettingArgs {
  * @return Result.
  */
 async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: SaveSimpleSettingArgs) {
-  if (settingsKey.length === 0) {
-    return false;
-  }
   const value = settings[settingsKey];
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), { value });
@@ -156,14 +154,14 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
     if (responseData) {
       if (responseData.newValue !== undefined) {
         if (!equals(settings[settingsKey], responseData.newValue)) {
-          settings[settingsKey] = responseData.newValue;
+          vueSet(settings, settingsKey, responseData.newValue);
         }
         displayValue = settings[settingsKey];
       }
       if (responseData.humanValue !== undefined) {
-        const humanKey = 'human' + settingsKey.charAt(0).toUpperCase() + settingsKey.substring(1);
+        const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
         if (!equals(settings[humanKey], responseData.humanValue)) {
-          settings[humanKey] = responseData.humanValue;
+          vueSet(settings, humanKey, responseData.humanValue);
         }
         displayValue = settings[humanKey];
       }
@@ -214,16 +212,16 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
 
 interface SaveConfirmedSettingArgs {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any;
-  section: 'admin'|'personal';
-  settingsKey: string;
-  force?: boolean;
+  value: any,
+  section: 'admin'|'personal',
+  settingsKey: string,
+  force?: boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string, force?: boolean) => any;
+  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string, force?: boolean) => any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>;
+  settings: Record<string, any>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  resetData?: () => any;
+  resetData?: () => any,
 }
 
 /**
@@ -267,9 +265,7 @@ const saveConfirmedSetting = async ({
         return saveConfirmedSetting({ value, section, settingsKey, force: true, settings, resetData });
       } else {
         showInfo(t(appName, 'Unconfirmed, reverting to old value.'));
-        if (resetData) {
-          await resetData();
-        }
+        resetData && await resetData();
         return false;
       }
     } else {
@@ -278,14 +274,14 @@ const saveConfirmedSetting = async ({
       if (responseData) {
         if (responseData.newValue !== undefined) {
           if (!equals(settings[settingsKey], responseData.newValue)) {
-            settings[settingsKey] = responseData.newValue;
+            vueSet(settings, settingsKey, responseData.newValue);
           }
           displayValue = settings[settingsKey];
         }
         if (responseData.humanValue !== undefined) {
-          const humanKey = 'human' + settingsKey.charAt(0).toUpperCase() + settingsKey.substring(1);
+          const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
           if (!equals(settings[humanKey], responseData.humanValue)) {
-            settings[humanKey] = responseData.humanValue;
+            vueSet(settings, humanKey, responseData.humanValue);
           }
           displayValue = settings[humanKey];
           if (Array.isArray(displayValue)) {
@@ -313,15 +309,11 @@ const saveConfirmedSetting = async ({
       }
     }
     showError(t(appName, 'Could not set value for "{settingsKey}" to "{value}": {message}', {
-      settingsKey,
-      value,
-      message,
+      settingsKey, value, message,
     }), {
       timeout: TOAST_PERMANENT_TIMEOUT,
     });
-    if (resetData) {
-      resetData();
-    }
+    resetData && resetData();
     return false;
   }
 };

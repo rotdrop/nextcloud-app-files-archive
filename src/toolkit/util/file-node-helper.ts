@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2024, 2025, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2024-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -15,32 +15,28 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 import { getCurrentUser } from '@nextcloud/auth';
-import {
-  type IFileType,
-
-  File,
-  Folder,
-} from '@nextcloud/files';
-import { generateRemoteUrl } from '@nextcloud/router';
 import { join } from 'path';
+import { File, Folder, FileType, type NodeData } from '@nextcloud/files';
+import { generateRemoteUrl } from '@nextcloud/router';
 
 export interface FileInfoDTO {
-  fileid: string; // corresponds to the PHP NodeTrait. Use string in order to avoid integer overflow.
-  path: string;
-  topLevelFolder: string;
-  relativePath: string;
-  basename: string;
-  lastmod: number;
-  mime: string;
-  size: number;
-  type: IFileType;
-  hasPreview: boolean;
-  permissions: number;
-  'mount-type': string;
-  etag: string;
+  fileid: number,
+  path: string,
+  topLevelFolder: string,
+  relativePath: string,
+  basename: string,
+  lastmod: number,
+  mime: string,
+  size: number,
+  type: FileType,
+  hasPreview: boolean,
+  permissions: number,
+  'mount-type': string,
+  etag: string,
 }
 
 /**
@@ -56,8 +52,8 @@ export const fileInfoToNode = (fileInfo: FileInfoDTO, owner?: string) => {
   if (fileInfo.topLevelFolder !== userFrontEndFolder) {
     throw new Error(`${fileInfo.path} is located outside of the front end user file space ${userFrontEndFolder}.`);
   }
-  const nodeData = {
-    id: fileInfo.fileid,
+  const nodeData: NodeData = {
+    id: parseInt(fileInfo.fileid, 10),
     source: generateRemoteUrl(join('dav/files', owner, fileInfo.relativePath)),
     root: `/files/${owner}`,
     mime: fileInfo.mime,

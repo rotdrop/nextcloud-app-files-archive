@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -17,30 +17,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getDialogBuilder } from '@nextcloud/dialogs';
-import { translate as t } from '@nextcloud/l10n';
 import { appName } from '../../config.ts';
+import {
+  getDialogBuilder,
+  DialogSeverity,
+} from '@nextcloud/dialogs';
+import { translate as t } from '@nextcloud/l10n';
 
 export interface DialogAlertArgs {
-  title: string;
-  text: string;
-  allowHtml?: boolean;
+  title: string,
+  text: string,
+  allowHtml: boolean,
 }
 
 const dialogAlert = async ({ title, text, allowHtml }: DialogAlertArgs) => {
   console.info('START');
   const dialog = getDialogBuilder(title)
     .setText(allowHtml === true ? '' : text)
-    .setSeverity('info')
+    .setSeverity(DialogSeverity.Info)
     .addButton({
       label: t(appName, 'close'),
-      variant: 'primary',
+      type: 'primary',
       callback() {},
     })
     .build();
   console.info('AFTER BUILD');
   if (allowHtml === true) {
-    // dialog.setHTML(text);
+    dialog.setHTML(text);
   }
   console.info('BEFORE SHOW()');
   const result = dialog.show();
