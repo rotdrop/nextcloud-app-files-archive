@@ -1,0 +1,248 @@
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-3.use[2]!./repositories/rotdrop/nextcloud-vue-components/lib/directives/Tooltip/index.scss ***!
+  \**************************************************************************************************************************************************************************************************/
+/**
+ * SPDX-FileCopyrightText: 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * SPDX-FileCopyrightText: 2011-2015 Twitter, Inc.
+ * SPDX-FileCopyrightText: 2015-2016 Owncloud, Inc.
+ * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: MIT
+ */
+.v-popper--theme-tooltip.v-popper__popper {
+  position: absolute;
+  z-index: 100000;
+  top: 0;
+  inset-inline: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+  text-align: start;
+  opacity: 0;
+  line-height: 1.6;
+  line-break: auto;
+  filter: drop-shadow(0 1px 10px var(--color-box-shadow));
+}
+.v-popper--theme-tooltip.v-popper__popper[data-popper-placement^=top] .v-popper__arrow-container {
+  bottom: -10px;
+  border-bottom-width: 0;
+  border-top-color: var(--color-main-background);
+}
+.v-popper--theme-tooltip.v-popper__popper[data-popper-placement^=bottom] .v-popper__arrow-container {
+  top: -10px;
+  border-top-width: 0;
+  border-bottom-color: var(--color-main-background);
+}
+.v-popper--theme-tooltip.v-popper__popper[data-popper-placement^=right] .v-popper__arrow-container {
+  inset-inline-end: 100%;
+  border-inline-start-width: 0;
+  border-inline-end-color: var(--color-main-background);
+}
+.v-popper--theme-tooltip.v-popper__popper[data-popper-placement^=left] .v-popper__arrow-container {
+  inset-inline-start: 100%;
+  border-inline-end-width: 0;
+  border-inline-start-color: var(--color-main-background);
+}
+.v-popper--theme-tooltip.v-popper__popper[aria-hidden=true] {
+  visibility: hidden;
+  transition: opacity 0.15s, visibility 0.15s;
+  opacity: 0;
+}
+.v-popper--theme-tooltip.v-popper__popper[aria-hidden=false] {
+  visibility: visible;
+  transition: opacity 0.15s;
+  opacity: 1;
+}
+.v-popper--theme-tooltip .v-popper__inner {
+  max-width: 350px;
+  padding: 5px 8px;
+  text-align: center;
+  color: var(--color-main-text);
+  border-radius: var(--border-radius);
+  background-color: var(--color-main-background);
+}
+.v-popper--theme-tooltip .v-popper__arrow-container {
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  margin: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 10px;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-3.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[18].use[0]!./repositories/rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue?vue&type=style&index=0&id=40b67f33&lang=scss&scoped=true ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.component-wrapper .hint[data-v-40b67f33] {
+  color: var(--color-text-lighter);
+  font-style: italic;
+}
+.component-wrapper[data-v-40b67f33] .input-field {
+  margin-block-start: 0;
+}
+.component-wrapper[data-v-40b67f33] .input-field.input-field--trailing-icon .input-field__input[dir=rtl],
+.component-wrapper[data-v-40b67f33] .input-field .input-field__input.input-field__input--trailing-icon[dir=rtl] {
+  padding-inline-end: 12px;
+  padding-inline-start: var(--default-clickable-area);
+}
+.component-wrapper[data-v-40b67f33] .input-field .input-field__trailing-button.button-vue--vue-tertiary-no-background {
+  max-height: var(--default-clickable-area);
+  max-width: var(--default-clickable-area);
+  background-image: var(--icon-confirm-dark);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.component-wrapper[data-v-40b67f33] .input-field .input-field__trailing-button.button-vue--vue-tertiary-no-background .button-vue__icon {
+  opacity: 0;
+}
+.component-wrapper[data-v-40b67f33] .input-field .input-field__trailing-button.button-vue--vue-tertiary-no-background:hover:not(:disabled), .component-wrapper[data-v-40b67f33] .input-field .input-field__trailing-button.button-vue--vue-tertiary-no-background:focus:not(:disabled) {
+  top: 0;
+  right: 0;
+  height: var(--default-clickable-area);
+  width: var(--default-clickable-area) !important;
+  border: 2px solid var(--color-primary-element);
+  border-radius: var(--border-radius-large);
+  outline: 2px solid var(--color-main-background);
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper {
+  margin-block-start: 10px;
+  display: flex;
+  flex-grow: 1;
+  max-width: 100%;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-align-center {
+  align-items: center;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-align-baseline {
+  align-items: baseline;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-align-stretch {
+  align-items: stretch;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-align-start {
+  align-items: start;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-align-end {
+  align-items: end;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-justify-center {
+  justify-content: center;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-justify-start {
+  justify-content: flex-start;
+}
+.component-wrapper[data-v-40b67f33] .alignment-wrapper.flex-justify-left {
+  justify-content: left;
+}
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-3.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[18].use[0]!./repositories/rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue?vue&type=style&index=0&id=3568f856&lang=scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.v-popper--theme-unclipped-tooltip .v-popper__inner {
+  max-width: unset !important;
+}
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-3.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[18].use[0]!./repositories/rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue?vue&type=style&index=1&id=3568f856&lang=scss&scoped=true ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.input-wrapper .dirname[data-v-3568f856] {
+  margin-block-start: 10px;
+  font-weight: bold;
+  font-family: monospace;
+}
+.input-wrapper .dirname .button[data-v-3568f856] {
+  display: block;
+  background-position: 8px center;
+  padding-left: 30px;
+}
+.input-wrapper .flex[data-v-3568f856] {
+  display: flex;
+}
+.input-wrapper .flex.flex-center[data-v-3568f856] {
+  align-items: center;
+}
+.input-wrapper .flex.flex-wrap[data-v-3568f856] {
+  flex-wrap: wrap;
+}
+.input-wrapper .flex .flex-grow[data-v-3568f856] {
+  flex-grow: 1;
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-3.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[18].use[0]!./src/views/FilesTab.vue?vue&type=style&index=0&id=d56e0e50&lang=scss&scoped=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.files-tab .flex[data-v-d56e0e50] {
+  display: flex;
+}
+.files-tab .flex.flex-center[data-v-d56e0e50] {
+  align-items: center;
+}
+.files-tab .flex.flex-wrap[data-v-d56e0e50] {
+  flex-wrap: wrap;
+}
+.files-tab .flex .flex-grow[data-v-d56e0e50] {
+  flex-grow: 1;
+}
+.files-tab a.icon[data-v-d56e0e50] {
+  background-position: left;
+  padding-left: 20px;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper:not(.archive-comment) .list-item-content__wrapper {
+  height: 24px;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper:not(.archive-comment) a.list-item {
+  padding: 0;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper.archive-comment a.list-item {
+  padding: 8px 0;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper.archive-comment a.list-item .line-two__subtitle {
+  max-width: 100%;
+  white-space: normal;
+}
+.files-tab[data-v-d56e0e50] .archive-info .list-item__wrapper.archive-error .line-one__details {
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}
+.files-tab .files-tab-entry[data-v-d56e0e50] {
+  min-height: 44px;
+}
+.files-tab .files-tab-entry.clickable[data-v-d56e0e50], .files-tab .files-tab-entry.clickable[data-v-d56e0e50] * {
+  cursor: pointer;
+}
+.files-tab .files-tab-entry .files-tab-entry__avatar[data-v-d56e0e50] {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 18px;
+  background-color: var(--color-text-maxcontrast);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.files-tab .files-tab-entry .files-tab-entry__desc[data-v-d56e0e50] {
+  flex: 1 1;
+  padding: 8px;
+  line-height: 1.2em;
+  min-width: 0;
+}
+.files-tab .files-tab-entry .files-tab-entry__desc h5[data-v-d56e0e50] {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: inherit;
+}
+.files-tab .files-tab-entry.directory-chooser .dirname[data-v-d56e0e50] {
+  font-weight: bold;
+  font-family: monospace;
+}
+.files-tab .files-tab-entry.directory-chooser .dirname .button[data-v-d56e0e50] {
+  display: block;
+}
+.files-tab .files-tab-entry.directory-chooser .label[data-v-d56e0e50] {
+  padding-right: 0.5ex;
+}
+.files-tab .files-tab-entry[data-v-d56e0e50] {
+  /* ::v-deep .archive-mounts {
+     .list-item-content > .list-item-content__actions {
+     display: block !important;
+     }
+     } */
+}
