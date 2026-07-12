@@ -35,7 +35,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "No se pudo realizar el montaje de {source} en {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "No se pudo realizar la extracción de {source} a {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "No se pudo realizar el montaje de {source} en {destination}.",
-    "Unsupported subject: \"%s\"." : "Sujeto no admitido: \"%s\".",
     "Archive Explorer" : "Explorador de archivos de archivo",
     "not found" : "no encontrado",
     "pass through" : "pasar a través de",

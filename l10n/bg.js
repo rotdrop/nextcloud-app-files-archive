@@ -37,7 +37,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Монтирането на {source} в {destination} е неуспешно: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Извличането на {source} в {destination} е неуспешно: {message}",
     "Mounting {source} at {destination} has failed." : "Монтирането на {source} в {destination} е неуспешно.",
-    "Unsupported subject: \"%s\"." : "Неподдържан субект/тема/: „%s“.",
     "Archive Explorer" : " Преглед на архиви",
     "not found" : "не е намерен",
     "pass through" : "преминава през",

@@ -37,7 +37,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "A(z) {source} csatolása a(z) {destination} helyre sikertelen: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "A(z) {source} kibontása a(z) {destination} helyre sikertelen: {message}",
     "Mounting {source} at {destination} has failed." : "A(z) {source} csatolása a(z) {destination} helyre sikertelen.",
-    "Unsupported subject: \"%s\"." : "Nem támogatott tárgy: „%s”.",
     "Archive Explorer" : "Archívumböngésző",
     "not found" : "nem található",
     "pass through" : "áteresztés",

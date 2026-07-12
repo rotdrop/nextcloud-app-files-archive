@@ -15,7 +15,6 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Rozpakowywanie \"%1$s\" do \"%2$s\" zakończone sukcesem.",
     "Archive background mount job scheduled successfully." : "Pomyślnie zaplanowano zadanie zamontowania archiwum w tle.",
     "Archive background extraction job scheduled successfully." : "Pomyślnie zaplanowano zadanie wyodrębniania archiwum w tle.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Anulowanie zadania %s dla pliku archiwum \"%s\" nie powiodło się.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" jest już zamontowany w \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Nie można otworzyć folderu nadrzędnego \"%1$s\" punktu montowania \"%2$s\":%3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Punkt montowania \"%s\" już istnieje, a automatyczna zmiana nazwy nie jest włączona.",
@@ -55,6 +54,7 @@ OC.L10N.register(
     "No" : "Nie",
     "Yes" : "Tak",
     "The quick brown fox jumps over the lazy dog." : "Szybki brązowy lis przeskakuje leniwego psa.",
-    "true" : "prawda"
+    "true" : "prawda",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Anulowanie zadania %s dla pliku archiwum \"%s\" nie powiodło się."
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

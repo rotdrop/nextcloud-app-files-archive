@@ -15,7 +15,6 @@ OC.L10N.register(
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Il valore \"%1$s\" per l'impostazione \"%2$s\" non può essere convertita in booleano.",
     "Unknown personal setting: \"%s\"." : "Impostazione personale sconosciuta: \"%s\".",
     "Unable to parse memory size limit \"%s\"" : "Impossibile analizzare il limite di dimensione della memoria \"%s\"",
-    "Unsupported subject: \"%s\"." : "Oggetto non supportato: \"%s\".",
     "Unable to find any of the fallback converters \"%s\"." : "Impossibile trovare convertitori di fallback \"%s\".",
     "not found" : "non trovato",
     "pass through" : "percorso",

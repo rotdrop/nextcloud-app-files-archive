@@ -15,7 +15,6 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Rozbalovanie \"%1$s\" do \"%2$s\" bolo úspešné.",
     "Archive background mount job scheduled successfully." : "Úloha pripojenia archívu na pozadí bola úspešne naplánovaná.",
     "Archive background extraction job scheduled successfully." : "Úloha rozbalenia archívu na pozadí bola úspešne naplánovaná.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Zrušenie %s-úlohy pre archívny súbor \"%s\" zlyhalo.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" už je pripojené do \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Nepodarilo sa otvoriť nadradený adresár \"%1$s\" prípojného bodu \"%2$s\": %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Prípojný bod \"%s\" už existuje a automatické premenovanie nie je povolené.",
@@ -42,7 +41,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Pripájanie {source} do {destination} zlyhalo: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Rozbaľovanie {source} do {destination} zlyhalo: {message}",
     "Mounting {source} at {destination} has failed." : "Pripájanie {source} do {destination} zlyhalo.",
-    "Unsupported subject: \"%s\"." : "Nepodporovaný objekt: \"%s\".",
     "Archive Explorer" : "Prieskumník archívov",
     "not found" : "nenájdené",
     "pass through" : "priechod",
@@ -176,6 +174,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Úspešne nastavená hodnota \"{settingsKey}\" na \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Nastavenie {setting} bolo úspešne zrušené.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Zrušenie %s-úlohy pre archívny súbor \"%s\" zlyhalo.",
     "Extacting {source} to {destination} bas failed." : "Rozbaľovanie {source} do {destination} zlyhalo.",
     "Show Passphrase" : "Zobraziť Heslo"
 },
