@@ -32,7 +32,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "挂载 {source} 到 {destination} 已失败： {message}",
     "Extracting {source} to {destination} has failed: {message}" : "解压缩{source}到{destination}失败： {message}",
     "Mounting {source} at {destination} has failed." : "挂载 {source} 到 {destination} 已失败。",
-    "Unsupported subject: \"%s\"." : "不支持的主题：“%s”。",
     "Archive Explorer" : "压缩文件浏览器",
     "Unable to open archive file %s (%s)" : "无法打开压缩文件%s（%s）",
     "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "压缩文件“%1$s”解压后的大小太大了：%2$s> %3$s",

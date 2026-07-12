@@ -15,7 +15,6 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Успело је издвајање „%1$s” у „%2$s”.",
     "Archive background mount job scheduled successfully." : "Позадински посао монтирања архиве је успешно заказан.",
     "Archive background extraction job scheduled successfully." : "Позадински посао издвајања из архиве је успешно заказан.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Није успело отказивање %s-посла за фајл архиве „%s”.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "„%1$s” је већ монтирана на „%2$s.",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Не може да се отвори родитељ фолдер „%1$s” тачке монтирања „%2$s”: %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Тачка монтирања „%s” већ постоји и није укључена аутоматска промена имена.",
@@ -42,7 +41,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Није успело монтирање {source} у {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Није успело рааспакивање {source} у {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Није успело монтирање {source} у {destination}.",
-    "Unsupported subject: \"%s\"." : "Неподржани субјекат: „%s.",
     "Archive Explorer" : "Истраживач архива",
     "Unable to find any of the fallback converters \"%s\"." : "Не може да се пронађе ниједан конвертер за случај нужде „%s”.",
     "not found" : "није пронађено",
@@ -185,6 +183,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Вредност „{settingsKey}” је успешно постављена на „{displayValue}”",
     "Setting \"{setting}\" has been unset successfully." : "Подешавање „{setting}” је успешно обрисано.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Вредност „{settingsKey}” не може да се постави на „{value}”: {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Није успело отказивање %s-посла за фајл архиве „%s”.",
     "Extacting {source} to {destination} bas failed." : "Није успело рааспакивање {source} у {destination}.",
     "Show Passphrase" : "Прикажи випеделну лозинку"
 },

@@ -15,7 +15,6 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Utpakking av \"%1$s\" til \"%2$s\" lyktes.",
     "Archive background mount job scheduled successfully." : "Arkiveringsbakgrunnsmonteringsjobben er planlagt.",
     "Archive background extraction job scheduled successfully." : "Arkivbakgrunnsuttrekkingsjobben er planlagt.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Avbryt %s-jobb for arkivfil \"%s\" feilet.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "«%1$s» er allerede montert på «%2$s».",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Kan ikke åpne overordnet mappe «%1$s» til monteringspunktet «%2$s»: %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Monteringspunktet \"%s\" eksisterer allerede, og automatisk endre navn er ikke aktivert.",
@@ -42,7 +41,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Montering av {source} på {destination} mislyktes: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Utpakking av {source} til {destination} mislyktes: {message}",
     "Mounting {source} at {destination} has failed." : "Montering av {source} på {destination} mislyktes.",
-    "Unsupported subject: \"%s\"." : "Emne som ikke støttes: \"%s\".",
     "Archive Explorer" : "Arkivutforsker",
     "not found" : "Ikke funnet",
     "pass through" : "Gjennomgående",
@@ -172,6 +170,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Sett verdien for «{settingsKey}» til «{displayValue}»",
     "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Avbryt %s-jobb for arkivfil \"%s\" feilet.",
     "Extacting {source} to {destination} bas failed." : "Kunne ikke utveksle {source} til {destination} bas.",
     "Show Passphrase" : "Vis passordfrase"
 },

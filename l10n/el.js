@@ -15,7 +15,6 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Η εξαγωγή \"%1$s\" στο \"%2$s\" πέτυχε.",
     "Archive background mount job scheduled successfully." : "Η εργασία προσάρτησης αρχείου στο παρασκήνιο προγραμματίστηκε με επιτυχία.",
     "Archive background extraction job scheduled successfully." : "Η εργασία εξαγωγής αρχείου στο παρασκήνιο προγραμματίστηκε με επιτυχία.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Η ακύρωση %s-εργασίας για το αρχείο \"%s\" απέτυχε.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "Το \"%1$s\" είναι ήδη προσαρτημένο στο \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Αδυναμία ανοίγματος γονικού φακέλου \"%1$s\" του σημείου προσάρτησης \"%2$s\": %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Το σημείο προσάρτησης \"%s\" υπάρχει ήδη και η αυτόματη μετονομασία δεν είναι ενεργοποιημένη.",
@@ -42,7 +41,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Η προσάρτηση {source} στο {destination} απέτυχε: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Η εξαγωγή {source} στο {destination} απέτυχε: {message}",
     "Mounting {source} at {destination} has failed." : "Η προσάρτηση {source} στο {destination} απέτυχε.",
-    "Unsupported subject: \"%s\"." : "Μη υποστηριζόμενο θέμα: \"%s\".",
     "Archive Explorer" : "Εξερεύνηση Αρχείων",
     "Unable to find any of the fallback converters \"%s\"." : "Αδυναμία εύρεσης οποιουδήποτε από τους εφεδρικούς μετατροπείς \"%s\".",
     "not found" : "δεν βρέθηκε",
@@ -183,6 +181,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Επιτυχής ρύθμιση της τιμής για \"{settingsKey}\" σε \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Η ρύθμιση \"{setting}\" έχει απενεργοποιηθεί με επιτυχία.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ρύθμισης της τιμής για \"{settingsKey}\" σε \"{value}\": {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Η ακύρωση %s-εργασίας για το αρχείο \"%s\" απέτυχε.",
     "Extacting {source} to {destination} bas failed." : "Η εξαγωγή {source} στο {destination} απέτυχε.",
     "Show Passphrase" : "Εμφάνιση Φράσης Πρόσβασης"
 },

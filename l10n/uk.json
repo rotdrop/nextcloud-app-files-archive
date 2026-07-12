@@ -13,7 +13,6 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Вилучення \"%1$s\" до \"%2$s\" пройшло успішно.",
     "Archive background mount job scheduled successfully." : "Успішно заплановано завдання фонового монтування архіву.",
     "Archive background extraction job scheduled successfully." : "Вилучення фонового архіву успішно заплановано.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Скасування %s-job для архівного файлу \"%s\" завершилося невдало.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" вже змонтовано на \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Не вдається відкрити батьківську папку \"%1$s\" точки монтування \"%2$s\": %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Точка монтування \"%s\" вже існує і автоперейменування не увімкнено.",
@@ -40,7 +39,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "Не вдалося змонтувати {source} на {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Не вдалося розпакувати {source} на {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Не вдалося змонтувати {source} на {destination}.",
-    "Unsupported subject: \"%s\"." : "Непідтримувана тема: \"%s\".",
     "Archive Explorer" : "Провідник архіву",
     "Unable to find any of the fallback converters \"%s\"." : "Не вдалося знайти жодного з резервних конвертерів \"%s\".",
     "not found" : "не знайдено",
@@ -180,6 +178,7 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успішно встановлено значення для \"{settingsKey}\" на \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Параметр \"{setting}\" успішно скинуто.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не вдалося встановити значення для \"{settingsKey}\" на \"{value}\": {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Скасування %s-job для архівного файлу \"%s\" завершилося невдало.",
     "Extacting {source} to {destination} bas failed." : "Не вдалося видобути з {source} до {destination} через bas.",
     "Show Passphrase" : "Показати ключову фразу"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"

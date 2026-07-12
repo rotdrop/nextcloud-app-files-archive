@@ -15,7 +15,6 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "ການສະກັດ \"%1$s\" ໄປຍັງ \"%2$s\" ສຳເລັດ.",
     "Archive background mount job scheduled successfully." : "ວຽກການເຊື່ອມຕໍ່ໄຟລ໌ບີບອັດໃນພື້ນຫຼັງຖືກກຳນົດເວລາສຳເລັດແລ້ວ.",
     "Archive background extraction job scheduled successfully." : "ວຽກການສະກັດໄຟລ໌ບີບອັດໃນພື້ນຫຼັງຖືກກຳນົດເວລາສຳເລັດແລ້ວ.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "ການຍົກເລີກວຽກ-%s ສຳລັບໄຟລ໌ບີບອັດ \"%s\" ລົ້ມເຫຼວ.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" ຖືກເຊື່ອມຕໍ່ຢູ່ \"%2$s\" ແລ້ວ.",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "ບໍ່ສາມາດເປີດໂຟນເດີຫຼັກ \"%1$s\" ຂອງຈຸດເຊື່ອມຕໍ່ \"%2$s\" ໄດ້: %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "ຈຸດເຊື່ອມຕໍ່ \"%s\" ມີຢູ່ແລ້ວ ແລະ ການປ່ຽນຊື່ອັດຕະໂນມັດບໍ່ໄດ້ເປີດໃຊ້ງານ.",
@@ -42,7 +41,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "ການເຊື່ອມຕໍ່ {source} ທີ່ {destination} ລົ້ມເຫຼວ: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "ການສະກັດ {source} ໄປຍັງ {destination} ລົ້ມເຫຼວ: {message}",
     "Mounting {source} at {destination} has failed." : "ການເຊື່ອມຕໍ່ {source} ທີ່ {destination} ລົ້ມເຫຼວ.",
-    "Unsupported subject: \"%s\"." : "ຫົວຂໍ້ບໍ່ຮອງຮັບ: \"%s\".",
     "Archive Explorer" : "ໂຕສຳຫຼວດໄຟລ໌ບີບອັດ",
     "Unable to find any of the fallback converters \"%s\"." : "ບໍ່ພົບໂຕແປງສຳຮອງໃດໆ \"%s\".",
     "not found" : "ບໍ່ພົບ",
@@ -192,6 +190,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "ຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{displayValue}\" ສຳເລັດແລ້ວ",
     "Setting \"{setting}\" has been unset successfully." : "ຍົກເລີກການຕັ້ງຄ່າ \"{setting}\" ສຳເລັດແລ້ວ.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "ບໍ່ສາມາດຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{value}\" ໄດ້: {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "ການຍົກເລີກວຽກ-%s ສຳລັບໄຟລ໌ບີບອັດ \"%s\" ລົ້ມເຫຼວ.",
     "Extacting {source} to {destination} bas failed." : "ການສະກັດ {source} ໄປຍັງ {destination} ລົ້ມເຫຼວ.",
     "Shared folder with id \"%1$s\" does not exist." : "ໂຟນເດີທີ່ແບ່ງປັນດ້ວຍໄອດີ \"%1$s\" ບໍ່ມີຢູ່.",
     "Show Passphrase" : "ສະແດງລະຫັດຜ່ານ"

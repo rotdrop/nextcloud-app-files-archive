@@ -13,7 +13,6 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "La extracción de \"%1$s\" a \"%2$s\" se ha completado exitosamente.",
     "Archive background mount job scheduled successfully." : "Trabajo en segundo plano para el montaje de archivador se agendó exitosamente.",
     "Archive background extraction job scheduled successfully." : "Trabajo en segundo plano para la extracción del archivador se agendó exitosamente.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Cancelando %s-trabajo para el archivador \"%s\" falló.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" ya está montado en \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "No fue posible abrir la carpeta de nivel superior \"%1$s\" del punto de montaje \"%2$s\":  %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "La punto de montaje \"%s\" ya existe y el renombrado automático no está habilitado.",
@@ -40,7 +39,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "El montaje de {source} en {destination} ha fallado: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "La extracción de {source} en {destination} ha fallado: {message}",
     "Mounting {source} at {destination} has failed." : "El montaje de {source} en {destination} ha fallado.",
-    "Unsupported subject: \"%s\"." : "Asunto no soportado: \"%s\".",
     "Archive Explorer" : "Explorador de archivadores",
     "Unable to find any of the fallback converters \"%s\"." : "No fue posible ubicar ninguno de los convertidores alternativos \"%s\".",
     "not found" : "no encontrado",
@@ -181,6 +179,7 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se estableció exitosamente el valor para \"{settingsKey}\" a \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se reestableció exitosamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No fue posible establecer el valor de \"{settingsKey}\" a \"{value}\": {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Cancelando %s-trabajo para el archivador \"%s\" falló.",
     "Extacting {source} to {destination} bas failed." : "La extracción de {source} en {destination} ha fallado.",
     "Show Passphrase" : "Mostrar frase de seguridad"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

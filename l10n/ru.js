@@ -40,7 +40,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "Монтирование {source} в {destination} завершилось неудачно: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Распаковка {source} в {destination} завершилась неудачно: {message}",
     "Mounting {source} at {destination} has failed." : "Монтирование {source} в {destination} завершилось неудачно.",
-    "Unsupported subject: \"%s\"." : "Неподдерживаемый объект: \"%s\".",
     "Archive Explorer" : "Проводник Архива",
     "not found" : "не найдено",
     "pass through" : "пройти через",
