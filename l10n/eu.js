@@ -37,7 +37,6 @@ OC.L10N.register(
     "Mounting {source} at {destination} has failed: {message}" : "{source} {destination}-(e)n muntatzeak huts egin du: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "{source} {destination}-(e)n ateratzeak huts egin du: {message}",
     "Mounting {source} at {destination} has failed." : "{source} {destination}-(e)n muntatzeak huts egin du.",
-    "Unsupported subject: \"%s\"." : "Euskarririk gabeko gaia: \"%s\".",
     "Archive Explorer" : "Artxiboen arakatzailea",
     "not found" : "ez da aurkitu",
     "pass through" : "pasa hemendik",

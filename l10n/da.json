@@ -13,7 +13,6 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Udpakning af \"%1$s\" til \"%2$s\" succes.",
     "Archive background mount job scheduled successfully." : "Arkiv baggrundsmonteringsjob planlagt.",
     "Archive background extraction job scheduled successfully." : "Arkiv baggrundsudpakningsjob planlagt.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Annullering af %s-job for arkivfil \"%s\" fejlede.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" er allerede monteret på \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Kan ikke åbne overordnet mappe \"%1$s\" for monteringspunkt \"%2$s\": %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Monteringspunktet \"%s\" eksisterer allerede og autoomdøbning er ikke aktiveret.",
@@ -28,7 +27,6 @@
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Værdien \"%1$s\" for indstilling \"%2$s\" kan ikke konverteres til boolsk.",
     "Unknown personal setting: \"%s\"." : "Ukendt personlig indstilling: \"%s\".",
     "Unable to parse memory size limit \"%s\"" : "Kan ikke fortolke grænse for hukommelsesstørrelse \"%s\"",
-    "Unsupported subject: \"%s\"." : "Ikke understøttet emne: \"%s\".",
     "not found" : "ikke fundet",
     "pass through" : "passerer gennem",
     "Universal converter \"%1$s\" has failed trying to convert MIME type \"%2$s\"" : "Universalkonverter \"%1$s\" har fejlet under konvertering af MIME typen \"%2$s\"",
@@ -98,6 +96,7 @@
     "Unconfirmed, reverting to old value." : "Ubekræftet, tilbage til gammel værdi.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Værdi for \"{settingsKey}\" sat til \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Indstillingen \"{setting}\" er blevet ikke-markeret med succes.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke sætte værdi for \"{settingsKey}\" til \"{value}\": {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke sætte værdi for \"{settingsKey}\" til \"{value}\": {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Annullering af %s-job for arkivfil \"%s\" fejlede."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

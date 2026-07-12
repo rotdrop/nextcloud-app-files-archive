@@ -13,7 +13,6 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "\"%1$s\" نى \"%2$s\" غا چىقىرىش مۇۋەپپەقىيەتلىك بولدى.",
     "Archive background mount job scheduled successfully." : "ئارخىپ ئارقا كۆرۈنۈش ئورنىتىش خىزمىتى مۇۋەپپەقىيەتلىك ئورۇنلاشتۇرۇلغان.",
     "Archive background extraction job scheduled successfully." : "ئارخىپ ئارقا كۆرۈنۈش ئېلىش خىزمىتى مۇۋەپپەقىيەتلىك ئورۇنلاشتۇرۇلغان.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "ئارخىپ ھۆججىتى \"%s\" ئۈچۈن %s- خىزمەتنى ئەمەلدىن قالدۇرۇش مەغلۇب بولدى.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" ئاللىقاچان \"%2$s\" غا ئورنىتىلغان.",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "«%2$s» ئورنىتىش نۇقتىسىنىڭ «%1$s» ئانا مۇندەرىجىسىنى ئاچالمىدى: %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "ئورنىتىش نۇقتىسى \"%s\" ئاللىبۇرۇن مەۋجۇت بولۇپ ، ئاپتوماتىك ئۆزگەرتىش قوزغىتىلمىغان.",
@@ -40,7 +39,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "{source} {destination} نى ئورنىتىش مەغلۇب بولدى: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "{source} دىن {destination} گە چىقىرىش مەغلۇب بولدى: {message}",
     "Mounting {source} at {destination} has failed." : "{source} {destination} نى ئورنىتىش مەغلۇب بولدى.",
-    "Unsupported subject: \"%s\"." : "قوللىمايدىغان تېما: \"%s\".",
     "Archive Explorer" : "ئارخىپ كۆرگۈچ",
     "Unable to find any of the fallback converters \"%s\"." : "ئىشلەتكىلى بولىدىغان ھېچبىر ئايلاندۇرغۇچ \"%s\" نى تاپالمىدى.",
     "not found" : "تېپىلمىدى",
@@ -190,6 +188,7 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "مۇۋەپپەقىيەتلىك ھالدا \"{settingsKey}\" نىڭ قىممىتىنى \"{displayValue}\" قىلىپ بەلگىلەڭ.",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" نى تەڭشەش ئوڭۇشلۇق بولمىدى.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "ئارخىپ ھۆججىتى \"%s\" ئۈچۈن %s- خىزمەتنى ئەمەلدىن قالدۇرۇش مەغلۇب بولدى.",
     "Extacting {source} to {destination} bas failed." : "{source} دىن {destination} bas نى چىقىرىش مەغلۇب بولدى.",
     "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" id دىكى ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس.",
     "Show Passphrase" : "پارولنى كۆرسەت"

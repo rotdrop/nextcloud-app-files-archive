@@ -13,7 +13,6 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Neznana osebna nastavitev »%s«",
     "Unable to parse memory size limit \"%s\"" : "Ni mogoče razčleniti omejitve velikosti pomnilnika »%s«",
     "Archive Manager" : "Upravljalnik arhivov",
-    "Unsupported subject: \"%s\"." : "Nepodprta zadeva »%s«.",
     "Archive Explorer" : "Raziskovalec arhivov",
     "not found" : "ni mogoče najti",
     "pass through" : "prehod",

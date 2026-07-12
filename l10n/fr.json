@@ -13,7 +13,6 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Extraction de \"%1$s\" vers \"%2$s\" réussie.",
     "Archive background mount job scheduled successfully." : "Tâche de montage de l'archive en arrière-plan planifiée avec succès.",
     "Archive background extraction job scheduled successfully." : "Tâche d'extraction de l'archive en arrière-plan planifiée avec succès.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "L'annulation de la tâche %s pour le fichier d'archive \"%s\" a échoué.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" est déjà monté sous le nom \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Impossible d'ouvrir le dossier parent \"%1$s\" du point de montage \"%2$s\" : %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Le point de montage \"%s\" existe déjà et le renommage automatique n'est pas activé.",
@@ -40,7 +39,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "Le montage de {source} dans {destination} a échoué : {message}",
     "Extracting {source} to {destination} has failed: {message}" : "L'extraction de {source} dans {destination} a échoué : {message}",
     "Mounting {source} at {destination} has failed." : "Le montage de {source} dans {destination} a échoué.",
-    "Unsupported subject: \"%s\"." : "Sujet non supporté : \"%s\".",
     "Archive Explorer" : "Explorateur d'archive",
     "Unable to find any of the fallback converters \"%s\"." : "Impossible de trouver l'un des convertisseurs de secours \"%s\".",
     "not found" : "non trouvé",
@@ -180,6 +178,7 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Le paramètre \"{settingsKey}\" a été défini à {displayValue} avec succès.",
     "Setting \"{setting}\" has been unset successfully." : "Le paramètre \"{setting}\" a été désactivé avec succès.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value} : {message}.",
+    "Cancelling %s-job for archive file \"%s\" failed." : "L'annulation de la tâche %s pour le fichier d'archive \"%s\" a échoué.",
     "Extacting {source} to {destination} bas failed." : "L'extraction de {source} dans {destination} a échoué.",
     "Show Passphrase" : "Montrer le mot de passe"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

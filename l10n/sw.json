@@ -13,7 +13,6 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Kutoa \"%1$s\" hadi \"%2$s\" kumefaulu.",
     "Archive background mount job scheduled successfully." : "Kazi ya kupachika chinichini kwenye kumbukumbu imeratibiwa kwa mafanikio.",
     "Archive background extraction job scheduled successfully." : "Kazi ya uchimbaji wa usuli kwenye kumbukumbu imeratibiwa kwa mafanikio.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Kughairi %s-kazi kwa faili ya kumbukumbu \"%s\" kumeshindwa.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" tayari imewekwa \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Haiwezi kufungua folda kuu \"%1$s\" ya sehemu ya kupachika \"%2$s\": %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Sehemu ya kupachika \"%s\" tayari ipo na kubadilisha jina kiotomatiki halijawezeshwa.",
@@ -40,7 +39,6 @@
     "Mounting {source} at {destination} has failed: {message}" : "Imeshindwa kupachika {source} katika {destination}: {message}",
     "Extracting {source} to {destination} has failed: {message}" : "Imeshindwa kutoa {source} hadi {destination}: {message}",
     "Mounting {source} at {destination} has failed." : "Imeshindwa kupachika {source} katika {destination}.",
-    "Unsupported subject: \"%s\"." : "Mada isiyotumika: \"%s\".",
     "Archive Explorer" : "Mchunguzi wa kumbukumbu",
     "Unable to find any of the fallback converters \"%s\"." : "Haijaweza kupata kigeuzi chochote kati ya njia mbadala \"%s\".",
     "not found" : "haipo",
@@ -188,6 +186,7 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Kwa mafanikio imeweka thamani ya \"{settingsKey}\" kwa\"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Mpangilio \"{setting}\" haijawekwa kwa mafanikio.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Haikuweza kuweka thamani ya \"{settingsKey}\" kwa \"{value}\": {message}",
+    "Cancelling %s-job for archive file \"%s\" failed." : "Kughairi %s-kazi kwa faili ya kumbukumbu \"%s\" kumeshindwa.",
     "Extacting {source} to {destination} bas failed." : "Imeshindwa kutuma {source} hadi {destination}.",
     "Shared folder with id \"%1$s\" does not exist." : "Folda inayoshirikiwa yenye kitambulisho \"%1$s\" haipo.",
     "Show Passphrase" : "Onesha nenosiri"
