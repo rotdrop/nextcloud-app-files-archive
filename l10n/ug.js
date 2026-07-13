@@ -191,7 +191,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" نى تەڭشەش ئوڭۇشلۇق بولمىدى.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "ئارخىپ ھۆججىتى \"%s\" ئۈچۈن %s- خىزمەتنى ئەمەلدىن قالدۇرۇش مەغلۇب بولدى.",
-    "Extacting {source} to {destination} bas failed." : "{source} دىن {destination} bas نى چىقىرىش مەغلۇب بولدى.",
     "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" id دىكى ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس.",
     "Show Passphrase" : "پارولنى كۆرسەت"
 },

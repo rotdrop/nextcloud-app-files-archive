@@ -181,7 +181,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Le paramètre \"{setting}\" a été désactivé avec succès.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value} : {message}.",
     "Cancelling %s-job for archive file \"%s\" failed." : "L'annulation de la tâche %s pour le fichier d'archive \"%s\" a échoué.",
-    "Extacting {source} to {destination} bas failed." : "L'extraction de {source} dans {destination} a échoué.",
     "Show Passphrase" : "Montrer le mot de passe"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

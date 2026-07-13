@@ -198,7 +198,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Nustatymas „{setting}“ buvo sėkmingai panaikintas.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nepavyko nustatyti „{settingsKey}“ reikšmės į „{value}“: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Nepavyko atšaukti archyvo failo „%s“ užduoties %s.",
-    "Extacting {source} to {destination} bas failed." : "{source} išskleisti į {destination} nepavyko",
     "Shared folder with id \"%1$s\" does not exist." : "Bendrinamas aplankas su ID „%1$s“ neegzistuoja.",
     "Show Passphrase" : "Rodyti slaptafrazė"
 },

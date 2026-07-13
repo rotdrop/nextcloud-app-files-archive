@@ -135,7 +135,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se ha establecido correctamente el valor para \"{settingsKey}\" en \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se ha desactivado correctamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No se pudo establecer el valor para \"{settingsKey}\" en \"{value}\": {message}",
-    "Extacting {source} to {destination} bas failed." : "No se pudo realizar la extracción de {source} a {destination}.",
     "Show Passphrase" : "Mostrar frase de contraseña"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
