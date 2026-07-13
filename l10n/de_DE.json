@@ -13,6 +13,7 @@
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Das Entpacken von \"%1$s\" an \"%2$s\" war erfolgreich.",
     "Archive background mount job scheduled successfully." : "Hintergrundbereitstellungsaufgabe für Archivierung geplant.",
     "Archive background extraction job scheduled successfully." : "Hintergrundextraktionsaufgabe für das Archiv geplant.",
+    "Cancelling %1$s-job for archive file \"%2$s\" failed." : "Das Abbrechen des %1$s-Jobs für die Archivdatei \"%2$s\" ist fehlgeschlagen.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" ist bereits an \"%2$s\" eingehängt.",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Kann den Eltern-Ordner \"%1$s\" des Einhängepunkts \"%2$s\" nicht öffnen: %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Der Einhängepunkt \"%s\" existiert bereits und automatische Konfliktauflösung ist nicht aktiviert.",
@@ -40,6 +41,7 @@
     "Extracting {source} to {destination} has failed: {message}" : "{source} konnte nicht nach {destination} extrahiert werden. Fehler: {message}",
     "Mounting {source} at {destination} has failed." : "Einhängen von {source} unter {destination} ist fehlgeschlagen.",
     "Extracting {source} to {destination} has failed." : "{source} konnte nicht nach {destination} extrahiert werden.",
+    "Internal error, unsupported notification subject: \"%1s\"." : "Interner Fehler, nicht unterstützter Benachrichtigung Betreff: \"%1s\".",
     "Archive Explorer" : "Archiv-Explorer",
     "Unable to register types with DBAL." : "Typen können nicht bei DBAL registriert werden",
     "Unable to determine the identifier values for an instance of \"%s\"." : "Die Bezeichnerwerte für eine Instanz von \"%s\" konnten nicht ermittelt werden.",
@@ -197,7 +199,6 @@
     "Setting \"{setting}\" has been unset successfully." : "Die Einstellung \"{setting}\" wurde gelöscht.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Wert für die Einstellung \"{settingsKey}\" konnte nicht auf den Wert \"{value}\" gesetzt werden: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Das Abbrechen des %s-Jobs für die Archivdatei \"%s\" ist fehlgeschlagen.",
-    "Extacting {source} to {destination} bas failed." : "{source} konnte nicht nach {destination} extrahiert werden.",
     "Shared folder with id \"%1$s\" does not exist." : "Geteilter Ordner mit der ID \"%1$s\" existiert nicht.",
     "Show Passphrase" : "Passphrase anzeigen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

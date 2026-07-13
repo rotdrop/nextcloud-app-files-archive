@@ -110,7 +110,6 @@ OC.L10N.register(
     "true" : "真",
     "Confirmation Required" : "需要确认",
     "Unconfirmed, reverting to old value." : "没有确认，回退到之前的值。",
-    "Extacting {source} to {destination} bas failed." : "解压缩{source}到{destination}失败。",
     "Show Passphrase" : "显示密码"
 },
 "nplurals=1; plural=0;");

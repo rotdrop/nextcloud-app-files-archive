@@ -197,7 +197,6 @@
     "Setting \"{setting}\" has been unset successfully." : "D'éirigh le socrú \"{setting}\" a dhíshuiteáil.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Níorbh fhéidir luach a shocrú do \"{settingsKey}\" go \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Theip ar chur ar ceal %s-job don chomhad cartlainne \"%s\".",
-    "Extacting {source} to {destination} bas failed." : "Theip ar bhaint {source} go {destination}.",
     "Shared folder with id \"%1$s\" does not exist." : "Níl an fillteán comhroinnte leis an aitheantas \"%1$s\" ann.",
     "Show Passphrase" : "Taispeáin frása pas"
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"

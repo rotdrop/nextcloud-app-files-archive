@@ -194,7 +194,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Postavka „{setting}” uspješno je uklonjena.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nije moguće postaviti vrijednost za „{settingsKey}” na „{value}”: {message}.",
     "Cancelling %s-job for archive file \"%s\" failed." : "Neuspjelo otkazivanje %s-zadatka za arhivsku datoteku „%s”.",
-    "Extacting {source} to {destination} bas failed." : "Raspakiravanje {source} u {destination} nije uspjelo.",
     "Shared folder with id \"%1$s\" does not exist." : "Dijeljena mapa s ID-jem „%1$s” ne postoji.",
     "Show Passphrase" : "Prikaži lozinku"
 },

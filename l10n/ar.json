@@ -171,7 +171,6 @@
     "Setting \"{setting}\" has been unset successfully." : "تمّ إلغاء الإعداد \"{setting}\" بنجاح.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "تعذّر تعيين \"{settingsKeys}\" بــ \"{value}\":{message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "فشل إلغاء مهمة %s-للملف المؤرشف \"%s\". ",
-    "Extacting {source} to {destination} bas failed." : "فشل استخراج {source} إلى {destination}.",
     "Show Passphrase" : "أعرُض عِبَارة المرور Passphrase"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

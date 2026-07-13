@@ -198,7 +198,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "設定「{setting}」已成功取消設定。",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "無法將“{settingsKey}”的值設置為“{value}”",
     "Cancelling %s-job for archive file \"%s\" failed." : "取消 %s 作業失敗，針對封存檔案「%s」。",
-    "Extacting {source} to {destination} bas failed." : "將 {source} 提取到 {destination} 失敗。",
     "Shared folder with id \"%1$s\" does not exist." : "ID 為「%1$s」的分享資料夾不存在。",
     "Show Passphrase" : "顯示密碼片語"
 },
