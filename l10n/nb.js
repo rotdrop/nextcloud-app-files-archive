@@ -171,7 +171,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Avbryt %s-jobb for arkivfil \"%s\" feilet.",
-    "Extacting {source} to {destination} bas failed." : "Kunne ikke utveksle {source} til {destination} bas.",
     "Show Passphrase" : "Vis passordfrase"
 },
 "nplurals=2; plural=(n != 1);");

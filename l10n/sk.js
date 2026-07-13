@@ -175,7 +175,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Nastavenie {setting} bolo úspešne zrušené.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Zrušenie %s-úlohy pre archívny súbor \"%s\" zlyhalo.",
-    "Extacting {source} to {destination} bas failed." : "Rozbaľovanie {source} do {destination} zlyhalo.",
     "Show Passphrase" : "Zobraziť Heslo"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

@@ -189,7 +189,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Mpangilio \"{setting}\" haijawekwa kwa mafanikio.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Haikuweza kuweka thamani ya \"{settingsKey}\" kwa \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Kughairi %s-kazi kwa faili ya kumbukumbu \"%s\" kumeshindwa.",
-    "Extacting {source} to {destination} bas failed." : "Imeshindwa kutuma {source} hadi {destination}.",
     "Shared folder with id \"%1$s\" does not exist." : "Folda inayoshirikiwa yenye kitambulisho \"%1$s\" haipo.",
     "Show Passphrase" : "Onesha nenosiri"
 },

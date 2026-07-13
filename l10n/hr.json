@@ -192,7 +192,6 @@
     "Setting \"{setting}\" has been unset successfully." : "Postavka „{setting}” uspješno je uklonjena.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nije moguće postaviti vrijednost za „{settingsKey}” na „{value}”: {message}.",
     "Cancelling %s-job for archive file \"%s\" failed." : "Neuspjelo otkazivanje %s-zadatka za arhivsku datoteku „%s”.",
-    "Extacting {source} to {destination} bas failed." : "Raspakiravanje {source} u {destination} nije uspjelo.",
     "Shared folder with id \"%1$s\" does not exist." : "Dijeljena mapa s ID-jem „%1$s” ne postoji.",
     "Show Passphrase" : "Prikaži lozinku"
 },"pluralForm" :"nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;"

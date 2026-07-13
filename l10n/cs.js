@@ -197,7 +197,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Nastavení „{setting}“ bylo úspěšně zrušeno.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nedaří se nastavit hodnotu pro „{settingsKey}“ na „{value}“: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Rušení %s úlohy pro soubor archivu „%s“ se nezdařilo.",
-    "Extacting {source} to {destination} bas failed." : "Rozbalování {source} do {destination} se nezdařilo.",
     "Shared folder with id \"%1$s\" does not exist." : "Sdílená složka s identif. „%1$s“ neexistuje.",
     "Show Passphrase" : "Zobrazit heslovou frázi"
 },

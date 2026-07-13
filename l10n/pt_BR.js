@@ -15,6 +15,7 @@ OC.L10N.register(
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Extração de \"%1$s\" para \"%2$s\" foi bem-sucedido.",
     "Archive background mount job scheduled successfully." : "Trabalho de montagem em segundo plano do arquivo compactado agendado com sucesso.",
     "Archive background extraction job scheduled successfully." : "Trabalho de extração em segundo plano do arquivo compactado agendado com sucesso.",
+    "Cancelling %1$s-job for archive file \"%2$s\" failed." : "Falha ao cancelar a tarefa %1$s para o arquivo de arquivo “%2$s”.",
     "\"%1$s\" is already mounted on \"%2$s\"." : "\"%1$s\" já está montado em \"%2$s\".",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Não é possível abrir a pasta pai \"%1$s\" do ponto de montagem \"%2$s\": %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "O ponto de montagem \"%s\" já existe e a renomeação automática não está ativada.",
@@ -42,6 +43,7 @@ OC.L10N.register(
     "Extracting {source} to {destination} has failed: {message}" : "A extração de {source} para {destination} falhou: {message}",
     "Mounting {source} at {destination} has failed." : "A montagem de {source} em {destination} falhou.",
     "Extracting {source} to {destination} has failed." : "Falha ao extrair {source} para {destination}.",
+    "Internal error, unsupported notification subject: \"%1s\"." : "Erro interno, assunto da notificação não suportado: “%1s”.",
     "Archive Explorer" : "Explorador de Arquivos Compactados",
     "Unable to register types with DBAL." : "Não foi possível registrar tipos com DBAL.",
     "Unable to determine the identifier values for an instance of \"%s\"." : "Não foi possível determinar os valores do identificador para um instância de \"%s\".",
@@ -199,7 +201,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "A configuração \"{setting}\" foi desativada com sucesso.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" como \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Cancelar trabalho de %s para arquivo \"%s\" falhou.",
-    "Extacting {source} to {destination} bas failed." : "A extração de {source} para {destination} falhou.",
     "Shared folder with id \"%1$s\" does not exist." : "A pasta compartilhada com o ID \"%1$s\" não existe.",
     "Show Passphrase" : "Mostrar Frase-passe"
 },

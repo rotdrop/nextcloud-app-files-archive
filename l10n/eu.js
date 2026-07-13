@@ -149,7 +149,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\" \"{displayValue}\" baliora ondo ezarri da",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ezarpena behar bezala baliogabetu da.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}",
-    "Extacting {source} to {destination} bas failed." : "{source} {destination}-(e)n ateratzeak huts egin du.",
     "Show Passphrase" : "Erakutsi pasahitza"
 },
 "nplurals=2; plural=(n != 1);");

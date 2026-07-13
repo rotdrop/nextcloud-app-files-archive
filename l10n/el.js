@@ -182,7 +182,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Η ρύθμιση \"{setting}\" έχει απενεργοποιηθεί με επιτυχία.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ρύθμισης της τιμής για \"{settingsKey}\" σε \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Η ακύρωση %s-εργασίας για το αρχείο \"%s\" απέτυχε.",
-    "Extacting {source} to {destination} bas failed." : "Η εξαγωγή {source} στο {destination} απέτυχε.",
     "Show Passphrase" : "Εμφάνιση Φράσης Πρόσβασης"
 },
 "nplurals=2; plural=(n != 1);");

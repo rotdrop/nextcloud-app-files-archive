@@ -182,7 +182,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se reestableció exitosamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No fue posible establecer el valor de \"{settingsKey}\" a \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Cancelando %s-trabajo para el archivador \"%s\" falló.",
-    "Extacting {source} to {destination} bas failed." : "La extracción de {source} en {destination} ha fallado.",
     "Show Passphrase" : "Mostrar frase de seguridad"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

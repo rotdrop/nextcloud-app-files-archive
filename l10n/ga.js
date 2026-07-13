@@ -199,7 +199,6 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "D'éirigh le socrú \"{setting}\" a dhíshuiteáil.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Níorbh fhéidir luach a shocrú do \"{settingsKey}\" go \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Theip ar chur ar ceal %s-job don chomhad cartlainne \"%s\".",
-    "Extacting {source} to {destination} bas failed." : "Theip ar bhaint {source} go {destination}.",
     "Shared folder with id \"%1$s\" does not exist." : "Níl an fillteán comhroinnte leis an aitheantas \"%1$s\" ann.",
     "Show Passphrase" : "Taispeáin frása pas"
 },

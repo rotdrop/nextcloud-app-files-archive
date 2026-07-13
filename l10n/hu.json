@@ -144,7 +144,6 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "A(z) „{settingsKey}” értéke sikeresen beállítva erre: „{displayValue}”",
     "Setting \"{setting}\" has been unset successfully." : "A(z) „{setting}” beállítás értéke sikeresen törölve.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nem lehet beállítani a(z) „{settingsKey}” értékét erre: „{value}”: {message}",
-    "Extacting {source} to {destination} bas failed." : "A(z) {source} kibontása a(z) {destination} helyre sikertelen.",
     "Show Passphrase" : "Jelmondat megjelenítése"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

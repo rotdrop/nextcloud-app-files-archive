@@ -189,7 +189,6 @@
     "Setting \"{setting}\" has been unset successfully." : "ຍົກເລີກການຕັ້ງຄ່າ \"{setting}\" ສຳເລັດແລ້ວ.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "ບໍ່ສາມາດຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{value}\" ໄດ້: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "ການຍົກເລີກວຽກ-%s ສຳລັບໄຟລ໌ບີບອັດ \"%s\" ລົ້ມເຫຼວ.",
-    "Extacting {source} to {destination} bas failed." : "ການສະກັດ {source} ໄປຍັງ {destination} ລົ້ມເຫຼວ.",
     "Shared folder with id \"%1$s\" does not exist." : "ໂຟນເດີທີ່ແບ່ງປັນດ້ວຍໄອດີ \"%1$s\" ບໍ່ມີຢູ່.",
     "Show Passphrase" : "ສະແດງລະຫັດຜ່ານ"
 },"pluralForm" :"nplurals=1; plural=0;"
