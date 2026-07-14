@@ -59,7 +59,13 @@ class BackgroundJobController extends Controller
   const OPERATION_EXTRACT = ArchiveJob::TARGET_EXTRACT;
 
   /** @var string */
+  private string $targetBaseNameTemplate;
+
+  /** @var string */
   private string $mountPointTemplate;
+
+  /** @var array<string, bool> */
+  private array $stripCommonPathPrefixDefault;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -81,6 +87,12 @@ class BackgroundJobController extends Controller
 
     $this->mountPointTemplate = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
+
+    $this->stripCommonPathPrefixDefault[ArchiveJob::TARGET_MOUNT] = (bool)$cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+
+    $this->stripCommonPathPrefixDefault[ArchiveJob::TARGET_EXTRACT] = (bool)$cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
   }
   // phpcs:enable
 
@@ -132,7 +144,7 @@ class BackgroundJobController extends Controller
       ArchiveJob::SOURCE_ID_KEY => $archiveNode->getId(),
       ArchiveJob::DESTINATION_PATH_KEY => $destinationPath,
       ArchiveJob::ARCHIVE_PASSPHRASE_KEY => $passPhrase,
-      ArchiveJob::STRIP_COMMON_PATH_PREFIX_KEY => $stripCommonPathPrefix,
+      ArchiveJob::STRIP_COMMON_PATH_PREFIX_KEY => $stripCommonPathPrefix ?? $this->stripCommonPathPrefixDefault[$operation],
       ArchiveJob::NEEDS_AUTHENTICATION_KEY => $needsAuthentication ?? false,
       ArchiveJob::AUTH_TOKEN_KEY => $tokenSecret ?? null
     ]);

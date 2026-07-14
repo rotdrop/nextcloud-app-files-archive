@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -81,6 +81,8 @@ class ArchiveController extends Controller
   /** @var int */
   private int $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 
+  private bool $stripCommonPathPrefixDefault;
+
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     ?string $appName,
@@ -98,6 +100,7 @@ class ArchiveController extends Controller
 
     $this->archiveBombLimit = $cloudConfig->getAppValue(
       $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT);
+
     $this->archiveSizeLimit = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::ARCHIVE_SIZE_LIMIT, null);
 
@@ -109,6 +112,9 @@ class ArchiveController extends Controller
 
     $this->autoRenameExtractTarget = (bool)$cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::EXTRACT_TARGET_AUTO_RENAME, false);
+
+    $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
   }
   // phpcs:enable
 
@@ -192,7 +198,7 @@ class ArchiveController extends Controller
    * @return DataResponse
    */
   #[Attribute\NoAdminRequired]
-  public function extract(string $archivePath, ?string $targetPath, ?string $passPhrase = null, bool $stripCommonPathPrefix = false):DataResponse
+  public function extract(string $archivePath, ?string $targetPath, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null):DataResponse
   {
     $archivePath = urldecode($archivePath);
     if ($targetPath) {
@@ -213,8 +219,7 @@ class ArchiveController extends Controller
         ArchiveStorage::PARAMETER_ARCHIVE_PASS_PHRASE => $passPhrase,
         ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
         ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $this->actualArchiveSizeLimit(),
-        ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix,
-
+        ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix ?? $this->stripCommonPathPrefixDefault,
       ]);
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       $uncompressedSize = $e->getActualSize();
