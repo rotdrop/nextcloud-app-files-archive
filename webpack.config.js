@@ -41,6 +41,19 @@ webpackConfig.output = {
   compareBeforeEmit: true, // true would break the Makefile
 };
 
+// The base @nextcloud/webpack-vue-config sets `devtool: 'source-map'` for
+// production. That makes both the source-map devtool and csso-webpack-plugin
+// (CSS minification) emit a `<name>.css.map` for every extracted stylesheet
+// with different content, which webpack reports as "Conflict: Multiple assets
+// emit different content to the same filename css/...css.map". Since the
+// production mode also sets `optimization.emitOnErrors = false`, those errors
+// suppress *all* emitted assets and `make appstore` ends up packaging an empty
+// js/ directory. The production ("appstore") build is meant to be minified and
+// without debugging info anyway, so just drop the source maps there.
+if (productionMode) {
+  webpackConfig.devtool = false;
+}
+
 const svgoOptions = {
   multipass: true,
   js2svg: {
@@ -74,6 +87,13 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     exclude: [
       'node_modules',
     ],
+    // Linting must not break the production ("appstore") bundle: in production
+    // ESLint findings are neither emitted as webpack errors (which, together
+    // with optimization.emitOnErrors === false, would suppress every emitted
+    // asset) nor allowed to fail the build. Linting stays active for the
+    // development build.
+    failOnError: !productionMode,
+    emitError: !productionMode,
   }),
   new HtmlWebpackPlugin({
     inject: false,
