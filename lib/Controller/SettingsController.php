@@ -377,14 +377,16 @@ class SettingsController extends Controller
             $humanValue = '';
           }
           break;
+        case self::EXTRACT_TARGET_TEMPLATE:
+        case self::MOUNT_POINT_TEMPLATE:
+          $humanValue = $value;
+          break;
         case self::EXTRACT_BACKGROUND_JOB:
         case self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
         case self::EXTRACT_TARGET_AUTO_RENAME:
-        case self::EXTRACT_TARGET_TEMPLATE:
         case self::MOUNT_BACKGROUND_JOB:
         case self::MOUNT_BY_LEFT_CLICK:
         case self::MOUNT_POINT_AUTO_RENAME:
-        case self::MOUNT_POINT_TEMPLATE:
         case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
           $value = !!$value;
           break;
