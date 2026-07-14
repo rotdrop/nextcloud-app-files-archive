@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -75,6 +75,9 @@ class BackgroundJobController extends Controller
     private UserScopeService $userScopeService,
   ) {
     parent::__construct($appName, $request);
+
+    $this->targetBaseNameTemplate = $cloudConfig->getUserValue(
+      $this->userId, $this->appName, SettingsController::EXTRACT_TARGET_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
 
     $this->mountPointTemplate = $cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::MOUNT_POINT_TEMPLATE, SettingsController::FOLDER_TEMPLATE_DEFAULT);
