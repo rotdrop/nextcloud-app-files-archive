@@ -104,11 +104,11 @@ include $(DEV_LIB_DIR)/makefile/npm.mk
 
 #@@ Run phpcs on the PHP code
 phpcs: composer
-	vendor/bin/phpcs -s --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
+	vendor-bin/phpcs/vendor/bin/phpcs -s --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
 
 #@@ Run phpmd on the PHP code
 phpmd: composer
-	vendor/bin/phpmd lib/,appinfo/,templates/ text $(SRCDIR)/.phpmd.xml
+	vendor-bin/phpmd/vendor/bin/phpmd lib/,appinfo/,templates/ text $(SRCDIR)/.phpmd.xml
 
 # what has to be copied to the appstore archive
 APPSTORE_FILES =\
