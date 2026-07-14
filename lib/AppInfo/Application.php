@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -38,7 +38,9 @@ use OCA\FilesArchive\Service\MimeTypeService;
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Notification\Notifier;
 
+// phpcs:disable PSR1.Files.SideEffects
 include_once __DIR__ . '/../../vendor/autoload.php';
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * App entry point.

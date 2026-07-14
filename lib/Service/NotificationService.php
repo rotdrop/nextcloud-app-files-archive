@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright Copyright (c) 2022, 2024 Claus-Justus Heine
+ * @copyright Copyright (c) 2022, 2024, 2026 Claus-Justus Heine
  * @license GNU AGPL version 3 or any later version
  *
  * "stolen" from files_zip Copyright (c) 2021 Julius Härtl <jus@bitgrid.net>
@@ -84,8 +84,6 @@ class NotificationService
 
   /**
    * @param ArchiveJob $job
-   *
-   * @param Folder $folder
    *
    * @return void
    */

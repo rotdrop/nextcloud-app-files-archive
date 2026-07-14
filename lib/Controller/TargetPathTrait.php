@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -67,7 +67,7 @@ trait TargetPathTrait
    *
    * @param string $archivePath
    *
-   * @param string $operation One of 'mount' or 'extract'
+   * @param string $operation One of 'mount' or 'extract'.
    *
    * @return array
    * ``` [ 'path' => PATH, 'baseName' => BASE_NAME, 'dirName' => DIR_NAME ]```.
