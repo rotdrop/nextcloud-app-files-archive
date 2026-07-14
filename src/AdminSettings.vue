@@ -31,6 +31,20 @@
                  @submit="saveTextInput('archiveSizeLimit', settings.humanArchiveSizeLimit)"
       />
     </NcSettingsSection>
+    <NcSettingsSection :name="t(appName, 'Archive Mounting')">
+      <div class="settings-option">
+        <input id="files-archive-admin-mount-disabled"
+               v-model="settings.mountDisabled"
+               type="checkbox"
+               class="checkbox"
+               :disabled="loading"
+               @change="saveSetting('mountDisabled')"
+        >
+        <label for="files-archive-admin-mount-disabled">
+          {{ t(appName, 'disable mounting of archive files for all users') }}
+        </label>
+      </div>
+    </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Diagnostics')" class="diagnostics">
       <h3>{{ t(appName, "Archive Formats") }}</h3>
       <!-- eslint-disable-next-line vue/no-v-html -->
@@ -62,6 +76,7 @@ import { generateUrl as generateAppUrl } from './toolkit/util/generate-url.ts'
 import {
   fetchSettings,
   saveConfirmedSetting,
+  saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
@@ -70,6 +85,7 @@ const loading = ref(true)
 const settings = reactive({
   archiveSizeLimit: 0x100000000,
   humanArchiveSizeLimit: '',
+  mountDisabled: false,
 })
 
 const diagnostics = reactive({
@@ -91,6 +107,15 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
     value = settings[settingsKey] || ''
   }
   return saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })
+}
+
+const saveSetting = async (settingsKey: string) => {
+  if (loading.value) {
+    // avoid ping-pong by reactivity
+    logger.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
+    return
+  }
+  return saveSimpleSetting({ settingsKey, section: 'admin', settings })
 }
 
 /** TBD */

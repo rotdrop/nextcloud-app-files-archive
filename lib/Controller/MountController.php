@@ -78,6 +78,12 @@ class MountController extends Controller
   /** @var bool */
   private bool $stripCommonPathPrefixDefault = false;
 
+  /** @var bool */
+  private bool $mountDisabledAdmin = false;
+
+  /** @var bool */
+  private bool $mountDisabled = false;
+
   /** @var null|int */
   private ?int $archiveSizeLimit = null;
 
@@ -118,6 +124,12 @@ class MountController extends Controller
 
       $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
         $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+
+      $this->mountDisabledAdmin = (bool)$cloudConfig->getAppValue(
+        $this->appName, SettingsController::MOUNT_DISABLED, SettingsController::MOUNT_DISABLED_DEFAULT);
+
+      $this->mountDisabled = $this->mountDisabledAdmin || (bool)$cloudConfig->getUserValue(
+        $this->userId, $this->appName, SettingsController::MOUNT_DISABLED, SettingsController::MOUNT_DISABLED_DEFAULT);
     }
   }
   // phpcs:enable
@@ -140,6 +152,13 @@ class MountController extends Controller
     ?string $passPhrase = null,
     ?bool $stripCommonPathPrefix = null,
   ) {
+    if ($this->mountDisabledAdmin) {
+      return self::grumble($this->l->t('Mounting of archive files has been disabled by the administrator.'));
+    }
+    if ($this->mountDisabled) {
+      return self::grumble($this->l->t('Mounting of archive files has been disabled in your personal settings.'));
+    }
+
     $archivePath = urldecode($archivePath);
     if ($mountPointPath) {
       $mountPointPath = urldecode($mountPointPath);
