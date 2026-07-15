@@ -49,6 +49,7 @@ OC.L10N.register(
     "unknown" : "nieznane",
     "MIME type" : "Typ MIME",
     "Disconnect storage" : "Odłącz magazyn",
+    "Extract here" : "Wyodrębnij tutaj",
     "Archive" : "Archiwum",
     "close" : "Zamknij",
     "No" : "Nie",

@@ -168,6 +168,7 @@ OC.L10N.register(
     "No pending background job." : "Nema pozadinskog zadatka na čekanju.",
     "Job type: {type}" : "Vrsta zadatka: {type}",
     "Mount Archive" : "Montiraj arhivu",
+    "Extract here" : "Izdvoji ovdje",
     "Archive" : "Arhiva",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Montiranje arhive je naizgled uspjelo, ali navigacija do točke montiranja nije uspjela: „{error}”.",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Arhiva „{archivePath}” već je montirana na „{mountPointPath}”.",

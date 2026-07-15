@@ -128,6 +128,7 @@ OC.L10N.register(
     "No pending background job." : "Нет ожидающих фоновых задач.",
     "Job type: {type}" : "Тип задачи: {type}",
     "Mount Archive" : "Смонтировать архив",
+    "Extract here" : "Извлечь здесь",
     "Archive" : "Архив",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Архив \"{archivePath}\" уже смонтирован в \"{mountPointPath}\".",
     "Unable to obtain mount status for archive file \"{archivePath}\"." : "Не удается получить статус монтирования архива \"{archivePath}\".",

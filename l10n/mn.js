@@ -12,6 +12,7 @@ OC.L10N.register(
     "Clear Selection" : "Сонголтыг арилгах",
     "unknown" : "үл мэдэх",
     "Disconnect storage" : "Хадгалах төхөөрөмж салгах",
+    "Extract here" : "Энд задлах",
     "Archive" : "архив",
     "No" : "Үгүй",
     "Yes" : "Тийм"

@@ -165,6 +165,7 @@ OC.L10N.register(
     "No pending background job." : "Hakuna kazi ya usuli inayosubiri.",
     "Job type: {type}" : "Aina ya kazi: {type}",
     "Mount Archive" : "Hifadhi ya upachikaji",
+    "Extract here" : "Chimbua hapa",
     "Archive" : "Weka kumbukumbu",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Kuweka kumbukumbu kulionekana kufaulu, lakini kusogeza hadi sehemu ya  upachikaji kumeshindwa: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Kumbukumbu \"{archivePath}\" imeshapachikwa kwenye \"{mountPointPath}\".",

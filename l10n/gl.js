@@ -172,6 +172,7 @@ OC.L10N.register(
     "No pending background job." : "Non hai ningún traballo en segundo plano pendente",
     "Job type: {type}" : "Tipo de traballo: {type}",
     "Mount Archive" : "Montar o arquivo",
+    "Extract here" : "Extraer aquí",
     "Archive" : "Arquivo",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "A montaxe do ficheiro foi aparentemente satisfactoria, mais produciuse un fallo na navegación ata o punto de montaxe: «{error}».",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "O arquivo «{archivePath}» xa está montado en «{mountPointPath}».",

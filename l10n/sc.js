@@ -9,6 +9,7 @@ OC.L10N.register(
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",
     "Disconnect storage" : "Disconnete archiviatzione",
+    "Extract here" : "Boga a fora inoghe",
     "Archive" : "Cartella",
     "close" : "serra",
     "No" : "No",
