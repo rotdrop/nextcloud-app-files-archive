@@ -26,7 +26,7 @@ use Throwable;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Attribute;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
 use Psr\Container\ContainerInterface;
@@ -125,7 +125,8 @@ class ArchiveController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/archive/info/{archivePath}')]
   public function info(string $archivePath, ?string $passPhrase = null):DataResponse
   {
     $archivePath = urldecode($archivePath);
@@ -197,7 +198,14 @@ class ArchiveController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'POST',
+    url: '/archive/extract/{archivePath}/{targetPath}',
+    defaults: [
+      'targetPath' => null,
+    ],
+  )]
   public function extract(string $archivePath, ?string $targetPath, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null):DataResponse
   {
     $archivePath = urldecode($archivePath);

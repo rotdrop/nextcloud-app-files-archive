@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2024, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -37,6 +37,7 @@ use Symfony\Component\Console\Helper as ConsoleHelper;
 use Psr\Log\LoggerInterface;
 use OCP\IRequest;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IL10N;
 
@@ -64,10 +65,10 @@ class DiagnosticsController extends Controller
    * Return the information of the ArchiveCommands\FormatsCommand
    *
    * @return DataResponse
-   *
-   * @AuthorizedAdminSetting(settings=OCA\FilesArchive\Settings\Admin)
    */
-  public function archiveFormats():DataResponse
+  #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
+  #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/formats')]
+  public function archiveFormats(): DataResponse
   {
     return self::dataResponse(
       $this->runArchiveCommand(ArchiveCommands\FormatsCommand::class, [ 'driver' => null, ])
@@ -78,10 +79,10 @@ class DiagnosticsController extends Controller
    * Return the information of the ArchiveCommands\DriversCommand
    *
    * @return DataResponse
-   *
-   * @AuthorizedAdminSetting(settings=OCA\FilesArchive\Settings\Admin)
    */
-  public function archiveDrivers():DataResponse
+  #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
+  #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/drivers')]
+  public function archiveDrivers(): DataResponse
   {
     return self::dataResponse(
       $this->runArchiveCommand(ArchiveCommands\DriversCommand::class),
@@ -94,9 +95,9 @@ class DiagnosticsController extends Controller
    * @param string $format
    *
    * @return DataResponse
-   *
-   * @AuthorizedAdminSetting(settings=OCA\FilesArchive\Settings\Admin)
    */
+  #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
+  #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/format/{format}')]
   public function archiveFormat(string $format):DataResponse
   {
     return self::dataResponse(

@@ -28,7 +28,7 @@ use OC\Files\Storage\Wrapper\Wrapper as WrapperStorage;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Attribute;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\BackgroundJob\IJobList;
@@ -109,7 +109,14 @@ class BackgroundJobController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'POST',
+    url: '/archive/schedule/{operation}/{archivePath}/{destinationPath}',
+    defaults: [
+      'destinationPath' => null,
+    ],
+  )]
   public function schedule(
     string $operation,
     string $archivePath,
@@ -173,7 +180,14 @@ class BackgroundJobController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'DELETE',
+    url: '/archive/schedule/{operation}/{archivePath}/{destinationPath}',
+    defaults: [
+      'destinationPath' => null,
+    ],
+  )]
   public function cancel(
     string $operation,
     string $archivePath,
@@ -229,7 +243,14 @@ class BackgroundJobController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/archive/schedule/{operation}/{archivePath}/{destinationPath}',
+    defaults: [
+      'destinationPath' => null,
+    ],
+  )]
   public function status(
     string $archivePath,
     ?string $destinationPath = null,

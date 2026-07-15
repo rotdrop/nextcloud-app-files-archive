@@ -29,7 +29,7 @@ use OC\Files\Storage\Wrapper\Wrapper as WrapperStorage;
 use Psr\Log\LoggerInterface;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Attribute;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IPreview;
@@ -133,7 +133,14 @@ class MountController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'POST',
+    url: '/archive/mount/{archivePath}/{mountPointPath}',
+    defaults: [
+      'mountPointPath' => null,
+    ],
+  )]
   public function mount(
     string $archivePath,
     ?string $mountPointPath = null,
@@ -259,7 +266,8 @@ class MountController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/archive/unmount/{archivePath}')]
   public function unmount(string $archivePath)
   {
     $archivePath = urldecode($archivePath);
@@ -337,7 +345,8 @@ class MountController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/archive/mount/{archivePath}')]
   public function mountStatus(string $archivePath):DataResponse
   {
     $archivePath = urldecode($archivePath);
@@ -366,7 +375,8 @@ class MountController extends Controller
    *
    * @return DataResponse
    */
-  #[Attribute\NoAdminRequired]
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(verb: 'PATCH', url: '/archive/mount/{archivePath}')]
   public function patch(string $archivePath, array $changeSet = [])
   {
     if (empty($changeSet)) {
