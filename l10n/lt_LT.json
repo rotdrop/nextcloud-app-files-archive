@@ -170,6 +170,7 @@
     "No pending background job." : "Nėra vykdomų foninių užduočių.",
     "Job type: {type}" : "Užduoties tipas: {type}",
     "Mount Archive" : "Prijungti archyvą",
+    "Extract here" : "Išskleisti čia",
     "Archive" : "Archyvuoti",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Archyvo prijungimas, atrodo, pavyko, tačiau nepavyko pereiti į prijungimo tašką: „{error}“.",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Archyvas „{archivePath}“ jau prijungtas prie „{mountPointPath}“.",

@@ -15,6 +15,7 @@ OC.L10N.register(
     "unknown" : "okänt",
     "MIME type" : "MIME-typ",
     "Disconnect storage" : "Koppla bort lagring",
+    "Extract here" : "Extrahera här",
     "Archive" : "Arkivera",
     "close" : "stäng",
     "No" : "Nej",

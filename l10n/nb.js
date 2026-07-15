@@ -149,6 +149,7 @@ OC.L10N.register(
     "No pending background job." : "Ingen ventende bakgrunnsjobb.",
     "Job type: {type}" : "Jobbtype: {type}",
     "Mount Archive" : "Mount Archive",
+    "Extract here" : "Pakk ut her",
     "Archive" : "Arkiv",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Arkivet \"{archivePath}\" er allerede montert på \"{mountPointPath}\".",
     "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "Arkivet \"{archivePath}\" er montert på \"{mountPointPath}\".",

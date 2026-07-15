@@ -129,6 +129,7 @@ OC.L10N.register(
     "mount" : "muntatu",
     "extract" : "atera",
     "Mount Archive" : "Muntatu artxiboa",
+    "Extract here" : "Atera hemen",
     "Archive" : "Artxibatu",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "\"{archivePath}\" artxiboa dagoeneko \"{mountPointPath}\"-(e)n muntatuta dago.",
     "Unable to obtain mount status for archive file \"{archivePath}\"." : "Ezin izan da \"{archivePath}\" artxibo-fitxategiaren muntatze-egoera lortu.",

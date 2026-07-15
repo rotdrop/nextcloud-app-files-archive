@@ -169,6 +169,7 @@
     "No pending background job." : "Žádné čekající úlohy na pozadí.",
     "Job type: {type}" : "Typ úlohy: {type}",
     "Mount Archive" : "Připojit archiv",
+    "Extract here" : "Rozbalit sem",
     "Archive" : "Archiv",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Připojení archivu bylo zdánlivě úspěšné, ale navigace do přípojného bodu se nezdařila: „{error}“.",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Archiv „{archivePath}“ už je připojený v „{mountPointPath}.",

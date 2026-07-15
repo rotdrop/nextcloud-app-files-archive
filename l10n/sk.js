@@ -153,6 +153,7 @@ OC.L10N.register(
     "No pending background job." : "Žiadne čakajúce úlohy na pozadí.",
     "Job type: {type}" : "Typ úlohy: {type}",
     "Mount Archive" : "Pripojiť archív",
+    "Extract here" : "Rozbaliť sem",
     "Archive" : "Archív",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Archív \"{archivePath}\" už je pripojený do \"{mountPointPath}\".",
     "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "Archív \"{archivePath}\" bol pripojený do \"{mountPointPath}\".",

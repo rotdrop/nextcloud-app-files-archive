@@ -76,6 +76,7 @@ OC.L10N.register(
     "Extract Archive" : "Extreu l'arxiu",
     "Choose a directory to extract the archive to:" : "Trieu un directori per extreure l'arxiu:",
     "Mount Archive" : "Munta Arxiu",
+    "Extract here" : "Extreure aquí",
     "Archive" : "Arxiu",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "L'arxiu \"{archivePath}\" ja està muntat a \"{mountPointPath}\".",
     "close" : "tanca",

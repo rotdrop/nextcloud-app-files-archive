@@ -10,6 +10,7 @@ OC.L10N.register(
     "Choose" : "Velja",
     "unknown" : "óþekkt",
     "Disconnect storage" : "Aftengja geymslu",
+    "Extract here" : "Afþjappa hér",
     "Archive" : "Safn",
     "close" : "loka",
     "No" : "Nei",

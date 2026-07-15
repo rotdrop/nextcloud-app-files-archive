@@ -102,6 +102,7 @@ OC.L10N.register(
     "Extract Archive" : "解压缩文件",
     "Choose a directory to extract the archive to:" : "选择解压的目标目录：",
     "Mount Archive" : "挂载压缩文件",
+    "Extract here" : "解压到这里",
     "Archive" : "存档",
     "close" : "关闭",
     "No" : "否",

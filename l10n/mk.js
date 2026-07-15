@@ -15,6 +15,7 @@ OC.L10N.register(
     "ok" : "добро",
     "unknown" : "непознат",
     "Disconnect storage" : "Исклучи складиште",
+    "Extract here" : "Отпакувај овде",
     "Archive" : "Архива",
     "close" : "затвори",
     "No" : "Не",

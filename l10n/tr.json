@@ -170,6 +170,7 @@
     "No pending background job." : "Bekleyen bir arka plan görevi yok.",
     "Job type: {type}" : "Görev türü: {type}",
     "Mount Archive" : "Arşiv takma",
+    "Extract here" : "Buraya ayıkla",
     "Archive" : "Arşivle",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Arşiv takılmış gibi görünüyordu, ancak takma noktasına gidilemedi: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "\"{archivePath}\" arşiv dosyası zaten \"{mountPointPath}\" üzerine takılmış.",

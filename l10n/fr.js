@@ -157,6 +157,7 @@ OC.L10N.register(
     "No pending background job." : "Aucune tâche en arrière-plan en attente.",
     "Job type: {type}" : "Type de tâche : {type}",
     "Mount Archive" : "Monter l'archive",
+    "Extract here" : "Extraire ici",
     "Archive" : "Archive",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Le montage de l'archive a apparemment réussi, mais la navigation vers le point de montage a échoué : \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "L'archive \"{archivePath}\" est déjà montée sur \"{mountPointPath}\".",

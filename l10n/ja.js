@@ -16,6 +16,7 @@ OC.L10N.register(
     "unknown" : "不明",
     "MIME type" : "MIMEタイプ",
     "Disconnect storage" : "ストレージを切断する",
+    "Extract here" : "ここに展開する",
     "Archive" : "アーカイブ",
     "close" : "閉じる",
     "No" : "いいえ",
