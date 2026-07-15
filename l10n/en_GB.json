@@ -170,6 +170,7 @@
     "No pending background job." : "No pending background job.",
     "Job type: {type}" : "Job type: {type}",
     "Mount Archive" : "Mount Archive",
+    "Extract here" : "Extract here",
     "Archive" : "Archive",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\".",

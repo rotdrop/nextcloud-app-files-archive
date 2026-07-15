@@ -23,6 +23,7 @@ OC.L10N.register(
     "unknown" : "onbekend",
     "MIME type" : "MIME type",
     "Disconnect storage" : "Verbinding met opslag verbreken",
+    "Extract here" : "Hier uitpakken",
     "Archive" : "Archiveren",
     "close" : "sluiten",
     "No" : "Nee",

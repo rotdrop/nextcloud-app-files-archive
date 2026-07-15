@@ -175,6 +175,7 @@ OC.L10N.register(
     "No pending background job." : "無擱置中的背景作業。",
     "Job type: {type}" : "作業類型：{type}",
     "Mount Archive" : "掛載封存檔",
+    "Extract here" : "在此解壓縮",
     "Archive" : "壓縮檔",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "掛載封存檔似乎成功了，但導航至掛載點時失敗：「{error}」。",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "封存檔「{archivePath}」已掛載於「{mountPointPath}」。",

@@ -173,6 +173,7 @@ OC.L10N.register(
     "No pending background job." : "Níl aon phost cúlra ar feitheamh.",
     "Job type: {type}" : "Cineál poist: {type}",
     "Mount Archive" : "Cartlann mount",
+    "Extract here" : "Sliocht anseo",
     "Archive" : "Cartlann",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Is cosúil gur éirigh leis an gcartlann a shuiteáil, ach theip ar an nascleanúint chuig an bpointe gléasta: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Tá an chartlann \"{archivePath}\" suite cheana féin ar \"{mountPointPath}\".",

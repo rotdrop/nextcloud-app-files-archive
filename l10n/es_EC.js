@@ -115,6 +115,7 @@ OC.L10N.register(
     "Choose a directory to extract the archive to:" : "Elige un directorio para extraer el archivo de archivo:",
     "basename" : "nombre base",
     "Mount Archive" : "Montar archivo de archivo",
+    "Extract here" : "Extraer aquí",
     "Archive" : "Archivar",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "El archivo \"{archivePath}\" ya está montado en \"{mountPointPath}\".",
     "Unable to obtain mount status for archive file \"{archivePath}\"." : "No se puede obtener el estado de montaje para el archivo de archivo \"{archivePath}\".",

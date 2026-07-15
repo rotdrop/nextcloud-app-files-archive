@@ -165,6 +165,7 @@
     "No pending background job." : "ساقلىنىۋاتقان ئارقا كۆرۈنۈش خىزمىتى يوق.",
     "Job type: {type}" : "خىزمەت تىپى: {type}",
     "Mount Archive" : "ئارخىپنى ئورنات",
+    "Extract here" : "بۇ يەردىن چىقىرىڭ",
     "Archive" : "ئارخىپ",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "ئارخىپنى ئورنىتىش مۇۋەپپەقىيەتلىك بولغاندەك قىلىدۇ، ئەمما ئورنىتىش نۇقتىسىغا بېرىش مەغلۇپ بولدى: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "ئارخىپ \"{archivePath}\" ئاللىقاچان \"{mountPointPath}\" غا ئورنىتىلغان.",

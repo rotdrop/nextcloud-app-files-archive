@@ -124,6 +124,7 @@
     "Choose a directory to extract the archive to:" : "Könyvtár kiválasztása az archívum kibontásához:",
     "basename" : "alapnév",
     "Mount Archive" : "Archívum csatolása",
+    "Extract here" : "Kibontás ide",
     "Archive" : "Archívum",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "A(z) „{archivePath}” már csatolva van a következő helyen: „{mountPointPath}”.",
     "Unable to obtain mount status for archive file \"{archivePath}\"." : "A(z) „{archivePath}” csatolási állapota nem kérhető le.",

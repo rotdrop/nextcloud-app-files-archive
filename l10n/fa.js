@@ -172,6 +172,7 @@ OC.L10N.register(
     "No pending background job." : "هیچ کار پس‌زمینه در انتظاری وجود ندارد.",
     "Job type: {type}" : "نوع کار: {type}",
     "Mount Archive" : "اتصال بایگانی",
+    "Extract here" : "استخراج در اینجا",
     "Archive" : "بایگانی",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "به نظر می‌رسد اتصال بایگانی با موفقیت انجام شده است، اما پیمایش به نقطه اتصال با شکست مواجه شد: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "بایگانی \"{archivePath}\" قبلاً روی \"{mountPointPath}\" متصل شده است.",

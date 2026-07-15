@@ -156,6 +156,7 @@
     "No pending background job." : "Δεν υπάρχει εκκρεμής εργασία στο παρασκήνιο.",
     "Job type: {type}" : "Τύπος εργασίας: {type}",
     "Mount Archive" : "Προσάρτηση Αρχείου",
+    "Extract here" : "Εξαγωγή εδώ",
     "Archive" : "Αρχείο",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Η προσάρτηση του αρχείου φαίνεται να ήταν επιτυχής, αλλά η πλοήγηση στο σημείο προσάρτησης απέτυχε: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Το αρχείο \"{archivePath}\" είναι ήδη προσαρτημένο στο \"{mountPointPath}\".",

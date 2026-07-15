@@ -151,6 +151,7 @@ OC.L10N.register(
     "No pending background job." : "لا توجد مهام خلفية معلقة.",
     "Job type: {type}" : " نوع المهمة: {type}",
     "Mount Archive" : "تنصيب الأرشيف Mount Archive",
+    "Extract here" : "استخراج هنا",
     "Archive" : "الأرشيف",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "الأرشيف \"{archivePath}\" مُنصّبٌ mount سلفاً على \"{mountPointPath}\".",
     "The archive \"{archivePath}\" has been mounted on \"{mountPointPath}\"." : "الأرشيف \"{archivePath}\" تمّ تنصيبه على \"{mountPointPath}\".",
