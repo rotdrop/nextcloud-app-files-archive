@@ -81,6 +81,7 @@ OC.L10N.register(
     "MIME type" : "MIME-type",
     "Disconnect storage" : "Frakobl lager",
     "basename" : "grundnavn",
+    "Extract here" : "Udpak her",
     "Archive" : "Arkiver",
     "close" : "luk",
     "No" : "Nej",

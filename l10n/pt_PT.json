@@ -166,6 +166,7 @@
     "Common prefix {prefix} will be stripped." : "Prefixo comum {prefix} será removido.",
     "No pending background job." : "Nenhum trabalho em segundo plano pendente.",
     "Job type: {type}" : "Tipo de trabalho: {type}",
+    "Extract here" : "Extrair aqui",
     "Archive" : "Arquivar",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "A montagem do arquivo aparentemente foi bem-sucedida, mas a navegação até o ponto de montagem falhou: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "O arquivo compactado \"{archivePath}\" já está montado em \"{mountPointPath}\".",

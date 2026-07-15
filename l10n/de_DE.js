@@ -175,6 +175,7 @@ OC.L10N.register(
     "No pending background job." : "Keine ausstehende Hintergrundaufgabe",
     "Job type: {type}" : "Auftragstyp: {type}.",
     "Mount Archive" : "Archiv einhängen",
+    "Extract here" : "Hier entpacken",
     "Archive" : "Archiv",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Das Einhängen des Archivs war scheinbar erfolgreich, aber die Navigation zum Einhängepunkt ist fehlgeschlagen: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "Die Archiv-Datei \"{archivePath}\" ist bereits an der Stelle \"{mountPointPath}\" eingehängt.",

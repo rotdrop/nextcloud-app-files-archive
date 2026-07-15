@@ -53,6 +53,7 @@ OC.L10N.register(
     "Mount Points" : "Priklopne točke",
     "Disconnect storage" : "Odklopi shrambo",
     "Choose a directory to extract the archive to:" : "Izbor mape za razširjanje arhiva:",
+    "Extract here" : "Razširi na to mesto",
     "Archive" : "Arhiv",
     "close" : "zapri",
     "No" : "Ne",

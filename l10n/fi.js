@@ -49,6 +49,7 @@ OC.L10N.register(
     "Disconnect storage" : "Katkaise yhteys tallennustilaan",
     "Extract Archive" : "Pura arkisto",
     "Choose a directory to extract the archive to:" : "Valitse kansio, johon arkisto puretaan:",
+    "Extract here" : "Pura tähän",
     "Archive" : "Arkisto",
     "close" : "sulje",
     "No" : "Ei",

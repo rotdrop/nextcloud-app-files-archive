@@ -173,6 +173,7 @@
     "No pending background job." : "Taustatöötluseks ei leidu ootel ülesandeid.",
     "Job type: {type}" : "Ülesande tüüp: {type}",
     "Mount Archive" : "Haagi arhiivifail",
+    "Extract here" : "Paki fail siia lahti",
     "Archive" : "Arhiiv",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "Arhiivi haakimine justkui toimis, aga selle avamisel tekkis viga: „{error}“.",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "„{archivePath}“ arhiiv on juba haagitud asukohta „{mountPointPath}“.",
