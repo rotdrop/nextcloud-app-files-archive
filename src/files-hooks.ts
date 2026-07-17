@@ -64,31 +64,33 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
   }
 });
 
-registerFileAction({
-  id: appName,
-  displayName(_context) {
-    return t(appName, 'Mount Archive');
-  },
-  title(_context: ActionContext) {
-    return t(appName, 'Mount Archive');
-  },
-  iconSvgInline(_context: ActionContext) {
-    return logoSvg;
-  },
-  enabled(context: ActionContext) {
-    if (context.nodes.length !== 1) {
-      return false;
-    }
-    const node = context.nodes[0];
-    if (!(node.permissions & Permission.READ)) {
-      return false;
-    }
-    return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
-  },
-  exec: (context) => mount(context.nodes[0], context.view),
-  default: initialState?.mountByLeftClick ? DefaultType.DEFAULT : undefined,
-  order: -1000,
-});
+if (!initialState?.mountDisabled) {
+  registerFileAction({
+    id: appName,
+    displayName(_context) {
+      return t(appName, 'Mount Archive');
+    },
+    title(_context: ActionContext) {
+      return t(appName, 'Mount Archive');
+    },
+    iconSvgInline(_context: ActionContext) {
+      return logoSvg;
+    },
+    enabled(context: ActionContext) {
+      if (context.nodes.length !== 1) {
+        return false;
+      }
+      const node = context.nodes[0];
+      if (!(node.permissions & Permission.READ)) {
+        return false;
+      }
+      return node.mime !== undefined && archiveMimeTypes.findIndex((mime) => mime === node.mime) >= 0;
+    },
+    exec: (context) => mount(context.nodes[0], context.view),
+    default: initialState?.mountByLeftClick ? DefaultType.DEFAULT : undefined,
+    order: -1000,
+  });
+}
 
 registerFileAction({
   id: appName + '-extract',

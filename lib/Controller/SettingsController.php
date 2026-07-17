@@ -60,6 +60,7 @@ class SettingsController extends Controller
    */
   const ADMIN_SETTINGS = [
     self::ARCHIVE_SIZE_LIMIT => [ 'rw' => true, 'default' => self::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT ],
+    self::MOUNT_DISABLED => [ 'rw' => true, 'default' => self::MOUNT_DISABLED_DEFAULT ],
   ];
 
   public const MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT = 'mountStripCommonPathPrefixDefault';
@@ -87,6 +88,10 @@ class SettingsController extends Controller
   public const MOUNT_BY_LEFT_CLICK = 'mountByLeftClick';
   public const MOUNT_BY_LEFT_CLICK_DEFAULT = false;
 
+  public const MOUNT_DISABLED = 'mountDisabled';
+  public const MOUNT_DISABLED_DEFAULT = false;
+  public const MOUNT_DISABLED_ADMIN = self::MOUNT_DISABLED . self::ADMIN_SETTING;
+
   /**
    * @var array<string, array>
    *
@@ -104,6 +109,8 @@ class SettingsController extends Controller
     self::MOUNT_BACKGROUND_JOB => [ 'rw' => true, 'default' => self::MOUNT_BACKGROUND_JOB_DEFAULT ],
     self::EXTRACT_BACKGROUND_JOB => [ 'rw' => true, 'default' => self::EXTRACT_BACKGROUND_JOB_DEFAULT ],
     self::MOUNT_BY_LEFT_CLICK => [ 'rw' => true, 'default' => self::MOUNT_BY_LEFT_CLICK_DEFAULT ],
+    self::MOUNT_DISABLED => [ 'rw' => true, 'default' => self::MOUNT_DISABLED_DEFAULT ],
+    self::MOUNT_DISABLED_ADMIN => [ 'rw' => false, 'default' => self::MOUNT_DISABLED_DEFAULT ],
   ];
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
@@ -153,6 +160,20 @@ class SettingsController extends Controller
           $newValue = $this->parseMemorySize($value);
         } catch (InvalidArgumentException $t) {
           return self::grumble($t->getMessage());
+        }
+        break;
+      case self::MOUNT_DISABLED:
+        $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
+        if ($newValue === null) {
+          return self::grumble(
+            $this->l->t('Value "%1$s" for setting "%2$s" is not convertible to boolean.', [
+              $value, $setting,
+            ]));
+        }
+        if ($newValue === (self::ADMIN_SETTINGS[$setting]['default'] ?? false)) {
+          $newValue = null;
+        } else {
+          $newValue = (int)$newValue;
         }
         break;
       default:
@@ -224,6 +245,10 @@ class SettingsController extends Controller
             $humanValue = '';
           }
           break;
+        case self::MOUNT_DISABLED:
+          $value = (bool)$value;
+          $humanValue = $value;
+          break;
         default:
           return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $oneSetting));
       }
@@ -278,6 +303,7 @@ class SettingsController extends Controller
       case self::EXTRACT_TARGET_AUTO_RENAME:
       case self::MOUNT_BACKGROUND_JOB:
       case self::MOUNT_BY_LEFT_CLICK:
+      case self::MOUNT_DISABLED:
       case self::MOUNT_POINT_AUTO_RENAME:
       case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
         $oldValue = filter_var($oldValue, FILTER_VALIDATE_BOOLEAN);
@@ -407,6 +433,8 @@ class SettingsController extends Controller
         case self::EXTRACT_TARGET_AUTO_RENAME:
         case self::MOUNT_BACKGROUND_JOB:
         case self::MOUNT_BY_LEFT_CLICK:
+        case self::MOUNT_DISABLED:
+        case self::MOUNT_DISABLED_ADMIN:
         case self::MOUNT_POINT_AUTO_RENAME:
         case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
           $value = !!$value;

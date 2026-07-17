@@ -119,7 +119,8 @@
           </NcActionInput>
         </NcActions>
       </li>
-      <li class="files-tab-entry flex flex-center clickable"
+      <li v-if="!archiveMountDisabled || archiveMounted"
+          class="files-tab-entry flex flex-center clickable"
           @click="showArchiveMounts = !showArchiveMounts"
       >
         <div class="files-tab-entry__avatar icon-external-white" />
@@ -137,7 +138,10 @@
           />
         </NcActions>
       </li>
-      <li v-show="showArchiveMounts" class="directory-chooser files-tab-entry">
+      <li v-if="!archiveMountDisabled || archiveMounted"
+          v-show="showArchiveMounts"
+          class="directory-chooser files-tab-entry"
+      >
         <div v-if="loading" class="icon-loading-small" />
         <ul v-else-if="archiveMounted" class="archive-mounts">
           <NcListItem v-for="mountPoint in archiveMounts"
@@ -168,7 +172,7 @@
             </template>
           </NcListItem>
         </ul>
-        <div v-else>
+        <div v-else-if="!archiveMountDisabled">
           <FilePrefixPicker v-model="archiveMountFileInfo"
                             :hint="t(appName, 'Not mounted, create a new mount point:')"
                             :placeholder="t(appName, 'base name')"
@@ -426,6 +430,7 @@ const archiveMountStripCommonPathPrefix = ref(!!initialState?.mountStripCommonPa
 const archiveExtractStripCommonPathPrefix = ref(!!initialState?.extractStripCommonPathPrefixDefault)
 const archiveMountBackgroundJob = ref(!!initialState?.mountBackgroundJob)
 const archiveExtractBackgroundJob = ref(!!initialState?.extractBackgroundJob)
+const archiveMountDisabled = !!initialState?.mountDisabled
 const archivePassPhrase = ref<undefined|string>(undefined)
 
 const showArchiveInfo = ref(true)
