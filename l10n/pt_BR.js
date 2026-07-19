@@ -179,7 +179,7 @@ OC.L10N.register(
     "Extract the archive to a new folder in the current directory" : "Extrair o arquivo compactado para uma nova pasta no diretório atual",
     "Archive" : "Arquivo Compactado",
     "The archive \"{archivePath}\" will be extracted asynchronously to \"{targetPath}\", you will be notified on completion." : "O arquivo “{archivePath}” será extraído de forma assíncrona para “{targetPath}”, e você será notificado assim que a extração for concluída.",
-    "The archive \"{archivePath}\" has been extracted to \"{targetPath}\"." : "O arquivo “{archivePath}” foi extraído para “{targetPath}”.",
+    "The archive \"{archivePath}\" has been extracted to \"{targetPath}\"." : "O arquivo compactado “{archivePath}” foi extraído para “{targetPath}”.",
     "Extraction request failed with error {status}, \"{statusText}\"." : "A solicitação de extração falhou com o erro {status}, “{statusText}”.",
     "Mounting the archive was seemingly successful, but navigating to the mount point failed: \"{error}\"." : "A montagem do arquivo aparentemente foi bem-sucedida, mas a navegação até o ponto de montagem falhou: \"{error}\".",
     "The archive \"{archivePath}\" is already mounted on \"{mountPointPath}\"." : "O arquivo compactado \"{archivePath}\" já está montado em \"{mountPointPath}\".",
