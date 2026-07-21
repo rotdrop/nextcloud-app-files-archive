@@ -24,7 +24,6 @@ use Exception;
 use Throwable;
 
 // F I X M E internal
-use OC\Files\Mount\MountPoint;
 use OC\Files\Mount\MoveableMount;
 
 use Psr\Log\LoggerInterface;
@@ -151,13 +150,13 @@ class MountProvider implements IMountProvider
    *
    * @param int $archiveSizeLimit
    *
-   * @return null|MoveableMount
+   * @return null|ArchiveMountPoint
    */
   public function getMountPoint(
     ArchiveMount $mountEntity,
     string $userId,
     int $archiveSizeLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT,
-  ):?MoveableMount {
+  ):?ArchiveMountPoint {
 
     $storageFactory = $this->appContainer->get(IStorageFactory::class);
     $userFolder = $this->rootFolder->getUserFolder($userId);
@@ -183,7 +182,7 @@ class MountProvider implements IMountProvider
    *
    * @param int $archiveSizeLimit
    *
-   * @return null|MoveableMount
+   * @return null|ArchiveMountPoint
    */
   private function doGetMountPoint(
     ArchiveMount $mountEntity,
@@ -191,7 +190,7 @@ class MountProvider implements IMountProvider
     IStorageFactory $loader,
     Folder $userFolder,
     int $archiveSizeLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT,
-  ):?MoveableMount {
+  ):?ArchiveMountPoint {
 
     $userFolderPath = $userFolder->getPath();
 
@@ -226,7 +225,14 @@ class MountProvider implements IMountProvider
       $storage->setRootId($mountEntity->getMountPointFileId());
     }
 
-    return new class(
+    // Nextcloud < 34 marks a mount point as movable/removable only through
+    // the private MoveableMount interface, Nextcloud >= 34 removed it in
+    // favour of the public IMovableMount.
+    $mountPointClass = interface_exists(MoveableMount::class)
+      ? LegacyArchiveMountPoint::class
+      : ArchiveMountPoint::class;
+
+    return new $mountPointClass(
       $storage,
       $mountDirectory,
       $loader,
@@ -237,117 +243,6 @@ class MountProvider implements IMountProvider
       $mountEntity,
       $this->notificationService,
       $this->logger,
-    ) extends MountPoint implements MoveableMount
-    {
-      use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-
-      /**
-       * @param ArchiveStorage $storage
-       *
-       * @param string $mountPointPath
-       *
-       * @param IStorageFactory $loader
-       *
-       * @param string $userFolderPath
-       *
-       * @param IMountManager $mountManager
-       *
-       * @param IUserMountCache $userMountCache
-       *
-       * @param ArchiveMountMapper $mountMapper
-       *
-       * @param ArchiveMount $mountEntity
-       *
-       * @param NotificationService $notificationService
-       *
-       * @param LoggerInterface $logger
-       */
-      public function __construct(
-        ArchiveStorage $storage,
-        string $mountPointPath,
-        IStorageFactory $loader,
-        private string $userFolderPath,
-        private IMountManager $mountManager,
-        private IUserMountCache $userMountCache,
-        private ArchiveMountMapper $mountMapper,
-        private ArchiveMount $mountEntity,
-        private NotificationService $notificationService,
-        protected LoggerInterface $logger,
-      ) {
-        parent::__construct(
-          storage: $storage,
-          mountpoint: $mountPointPath,
-          loader: $loader,
-          mountId: $mountEntity->getArchiveFileId(),
-          mountProvider: MountProvider::class,
-          mountOptions: [
-            'filesystem_check_changes' => 1,
-            'readonly' => true,
-            'previews' => true,
-            'enable_sharing' => false,
-            'authenticated' => false,
-          ],
-        );
-      }
-
-      /** {@inheritdoc} */
-      public function getMountType()
-      {
-        return 'external'; // Constants::APP_NAME;
-      }
-
-      /** {@inheritdoc} */
-      public function moveMount($target)
-      {
-        if (!str_starts_with($target, $this->userFolderPath)) {
-          return false;
-        }
-
-        $relativeTarget = substr($target, strlen($this->userFolderPath));
-
-        // has to be done, the file-cache is then updated automagically, it seems
-        $this->setMountPoint($target);
-
-        $this->mountEntity->setMountPointPath($relativeTarget);
-        $this->mountMapper->update($this->mountEntity);
-
-        // Convenience: obviously the user has realized the mount, so there is
-        // no point in keeping the notification.
-        $this->notificationService->deleteMountSuccessNotification(
-          userId: $this->mountEntity->getUserId(),
-          mountPointId: $this->mountEntity->getMountPointFileId(),
-        );
-
-        return true;
-      }
-
-      /** {@inheritdoc} */
-      public function removeMount()
-      {
-        /** @var MountPoint $this */
-        $this->mountMapper->delete($this->mountEntity);
-        $this->mountManager->removeMount($this->getMountPoint());
-
-        $this->userMountCache->remoteStorageMounts($this->getNumericStorageId());
-
-        // Destroy the cache s.t. we will get a new id on the next mount. This
-        // is necessary to get the display in the front-end correct because
-        // the path cache (Vue "store") does not listen to "deleted" events.
-        /** @var ArchiveStorage $storage */
-        $storage = $this->getStorage();
-        // $storage->getCache()->remove($this->getStorageRootId());
-        // $storage->getStorageCache()->remove($this->getNumericStorageId());
-        $storage->getCache()->clear(); // internal, but much faster
-
-        // Remove the mount-success information in order not to have stale
-        // notifications with links to non-existing files.
-        $this->notificationService->deleteMountSuccessNotification(
-          userId: $this->mountEntity->getUserId(),
-          mountPointId: $this->mountEntity->getMountPointFileId(),
-        );
-
-        return true;
-      }
-    };
+    );
   }
 }
