@@ -18,7 +18,7 @@ OC.L10N.register(
     "\"%1$s\" is already mounted on \"%2$s\"." : "„%1$s“ jau prijungtas prie „%2$s“.",
     "Unable to open parent folder \"%1$s\" of mount point \"%2$s\": %3$s." : "Nepavyko atidaryti pagrindinio aplanko „%1$s“ prijungimo taško „%2$s“: %3$s.",
     "The mount point \"%s\" already exists and auto-rename is not enabled." : "Prijungimo taškas „%s“ jau egzistuoja, o automatinis pervadinimas neįjungtas.",
-    "Unable to update the file cache for the mount point \"%1s\": %2$s." : "Nepavyko atnaujinti failų laikinosios atminties prijungimo taškui „%1s“: %2$s.",
+    "Unable to update the file cache for the mount point \"%1s\": %2$s." : "Nepavyko atnaujinti failų tarpinės atminties prijungimo taškui „%1s“: %2$s.",
     "\"%s\" is not mounted." : "„%s“ nėra prijungtas.",
     "Directory \"%s\" is not a mount point." : "Katalogas „%s“ nėra prijungimo taškas.",
     "Archive \"%1$s\" has been unmounted from \"%2$s\"." : "Archyvas „%1$s“ buvo atjungtas nuo „%2$s“.",
