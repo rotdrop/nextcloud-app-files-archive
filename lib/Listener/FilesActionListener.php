@@ -148,6 +148,10 @@ class FilesActionListener implements IEventListener
           $userId, $appName, SettingsController::EXTRACT_BACKGROUND_JOB, SettingsController::EXTRACT_BACKGROUND_JOB_DEFAULT),
         SettingsController::MOUNT_BY_LEFT_CLICK => $cloudConfig->getUserValue(
           $userId, $appName, SettingsController::MOUNT_BY_LEFT_CLICK, SettingsController::MOUNT_BY_LEFT_CLICK_DEFAULT),
+        SettingsController::MOUNT_DISABLED => (bool)$cloudConfig->getAppValue(
+          $appName, SettingsController::MOUNT_DISABLED, SettingsController::MOUNT_DISABLED_DEFAULT)
+          || (bool)$cloudConfig->getUserValue(
+            $userId, $appName, SettingsController::MOUNT_DISABLED, SettingsController::MOUNT_DISABLED_DEFAULT),
         SettingsController::MOUNT_POINT_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
         SettingsController::EXTRACT_TARGET_TEMPLATE => SettingsController::FOLDER_TEMPLATE_DEFAULT,
       ]);
