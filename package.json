@@ -61,7 +61,7 @@
     "js-md5": "^0.8.3",
     "mini-css-extract-plugin": "^2.10.2",
     "sass": "^1.99.0",
-    "sass-loader": "^16.0.8",
+    "sass-loader": "^17.0.0",
     "stacktrace-gps": "github:stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a",
     "stacktrace-js": "^2.0.2",
     "svgo-loader": "^5.0.0",
