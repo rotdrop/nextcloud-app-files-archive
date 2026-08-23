@@ -60,6 +60,7 @@ class SettingsController extends Controller
    */
   const ADMIN_SETTINGS = [
     self::ARCHIVE_SIZE_LIMIT => [ 'rw' => true, 'default' => self::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT ],
+    self::MOUNT_DISABLED => [ 'rw' => true, 'default' => self::MOUNT_DISABLED_DEFAULT ],
   ];
 
   public const MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT = 'mountStripCommonPathPrefixDefault';
@@ -87,6 +88,10 @@ class SettingsController extends Controller
   public const MOUNT_BY_LEFT_CLICK = 'mountByLeftClick';
   public const MOUNT_BY_LEFT_CLICK_DEFAULT = false;
 
+  public const MOUNT_DISABLED = 'mountDisabled';
+  public const MOUNT_DISABLED_DEFAULT = false;
+  public const MOUNT_DISABLED_ADMIN = self::MOUNT_DISABLED . self::ADMIN_SETTING;
+
   /**
    * @var array<string, array>
    *
@@ -104,6 +109,8 @@ class SettingsController extends Controller
     self::MOUNT_BACKGROUND_JOB => [ 'rw' => true, 'default' => self::MOUNT_BACKGROUND_JOB_DEFAULT ],
     self::EXTRACT_BACKGROUND_JOB => [ 'rw' => true, 'default' => self::EXTRACT_BACKGROUND_JOB_DEFAULT ],
     self::MOUNT_BY_LEFT_CLICK => [ 'rw' => true, 'default' => self::MOUNT_BY_LEFT_CLICK_DEFAULT ],
+    self::MOUNT_DISABLED => [ 'rw' => true, 'default' => self::MOUNT_DISABLED_DEFAULT ],
+    self::MOUNT_DISABLED_ADMIN => [ 'rw' => false, 'default' => self::MOUNT_DISABLED_DEFAULT ],
   ];
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
@@ -153,6 +160,20 @@ class SettingsController extends Controller
           $newValue = $this->parseMemorySize($value);
         } catch (InvalidArgumentException $t) {
           return self::grumble($t->getMessage());
+        }
+        break;
+      case self::MOUNT_DISABLED:
+        $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
+        if ($newValue === null) {
+          return self::grumble(
+            $this->l->t('Value "%1$s" for setting "%2$s" is not convertible to boolean.', [
+              $value, $setting,
+            ]));
+        }
+        if ($newValue === (self::ADMIN_SETTINGS[$setting]['default'] ?? false)) {
+          $newValue = null;
+        } else {
+          $newValue = (int)$newValue;
         }
         break;
       default:
@@ -224,6 +245,10 @@ class SettingsController extends Controller
             $humanValue = '';
           }
           break;
+        case self::MOUNT_DISABLED:
+          $value = (bool)$value;
+          $humanValue = $value;
+          break;
         default:
           return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $oneSetting));
       }
@@ -291,6 +316,21 @@ class SettingsController extends Controller
         if ($newValue === (self::PERSONAL_SETTINGS[$setting]['default'] ?? false)) {
           $newValue = null;
         }
+        break;
+      case self::MOUNT_DISABLED:
+        $oldValue = filter_var(
+          $this->config->getUserValue($this->userId, $this->appName, $setting, $this->mountDisabledDefault()),
+          FILTER_VALIDATE_BOOLEAN);
+        $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
+        if ($newValue === null) {
+          return self::grumble(
+            $this->l->t('Value "%1$s" for setting "%2$s" is not convertible to boolean.', [
+              $value, $setting,
+            ]));
+        }
+        // The personal value overrides the administrative default in both
+        // directions, so it has to be recorded even when it happens to match
+        // the current default.
         break;
       case self::MOUNT_POINT_TEMPLATE:
       case self::EXTRACT_TARGET_TEMPLATE:
@@ -380,6 +420,12 @@ class SettingsController extends Controller
           $adminKey,
           self::ADMIN_SETTINGS[$adminKey]['default'] ?? null,
         );
+      } elseif ($oneSetting === self::MOUNT_DISABLED) {
+        $value = $this->config->getUserValue(
+          $this->userId,
+          $this->appName,
+          $oneSetting,
+          $this->mountDisabledDefault());
       } else {
         $value = $this->config->getUserValue(
           $this->userId,
@@ -407,6 +453,8 @@ class SettingsController extends Controller
         case self::EXTRACT_TARGET_AUTO_RENAME:
         case self::MOUNT_BACKGROUND_JOB:
         case self::MOUNT_BY_LEFT_CLICK:
+        case self::MOUNT_DISABLED:
+        case self::MOUNT_DISABLED_ADMIN:
         case self::MOUNT_POINT_AUTO_RENAME:
         case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
           $value = !!$value;
@@ -426,6 +474,18 @@ class SettingsController extends Controller
         'humanValue' => $results['human' . ucfirst($setting)],
       ]);
     }
+  }
+
+  /**
+   * The administrative setting for the mount-disabled switch only defines the
+   * default for the users, who may override it in both directions.
+   *
+   * @return bool
+   */
+  private function mountDisabledDefault(): bool
+  {
+    return (bool)$this->config->getAppValue(
+      $this->appName, self::MOUNT_DISABLED, self::MOUNT_DISABLED_DEFAULT);
   }
 
   /**
