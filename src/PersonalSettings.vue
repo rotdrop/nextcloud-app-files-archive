@@ -22,7 +22,7 @@
       {{ t(appName, 'Archive Manager, Personal Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Security Options')">
-      <TextField v-mode:value="settings.humanArchiveSizeLimit"
+      <TextField v-model="settings.humanArchiveSizeLimit"
                  :label="t(appName, 'Archive Size Limit')"
                  :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
                  :disabled="loading"
@@ -39,7 +39,7 @@
       </span>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Mount Options')">
-      <TextField v-model:value="settings.mountPointTemplate"
+      <TextField v-model="settings.mountPointTemplate"
                  :label="t(appName, 'Template for the default name of the mount point')"
                  :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
                  placeholder="{archiveFileName}"
@@ -91,7 +91,7 @@
       </div>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Extraction Options')">
-      <TextField v-model:value="settings.extractTargetTemplate"
+      <TextField v-model="settings.extractTargetTemplate"
                  :label="t(appName, 'Template for the default name of the extraction folder')"
                  :hint="t(appName, '{archiveFileName} will be replaced by the filename of the archive file without extensions.')"
                  placeholder="{archiveFileName}"

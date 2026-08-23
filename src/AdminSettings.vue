@@ -24,7 +24,7 @@
       {{ t(appName, 'Archive Manager, Admin Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Archive Extraction')">
-      <TextField v-model:value="settings.humanArchiveSizeLimit"
+      <TextField v-model="settings.humanArchiveSizeLimit"
                  :label="t(appName, 'Archive Size Limit')"
                  :hint="t(appName, 'Disallow archive extraction for archives with decompressed size larger than this limit.')"
                  :disabled="loading"
