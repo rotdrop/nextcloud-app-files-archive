@@ -37,8 +37,8 @@
       <li v-show="showArchiveInfo" class="files-tab-entry">
         <div v-if="loading" class="icon-loading-small" />
         <ul v-show="!loading" class="archive-info">
-          <NcListItem v-if="isLt(0, archiveStatus)"
-                      :class="{ 'archive-error': isLt(0, archiveStatus) }"
+          <NcListItem v-if="archiveError"
+                      :class="{ 'archive-error': archiveError }"
                       :name="t(appName, 'archive status')"
                       :bold="true"
                       :details="archiveStatusText"
@@ -109,8 +109,7 @@
           </h5>
         </div>
         <NcActions :forceMenu="true">
-          <NcActionInput ref="archivePassPhraseComponent"
-                         v-model="archivePassPhrase"
+          <NcActionInput v-model="archivePassPhrase"
                          type="password"
                          icon="icon-password"
                          @submit="setPassPhrase"
@@ -333,6 +332,7 @@ import {
   onBeforeMount,
   onUnmounted,
   ref,
+  useTemplateRef,
   watch,
 } from 'vue'
 import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue'
@@ -399,9 +399,8 @@ const setBusyState = (state: boolean) => {
 
 setBusyState(false) // needs to be done once while in setup mode
 
-const archivePassPhraseComponent = ref<null|typeof NcActionInput>(null)
-const mountOptionsComponent = ref<null|typeof NcActions>(null)
-const extractionOptionsComponent = ref<null|typeof NcActions>(null)
+const mountOptionsComponent = useTemplateRef<typeof NcActions>('mountOptionsComponent')
+const extractionOptionsComponent = useTemplateRef<typeof NcActions>('extractionOptionsComponent')
 
 const loading = ref(0)
 
@@ -414,6 +413,7 @@ const ArchiveStatusBomb = 2
 
 const archiveInfo = ref<undefined|ArchiveInfo>(undefined)
 const archiveStatus = ref<undefined|number>(undefined)
+const archiveError = computed(() => 0 < archiveStatus.value!)
 
 const archiveMounts = ref<ArchiveMount[]>([])
 
@@ -539,7 +539,7 @@ const commonPathPrefix = computed(
 // )
 
 // We ____DO____  want to compare numerically here.
-const isLt = (a: null|undefined|number, b: null|undefined|number) => a! < b!
+// const isLt = (a: null|undefined|number, b: null|undefined|number) => a! < b!
 
 const openMountOptionsMenu = () => {
   mountOptionsComponent.value?.openMenu()
