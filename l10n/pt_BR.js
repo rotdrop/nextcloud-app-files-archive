@@ -127,7 +127,7 @@ OC.L10N.register(
     "Administrative size limit: {value}" : "Limite de tamanho administrativo: {value}",
     "Mount Options" : "Opções de Montagem",
     "disable mounting of archive files" : "desativar a montagem de arquivos compactados",
-    "The administrator has disabled the mounting of archive files by default, but you may enable it here." : "A administração desativou a montagem de arquivos de arquivo por padrão, mas você pode ativá-la aqui.",
+    "The administrator has disabled the mounting of archive files by default, but you may enable it here." : "A administração desativou a montagem de arquivos compactados por padrão, mas você pode ativá-la aqui.",
     "Template for the default name of the mount point" : "Modelo para o nome padrão do ponto de montagem",
     "{archiveFileName} will be replaced by the filename of the archive file without extensions." : "{archiveFileName} será substituído pelo nome do arquivo do arquivo compactado sem extensões.",
     "strip common path prefix by default" : "remover o prefixo comum do caminho por padrão",
