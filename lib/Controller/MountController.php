@@ -119,8 +119,14 @@ class MountController extends Controller
       $this->autoRenameMountPoint = (bool)$cloudConfig->getUserValue(
         $this->userId, $this->appName, SettingsController::MOUNT_POINT_AUTO_RENAME, false);
 
+      $stripCommonPathPrefixDefault = (bool)$cloudConfig->getAppValue(
+        $this->appName,
+        SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+        SettingsController::STRIP_COMMON_PATH_PREFIX_DEFAULT);
+
       $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
-        $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+        $this->userId, $this->appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+        $stripCommonPathPrefixDefault);
 
       $mountDisabledDefault = (bool)$cloudConfig->getAppValue(
         $this->appName, SettingsController::MOUNT_DISABLED, SettingsController::MOUNT_DISABLED_DEFAULT);

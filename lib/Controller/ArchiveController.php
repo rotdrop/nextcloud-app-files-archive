@@ -113,8 +113,14 @@ class ArchiveController extends Controller
     $this->autoRenameExtractTarget = (bool)$cloudConfig->getUserValue(
       $this->userId, $this->appName, SettingsController::EXTRACT_TARGET_AUTO_RENAME, false);
 
+    $stripCommonPathPrefixDefault = (bool)$cloudConfig->getAppValue(
+      $this->appName,
+      SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+      SettingsController::STRIP_COMMON_PATH_PREFIX_DEFAULT);
+
     $this->stripCommonPathPrefixDefault = (bool)$cloudConfig->getUserValue(
-      $this->userId, $this->appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false);
+      $this->userId, $this->appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+      $stripCommonPathPrefixDefault);
   }
   // phpcs:enable
 
