@@ -41,6 +41,7 @@ OC.L10N.register(
     "unknown" : "tidak diketahui",
     "MIME type" : "Tipe MIME",
     "Disconnect storage" : "Memutuskan penyimpaan",
+    "Extract here" : "Ekstrak di sini",
     "Archive" : "Arsip",
     "close" : "tutup",
     "No" : "Tidak",
