@@ -23,6 +23,8 @@
 namespace OCA\FilesArchive\Mount;
 
 // F I X M E internal
+use Throwable;
+
 use OC\Files\Mount\MountPoint;
 
 use Psr\Log\LoggerInterface;
@@ -43,6 +45,15 @@ use OCA\FilesArchive\Storage\ArchiveStorage;
 class ArchiveMountPoint extends MountPoint implements IMovableMount
 {
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+
+  /**
+   * @var bool
+   *
+   * Whether updating the persisted mount-point file-id has already been
+   * attempted. The mount-point is rebuilt on every request, so a failed update
+   * is retried on the next request, not on every call in the same one.
+   */
+  private bool $rootIdUpdateAttempted = false;
 
   /**
    * @param ArchiveStorage $storage
@@ -91,6 +102,35 @@ class ArchiveMountPoint extends MountPoint implements IMovableMount
         'authenticated' => false,
       ],
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * Keep the persisted file-id of the mount-point in sync with the file-cache.
+   * The id goes stale when the file-cache of the storage has been lost, e.g.
+   * for mounts which were already broken before the storage-id migration. The
+   * cache is rebuilt by the mount provider in that case, and this is the place
+   * where the resulting id becomes known again.
+   */
+  public function getStorageRootId()
+  {
+    $rootId = parent::getStorageRootId();
+
+    if ($rootId > 0
+        && !$this->rootIdUpdateAttempted
+        && $this->mountEntity->getId() !== null
+        && $rootId !== $this->mountEntity->getMountPointFileId()) {
+      $this->rootIdUpdateAttempted = true;
+      try {
+        $this->mountEntity->setMountPointFileId($rootId);
+        $this->mountMapper->update($this->mountEntity);
+      } catch (Throwable $t) {
+        $this->logger->error('Unable to update the mount-point file-id of the archive "' . $this->mountEntity->getArchiveFilePath() . '"', [ 'exception' => $t ]);
+      }
+    }
+
+    return $rootId;
   }
 
   /** {@inheritdoc} */
