@@ -119,6 +119,13 @@ class ArchiveStorage extends AbstractStorage
   protected ?int $rootId = null;
 
   /**
+   * @var bool
+   *
+   * Whether $rootId has already been checked against the file-cache.
+   */
+  protected bool $rootIdValidated = false;
+
+  /**
    * @var CappedMemoryCache
    *
    * Cache for the database filecache
@@ -160,6 +167,38 @@ class ArchiveStorage extends AbstractStorage
   public function getRootId():int
   {
     return $this->rootId;
+  }
+
+  /**
+   * Determine whether the file-cache can be used instead of scanning the
+   * archive.
+   *
+   * $rootId is restored from the mount table and may refer to a file-id which
+   * does not exist any more, e.g. after the archive file has been renamed and
+   * the storage-id has changed with it. The cache lookups would then fail for
+   * every path including the mount root, and the mount would look broken
+   * while nothing is able to repair it: everything which could rebuild the
+   * root entry asks the very same cache first. So check the root entry once
+   * and fall back to the lazy archive scan if it is not there.
+   *
+   * @return bool
+   */
+  protected function useFileCache():bool
+  {
+    if (($this->rootId ?? 0) <= 0) {
+      return false;
+    }
+    if (!$this->rootIdValidated) {
+      $this->rootIdValidated = true;
+      if (!$this->getCacheEntry('')) {
+        $this->logInfo(
+          'The file-cache of the storage "' . $this->getId()
+          . '" has no root entry, falling back to scanning the archive.'
+        );
+        $this->rootId = null;
+      }
+    }
+    return ($this->rootId ?? 0) > 0;
   }
 
   /** {@inheritdoc} */
@@ -377,7 +416,7 @@ class ArchiveStorage extends AbstractStorage
     if ($this->is_dir($path)) {
       $result = $this->archiveFile->getMTime();
     } elseif ($this->is_file($path)) {
-      if ($this->rootId > 0) {
+      if ($this->useFileCache()) {
         /** @var ICacheEntry $cacheEntry */
         $cacheEntry = $this->getCacheEntry($path);
         $result = $cacheEntry->getMTime();
@@ -408,6 +447,10 @@ class ArchiveStorage extends AbstractStorage
   {
     /** @var ICacheEntry $rootEntry */
     $rootEntry = $this->getCache()->get('');
+    if (!$rootEntry) {
+      // The root entry is missing, so the storage has to be scanned again.
+      return true;
+    }
     $result = min($rootEntry->getStorageMTime(), $rootEntry->getMTime()) < $this->archiveFile->getMTime();
     // $result = $time < $this->archiveFile->getMTime();
     // $this->logInfo('REF TIME ' . $time . ' ARCH TIME ' .  $this->archiveFile->getMTime() . ' UPDATED ' . (int)$result);
@@ -423,7 +466,7 @@ class ArchiveStorage extends AbstractStorage
     if (!$this->is_file($path)) {
       return false;
     }
-    if ($this->rootId > 0) {
+    if ($this->useFileCache()) {
       /** @var ICacheEntry $cacheEntry */
       $cacheEntry = $this->getCacheEntry($path);
       return $cacheEntry->getSize();
@@ -461,7 +504,11 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function file_exists(string $path): bool
   {
-    if ($this->rootId > 0) {
+    if (trim($path, self::PATH_SEPARATOR) === '') {
+      return true;
+    }
+
+    if ($this->useFileCache()) {
       if (!$this->fileCacheCache->hasKey($path)) {
         $this->fileCacheCache->set($path, $this->getCache()->get($path));
       }
@@ -484,7 +531,7 @@ class ArchiveStorage extends AbstractStorage
       return false;
     }
 
-    if ($this->rootId > 0) {
+    if ($this->useFileCache()) {
       /** @var ICacheEntry $cacheEntry */
       $cacheEntry = $this->getCacheEntry($path);
       $dirFileId = $cacheEntry->getId();
@@ -534,7 +581,13 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function is_dir($path): bool
   {
-    if ($this->rootId > 0) {
+    if (trim($path, self::PATH_SEPARATOR) === '') {
+      // The root of the mount always exists, no matter what the file-cache
+      // knows about it.
+      return true;
+    }
+
+    if ($this->useFileCache()) {
       /** @var ICacheEntry $cacheEntry */
       $cacheEntry = $this->getCacheEntry($path);
       if (!$cacheEntry) {
@@ -557,7 +610,7 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function is_file($path): bool
   {
-    if ($this->rootId > 0) {
+    if ($this->useFileCache()) {
       /** @var ICacheEntry $cacheEntry */
       $cacheEntry = $this->getCacheEntry($path);
       if (!$cacheEntry) {
