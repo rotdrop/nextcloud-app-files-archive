@@ -71,6 +71,13 @@ class Application extends App implements IBootstrap
     $context->injectFn(function(IMountProviderCollection $mountProviderCollection, ArchiveMountProvider $mountProvider) {
       $mountProviderCollection->registerProvider($mountProvider, PHP_INT_MAX - 1);
     });
+
+    // Make the archive extension to MIME-type mappings known to the MIME-type
+    // detector for every request, so that newly uploaded archives are detected
+    // correctly without having to persist anything into config/.
+    $context->injectFn(function(MimeTypeService $mimeTypeService) {
+      $mimeTypeService->registerMimeTypeMappings();
+    });
   }
 
   /**
