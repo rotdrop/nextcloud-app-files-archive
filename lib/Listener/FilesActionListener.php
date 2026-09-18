@@ -138,10 +138,20 @@ class FilesActionListener implements IEventListener
         'adminContact' => $this->getCloudAdminContacts(implode: true),
         'phpUserAgent' => $_SERVER['HTTP_USER_AGENT'], // @@todo get in javascript from request
         'archiveMimeTypes' => $archiveMimeTypes,
-        SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
-          $userId, $appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
-        SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT => $cloudConfig->getUserValue(
-          $userId, $appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT, false),
+        SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT => filter_var(
+          $cloudConfig->getUserValue(
+            $userId, $appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+            $cloudConfig->getAppValue(
+              $appName, SettingsController::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+              SettingsController::STRIP_COMMON_PATH_PREFIX_DEFAULT)),
+          FILTER_VALIDATE_BOOLEAN),
+        SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT => filter_var(
+          $cloudConfig->getUserValue(
+            $userId, $appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+            $cloudConfig->getAppValue(
+              $appName, SettingsController::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT,
+              SettingsController::STRIP_COMMON_PATH_PREFIX_DEFAULT)),
+          FILTER_VALIDATE_BOOLEAN),
         SettingsController::MOUNT_BACKGROUND_JOB => $cloudConfig->getUserValue(
           $userId, $appName, SettingsController::MOUNT_BACKGROUND_JOB, SettingsController::MOUNT_BACKGROUND_JOB_DEFAULT),
         SettingsController::EXTRACT_BACKGROUND_JOB => $cloudConfig->getUserValue(
