@@ -33,7 +33,11 @@ webpackConfig.entry = {
 webpackConfig.output = {
   // path: path.resolve(__dirname, 'js'),
   path: path.resolve(__dirname, '.'),
-  publicPath: '',
+  // 'auto' derives the base URL from the script which is currently executing.
+  // An empty public path would make the runtime resolve lazily loaded chunks
+  // against the page instead of the app, and a chunk requested before
+  // src/webpack-setup.ts has assigned __webpack_public_path__ would 404.
+  publicPath: 'auto',
   filename: 'js/[name]-[contenthash].js',
   assetModuleFilename: 'js/assets/[name]-[hash][ext][query]',
   chunkFilename: 'js/chunks/[name]-[contenthash].js',
