@@ -155,13 +155,11 @@ async function getDriversStatus() {
 <style lang="scss" scoped>
 .cloud-version {
   --cloud-theme-filter: var(--background-invert-if-dark);
-  &.cloud-version-major-24 {
-    --cloud-theme-filter: none;
-  }
 }
 .templateroot :deep() {
   h1.title {
-    margin: 30px 30px 0px;
+    margin: calc(var(--default-grid-baseline) * 7);
+    margin-bottom: 0;
     font-size:revert;
     font-weight:revert;
     position: relative;
