@@ -22,7 +22,6 @@ import type { ArchiveMount, GetArchiveMountResponse } from '../model/archive-mou
 import type { InitialState } from '../types/initial-state.d.ts';
 
 import axios from '@nextcloud/axios';
-import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 import { emit } from '@nextcloud/event-bus';
 import { NodeStatus } from '@nextcloud/files';
 import { translate as t } from '@nextcloud/l10n';
@@ -32,6 +31,7 @@ import { isAxiosErrorResponse } from '../toolkit/types/axios-type-guards.ts';
 import { fileInfoToNode } from '../toolkit/util/file-node-helper.ts';
 import generateAppUrl from '../toolkit/util/generate-url.ts';
 import getInitialState from '../toolkit/util/initial-state.ts';
+import { showError, showSuccess, TOAST_PERMANENT_TIMEOUT } from '../toolkit/util/toasts.ts';
 
 const initialState = getInitialState<InitialState>();
 
