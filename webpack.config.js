@@ -23,12 +23,21 @@ xml2js.parseString(fs.readFileSync(infoFile), function(err, result) {
 const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
-webpackConfig.entry = {
-  'admin-settings': path.join(__dirname, 'src', 'admin-settings.ts'),
-  'personal-settings': path.join(__dirname, 'src', 'personal-settings.ts'),
-  'files-hooks': path.join(__dirname, 'src', 'files-hooks.ts'),
-  'files-sidebar-hooks': path.join(__dirname, 'src', 'files-sidebar-hooks.ts'),
-};
+const webpackSetup = path.join('toolkit', 'util', 'webpack-setup');
+const entryPoints = [
+  'admin-settings',
+  'personal-settings',
+  'files-hooks',
+  'files-sidebar-hooks',
+];
+
+webpackConfig.entry = entryPoints.reduce((acc, key) => {
+  acc[key] = [
+    path.join(__dirname, 'src', `${webpackSetup}.ts`),
+    path.join(__dirname, 'src', `${key}.ts`),
+  ];
+  return acc;
+}, {});
 
 webpackConfig.output = {
   // path: path.resolve(__dirname, 'js'),

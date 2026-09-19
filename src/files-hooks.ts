@@ -37,8 +37,6 @@ import mount from './services/mount.ts';
 import { fileInfoToNode } from './toolkit/util/file-node-helper.ts';
 import getInitialState from './toolkit/util/initial-state.ts';
 
-import './webpack-setup.ts';
-
 const initialState = getInitialState<InitialState>();
 const archiveMimeTypes: Array<string> = initialState?.archiveMimeTypes || [];
 
