@@ -23,6 +23,9 @@ xml2js.parseString(fs.readFileSync(infoFile), function(err, result) {
 const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
+// This is used by @nextcloud/webpack-vue-config.
+process.env.__VUE_PROD_DEVTOOLS__ = !productionMode;
+
 const webpackSetup = path.join('toolkit', 'util', 'webpack-setup');
 const entryPoints = [
   'admin-settings',
