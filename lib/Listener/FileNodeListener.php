@@ -3,7 +3,7 @@
  * Archive Manager for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -79,12 +79,10 @@ class FileNodeListener implements IEventListener
     $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     /** @var Node $sourceNode */
-    /** @var Node $typeNode */
     switch ($eventClass) {
       case NodeDeletedEvent::class:
         /** @var NodeDeletedEvent $event */
         $sourceNode = $event->getNode();
-        $typeNode = $sourceNode;
         break;
       case NodeRenamedEvent::class:
         /** @var NodeRenamedEvent $event */
@@ -125,25 +123,45 @@ class FileNodeListener implements IEventListener
       return;
     }
 
-    switch ($eventClass) {
-      case NodeDeletedEvent::class:
-        /** @var IMountManager $mountManager */
-        $mountManager = $this->appContainer->get(IMountManager::class);
-        /** @var ArchiveMount $mount */
-        foreach ($mounts as $mount) {
-          $mountManager->removeMount($userFolderPrefix . Constants::PATH_SEPARATOR . $mount->getMountPointPath());
-          $mountMapper->delete($mount);
-        }
-        break;
-      case NodeRenamedEvent::class:
-        $targetNode = $event->getTarget();
-        $targetPath = substr($targetNode->getPath(), $userFolderPrefixLength);
-        /** @var ArchiveMount $mount */
-        foreach ($mounts as $mount) {
-          $mount->setArchiveFilePath($targetPath);
-          $mountMapper->update($mount);
-        }
-        break;
+    $shouldDelete = $eventClass == NodeDeletedEvent::class;
+    if (!$shouldDelete) { // i.e. renamed
+      $targetNode = $event->getTarget();
+      if ($targetNode->getType() != FileInfo::TYPE_FILE) {
+        // could happen with missed rename events after the app temporarily
+        // has been disabled
+        $shouldDelete = true;
+      }
+      $supportedMimeTypes = ArchiveService::getSupportedMimeTypes();
+      if (array_search($targetNode->getMimeType(), $supportedMimeTypes) === false) {
+        // if the mounted archive is (no longer) supported there is no point
+        // in keeping it mounted.
+        $shouldDelete = true;
+      }
+      // anything else ????? PLEASE FIXME
+    }
+
+    if ($shouldDelete) {
+      // @todo: removing mounted archives from an event handler should emit a
+      // user notification
+
+      /** @var IMountManager $mountManager */
+      $mountManager = $this->appContainer->get(IMountManager::class);
+      /** @var ArchiveMount $mount */
+      foreach ($mounts as $mount) {
+        $mountManager->removeMount($userFolderPrefix . Constants::PATH_SEPARATOR . $mount->getMountPointPath());
+        $mountMapper->delete($mount);
+      }
+      return;
+    }
+
+    // this piece of code can only be hit if it was a rename event and above
+    // consistency checks did not bail out.
+
+    $targetPath = substr($targetNode->getPath(), $userFolderPrefixLength);
+    /** @var ArchiveMount $mount */
+    foreach ($mounts as $mount) {
+      $mount->setArchiveFilePath($targetPath);
+      $mountMapper->update($mount);
     }
   }
 }
