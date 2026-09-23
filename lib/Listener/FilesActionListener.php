@@ -59,7 +59,7 @@ class FilesActionListener implements IEventListener
   const ASSET_BASENAME = [
     LoadAdditionalScriptsEvent::class => [
       Constants::JS => 'files-hooks',
-      Constants::CSS => null,
+      Constants::CSS => 'files-hooks',
     ],
     LoadSidebar::class => [
       Constants::JS => 'files-sidebar-hooks',
@@ -165,7 +165,7 @@ class FilesActionListener implements IEventListener
     $assetBasename = self::ASSET_BASENAME[$eventClass][Constants::JS];
     if ($assetBasename) {
       try {
-        list('asset' => $scriptAsset,) = $this->getJSAsset($assetBasename);
+        $scriptAsset = $this->getJSAsset($assetBasename);
         \OCP\Util::addScript($appName, $scriptAsset);
       } catch (Throwable $t) {
         $this->logException($t, 'Unable to add script asset ' . $assetBasename);
@@ -174,7 +174,7 @@ class FilesActionListener implements IEventListener
     $assetBasename = self::ASSET_BASENAME[$eventClass][Constants::CSS];
     if ($assetBasename) {
       try {
-        list('asset' => $styleAsset,) = $this->getCSSAsset($assetBasename);
+        $styleAsset = $this->getCSSAsset($assetBasename);
         \OCP\Util::addStyle($appName, $styleAsset);
       } catch (Throwable $t) {
         $this->logException($t, 'Unable to add style asset ' . $assetBasename);
