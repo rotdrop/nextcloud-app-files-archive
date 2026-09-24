@@ -88,7 +88,9 @@
                       compact
           >
             <template #subname>
-              {{ commonPathPrefix }}
+              <div v-tooltip="commonPathPrefix">
+                {{ commonPathPrefix }}
+              </div>
             </template>
           </NcListItem>
           <NcListItem v-if="archiveInfo?.comment"
@@ -98,7 +100,9 @@
                       compact
           >
             <template #subname>
-              {{ archiveInfo?.comment }}
+              <div v-tooltip="archiveInfo?.comment">
+                {{ archiveInfo?.comment }}
+              </div>
             </template>
           </NcListItem>
         </ul>
@@ -152,15 +156,13 @@
                       :bold="false"
           >
             <template #name>
-              <div>
-                <a v-tooltip="mountPoint.mountPointPath"
-                   class="external icon-folder icon"
-                   :target="openMountTarget"
-                   :href="filesAppMountPointUrl(mountPoint)"
-                >
-                  {{ mountPoint.mountPointPath }}
-                </a>
-              </div>
+              <a v-tooltip="mountPoint.mountPointPath"
+                 class="external icon-folder icon"
+                 :target="openMountTarget"
+                 :href="filesAppMountPointUrl(mountPoint)"
+              >
+                {{ mountPoint.mountPointPath }}
+              </a>
             </template>
             <template #actions>
               <NcActionButton @click="unmount(mountPoint)">
@@ -309,10 +311,11 @@ import type { NextcloudEvents } from '@nextcloud/event-bus'
 import type {
   IFolder,
   INode,
-  IView,
+  // IView,
 } from '@nextcloud/files'
 import type {
   ArchiveMount,
+  ArchiveMountDTO,
   ArchiveMountEntity,
   GetArchiveMountResponse,
 } from '../model/archive-mount.d.ts'
@@ -344,7 +347,7 @@ import {
   onUnmounted,
   ref,
   useTemplateRef,
-  watch,
+  // watch,
 } from 'vue'
 import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue'
 import CancelIcon from 'vue-material-design-icons/Cancel.vue'
@@ -386,11 +389,11 @@ interface ArchiveJob {
 
 const props = withDefaults(defineProps<{
   node: INode
-  folder?: IFolder
-  view?: IView
+  // folder?: IFolder
+  // view?: IView
 }>(), {
-  folder: undefined,
-  view: undefined,
+  // folder: undefined,
+  // view: undefined,
 })
 
 logger.info(
@@ -580,18 +583,18 @@ const getData = async () => {
   getPendingJobs(fileName.value, true)
 }
 
-watch(
-  () => props.node,
-  async () => {
-    logger.debug('Node has changed', {
-      node: { ...props.node },
-      folder: { ...props.folder },
-      view: { ...props.view },
-    })
-    await update()
-  },
-  { immediate: true },
-)
+// watch(
+//   () => props.node,
+//   async () => {
+//     logger.debug('Node has changed', {
+//       node: { ...props.node },
+//       folder: { ...props.folder },
+//       view: { ...props.view },
+//     })
+//     await update()
+//   },
+//   { immediate: true },
+// )
 
 /**
  * Update current fileInfo and fetch new data.
@@ -609,8 +612,6 @@ async function update() {
 
   getData()
 }
-
-defineExpose({ update })
 
 interface ArchiveInfoResponse {
   messages: string[]
@@ -640,7 +641,7 @@ async function getArchiveInfo(fileName: string) {
       }
     }
   } catch (e) {
-    logger.error('ERROR', e)
+    logger.trace('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data as ArchiveInfoResponse
       archiveInfo.value = responseData.archiveInfo
@@ -681,19 +682,13 @@ async function refreshArchiveMounts(filename: string, noEmit?: boolean) {
   // quadratic, but we are talking here about the common case that
   // there is only a single mount -- or by accident another
   // one. So what.
-  const newMounts = archiveMounts.value.filter((mount) => oldMounts.findIndex((oldMount) => mount.mountPoint.fileid === oldMount.mountPoint.fileid) === -1)
-  const deletedMounts = oldMounts.filter((oldMount) => archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === oldMount.mountPoint.fileid) === -1)
+  const newMounts = archiveMounts.value.filter((mount) => oldMounts.findIndex((oldMount) => mount.mountPoint.id === oldMount.mountPoint.id) === -1)
+  const deletedMounts = oldMounts.filter((oldMount) => archiveMounts.value.findIndex((mount) => mount.mountPoint.id === oldMount.mountPoint.id) === -1)
   for (const mount of deletedMounts) {
-    const node = fileInfoToNode(mount.mountPoint)
-    node.attributes['is-mount-root'] = true
-
-    emit('files:node:deleted', node)
+    emit('files:node:deleted', mount.mountPoint)
   }
   for (const mount of newMounts) {
-    const node = fileInfoToNode(mount.mountPoint)
-    node.attributes['is-mount-root'] = true
-
-    emit('files:node:created', node)
+    emit('files:node:created', mount.mountPoint)
   }
 }
 
@@ -800,14 +795,26 @@ const cancelPendingOperation = async (operation: 'extract'|'mount') => {
   }
 }
 
+const mountPointInfoToMountPoint = (mount: ArchiveMountEntity|ArchiveMountDTO, mountPointInfo?: FileInfoDTO<'folder'>) => {
+  const mountPoint = fileInfoToNode(mountPointInfo ?? (mount as ArchiveMountDTO).mountPoint)
+  mountPoint.attributes['is-mount-root'] = true
+  return {
+    ...mount,
+    mountPoint,
+  } as ArchiveMount
+}
+
+const mountPointInfosToNodes = (mounts: ArchiveMount<FileInfoDTO<'folder'>>[]) =>
+  mounts.map((mount) => mountPointInfoToMountPoint(mount, mount.mountPoint))
+
 /**
  * @param fileName TBD.
  *
  * @param silent TBD.
  */
 async function getArchiveMounts(fileName: string, silent?: boolean) {
-  const result: Omit<GetArchiveMountResponse, 'messages'> = {
-    mounts: [],
+  const result = {
+    mounts: [] as ArchiveMount[],
     mounted: false,
   }
   if (silent !== true) {
@@ -818,7 +825,7 @@ async function getArchiveMounts(fileName: string, silent?: boolean) {
   try {
     const response = await axios.get<GetArchiveMountResponse>(url)
     const responseData = response.data
-    result.mounts = responseData.mounts
+    result.mounts = mountPointInfosToNodes(responseData.mounts)
     result.mounted = responseData.mounted
     if (responseData.messages) {
       for (const message of responseData.messages) {
@@ -829,7 +836,7 @@ async function getArchiveMounts(fileName: string, silent?: boolean) {
     logger.error('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
       const responseData = e.response.data as GetArchiveMountResponse
-      result.mounts = responseData.mounts
+      result.mounts = mountPointInfosToNodes(responseData.mounts)
       result.mounted = responseData.mounted
       if (responseData.messages) {
         for (const message of responseData.messages) {
@@ -872,16 +879,14 @@ const mountArchive = async () => {
   }
   requestData.stripCommonPathPrefix = !!archiveMountStripCommonPathPrefix.value
   try {
-    const response = await axios.post<ArchiveMount>(url, requestData)
+    const response = await axios.post<ArchiveMountDTO>(url, requestData)
     if (!archiveMountBackgroundJob.value) {
-      const newMount = response.data
-      const newFileId = newMount.mountPoint.fileid
-      if (archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === newFileId) === -1) {
+      const newFileId = `${response.data.mountPoint.fileid}`
+      if (archiveMounts.value.findIndex((mount) => mount.mountPoint.id === newFileId) === -1) {
+        const newMount = mountPointInfoToMountPoint(response.data, response.data.mountPoint)
+        newMount.mountPoint.attributes['is-mount-root'] = true
         archiveMounts.value.push(newMount)
-        const node = fileInfoToNode(response.data.mountPoint)
-        node.attributes['is-mount-root'] = true
-
-        emit('files:node:created', node)
+        emit('files:node:created', newMount.mountPoint)
       }
     }
   } catch (e) {
@@ -923,10 +928,7 @@ const unmount = async (mount: ArchiveMount) => {
     } else {
       logger.error('UNABLE TO FIND DELETED MOUNT IN LIST', mount, archiveMounts)
     }
-    const node = fileInfoToNode(mount.mountPoint)
-    node.attributes['is-mount-root'] = true
-
-    emit('files:node:deleted', node)
+    emit('files:node:deleted', mount.mountPoint)
   } catch (e) {
     logger.error('ERROR', e)
     const messages: string[] = []
@@ -979,7 +981,7 @@ const extractArchive = async () => {
   }
   requestData.stripCommonPathPrefix = !!archiveExtractStripCommonPathPrefix.value
   try {
-    const response = await axios.post<{ targetFolder: FileInfoDTO }>(url, requestData)
+    const response = await axios.post<{ targetFolder: FileInfoDTO<'folder'> }>(url, requestData)
     if (!archiveExtractBackgroundJob.value) {
       const node = fileInfoToNode(response.data.targetFolder)
       node.attributes['is-mount-root'] = true
@@ -1086,10 +1088,11 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
       }
       logger.info('*** Mount notification received, updating mount-list', destinationData)
       const mountFileId = destinationData.id
-      const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
+      const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.id === mountFileId)
       if (mountIndex === -1) {
         try {
-          archiveMounts.value.push({ ...mount, mountPoint: JSON.parse(destinationData.folder) })
+          const newMount = mountPointInfoToMountPoint(mount, JSON.parse(destinationData.folder) as FileInfoDTO<'folder'>)
+          archiveMounts.value.push(newMount)
         } catch (error) {
           logger.error('Unable to decode mount point folder file-info record.', { destinationData, error })
         }
@@ -1102,45 +1105,88 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
   }
 }
 
-const onMountPointRenamed = (mountPoint: INode) => {
+/**
+ * A listener tracking renaming of the moint point and the archive
+ * file. Note that using a watch on props.node is not a good idea for
+ * monitoring the archive file node as alterations on the node occur
+ * before the DAV-backend has performed its file actions.
+ *
+ * @param node Any node, we determine if it of interest for us.
+ */
+const onNodeRenamedd = async (node: INode) => {
   // update the list of mountpoints
-  const mountFileId = mountPoint.id
-  const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
+  const nodeId = node.id
+
+  if (nodeId === props.node.id) {
+    // archive file has been renamed, just update all the data.
+    await update()
+    logger.debug('AFTER ARCHIVE FILE RENAME', { node, propsNode: props.node, equal: node === props.node })
+    return
+  }
+
+  const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.id === nodeId)
   if (mountIndex >= 0) {
     logger.info('BERFORE RENAME', { ...archiveMounts[mountIndex] })
-    const mount = archiveMounts[mountIndex]
-    mount.mountPoint = mountPoint
-    mount.mountPointPath = mountPoint.path
-    mount.mountPointPathHash = md5(mountPoint.path)
-    logger.info('AFTER RENAME', { ...mount })
-  } else {
-    logger.info('RENAME OF NODE NOT FOR US', mountPoint)
+    const mount = archiveMounts.value[mountIndex]
+    mount.mountPoint = node as IFolder
+    mount.mountPointPath = node.path
+    mount.mountPointPathHash = md5(node.path)
+    logger.debug('AFTER MOUNT POINT RENAME', { ...mount })
+    return
   }
+
+  logger.debug('RENAME OF NODE NOT FOR US', { node })
 }
 
-const onMountPointDeleted = (mountPoint: INode) => {
-  const mountFileId = mountPoint.id
-  const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.fileid === mountFileId)
+/**
+ * Monitor deletion of either the archive file or associated mount point(s).
+ *
+ * @param node Any node, we determine if it is of interest to us.
+ */
+const onNodeDeleted = (node: INode) => {
+  const nodeId = node.id
+
+  if (nodeId === props.node.id) {
+    // in this case we have to trigger a reload of the file-list.
+    for (const mount of archiveMounts.value) {
+      emit('files:node:deleted', mount.mountPoint)
+    }
+    archiveMounts.value = []
+
+    logger.debug('ARCHIVE FILE HAS BEEN DELETED')
+    return
+  }
+
+  const mountIndex = archiveMounts.value.findIndex((mount) => mount.mountPoint.id === nodeId)
   if (mountIndex >= 0) {
     archiveMounts.value.splice(mountIndex, 1)
-    logger.info('RECORD UNMOUNT', mountPoint)
-  } else {
-    logger.info('DELETE OF NODE NOT FOR US', {
-      mountPoint,
+    logger.debug('RECORD UNMOUNT', {
+      node,
       archiveMounts: archiveMounts.value,
     })
+    return
   }
+
+  logger.debug('DELETE OF NODE NOT FOR US', {
+    node,
+    archiveMounts: archiveMounts.value,
+  })
 }
 
+logger.debug('PROPS', { ...props })
+
+// run this once
+update()
+
 onBeforeMount(() => {
-  subscribe('files:node:deleted', onMountPointDeleted)
-  subscribe('files:node:renamed', onMountPointRenamed)
+  subscribe('files:node:deleted', onNodeDeleted)
+  subscribe('files:node:renamed', onNodeRenamedd)
   subscribe('notifications:notification:received', onNotification)
 })
 
 onUnmounted(() => {
-  unsubscribe('files:node:deleted', onMountPointDeleted)
-  unsubscribe('files:node:renamed', onMountPointRenamed)
+  unsubscribe('files:node:deleted', onNodeDeleted)
+  unsubscribe('files:node:renamed', onNodeRenamedd)
   unsubscribe('notifications:notification:received', onNotification)
 })
 
@@ -1213,6 +1259,13 @@ onUnmounted(() => {
         height: fit-content;
         .list-item-content__subname {
           white-space: normal;
+        }
+        .list-item-content__name {
+          a {
+            display: block;
+            overflow: inherit;
+            text-overflow: inherit;
+          }
         }
       }
       .list-item-content__actions {

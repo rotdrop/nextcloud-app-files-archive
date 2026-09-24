@@ -36,10 +36,10 @@ use OCP\Files\FileInfo;
 use OCP\Files\Mount\IMountManager;
 use Psr\Container\ContainerInterface;
 
+use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
-use OCA\FilesArchive\Service\ArchiveService;
-use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Service\MimeTypeService;
 
 /**
  * Listen to renamed and deleted events in order to keep mount-point table
@@ -104,13 +104,6 @@ class FileNodeListener implements IEventListener
       // only needs the path of the node.
     }
 
-    // The following cannot work as we only get NonExistingFile nodes here
-    // /** @var File $sourceNode */
-    // $supportedMimeTypes = ArchiveService::getSupportedMimeTypes();
-    // if (array_search($sourceNode->getMimeType(), $supportedMimeTypes) === false) {
-    //   return;
-    // }
-
     /** @var ArchiveMountMapper $mountMapper */
     $mountMapper = $this->appContainer->get(ArchiveMountMapper::class);
 
@@ -131,7 +124,9 @@ class FileNodeListener implements IEventListener
         // has been disabled
         $shouldDelete = true;
       }
-      $supportedMimeTypes = ArchiveService::getSupportedMimeTypes();
+      /** @var MimeTypeService $mimeTypeService */
+      $mimeTypeService = $this->appContainer->get(MimeTypeService::class);
+      $supportedMimeTypes = $mimeTypeService->getSupportedArchiveMimeTypes();
       if (array_search($targetNode->getMimeType(), $supportedMimeTypes) === false) {
         // if the mounted archive is (no longer) supported there is no point
         // in keeping it mounted.

@@ -17,6 +17,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import type {
+  FileType,
+  IFolder,
+} from '@nextcloud/files';
 import type { FileInfoDTO } from '../toolkit/util/file-node-helper.ts';
 
 export interface ArchiveMountEntity {
@@ -36,12 +40,14 @@ export interface ArchiveMountEntity {
   mountFlags: number;
 }
 
-export interface ArchiveMount extends ArchiveMountEntity {
-  mountPoint: FileInfoDTO;
+export interface ArchiveMount<FileInfo extends IFolder|FileInfoDTO<typeof FileType.Folder> = IFolder> extends ArchiveMountEntity {
+  mountPoint: FileInfo;
 }
 
+export type ArchiveMountDTO = ArchiveMount<FileInfoDTO<typeof FileType.Folder>>;
+
 export interface GetArchiveMountResponse {
-  mounts: ArchiveMount[];
+  mounts: ArchiveMount<FileInfoDTO<typeof FileType.Folder>>[];
   mounted: boolean;
   messages?: string[];
 }

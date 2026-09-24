@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2025 Claus-Justus Heine
+ * @copyright 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,11 @@
 
 import Console from './toolkit/util/console.ts';
 
+declare global {
+  var DEV_MODE: boolean;
+}
+
 const logger = new Console('FilesArchive');
+logger.enableSourceMaps(undefined, DEV_MODE);
 
 export default logger;

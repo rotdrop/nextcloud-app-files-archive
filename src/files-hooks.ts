@@ -19,6 +19,7 @@
 
 import type { ActionContext } from '@nextcloud/files';
 import type { NotificationEvent } from './toolkit/types/event-bus.d.ts';
+import type { FileInfoDTO } from './toolkit/util/file-node-helper.ts';
 import type { InitialState } from './types/initial-state.d.ts';
 import type { DestinationParameter } from './types/notification.d.ts';
 
@@ -51,12 +52,12 @@ subscribe('notifications:notification:received', (event: NotificationEvent) => {
     return;
   }
   try {
-    const node = fileInfoToNode(JSON.parse(destinationData.folder));
-    node.attributes['is-mount-root'] = true;
+    const mountPoint = fileInfoToNode(JSON.parse(destinationData.folder) as FileInfoDTO<'folder'>);
+    mountPoint.attributes['is-mount-root'] = true;
 
-    logger.debug('FILES_ARCHIVE EMIT NODE CREATED', { node });
+    logger.debug('FILES_ARCHIVE EMIT NODE CREATED', { mountPoint });
 
-    emit('files:node:created', node);
+    emit('files:node:created', mountPoint);
   } catch (error) {
     logger.error('Error, unable to decode mount folder node', { error, event });
   }

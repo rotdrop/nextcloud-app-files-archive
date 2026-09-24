@@ -7,6 +7,13 @@ import {
 const configOptions = [
   ...recommended,
   {
+    languageOptions: {
+      globals: {
+        DEV_MODE: 'readonly',
+      },
+    },
+  },
+  {
     files: ['**/*.vue'],
     rules: {
       'vue/attribute-hyphenation': ['error', 'never'],

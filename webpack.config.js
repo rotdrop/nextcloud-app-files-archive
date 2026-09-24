@@ -89,6 +89,7 @@ const svgoOptions = {
 webpackConfig.plugins = webpackConfig.plugins.concat([
   new webpack.DefinePlugin({
     APP_NAME: JSON.stringify(appName),
+    DEV_MODE: !productionMode,
   }),
   new ESLintPlugin({
     extensions: [
