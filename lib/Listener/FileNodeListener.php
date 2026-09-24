@@ -30,7 +30,6 @@ use OCP\IUser;
 use Psr\Log\LoggerInterface;
 use OCP\IUserSession;
 use OCP\Files\Node;
-use OCP\Files\NotFoundException;
 use OCP\Files\File;
 use OCP\Files\FileInfo;
 use OCP\Files\Mount\IMountManager;
@@ -38,7 +37,7 @@ use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
-use OCA\FilesArchive\Service\ArchiveService;
+use OCA\FilesArchive\Service\MimeTypeService;
 use OCA\FilesArchive\Constants;
 
 /**
@@ -87,21 +86,7 @@ class FileNodeListener implements IEventListener
       case NodeRenamedEvent::class:
         /** @var NodeRenamedEvent $event */
         $sourceNode = $event->getSource();
-        // The source of a rename does not exist any more at this point, so
-        // asking it for its type would throw. The target is the same node
-        // after the rename and can be asked instead.
-        $typeNode = $event->getTarget();
         break;
-    }
-
-    try {
-      if ($typeNode->getType() != FileInfo::TYPE_FILE) {
-        // could perhaps remove the success information
-        return;
-      }
-    } catch (NotFoundException $e) {
-      // Not knowing the type is no reason to skip the clean-up below, which
-      // only needs the path of the node.
     }
 
     // The following cannot work as we only get NonExistingFile nodes here
@@ -131,7 +116,7 @@ class FileNodeListener implements IEventListener
         // has been disabled
         $shouldDelete = true;
       }
-      $supportedMimeTypes = ArchiveService::getSupportedMimeTypes();
+      $supportedMimeTypes = $this->appContainer->get(MimeTypeService::class)->getSupportedArchiveMimeTypes();
       if (array_search($targetNode->getMimeType(), $supportedMimeTypes) === false) {
         // if the mounted archive is (no longer) supported there is no point
         // in keeping it mounted.

@@ -92,9 +92,9 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
       foreach ($storageIds as $fileId => $storageId) {
         $replaceQuery = $this->connection->getQueryBuilder();
         $replaceQuery
-          ->update('storages', 's')
-          ->set('s.id', $replaceQuery->createParameter('storageId'))
-          ->where($replaceQuery->expr()->eq('s.id', $replaceQuery->createParameter('legacyStorageId')))
+          ->update('storages')
+          ->set('id', $replaceQuery->createParameter('storageId'))
+          ->where($replaceQuery->expr()->eq('id', $replaceQuery->createParameter('legacyStorageId')))
           ->setParameter('storageId', $this->getStorageId($fileId), IQueryBuilder::PARAM_STR)
           ->setParameter('legacyStorageId', $storageId, IQueryBuilder::PARAM_STR);
         $replaceQuery->executeStatement();
