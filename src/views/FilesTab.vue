@@ -85,16 +85,19 @@
           />
           <NcListItem :name="t(appName, 'common prefix')"
                       :bold="true"
-                      :details="commonPathPrefix"
                       compact
-          />
+          >
+            <template #subname>
+              {{ commonPathPrefix }}
+            </template>
+          </NcListItem>
           <NcListItem v-if="archiveInfo?.comment"
                       class="archive-comment"
                       :name="t(appName, 'creator\'s comment')"
                       :bold="true"
                       compact
           >
-            <template #subtitle>
+            <template #subname>
               {{ archiveInfo?.comment }}
             </template>
           </NcListItem>
@@ -125,8 +128,8 @@
         <div class="files-tab-entry__avatar icon-external-white" />
         <div class="files-tab-entry__desc">
           <h5>
-            <span class="main-title">{{ t(appName, 'Mount Points') }}</span>
-            <span v-if="archiveMounted" class="title-annotation">({{ '' + archiveMounts.length }})</span>
+            <span class="main-title">{{ n(appName, 'Mount Point', 'Mount Points', archiveMounts.length) }}</span>
+            <span v-if="archiveMounted" class="title-annotation">({{ `${archiveMounts.length}` }})</span>
             <span v-else class="title-annotation">({{ t(appName, 'not mounted') }})</span>
           </h5>
         </div>
@@ -148,14 +151,16 @@
                       :forceDisplayActions="true"
                       :bold="false"
           >
-            <template #title>
-              <a v-tooltip="mountPoint.mountPointPath"
-                 class="external icon-folder icon"
-                 :target="openMountTarget"
-                 :href="filesAppMountPointUrl(mountPoint)"
-              >
-                {{ mountPoint.mountPointPath }}
-              </a>
+            <template #name>
+              <div>
+                <a v-tooltip="mountPoint.mountPointPath"
+                   class="external icon-folder icon"
+                   :target="openMountTarget"
+                   :href="filesAppMountPointUrl(mountPoint)"
+                >
+                  {{ mountPoint.mountPointPath }}
+                </a>
+              </div>
             </template>
             <template #actions>
               <NcActionButton @click="unmount(mountPoint)">
@@ -166,7 +171,7 @@
                 </template>
               </NcActionButton>
             </template>
-            <template v-if="mountPoint.mountFlags & 1" #extra>
+            <template v-if="mountPoint.mountFlags & 1" #subname>
               <div>{{ t(appName, 'Common prefix {prefix} is stripped.', { prefix: commonPathPrefix }) }}</div>
             </template>
           </NcListItem>
@@ -273,7 +278,7 @@
                       :forceDisplayActions="true"
                       :bold="false"
           >
-            <template #title>
+            <template #name>
               <div>{{ job.destinationPath }}</div>
             </template>
             <template #actions>
@@ -319,7 +324,10 @@ import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { formatFileSize } from '@nextcloud/files'
-import { translate as t } from '@nextcloud/l10n'
+import {
+  translatePlural as n,
+  translate as t,
+} from '@nextcloud/l10n'
 import { generateRemoteUrl, generateUrl } from '@nextcloud/router'
 import {
   NcActionButton,
@@ -1156,40 +1164,15 @@ onUnmounted(() => {
     background-position: left;
     padding-left:20px;
   }
-  :deep(.archive-info) {
-    .list-item__wrapper{
-      &:not(.archive-comment) {
-        .list-item-content__wrapper {
-          height:24px;
-        }
-        a.list-item {
-          padding:0;
-        }
-      }
-      &.archive-comment {
-        a.list-item {
-          padding:8px 0;
-          .line-two__subtitle {
-            max-width:100%;
-            white-space:normal;
-          }
-        }
-      }
-      &.archive-error {
-        .line-one__details {
-          font-weight:bold;
-          font-style:italic;
-          color:red;
-        }
-      }
-    }
-  }
   .files-tab-entry {
     min-height:44px;
     &.clickable {
       &, & * {
         cursor:pointer;
       }
+    }
+    .title-annotation::before {
+        content: ' ';
     }
     .files-tab-entry__avatar {
       width: 32px;
@@ -1210,6 +1193,7 @@ onUnmounted(() => {
         text-overflow: ellipsis;
         overflow: hidden;
         max-width: inherit;
+        margin: 0;
       }
     }
     &.directory-chooser {
@@ -1224,11 +1208,17 @@ onUnmounted(() => {
         padding-right:0.5ex;
       }
     }
-    /* ::v-deep .archive-mounts {
-       .list-item-content > .list-item-content__actions {
-       display: block !important;
-       }
-       } */
+    :deep(.list-item__wrapper) {
+      .list-item__anchor {
+        height: fit-content;
+        .list-item-content__subname {
+          white-space: normal;
+        }
+      }
+      .list-item-content__actions {
+        align-self: flex-start;
+      }
+    }
   }
 }
 </style>
