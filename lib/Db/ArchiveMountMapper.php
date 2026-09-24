@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine
+ * @copyright 2022, 2024, 2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -53,17 +53,20 @@ class ArchiveMountMapper extends QBMapper
   /**
    * Find all archive-mounts of the given user.
    *
-   * @param string $userId
+   * @param ?string $userId
    *
    * @return array
    */
-  public function findAll(string $userId):array
+  public function findAll(?string $userId = null): array
   {
     $qb = $this->db->getQueryBuilder();
 
     $qb->select('*')
-      ->from($this->getTableName())
-      ->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+       ->from($this->getTableName());
+
+    if ($userId !== null) {
+      $qb->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+    }
 
     return $this->findEntities($qb);
   }
@@ -75,7 +78,7 @@ class ArchiveMountMapper extends QBMapper
    *
    * @return null|ArchiveMount
    */
-  public function findByMountPath(string $mountPath):?ArchiveMount
+  public function findByMountPath(string $mountPath): ?ArchiveMount
   {
     $qb = $this->db->getQueryBuilder();
 
@@ -93,7 +96,7 @@ class ArchiveMountMapper extends QBMapper
    *
    * @return null|ArchiveMount
    */
-  public function findByMountPointFileId(int $mountPointFileId):?ArchiveMount
+  public function findByMountPointFileId(int $mountPointFileId): ?ArchiveMount
   {
     $qb = $this->db->getQueryBuilder();
 
@@ -111,7 +114,7 @@ class ArchiveMountMapper extends QBMapper
    *
    * @return null|ArchiveMount
    */
-  public function findByMountPointFolder(Folder $mountPointFolder):?ArchiveMount
+  public function findByMountPointFolder(Folder $mountPointFolder): ?ArchiveMount
   {
     $qb = $this->db->getQueryBuilder();
 
@@ -131,7 +134,7 @@ class ArchiveMountMapper extends QBMapper
    *
    * @return array
    */
-  public function findByArchivePath(string $userId, string $archivePath):array
+  public function findByArchivePath(string $userId, string $archivePath): array
   {
     $qb = $this->db->getQueryBuilder();
 
@@ -155,7 +158,7 @@ class ArchiveMountMapper extends QBMapper
    *
    * @return array
    */
-  public function findByArchiveFile(string $userId, File $archiveFile):array
+  public function findByArchiveFile(string $userId, File $archiveFile): array
   {
     $qb = $this->db->getQueryBuilder();
 
@@ -182,7 +185,7 @@ class ArchiveMountMapper extends QBMapper
    *
    * @return array
    */
-  public function findByMountPoint(string $userId, Folder $mountPoint):?ArchiveMount
+  public function findByMountPoint(string $userId, Folder $mountPoint): ?ArchiveMount
   {
     $qb = $this->db->getQueryBuilder();
 
@@ -227,7 +230,7 @@ class ArchiveMountMapper extends QBMapper
    *
    * @return ArchiveMount
    */
-  private function encodeEntity(ArchiveMount $entity):ArchiveMount
+  private function encodeEntity(ArchiveMount $entity): ArchiveMount
   {
     $archivePassPhrase = $entity->getArchivePassPhrase();
     if (empty($archivePassPhrase)) {
@@ -245,7 +248,7 @@ class ArchiveMountMapper extends QBMapper
   }
 
   /** {@inheritdoc} */
-  public function insert(Entity $entity):Entity
+  public function insert(Entity $entity): Entity
   {
     $this->encodeEntity($entity);
     $result = parent::insert($entity);
@@ -254,7 +257,7 @@ class ArchiveMountMapper extends QBMapper
   }
 
   /** {@inheritdoc} */
-  public function update(Entity $entity):Entity
+  public function update(Entity $entity): Entity
   {
     $this->encodeEntity($entity);
     $result = parent::update($entity);
@@ -263,7 +266,7 @@ class ArchiveMountMapper extends QBMapper
   }
 
   /** {@inheritdoc} */
-  protected function mapRowToEntity(array $row):Entity
+  protected function mapRowToEntity(array $row): Entity
   {
     $entity = parent::mapRowToEntity($row);
     return $this->decodeEntity($entity);

@@ -51,9 +51,10 @@ use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 /** Virtual storage mapping an archive file into the user file-space. */
 class ArchiveStorage extends AbstractStorage
 {
+  use CopyDirectory;
+  use StorageIdTrait;
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
   use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
-  use CopyDirectory;
 
   public const PATH_SEPARATOR = Constants::PATH_SEPARATOR;
 
@@ -64,7 +65,7 @@ class ArchiveStorage extends AbstractStorage
   public const PARAMETER_STRIP_COMMON_PATH_PREFIX = 'stripCommonPathPrefix';
 
   /** @var string */
-  protected $appName;
+  protected string $appName;
 
   /** @var ContainerInterface */
   protected ContainerInterface $appContainer;
@@ -289,7 +290,7 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function getId()
   {
-    return $this->appName . ':' . $this->archiveFile->getPath() . self::PATH_SEPARATOR;
+    return $this->getStorageId($this->archiveFile->getId());
   }
 
   /**
