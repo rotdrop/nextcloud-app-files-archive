@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.3.0-rc5] -- 2026-07-14
+## [1.3.0-rc6] -- 2026-09-24
 
 ### Changed
 
@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - basic CI checks for PRs (courtesy Fabio Fantoni)
 - "extract here" menu item (courtesy Fabio Fantoni)
 - tarball generation on tag vX.Y.Z push (courtesy Fabio Fantoni)
+
+### Fixed
+
+- replace legacy storage ids using the archive pathname by consistent
+  storage ids using the archive file id
 
 ## [1.2.8] -- 2025-10-15
 
