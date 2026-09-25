@@ -155,7 +155,6 @@ OC.L10N.register(
     "Passphrase" : "Φράση Πρόσβασης",
     "unset" : "μη ορισμένο",
     "archive passphrase" : "φράση πρόσβασης αρχείου",
-    "Mount Points" : "Σημεία Προσάρτησης",
     "not mounted" : "δεν είναι προσαρτημένο",
     "Disconnect storage" : "Αποσύνδεση αποθηκευτικού χώρου",
     "Common prefix {prefix} is stripped." : "Το κοινό πρόθεμα {prefix} αφαιρέθηκε.",
@@ -207,6 +206,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ρύθμισης της τιμής για \"{settingsKey}\" σε \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Η ακύρωση %s-εργασίας για το αρχείο \"%s\" απέτυχε.",
     "Shared folder with id \"%1$s\" does not exist." : "Ο κοινόχρηστος φάκελος με id \"%1$s\" δεν υπάρχει.",
-    "Show Passphrase" : "Εμφάνιση Φράσης Πρόσβασης"
+    "Show Passphrase" : "Εμφάνιση Φράσης Πρόσβασης",
+    "Mount Points" : "Σημεία Προσάρτησης"
 },
 "nplurals=2; plural=(n != 1);");

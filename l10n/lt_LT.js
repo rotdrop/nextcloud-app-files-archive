@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Slaptafrazė",
     "unset" : "nenustatyta",
     "archive passphrase" : "archyvo slaptafrazė",
-    "Mount Points" : "Prijungimo taškai",
     "not mounted" : "neprijungta",
     "Disconnect storage" : "Atjungti saugyklą",
     "Common prefix {prefix} is stripped." : "Bendrasis prefiksas {prefix} yra pašalinamas.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nepavyko nustatyti „{settingsKey}“ reikšmės į „{value}“: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Nepavyko atšaukti archyvo failo „%s“ užduoties %s.",
     "Shared folder with id \"%1$s\" does not exist." : "Bendrinamas aplankas su ID „%1$s“ neegzistuoja.",
-    "Show Passphrase" : "Rodyti slaptafrazė"
+    "Show Passphrase" : "Rodyti slaptafrazė",
+    "Mount Points" : "Prijungimo taškai"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

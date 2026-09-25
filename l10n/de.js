@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Passwort",
     "unset" : "nicht gesetzt",
     "archive passphrase" : "Archiv-Passwort",
-    "Mount Points" : "Einhänge-Punkt",
     "not mounted" : "nicht eingehängt",
     "Disconnect storage" : "Speicher trennen",
     "Common prefix {prefix} is stripped." : "Gemeinsamer Präfix {prefix} wurde entfernt.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Wert für die Einstellung \"{settingsKey}\" konnte nicht auf den Wert \"{value}\" gesetzt werden: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Das Abbrechen des %s-Jobs für die Archivdatei \"%s\" ist fehlgeschlagen.",
     "Shared folder with id \"%1$s\" does not exist." : "Geteilter Ordner mit der ID \"%1$s\" existiert nicht.",
-    "Show Passphrase" : "Passwort anzeigen"
+    "Show Passphrase" : "Passwort anzeigen",
+    "Mount Points" : "Einhänge-Punkt"
 },
 "nplurals=2; plural=(n != 1);");

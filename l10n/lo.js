@@ -147,7 +147,6 @@ OC.L10N.register(
     "Passphrase" : "ລະຫັດຜ່ານ",
     "unset" : "ບໍ່ໄດ້ຕັ້ງຄ່າ",
     "archive passphrase" : "ລະຫັດຜ່ານໄຟລ໌ບີບອັດ",
-    "Mount Points" : "ຈຸດເຊື່ອມຕໍ່",
     "not mounted" : "ບໍ່ໄດ້ເຊື່ອມຕໍ່",
     "Disconnect storage" : "ຕັດການເຊື່ອມຕໍ່ບ່ອນເກັບຂໍ້ມູນ",
     "Common prefix {prefix} is stripped." : "ຄຳນຳໜ້າທົ່ວໄປ {prefix} ຖືກຕັດອອກ.",
@@ -192,6 +191,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "ບໍ່ສາມາດຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{value}\" ໄດ້: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "ການຍົກເລີກວຽກ-%s ສຳລັບໄຟລ໌ບີບອັດ \"%s\" ລົ້ມເຫຼວ.",
     "Shared folder with id \"%1$s\" does not exist." : "ໂຟນເດີທີ່ແບ່ງປັນດ້ວຍໄອດີ \"%1$s\" ບໍ່ມີຢູ່.",
-    "Show Passphrase" : "ສະແດງລະຫັດຜ່ານ"
+    "Show Passphrase" : "ສະແດງລະຫັດຜ່ານ",
+    "Mount Points" : "ຈຸດເຊື່ອມຕໍ່"
 },
 "nplurals=1; plural=0;");

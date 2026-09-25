@@ -92,7 +92,6 @@ OC.L10N.register(
     "Passphrase" : "密码",
     "unset" : "未设置",
     "archive passphrase" : "压缩包密码",
-    "Mount Points" : "挂载点",
     "not mounted" : "未挂载",
     "Disconnect storage" : "断开与存储空间的连接",
     "Common prefix {prefix} is stripped." : "已删除共同前缀 {prefix}",
@@ -111,6 +110,7 @@ OC.L10N.register(
     "true" : "真",
     "Confirmation Required" : "需要确认",
     "Unconfirmed, reverting to old value." : "没有确认，回退到之前的值。",
-    "Show Passphrase" : "显示密码"
+    "Show Passphrase" : "显示密码",
+    "Mount Points" : "挂载点"
 },
 "nplurals=1; plural=0;");

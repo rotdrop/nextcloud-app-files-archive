@@ -148,7 +148,6 @@ OC.L10N.register(
     "Passphrase" : "Lozinka",
     "unset" : "nije postavljena",
     "archive passphrase" : "lozinka arhive",
-    "Mount Points" : "Točke montiranja",
     "not mounted" : "nije montirano",
     "Disconnect storage" : "Odspoji pohranu",
     "Common prefix {prefix} is stripped." : "Zajednički prefiks {prefix} je uklonjen.",
@@ -196,6 +195,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nije moguće postaviti vrijednost za „{settingsKey}” na „{value}”: {message}.",
     "Cancelling %s-job for archive file \"%s\" failed." : "Neuspjelo otkazivanje %s-zadatka za arhivsku datoteku „%s”.",
     "Shared folder with id \"%1$s\" does not exist." : "Dijeljena mapa s ID-jem „%1$s” ne postoji.",
-    "Show Passphrase" : "Prikaži lozinku"
+    "Show Passphrase" : "Prikaži lozinku",
+    "Mount Points" : "Točke montiranja"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

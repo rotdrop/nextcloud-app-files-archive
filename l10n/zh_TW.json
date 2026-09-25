@@ -159,7 +159,6 @@
     "Passphrase" : "通關密語",
     "unset" : "未設定",
     "archive passphrase" : "封存檔通關密語",
-    "Mount Points" : "掛載點",
     "not mounted" : "未掛載",
     "Disconnect storage" : "解除連結儲存空間",
     "Common prefix {prefix} is stripped." : "共同前綴 {prefix} 被去除。",
@@ -211,6 +210,7 @@
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "無法將「{settingsKey}」的值設定為「{value}」：{message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "取消 %s 作業失敗，針對封存檔「%s」。",
     "Shared folder with id \"%1$s\" does not exist." : "ID 為「%1$s」的分享資料夾不存在。",
-    "Show Passphrase" : "顯示通關密語"
+    "Show Passphrase" : "顯示通關密語",
+    "Mount Points" : "掛載點"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
