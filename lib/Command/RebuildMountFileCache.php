@@ -25,36 +25,36 @@ namespace OCA\FilesArchive\Command;
 use Throwable;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\DescriptorHelper;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 use OCP\Files\IFile;
 use OCP\Files\IRootFolder;
-use OCP\Files\NotFoundException;
-use OCP\Files\Mount\IMountPoint;
 use OCP\Files\Mount\IMountManager;
+use OCP\Files\Mount\IMountPoint;
+use OCP\Files\NotFoundException;
 
 use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
+use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Service\ArchiveServiceFactory;
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
-use OCA\FilesArchive\Mount\MountProvider;
 
 /** Recreate the file-cache for mounted archives. */
-class RecreateArchiveFileCache extends Command
+class RebuildMountFileCache extends Command
 {
 
   /** {@inheritdoc} */
   public function __construct(
-    protected string $appName,
     protected ArchiveMountMapper $mountMapper,
-    protected IRootFolder $rootFolder,
     protected ArchiveServiceFactory $archiveServiceFactory,
-    protected MountProvider $mountProvider,
     protected IMountManager $mountManager,
+    protected IRootFolder $rootFolder,
+    protected MountProvider $mountProvider,
+    protected string $appName,
   ) {
     parent::__construct();
   }
@@ -128,16 +128,20 @@ class RecreateArchiveFileCache extends Command
       $mountPointPath = $userFolderPrefix . $mountEntity->getMountPointPath();
       $output->writeln('<info>' . 'Processing "' . $mountPointPath . '".' . '</info>');
       if ($previousUserId != $userId) {
+        $previousUserId = $userId;
         try {
           $userFolder = $this->rootFolder->getUserFolder($userId);
         } catch (Throwable $t) {
+          $userFolder = null;
           $output->writeln('<warn>' . 'Cannot access the home-folder of "' . $userId . '": ' . $t->getMessage() . '</warn>');
           $output->writeln('<warn>' . 'Skipping mount "' . Constants::PATH_SEP . $userId . Constants::PATH_SEP . 'files' . $mountEntity->getMountPointPath() . '".' . '</warn>');
           continue;
         }
-        $previousUserId = $userId;
+      } elseif ($userFolder === null) {
+        continue;
       }
-      $archiveFiles = $userFolder->getById($mountEntity->getArchiveFileId());
+
+      $archiveFiles = array_filter($userFolder->getById($mountEntity->getArchiveFileId()), fn(IFile $archiveFile) => $archiveFile->isReadable());
       if (empty($archiveFiles)) {
         $output->writeln('<warn>' . 'Cannot access the referenced archive-file "' . $mountEntity->getArchiveFilePath() . '".' . '</warn>');
         $output->writeln('<warn>' . 'Skipping mount "' . $mountPointPath . '".' . '</warn>');
@@ -150,13 +154,12 @@ class RecreateArchiveFileCache extends Command
         if ($archiveFilePath == $mountEntity->getArchiveFilePath()) {
           break;
         }
-        echo $archiveFile->getPath() . ' vs ' . $mountEntity->getArchiveFilePath() . PHP_EOL;
         $archiveFile = null;
       }
       if ($archiveFile === null) {
         $archiveFile = array_shift($archiveFiles);
         $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
-        // $mountEntity->setArchiveFilePath($archiveFilePath);
+        $mountEntity->setArchiveFilePath($archiveFilePath);
         $output->writeln('<info>' . 'Archive file-path updated to "' . $archiveFilePath . '".' . '</info>');
       }
 
