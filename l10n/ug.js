@@ -147,7 +147,6 @@ OC.L10N.register(
     "Passphrase" : "پارول",
     "unset" : "ئورناتما",
     "archive passphrase" : "ئارخىپ ئىم",
-    "Mount Points" : "تاغ نۇقتىلىرى",
     "not mounted" : "ئورنىتىلمىغان",
     "Disconnect storage" : "ساقلاشنى ئۈزۈڭ",
     "Common prefix {prefix} is stripped." : "ئورتاق ئالدى قوشۇلغۇچى {prefix} تارتىۋېلىندى.",
@@ -193,6 +192,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "ئارخىپ ھۆججىتى \"%s\" ئۈچۈن %s- خىزمەتنى ئەمەلدىن قالدۇرۇش مەغلۇب بولدى.",
     "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" id دىكى ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس.",
-    "Show Passphrase" : "پارولنى كۆرسەت"
+    "Show Passphrase" : "پارولنى كۆرسەت",
+    "Mount Points" : "تاغ نۇقتىلىرى"
 },
 "nplurals=2; plural=(n != 1);");

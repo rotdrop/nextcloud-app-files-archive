@@ -149,7 +149,6 @@
     "Passphrase" : "Heslová fráze",
     "unset" : "zrušit nastavení",
     "archive passphrase" : "heslová fráze k archivu",
-    "Mount Points" : "Přípojné body",
     "not mounted" : "nepřipojeno",
     "Disconnect storage" : "Odpojit úložiště",
     "Common prefix {prefix} is stripped." : "Společná předpona {prefix} je odstraněna.",
@@ -197,6 +196,7 @@
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nedaří se nastavit hodnotu pro „{settingsKey}“ na „{value}“: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Rušení %s úlohy pro soubor archivu „%s“ se nezdařilo.",
     "Shared folder with id \"%1$s\" does not exist." : "Sdílená složka s identif. „%1$s“ neexistuje.",
-    "Show Passphrase" : "Zobrazit heslovou frázi"
+    "Show Passphrase" : "Zobrazit heslovou frázi",
+    "Mount Points" : "Přípojné body"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

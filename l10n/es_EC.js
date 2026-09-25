@@ -103,7 +103,6 @@ OC.L10N.register(
     "Passphrase" : "Frase de contraseña",
     "unset" : "no establecido",
     "archive passphrase" : "frase de contraseña del archivo de archivo",
-    "Mount Points" : "Puntos de montaje",
     "not mounted" : "no montado",
     "Disconnect storage" : "Desconectar almacenamiento",
     "Common prefix {prefix} is stripped." : "El prefijo común {prefix} se elimina.",
@@ -136,6 +135,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se ha establecido correctamente el valor para \"{settingsKey}\" en \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se ha desactivado correctamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No se pudo establecer el valor para \"{settingsKey}\" en \"{value}\": {message}",
-    "Show Passphrase" : "Mostrar frase de contraseña"
+    "Show Passphrase" : "Mostrar frase de contraseña",
+    "Mount Points" : "Puntos de montaje"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Frása pas",
     "unset" : "neamhshuite",
     "archive passphrase" : "Frása pas cartlainne",
-    "Mount Points" : "Pointí Sliabh",
     "not mounted" : "nach bhfuil suite",
     "Disconnect storage" : "Déan stóráil a dhícheangal",
     "Common prefix {prefix} is stripped." : "Baintear an réimír choitianta {prefix}.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Níorbh fhéidir luach a shocrú do \"{settingsKey}\" go \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Theip ar chur ar ceal %s-job don chomhad cartlainne \"%s\".",
     "Shared folder with id \"%1$s\" does not exist." : "Níl an fillteán comhroinnte leis an aitheantas \"%1$s\" ann.",
-    "Show Passphrase" : "Taispeáin frása pas"
+    "Show Passphrase" : "Taispeáin frása pas",
+    "Mount Points" : "Pointí Sliabh"
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");

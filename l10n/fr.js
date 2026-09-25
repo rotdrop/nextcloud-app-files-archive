@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Mot de passe",
     "unset" : "indéterminé",
     "archive passphrase" : "mot de passe de l'archive",
-    "Mount Points" : "Points de montage",
     "not mounted" : "non monté",
     "Disconnect storage" : "Déconnecter le stockage",
     "Common prefix {prefix} is stripped." : "Le préfixe commun {prefix} est supprimé.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value} : {message}.",
     "Cancelling %s-job for archive file \"%s\" failed." : "L'annulation de la tâche %s pour le fichier d'archive \"%s\" a échoué.",
     "Shared folder with id \"%1$s\" does not exist." : " Le dossier partagé avec l’identifiant \"%1$s\" n’existe pas.",
-    "Show Passphrase" : "Montrer le mot de passe"
+    "Show Passphrase" : "Montrer le mot de passe",
+    "Mount Points" : "Points de montage"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

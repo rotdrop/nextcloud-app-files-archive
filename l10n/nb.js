@@ -129,7 +129,6 @@ OC.L10N.register(
     "Passphrase" : "Passord",
     "unset" : "deaktivert",
     "archive passphrase" : "arkivpassord",
-    "Mount Points" : "Mount Points",
     "not mounted" : "ikke montert",
     "Disconnect storage" : "Koble fra lager",
     "Common prefix {prefix} is stripped." : "Vanlig prefiks {prefiks} fjernes.",
@@ -172,6 +171,7 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Avbryt %s-jobb for arkivfil \"%s\" feilet.",
-    "Show Passphrase" : "Vis passordfrase"
+    "Show Passphrase" : "Vis passordfrase",
+    "Mount Points" : "Mount Points"
 },
 "nplurals=2; plural=(n != 1);");

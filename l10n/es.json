@@ -136,7 +136,6 @@
     "Passphrase" : "frase de seguridad",
     "unset" : "Desconfigurar",
     "archive passphrase" : "frase de seguridad del archivador",
-    "Mount Points" : "Puntos de montaje",
     "not mounted" : "no montado",
     "Disconnect storage" : "Desconectar almacenamiento",
     "Common prefix {prefix} is stripped." : "El prefijo común {prefix} está removido.",
@@ -181,6 +180,7 @@
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se reestableció exitosamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No fue posible establecer el valor de \"{settingsKey}\" a \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Cancelando %s-trabajo para el archivador \"%s\" falló.",
-    "Show Passphrase" : "Mostrar frase de seguridad"
+    "Show Passphrase" : "Mostrar frase de seguridad",
+    "Mount Points" : "Puntos de montaje"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

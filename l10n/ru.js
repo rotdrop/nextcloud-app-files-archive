@@ -108,7 +108,6 @@ OC.L10N.register(
     "Passphrase" : "Пароль",
     "unset" : "снять",
     "archive passphrase" : "пароль архива",
-    "Mount Points" : "Точки монтирования",
     "not mounted" : "не смонтировано",
     "Disconnect storage" : "Отсоединить хранилище",
     "Common prefix {prefix} is stripped." : "Общий префикс {prefix} обрезан.",
@@ -149,6 +148,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успешно установлено значение \"{settingsKey}\" в \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Настройка \"{setting}\" была успешно отключена.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не удалось установить значение \"{settingsKey}\" в \"{value}\": {message}",
-    "Show Passphrase" : "Показать пароль"
+    "Show Passphrase" : "Показать пароль",
+    "Mount Points" : "Точки монтирования"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");
