@@ -152,7 +152,6 @@ OC.L10N.register(
     "Passphrase" : "Frase de contrasinal",
     "unset" : "sen definir",
     "archive passphrase" : "arquivar a frase de contrasinal",
-    "Mount Points" : "Puntos de montaxe",
     "not mounted" : "sen montar",
     "Disconnect storage" : "Desconectar o almacenamento",
     "Common prefix {prefix} is stripped." : "O prefixo común {prefix} está suprimido.",
@@ -200,6 +199,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Non foi posíbel definir o valor para «{settingsKey}» a {value}: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Produciuse un fallo ao cancelar o traballo %s para o ficheiro do arquivador «%s».",
     "Shared folder with id \"%1$s\" does not exist." : "O cartafol compartido co identificador «%1$s» non existe.",
-    "Show Passphrase" : "Amosar a frase de contrasinal"
+    "Show Passphrase" : "Amosar a frase de contrasinal",
+    "Mount Points" : "Puntos de montaxe"
 },
 "nplurals=2; plural=(n != 1);");

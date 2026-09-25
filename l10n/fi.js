@@ -44,7 +44,6 @@ OC.L10N.register(
     "creator's comment" : "tekijän kommentti",
     "Passphrase" : "Tunnuslause",
     "archive passphrase" : "arkiston tunnuslause",
-    "Mount Points" : "Liitospisteet",
     "not mounted" : "ei liitetty",
     "Disconnect storage" : "Katkaise yhteys tallennustilaan",
     "Extract Archive" : "Pura arkisto",
@@ -56,6 +55,7 @@ OC.L10N.register(
     "Yes" : "Kyllä",
     "reason unknown" : "tuntematon syy",
     "Confirmation Required" : "Vahvistus vaaditaan",
-    "Show Passphrase" : "Näytä tunnuslause"
+    "Show Passphrase" : "Näytä tunnuslause",
+    "Mount Points" : "Liitospisteet"
 },
 "nplurals=2; plural=(n != 1);");

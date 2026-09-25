@@ -137,7 +137,6 @@ OC.L10N.register(
     "Passphrase" : "Парольна фраза",
     "unset" : "unset",
     "archive passphrase" : "ключова фраза архіву",
-    "Mount Points" : "Mount Points",
     "not mounted" : "не встановлено",
     "Disconnect storage" : "Від’єднати сховище",
     "Common prefix {prefix} is stripped." : "Загальний префікс {prefix} вилучено.",
@@ -182,6 +181,7 @@ OC.L10N.register(
     "Setting \"{setting}\" has been unset successfully." : "Параметр \"{setting}\" успішно скинуто.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не вдалося встановити значення для \"{settingsKey}\" на \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Скасування %s-job для архівного файлу \"%s\" завершилося невдало.",
-    "Show Passphrase" : "Показати ключову фразу"
+    "Show Passphrase" : "Показати ключову фразу",
+    "Mount Points" : "Mount Points"
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

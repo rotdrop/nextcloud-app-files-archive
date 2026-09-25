@@ -115,7 +115,6 @@ OC.L10N.register(
     "Passphrase" : "Pasahitza",
     "unset" : "ezarri gabe",
     "archive passphrase" : "artxiboaren pasahitza",
-    "Mount Points" : "muntatze-puntuak",
     "not mounted" : "muntatu gabe",
     "Disconnect storage" : "Deskonektatu biltegia",
     "Common prefix {prefix} is stripped." : "{prefix} aurrizki arrunta kenduta dago.",
@@ -150,6 +149,7 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\" \"{displayValue}\" baliora ondo ezarri da",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ezarpena behar bezala baliogabetu da.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}",
-    "Show Passphrase" : "Erakutsi pasahitza"
+    "Show Passphrase" : "Erakutsi pasahitza",
+    "Mount Points" : "muntatze-puntuak"
 },
 "nplurals=2; plural=(n != 1);");
