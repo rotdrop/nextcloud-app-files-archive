@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022-2025 Claus-Justus Heine
+ * @copyright 2022-2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -125,12 +125,17 @@ class MountProvider implements IMountProvider
     $mounts = [];
     $mountMapping = $this->mountMapper->findAll($userId);
 
-    /** @var ArchiveMount $mount */
+    /** @var ArchiveMount $mountEntity */
     foreach ($mountMapping as $mountEntity) {
 
-      $mountPoint = $this->doGetMountPoint(
-        $mountEntity, $userId, $loader, $userFolder, $archiveSizeLimit,
-      );
+      try {
+        $mountPoint = $this->doGetMountPoint(
+          $mountEntity, $userId, $loader, $userFolder, $archiveSizeLimit,
+        );
+      } catch (Throwable $t) {
+        $this->logException($t, 'Unable to generate the mount for the archive "' . $mountEntity->getArchiveFilePath() . '"');
+        $mountPoint = null;
+      }
       if ($mountPoint === null) {
         continue;
       }
