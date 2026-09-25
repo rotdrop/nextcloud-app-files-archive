@@ -32,6 +32,9 @@
     <personal>OCA\FilesArchive\Settings\Personal</personal>
     <personal-section>OCA\FilesArchive\Settings\PersonalSection</personal-section>
   </settings>
+  <commands>
+    <command>OCA\FilesArchive\Command\RecreateArchiveFileCache</command>
+  </commands>
   <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_mounted_archive.png</screenshot>
   <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_unmount_action_menu.png</screenshot>
   <screenshot>https://github.com/rotdrop/nextcloud-app-files-archive/raw/main/contrib/screenshots/files_archive_file_list_set_passphrase.png</screenshot>
