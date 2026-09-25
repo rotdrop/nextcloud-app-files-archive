@@ -128,9 +128,15 @@ class MountProvider implements IMountProvider
     /** @var ArchiveMount $mount */
     foreach ($mountMapping as $mountEntity) {
 
-      $mountPoint = $this->doGetMountPoint(
-        $mountEntity, $userId, $loader, $userFolder, $archiveSizeLimit,
-      );
+      // A single broken mount must not remove all archive mounts of the user.
+      try {
+        $mountPoint = $this->doGetMountPoint(
+          $mountEntity, $userId, $loader, $userFolder, $archiveSizeLimit,
+        );
+      } catch (Throwable $t) {
+        $this->logException($t, 'Unable to generate the mount for the archive "' . $mountEntity->getArchiveFilePath() . '"');
+        continue;
+      }
       if ($mountPoint === null) {
         continue;
       }
@@ -221,8 +227,27 @@ class MountProvider implements IMountProvider
       return null;
     }
 
-    if ($mountEntity->getMountPointFileId()) {
-      $storage->setRootId($mountEntity->getMountPointFileId());
+    $rootId = $mountEntity->getMountPointFileId();
+    if ($rootId > 0) {
+      $rootEntry = $storage->getCache()->get('');
+      if ($rootEntry && (int)$rootEntry->getId() === (int)$rootId) {
+        $storage->setRootId($rootId);
+      } else {
+        // The persisted file-id does not belong to the file-cache of this
+        // storage, e.g. because the mount was already broken before the
+        // storage-id migration or the file-cache has been lost otherwise. The
+        // cloud then only ever scans the root of the storage and the mount
+        // stays empty, so rebuild the cache here like the initial mount does.
+        try {
+          $storage->getScanner('', $storage)->scan('');
+          $rootEntry = $storage->getCache()->get('');
+          if ($rootEntry) {
+            $storage->setRootId($rootEntry->getId());
+          }
+        } catch (Throwable $t) {
+          $this->logException($t, 'Unable to rebuild the file-cache of the archive "' . $archivePath . '"');
+        }
+      }
     }
 
     // Nextcloud < 34 marks a mount point as movable/removable only through
