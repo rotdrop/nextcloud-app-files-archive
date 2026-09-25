@@ -38,7 +38,7 @@ export interface FileInfoDTO<NodeType extends IFileType = IFileType> {
   lastmod: number;
   mime: string;
   size: number;
-  type: NodeType;
+  type: NodeType extends 'folder' ? 'dir'|'folder' : 'file';
   hasPreview: boolean;
   permissions: number;
   'mount-type': string;
@@ -72,5 +72,5 @@ export function fileInfoToNode(fileInfo: FileInfoDTO, owner?: string) {
       'has-preview': fileInfo.hasPreview,
     },
   };
-  return fileInfo.type === FileType.Folder ? new Folder(nodeData) as IFolder : new File(nodeData) as IFile;
+  return fileInfo.type === FileType.File ? new File(nodeData) as IFile : new Folder(nodeData) as IFolder;
 }
