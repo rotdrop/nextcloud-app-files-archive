@@ -87,21 +87,7 @@ class FileNodeListener implements IEventListener
       case NodeRenamedEvent::class:
         /** @var NodeRenamedEvent $event */
         $sourceNode = $event->getSource();
-        // The source of a rename does not exist any more at this point, so
-        // asking it for its type would throw. The target is the same node
-        // after the rename and can be asked instead.
-        $typeNode = $event->getTarget();
         break;
-    }
-
-    try {
-      if ($typeNode->getType() != FileInfo::TYPE_FILE) {
-        // could perhaps remove the success information
-        return;
-      }
-    } catch (NotFoundException $e) {
-      // Not knowing the type is no reason to skip the clean-up below, which
-      // only needs the path of the node.
     }
 
     /** @var ArchiveMountMapper $mountMapper */
