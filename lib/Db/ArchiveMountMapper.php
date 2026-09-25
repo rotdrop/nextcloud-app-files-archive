@@ -51,7 +51,9 @@ class ArchiveMountMapper extends QBMapper
   }
 
   /**
-   * Find all archive-mounts of the given user.
+   * Find all archive-mounts of the given user or for all users. If $userId is
+   * null all mount entities are returned, sorted by user id in ascending
+   * order.
    *
    * @param ?string $userId
    *
@@ -66,6 +68,8 @@ class ArchiveMountMapper extends QBMapper
 
     if ($userId !== null) {
       $qb->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+    } else {
+      $qb->orderBy('user_id', 'ASC');
     }
 
     return $this->findEntities($qb);
