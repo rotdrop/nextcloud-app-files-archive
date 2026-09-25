@@ -1,10 +1,21 @@
 <?php
-
-declare(strict_types=1);
-
 /**
- * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2026,  Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace OCA\FilesArchive\Migration;
@@ -34,6 +45,8 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
 
   /**
    * @param IDBConnection $connection
+   *
+   * @param ArchiveMountMapper $mapper
    */
   public function __construct(
     protected IDBConnection $connection,
@@ -92,9 +105,9 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
       foreach ($storageIds as $fileId => $storageId) {
         $replaceQuery = $this->connection->getQueryBuilder();
         $replaceQuery
-          ->update('storages', 's')
-          ->set('s.id', $replaceQuery->createParameter('storageId'))
-          ->where($replaceQuery->expr()->eq('s.id', $replaceQuery->createParameter('legacyStorageId')))
+          ->update('storages')
+          ->set('id', $replaceQuery->createParameter('storageId'))
+          ->where($replaceQuery->expr()->eq('id', $replaceQuery->createParameter('legacyStorageId')))
           ->setParameter('storageId', $this->getStorageId($fileId), IQueryBuilder::PARAM_STR)
           ->setParameter('legacyStorageId', $storageId, IQueryBuilder::PARAM_STR);
         $replaceQuery->executeStatement();
