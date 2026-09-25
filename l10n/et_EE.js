@@ -155,7 +155,6 @@ OC.L10N.register(
     "Passphrase" : "Salafraas",
     "unset" : "määramata",
     "archive passphrase" : "arhiivi salafraas",
-    "Mount Points" : "Haakepunktid",
     "not mounted" : "haakimata",
     "Disconnect storage" : "Ühenda andmehoidla lahti",
     "Common prefix {prefix} is stripped." : "Tavaline „{prefix}“ prefiks on eemaldatud.",
@@ -207,6 +206,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "„{settingsKey}“ võtme väärtustamine uue „{value}“ väärtusega ei õnnestunud: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "„%s“ arhiivifaili „%s“ taustaülesande tühistamine ei õnnestunud.",
     "Shared folder with id \"%1$s\" does not exist." : "Jagatud kausta tunnusega „%1$s“ pole olemas.",
-    "Show Passphrase" : "Näita salafraasi"
+    "Show Passphrase" : "Näita salafraasi",
+    "Mount Points" : "Haakepunktid"
 },
 "nplurals=2; plural=(n != 1);");

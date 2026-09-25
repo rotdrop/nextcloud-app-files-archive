@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Passphrase",
     "unset" : "unset",
     "archive passphrase" : "archive passphrase",
-    "Mount Points" : "Mount Points",
     "not mounted" : "not mounted",
     "Disconnect storage" : "Disconnect storage",
     "Common prefix {prefix} is stripped." : "Common prefix {prefix} is stripped.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Could not set value for \"{settingsKey}\" to \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Cancelling %s-job for archive file \"%s\" failed.",
     "Shared folder with id \"%1$s\" does not exist." : "Shared folder with id \"%1$s\" does not exist.",
-    "Show Passphrase" : "Show Passphrase"
+    "Show Passphrase" : "Show Passphrase",
+    "Mount Points" : "Mount Points"
 },
 "nplurals=2; plural=(n != 1);");

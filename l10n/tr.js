@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Parola",
     "unset" : "ayarı kaldır",
     "archive passphrase" : "arşiv parolası",
-    "Mount Points" : "Takma noktaları",
     "not mounted" : "takılmamış",
     "Disconnect storage" : "Depolama alanının bağlantısını kes",
     "Common prefix {prefix} is stripped." : "{prefix} ortak ön eki ayıklandı.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\", {value} değerine ayarlanamadı: {message}.",
     "Cancelling %s-job for archive file \"%s\" failed." : "%s-job for archive file \"%s\" iptal edilemedi.",
     "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" kimlikli paylaşılmış klasör bulunamadı.",
-    "Show Passphrase" : "Parolayı görüntüle"
+    "Show Passphrase" : "Parolayı görüntüle",
+    "Mount Points" : "Takma noktaları"
 },
 "nplurals=2; plural=(n > 1);");

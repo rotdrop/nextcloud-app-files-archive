@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Jelmondat",
     "unset" : "visszaállítás",
     "archive passphrase" : "archívum jelmondata",
-    "Mount Points" : "Csatolási pontok",
     "not mounted" : "nincs csatolva",
     "Disconnect storage" : "Tároló leválasztása",
     "Common prefix {prefix} is stripped." : "A(z) {prefix} közös előtag eltávolításra kerül.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nem lehet beállítani a(z) „{settingsKey}” értékét erre: „{value}”: {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Nem sikerült a(z) „%2$s” fájlhoz tartozó %1$s-feladat megszakítása.",
     "Shared folder with id \"%1$s\" does not exist." : "A(z) „%1$s” azonosítójú megosztott mappa nem létezik.",
-    "Show Passphrase" : "Jelmondat megjelenítése"
+    "Show Passphrase" : "Jelmondat megjelenítése",
+    "Mount Points" : "Csatolási pontok"
 },
 "nplurals=2; plural=(n != 1);");

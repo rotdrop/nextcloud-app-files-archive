@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Frase-passe",
     "unset" : "não definida",
     "archive passphrase" : "frase-passe do arquivo compactado",
-    "Mount Points" : "Pontos de Montagem",
     "not mounted" : "não montado",
     "Disconnect storage" : "Desconectar armazenamento",
     "Common prefix {prefix} is stripped." : "O prefixo comum {prefix} foi removido.",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" como \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Cancelar trabalho de %s para arquivo \"%s\" falhou.",
     "Shared folder with id \"%1$s\" does not exist." : "A pasta compartilhada com o ID \"%1$s\" não existe.",
-    "Show Passphrase" : "Mostrar Frase-passe"
+    "Show Passphrase" : "Mostrar Frase-passe",
+    "Mount Points" : "Pontos de Montagem"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

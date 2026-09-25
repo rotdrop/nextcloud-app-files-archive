@@ -161,7 +161,6 @@ OC.L10N.register(
     "Passphrase" : "Heslo",
     "unset" : "nenastavené",
     "archive passphrase" : "heslo archívu",
-    "Mount Points" : "Prípojné body",
     "not mounted" : "nepripojené",
     "Disconnect storage" : "Odpojiť úložisko",
     "Common prefix {prefix} is stripped." : "Spoločná predpona {prefix} bola odstránená",
@@ -213,6 +212,7 @@ OC.L10N.register(
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}",
     "Cancelling %s-job for archive file \"%s\" failed." : "Zrušenie %s-úlohy pre archívny súbor \"%s\" zlyhalo.",
     "Shared folder with id \"%1$s\" does not exist." : "Zdieľaný priečinok s ID „%1$s“ neexistuje.",
-    "Show Passphrase" : "Zobraziť Heslo"
+    "Show Passphrase" : "Zobraziť Heslo",
+    "Mount Points" : "Prípojné body"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");
