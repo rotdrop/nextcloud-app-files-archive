@@ -339,7 +339,7 @@ import {
   onUnmounted,
   ref,
   useTemplateRef,
-  // watch,
+  watch,
 } from 'vue'
 import FilePrefixPicker from '@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue'
 import CancelIcon from 'vue-material-design-icons/Cancel.vue'
@@ -574,19 +574,6 @@ const getData = async () => {
   refreshArchiveMounts(fileName.value, true)
   getPendingJobs(fileName.value, true)
 }
-
-// watch(
-//   () => props.node,
-//   async () => {
-//     logger.debug('Node has changed', {
-//       node: { ...props.node },
-//       folder: { ...props.folder },
-//       view: { ...props.view },
-//     })
-//     await update()
-//   },
-//   { immediate: true },
-// )
 
 /**
  * Update current fileInfo and fetch new data.
@@ -1166,8 +1153,9 @@ const onNodeDeleted = (node: INode) => {
 
 logger.debug('PROPS', { ...props })
 
-// run this once
-update()
+// The files sidebar reuses this component when another file is selected. Only
+// the id is watched, renames of the archive are handled by onNodeRenamedd().
+watch(() => props.node.id, () => update(), { immediate: true })
 
 onBeforeMount(() => {
   subscribe('files:node:deleted', onNodeDeleted)
