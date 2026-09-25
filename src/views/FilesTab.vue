@@ -193,14 +193,10 @@
             <NcActions ref="mountOptionsComponent"
                        :forceMenu="true"
             >
-              <NcActionCheckbox v-model="archiveMountStripCommonPathPrefix"
-                                @change="archiveMountStripCommonPathPrefix = !archiveMountStripCommonPathPrefix"
-              >
+              <NcActionCheckbox v-model="archiveMountStripCommonPathPrefix">
                 {{ t(appName, 'strip common path prefix') }}
               </NcActionCheckbox>
-              <NcActionCheckbox v-model="archiveMountBackgroundJob"
-                                @change="archiveMountBackgroundJob = !archiveMountBackgroundJob"
-              >
+              <NcActionCheckbox v-model="archiveMountBackgroundJob">
                 {{ t(appName, 'schedule as background job') }}
               </NcActionCheckbox>
             </NcActions>
@@ -238,14 +234,10 @@
             <NcActions ref="extractionOptionsComponent"
                        :forceMenu="true"
             >
-              <NcActionCheckbox v-model="archiveExtractStripCommonPathPrefix"
-                                @change="archiveExtractStripCommonPathPrefix = !archiveExtractStripCommonPathPrefix"
-              >
+              <NcActionCheckbox v-model="archiveExtractStripCommonPathPrefix">
                 {{ t(appName, 'strip common path prefix') }}
               </NcActionCheckbox>
-              <NcActionCheckbox v-model="archiveExtractBackgroundJob"
-                                @change="archiveExtractBackgroundJob = !archiveExtractBackgroundJob"
-              >
+              <NcActionCheckbox v-model="archiveExtractBackgroundJob">
                 {{ t(appName, 'schedule as background job') }}
               </NcActionCheckbox>
             </NcActions>
@@ -984,7 +976,6 @@ const extractArchive = async () => {
     const response = await axios.post<{ targetFolder: FileInfoDTO<'folder'> }>(url, requestData)
     if (!archiveExtractBackgroundJob.value) {
       const node = fileInfoToNode(response.data.targetFolder)
-      node.attributes['is-mount-root'] = true
 
       emit('files:node:created', node)
     }
