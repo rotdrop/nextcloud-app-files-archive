@@ -95,7 +95,7 @@ class ListMounts extends Command
       ->setHeaders([
         'UserId',
         'UserFolder',
-        'ArchivePaths',
+        'ArchivePath(s)',
         'ArchiveFID',
         'Password',
         'MountPoint',
@@ -116,7 +116,7 @@ class ListMounts extends Command
       $row = [
         'UserId' => $userId,
         'UserFolder' => '[absent]',
-        'ArchivePaths' => '[none]',
+        'ArchivePath(s)' => '[none]',
         'ArchiveFID' => $mountEntity->getArchiveFileId(),
         'Password' => !empty($mountEntity->getArchivePassPhrase()) ? 'set' : 'unset',
         'MountPoint' => $mountEntity->getMountPointPath(),
@@ -144,7 +144,7 @@ class ListMounts extends Command
 
       $archiveFiles = array_filter($userFolder->getById($mountEntity->getArchiveFileId()), fn(File $archiveFile) => $archiveFile->isReadable());
       if (count($archiveFiles) > 0) {
-        $row['ArchivePaths'] = implode(', ', array_map(fn(File $archiveFile) => substr($archiveFile->getPath(), strlen($userFolderPrefix)), $archiveFiles));
+        $row['ArchivePath(s)'] = implode(', ', array_map(fn(File $archiveFile) => substr($archiveFile->getPath(), strlen($userFolderPrefix)), $archiveFiles));
       }
 
       $mountPointFolders = $userFolder->getById($mountEntity->getMountPointFileId());

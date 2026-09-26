@@ -20,6 +20,8 @@
 
 namespace OCA\FilesArchive\Db;
 
+use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+
 use JsonSerializable;
 
 use OCP\AppFramework\Db\Entity;
@@ -40,10 +42,6 @@ use OCP\AppFramework\Db\Entity;
  *
  * @method public int getArchiveFileId()
  * @method public void setArchiveFileId(int $id)
- * @method public string getArchiveFilePath()
- * @method public void setArchiveFilePath(string $path)
- * @method public string getArchiveFilePathHash()
- * @method public void setArchiveFilePathHash(string $pathHash)
  *
  * @method public string getArchivePassPhrase()
  * @method public void setArchivePathPhase(string $passPhrase)
@@ -51,27 +49,43 @@ use OCP\AppFramework\Db\Entity;
  * @method public int getMountFlags()
  * @method public void setMountFlags(int $flags)
  */
+#[TSAttributes\TypeScript]
+#[TSAttributes\TypeScriptTransformer(\OCA\RotDrop\DevScripts\PhpToTypeScript\DatabaseEntityTransformer::class)]
 class ArchiveMount extends Entity implements JsonSerializable
 {
   public const MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX = (1 << 0);
-  public const MOUNT_FLAGS = [
-    self::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX,
-  ];
   public const MOUNT_FLAGS_MASK = self::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX;
 
+  /** @var int */
   public $id;
+
+  /** @var string */
   protected $userId;
 
+  /**
+   * @var int
+   * file-ids are strings to prevent overflow in the JS frontend.
+   */
+  #[TSAttributes\TypeScriptType('string')]
   protected $mountPointFileId;
+
+  /** @var string */
   protected $mountPointPath;
+
+  /** @var string */
   protected $mountPointPathHash;
 
+  /**
+   * @var int
+   * file-ids are strings to prevent overflow in the JS frontend.
+   */
+  #[TSAttributes\TypeScriptType('string')]
   protected $archiveFileId;
-  protected $archiveFilePath;
-  protected $archiveFilePathHash;
 
+  /** @var ?string */
   protected $archivePassPhrase;
 
+  /** @var int */
   protected $mountFlags;
 
   /** CTOR */
@@ -85,8 +99,6 @@ class ArchiveMount extends Entity implements JsonSerializable
     $this->addType('mountPointPathHash', 'string');
 
     $this->addType('archiveFileId', 'integer');
-    $this->addType('archiveFilePath', 'string');
-    $this->addType('archiveFilePathHash', 'string');
 
     $this->addType('archivePassPhrase', 'string');
 
@@ -106,19 +118,6 @@ class ArchiveMount extends Entity implements JsonSerializable
     parent::setMountPointPathHash(md5($path));
   }
 
-  /**
-   * Set the archive file path and automatically also the hash value for it.
-   *
-   * @param string $path
-   *
-   * @return void
-   */
-  public function setArchiveFilePath(string $path):void
-  {
-    parent::setArchiveFilePath($path);
-    parent::setArchiveFilePathHash(md5($path));
-  }
-
   /** {@inheritdoc} */
   public function jsonSerialize():mixed
   {
@@ -131,8 +130,6 @@ class ArchiveMount extends Entity implements JsonSerializable
       'mountPointPathHash' => $this->mountPointPathHash,
 
       'archiveFileId' => (string)$this->archiveFileId, // convert to string to avoid integer overflow with JS
-      'archiveFilePath' => $this->archiveFilePath,
-      'archiveFilePathHash' => $this->archiveFilePathHash,
 
       'archivePassPhrase' => $this->archivePassPhrase,
 

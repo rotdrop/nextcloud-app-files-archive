@@ -46,6 +46,7 @@ use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 /** Recreate the file-cache for mounted archives. */
 class RebuildMountFileCache extends Command
 {
+  use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
   /** {@inheritdoc} */
   public function __construct(
@@ -63,7 +64,7 @@ class RebuildMountFileCache extends Command
   protected function configure()
   {
     $this
-      ->setName($this->appName . ':recreate-cache')
+      ->setName($this->appName . ':rebuild-cache')
       ->setDescription('Recreate the cloud file-cache for mounted archives.')
       ->addOption(
         'user',
@@ -141,27 +142,11 @@ class RebuildMountFileCache extends Command
         continue;
       }
 
-      $archiveFiles = array_filter($userFolder->getById($mountEntity->getArchiveFileId()), fn(File $archiveFile) => $archiveFile->isReadable());
-      if (empty($archiveFiles)) {
-        $output->writeln('<warn>' . 'Cannot access the referenced archive-file "' . $mountEntity->getArchiveFilePath() . '".' . '</warn>');
+      $archiveFile = $this->getArchiveFile($userFolder, $mountEntity);
+      if ($archiveFile === null) {
+        $output->writeln('<warn>' . 'Cannot access the referenced archive-file with id "' . $mountEntity->getArchiveFileId() . '".' . '</warn>');
         $output->writeln('<warn>' . 'Skipping mount "' . $mountPointPath . '".' . '</warn>');
         continue;
-      }
-
-      /** @var File $archiveFile */
-      foreach ($archiveFiles as $archiveFile) {
-        $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
-        if ($archiveFilePath == $mountEntity->getArchiveFilePath()) {
-          break;
-        }
-        $archiveFile = null;
-      }
-      if ($archiveFile === null) {
-        $archiveFile = array_shift($archiveFiles);
-        $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
-        $mountEntity->setArchiveFilePath($archiveFilePath);
-        $this->mountMapper->update($mountEntity);
-        $output->writeln('<info>' . 'Archive file-path updated to "' . $archiveFilePath . '".' . '</info>');
       }
 
       // A stale root id would make the storage answer from the broken cache

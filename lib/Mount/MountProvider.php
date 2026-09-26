@@ -57,6 +57,7 @@ use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 class MountProvider implements IMountProvider
 {
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
   /** @var int */
   private static $recursionLevel = 0;
@@ -133,7 +134,7 @@ class MountProvider implements IMountProvider
           $mountEntity, $userId, $loader, $userFolder, $archiveSizeLimit,
         );
       } catch (Throwable $t) {
-        $this->logException($t, 'Unable to generate the mount for the archive "' . $mountEntity->getArchiveFilePath() . '"');
+        $this->logException($t, 'Unable to generate the mount for the archive with file id "' . $mountEntity->getArchiveFileId() . '"');
         $mountPoint = null;
       }
       if ($mountPoint === null) {
@@ -195,16 +196,15 @@ class MountProvider implements IMountProvider
     IStorageFactory $loader,
     Folder $userFolder,
     int $archiveSizeLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT,
-  ):?ArchiveMountPoint {
+  ): ?ArchiveMountPoint {
 
     $userFolderPath = $userFolder->getPath();
 
-    $archivePath = $mountEntity->getArchiveFilePath();
-    try {
-      $archiveFile = $userFolder->get($archivePath);
-    } catch (FileNotFoundException $e) {
+    $archiveFile = $this->getArchiveFile($userFolder, $mountEntity);
+    if ($archiveFile === null) {
       return null;
     }
+
     $passPhrase = $mountEntity->getArchivePassPhrase();
 
     // The mount-path must be absolute
@@ -222,7 +222,7 @@ class MountProvider implements IMountProvider
         ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix,
       ]);
     } catch (ToolkitExceptions\ArchiveException $e) {
-      $this->logException($e, 'Skipping archive mount of "' . $archivePath . '".');
+      $this->logException($e, 'Skipping archive mount of "' . $archiveFile->getPath() . '@' . $archiveFile->getId() . '".');
       return null;
     }
 

@@ -24,8 +24,8 @@ namespace OCA\FilesArchive\Listener;
 
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\Files\Events\Node\BeforeNodeDeletedEvent;
 use OCP\Files\Events\Node\NodeDeletedEvent;
-use OCP\Files\Events\Node\NodeRenamedEvent;
 use OCP\IUser;
 use Psr\Log\LoggerInterface;
 use OCP\IUserSession;
@@ -33,6 +33,7 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\File;
 use OCP\Files\FileInfo;
+use OCP\Files\IRootFolder;
 use OCP\Files\Mount\IMountManager;
 use Psr\Container\ContainerInterface;
 
@@ -42,17 +43,27 @@ use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Service\MimeTypeService;
 
 /**
- * Listen to renamed and deleted events in order to keep mount-point table
- * synchronized with the cloud file system.
+ * This listeners has the task to look out for deleted archive files and
+ * unmount all associated mounts. There are some pathological cases where
+ * multiple instances of the source archive file are mounted into the user
+ * folder -- as long as one instance is readable, everyting is just ok.
+ *
+ * The framework provided by NC is a little bit challenging here:
+ *
+ * - the final NodeDeletedEvent has no information about the original file id
+ * - the BeforeNodeDeletedEvent may be used to cancel the deletion by other listeners
  */
 class FileNodeListener implements IEventListener
 {
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
-  const EVENT = [ NodeDeletedEvent::class, NodeRenamedEvent::class ];
+  const EVENT = [ BeforeNodeDeletedEvent::class, NodeDeletedEvent::class ];
 
   /** @var string */
   protected $appName;
+
+  protected $removalCandidates = [];
 
   /**
    * @param ContainerInterface $appContainer
@@ -75,74 +86,68 @@ class FileNodeListener implements IEventListener
     if (empty($user)) {
       return;
     }
-    $userId = $user->getUID();
-    $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     /** @var Node $sourceNode */
     switch ($eventClass) {
+      case BeforeNodeDeletedEvent::class:
+        // Just update the candidates list. The deletion may still be
+        // cancelled by other listeners, therefore the notion "candidates".
+        /** @var BeforeNodeDeletedEvent $event */
+        $this->removalCandidates[] = $event->getNode()->getId();
+        return;
       case NodeDeletedEvent::class:
-        /** @var NodeDeletedEvent $event */
-        $sourceNode = $event->getNode();
-        break;
-      case NodeRenamedEvent::class:
-        /** @var NodeRenamedEvent $event */
-        $sourceNode = $event->getSource();
+        // We no longer record the path of the archive file, and the
+        // NodeDeletedEvent has really zarry information except for the
+        // deleted file-path ... nothing we can work with. This is just a
+        // trigger with no valuable data for us.
         break;
     }
+
+    if (count($this->removalCandidates) == 0) {
+      return;
+    }
+
+    $userId = $user->getUID();
+    $this->logger = $this->appContainer->get(LoggerInterface::class);
+
+    // So what is next: we have a list of deletion candidates, but Nextcloud
+    // provides no way to find out if this actual NodeDeletedEvent really
+    // refers to one of the candidates (NonExistingNode Dingsbums).
+    //
+    // Strategy: just check all recorded candidates in turn, if any of those
+    // is gone, do the cleanup and remove the candidate.
+
+    /** @var IMountManager $mountManager */
+    $mountManager = $this->appContainer->get(IMountManager::class);
 
     /** @var ArchiveMountMapper $mountMapper */
     $mountMapper = $this->appContainer->get(ArchiveMountMapper::class);
 
     $userFolderPrefix = Constants::PATH_SEPARATOR . $userId . Constants::PATH_SEPARATOR . 'files';
-    $userFolderPrefixLength = strlen($userFolderPrefix);
-    $sourcePath = substr($sourceNode->getPath(), $userFolderPrefixLength);
 
-    $mounts = $mountMapper->findByArchivePath($user->getUID(), $sourcePath);
-    if (empty($mounts)) {
-      return;
-    }
+    $userFolder = $this->appContainer->get(IRootFolder::class)->getUserFolder($userId);
 
-    $shouldDelete = $eventClass == NodeDeletedEvent::class;
-    if (!$shouldDelete) { // i.e. renamed
-      $targetNode = $event->getTarget();
-      if ($targetNode->getType() != FileInfo::TYPE_FILE) {
-        // could happen with missed rename events after the app temporarily
-        // has been disabled
-        $shouldDelete = true;
+    // iterate over the recorded candidates ...
+    foreach ($this->removalCandidates as $key => $archiveFileId) {
+
+      $mounts = $mountMapper->findByArchiveFileId($userId, $archiveFileId);
+
+      if (empty($mounts)) {
+        unset($this->removalCandidates[$key]);
+        return; // nothing to do
       }
-      /** @var MimeTypeService $mimeTypeService */
-      $mimeTypeService = $this->appContainer->get(MimeTypeService::class);
-      $supportedMimeTypes = $mimeTypeService->getSupportedArchiveMimeTypes();
-      if (array_search($targetNode->getMimeType(), $supportedMimeTypes) === false) {
-        // if the mounted archive is (no longer) supported there is no point
-        // in keeping it mounted.
-        $shouldDelete = true;
+
+      /** @var ArchiveMount $mountEntity */
+      foreach ($mounts as $mountEntity) {
+        $archiveFile = $this->getArchiveFile($userFolder, $mountEntity);
+        if ($archiveFile === null) {
+          // This means that this user has no longer any readable copy of the
+          // archive file available. Hence the mount will here be deleted.
+          $mountManager->removeMount($userFolderPrefix . Constants::PATH_SEPARATOR . $mountEntity->getMountPointPath());
+          $mountMapper->delete($mountEntity);
+        }
       }
-      // anything else ????? PLEASE FIXME
-    }
-
-    if ($shouldDelete) {
-      // @todo: removing mounted archives from an event handler should emit a
-      // user notification
-
-      /** @var IMountManager $mountManager */
-      $mountManager = $this->appContainer->get(IMountManager::class);
-      /** @var ArchiveMount $mount */
-      foreach ($mounts as $mount) {
-        $mountManager->removeMount($userFolderPrefix . Constants::PATH_SEPARATOR . $mount->getMountPointPath());
-        $mountMapper->delete($mount);
-      }
-      return;
-    }
-
-    // this piece of code can only be hit if it was a rename event and above
-    // consistency checks did not bail out.
-
-    $targetPath = substr($targetNode->getPath(), $userFolderPrefixLength);
-    /** @var ArchiveMount $mount */
-    foreach ($mounts as $mount) {
-      $mount->setArchiveFilePath($targetPath);
-      $mountMapper->update($mount);
+      unset($this->removalCandidates[$key]);
     }
   }
 }
