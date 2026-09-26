@@ -96,7 +96,7 @@ class RebuildMountFileCache implements IRepairStep
         continue;
       }
 
-      $archiveFile = $this->getArchiveFile($mountEntity);
+      $archiveFile = $this->getArchiveFile($userFolder, $mountEntity);
       if ($archiveFile === null) {
         $output->info('Cannot access the referenced archive-file "' . $mountEntity->getArchiveFileId() . '".');
         $output->info('Skipping mount "' . $mountPointPath . '".');
