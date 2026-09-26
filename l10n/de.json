@@ -176,6 +176,7 @@
     "extract" : "Entpacken",
     "Common prefix {prefix} will be stripped." : "Gemeinsamer Präfix {prefix} wird entfernt werden.",
     "No pending background job." : "Keine ausstehende Hintergrundaufgabe",
+    "_Mount Point_::_Mount Points_" : ["Einhängepunkt","Einhängepunkte"],
     "Job type: {type}" : "Auftragstyp: {type}.",
     "Mount Archive" : "Archiv einhängen",
     "Extract here" : "Hier entpacken",
