@@ -2,12 +2,30 @@
 # later. See the COPYING file.
 SRCDIR = .
 ABSSRCDIR = $(CURDIR)
+#
+# try to parse the info.xml if we can, only then fall-back to the directory name
+#
+APP_INFO = $(SRCDIR)/appinfo/info.xml
+XPATH = $(shell which xpath 2> /dev/null)
+ifneq ($(XPATH),)
+APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
+APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
+APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
+else
+$(warning The xpath binary could not be found, falling back to using the CWD as app-name)
+APP_NAME = $(notdir $(CURDIR))
+APP_VERSION = unknown
+APP_NAMESPACE = $(shell grep -F '<namespace>' $(APP_INFO)|sed -E 's|.*<namespace>([^<]*)</namespace>.*|\\1|g')
+endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
 ABSBUILDDIR = $(ABSSRCDIR)/build
 BUILD_TOOLS_DIR = $(BUILDDIR)/tools
 DOWNLOADS_DIR = ./downloads
 CONFIG_DIR = ./config
+TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
+TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
+TS_PHP_SOURCE_DIRS = lib
 
 include $(DEV_LIB_DIR)/makefile/setup.mk
 
@@ -83,6 +101,7 @@ APP_TOOLKIT_NS = FilesArchive
 include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-notification-api.mk
+include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name "*.ts")\
@@ -98,6 +117,7 @@ WEBPACK_DEPS =\
  $(IMG_FILES)\
  $(L10N_FILES)\
  $(TS_APP_CONFIG)\
+ ts-types-files\
  $(TS_NOTIFICATION_API)
 
 include $(DEV_LIB_DIR)/makefile/npm.mk
@@ -211,3 +231,7 @@ unit-tests:
 integration-tests:
 	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests
+
+#@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
+tide: dev-setup ts-app-config ts-types-files run-tide post-build
+.PHONY: tide

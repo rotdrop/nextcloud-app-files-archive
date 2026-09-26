@@ -7,6 +7,14 @@ import {
 const configOptions = [
   ...recommended,
   {
+    name: 'undo gitignores',
+    ignores: [
+      '!build',
+      'build/*',
+      '!build/ts-types/',
+    ],
+  },
+  {
     languageOptions: {
       globals: {
         DEV_MODE: 'readonly',
@@ -89,13 +97,13 @@ const configOptions = [
           },
         },
       ],
-      '@stylistic/padded-blocks': 'off',
       '@stylistic/indent': ['error', 2],
+      '@stylistic/indent-binary-ops': ['error', 2],
+      '@stylistic/padded-blocks': 'off',
       // 'n/no-unpublished-import': 'off',
       // 'n/no-unpublished-require': 'off',
       'no-tabs': ['error', {
         allowIndentationTabs: false,
-
       }],
       indent: ['error', 2],
       'no-mixed-spaces-and-tabs': 'error',
@@ -127,12 +135,9 @@ const configOptions = [
     // 'src/toolkit/util/file-node-busy-indicator.ts',
     // 'src/toolkit/util/generate-url.ts',
     // 'src/toolkit/util/initial-state.ts',
-    'src/toolkit/util/nextcloud-sidebar-root.ts',
     // 'src/toolkit/util/on-document-loaded.ts',
     // 'src/toolkit/util/pangram.ts',
     // 'src/toolkit/util/settings-sync.ts',
-    'src/toolkit/util/string-literals.ts',
-    'src/toolkit/util/vue-devtools.ts',
     // 'src/toolkit/util/file-node-helper.ts',
   ]),
   {
