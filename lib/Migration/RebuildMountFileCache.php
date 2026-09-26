@@ -22,7 +22,7 @@ namespace OCA\FilesArchive\Migration;
 
 use Throwable;
 
-use OCP\Files\IFile;
+use OCP\Files\File;
 use OCP\Files\IRootFolder;
 use OCP\Files\Mount\IMountManager;
 use OCP\Files\Mount\IMountPoint;
@@ -76,7 +76,8 @@ class RebuildMountFileCache implements IRepairStep
     $userFolder = null;
 
     /** @var ArchiveMount $mountEntity */
-    for ($i = 0, $mountEntity = $mounts[$i]; $i < $numberOfMounts; $mountEntity = $mounts[++$i], $output->advance(1)) {
+    foreach ($mounts as $mountEntity) {
+      $output->advance(1);
       $userId = $mountEntity->getUserId();
       $userFolderPrefix = Constants::PATH_SEP . $userId . Constants::PATH_SEP . 'files';
       $mountPointPath = $userFolderPrefix . $mountEntity->getMountPointPath();
@@ -101,7 +102,7 @@ class RebuildMountFileCache implements IRepairStep
         continue;
       }
 
-      /** @var IFile $archiveFile */
+      /** @var File $archiveFile */
       foreach ($archiveFiles as $archiveFile) {
         $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
         if ($archiveFilePath == $mountEntity->getArchiveFilePath()) {
@@ -117,6 +118,11 @@ class RebuildMountFileCache implements IRepairStep
         $output->info('Archive file-path updated to "' . $archiveFilePath . '".');
       }
 
+      // A stale root id would make the storage answer from the broken cache
+      // and the scan would find nothing.
+      $storedRootId = $mountEntity->getMountPointFileId();
+      $mountEntity->setMountPointFileId(0);
+
       try {
         /** @var IMountPoint $mountPoint */
         $mountPoint = $this->mountProvider->getMountPoint($mountEntity, $userId, PHP_INT_MAX);
@@ -124,9 +130,9 @@ class RebuildMountFileCache implements IRepairStep
         $this->mountManager->addMount($mountPoint);
         $storage = $mountPoint->getStorage();
         $storage->getScanner()->scan('');
-        $storageRootId = $mountPoint->getStorageRootid();
-        if ($storageRootId != $mountEntity->getMountPointFileId()) {
-          $mountEntity->setMountPointFileId($mountPoint->getStorageRootId());
+        $storageRootId = $mountPoint->getStorageRootId();
+        $mountEntity->setMountPointFileId($storageRootId);
+        if ($storageRootId != $storedRootId) {
           $this->mountMapper->update($mountEntity);
         }
       } catch (Throwable $t) {
