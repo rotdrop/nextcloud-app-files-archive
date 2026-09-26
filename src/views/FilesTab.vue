@@ -273,7 +273,9 @@
                       :bold="false"
           >
             <template #name>
-              <div>{{ job.destinationPath }}</div>
+              <div v-tooltip="job.destinationPath">
+                {{ job.destinationPath }}
+              </div>
             </template>
             <template #actions>
               <NcActionButton @click="cancelPendingOperation(job.target)">
@@ -284,7 +286,7 @@
                 </template>
               </NcActionButton>
             </template>
-            <template v-if="job.stripCommonPathPrefix" #extra>
+            <template v-if="job.stripCommonPathPrefix" #subname>
               <div>{{ t(appName, 'Job type: {type}', {type: job.target === 'mount' ? t(appName, 'mount') : t(appName, 'extract')}) }}</div>
               <div>{{ t(appName, 'Common prefix {prefix} will be stripped.', { prefix: commonPathPrefix }) }}</div>
             </template>
@@ -305,15 +307,23 @@ import type {
   INode,
   // IView,
 } from '@nextcloud/files'
+import type { ArchiveJobArgument as ArchiveJob } from '../../build/ts-types/php-modules/BackgroundJob.ts'
 import type {
-  ArchiveMount,
-  ArchiveMountDTO,
-  ArchiveMountEntity,
-  GetArchiveMountResponse,
-} from '../model/archive-mount.d.ts'
+  ArchiveExtractResponse,
+  ArchiveInfo,
+  ArchiveInfoResponse,
+  ArchiveMountResponse,
+  BackgroundJobCanceledResponse,
+  BackgroundJobScheduledResponse,
+  MountPatchResponse,
+  MountStatusResponse,
+} from '../../build/ts-types/php-modules/Controller/DTO.ts'
+import type {
+  ArchiveMount as ArchiveMountEntity,
+} from '../../build/ts-types/php-modules/Db.ts'
 import type { FileInfoDTO } from '../toolkit/util/file-node-helper.ts'
 import type { InitialState } from '../types/initial-state.d.ts'
-import type { DestinationParameter } from '../types/notification.d.ts'
+import type { DestinationParameter, SourceParameter } from '../types/notification.d.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
@@ -353,30 +363,8 @@ import generateAppUrl from '../toolkit/util/generate-url.ts'
 import getInitialState from '../toolkit/util/initial-state.ts'
 import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '../toolkit/util/toasts.ts'
 
-interface ArchiveInfo {
-  commonPathPrefix: string
-  compressedSize: number
-  defaultMountPoint: string
-  defaultTargetBaseName: string
-  numberOfFiles: number
-  originalSize: number
-  size: number
-  format: string
-  mimeType: string
-  backendDriver: string
-  comment?: string
-}
-
-interface ArchiveJob {
-  target: 'mount'|'extract'
-  userId: string
-  sourceId: number
-  sourcePath: string
-  destinationPath: string
-  archivePassphrase?: string
-  stripCommonPathPrefix: boolean
-  needsAuthentication: boolean
-  authToken: string
+type ArchiveMount = ArchiveMountEntity & {
+  mountPoint: IFolder
 }
 
 const props = withDefaults(defineProps<{
@@ -592,12 +580,6 @@ async function update() {
   getData()
 }
 
-interface ArchiveInfoResponse {
-  messages: string[]
-  archiveStatus: number
-  archiveInfo: ArchiveInfo
-}
-
 /**
  * @param fileName TBD.
  */
@@ -671,12 +653,12 @@ async function refreshArchiveMounts(filename: string, noEmit?: boolean) {
   }
 }
 
-const getJobIdFromOperation = (operation: string, archivePath: string, mountPath: string) => {
-  return md5(operation + archivePath + mountPath)
+const getJobIdFromOperation = (operation: 'mount'|'extract', archiveFileId: string, destinationPath: string) => {
+  return md5(`${operation}${archiveFileId}${destinationPath}`)
 }
 
 const getJobIdFromJob = (job: ArchiveJob) => {
-  return getJobIdFromOperation(job.target, job.sourcePath, job.destinationPath)
+  return getJobIdFromOperation(job.target, job.sourceId, job.destinationPath)
 }
 
 /**
@@ -721,11 +703,6 @@ async function getPendingJobs(fileName: string, silent?: boolean) {
   }
 }
 
-interface CancelJobResponse {
-  removed?: ArchiveJob[]
-  messages?: string[]
-}
-
 const cancelPendingOperation = async (operation: 'extract'|'mount') => {
   const archivePath = encodeURIComponent(fileName.value!)
   const mountPath = encodeURIComponent(archiveMountPathName.value)
@@ -737,16 +714,17 @@ const cancelPendingOperation = async (operation: 'extract'|'mount') => {
       mountPath,
     },
   )
-  let responseData: CancelJobResponse = {}
+  let responseData: BackgroundJobCanceledResponse|undefined
   try {
-    const response = await axios.delete<CancelJobResponse>(url, {})
+    const response = await axios.delete<BackgroundJobCanceledResponse>(url, {})
     responseData = response.data
   } catch (e) {
     logger.error('ERROR', e)
+    responseData = undefined
     if (isAxiosErrorResponse(e)) {
       const messages: string[] = []
       if (e.response.data) {
-        responseData = e.response.data as CancelJobResponse
+        responseData = e.response.data as BackgroundJobCanceledResponse
         if (Array.isArray(responseData.messages)) {
           messages.splice(messages.length, 0, ...responseData.messages)
         }
@@ -764,7 +742,7 @@ const cancelPendingOperation = async (operation: 'extract'|'mount') => {
       }
     }
   }
-  if (responseData.removed) {
+  if (responseData && responseData.removed) {
     for (const job of responseData.removed) {
       const jobId = getJobIdFromJob(job)
       if (pendingJobs.value[jobId]) {
@@ -774,8 +752,8 @@ const cancelPendingOperation = async (operation: 'extract'|'mount') => {
   }
 }
 
-const mountPointInfoToMountPoint = (mount: ArchiveMountEntity|ArchiveMountDTO, mountPointInfo?: FileInfoDTO<'folder'>) => {
-  const mountPoint = fileInfoToNode(mountPointInfo ?? (mount as ArchiveMountDTO).mountPoint)
+const mountPointInfoToMountPoint = (mount: ArchiveMountEntity|ArchiveMountResponse, mountPointInfo?: FileInfoDTO<'folder'>) => {
+  const mountPoint = fileInfoToNode(mountPointInfo ?? (mount as ArchiveMountResponse).mountPoint)
   mountPoint.attributes['is-mount-root'] = true
   return {
     ...mount,
@@ -783,7 +761,7 @@ const mountPointInfoToMountPoint = (mount: ArchiveMountEntity|ArchiveMountDTO, m
   } as ArchiveMount
 }
 
-const mountPointInfosToNodes = (mounts: ArchiveMount<FileInfoDTO<'folder'>>[]) =>
+const mountPointInfosToNodes = (mounts: ArchiveMountResponse[]) =>
   mounts.map((mount) => mountPointInfoToMountPoint(mount, mount.mountPoint))
 
 /**
@@ -802,7 +780,7 @@ async function getArchiveMounts(fileName: string, silent?: boolean) {
   fileName = encodeURIComponent(fileName)
   const url = generateAppUrl('archive/mount/{fileName}', { fileName })
   try {
-    const response = await axios.get<GetArchiveMountResponse>(url)
+    const response = await axios.get<MountStatusResponse>(url)
     const responseData = response.data
     result.mounts = mountPointInfosToNodes(responseData.mounts)
     result.mounted = responseData.mounted
@@ -814,7 +792,7 @@ async function getArchiveMounts(fileName: string, silent?: boolean) {
   } catch (e) {
     logger.error('ERROR', e)
     if (isAxiosErrorResponse(e) && e.response.data) {
-      const responseData = e.response.data as GetArchiveMountResponse
+      const responseData = e.response.data as MountStatusResponse
       result.mounts = mountPointInfosToNodes(responseData.mounts)
       result.mounted = responseData.mounted
       if (responseData.messages) {
@@ -836,7 +814,7 @@ async function getArchiveMounts(fileName: string, silent?: boolean) {
     if (!archivePassPhrase.value && mount.archivePassPhrase) {
       archivePassPhrase.value = mount.archivePassPhrase
     }
-    delete mount.archivePassPhrase
+    mount.archivePassPhrase = '****'
   }
   if (silent !== true) {
     --loading.value
@@ -858,7 +836,7 @@ const mountArchive = async () => {
   }
   requestData.stripCommonPathPrefix = !!archiveMountStripCommonPathPrefix.value
   try {
-    const response = await axios.post<ArchiveMountDTO>(url, requestData)
+    const response = await axios.post<ArchiveMountResponse>(url, requestData)
     if (!archiveMountBackgroundJob.value) {
       const newFileId = `${response.data.mountPoint.fileid}`
       if (archiveMounts.value.findIndex((mount) => mount.mountPoint.id === newFileId) === -1) {
@@ -949,10 +927,6 @@ const unmount = async (mount: ArchiveMount) => {
 const extractArchive = async () => {
   const archivePath = encodeURIComponent(fileName.value!)
   const targetPath = encodeURIComponent(archiveExtractPathName.value)
-  const urlTemplate = archiveExtractBackgroundJob.value
-    ? 'archive/schedule/extract/{archivePath}/{targetPath}'
-    : 'archive/extract/{archivePath}/{targetPath}'
-  const url = generateAppUrl(urlTemplate, { archivePath, targetPath })
   setBusyState(true)
   const requestData: Record<string, string|boolean> = {}
   if (archivePassPhrase.value) {
@@ -960,10 +934,13 @@ const extractArchive = async () => {
   }
   requestData.stripCommonPathPrefix = !!archiveExtractStripCommonPathPrefix.value
   try {
-    const response = await axios.post<{ targetFolder: FileInfoDTO<'folder'> }>(url, requestData)
-    if (!archiveExtractBackgroundJob.value) {
+    if (archiveExtractBackgroundJob.value) {
+      const url = generateAppUrl('archive/schedule/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
+      await axios.post<BackgroundJobScheduledResponse>(url, requestData)
+    } else {
+      const url = generateAppUrl('archive/extract/{archivePath}/{targetPath}', { archivePath, targetPath })
+      const response = await axios.post<ArchiveExtractResponse>(url, requestData)
       const node = fileInfoToNode(response.data.targetFolder)
-
       emit('files:node:created', node)
     }
   } catch (e) {
@@ -1005,7 +982,7 @@ const setPassPhrase = async () => {
     },
   }
   try {
-    await axios.patch(url, requestData)
+    await axios.patch<MountPatchResponse>(url, requestData)
   } catch (e) {
     logger.error('ERROR', e)
     if (isAxiosErrorResponse(e)) {
@@ -1060,7 +1037,7 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
         logger.info('*** Archive notification for other file received', event)
         return
       }
-      const jobId = getJobIdFromOperation('mount', mount.archiveFilePath, mount.mountPointPath)
+      const jobId = getJobIdFromOperation('mount', mount.archiveFileId, mount.mountPointPath)
       if (pendingJobs.value[jobId]) {
         delete pendingJobs.value[jobId]
       }
@@ -1077,9 +1054,22 @@ const onNotification = (event: NextcloudEvents['notifications:notification:recei
       }
       break
     }
-    case 'extract':
-      logger.info('EXTRACT, SHOULD DO SOMETHING')
+    case 'extract': {
+      const sourceData = event.notification.messageRichParameters!.source as SourceParameter
+      const archiveFileId = sourceData.id
+      const destinationPath = destinationData.path
+      if (!destinationPath) {
+        logger.error('No extract destination info in extract notification event')
+        return
+      }
+      const jobId = getJobIdFromOperation('extract', archiveFileId, destinationPath)
+      if (pendingJobs.value[jobId]) {
+        delete pendingJobs.value[jobId]
+      } else {
+        logger.error('CANNOT FIND JOB DATA', { jobs: pendingJobs.value, jobId })
+      }
       break
+    }
   }
 }
 

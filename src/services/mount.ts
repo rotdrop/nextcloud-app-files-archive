@@ -18,7 +18,10 @@
  */
 
 import type { IFile, IFolder, IView } from '@nextcloud/files';
-import type { ArchiveMountDTO, GetArchiveMountResponse } from '../model/archive-mount.d.ts';
+import type {
+  ArchiveMountResponse,
+  MountStatusResponse,
+} from '../../build/ts-types/php-modules/Controller/DTO.ts';
 import type { InitialState } from '../types/initial-state.d.ts';
 
 import axios from '@nextcloud/axios';
@@ -79,7 +82,7 @@ const mount = async (archiveFile: IFile, view: IView) => {
   const mountStatusUrl = generateAppUrl('archive/mount/{encodedPath}', { encodedPath }, undefined);
 
   try {
-    const response = await axios.get<GetArchiveMountResponse>(mountStatusUrl);
+    const response = await axios.get<MountStatusResponse>(mountStatusUrl);
     const data = response.data;
     if (data.mounted) {
       setFileNodeBusy(archiveFile);
@@ -107,7 +110,7 @@ const mount = async (archiveFile: IFile, view: IView) => {
       } else {
         setFileNodeBusy(archiveFile);
         const mountUrl = mountStatusUrl;
-        const response = await axios.post<ArchiveMountDTO>(mountUrl);
+        const response = await axios.post<ArchiveMountResponse>(mountUrl);
         const data = response.data;
         logger.info('DATA', data);
         const mountPointPath = data.mountPointPath;

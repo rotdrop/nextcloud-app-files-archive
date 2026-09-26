@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2026,  Claus-Justus Heine
+ * @copyright 2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -32,11 +32,11 @@ use Override;
 use Throwable;
 
 use OCA\FilesArchive\Constants;
-use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 
 /**
- * Replace legacy storage ids which contain the archive-file paths by the current variant which just contains the file-id.
+ * Replace legacy storage ids which contain the archive-file paths by the
+ * current variant which just contains the file-id.
  */
 class Version100004Date20260923184215 extends SimpleMigrationStep
 {
@@ -50,7 +50,6 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
    */
   public function __construct(
     protected IDBConnection $connection,
-    protected ArchiveMountMapper $mapper,
   ) {
     $this->appName = $this->getAppInfoAppName(__DIR__);
   }
@@ -69,16 +68,16 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
   }
 
   /**
-   * @param ArchiveMount $mount
+   * @param array $mount A row from the table, this migration needs only the archive_file_path.
    *
    * @return string
    */
-  private function getLegacyStorageId(ArchiveMount $mount): string
+  private function getLegacyStorageId(array $mount): string
   {
     return $this->appName . ':'
-      . Constants::PATH_SEP . $mount->getUserId()
+      . Constants::PATH_SEP . $mount['user_id']
       . Constants::PATH_SEP . 'files'
-      . $mount->getArchiveFilePath()
+      . $mount['archive_file_path'] // starts with a slash
       . Constants::PATH_SEP;
   }
 
@@ -86,13 +85,30 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
   #[Override]
   public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void
   {
-    $mounts = $this->mapper->findAll();
+    // Migrations should not use the mapper, although this would simplify some things.
+    $selectQuery = $this->connection->getQueryBuilder();
+    $selectQuery
+      ->select('*')
+      ->from(ArchiveMountMapper::TABLE_NAME)
+      ->orderBy('user_id', 'ASC');
+    $result = $selectQuery->executeQuery();
+    try {
+      $mounts = [];
+      while ($row = $result->fetch()) {
+        $mounts[] = $row;
+      }
+    } catch (Throwable $t) {
+      throw new Exception('Migrating from legacy storage ids to consistent storage ids failed', 0, $t);
+    } finally {
+      $result->closeCursor();
+    }
+
     $storageIds = array_map(
-      fn(ArchiveMount $mount) => $this->getLegacyStorageId($mount),
+      fn(array $mount) => $this->getLegacyStorageId($mount),
       $mounts,
     );
     $archiveFileIds = array_map(
-      fn(ArchiveMount $mount) => $mount->getArchiveFileId(),
+      fn(array $mount) => $mount['archive_file_id'],
       $mounts,
     );
     $storageIds = array_map(

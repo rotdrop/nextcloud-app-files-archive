@@ -24,3 +24,4 @@ lib/Toolkit/[A-Z]*
 /vendor-bin/**/.ac-php-conf.json
 statistics/**
 patches.lock.json
+tide-errors.log

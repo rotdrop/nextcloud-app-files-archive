@@ -42,6 +42,7 @@ use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 class RebuildMountFileCache implements IRepairStep
 {
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -95,27 +96,11 @@ class RebuildMountFileCache implements IRepairStep
         continue;
       }
 
-      $archiveFiles = $userFolder->getById($mountEntity->getArchiveFileId());
-      if (empty($archiveFiles)) {
-        $output->info('Cannot access the referenced archive-file "' . $mountEntity->getArchiveFilePath() . '".');
+      $archiveFile = $this->getArchiveFile($userFolder, $mountEntity);
+      if ($archiveFile === null) {
+        $output->info('Cannot access the referenced archive-file "' . $mountEntity->getArchiveFileId() . '".');
         $output->info('Skipping mount "' . $mountPointPath . '".');
         continue;
-      }
-
-      /** @var File $archiveFile */
-      foreach ($archiveFiles as $archiveFile) {
-        $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
-        if ($archiveFilePath == $mountEntity->getArchiveFilePath()) {
-          break;
-        }
-        $archiveFile = null;
-      }
-      if ($archiveFile === null) {
-        $archiveFile = array_shift($archiveFiles);
-        $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
-        $mountEntity->setArchiveFilePath($archiveFilePath);
-        $this->mountMapper->update($mountEntity);
-        $output->info('Archive file-path updated to "' . $archiveFilePath . '".');
       }
 
       // A stale root id would make the storage answer from the broken cache

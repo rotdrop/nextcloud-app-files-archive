@@ -1,13 +1,16 @@
+<?php
 /**
+ * Archive Manager for Nextcloud
+ *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022-2026 Claus-Justus Heine
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- *
+ *"
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -17,14 +20,26 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type { components as NotificationComponents } from '../../build/ts-types/notification-api.d.ts';
+namespace OCA\FilesArchive\Controller\DTO;
 
-export type DestinationParameter = NotificationComponents['schemas']['RichObjectParameter'] & {
-  status: 'mount'|'extract';
-  mount: string; // JSON encoded data describing the folder
-  folder: string; // JSON encoded data describing the mount database entity
-};
+use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
-export type SourceParameter = NotificationComponents['schemas']['RichObjectParameter'];
+use OCP\Files\FileInfo;
 
-export {};
+use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
+
+/** Response DTO for MountController unmount end-point. */
+class ArchiveUnmountResponse extends AbstractResponseDTO
+{
+  /** {@inheritdoc} */
+  public function __construct(
+    /** @var array<string> */
+    public readonly array $errorMessages,
+    /** @var array<string> */
+    public readonly array $messages,
+    public readonly int $count,
+    /** @var array<MountPoint> */
+    public readonly array $mounts,
+  ) {
+  }
+}

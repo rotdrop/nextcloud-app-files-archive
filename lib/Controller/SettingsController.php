@@ -36,6 +36,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 use OCA\FilesArchive\Constants;
+use OCA\FilesArchive\Toolkit\Exceptions\EnduserNotificationException;
 
 /**
  * Settings-controller for both, personal and admin, settings.
@@ -166,10 +167,10 @@ class SettingsController extends Controller
   public function setAdmin(string $setting, mixed $value, bool $force = false): DataResponse
   {
     if (!isset(self::ADMIN_SETTINGS[$setting])) {
-      return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $setting));
+      throw new EnduserNotificationException($this->l->t('Unknown admin setting: "%1$s"', $setting));
     }
     if (!(self::ADMIN_SETTINGS[$setting]['rw'] ?? false)) {
-      return self::grumble($this->l->t('The admin setting "%1$s" is read-only', $setting));
+      throw new EnduserNotificationException($this->l->t('The admin setting "%1$s" is read-only', $setting));
     }
     $oldValue = $this->config->getAppValue(
       $this->appName,
@@ -181,7 +182,7 @@ class SettingsController extends Controller
         try {
           $newValue = $this->parseMemorySize($value);
         } catch (InvalidArgumentException $t) {
-          return self::grumble($t->getMessage());
+          throw new EnduserNotificationException($t->getMessage());
         }
         break;
       case self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
@@ -189,7 +190,7 @@ class SettingsController extends Controller
       case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
-          return self::grumble(
+          throw new EnduserNotificationException(
             $this->l->t('Value "%1$s" for setting "%2$s" is not convertible to boolean.', [
               $value, $setting,
             ]));
@@ -201,7 +202,7 @@ class SettingsController extends Controller
         }
         break;
       default:
-        return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $setting));
+        throw new EnduserNotificationException($this->l->t('Unknown admin setting: "%1$s"', $setting));
     }
 
     if ($newValue === null) {
@@ -249,7 +250,7 @@ class SettingsController extends Controller
       $allSettings = self::ADMIN_SETTINGS;
     } else {
       if (!isset(self::ADMIN_SETTINGS[$setting])) {
-        return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $setting));
+        throw new EnduserNotificationException($this->l->t('Unknown admin setting: "%1$s"', $setting));
       }
       $allSettings = [ $setting => self::ADMIN_SETTINGS[$setting] ];
     }
@@ -276,7 +277,7 @@ class SettingsController extends Controller
           $humanValue = $value;
           break;
         default:
-          return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $oneSetting));
+          throw new EnduserNotificationException($this->l->t('Unknown admin setting: "%1$s"', $oneSetting));
       }
       $results[$oneSetting] = $value;
       $results['human' . ucfirst($oneSetting)] = $humanValue;
@@ -306,10 +307,10 @@ class SettingsController extends Controller
   public function setPersonal(string $setting, mixed $value): Response
   {
     if (!isset(self::PERSONAL_SETTINGS[$setting])) {
-      return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $setting));
+      throw new EnduserNotificationException($this->l->t('Unknown personal setting: "%1$s"', $setting));
     }
     if (!(self::PERSONAL_SETTINGS[$setting]['rw'] ?? false)) {
-      return self::grumble($this->l->t('The personal setting "%1$s" is read-only', $setting));
+      throw new EnduserNotificationException($this->l->t('The personal setting "%1$s" is read-only', $setting));
     }
     $oldValue = $this->config->getUserValue(
       $this->userId,
@@ -321,7 +322,7 @@ class SettingsController extends Controller
         try {
           $newValue = $this->parseMemorySize($value);
         } catch (InvalidArgumentException $t) {
-          return self::grumble($t->getMessage());
+          throw new EnduserNotificationException($t->getMessage());
         }
         break;
       case self::EXTRACT_BACKGROUND_JOB:
@@ -332,7 +333,7 @@ class SettingsController extends Controller
         $oldValue = filter_var($oldValue, FILTER_VALIDATE_BOOLEAN);
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
-          return self::grumble(
+          throw new EnduserNotificationException(
             $this->l->t('Value "%1$s" for setting "%2$s" is not convertible to boolean.', [
               $value, $setting,
             ]));
@@ -350,7 +351,7 @@ class SettingsController extends Controller
           FILTER_VALIDATE_BOOLEAN);
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
-          return self::grumble(
+          throw new EnduserNotificationException(
             $this->l->t('Value "%1$s" for setting "%2$s" is not convertible to boolean.', [
               $value, $setting,
             ]));
@@ -371,14 +372,14 @@ class SettingsController extends Controller
           break;
         }
         if (strpos($newValue, self::ARCHIVE_FILE_NAME_PLACEHOLDER) === false) {
-          return self::grumble($this->l->t(
+          throw new EnduserNotificationException($this->l->t(
             'The target folder template "%1$s" must contain the archive file placeholder "%2$s".', [
               $newValue, self::ARCHIVE_FILE_NAME_PLACEHOLDER,
             ]));
         }
         break;
       default:
-        return self::grumble($this->l->t('Unknown personal setting: "%s".', [ $setting ]));
+        throw new EnduserNotificationException($this->l->t('Unknown personal setting: "%s".', [ $setting ]));
     }
 
     if ($newValue === null) {
@@ -434,7 +435,7 @@ class SettingsController extends Controller
       $allSettings = self::PERSONAL_SETTINGS;
     } else {
       if (!isset(self::PERSONAL_SETTINGS[$setting])) {
-        return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $setting));
+        throw new EnduserNotificationException($this->l->t('Unknown personal setting: "%1$s"', $setting));
       }
       $allSettings = [ $setting => self::PERSONAL_SETTINGS[$setting] ];
     }
@@ -492,7 +493,7 @@ class SettingsController extends Controller
           $value = !!$value;
           break;
         default:
-          return self::grumble($this->l->t('Unknown personal setting: "%1$s"', $oneSetting));
+          throw new EnduserNotificationException($this->l->t('Unknown personal setting: "%1$s"', $oneSetting));
       }
       $results[$oneSetting] = $value;
       $results['human' . ucfirst($oneSetting)] = $humanValue;

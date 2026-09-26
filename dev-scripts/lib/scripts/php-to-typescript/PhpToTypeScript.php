@@ -81,6 +81,15 @@ class PhpToTypeScript extends Command
     Transformers\DtoTransformer::class,
   ];
 
+  private const DEFAULT_COLLECTORS = [
+    // transform all abstract DTOs
+    DTOCollector::class,
+    // transform all native enums
+    EnumCollector::class,
+    // transfrom all database entities
+    DatabaseEntityCollector::class,
+  ];
+
   /**
    * CTOR.
    *
@@ -95,6 +104,7 @@ class PhpToTypeScript extends Command
     protected string $devScriptsFolder,
     protected array $excludes = [],
     protected array $scopedNamespaces = [],
+    protected array $collectors = self::DEFAULT_COLLECTORS,
   ) {
     parent::__construct();
   }
@@ -266,14 +276,7 @@ class PhpToTypeScript extends Command
       // ->transformToNativeEnums(true)
       // list of transformers
       ->transformers(self::TRANSFORMERS)
-      ->collectors([
-        // transform all abstract DTOs
-        DTOCollector::class,
-        // transform all native enums
-        EnumCollector::class,
-        // transfrom all database entities
-        DatabaseEntityCollector::class,
-      ])
+      ->collectors($this->collectors ?? self::DEFAULT_COLLECTORS)
       // try inject default TypeScriptTransformer
       ->defaultTypeReplacements([
         // Carbon actually just by default emits a simple strings
@@ -316,26 +319,30 @@ class PhpToTypeScript extends Command
     }
 
     if ($input->getOption(self::OPTION_AS_MODULES)) {
-      $metadataGenerator = new GenerateEntityMetadata(
-        phpNamespacePrefix: $input->getOption(self::OPTION_NS_PREFIX),
-        outputPrefix: $outputPrefix . self::TS_MODULES_DIR,
-        output: $output,
-        devScriptsFolder: $this->devScriptsFolder,
-      );
-      $metadataGenerator->generateSparseMetadata();
-      $entityMapNamespace = $metadataGenerator->exportEntityMap();
-      $tsData = file_get_contents($outputFile);
-      $tsData = $entityMapNamespace . "\n" . $tsData;
-      file_put_contents($outputFile, $tsData);
+      if (in_array(DatabaseEntityCollector::class, $this->collectors)) {
+        $metadataGenerator = new GenerateEntityMetadata(
+          phpNamespacePrefix: $input->getOption(self::OPTION_NS_PREFIX),
+          outputPrefix: $outputPrefix . self::TS_MODULES_DIR,
+          output: $output,
+          devScriptsFolder: $this->devScriptsFolder,
+        );
+        $metadataGenerator->generateSparseMetadata();
+        $entityMapNamespace = $metadataGenerator->exportEntityMap();
+        $tsData = file_get_contents($outputFile);
+        $tsData = $entityMapNamespace . "\n" . $tsData;
+        file_put_contents($outputFile, $tsData);
 
-      $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
+        $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
 
-      $metadataGenerator->dumpTypeScriptData();
+        $metadataGenerator->dumpTypeScriptData();
+      } else {
+        $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
+      }
     }
 
     if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
       $output->writeln('');
-      $output->writeln('<info> *** ' . $outputName . ' *** </info>');
+      $output->writeln('<info> *** PhpToTypeScript *** </info>');
       /** @var TransformedType $type */
       foreach ($types as $class => $type) {
         $output->writeln('<info>' . $class . ' -> ' . $type->getTypeScriptName() . '</info>');

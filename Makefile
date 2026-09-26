@@ -2,24 +2,43 @@
 # later. See the COPYING file.
 SRCDIR = .
 ABSSRCDIR = $(CURDIR)
+#
+# try to parse the info.xml if we can, only then fall-back to the directory name
+#
+APP_INFO = $(SRCDIR)/appinfo/info.xml
+XPATH = $(shell which xpath 2> /dev/null)
+ifneq ($(XPATH),)
+APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
+APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
+APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
+else
+$(warning The xpath binary could not be found, falling back to using the CWD as app-name)
+APP_NAME = $(notdir $(CURDIR))
+APP_VERSION = unknown
+APP_NAMESPACE = $(shell grep -F '<namespace>' $(APP_INFO)|sed -E 's|.*<namespace>([^<]*)</namespace>.*|\\1|g')
+endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
 ABSBUILDDIR = $(ABSSRCDIR)/build
 BUILD_TOOLS_DIR = $(BUILDDIR)/tools
 DOWNLOADS_DIR = ./downloads
 CONFIG_DIR = ./config
+TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
+TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
+TS_PHP_SOURCE_DIRS = lib
 
 include $(DEV_LIB_DIR)/makefile/setup.mk
 
 SILENT = @
 
 # make these overridable from the command line
-RSYNC = $(shell which rsync 2> /dev/null)
-PHP = $(shell which php 2> /dev/null)
+EMACS = $(shell which emacs 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
-WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
+PHP = $(shell which php 2> /dev/null)
 PHPUNIT = ./vendor-bin/phpunit/vendor/bin/phpunit
+RSYNC = $(shell which rsync 2> /dev/null)
+WGET = $(shell which wget 2> /dev/null)
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -63,11 +82,11 @@ all: help
 .PHONY: all
 
 #@@ Build the distribution assets (minified, without debugging info)
-build: dev-setup npm-build test
+build: dev-setup npm-build
 .PHONY: build
 
 #@@ Build the development assets (include debugging information)
-dev: dev-setup npm-dev test
+dev: dev-setup npm-dev
 .PHONY: dev
 
 #@private
@@ -83,6 +102,7 @@ APP_TOOLKIT_NS = FilesArchive
 include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-notification-api.mk
+include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name "*.ts")\
@@ -98,6 +118,7 @@ WEBPACK_DEPS =\
  $(IMG_FILES)\
  $(L10N_FILES)\
  $(TS_APP_CONFIG)\
+ ts-types-files\
  $(TS_NOTIFICATION_API)
 
 include $(DEV_LIB_DIR)/makefile/npm.mk
@@ -211,3 +232,12 @@ unit-tests:
 integration-tests:
 	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests
+
+#@private
+run-tide:
+	$(EMACS) --batch --file $(SRCDIR)/src/vue-app.ts  -l $(DEV_LIB_DIR)/scripts/tide-project-errors.el|tee tide-errors.log
+.PHONY: run-tide
+
+#@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
+tide: dev-setup ts-app-config ts-types-files run-tide
+.PHONY: tide

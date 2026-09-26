@@ -23,18 +23,18 @@
 namespace OCA\FilesArchive\Notification;
 
 use Throwable;
-use InvalidArgumentException;
 
-use Psr\Log\LoggerInterface as ILogger;
+use OCP\Files\Folder;
+use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException;
+use OCP\IPreview;
 use OCP\IURLGenerator;
+use OCP\IUserSession;
 use OCP\L10N\IFactory as IL10NFactory;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
-use OCP\IUserSession;
-use OCP\IPreview;
-use OCP\Files\IRootFolder;
-use OCP\Files\Folder;
-use OCP\Files\NotFoundException;
+use OCP\Notification\UnknownNotificationException;
+use Psr\Log\LoggerInterface;
 
 use OCA\FilesArchive\BackgroundJob\ArchiveJob;
 use OCA\FilesArchive\Db\ArchiveMount;
@@ -63,7 +63,7 @@ class Notifier implements INotifier
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     protected $appName,
-    protected ILogger $logger,
+    protected LoggerInterface $logger,
     protected IL10NFactory $l10nFactory,
     protected IURLGenerator $urlGenerator,
     protected IRootFolder $rootFolder,
@@ -94,7 +94,7 @@ class Notifier implements INotifier
   public function prepare(INotification $notification, string $languageCode):INotification
   {
     if ($notification->getApp() !== $this->appName) {
-      throw new InvalidArgumentException('Application should be ' . $this->appName . ' instead of ' . $notification->getApp());
+      throw new UnknownNotificationException('Application should be ' . $this->appName . ' instead of ' . $notification->getApp());
     }
 
     $l = $this->l10nFactory->get($this->appName, $languageCode);
@@ -226,7 +226,7 @@ class Notifier implements INotifier
       default:
         // TRANSLATORS: "notification subject" refers the head-line of a
         // TRANSLATORS: notificiation of the Nextcloud push-notification framework.
-        throw new InvalidArgumentException($l->t('Internal error, unsupported notification subject: "%1s".', $notification->getSubject()));
+        throw new UnknownNotificationException($l->t('Internal error, unsupported notification subject: "%1s".', $notification->getSubject()));
     }
 
     $notification->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath($this->appName, 'app-dark.svg')));

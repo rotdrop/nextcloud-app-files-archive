@@ -1,13 +1,16 @@
+<?php
 /**
+ * Archive Manager for Nextcloud
+ *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022-2026 Claus-Justus Heine
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- *
+ *"
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -17,14 +20,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type { components as NotificationComponents } from '../../build/ts-types/notification-api.d.ts';
+namespace OCA\FilesArchive\Controller\DTO;
 
-export type DestinationParameter = NotificationComponents['schemas']['RichObjectParameter'] & {
-  status: 'mount'|'extract';
-  mount: string; // JSON encoded data describing the folder
-  folder: string; // JSON encoded data describing the mount database entity
-};
+use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 
-export type SourceParameter = NotificationComponents['schemas']['RichObjectParameter'];
-
-export {};
+/** Response DTO for ArchiveController info end-point. */
+class ArchiveInfo extends ArchiveService\ArchiveInfo
+{
+  /** {@inheritdoc} */
+  public function __construct(
+    ArchiveService\ArchiveInfo $archiveInfo,
+    string $defaultMountPoint,
+    public readonly string $defaultTargetBaseName,
+    /**
+     * @var
+     * Default destination basename for archive extraction.
+     */
+  ) {
+    $args = $archiveInfo->toArray();
+    $args['defaultMountPoint'] = $defaultMountPoint;
+    parent::__construct(...$args);
+  }
+}

@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,8 @@
 
 namespace OCA\RotDrop\Toolkit\Service;
 
+use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+
 use DateTimeInterface;
 use Normalizer;
 
@@ -38,11 +40,13 @@ use OCP\Util as CloudUtil;
 use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
 use OCA\RotDrop\Toolkit\Backend\ArchiveBackend;
 use OCA\RotDrop\Toolkit\Exceptions;
+use OCA\RotDrop\Toolkit\Service\ArchiveService\ArchiveInfo;
 
 /**
  * Wrapper around the actual archive backend class in order to interface with
  * the virtual storage and actual archive extraction controllers.
  */
+#[TSAttributes\Typescript]
 class ArchiveService
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
@@ -154,8 +158,8 @@ class ArchiveService
   /** @var array */
   private $archiveFiles;
 
-  /** @var array */
-  private $archiveInfo;
+  /** @var */
+  private ?ArchiveInfo $archiveInfo;
 
   /** @var array */
   private array $savedProcessEnvironment;
@@ -371,7 +375,7 @@ class ArchiveService
     }
     $this->fileNode = $fileNode;
     $archiveInfo = $this->getArchiveInfo();
-    $archiveSize = $archiveInfo['originalSize'];
+    $archiveSize = $archiveInfo->originalSize;
     if ($sizeLimit !== null && $archiveSize > $sizeLimit) {
       $this->archiver = null;
       $this->fileNode = null;
@@ -395,8 +399,8 @@ class ArchiveService
     return $this;
   }
 
-  /** @return array Archive information, meta-data. */
-  public function getArchiveInfo():array
+  /** @return ArchiveInfo Archive information, meta-data. */
+  public function getArchiveInfo(): ArchiveInfo
   {
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
@@ -419,7 +423,7 @@ class ArchiveService
 
     // $this->logInfo('MIME ' .  $this->fileNode->getMimeType());
 
-    $this->archiveInfo = [
+    $this->archiveInfo = ArchiveInfo::fromArray([
       self::ARCHIVE_INFO_FORMAT => $this->archiver->getFormat(),
       self::ARCHIVE_INFO_MIME_TYPE => $this->fileNode->getMimeType(),
       self::ARCHIVE_INFO_SIZE => $this->archiver->getSize(),
@@ -430,7 +434,7 @@ class ArchiveService
       self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT => self::getArchiveFolderName($this->fileNode->getName()),
       self::ARCHIVE_INFO_COMMON_PATH_PREFIX => $this->getCommonDirectoryPrefix(),
       self::ARCHIVE_INFO_BACKEND_DRIVER => $this->getClassBaseName($this->archiver->getDriverType()),
-    ];
+    ]);
 
     $this->restoreProcessEnvironment();
 
