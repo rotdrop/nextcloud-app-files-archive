@@ -23,20 +23,18 @@
 namespace OCA\FilesArchive\AppInfo;
 
 use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
-use OCP\AppFramework\Bootstrap\IBootContext;
-use OCP\IConfig;
 use OCP\Files\Config\IMountProviderCollection;
-
+use OCP\IConfig;
 use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
-
 use OCA\FilesArchive\Service\MimeTypeService;
-
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Notification\Notifier;
+use OCA\FilesArchive\Toolkit\Middleware\ExceptionMiddleware;
 
 // phpcs:disable PSR1.Files.SideEffects
 include_once __DIR__ . '/../../vendor/autoload.php';
@@ -93,6 +91,7 @@ class Application extends App implements IBootstrap
     // Register listeners
     ListenerRegistration::register($context);
 
+    $context->registerMiddleWare(ExceptionMiddleware::class);
     $context->registerNotifierService(Notifier::class);
   }
 }
