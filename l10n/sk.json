@@ -176,6 +176,7 @@
     "extract" : "rozbaliť",
     "Common prefix {prefix} will be stripped." : "Spoločná predpona {prefix} bude odstránená",
     "No pending background job." : "Žiadne čakajúce úlohy na pozadí.",
+    "_Mount Point_::_Mount Points_" : ["Prípojný bod","Prípojné body","Prípojných bodov","Prípojných bodov"],
     "Job type: {type}" : "Typ úlohy: {type}",
     "Mount Archive" : "Pripojiť archív",
     "Extract here" : "Rozbaliť sem",
