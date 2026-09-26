@@ -25,4 +25,6 @@ export type DestinationParameter = NotificationComponents['schemas']['RichObject
   folder: string; // JSON encoded data describing the mount database entity
 };
 
+export type SourceParameter = NotificationComponents['schemas']['RichObjectParameter'];
+
 export {};

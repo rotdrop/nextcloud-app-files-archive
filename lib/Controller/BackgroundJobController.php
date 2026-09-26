@@ -40,8 +40,10 @@ use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
 use OCA\FilesArchive\BackgroundJob\ArchiveJob;
+use OCA\FilesArchive\BackgroundJob\ArchiveJobArgument;
 use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Service\NotificationService;
+use OCA\FilesArchive\Toolkit\Exceptions\EnduserNotificationException;
 use OCA\FilesArchive\Toolkit\Service\UserScopeService;
 
 /**
@@ -55,8 +57,8 @@ class BackgroundJobController extends Controller
   use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
   use TargetPathTrait;
 
-  const OPERATION_MOUNT = ArchiveJob::TARGET_MOUNT;
-  const OPERATION_EXTRACT = ArchiveJob::TARGET_EXTRACT;
+  public const OPERATION_MOUNT = ArchiveJob::TARGET_MOUNT;
+  public const OPERATION_EXTRACT = ArchiveJob::TARGET_EXTRACT;
 
   /** @var string */
   private string $targetBaseNameTemplate;
@@ -148,7 +150,7 @@ class BackgroundJobController extends Controller
       ArchiveJob::TARGET_KEY => $operation,
       ArchiveJob::USER_ID_KEY => $this->userId,
       ArchiveJob::SOURCE_PATH_KEY => $archivePath,
-      ArchiveJob::SOURCE_ID_KEY => $archiveNode->getId(),
+      ArchiveJob::SOURCE_ID_KEY => (string)$archiveNode->getId(),
       ArchiveJob::DESTINATION_PATH_KEY => $destinationPath,
       ArchiveJob::ARCHIVE_PASSPHRASE_KEY => $passPhrase,
       ArchiveJob::STRIP_COMMON_PATH_PREFIX_KEY => $stripCommonPathPrefix ?? $this->stripCommonPathPrefixDefault[$operation],
@@ -210,14 +212,15 @@ class BackgroundJobController extends Controller
           && ($destinationPath === null || $job->getDestinationPath() === $destinationPath)) {
         $jobArguments = $job->getArgument();
         $this->jobList->remove($job, $jobArguments);
+         $argumentDTO = ArchiveJobArgument::fromArray($jobArguments);
         if ($this->jobList->has($job, $jobArguments)) {
-          $failed[] = $job;
+          $failed[] = $argumentDTO;
           $messages[] = $this->l->t('Cancelling %1$s-job for archive file "%2$s" failed.', [
             $operation,
             $archivePath,
           ]);
         } else {
-          $removed[] = $jobArguments;
+          $removed[] = $argumentDTO;
           $this->notificationService->deleteScheduledJobNotification(
             $job->getUserId(),
             $job->getTarget(),

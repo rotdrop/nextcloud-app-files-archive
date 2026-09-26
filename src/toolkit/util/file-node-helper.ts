@@ -23,27 +23,14 @@ import type {
   IFolder,
   NodeData,
 } from '@nextcloud/files';
+import type { LegacyFileInfo } from '../../../build/ts-types/php-modules/Toolkit/DTO.ts';
 
 import { getCurrentUser } from '@nextcloud/auth';
 import { File, FileType, Folder } from '@nextcloud/files';
 import { generateRemoteUrl } from '@nextcloud/router';
 import { join } from 'path';
 
-export interface FileInfoDTO<NodeType extends IFileType = IFileType> {
-  fileid: string; // corresponds to the PHP NodeTrait. Use string in order to avoid integer overflow.
-  path: string;
-  topLevelFolder: string;
-  relativePath: string;
-  basename: string;
-  lastmod: number;
-  mime: string;
-  size: number;
-  type: NodeType extends 'folder' ? 'dir'|'folder' : 'file';
-  hasPreview: boolean;
-  permissions: number;
-  'mount-type': string;
-  etag: string;
-}
+export type FileInfoDTO<NodeType extends IFileType = IFileType> = LegacyFileInfo<NodeType extends 'file' ? 'file' : 'dir'>;
 
 /**
  * @param fileInfo File-info object.
@@ -60,7 +47,7 @@ export function fileInfoToNode(fileInfo: FileInfoDTO, owner?: string) {
   }
   const nodeData: NodeData = {
     id: parseInt(fileInfo.fileid, 10),
-    source: generateRemoteUrl(join('dav/files', owner, fileInfo.relativePath)),
+    source: generateRemoteUrl(join('dav/files', owner, fileInfo.relativePath!)),
     root: `/files/${owner}`,
     mime: fileInfo.mime,
     mtime: new Date(fileInfo.lastmod * 1000),

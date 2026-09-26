@@ -3,7 +3,7 @@
  * Recursive PDF Downloader App for Nextcloud
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25,23 +25,23 @@ namespace OCA\FilesArchive\BackgroundJob;
 use InvalidArgumentException;
 use Throwable;
 
-use OCP\Files\NotFoundException as FileNotFoundException;
-use OCP\BackgroundJob\QueuedJob;
-use Psr\Log\LoggerInterface as ILogger;
-use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\BackgroundJob\QueuedJob;
+use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\ITempManager;
-use Psr\Container\ContainerInterface;
 use OCP\IUserSession;
+use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface as ILogger;
 
-use OCA\FilesArchive\Toolkit\Service\UserScopeService;
-
+use OCA\FilesArchive\Controller\ArchiveController;
+use OCA\FilesArchive\Controller\DTO;
+use OCA\FilesArchive\Controller\MountController;
+use OCA\FilesArchive\Exceptions;
 use OCA\FilesArchive\Service\FileSystemWalker;
 use OCA\FilesArchive\Service\NotificationService;
-use OCA\FilesArchive\Controller\MountController;
-use OCA\FilesArchive\Controller\ArchiveController;
-use OCA\FilesArchive\Exceptions;
+use OCA\FilesArchive\Toolkit\Service\UserScopeService;
 
 /**
  * Background PDF generator job in order to move time-consuming jobs out of
@@ -64,6 +64,8 @@ class ArchiveJob extends QueuedJob
   public const NEEDS_AUTHENTICATION_KEY = 'needsAuthentication';
   public const AUTH_TOKEN_KEY = 'authToken';
 
+  protected ?ArchiveJobArgument $argumentDTO;
+
   /**
    * @var int
    *
@@ -84,12 +86,19 @@ class ArchiveJob extends QueuedJob
   }
   // phpcs:enable
 
+  /** {@inheritdoc} */
+  public function setArgument(mixed $argument): void
+  {
+    parent::setArgument($argument);
+    $this->argumentDTO = ArchiveJobArgument::fromArray($this->argument);
+  }
+
   /**
    * @return null|bool
    */
   public function getNeedsAuthentication():bool
   {
-    $needsAuthentication = $this->argument[self::NEEDS_AUTHENTICATION_KEY] ?? false;
+    $needsAuthentication = $this->argumentDTO->{self::NEEDS_AUTHENTICATION_KEY} ?? false;
     return $needsAuthentication;
   }
 
@@ -100,7 +109,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getAuthToken():?string
   {
-    $authToken = $this->argument[self::AUTH_TOKEN_KEY] ?? null;
+    $authToken = $this->argumentDTO->{self::AUTH_TOKEN_KEY} ?? null;
     if ($authToken === null && $this->getNeedsAuthentication()) {
       throw new InvalidArgumentException('Auth token argument is empty.');
     }
@@ -114,7 +123,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getTarget():string
   {
-    $target = $this->argument[self::TARGET_KEY] ?? null;
+    $target = $this->argumentDTO->{self::TARGET_KEY} ?? null;
     if (empty($target)) {
       throw new InvalidArgumentException('Target argument is empty.');
     }
@@ -128,7 +137,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getUserId():string
   {
-    $sourcePath = $this->argument[self::USER_ID_KEY] ?? null;
+    $sourcePath = $this->argumentDTO->{self::USER_ID_KEY} ?? null;
     if (empty($sourcePath)) {
       throw new InvalidArgumentException('User id argument is empty.');
     }
@@ -142,7 +151,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getSourcePath():string
   {
-    $sourcePath = $this->argument[self::SOURCE_PATH_KEY] ?? null;
+    $sourcePath = $this->argumentDTO->{self::SOURCE_PATH_KEY} ?? null;
     if (empty($sourcePath)) {
       throw new InvalidArgumentException('Source path argument is empty.');
     }
@@ -156,7 +165,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getSourceId():int
   {
-    $sourceId = $this->argument[self::SOURCE_ID_KEY] ?? null;
+    $sourceId = $this->argumentDTO->{self::SOURCE_ID_KEY} ?? null;
     if ($sourceId === null) {
       throw new InvalidArgumentException('Source id argument is empty.');
     }
@@ -183,7 +192,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getDestinationPath():string
   {
-    $destinationPath = $this->argument[self::DESTINATION_PATH_KEY];
+    $destinationPath = $this->argumentDTO->{self::DESTINATION_PATH_KEY};
     if (empty($destinationPath)) {
       throw new InvalidArgumentException('Destination path argument is empty.');
     }
@@ -195,7 +204,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getArchivePassphrase():?string
   {
-    $archivePassphrase = $this->argument[self::ARCHIVE_PASSPHRASE_KEY] ?? null;
+    $archivePassphrase = $this->argumentDTO->{self::ARCHIVE_PASSPHRASE_KEY} ?? null;
     return $archivePassphrase;
   }
 
@@ -204,7 +213,7 @@ class ArchiveJob extends QueuedJob
    */
   public function getStripCommonPathPrefix():?bool
   {
-    $archivePassphrase = $this->argument[self::STRIP_COMMON_PATH_PREFIX_KEY] ?? null;
+    $archivePassphrase = $this->argumentDTO->{self::STRIP_COMMON_PATH_PREFIX_KEY} ?? null;
     return $archivePassphrase;
   }
 
@@ -242,19 +251,21 @@ class ArchiveJob extends QueuedJob
           /** @var MountController $mountController */
           $mountController = $this->appContainer->get(MountController::class);
           $response = $mountController->mount($archivePath, $destinationPath, $archivePassPhrase, $stripCommonPathPrefix);
+          /** @var DTO\ArchiveMountResponse $data */
           $data = $response->getData();
           if ($response->getStatus() === Http::STATUS_OK) {
             // $this->logInfo('CONTROLLER OK ' . print_r($data, true));
-            $this->destinationId = $data['mountPointFileId'];
+            $this->destinationId = $data->mount->getMountPointFileId();
           }
           break;
         case self::TARGET_EXTRACT:
           /** @var ArchiveController $archiveController */
           $archiveController = $this->appContainer->get(ArchiveController::class);
           $response = $archiveController->extract($archivePath, $destinationPath, $archivePassPhrase, $stripCommonPathPrefix);
+          /** @var DTO\ArchiveEXtractResponse $data */
           $data = $response->getData();
           if ($response->getStatus() === Http::STATUS_OK) {
-            $this->destinationId = $data['targetFileId'];
+            $this->destinationId = $data->targetFileId;
           }
           break;
       }
