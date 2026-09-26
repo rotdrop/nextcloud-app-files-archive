@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -51,7 +51,7 @@ class Version100001Date20221108144214 extends SimpleMigrationStep
    *
    * @return null|ISchemaWrapper
    */
-  public function changeSchema(IOutput $output, Closure $schemaClosure, array $options):?ISchemaWrapper
+  public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper
   {
     /** @var ISchemaWrapper $schema */
     $schema = $schemaClosure();
