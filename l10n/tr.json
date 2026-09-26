@@ -176,6 +176,7 @@
     "extract" : "ayıkla",
     "Common prefix {prefix} will be stripped." : "{prefix} ortak ön eki ayıklanacak.",
     "No pending background job." : "Bekleyen bir arka plan görevi yok.",
+    "_Mount Point_::_Mount Points_" : ["Takma noktası","Takma noktaları"],
     "Job type: {type}" : "Görev türü: {type}",
     "Mount Archive" : "Arşiv takma",
     "Extract here" : "Buraya ayıkla",

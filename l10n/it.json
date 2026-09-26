@@ -121,6 +121,7 @@
     "extract" : "estrazione",
     "Common prefix {prefix} will be stripped." : "Il prefisso comune {prefix} verrà rimosso.",
     "No pending background job." : "Nessuna operazione in background in attesa.",
+    "_Mount Point_::_Mount Points_" : ["Punto di mount","Punti di mount","Punti di mount"],
     "Job type: {type}" : "Tipo di operazione: {type}",
     "Mount Archive" : "Monta Archivio",
     "Extract here" : "Estrai qui",

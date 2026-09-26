@@ -176,6 +176,7 @@
     "extract" : "解壓縮",
     "Common prefix {prefix} will be stripped." : "常見的前綴「{prefix}」將被去除。",
     "No pending background job." : "沒有待處理的後台作業",
+    "_Mount Point_::_Mount Points_" : ["掛載點"],
     "Job type: {type}" : "作業類型：{type}",
     "Mount Archive" : "掛載封存檔",
     "Extract here" : "在此解壓縮",

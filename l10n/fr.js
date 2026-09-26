@@ -178,6 +178,7 @@ OC.L10N.register(
     "extract" : "extraire",
     "Common prefix {prefix} will be stripped." : "Le préfixe commun {prefix} sera supprimé.",
     "No pending background job." : "Aucune tâche en arrière-plan en attente.",
+    "_Mount Point_::_Mount Points_" : ["Point de montage","Points de montage","Points de montage"],
     "Job type: {type}" : "Type de tâche : {type}",
     "Mount Archive" : "Monter l'archive",
     "Extract here" : "Extraire ici",
