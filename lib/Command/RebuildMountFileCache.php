@@ -30,7 +30,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use OCP\Files\IFile;
+use OCP\Files\File;
 use OCP\Files\IRootFolder;
 use OCP\Files\Mount\IMountManager;
 use OCP\Files\Mount\IMountPoint;
@@ -141,14 +141,14 @@ class RebuildMountFileCache extends Command
         continue;
       }
 
-      $archiveFiles = array_filter($userFolder->getById($mountEntity->getArchiveFileId()), fn(IFile $archiveFile) => $archiveFile->isReadable());
+      $archiveFiles = array_filter($userFolder->getById($mountEntity->getArchiveFileId()), fn(File $archiveFile) => $archiveFile->isReadable());
       if (empty($archiveFiles)) {
         $output->writeln('<warn>' . 'Cannot access the referenced archive-file "' . $mountEntity->getArchiveFilePath() . '".' . '</warn>');
         $output->writeln('<warn>' . 'Skipping mount "' . $mountPointPath . '".' . '</warn>');
         continue;
       }
 
-      /** @var IFile $archiveFile */
+      /** @var File $archiveFile */
       foreach ($archiveFiles as $archiveFile) {
         $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
         if ($archiveFilePath == $mountEntity->getArchiveFilePath()) {
@@ -160,8 +160,14 @@ class RebuildMountFileCache extends Command
         $archiveFile = array_shift($archiveFiles);
         $archiveFilePath = substr($archiveFile->getPath(), strlen($userFolderPrefix));
         $mountEntity->setArchiveFilePath($archiveFilePath);
+        $this->mountMapper->update($mountEntity);
         $output->writeln('<info>' . 'Archive file-path updated to "' . $archiveFilePath . '".' . '</info>');
       }
+
+      // A stale root id would make the storage answer from the broken cache
+      // and the scan would find nothing.
+      $storedRootId = $mountEntity->getMountPointFileId();
+      $mountEntity->setMountPointFileId(0);
 
       try {
         /** @var IMountPoint $mountPoint */
@@ -170,9 +176,9 @@ class RebuildMountFileCache extends Command
         $this->mountManager->addMount($mountPoint);
         $storage = $mountPoint->getStorage();
         $storage->getScanner()->scan('');
-        $storageRootId = $mountPoint->getStorageRootid();
-        if ($storageRootId != $mountEntity->getMountPointFileId()) {
-          $mountEntity->setMountPointFileId($mountPoint->getStorageRootId());
+        $storageRootId = $mountPoint->getStorageRootId();
+        $mountEntity->setMountPointFileId($storageRootId);
+        if ($storageRootId != $storedRootId) {
           $this->mountMapper->update($mountEntity);
         }
       } catch (Throwable $t) {
