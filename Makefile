@@ -32,12 +32,13 @@ include $(DEV_LIB_DIR)/makefile/setup.mk
 SILENT = @
 
 # make these overridable from the command line
-RSYNC = $(shell which rsync 2> /dev/null)
-PHP = $(shell which php 2> /dev/null)
+EMACS = $(shell which emacs 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
-WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
+PHP = $(shell which php 2> /dev/null)
 PHPUNIT = ./vendor-bin/phpunit/vendor/bin/phpunit
+RSYNC = $(shell which rsync 2> /dev/null)
+WGET = $(shell which wget 2> /dev/null)
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -81,11 +82,11 @@ all: help
 .PHONY: all
 
 #@@ Build the distribution assets (minified, without debugging info)
-build: dev-setup npm-build test
+build: dev-setup npm-build
 .PHONY: build
 
 #@@ Build the development assets (include debugging information)
-dev: dev-setup npm-dev test
+dev: dev-setup npm-dev
 .PHONY: dev
 
 #@private
@@ -232,6 +233,11 @@ integration-tests:
 	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests
 
+#@private
+run-tide:
+	$(EMACS) --batch --file $(SRCDIR)/src/vue-app.ts  -l $(DEV_LIB_DIR)/scripts/tide-project-errors.el|tee tide-errors.log
+.PHONY: run-tide
+
 #@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
-tide: dev-setup ts-app-config ts-types-files run-tide post-build
+tide: dev-setup ts-app-config ts-types-files run-tide
 .PHONY: tide
