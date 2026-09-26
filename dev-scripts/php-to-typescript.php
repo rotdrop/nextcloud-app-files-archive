@@ -56,6 +56,7 @@ use OCA\RotDrop\DevScripts\PhpToTypeScript;
 
 $excludes = [
   'lib/Toolkit/Doctrine',
+  'lib/Mount', // there is nothing to convert, and code diversion between NC versions triggers errors.
 ];
 
 $scopedNamespaces = [
