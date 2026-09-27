@@ -43,6 +43,8 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
   use \OCA\FilesArchive\Storage\StorageIdTrait;
   use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
 
+  protected string $appName;
+
   /**
    * @param IDBConnection $connection
    *
@@ -89,7 +91,7 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
     $selectQuery = $this->connection->getQueryBuilder();
     $selectQuery
       ->select('*')
-      ->from(ArchiveMountMapper::TABLE_NAME)
+      ->from($this->appName . '_' . ArchiveMountMapper::TABLE_NAME)
       ->orderBy('user_id', 'ASC');
     $result = $selectQuery->executeQuery();
     try {

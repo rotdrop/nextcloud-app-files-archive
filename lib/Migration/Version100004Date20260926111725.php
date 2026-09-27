@@ -36,6 +36,8 @@ class Version100004Date20260926111725 extends SimpleMigrationStep
 {
   use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
 
+  protected string $appName;
+
   /** CTOR */
   public function __construct()
   {
