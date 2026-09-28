@@ -57,6 +57,11 @@
                       :details="archiveInfo?.mimeType || t(appName, 'unknown')"
                       compact
           />
+          <NcListItem :name="t(appName, 'encryption')"
+                      :bold="true"
+                      :details="archiveInfoEncryption"
+                      compact
+          />
           <NcListItem :name="t(appName, 'backend driver')"
                       :bold="true"
                       :details="archiveInfo?.backendDriver || t(appName, 'unknown')"
@@ -112,13 +117,14 @@
         <div class="files-tab-entry__desc">
           <h5>
             <span class="main-title">{{ t(appName, 'Passphrase') }}</span>
-            <span v-if="!archivePassPhrase" class="title-annotation">({{ t(appName, 'unset') }})</span>
+            <span v-if="!archivePassPhrase" class="title-annotation">({{ archiveInfo?.isEncrypted === false ? t(appName, 'unnecessary') : t(appName, 'unset') }})</span>
           </h5>
         </div>
-        <NcActions :forceMenu="true">
+        <NcActions :forceMenu="true" :disabled="archiveInfo?.isEncrypted === false">
           <NcActionInput v-model="archivePassPhrase"
                          type="password"
                          icon="icon-password"
+                         :disabled="archiveInfo?.isEncrypted === false"
                          @submit="setPassPhrase"
           >
             {{ t(appName, 'archive passphrase') }}
@@ -527,6 +533,18 @@ const commonPathPrefix = computed(
     ? t(appName, 'unknown')
     : '/' + archiveInfo.value.commonPathPrefix,
 )
+const archiveInfoEncryption = computed(
+  () => {
+    if (archiveInfo.value?.isEncrypted === true) {
+      return t(appName, 'encrypted') // could add more info if available
+    } else if (archiveInfo.value?.isEncrypted === false) {
+      return t(appName, 'unencrypted')
+    } else {
+      return t(appName, 'unnknown')
+    }
+  },
+)
+
 // const mountPointTitle = computed(() =>
 //   t(appName, 'Mount Points')
 //     + ' ('

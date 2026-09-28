@@ -22,32 +22,10 @@
 
 namespace OCA\RotDrop\Toolkit\Exceptions;
 
-use Throwable;
-
 /**
- * Exception thrown when the data contents cannot be access, possibly because
- * of a missing password.
+ * Exception thrown when the data contents cannot be accessed because a
+ * password is required.
  */
-class ArchiveCannotAccessContentException extends ArchiveException
+class ArchivePasswordRequiredException extends ArchiveCannotAccessContentException
 {
-  /**
-   * @param string $message
-   *
-   * @param int $code
-   *
-   * @param ?Throwable $previous
-   *
-   * @param ?string $fileName
-   *
-   * {@inheritdoc}
-   */
-  public function __construct(
-    string $message,
-    int $code = 0,
-    ?Throwable $previous = null,
-    public readonly ?string $fileName,
-    public readonly ?string $archivePath,
-  ) {
-    parent::__construct($message, $code, $previous);
-  }
 }

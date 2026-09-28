@@ -27,6 +27,8 @@ use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 use DateTimeInterface;
 use Normalizer;
 use SensitiveParameter;
+use Throwable;
+use ZipArchive;
 
 use wapmorgan\UnifiedArchive\Abilities as DriverAbilities;
 use wapmorgan\UnifiedArchive\ArchiveEntry;
@@ -64,6 +66,8 @@ class ArchiveService
    * Mime-type of the archive file.
    */
   public const ARCHIVE_INFO_MIME_TYPE = 'mimeType';
+
+  public const ARCHIVE_INFO_IS_ENCRYPTED = 'isEncrypted';
 
   /**
    * @var string
@@ -127,16 +131,17 @@ class ArchiveService
    * archiveInfo().
    */
   public const ARCHIVE_INFO_KEYS = [
+    self::ARCHIVE_INFO_BACKEND_DRIVER,
     self::ARCHIVE_INFO_COMMENT,
+    self::ARCHIVE_INFO_COMMON_PATH_PREFIX,
     self::ARCHIVE_INFO_COMPRESSED_SIZE,
+    self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT,
     self::ARCHIVE_INFO_FORMAT,
+    self::ARCHIVE_INFO_IS_ENCRYPTED,
     self::ARCHIVE_INFO_MIME_TYPE,
     self::ARCHIVE_INFO_NUMBER_OF_FILES,
     self::ARCHIVE_INFO_ORIGINAL_SIZE,
     self::ARCHIVE_INFO_SIZE,
-    self::ARCHIVE_INFO_COMMON_PATH_PREFIX,
-    self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT,
-    self::ARCHIVE_INFO_BACKEND_DRIVER,
   ];
 
   /**
@@ -170,6 +175,12 @@ class ArchiveService
    * Normalization convention used inside the archive.
    */
   private int $unicodeNormalization;
+
+  /**
+   * @var
+   * Archive passphrase.
+   */
+  private ?string $archivePassphrase = null;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -306,8 +317,8 @@ class ArchiveService
           continue;
         }
         $abilities = $driverClass::getFormatAbilities($format);
-        $requiredAbilities = DriverAbilities::OPEN|DriverAbilities::EXTRACT_CONTENT;
-        if (($abilities & $requiredAbilities) != $requiredAbilities) {
+        $requiredAbilities = [DriverAbilities::OPEN, DriverAbilities::EXTRACT_CONTENT];
+        if (count(array_intersect($requiredAbilities, $abilities)) != count($requiredAbilities)) {
           $messages[] = $this->l->t('The "%1$s" driver claims to handle this format, but cannot extract the archive content.', $shortDriver);
         }
       }
@@ -360,9 +371,11 @@ class ArchiveService
       ]));
     }
 
+    $this->archivePassPhrase = $password;
+
     $this->setProcessEnvironment();
 
-    $this->archiver = ArchiveBackend::open(self::getLocalPath($fileNode), password: $password);
+    $this->archiver = ArchiveBackend::open(self::getLocalPath($fileNode), password: $this->archivePassPhrase);
 
     $this->restoreProcessEnvironment();
 
@@ -427,6 +440,7 @@ class ArchiveService
     $this->archiveInfo = ArchiveInfo::fromArray([
       self::ARCHIVE_INFO_FORMAT => $this->archiver->getFormat(),
       self::ARCHIVE_INFO_MIME_TYPE => $this->fileNode->getMimeType(),
+      self::ARCHIVE_INFO_IS_ENCRYPTED => $this->isEncrypted(),
       self::ARCHIVE_INFO_SIZE => $this->archiver->getSize(),
       self::ARCHIVE_INFO_COMPRESSED_SIZE => $this->archiver->getCompressedSize(),
       self::ARCHIVE_INFO_ORIGINAL_SIZE => $this->archiver->getOriginalSize(),
@@ -507,13 +521,75 @@ class ArchiveService
   }
 
   /**
+   * Normalize the give file name using the current unicode normalization.
+   *
+   * @param string $entryName
+   *
+   * @return string
+   *
+   * @todo Make it more clever for special so-called operating systems.
+   */
+  private function normalizeEntryName(string $entryName): string
+  {
+    return Normalizer::normalize($entryName, $this->unicodeNormalization);
+  }
+
+  /**
+   * @param string $fileName
+   *
    * @param ?Throwable $previous
    *
    * @return void
    */
-  private function throwCannotAccessContent(?Throwable $previous = null): void
+  private function throwCannotAccessContent(string $fileName, ?Throwable $previous = null): void
   {
-    throw new Exceptions\ArchiveCannotAccessContentException($this->l->t('Could not get file information. May use password?'), 0, $previous);
+    if ($this->isEncrypted($fileName)) {
+      if (!empty($this->archivePassphrase)) {
+        $driver = $this->archiver->getDriver();
+        $driverAbilities = $driver->getFormatAbilities();
+        if (in_array(DriverAbilities::OPEN_ENCRYPTED, $driverAbilities)) {
+          $reason = $this->l->t('The archive entry "%1$s" of the archive "%2$s" is encrypted but given passphrase may be wrong.', [
+            $fileName,
+            $this->fileNode->getPath(),
+          ]);
+        } else {
+          $driverClass = get_class($driver);
+          $driverClass = substr($driverClass, strrpos($driverClass, '\\') + 1);
+          $reason = $this->l->t('The archive entry "%1$s" of the archive "%2$s" is encrypted but the backend-driver "%3$s" does not support decryption.', [
+            $fileName,
+            $this->fileNode->getPath(),
+            $driverClass,
+          ]);
+        }
+      } else {
+        $reason = $this->l->t('The archive entry "%1$s" of the archive "%2$s" is encrypted but the decryption passphrase is not known.', [
+          $fileName,
+          $this->fileNode->getPath(),
+        ]);
+      }
+      throw new Exceptions\ArchivePasswordRequiredException(
+        $this->l->t(
+          'Could not access file "%1$s" of archive "%2$s". Reason: %3$s',
+          [
+            $fileName,
+            $this->fileNode->getPath(),
+            $reason,
+          ],
+        ),
+        0,
+        $previous,
+        fileName: $fileName,
+        archivePath: $this->fileNode->getPath(),
+      );
+    } else {
+      throw new Exceptions\ArchiveCannotAccessContentException(
+        $this->l->t('Could not access file "%1$s" of archive "%2$s".'),
+        0,
+        $previous,
+        fileName: $fileName,
+        archivePath: $this->fileNode->getPath(),
+      );
+    }
   }
 
   /**
@@ -533,12 +609,14 @@ class ArchiveService
     $this->setProcessEnvironment();
 
     try {
-      $result = $this->archiver->getFileContent(Normalizer::normalize($fileName, $this->unicodeNormalization));
+      $result = $this->archiver->getFileContent($this->normalizeEntryName($fileName));
     } catch (Throwable $t) {
 
       $this->restoreProcessEnvironment();
 
-      throwCannotAccessContent($t);
+      // if ($this->isEncrypted($fileName) && $this->pas
+
+      $this->throwCannotAccessContent($fileName, $t);
     }
 
     $this->restoreProcessEnvironment();
@@ -562,12 +640,17 @@ class ArchiveService
 
     $this->setProcessEnvironment();
 
-    $result = $this->archiver->getFileStream(Normalizer::normalize($fileName, $this->unicodeNormalization));
+    $t = null;
+    try {
+      $result = $this->archiver->getFileStream($this->normalizeEntryName($fileName));
+    } catch (Throwable $t) {
+      $result = false;
+    }
 
     $this->restoreProcessEnvironment();
 
     if ($result === false) {
-      throwCannotAccessContent();
+      $this->throwCannotAccessContent($fileName, $t);
     }
 
     return $result;
@@ -608,6 +691,48 @@ class ArchiveService
       } else {
         $_ENV[$key] = $this->savedProcessEnvironment[$key];
       }
+    }
+  }
+
+  /**
+   * Determine whether the current archive is encrypted, or if a particular
+   * archive entry is encrypted. Return \null if this information is not available.
+   *
+   * @param ?string $entryName
+   *
+   * @return bool
+   */
+  protected function isEncrypted(?string $entryName = null): ?bool
+  {
+    if (empty($this->archiver)) {
+      throw new Exceptions\ArchiveNotOpenException(
+        $this->t('There is no archive file associated with this archiver instance.'));
+    }
+
+    $format = $this->archiver->getFormat();
+    switch ($format) {
+      case ArchiveFormats::ZIP:
+        $localPath = self::getLocalPath($this->fileNode);
+        $zip = new ZipArchive;
+        if ($zip->open($localPath) === false) {
+          return null;
+        }
+        if ($zip->numFiles == 0) {
+          return false; // no files, no encryption
+        }
+        if ($entryName === null) {
+          $stat = $zip->statIndex(0);
+        } else {
+          $stat = $zip->statName($this->normalizeEntryName($entryName));
+        }
+        if (($stat['encryption_method'] ?? 0) != 0) {
+          return true;
+        }
+        return false; // bogus answer for ZIP-archives containing both encrypted and unencrypted data.
+      case ArchiveFormats::RAR:
+        return null;
+      default:
+        return false;
     }
   }
 }
