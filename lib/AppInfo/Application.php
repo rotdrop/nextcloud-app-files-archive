@@ -22,6 +22,8 @@
 
 namespace OCA\FilesArchive\AppInfo;
 
+use Exception;
+
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -36,27 +38,15 @@ use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Notification\Notifier;
 use OCA\FilesArchive\Toolkit\Middleware\ExceptionMiddleware;
 
-// phpcs:disable PSR1.Files.SideEffects
-include_once __DIR__ . '/../../vendor/autoload.php';
-// phpcs:enable PSR1.Files.SideEffects
+use OCA\FilesArchive\Toolkit\AppInfo\AbstractApplication;
+
+include_once __DIR__ . '/../Toolkit/AppInfo/AbstractApplication.php';
 
 /**
  * App entry point.
  */
-class Application extends App implements IBootstrap
+class Application extends AbstractApplication
 {
-  use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
-
-  /** @var string */
-  protected $appName;
-
-  /** Constructor. */
-  public function __construct()
-  {
-    $this->appName = $this->getAppInfoAppName(__DIR__);
-    parent::__construct($this->appName);
-  }
-
   /**
    * Called later than "register".
    *
@@ -88,6 +78,11 @@ class Application extends App implements IBootstrap
    */
   public function register(IRegistrationContext $context): void
   {
+    parent::register($context);
+    if ((include_once __DIR__ . '/../../vendor-scoped/autoload.php') === false) {
+      throw new Exception('Cannot include scoped autoload. The app has not been installed properly.');
+    }
+
     // Register listeners
     ListenerRegistration::register($context);
 

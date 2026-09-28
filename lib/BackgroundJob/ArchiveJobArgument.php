@@ -70,7 +70,7 @@ class ArchiveJobArgument extends AbstractResponseDTO
       sourcePath: $sourcePath,
       sourceId: $sourceId,
       destinationPath: $destinationPath,
-      archivePassPhrase: $archivePassPhrase,
+      archivePassPhrase: $archivePassPhrase ?? null,
       stripCommonPathPrefix: $stripCommonPathPrefix,
       needsAuthentication: $needsAuthentication ?? false,
       authToken: $authToken ?? null,

@@ -23,5 +23,7 @@ lib/Toolkit/[A-Z]*
 /vendor-bin/**/composer.lock
 /vendor-bin/**/.ac-php-conf.json
 statistics/**
-patches.lock.json
+*patches.lock.json
 tide-errors.log
+composer-scoped*.lock*
+vendor-scoped

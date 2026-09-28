@@ -10,25 +10,27 @@
     }
   ],
   "require": {
-  },
-  "provide": {
-    "symfony/console": "*",
-    "symfony/event-dispatcher": "*",
-    "symfony/filesystem": "*",
-    "symfony/process": "*"
+    "rotdrop/alchemy-zippy": "*",
+    "gemorroj/archive7z": "^5.4",
+    "nelexa/zip": "^4.0",
+    "pear/archive_tar": "1.6.0",
+    "phpclasses/php-iso-file": "^0.5.1",
+    "sensiolabs/ansi-to-html": "^1.2",
+    "symfony/console": "^6.0.0",
+    "wapmorgan/cab-archive": "^0.0.7",
+    "wapmorgan/unified-archive": "dev-master"
   },
   "require-dev": {
-    "bamarni/composer-bin-plugin": "^1.8.2",
     "cweagans/composer-patches": "^2.0"
   },
   "config": {
+    "vendor-dir": "vendor-scoped",
     "optimize-autoloader": true,
     "classmap-authoritative": true,
     "platform": {
       "php": "8.4"
     },
     "allow-plugins": {
-      "bamarni/composer-bin-plugin": true,
       "cweagans/composer-patches": true
     }
   },
@@ -38,26 +40,9 @@
       "url": "https://github.com/rotdrop/alchemy-zippy.git"
     }
   ],
-  "autoload-dev": {
-    "psr-4": {
-      "OCA\\RotDrop\\Toolkit\\": "php-toolkit",
-      "OCA\\RotDrop\\DevScripts\\PhpToTypeScript\\": "dev-scripts/lib/scripts/php-to-typescript",
-      "Spatie\\TypeScriptTransformer\\": "vendor-bin/typescript-transformer/vendor/spatie/typescript-transformer/src/"
-    }
-  },
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "scripts": {
-    "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
-    "cs:check": "php-cs-fixer fix --dry-run --diff",
-    "cs:fix": "php-cs-fixer fix"
-  },
   "extra": {
-    "bamarni-bin": {
-      "bin-links": false,
-      "target-directory": "vendor-bin",
-      "forward-command": true
-    },
     "patches": {
       "jarodxxx/zippy": {
         "Fix PHP 8 deprecations bloating the log files": "composer-patches/jarodxxx/zippy/fix-deprecations.patch"

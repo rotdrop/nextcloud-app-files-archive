@@ -24,22 +24,22 @@ namespace OCA\FilesArchive\Controller;
 
 use Throwable;
 
-use wapmorgan\UnifiedArchive\Commands as ArchiveCommands;
+use OCA\FilesArchive\Scoped\wapmorgan\UnifiedArchive\Commands as ArchiveCommands;
 
-use SensioLabs\AnsiConverter;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Helper as ConsoleHelper;
+use OCA\FilesArchive\Scoped\SensioLabs\AnsiConverter;
+use OCA\FilesArchive\Scoped\Symfony\Component\Console\Input\ArrayInput;
+use OCA\FilesArchive\Scoped\Symfony\Component\Console\Output\BufferedOutput;
+use OCA\FilesArchive\Scoped\Symfony\Component\Console\Output\OutputInterface;
+use OCA\FilesArchive\Scoped\Symfony\Component\Console\Input\InputDefinition;
+use OCA\FilesArchive\Scoped\Symfony\Component\Console\Input\InputArgument;
+use OCA\FilesArchive\Scoped\Symfony\Component\Console\Helper as ConsoleHelper;
 
-use Psr\Log\LoggerInterface;
-use OCP\IRequest;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IL10N;
+use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 
 /**
  * AJAX endpoint for diagnostics, currently the installation status of the
@@ -98,7 +98,7 @@ class DiagnosticsController extends Controller
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/format/{format}')]
-  public function archiveFormat(string $format):DataResponse
+  public function archiveFormat(string $format): DataResponse
   {
     return self::dataResponse(
       $this->runArchiveCommand(ArchiveCommands\FormatCommand::class, [ 'format' => $format ])
@@ -112,7 +112,7 @@ class DiagnosticsController extends Controller
    *
    * @return array HTML and CSS output.
    */
-  private function runArchiveCommand(string $commandClass, array $arguments = []):array
+  private function runArchiveCommand(string $commandClass, array $arguments = []): array
   {
     $helperSet = new ConsoleHelper\HelperSet([
       new ConsoleHelper\FormatterHelper(),

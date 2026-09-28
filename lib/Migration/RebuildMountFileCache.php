@@ -122,7 +122,7 @@ class RebuildMountFileCache implements IRepairStep
         }
       } catch (Throwable $t) {
         $output->info('Unable to update the file-cache for "' . $mountPointPath . '": ' . $t->getMessage());
-        $output->info('<warn>' . 'Skipping mount "' . $mountPointPath . '".');
+        $output->info('Skipping mount "' . $mountPointPath . '".');
       }
     }
 
