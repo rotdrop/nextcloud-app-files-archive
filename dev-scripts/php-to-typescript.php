@@ -31,7 +31,7 @@ define('ROT_DROP_DEV_SCRIPTS_APP_DIR', $appDir);
 try {
   require_once(__DIR__ . '/lib/scripts/console-setup.php');
   require_once($appDir . '/vendor/autoload.php');
-  // require_once($appDir . '/vendor-wrapped/autoload.php');
+  require_once($appDir . '/vendor-scoped/autoload.php');
   require_once($appDir . '/vendor-bin/typescript-transformer/vendor/autoload.php');
 } catch (\Throwable $t) {
   fwrite(STDERR, 'Composer autoloads not set up: ' . $t->getMessage() . PHP_EOL);
