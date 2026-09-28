@@ -264,6 +264,22 @@ class PhpToTypeScript extends Command
 
     $outputFile = $outputPrefix . self::TS_TYPES_FILE;
 
+    $typeReplacements = [
+      // Carbon actually just by default emits a simple strings
+      // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      Carbon\CarbonImmutable::class => new TypeScriptType('string'),
+      Carbon\Carbon::class => new TypeScriptType('string'),
+      DateTime::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      DateTimeImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      UuidInterface::class => new TypeScriptType('string'),
+    ];
+    $typeReplacements = array_filter(
+      $typeReplacements,
+      fn(string $class) => class_exists($class, autoload: true),
+      ARRAY_FILTER_USE_KEY,
+    );
+
     $config = TransformerConfig::create()
       ->appNamespace($namespacePrefix)
       ->scopedNamespacePrefix($scopedNamespacePrefix)
@@ -278,16 +294,7 @@ class PhpToTypeScript extends Command
       ->transformers(self::TRANSFORMERS)
       ->collectors($this->collectors ?? self::DEFAULT_COLLECTORS)
       // try inject default TypeScriptTransformer
-      ->defaultTypeReplacements([
-        // Carbon actually just by default emits a simple strings
-        // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        Carbon\CarbonImmutable::class => new TypeScriptType('string'),
-        Carbon\Carbon::class => new TypeScriptType('string'),
-        DateTime::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        DateTimeImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        UuidInterface::class => new TypeScriptType('string'),
-      ])
+      ->defaultTypeReplacements($typeReplacements)
       // try inject default TypeScriptTransformer
       ->defaultInlineTypeReplacements([
         // 'mixed' => 'unknown',
@@ -491,7 +498,7 @@ class PhpToTypeScript extends Command
               $nextNs = reset($namespaces);
               $currentModule = $modulesPath . $currentNs . '.ts';
               $newData = "export * as {$nextNs} from './{$currentNs}/{$nextNs}.ts';";
-              $currentData = file_get_contents($currentModule);
+              $currentData = file_exists($currentModule) ? file_get_contents($currentModule) : null;
               if (!empty($currentData) && !str_contains($currentData, $newData)) {
                 $currentData .= $newData . PHP_EOL;
               } elseif (empty($currentData)) {
