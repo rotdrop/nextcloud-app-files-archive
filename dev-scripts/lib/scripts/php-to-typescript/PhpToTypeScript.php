@@ -511,7 +511,9 @@ EOF;
               }
               file_put_contents($currentModule, $currentData);
               $modulesPath .= $currentNs . '/';
-              mkdir($modulesPath);
+              if (!file_exists($modulesPath)) {
+                mkdir($modulesPath);
+              }
             } else {
               // emit the current's namespace module
               $currentModule = $modulesPath . $currentNs . '.ts';
