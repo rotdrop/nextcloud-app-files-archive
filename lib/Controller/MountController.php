@@ -33,10 +33,12 @@ use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\JSONResponse;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IPreview;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Files\Mount\IMountPoint;
 use OCP\Files\Mount\IMountManager;
@@ -46,6 +48,7 @@ use OCP\Files\Node;
 use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
+use OCP\Files\Events\InvalidateMountCacheEvent;
 
 use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
 
@@ -88,6 +91,9 @@ class MountController extends Controller
   /** @var null|int */
   private ?int $archiveSizeLimit = null;
 
+  /** @var null|IUser */
+  private ?IUser $user = null;
+
   /** @var int */
   private int $archiveBombLimit = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 
@@ -105,11 +111,13 @@ class MountController extends Controller
     protected IPreview $previewManager,
     IConfig $cloudConfig,
     IUserSession $userSession,
+    private IEventDispatcher $eventDispatcher,
   ) {
     parent::__construct($appName, $request);
 
     $user = $userSession->getUser();
     if (!empty($user)) {
+      $this->user = $user;
       $this->userId = $user->getUID();
 
       $this->archiveBombLimit = $cloudConfig->getAppValue(
@@ -163,6 +171,7 @@ class MountController extends Controller
   public function mount(
     string $archivePath,
     ?string $mountPointPath = null,
+    #[\SensitiveParameter]
     ?string $passPhrase = null,
     ?bool $stripCommonPathPrefix = null,
   ): DataResponse|JSONResponse {
@@ -279,6 +288,7 @@ class MountController extends Controller
       // only now we have the root-id
       $mountEntity->setMountPointFileId($mountPoint->getStorageRootId());
       $this->mountMapper->insert($mountEntity);
+      $this->invalidateMountCache();
     } catch (Throwable $t) {
       $this->logException($t);
       try {
@@ -351,6 +361,9 @@ class MountController extends Controller
 
       ++$unMountCount;
     }
+    if ($unMountCount > 0) {
+      $this->invalidateMountCache();
+    }
 
     return new DTO\ArchiveUnmountResponse(
       errorMessages: $errorMessages,
@@ -358,6 +371,18 @@ class MountController extends Controller
       count: $unMountCount,
       mounts: $removedMountPoints,
     )->response(count($errorMessages) > 0 ? Http::STATUS_BAD_REQUEST : Http::STATUS_OK);
+  }
+
+  /**
+   * Since NC 33 the file-system setup of later requests relies on the cached
+   * mounts of the user, so a mount added or removed here would stay
+   * invisible (resp. visible) until the next full setup.
+   *
+   * @return void
+   */
+  private function invalidateMountCache(): void
+  {
+    $this->eventDispatcher->dispatchTyped(new InvalidateMountCacheEvent($this->user));
   }
 
   /**
@@ -454,7 +479,7 @@ class MountController extends Controller
    */
   #[CoreAttributes\NoAdminRequired]
   #[CoreAttributes\FrontpageRoute(verb: 'PATCH', url: '/archive/mount/{archivePath}')]
-  public function patch(string $archivePath, array $changeSet = []): DataResponse|JSONResponse
+  public function patch(string $archivePath, #[\SensitiveParameter] array $changeSet = []): DataResponse|JSONResponse
   {
     if (empty($changeSet)) {
       return new DTO\MountPatchResponse(

@@ -36,8 +36,8 @@ use OCP\IRequest;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
-use OCA\RotDrop\Toolkit\Toolkit\Exceptions\EnduserNotificationException;
-use OCA\RotDrop\Toolkit\Toolkit\Attributes;
+use OCA\RotDrop\Toolkit\Exceptions\EnduserNotificationException;
+use OCA\RotDrop\Toolkit\Attributes;
 
 /**
  * Turn an exception into a data response which can be parsed by the
@@ -156,6 +156,10 @@ class ExceptionMiddleware extends Middleware
       $this->logError('Log entry is null');
     }
     $this->logDebug('LOG_ENTRY ' . print_r($logEntry, true));
-    return new JSONResponse($logEntry ?? [], $httpStatusCode);
+    // the frontend shows the "messages" array to the user
+    return new JSONResponse(
+      array_merge($logEntry ?? [], [ 'messages' => [ $exception->getMessage() ] ]),
+      $httpStatusCode,
+    );
   }
 }

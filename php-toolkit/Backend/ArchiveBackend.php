@@ -56,7 +56,7 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
    * to determine its MIME-type if it could not be determined by its file
    * extension.
    */
-  public static function open($fileName, $abilities = [], $password = null, bool $contentCheck = true)
+  public static function open($fileName, $abilities = [], #[\SensitiveParameter] $password = null, bool $contentCheck = true)
   {
     if (!file_exists($fileName) || !is_readable($fileName)) {
       throw new InvalidArgumentException('Could not open file: ' . $fileName.' is not readable');

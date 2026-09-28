@@ -39,7 +39,7 @@ class EnduserNotificationException extends Exception
     string $message,
     int $code = 0,
     $previous = null,
-    protected int $httpStatusCode = Http::STATUS_BAD_RQUEST,
+    protected int $httpStatusCode = Http::STATUS_BAD_REQUEST,
     protected ?array $context = null,
   ) {
     parent::__construct($message, $code, $previous);
