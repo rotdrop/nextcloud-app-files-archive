@@ -421,8 +421,6 @@ class MountController extends Controller
     }
     $archiveFileId = $archiveFile->getId();
 
-    $this->mountMapper->findByArchivePath($this->userId, $archivePath);
-
     $mounts = $this->mountMapper->findByArchiveFileId($this->userId, $archiveFileId);
 
     $mountsWithMountPoint = array_filter(
