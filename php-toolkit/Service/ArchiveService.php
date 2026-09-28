@@ -26,6 +26,7 @@ use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
 use DateTimeInterface;
 use Normalizer;
+use SensitiveParameter;
 
 use wapmorgan\UnifiedArchive\Abilities as DriverAbilities;
 use wapmorgan\UnifiedArchive\ArchiveEntry;
@@ -351,7 +352,7 @@ class ArchiveService
    *
    * @return null|ArchiveService
    */
-  public function open(File $fileNode, ?int $sizeLimit = null, #[\SensitiveParameter] ?string $password = null):?ArchiveService
+  public function open(File $fileNode, ?int $sizeLimit = null, #[SensitiveParameter] ?string $password = null):?ArchiveService
   {
     if (!$this->canOpen($fileNode)) {
       throw new Exceptions\ArchiveCannotOpenException($this->t('Unable to open archive file %s (%s)', [

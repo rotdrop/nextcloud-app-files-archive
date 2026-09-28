@@ -22,6 +22,7 @@
 
 namespace OCA\FilesArchive\Controller;
 
+use SensitiveParameter;
 use Throwable;
 
 use OC\Files\Storage\Wrapper\Wrapper as WrapperStorage;
@@ -171,7 +172,7 @@ class MountController extends Controller
   public function mount(
     string $archivePath,
     ?string $mountPointPath = null,
-    #[\SensitiveParameter]
+    #[SensitiveParameter]
     ?string $passPhrase = null,
     ?bool $stripCommonPathPrefix = null,
   ): DataResponse|JSONResponse {
@@ -392,7 +393,7 @@ class MountController extends Controller
    *
    * @param ArchiveMount $mount
    *
-   * @parma bool $thowOnError
+   * @param bool $throwOnError
    *
    * @return DTO\ArchiveMountResponse
    */
@@ -479,7 +480,7 @@ class MountController extends Controller
    */
   #[CoreAttributes\NoAdminRequired]
   #[CoreAttributes\FrontpageRoute(verb: 'PATCH', url: '/archive/mount/{archivePath}')]
-  public function patch(string $archivePath, #[\SensitiveParameter] array $changeSet = []): DataResponse|JSONResponse
+  public function patch(string $archivePath, #[SensitiveParameter] array $changeSet = []): DataResponse|JSONResponse
   {
     if (empty($changeSet)) {
       return new DTO\MountPatchResponse(

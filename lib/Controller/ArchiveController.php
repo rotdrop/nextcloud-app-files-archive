@@ -24,6 +24,7 @@ namespace OCA\FilesArchive\Controller;
 
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
+use SensitiveParameter;
 use Throwable;
 
 use OCP\AppFramework\Controller;
@@ -139,7 +140,7 @@ class ArchiveController extends Controller
    */
   #[CoreAttributes\NoAdminRequired]
   #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/archive/info/{archivePath}')]
-  public function info(string $archivePath, #[\SensitiveParameter] ?string $passPhrase = null): DataResponse|JSONResponse
+  public function info(string $archivePath, #[SensitiveParameter] ?string $passPhrase = null): DataResponse|JSONResponse
   {
     $archivePath = urldecode($archivePath);
 
@@ -224,7 +225,7 @@ class ArchiveController extends Controller
       'targetPath' => null,
     ],
   )]
-  public function extract(string $archivePath, ?string $targetPath, #[\SensitiveParameter] ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null): DataResponse|JSONResponse
+  public function extract(string $archivePath, ?string $targetPath, #[SensitiveParameter] ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null): DataResponse|JSONResponse
   {
     $archivePath = urldecode($archivePath);
     if ($targetPath) {
@@ -304,8 +305,8 @@ class ArchiveController extends Controller
       if ($locked) {
         try {
           $targetStorage->releaseLock($targetInternalPath, ILockingProvider::LOCK_EXCLUSIVE, $lockingProvider);
-        } catch (Throwable $t) {
-          $this->logException($t, 'Unable to unlock ' . $targetInternalPath);
+        } catch (Throwable $tt) {
+          $this->logException($tt, 'Unable to unlock ' . $targetInternalPath);
         }
       }
       try {
@@ -315,14 +316,19 @@ class ArchiveController extends Controller
         $targetFolder->delete();
       } catch (FileNotFoundException $e) {
         // really ignore this one: nothing to be cleaned up
-      } catch (Throwable $t) {
-        $this->logException($t, 'Unable to cleanup target path.');
+      } catch (Throwable $tt) {
+        $this->logException($tt, 'Unable to cleanup target path.');
         // otherwise ignore
       }
 
-      throw new EnduserNotificationException($this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
-        $archivePath, $targetPath, $t->getMessage()
-      ]));
+      // Some drivers like to throw exceptions with invalid encoding ...
+      $exceptionMessage = iconv('UTF-8', 'UTF-8//IGNORE', $t->getMessage());
+      throw new EnduserNotificationException(
+        $this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
+          $archivePath, $targetPath, $exceptionMessage
+        ]),
+        previous: $t,
+      );
     }
 
     /** @var Folder $targetFolder */

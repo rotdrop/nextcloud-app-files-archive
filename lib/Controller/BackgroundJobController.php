@@ -22,6 +22,7 @@
 
 namespace OCA\FilesArchive\Controller;
 
+use SensitiveParameter;
 use Throwable;
 
 use OC\Files\Storage\Wrapper\Wrapper as WrapperStorage;
@@ -123,7 +124,7 @@ class BackgroundJobController extends Controller
     string $operation,
     string $archivePath,
     ?string $destinationPath = null,
-    #[\SensitiveParameter]
+    #[SensitiveParameter]
     ?string $passPhrase = null,
     ?bool $stripCommonPathPrefix = null,
   ):DataResponse {
