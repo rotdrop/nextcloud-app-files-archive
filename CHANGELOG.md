@@ -4,11 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.3.0-rc7] -- 2026-09-25
+## [1.3.0-rc8] -- 2026-09-28
 
 ### Changed
 
-- support NC33 and up
+- support NC33-NC35 and up
 - drop support for NC32 and below
 - support PHP 8.4 and up
 - drop support for PHP 8.3 and below
@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - replace legacy storage ids using the archive pathname by consistent
   storage ids using the archive file id
+- remove the storage file path name from the database cache
+- wrap wapmorgan\UnifiedArchive using php-scoper
 
 ## [1.2.8] -- 2025-10-15
 
