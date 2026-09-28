@@ -351,7 +351,7 @@ class ArchiveService
    *
    * @return null|ArchiveService
    */
-  public function open(File $fileNode, ?int $sizeLimit = null, ?string $password = null):?ArchiveService
+  public function open(File $fileNode, ?int $sizeLimit = null, #[\SensitiveParameter] ?string $password = null):?ArchiveService
   {
     if (!$this->canOpen($fileNode)) {
       throw new Exceptions\ArchiveCannotOpenException($this->t('Unable to open archive file %s (%s)', [
