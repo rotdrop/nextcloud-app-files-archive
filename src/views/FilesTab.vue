@@ -278,7 +278,7 @@
               </div>
             </template>
             <template #actions>
-              <NcActionButton @click="cancelPendingOperation(job.target)">
+              <NcActionButton @click="cancelPendingOperation(job)">
                 <template #icon>
                   <CancelIcon v-tooltip="t(appName, 'Cancel Job')"
                               :size="20"
@@ -703,15 +703,15 @@ async function getPendingJobs(fileName: string, silent?: boolean) {
   }
 }
 
-const cancelPendingOperation = async (operation: 'extract'|'mount') => {
+const cancelPendingOperation = async (job: ArchiveJob) => {
   const archivePath = encodeURIComponent(fileName.value!)
-  const mountPath = encodeURIComponent(archiveMountPathName.value)
+  const destinationPath = encodeURIComponent(job.destinationPath)
   const url = generateAppUrl(
-    'archive/schedule/{operation}/{archivePath}/{mountPath}',
+    'archive/schedule/{operation}/{archivePath}/{destinationPath}',
     {
-      operation,
+      operation: job.target,
       archivePath,
-      mountPath,
+      destinationPath,
     },
   )
   let responseData: BackgroundJobCanceledResponse|undefined

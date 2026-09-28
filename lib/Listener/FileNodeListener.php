@@ -23,9 +23,11 @@
 namespace OCA\FilesArchive\Listener;
 
 use OCP\EventDispatcher\Event;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Files\Events\Node\BeforeNodeDeletedEvent;
 use OCP\Files\Events\Node\NodeDeletedEvent;
+use OCP\Files\Events\InvalidateMountCacheEvent;
 use OCP\IUser;
 use Psr\Log\LoggerInterface;
 use OCP\IUserSession;
@@ -127,6 +129,8 @@ class FileNodeListener implements IEventListener
 
     $userFolder = $this->appContainer->get(IRootFolder::class)->getUserFolder($userId);
 
+    $mountsRemoved = false;
+
     // iterate over the recorded candidates ...
     foreach ($this->removalCandidates as $key => $archiveFileId) {
 
@@ -134,7 +138,7 @@ class FileNodeListener implements IEventListener
 
       if (empty($mounts)) {
         unset($this->removalCandidates[$key]);
-        return; // nothing to do
+        continue; // nothing to do
       }
 
       /** @var ArchiveMount $mountEntity */
@@ -145,9 +149,14 @@ class FileNodeListener implements IEventListener
           // archive file available. Hence the mount will here be deleted.
           $mountManager->removeMount($userFolderPrefix . Constants::PATH_SEPARATOR . $mountEntity->getMountPointPath());
           $mountMapper->delete($mountEntity);
+          $mountsRemoved = true;
         }
       }
       unset($this->removalCandidates[$key]);
+    }
+
+    if ($mountsRemoved) {
+      $this->appContainer->get(IEventDispatcher::class)->dispatchTyped(new InvalidateMountCacheEvent($user));
     }
   }
 }

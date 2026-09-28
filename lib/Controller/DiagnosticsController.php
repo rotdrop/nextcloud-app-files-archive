@@ -65,7 +65,7 @@ class DiagnosticsController extends Controller
   /**
    * Return the information of the ArchiveCommands\FormatsCommand
    *
-   * @return DataResponse
+   * @return JSONResponse
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/formats')]
@@ -77,7 +77,7 @@ class DiagnosticsController extends Controller
   /**
    * Return the information of the ArchiveCommands\DriversCommand
    *
-   * @return DataResponse
+   * @return JSONResponse
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/drivers')]
@@ -91,15 +91,13 @@ class DiagnosticsController extends Controller
    *
    * @param string $format
    *
-   * @return DataResponse
+   * @return JSONResponse
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/format/{format}')]
   public function archiveFormat(string $format): DataResponse
   {
-    return self::dataResponse(
-      $this->runArchiveCommand(ArchiveCommands\FormatCommand::class, [ 'format' => $format ])
-    );
+    return $this->runArchiveCommand(ArchiveCommands\FormatCommand::class, [ 'format' => $format ])->response();
   }
 
   /**

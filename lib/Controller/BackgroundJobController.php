@@ -123,6 +123,7 @@ class BackgroundJobController extends Controller
     string $operation,
     string $archivePath,
     ?string $destinationPath = null,
+    #[\SensitiveParameter]
     ?string $passPhrase = null,
     ?bool $stripCommonPathPrefix = null,
   ):DataResponse {

@@ -36,8 +36,10 @@ use OCP\IRequest;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
-use OCA\RotDrop\Toolkit\Toolkit\Exceptions\EnduserNotificationException;
-use OCA\RotDrop\Toolkit\Toolkit\Attributes;
+use OCA\RotDrop\Toolkit\Exceptions\EnduserNotificationException;
+use OCA\RotDrop\Toolkit\Attributes;
+use OCA\RotDrop\Toolkit\Response\PreRenderedTemplateResponse;
+use OCA\RotDrop\Toolkit\AppInfo\AbstractApplication as App;
 
 /**
  * Turn an exception into a data response which can be parsed by the
@@ -114,13 +116,19 @@ class ExceptionMiddleware extends Middleware
       if (!$wrap) {
         throw $exception;
       }
+      try {
+        $folderPrefix = $this->appContainer->get(App::APP_ROOT_FOLDER);
+      } catch (Throwable) {
+        // ignore
+        $folderPrefix = \OC::$SERVERROOT;
+      }
+
       $originalException = $exception;
       $exceptionMessage = $this->l->t(
         'Unable to serve request to "%1$s": %2$s',
         [ $this->request->getPathInfo(), $originalException->getMessage() ],
       );
-      $appRootFolder = $this->appContainer->get(App::APP_ROOT_FOLDER);
-      $exceptionMessage = str_replace($appRootFolder, '...', $exceptionMessage);
+      $exceptionMessage = str_replace($folderPrefix, '...', $exceptionMessage);
 
       $context = [];
       switch (get_class($originalException)) {
@@ -156,6 +164,10 @@ class ExceptionMiddleware extends Middleware
       $this->logError('Log entry is null');
     }
     $this->logDebug('LOG_ENTRY ' . print_r($logEntry, true));
-    return new JSONResponse($logEntry ?? [], $httpStatusCode);
+    // the frontend shows the "messages" array to the user
+    return new JSONResponse(
+      array_merge($logEntry ?? [], [ 'messages' => [ $exception->getMessage() ] ]),
+      $httpStatusCode,
+    );
   }
 }

@@ -139,7 +139,7 @@ class ArchiveController extends Controller
    */
   #[CoreAttributes\NoAdminRequired]
   #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/archive/info/{archivePath}')]
-  public function info(string $archivePath, ?string $passPhrase = null): DataResponse|JSONResponse
+  public function info(string $archivePath, #[\SensitiveParameter] ?string $passPhrase = null): DataResponse|JSONResponse
   {
     $archivePath = urldecode($archivePath);
 
@@ -224,7 +224,7 @@ class ArchiveController extends Controller
       'targetPath' => null,
     ],
   )]
-  public function extract(string $archivePath, ?string $targetPath, ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null): DataResponse|JSONResponse
+  public function extract(string $archivePath, ?string $targetPath, #[\SensitiveParameter] ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null): DataResponse|JSONResponse
   {
     $archivePath = urldecode($archivePath);
     if ($targetPath) {
