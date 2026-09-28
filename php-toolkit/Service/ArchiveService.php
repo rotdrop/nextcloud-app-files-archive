@@ -32,13 +32,13 @@ use wapmorgan\UnifiedArchive\ArchiveEntry;
 use wapmorgan\UnifiedArchive\Drivers\Basic\BasicDriver;
 use wapmorgan\UnifiedArchive\Exceptions as BackendExceptions;
 
-use OCP\IL10N;
-use Psr\Log\LoggerInterface as ILogger;
 use OCP\Files\File;
+use OCP\IL10N;
 use OCP\Util as CloudUtil;
+use Psr\Log\LoggerInterface as ILogger;
 
-use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
 use OCA\RotDrop\Toolkit\Backend\ArchiveBackend;
+use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
 use OCA\RotDrop\Toolkit\Exceptions;
 use OCA\RotDrop\Toolkit\Service\ArchiveService\ArchiveInfo;
 
@@ -506,9 +506,21 @@ class ArchiveService
   }
 
   /**
+   * @param ?Throwable $previous
+   *
+   * @return void
+   */
+  private function throwCannotAccessContent(?Throwable $previous = null): void
+  {
+    throw new Exceptions\ArchiveCannotAccessContentException($this->l->t('Could not get file information. May use password?'), 0, $previous);
+  }
+
+  /**
    * @param string $fileName
    *
    * @return null|string
+   *
+   * @throws ArchiveCannotAccessContentException
    */
   public function getFileContent(string $fileName):?string
   {
@@ -519,7 +531,14 @@ class ArchiveService
 
     $this->setProcessEnvironment();
 
-    $result = $this->archiver->getFileContent(Normalizer::normalize($fileName, $this->unicodeNormalization));
+    try {
+      $result = $this->archiver->getFileContent(Normalizer::normalize($fileName, $this->unicodeNormalization));
+    } catch (Throwable $t) {
+
+      $this->restoreProcessEnvironment();
+
+      throwCannotAccessContent($t);
+    }
 
     $this->restoreProcessEnvironment();
 
@@ -530,6 +549,8 @@ class ArchiveService
    * @param string $fileName
    *
    * @return null|resource
+   *
+   * @throws ArchiveCannotAccessContentException
    */
   public function getFileStream(string $fileName)
   {
@@ -543,6 +564,10 @@ class ArchiveService
     $result = $this->archiver->getFileStream(Normalizer::normalize($fileName, $this->unicodeNormalization));
 
     $this->restoreProcessEnvironment();
+
+    if ($result === false) {
+      throwCannotAccessContent();
+    }
 
     return $result;
   }
