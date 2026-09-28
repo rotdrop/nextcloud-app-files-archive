@@ -20,18 +20,12 @@
     "wapmorgan/cab-archive": "^0.0.7",
     "wapmorgan/unified-archive": "dev-master"
   },
-  "require-dev": {
-    "cweagans/composer-patches": "^2.0"
-  },
   "config": {
     "vendor-dir": "vendor-scoped",
     "optimize-autoloader": true,
     "classmap-authoritative": true,
     "platform": {
       "php": "8.4"
-    },
-    "allow-plugins": {
-      "cweagans/composer-patches": true
     }
   },
   "repositories": [
@@ -41,12 +35,5 @@
     }
   ],
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "extra": {
-    "patches": {
-      "jarodxxx/zippy": {
-        "Fix PHP 8 deprecations bloating the log files": "composer-patches/jarodxxx/zippy/fix-deprecations.patch"
-      }
-    }
-  }
+  "prefer-stable": true
 }
