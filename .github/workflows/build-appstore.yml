@@ -67,8 +67,8 @@ jobs:
           echo "JS bundles in archive: $count"
           test "$count" -gt 0 || { echo "::error::No JS bundles in the archive - the webpack build produced nothing"; exit 1; }
 
-      # - name: Name the artifact after the version
-      #   run: cp build/artifacts/appstore/files_archive.tar.gz "files_archive-${{ steps.meta.outputs.version }}.tar.gz"
+      - name: Name the artifact after the version
+        run: cp build/artifacts/appstore/files_archive-${{ steps.meta.outputs.version }}.tar.gz "files_archive-${{ steps.meta.outputs.version }}.tar.gz"
 
       - name: Upload as workflow artifact
         uses: actions/upload-artifact@v5
