@@ -87,6 +87,8 @@
 </template>
 
 <script setup lang="ts">
+import type { DiagnosticsResponse } from '../build/ts-types/php-modules/Controller/DTO.ts'
+
 import axios from '@nextcloud/axios'
 import { translate as t } from '@nextcloud/l10n'
 import {
@@ -153,8 +155,8 @@ const saveSetting = async (settingsKey: string) => {
 /** TBD */
 async function getFormatsMatrix() {
   try {
-    const response = await axios.get(generateAppUrl('diagnostics/archive/formats'))
-    diagnostics.formats = response?.data?.html || null
+    const response = await axios.get<DiagnosticsResponse>(generateAppUrl('diagnostics/archive/formats'))
+    diagnostics.formats = response.data.html
     if (!diagnostics.formats) {
       logger.error('UNEXPECTED RESPONSE', response)
     }
@@ -168,8 +170,8 @@ async function getFormatsMatrix() {
 /** TBD */
 async function getDriversStatus() {
   try {
-    const response = await axios.get(generateAppUrl('diagnostics/archive/drivers'))
-    diagnostics.drivers = response?.data?.html || null
+    const response = await axios.get<DiagnosticsResponse>(generateAppUrl('diagnostics/archive/drivers'))
+    diagnostics.drivers = response.data.html
     if (!diagnostics.drivers) {
       logger.error('UNEXPECTED RESPONSE', response)
     }

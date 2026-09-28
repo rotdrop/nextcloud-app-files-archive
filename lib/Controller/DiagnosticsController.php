@@ -36,10 +36,12 @@ use OCA\FilesArchive\Scoped\Symfony\Component\Console\Helper as ConsoleHelper;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute as CoreAttributes;
-use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\IL10N;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
+
+use OCA\FilesArchive\Controller\DTO;
 
 /**
  * AJAX endpoint for diagnostics, currently the installation status of the
@@ -47,7 +49,6 @@ use Psr\Log\LoggerInterface;
  */
 class DiagnosticsController extends Controller
 {
-  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
   use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
@@ -68,11 +69,9 @@ class DiagnosticsController extends Controller
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/formats')]
-  public function archiveFormats(): DataResponse
+  public function archiveFormats(): JSONResponse
   {
-    return self::dataResponse(
-      $this->runArchiveCommand(ArchiveCommands\FormatsCommand::class, [ 'driver' => null, ])
-    );
+    return $this->runArchiveCommand(ArchiveCommands\FormatsCommand::class, [ 'driver' => null, ])->response();
   }
 
   /**
@@ -82,11 +81,9 @@ class DiagnosticsController extends Controller
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/diagnostics/archive/drivers')]
-  public function archiveDrivers(): DataResponse
+  public function archiveDrivers(): JSONResponse
   {
-    return self::dataResponse(
-      $this->runArchiveCommand(ArchiveCommands\DriversCommand::class),
-    );
+    return $this->runArchiveCommand(ArchiveCommands\DriversCommand::class)->response();
   }
 
   /**
@@ -112,7 +109,7 @@ class DiagnosticsController extends Controller
    *
    * @return array HTML and CSS output.
    */
-  private function runArchiveCommand(string $commandClass, array $arguments = []): array
+  private function runArchiveCommand(string $commandClass, array $arguments = []): DTO\DiagnosticsResponse
   {
     $helperSet = new ConsoleHelper\HelperSet([
       new ConsoleHelper\FormatterHelper(),
@@ -161,13 +158,12 @@ class DiagnosticsController extends Controller
     $converter = new AnsiConverter\AnsiToHtmlConverter(inlineStyles: false);
     $html = $converter->convert($content);
 
-
-    return [
-      'html' => $html,
-      'css' => [
-        'light' => $lightTheme->asCss(),
-        'dark' => $darkTheme->asCss(),
-      ]
-    ];
+    return new DTO\DiagnosticsResponse(
+      html: $html,
+      css: new DTO\DiagnosticsResponse\CSS(
+        light: $lightTheme->asCss(),
+        dark: $darkTheme->asCss(),
+      ),
+    );
   }
 }
