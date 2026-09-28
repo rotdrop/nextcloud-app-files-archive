@@ -26,10 +26,9 @@
 ini_set('display_errors', 'stderr');
 
 $appDir = realpath(__DIR__) . '/..';
-define('ROT_DROP_DEV_SCRIPTS_APP_DIR', $appDir);
 
 try {
-  require_once(__DIR__ . '/lib/scripts/console-setup.php');
+  $autoloader = require_once(__DIR__ . '/lib/scripts/vendor/autoload.php');
   require_once($appDir . '/vendor/autoload.php');
   require_once($appDir . '/vendor-scoped/autoload.php');
   require_once($appDir . '/vendor-bin/typescript-transformer/vendor/autoload.php');
@@ -38,12 +37,18 @@ try {
   exit(1);
 }
 
-\OC::$composerAutoloader->addPsr4(
+// can also be achieved by "autoload-dev" in composer.json
+$autoloader->addPsr4(
+  \OCA\FilesArchive::class . '\\',
+  __DIR__ . '(/../lib',
+  true,
+);
+$autoloader->addPsr4(
   \OCA\RotDrop\DevScripts\PhpToTypeScript::class . '\\',
   __DIR__ . '/lib/scripts/php-to-typescript',
   true,
 );
-\OC::$composerAutoloader->addPsr4(
+$autoloader->addPsr4(
   \OCA\RotDrop\Toolkit::class . '\\',
   $appDir . '/php-toolkit/',
   true,
@@ -55,8 +60,10 @@ use OCA\RotDrop\DevScripts\PhpToTypeScript;
 // store output of different transformers in different files
 
 $excludes = [
-  'lib/Toolkit/Doctrine',
   'lib/Mount', // there is nothing to convert, and code diversion between NC versions triggers errors.
+  'lib/Storage',
+  'lib/Toolkit/Common',
+  'lib/Toolkit/Doctrine',
 ];
 
 $scopedNamespaces = [
@@ -83,7 +90,7 @@ $phpToTypeScript = new PhpToTypeScript\PhpToTypeScript(
 try {
   $phpToTypeScript->run(
     input: new \Symfony\Component\Console\Input\ArgvInput,
-    output: \OCP\Server::get(ConsoleOutput::class),
+    output: new \Symfony\Component\Console\Output\ConsoleOutput,
   );
 } catch (Throwable $t) {
   fwrite(STDERR, 'Dependency injection not set up: ' . $t->getMessage() . PHP_EOL . print_r($t->getTrace(), true) . PHP_EOL);

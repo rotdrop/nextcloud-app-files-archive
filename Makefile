@@ -251,7 +251,7 @@ mostlyclean: webpack-clean distclean
 	rm -f stats.json
 
 #@@ Really delete everything but the bare source files
-realclean: mostlyclean downloadsclean
+realclean: mostlyclean downloadsclean dev-scripts-real-clean
 .PHONY: realclean
 
 #@@ Remove non-npm non-composer downloads
