@@ -302,8 +302,8 @@ class ArchiveController extends Controller
       if ($locked) {
         try {
           $targetStorage->releaseLock($targetInternalPath, ILockingProvider::LOCK_EXCLUSIVE, $lockingProvider);
-        } catch (Throwable $t) {
-          $this->logException($t, 'Unable to unlock ' . $targetInternalPath);
+        } catch (Throwable $tt) {
+          $this->logException($tt, 'Unable to unlock ' . $targetInternalPath);
         }
       }
       try {
@@ -313,15 +313,19 @@ class ArchiveController extends Controller
         $targetFolder->delete();
       } catch (FileNotFoundException $e) {
         // really ignore this one: nothing to be cleaned up
-      } catch (Throwable $t) {
-        $this->logException($t, 'Unable to cleanup target path.');
+      } catch (Throwable $tt) {
+        $this->logException($tt, 'Unable to cleanup target path.');
         // otherwise ignore
       }
 
       // Some drivers like to throw exceptions with invalid encoding ...
-      throw new EnduserNotificationException($this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
-          $archivePath, $targetPath, $exception->getMessage()
-      ]));
+      $exceptionMessage = iconv('UTF-8', 'UTF-8//IGNORE', $t->getMessage());
+      throw new EnduserNotificationException(
+        $this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
+          $archivePath, $targetPath, $exceptionMessage
+        ]),
+        previous: $t,
+      );
     }
 
     /** @var Folder $targetFolder */
