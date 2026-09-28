@@ -24,6 +24,7 @@ namespace OCA\FilesArchive\Controller;
 
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
+use SensitiveParameter;
 use Throwable;
 
 use OCP\AppFramework\Controller;
@@ -139,7 +140,7 @@ class ArchiveController extends Controller
    */
   #[CoreAttributes\NoAdminRequired]
   #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/archive/info/{archivePath}')]
-  public function info(string $archivePath, #[\SensitiveParameter] ?string $passPhrase = null): DataResponse|JSONResponse
+  public function info(string $archivePath, #[SensitiveParameter] ?string $passPhrase = null): DataResponse|JSONResponse
   {
     $archivePath = urldecode($archivePath);
 
@@ -224,7 +225,7 @@ class ArchiveController extends Controller
       'targetPath' => null,
     ],
   )]
-  public function extract(string $archivePath, ?string $targetPath, #[\SensitiveParameter] ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null): DataResponse|JSONResponse
+  public function extract(string $archivePath, ?string $targetPath, #[SensitiveParameter] ?string $passPhrase = null, ?bool $stripCommonPathPrefix = null): DataResponse|JSONResponse
   {
     $archivePath = urldecode($archivePath);
     if ($targetPath) {
@@ -317,8 +318,9 @@ class ArchiveController extends Controller
         // otherwise ignore
       }
 
+      // Some drivers like to throw exceptions with invalid encoding ...
       throw new EnduserNotificationException($this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
-        $archivePath, $targetPath, $t->getMessage()
+          $archivePath, $targetPath, $exception->getMessage()
       ]));
     }
 
