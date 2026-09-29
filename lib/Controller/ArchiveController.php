@@ -356,7 +356,7 @@ class ArchiveController extends Controller
       targetFileId: $targetFolder->getId(),
       targetPath: $targetPath,
       targetFolder: $this->formatNode($targetFolder),
-      messages: [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],
+      messages: $messages,
     ))->response();
   }
 }
