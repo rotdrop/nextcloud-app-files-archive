@@ -319,7 +319,7 @@ class ArchiveController extends Controller
       }
 
       // Some drivers like to throw exceptions with invalid encoding ...
-      $exceptionMessage = iconv('UTF-8', 'UTF-8//IGNORE', $t->getMessage());
+      $exceptionMessage = mb_scrub($t->getMessage(), 'UTF-8');
       throw new EnduserNotificationException(
         $this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
           $archivePath, $targetPath, $exceptionMessage
