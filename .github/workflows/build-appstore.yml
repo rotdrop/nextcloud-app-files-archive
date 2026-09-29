@@ -63,7 +63,7 @@ jobs:
         # `make appstore` exits 0 even when the webpack build emits nothing, so
         # guard against shipping a tarball without JS bundles.
         run: |
-          count=$(tar tzf build/artifacts/appstore/files_archive-${{ steps.meta.outputs.version }}.tar.gz | grep -c 'files_archive/js/.*\.js$' || true)
+          count=$(tar tzf build/artifacts/appstore/files_archive-${{ steps.meta.outputs.version }}.tar.gz | grep -Ec 'files_archive/js/.*\.m?js$' || true)
           echo "JS bundles in archive: $count"
           test "$count" -gt 0 || { echo "::error::No JS bundles in the archive - the webpack build produced nothing"; exit 1; }
 
