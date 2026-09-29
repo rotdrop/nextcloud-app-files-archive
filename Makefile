@@ -13,10 +13,7 @@ APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
 APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
 SCOPED_NAMESPACE_POSTFIX = $(shell $(XPATH) -q -e '/info/scopednamespace/text()' $(APP_INFO))
 else
-$(warning The xpath binary could not be found, falling back to using the CWD as app-name)
-APP_NAME = $(notdir $(CURDIR))
-APP_VERSION = unknown
-APP_NAMESPACE = $(shell grep -F '<namespace>' $(APP_INFO)|sed -E 's|.*<namespace>([^<]*)</namespace>.*|\\1|g')
+$(error The xpath binary could not be found, falling back to using the CWD as app-name)
 endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
