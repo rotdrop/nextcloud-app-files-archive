@@ -20,9 +20,12 @@
 
 namespace OCA\FilesArchive;
 
+use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+
 use OCA\FilesArchive\Toolkit\Constants as ToolkitConstants;
 
 /** A couple of constants in order to avoid string literals. */
+#[TSAttributes\Typescript]
 class Constants extends ToolkitConstants
 {
 }

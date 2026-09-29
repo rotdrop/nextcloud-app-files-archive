@@ -13,10 +13,7 @@ APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
 APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
 SCOPED_NAMESPACE_POSTFIX = $(shell $(XPATH) -q -e '/info/scopednamespace/text()' $(APP_INFO))
 else
-$(warning The xpath binary could not be found, falling back to using the CWD as app-name)
-APP_NAME = $(notdir $(CURDIR))
-APP_VERSION = unknown
-APP_NAMESPACE = $(shell grep -F '<namespace>' $(APP_INFO)|sed -E 's|.*<namespace>([^<]*)</namespace>.*|\\1|g')
+$(error The xpath binary could not be found, falling back to using the CWD as app-name)
 endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
@@ -35,6 +32,7 @@ SILENT = @
 # make these overridable from the command line
 EMACS = $(shell which emacs 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
+BUNDLER_CONFIG = vite.config.ts
 OPENSSL = $(shell which openssl 2> /dev/null)
 PHP = $(shell which php 2> /dev/null)
 PHPUNIT = ./vendor-bin/phpunit/vendor/bin/phpunit
@@ -148,7 +146,7 @@ JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name 
 IMG_FILES = $(shell find $(ABSSRCDIR)/img -name "*.svg")
 
 NPM_INIT_DEPS =\
- Makefile package-lock.json package.json webpack.config.js .eslintrc.js
+ Makefile package-lock.json package.json $(BUNDLER_CONFIG) eslint.config.mjs
 
 WEBPACK_DEPS =\
  $(NPM_INIT_DEPS)\
