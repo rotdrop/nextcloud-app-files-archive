@@ -33,12 +33,11 @@ use OCP\IConfig;
 use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
-use OCA\FilesArchive\Service\MimeTypeService;
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Notification\Notifier;
-use OCA\FilesArchive\Toolkit\Middleware\ExceptionMiddleware;
-
+use OCA\FilesArchive\Service\MimeTypeService;
 use OCA\FilesArchive\Toolkit\AppInfo\AbstractApplication;
+use OCA\FilesArchive\Toolkit\Middleware\ExceptionMiddleware;
 
 include_once __DIR__ . '/../Toolkit/AppInfo/AbstractApplication.php';
 

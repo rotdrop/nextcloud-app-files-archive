@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.3.0-rc9] -- 2026-09-28
+## [1.3.0-rc10] -- 2026-09-28
 
 ### Changed
 
@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   storage ids using the archive file id
 - remove the storage file path name from the database cache
 - wrap wapmorgan\UnifiedArchive using php-scoper
+- improved filename encoding handling (courtesy Fabio Fantoni)
 
 ## [1.2.8] -- 2025-10-15
 

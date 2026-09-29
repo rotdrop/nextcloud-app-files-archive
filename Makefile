@@ -188,8 +188,6 @@ APPSTORE_FILES =\
 # .htaccess is blacklisted by the app-store installer, so we have to remove it
 APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
-#@private
-# appstore: COMPOSER_OPTIONS := $(COMPOSER_OPTIONS) --no-dev
 #@@ Prepare appstore archive
 appstore: clean dev-setup npm-build
 	$(COMPOSER) update --no-dev

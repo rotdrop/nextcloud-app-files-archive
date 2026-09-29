@@ -322,7 +322,7 @@ class ArchiveController extends Controller
       }
 
       // Some drivers like to throw exceptions with invalid encoding ...
-      $exceptionMessage = iconv('UTF-8', 'UTF-8//IGNORE', $t->getMessage());
+      $exceptionMessage = mb_scrub($t->getMessage(), 'UTF-8');
       throw new EnduserNotificationException(
         $this->l->t('Unable to extract "%1$s" to "%2$s": "%3$s".', [
           $archivePath, $targetPath, $exceptionMessage
@@ -334,12 +334,32 @@ class ArchiveController extends Controller
     /** @var Folder $targetFolder */
     $targetFolder = $userFolder->get($targetPath);
 
+    $messages = [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ];
+
+    // Warn about archive members which collapse onto the same name after
+    // Unicode normalization: only one of them could be extracted as a distinct
+    // file, the others would otherwise be lost without notice.
+    try {
+      $archiveService = $this->archiveServiceFactory->get($archiveFile);
+      $archiveService->setSizeLimit($this->actualArchiveSizeLimit());
+      $archiveService->open($archiveFile, password: $passPhrase);
+      foreach ($archiveService->getCollidingMembers() as $rawNames) {
+        $messages[] = $this->l->t(
+          'Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted.',
+          [ '"' . implode('", "', $rawNames) . '"' ],
+        );
+      }
+      $archiveService->close();
+    } catch (Throwable $t) {
+      $this->logException($t, 'Unable to check the archive for colliding member names.');
+    }
+
     return (new DTO\ArchiveExtractResponse(
       archivePath: $archivePath,
       targetFileId: $targetFolder->getId(),
       targetPath: $targetPath,
       targetFolder: $this->formatNode($targetFolder),
-      messages: [ $this->l->t('Extracting "%1$s" to "%2$s" succeeded.', [ $archivePath, $targetPath ]) ],
+      messages: $messages,
     ))->response();
   }
 }
