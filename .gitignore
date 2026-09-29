@@ -27,3 +27,4 @@ statistics/**
 tide-errors.log
 composer-scoped*.lock*
 vendor-scoped
+.vite/
