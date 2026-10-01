@@ -28,6 +28,8 @@ use DateTimeInterface;
 use Normalizer;
 use SensitiveParameter;
 use Throwable;
+use RarArchive;
+use RarException;
 use ZipArchive;
 
 use wapmorgan\UnifiedArchive\Abilities as DriverAbilities;
@@ -162,7 +164,7 @@ class ArchiveService
   private $fileNode;
 
   /** @var array */
-  private $archiveFiles;
+  private ?array $archiveFiles = null;
 
   /** @var */
   private ?ArchiveInfo $archiveInfo;
@@ -206,7 +208,6 @@ class ArchiveService
   ) {
     $this->archiver = null;
     $this->fileNode = null;
-    $this->archiveFiles = null;
     $this->archiveInfo = null;
   }
   // phpcs:enable
@@ -516,7 +517,7 @@ class ArchiveService
    *
    * @return null|string
    */
-  public function getCommonDirectoryPrefix():?string
+  public function getCommonDirectoryPrefix(): ?string
   {
     return $this->getCommonPath(array_keys($this->getFiles()), leadingSlash: false);
   }
@@ -524,7 +525,7 @@ class ArchiveService
   /**
    * @return array<string, ArchiveEntry>
    */
-  public function getFiles():array
+  public function getFiles(): array
   {
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
@@ -537,6 +538,7 @@ class ArchiveService
 
     $this->setProcessEnvironment();
 
+    $this->archiveFiles = [];
     foreach ($this->archiver->getFileNames() as $fileName) {
       $fileData = $this->archiver->getFileData($fileName);
       // work around a bug in UnifiedArchive
@@ -796,7 +798,29 @@ class ArchiveService
           return true;
         }
         return false; // bogus answer for ZIP-archives containing both encrypted and unencrypted data.
-      case ArchiveFormats::RAR:
+      case ArchiveFormats::
+        RAR:\RarException::setUsingExceptions(\true);
+        $localPath = self::getLocalPath($this->fileNode);
+        $rar = RarArchive::open($localPath);
+        // detect encryption of even the archive structure
+        try {
+          $entries = $rar->getEntries();
+          foreach ($entries as $entry) {
+            if ($entry->isDirectory()) {
+              continue;
+            }
+            // if we reach here then the archive structure was not encrypted,
+            // but the contents may ... as with zip we only cope with fully
+            // entryped archives, so we break after the first successful
+            // getStream().
+            $entry->getStream();
+            break;
+          }
+        } catch (RarException $e) {
+          if (str_contains($e->getMessage(), 'ERAR_MISSING_PASSWORD')) {
+            return true;
+          }
+        }
         return null;
       default:
         return false;
