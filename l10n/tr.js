@@ -13,6 +13,7 @@ OC.L10N.register(
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "\"%s\" hedef klasörü zaten var ve otomatik yeniden adlandırma özelliği kapalı.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "\"%1$s\", \"%2$s\" üzerine ayıklanamadı: \"%3$s\".",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "\"%1$s\", \"%2$s\" üzerine ayıklandı.",
+    "Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted." : "Uyarı: Unikod normalleştirmesinden sonra %1$s arşiv üyesinin adı aynı oldu. Bunlardan yalnızca biri ayıklanabilir.",
     "Archive background mount job scheduled successfully." : "Arşiv arka plan takma görevi zamanlandı.",
     "Archive background extraction job scheduled successfully." : "Arşiv arka plan ayıklama görevi zamanlandı.",
     "Cancelling %1$s-job for archive file \"%2$s\" failed." : "%1$s-job for archive file \"%2$s\" iptal edilemedi.",
