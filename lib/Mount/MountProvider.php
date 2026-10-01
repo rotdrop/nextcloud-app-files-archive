@@ -71,10 +71,13 @@ class MountProvider implements IMountProvider
     private IUserMountCache $userMountCache,
     private NotificationService $notificationService,
     private string $appName,
-    protected ContainerInterface $appContainer,
+    ContainerInterface $appContainer,
     protected IL10N $l,
     protected LoggerInterface $logger,
   ) {
+    // Not promoted: LoggerTrait declares it, and a redeclaration breaks the
+    // in-process upgrade from versions where the trait typed it differently.
+    $this->appContainer = $appContainer;
   }
   // phpcs:enable
 

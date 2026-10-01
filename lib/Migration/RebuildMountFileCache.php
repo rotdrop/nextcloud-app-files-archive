@@ -53,6 +53,10 @@ class RebuildMountFileCache implements IRepairStep
     protected MountProvider $mountProvider,
     protected string $appName,
   ) {
+    // Repair steps may run in the process which has registered the previous
+    // version of the app (e.g. during a server upgrade), so the scoped
+    // autoloader of this version has possibly not been loaded yet.
+    include_once dirname(__DIR__, 2) . '/vendor-scoped/autoload.php';
   }
   // phpcs:enable
 
