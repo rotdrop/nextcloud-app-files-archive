@@ -20,31 +20,19 @@
 
 namespace OCA\FilesArchive\Migration;
 
-use Closure;
-use OCP\DB\ISchemaWrapper;
-use OCP\Migration\IOutput;
-use OCP\Migration\SimpleMigrationStep;
-use Override;
+use OCA\FilesArchive\Db\ArchiveMountMapper;
 
-/**
- * Remove the archive_file_path[_hash] columns as we now only work with the
- * file-id.
- */
-class Version100004Date20260926111725 extends SimpleMigrationStep
+/** Simple helper for the table name. */
+trait TableNameTrait
 {
-  use TableNameTrait;
+  use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
 
-  /** {@inheritdoc} */
-  #[Override]
-  public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper
+  /** @return string */
+  protected function getTableName(): string
   {
-    /** @var ISchemaWrapper $schema */
-    $schema = $schemaClosure();
-    $table = $schema->getTable($this->getTableName());
-    $table->dropColumn('archive_file_path');
-    $table->dropIndex('archive_file_index');
-    $table->dropColumn('archive_file_path_hash');
+    $appName = $this->getAppInfoAppName(__DIR__);
+    $tableName = $appName . '_' . ArchiveMountMapper::TABLE_NAME;
 
-    return $schema;
+    return $tableName;
   }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine
+ * @copyright 2022, 2024, 2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -114,7 +114,7 @@ class Version100004Date20240125084147 extends SimpleMigrationStep
       ->delete($this->tableName)
       ->where($deleteQuery->expr()->eq('id', $deleteQuery->createParameter('id')));
 
-    $selectResult = $selectQuery->execute();
+    $selectResult = $selectQuery->executeQuery();
     while ($row = $selectResult->fetch()) {
       $mountPoint = Constants::PATH_SEPARATOR . $row['user_id'] . Constants::PATH_SEPARATOR . Constants::USER_FOLDER_PREFIX . $row['mount_point_path'] . Constants::PATH_SEPARATOR;
 
@@ -122,7 +122,7 @@ class Version100004Date20240125084147 extends SimpleMigrationStep
 
       $fileIdResult = $fileIdQuery
         ->setParameter('mount_point', $mountPoint)
-        ->execute();
+        ->executeQuery();
       switch ($fileIdResult->rowCount()) {
         case 0:
           $output->warning('Unable to find active mount of registered archive mount ' . $row['archive_file_path'] . ' -> ' . $mountPoint . '.');

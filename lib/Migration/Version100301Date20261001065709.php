@@ -27,10 +27,9 @@ use OCP\Migration\SimpleMigrationStep;
 use Override;
 
 /**
- * Remove the archive_file_path[_hash] columns as we now only work with the
- * file-id.
+ * Drop potential left-over index.
  */
-class Version100004Date20260926111725 extends SimpleMigrationStep
+class Version100301Date20261001065709 extends SimpleMigrationStep
 {
   use TableNameTrait;
 
@@ -41,9 +40,10 @@ class Version100004Date20260926111725 extends SimpleMigrationStep
     /** @var ISchemaWrapper $schema */
     $schema = $schemaClosure();
     $table = $schema->getTable($this->getTableName());
-    $table->dropColumn('archive_file_path');
-    $table->dropIndex('archive_file_index');
-    $table->dropColumn('archive_file_path_hash');
+    if ($table->hasIndex('archive_file_index')) {
+      $table->dropIndex('archive_file_index');
+    }
+    $table->addIndex(['archive_file_id'], 'archive_file_index');
 
     return $schema;
   }

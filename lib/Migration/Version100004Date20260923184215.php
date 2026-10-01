@@ -32,7 +32,6 @@ use Override;
 use Throwable;
 
 use OCA\FilesArchive\Constants;
-use OCA\FilesArchive\Db\ArchiveMountMapper;
 
 /**
  * Replace legacy storage ids which contain the archive-file paths by the
@@ -41,14 +40,10 @@ use OCA\FilesArchive\Db\ArchiveMountMapper;
 class Version100004Date20260923184215 extends SimpleMigrationStep
 {
   use \OCA\FilesArchive\Storage\StorageIdTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
-
-  protected string $appName;
+  use TableNameTrait;
 
   /**
    * @param IDBConnection $connection
-   *
-   * @param ArchiveMountMapper $mapper
    */
   public function __construct(
     protected IDBConnection $connection,
@@ -91,7 +86,7 @@ class Version100004Date20260923184215 extends SimpleMigrationStep
     $selectQuery = $this->connection->getQueryBuilder();
     $selectQuery
       ->select('*')
-      ->from($this->appName . '_' . ArchiveMountMapper::TABLE_NAME)
+      ->from($this->getTableName())
       ->orderBy('user_id', 'ASC');
     $result = $selectQuery->executeQuery();
     try {
