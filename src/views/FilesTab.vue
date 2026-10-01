@@ -125,6 +125,7 @@
                          type="password"
                          icon="icon-password"
                          :disabled="archiveInfo?.isEncrypted === false"
+                         :showTrailingButton="true"
                          @submit="setPassPhrase"
           >
             {{ t(appName, 'archive passphrase') }}
@@ -540,7 +541,7 @@ const archiveInfoEncryption = computed(
     } else if (archiveInfo.value?.isEncrypted === false) {
       return t(appName, 'unencrypted')
     } else {
-      return t(appName, 'unnknown')
+      return t(appName, 'unknown')
     }
   },
 )
@@ -990,6 +991,7 @@ const extractArchive = async () => {
 
 const setPassPhrase = async () => {
   logger.info('PASPHRASE', { archivePassPhrase })
+  getArchiveInfo(fileName.value!)
   // patch it into existing mounts if any
   const archivePath = encodeURIComponent(fileName.value!)
   const url = generateUrl('/apps/' + appName + '/archive/mount/{archivePath}', { archivePath })
