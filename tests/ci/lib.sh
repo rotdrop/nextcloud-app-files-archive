@@ -49,6 +49,9 @@ tarball_version() {
   tar -xzOf "$1" "$APP_ID/appinfo/info.xml" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | head -1
 }
 
+# docker run would print the progress of the image download line by line.
+pull() { docker pull -q "$1" >/dev/null; }
+
 start_db() {
   docker network inspect "$NET" >/dev/null 2>&1 || docker network create "$NET" >/dev/null
   case $1 in
@@ -56,12 +59,14 @@ start_db() {
       DB_ARGS=(--database sqlite)
       ;;
     pgsql)
+      pull postgres:17
       docker run -d --name "$DBC" --network "$NET" \
         -e POSTGRES_USER=nextcloud -e POSTGRES_PASSWORD=nextcloud -e POSTGRES_DB=nextcloud \
         postgres:17 >/dev/null
       DB_ARGS=(--database pgsql --database-host "$DBC" --database-name nextcloud --database-user nextcloud --database-pass nextcloud)
       ;;
     mysql)
+      pull mariadb:11
       docker run -d --name "$DBC" --network "$NET" \
         -e MARIADB_ROOT_PASSWORD=root -e MARIADB_USER=nextcloud -e MARIADB_PASSWORD=nextcloud -e MARIADB_DATABASE=nextcloud \
         mariadb:11 >/dev/null
@@ -78,6 +83,7 @@ start_db() {
 # older installed version, runs `occ upgrade`; apache only starts afterwards.
 start_nc() {
   docker rm -f "$NC" >/dev/null 2>&1 || true
+  pull "nextcloud:$1-apache"
   docker run -d --name "$NC" --network "$NET" -v "$VOL:/var/www/html" "nextcloud:$1-apache" >/dev/null
   local _
   for _ in $(seq 150); do

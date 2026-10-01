@@ -71,7 +71,7 @@ jobs:
         run: cp build/artifacts/appstore/files_archive-${{ steps.meta.outputs.version }}.tar.gz "files_archive-${{ steps.meta.outputs.version }}.tar.gz"
 
       - name: Upload as workflow artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: files_archive-${{ steps.meta.outputs.version }}
           path: files_archive-${{ steps.meta.outputs.version }}.tar.gz
