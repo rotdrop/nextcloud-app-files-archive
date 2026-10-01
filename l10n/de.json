@@ -11,6 +11,7 @@
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "Der Ziel-Ordner \"%s\" existiert bereits und automatische Umbenennung ist nicht aktiviert.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "Kann \"%1$s\" nicht an der Stelle \"%2$s\" entpacken: \"%3$s\".",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Das Entpacken von \"%1$s\" an der Stelle \"%2$s\" war erfolgreich.",
+    "Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted." : "Achtung: Die Archivmitglieder %1$s werden nach der Unicode-Normalisierung demselben Namen zugeordnet; nur eines davon konnte extrahiert werden.",
     "Archive background mount job scheduled successfully." : "Hintergrundbereitstellungsaufgabe für Archivierung geplant.",
     "Archive background extraction job scheduled successfully." : "Hintergrundextraktionsaufgabe für das Archiv geplant.",
     "Cancelling %1$s-job for archive file \"%2$s\" failed." : "Das Abbrechen des %1$s-Jobs für die Archivdatei \"%2$s\" ist fehlgeschlagen.",
