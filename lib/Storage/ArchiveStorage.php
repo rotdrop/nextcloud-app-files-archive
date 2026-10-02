@@ -33,7 +33,6 @@ use Icewind\Streams\CallbackWrapper;
 use Icewind\Streams\CountWrapper;
 use Icewind\Streams\IteratorDirectory;
 
-use Psr\Container\ContainerInterface;
 use OCP\Cache\CappedMemoryCache;
 use OCP\Files\Cache\ICacheEntry;
 use OCP\Files\Cache\IScanner;
@@ -66,9 +65,6 @@ class ArchiveStorage extends AbstractStorage
 
   /** @var string */
   protected string $appName;
-
-  /** @var ContainerInterface */
-  protected ContainerInterface $appContainer;
 
   /** @var ArchiveService */
   protected ArchiveService $archiveService;
