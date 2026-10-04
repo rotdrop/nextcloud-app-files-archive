@@ -22,6 +22,7 @@ OC.L10N.register(
     "Login succeeded." : "Kirjautuminen onnistui.",
     "Login failed." : "Kirjautuminen epäonnistui.",
     "%1$s (renamed)" : "%1$s (nimetty uudelleen)",
+    "renamed file" : "uudelleennimetty tiedosto",
     "bytes" : "tavua",
     "pick a color" : "valitse väri",
     "undo color choice" : "kumoa värivalinta",
