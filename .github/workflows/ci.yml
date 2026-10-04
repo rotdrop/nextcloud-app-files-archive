@@ -5,6 +5,11 @@
 # version, and a full production build of the app archive via the
 # reusable build-appstore.yml workflow (the same build the release
 # workflow ships, so regressions in it surface before tagging).
+#
+# The built archive is then installed on fresh Nextcloud instances and
+# used to update from earlier releases, with a smoke test of the API and
+# the occ commands (scripts in tests/ci, which also run locally with
+# docker only).
 name: CI
 
 on:
@@ -59,3 +64,72 @@ jobs:
 
   build:
     uses: ./.github/workflows/build-appstore.yml
+
+  install:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        # Keep in sync with the dependencies in appinfo/info.xml.
+        nextcloud: ['33', '34', '35']
+        database: [sqlite, pgsql, mysql]
+    name: install (NC ${{ matrix.nextcloud }}, ${{ matrix.database }})
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download the app archive
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+
+      - name: Fresh install and smoke test
+        run: tests/ci/test-install.sh ${{ matrix.nextcloud }} ${{ matrix.database }} files_archive-${{ needs.build.outputs.version }}.tar.gz
+
+  update:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # From the latest release on the same server version.
+          - {from-release: latest, from-nextcloud: '33', nextcloud: '33', database: pgsql}
+          - {from-release: latest, from-nextcloud: '34', nextcloud: '34', database: sqlite}
+          - {from-release: latest, from-nextcloud: '35', nextcloud: '35', database: mysql}
+          # Servers upgraded from 32 still run 1.2.x when the updater
+          # replaces the app; drop this once that path is no longer relevant.
+          - {from-release: v1.2.8, from-nextcloud: '32', nextcloud: '33', database: pgsql}
+    name: update (${{ matrix.from-release }} on NC ${{ matrix.from-nextcloud }} -> NC ${{ matrix.nextcloud }}, ${{ matrix.database }})
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download the app archive
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+
+      - name: Download the previous release
+        id: previous
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # Always the upstream releases, also when running in a fork.
+          REPO: rotdrop/nextcloud-app-files-archive
+          TAG: ${{ matrix.from-release }}
+        run: |
+          if [ "$TAG" = latest ]; then
+            TAG=$(gh release view --repo "$REPO" --json tagName --jq .tagName)
+          fi
+          gh release download "$TAG" --repo "$REPO" --pattern '*.tar.gz' --dir previous
+          echo "tarball=$(ls previous/*.tar.gz)" >> "$GITHUB_OUTPUT"
+
+      - name: Update and smoke test
+        run: >-
+          tests/ci/test-update.sh
+          ${{ matrix.from-nextcloud }} ${{ matrix.nextcloud }} ${{ matrix.database }}
+          ${{ steps.previous.outputs.tarball }}
+          files_archive-${{ needs.build.outputs.version }}.tar.gz

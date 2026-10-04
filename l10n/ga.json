@@ -11,6 +11,7 @@
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "Tá an spriocfhillteán \"%s\" ann cheana agus níl uathathainmnigh cumasaithe.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "Ní féidir \"%1$s\" a bhaint go \"%2$s\": \"%3$s\".",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "D'éirigh le \"%1$s\" a bhaint go \"%2$s\".",
+    "Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted." : "Rabhadh: tagraíonn baill an chartlainne %1$s don ainm céanna tar éis normalú Unicode; níorbh fhéidir ach ceann amháin acu a bhaint amach.",
     "Archive background mount job scheduled successfully." : "D'éirigh leis an bpost mount cúlra a chartlannú.",
     "Archive background extraction job scheduled successfully." : "Post asbhainte cúlra cartlainne sceidealaithe go rathúil.",
     "Cancelling %1$s-job for archive file \"%2$s\" failed." : "Theip ar chealú %1$s-job don chomhad cartlainne \"%2$s\".",

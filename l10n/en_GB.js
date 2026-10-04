@@ -13,6 +13,7 @@ OC.L10N.register(
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "The target folder \"%s\" already exists and auto-rename is not enabled.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\".",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Extracting \"%1$s\" to \"%2$s\" succeeded.",
+    "Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted." : "Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted.",
     "Archive background mount job scheduled successfully." : "Archive background mount job scheduled successfully.",
     "Archive background extraction job scheduled successfully." : "Archive background extraction job scheduled successfully.",
     "Cancelling %1$s-job for archive file \"%2$s\" failed." : "Cancelling %1$s-job for archive file \"%2$s\" failed.",
