@@ -42,6 +42,13 @@ class ArchiveInfo extends AbstractDTO
     /**
      * @var
      *
+     * Whether the archive is encrypted. \null means that the format supports
+     * encryption but we were not able to detect if the archive is encrypted.
+     */
+    public readonly ?bool $isEncrypted,
+    /**
+     * @var
+     *
      * The size of the archive file (not neccessarily the sum of the size of the
      * archive members).
      */
@@ -109,6 +116,7 @@ class ArchiveInfo extends AbstractDTO
     return new self(
       format: $format,
       mimeType: $mimeType,
+      isEncrypted: $isEncrypted ?? null,
       size: $size,
       compressedSize: $compressedSize,
       originalSize: $originalSize,

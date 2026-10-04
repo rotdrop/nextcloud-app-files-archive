@@ -294,7 +294,10 @@ class ArchiveController extends Controller
     try {
       $targetStorage->acquireLock($targetInternalPath, ILockingProvider::LOCK_EXCLUSIVE, $lockingProvider);
       $locked = true;
-      $targetStorage->copyFromStorage($archiveStorage, '/', $targetInternalPath);
+      $result = $targetStorage->copyFromStorage($archiveStorage, '/', $targetInternalPath);
+      if ($result === false) {
+        throw new ToolkitExceptions\ArchiveCannotAccessContentException('Unable to copy from archive storage.');
+      }
       $targetStorage->releaseLock($targetInternalPath, ILockingProvider::LOCK_EXCLUSIVE, $lockingProvider);
       $targetStorage->getScanner()->scan($targetInternalPath);
     } catch (Throwable $t) {

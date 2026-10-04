@@ -310,6 +310,9 @@ trait UtilTrait
    */
   protected function getCommonPath(array $paths, bool $leadingSlash = true):string
   {
+    if (empty($paths)) {
+      return '';
+    }
     // $this->logInfo('PATHS ' . print_r($paths, true));
     $lastOffset = (int)$leadingSlash;
     $common = $leadingSlash ? '/' : '';
