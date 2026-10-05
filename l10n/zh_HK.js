@@ -13,6 +13,7 @@ OC.L10N.register(
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "目標資料夾「%s」已存在且未啟用自動重新命名。",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "無法將“%1$s”提取到“%2$s”：“%3$s”。",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "解壓縮「%1$s」到「%2$s」成功。",
+    "Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted." : "警告：封存檔中的項目 %1$s 經 Unicode 正規化後名稱相同，因此只能解壓縮其中一個。",
     "Archive background mount job scheduled successfully." : "已成功安排存檔後台裝載作業。",
     "Archive background extraction job scheduled successfully." : "已成功安排存檔後台解壓縮作業。",
     "Cancelling %1$s-job for archive file \"%2$s\" failed." : "取消 %1$s 作業失敗，針對封存檔「%2$s」。",
