@@ -135,7 +135,7 @@
     "automatically change the mount point name if it already exists" : "automaticky zmeniť názov bodu pripojenia, ak už existuje",
     "default to scheduling mount requests as background job" : "vo východzom stave odbavovať požiadavky na pripojenie (mount) naplánovaním úlohy na pozadí",
     "mount the archive as default action by a simple click" : "pripojiť archív ako predvolenú akciu jednoduchým kliknutím",
-    "Extraction Options" : "Možnosti Rozbalovania",
+    "Extraction Options" : "Možnosti rozbalovania",
     "Template for the default name of the extraction folder" : "Šablóna pre predvolený názov adresára pre rozbalenie",
     "automatically change the target folder name if the target folder already exists" : "automaticky zmeniť názov cieľového adresára ak už existuje",
     "default to scheduling extraction requests as background job" : "vo východzom stave odbavovať požiadavky rozbalenie  naplánovaním úlohy na pozadí",
