@@ -40,7 +40,7 @@ try {
 // can also be achieved by "autoload-dev" in composer.json
 $autoloader->addPsr4(
   \OCA\FilesArchive::class . '\\',
-  __DIR__ . '(/../lib',
+  __DIR__ . '/../lib',
   true,
 );
 $autoloader->addPsr4(
