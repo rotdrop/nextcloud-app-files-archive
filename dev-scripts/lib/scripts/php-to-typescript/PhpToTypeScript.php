@@ -284,10 +284,12 @@ class PhpToTypeScript extends Command
       if (!$this->classOrInterfaceExists($phpClass)) {
         unset($typeReplacements[$phpClass]);
       }
-      $phpClass = $scopedNamespacePrefix . '\\' . $phpClass;
-      if ($this->classOrInterfaceExists($phpClass)) {
-        $typeReplacements[$phpClass] = $tsClass;
-      }
+      if (!empty($scopedNamespacePrefix)) {
+        $phpClass = $scopedNamespacePrefix . '\\' . $phpClass;
+        if ($this->classOrInterfaceExists($phpClass)) {
+          $typeReplacements[$phpClass] = $tsClass;
+        }
+	  }
     }
 
     $config = TransformerConfig::create()
