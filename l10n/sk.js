@@ -113,7 +113,7 @@ OC.L10N.register(
     "Click to submit your changes." : "Kliknite pre odoslanie vašich zmien",
     "Reset Changes" : "Resetovať Zmeny",
     "Clear Selection" : "Zrušiť výber",
-    "Unable to query the archive-format support matrix." : "Nedá sa zadať dotaz na maticu podpory formátov archívov.",
+    "Unable to query the archive-format support matrix." : "Nie je možné získať informácie o podpore formátov archívov.",
     "Unable to query the information about the available archive backend drivers." : "Nedá sa zistiť informácie o dostupných ovládačoch backendov archívov.",
     "Archive Manager, Admin Settings" : "Správca Archívov, Nastavenia administrátora",
     "Archive Extraction" : "Rozbalenie archívu",
