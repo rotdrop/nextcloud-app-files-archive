@@ -170,8 +170,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Sett verdien for «{settingsKey}» til «{displayValue}»",
     "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Avbryt %s-jobb for arkivfil \"%s\" feilet.",
-    "Show Passphrase" : "Vis passordfrase",
     "Mount Points" : "Mount Points"
 },
 "nplurals=2; plural=(n != 1);");

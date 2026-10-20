@@ -214,9 +214,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Setting \"{setting}\" has been unset successfully.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Could not set value for \"{settingsKey}\" to \"{value}\": {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Cancelling %s-job for archive file \"%s\" failed.",
-    "Shared folder with id \"%1$s\" does not exist." : "Shared folder with id \"%1$s\" does not exist.",
-    "Show Passphrase" : "Show Passphrase",
     "Mount Points" : "Mount Points"
 },
 "nplurals=2; plural=(n != 1);");

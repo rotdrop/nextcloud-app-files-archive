@@ -170,8 +170,6 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "تمّ تعيين \"{settingKey}\" بــ \"{displayValue}\" بنجاح",
     "Setting \"{setting}\" has been unset successfully." : "تمّ إلغاء الإعداد \"{setting}\" بنجاح.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "تعذّر تعيين \"{settingsKeys}\" بــ \"{value}\":{message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "فشل إلغاء مهمة %s-للملف المؤرشف \"%s\". ",
-    "Show Passphrase" : "أعرُض عِبَارة المرور Passphrase",
     "Mount Points" : "نقاط التنصيب Mount Points"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

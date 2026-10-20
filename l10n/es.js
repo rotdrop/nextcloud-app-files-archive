@@ -181,8 +181,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se estableció exitosamente el valor para \"{settingsKey}\" a \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se reestableció exitosamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No fue posible establecer el valor de \"{settingsKey}\" a \"{value}\": {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Cancelando %s-trabajo para el archivador \"%s\" falló.",
-    "Show Passphrase" : "Mostrar frase de seguridad",
     "Mount Points" : "Puntos de montaje"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -214,9 +214,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\", \"{displayValue}\" değerine ayarlandı",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ayarı kaldırıldı.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\", {value} değerine ayarlanamadı: {message}.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "%s-job for archive file \"%s\" iptal edilemedi.",
-    "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" kimlikli paylaşılmış klasör bulunamadı.",
-    "Show Passphrase" : "Parolayı görüntüle",
     "Mount Points" : "Takma noktaları"
 },
 "nplurals=2; plural=(n > 1);");

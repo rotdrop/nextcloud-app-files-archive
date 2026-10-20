@@ -139,7 +139,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успешно зададена стойност за \"{settingsKey}\" на \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Задаването на \"{setting}\" е отменено успешно.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не може да се зададе стойност за \"{settingsKey}\" на \"{value}\": {message}",
-    "Show Passphrase" : "Показване на парола",
     "Mount Points" : "Точки на монтиране"
 },
 "nplurals=2; plural=(n != 1);");

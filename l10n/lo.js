@@ -189,9 +189,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "ຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{displayValue}\" ສຳເລັດແລ້ວ",
     "Setting \"{setting}\" has been unset successfully." : "ຍົກເລີກການຕັ້ງຄ່າ \"{setting}\" ສຳເລັດແລ້ວ.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "ບໍ່ສາມາດຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{value}\" ໄດ້: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "ການຍົກເລີກວຽກ-%s ສຳລັບໄຟລ໌ບີບອັດ \"%s\" ລົ້ມເຫຼວ.",
-    "Shared folder with id \"%1$s\" does not exist." : "ໂຟນເດີທີ່ແບ່ງປັນດ້ວຍໄອດີ \"%1$s\" ບໍ່ມີຢູ່.",
-    "Show Passphrase" : "ສະແດງລະຫັດຜ່ານ",
     "Mount Points" : "ຈຸດເຊື່ອມຕໍ່"
 },
 "nplurals=1; plural=0;");
