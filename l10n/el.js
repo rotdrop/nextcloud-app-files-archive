@@ -204,9 +204,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Επιτυχής ρύθμιση της τιμής για \"{settingsKey}\" σε \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "Η ρύθμιση \"{setting}\" έχει απενεργοποιηθεί με επιτυχία.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ρύθμισης της τιμής για \"{settingsKey}\" σε \"{value}\": {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Η ακύρωση %s-εργασίας για το αρχείο \"%s\" απέτυχε.",
-    "Shared folder with id \"%1$s\" does not exist." : "Ο κοινόχρηστος φάκελος με id \"%1$s\" δεν υπάρχει.",
-    "Show Passphrase" : "Εμφάνιση Φράσης Πρόσβασης",
     "Mount Points" : "Σημεία Προσάρτησης"
 },
 "nplurals=2; plural=(n != 1);");

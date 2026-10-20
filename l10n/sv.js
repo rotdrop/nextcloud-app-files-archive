@@ -214,9 +214,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Värdet för ”{settingsKey}” angavs till ”{displayValue}”",
     "Setting \"{setting}\" has been unset successfully." : "Inställningen ”{setting}” har återställts.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Det gick inte att ange värdet för ”{settingsKey}” till ”{value}”: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Det gick inte att avbryta %s-jobbet för arkivfilen ”%s”.",
-    "Shared folder with id \"%1$s\" does not exist." : "Den delade mappen med ID ”%1$s” finns inte.",
-    "Show Passphrase" : "Visa lösenfras",
     "Mount Points" : "Monteringspunkter"
 },
 "nplurals=2; plural=(n != 1);");

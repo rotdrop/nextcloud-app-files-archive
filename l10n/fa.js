@@ -197,9 +197,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "مقدار \"{settingsKey}\" با موفقیت به \"{displayValue}\" تنظیم شد",
     "Setting \"{setting}\" has been unset successfully." : "تنظیم \"{setting}\" با موفقیت حذف شد",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "امکان تنظیم مقدار \"{settingsKey}\" به \"{value}\" وجود نداشت: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "لغو کار %s برای فایل بایگانی \"%s\" ناموفق بود.",
-    "Shared folder with id \"%1$s\" does not exist." : "پوشه اشتراکی با شناسه «%1$s» وجود ندارد.",
-    "Show Passphrase" : "نمایش عبارت عبور",
     "Mount Points" : "نقاط اتصال"
 },
 "nplurals=2; plural=(n > 1);");

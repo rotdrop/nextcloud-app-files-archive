@@ -188,9 +188,6 @@
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "مۇۋەپپەقىيەتلىك ھالدا \"{settingsKey}\" نىڭ قىممىتىنى \"{displayValue}\" قىلىپ بەلگىلەڭ.",
     "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" نى تەڭشەش ئوڭۇشلۇق بولمىدى.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "ئارخىپ ھۆججىتى \"%s\" ئۈچۈن %s- خىزمەتنى ئەمەلدىن قالدۇرۇش مەغلۇب بولدى.",
-    "Shared folder with id \"%1$s\" does not exist." : "\"%1$s\" id دىكى ئورتاقلاشقان قىسقۇچ مەۋجۇت ئەمەس.",
-    "Show Passphrase" : "پارولنى كۆرسەت",
     "Mount Points" : "تاغ نۇقتىلىرى"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

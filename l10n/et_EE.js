@@ -213,9 +213,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "„{settingsKey}“ seadistamine „{displayValue}“ väärtusega õnnestus.",
     "Setting \"{setting}\" has been unset successfully." : "„{setting}“ võtme väärtustuse eemaldamine õnnestus.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "„{settingsKey}“ võtme väärtustamine uue „{value}“ väärtusega ei õnnestunud: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "„%s“ arhiivifaili „%s“ taustaülesande tühistamine ei õnnestunud.",
-    "Shared folder with id \"%1$s\" does not exist." : "Jagatud kausta tunnusega „%1$s“ pole olemas.",
-    "Show Passphrase" : "Näita salafraasi",
     "Mount Points" : "Haakepunktid"
 },
 "nplurals=2; plural=(n != 1);");

@@ -214,9 +214,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Le paramètre \"{settingsKey}\" a été défini à {displayValue} avec succès.",
     "Setting \"{setting}\" has been unset successfully." : "Le paramètre \"{setting}\" a été désactivé avec succès.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de donner au paramètre \"{settingsKey}\" la valeur {value} : {message}.",
-    "Cancelling %s-job for archive file \"%s\" failed." : "L'annulation de la tâche %s pour le fichier d'archive \"%s\" a échoué.",
-    "Shared folder with id \"%1$s\" does not exist." : " Le dossier partagé avec l’identifiant \"%1$s\" n’existe pas.",
-    "Show Passphrase" : "Montrer le mot de passe",
     "Mount Points" : "Points de montage"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

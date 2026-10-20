@@ -94,7 +94,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "S'ha establert correctament el valor de \"{settingsKey}\" a \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "El paràmetre \"{setting}\" s'ha desactivat correctament.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No s'ha pogut establir el valor de \"{settingsKey}\" a \"{value}\": {message}",
-    "Show Passphrase" : "Mostra la contrasenya",
     "Mount Points" : "Punts de muntatge"
 },
 "nplurals=2; plural=(n != 1);");

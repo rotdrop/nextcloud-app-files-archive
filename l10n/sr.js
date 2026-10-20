@@ -183,8 +183,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Вредност „{settingsKey}” је успешно постављена на „{displayValue}”",
     "Setting \"{setting}\" has been unset successfully." : "Подешавање „{setting}” је успешно обрисано.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Вредност „{settingsKey}” не може да се постави на „{value}”: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Није успело отказивање %s-посла за фајл архиве „%s”.",
-    "Show Passphrase" : "Прикажи випеделну лозинку",
     "Mount Points" : "Тачке монтирања"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

@@ -214,9 +214,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Параметру «{settingsKey}» присвоено значение «{displayValue}»",
     "Setting \"{setting}\" has been unset successfully." : "Параметр «{setting}» сброшен.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не удалось присвоить параметру «{settingsKey}» значение «{value}»: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Не удалось отменить задание %s для архива «%s».",
-    "Shared folder with id \"%1$s\" does not exist." : "Командная папка с идентификатором «%1$s» не существует.",
-    "Show Passphrase" : "Показать пароль",
     "Mount Points" : "Точки монтирования"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

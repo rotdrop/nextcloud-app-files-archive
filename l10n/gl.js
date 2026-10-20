@@ -197,9 +197,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Definiuse correctamente o valor para «{settingsKey}» a «{displayValue}»",
     "Setting \"{setting}\" has been unset successfully." : "O axuste «{setting}» foi desactivado correctamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Non foi posíbel definir o valor para «{settingsKey}» a {value}: {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Produciuse un fallo ao cancelar o traballo %s para o ficheiro do arquivador «%s».",
-    "Shared folder with id \"%1$s\" does not exist." : "O cartafol compartido co identificador «%1$s» non existe.",
-    "Show Passphrase" : "Amosar a frase de contrasinal",
     "Mount Points" : "Puntos de montaxe"
 },
 "nplurals=2; plural=(n != 1);");

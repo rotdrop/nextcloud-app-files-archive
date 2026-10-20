@@ -152,8 +152,6 @@ OC.L10N.register(
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Valore impostato correttamente per \"{settingsKey}\" su \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "L'impostazione \"{setting}\" è stata annullata correttamente.",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossibile impostare il valore per \"{settingsKey}\" su \"{value}\": {message}",
-    "Cancelling %s-job for archive file \"%s\" failed." : "Annullamento del processo \"%s\" per il file di archivio \"%s\" fallito.",
-    "Show Passphrase" : "Mostra password",
     "Mount Points" : "Punti di mount"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

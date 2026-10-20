@@ -59,7 +59,6 @@ OC.L10N.register(
     "Yes" : "Da",
     "reason unknown" : "razlog ni znan",
     "true" : "prav",
-    "Show Passphrase" : "Pokaži šifrirno geslo",
     "Mount Points" : "Priklopne točke"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");
