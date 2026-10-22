@@ -11,6 +11,7 @@
     "The target folder \"%s\" already exists and auto-rename is not enabled." : "Sihtkaust „%s“ juba on olemas ja nime automaatne muutmine pole kasutusel.",
     "Unable to extract \"%1$s\" to \"%2$s\": \"%3$s\"." : "„%1$s“ → „%2$s“ lahtipakkimine ei õnnestu: „%3$s“.",
     "Extracting \"%1$s\" to \"%2$s\" succeeded." : "Lahtipakkimine õnnestus: „%1$s“ → „%2$s“",
+    "Warning: the archive members %1$s map to the same name after Unicode normalization; only one of them could be extracted." : "Hoiatus: arhiivi sisu (%1$s) saab peale Unicode'i normaliseerimist olema sama nimega ja seega vaid üks neist on  pakitud lahti.",
     "Archive background mount job scheduled successfully." : "Arhiivifaili taustal haakimise ülesande ajastamine õnnestus.",
     "Archive background extraction job scheduled successfully." : "Arhiivifaili taustal lahtipakkimise ülesande ajastamine õnnestus.",
     "Cancelling %1$s-job for archive file \"%2$s\" failed." : "„%2$s“ arhiivifaili „%1$s“ taustaülesande tühistamine ei õnnestunud.",
