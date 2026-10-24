@@ -45,9 +45,35 @@ jobs:
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Prepare release notes
+        id: notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          previous_stable="$(gh api --paginate --slurp \
+            "repos/${GITHUB_REPOSITORY}/releases?per_page=100" |
+            jq -r --arg current "$TAG" \
+              'add | map(select(.draft == false and .prerelease == false and .tag_name != $current)) | sort_by(.published_at) | last | .tag_name // empty')"
+
+          if [[ -z "$previous_stable" ]]; then
+            echo "::error::Could not find a previous stable release for $TAG."
+            exit 1
+          fi
+
+          body_path="$RUNNER_TEMP/release-notes.md"
+          printf 'See [CHANGELOG.md](%s/blob/%s/CHANGELOG.md).\n\n**Full Changelog**: %s/compare/%s...%s\n' \
+            "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
+            "$TAG" \
+            "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
+            "$previous_stable" \
+            "$TAG" > "$body_path"
+          echo "body_path=$body_path" >> "$GITHUB_OUTPUT"
+
       - name: Attach to the GitHub release
         uses: softprops/action-gh-release@v2
         with:
           prerelease: ${{ steps.kind.outputs.prerelease }}
           files: files_archive-${{ needs.build.outputs.version }}.tar.gz
+          body_path: ${{ steps.notes.outputs.body_path }}
           fail_on_unmatched_files: true
