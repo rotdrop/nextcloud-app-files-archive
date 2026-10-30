@@ -68,9 +68,12 @@ So:
 
 - get yourself terminal access to your Nextcloud instance, probably by ssh
   - don't know what this means? Then this section is not for you
-- `git clone https://github.com/rotdrop/nextcloud-app-files-archvie.git` into your apps directory
+- `git clone --recurse-submodules https://github.com/rotdrop/nextcloud-app-files-archive.git` into your apps directory
 - optionally change to a release-branch, but you **very probably**
   just want to build the app from the default branch (main or master)
+- run `git submodule update --init --recursive` after switching branches or
+  updating an existing checkout to initialize the pinned build helpers in
+  `dev-scripts/lib`
 - install all needed dependencies
   - a recent version of `npm`
   - GNU make

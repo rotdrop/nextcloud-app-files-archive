@@ -28,10 +28,9 @@ ini_set('display_errors', 'stderr');
 $appDir = realpath(__DIR__) . '/..';
 
 try {
-  $autoloader = require_once(__DIR__ . '/lib/scripts/vendor/autoload.php');
+  $autoloader = require_once($appDir . '/vendor-bin/php-to-typescript/vendor/autoload.php');
   require_once($appDir . '/vendor/autoload.php');
   require_once($appDir . '/vendor-scoped/autoload.php');
-  require_once($appDir . '/vendor-bin/typescript-transformer/vendor/autoload.php');
 } catch (\Throwable $t) {
   fwrite(STDERR, 'Composer autoloads not set up: ' . $t->getMessage() . PHP_EOL);
   exit(1);
@@ -44,18 +43,13 @@ $autoloader->addPsr4(
   true,
 );
 $autoloader->addPsr4(
-  \OCA\RotDrop\DevScripts\PhpToTypeScript::class . '\\',
-  __DIR__ . '/lib/scripts/php-to-typescript',
-  true,
-);
-$autoloader->addPsr4(
   \OCA\RotDrop\Toolkit::class . '\\',
   $appDir . '/php-toolkit/',
   true,
 );
 
-use OCA\FilesArchive\Toolkit\Console\ConsoleOutput;
 use OCA\RotDrop\DevScripts\PhpToTypeScript;
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Collectors\DTOCollector;
 
 // store output of different transformers in different files
 
@@ -73,7 +67,6 @@ $scopedNamespaces = [
 ];
 
 use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
-use OCA\RotDrop\DevScripts\PhpToTypeScript\DTOCollector;
 
 $collectors = [
   EnumCollector::class,

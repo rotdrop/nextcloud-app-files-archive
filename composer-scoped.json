@@ -20,6 +20,12 @@
     "wapmorgan/cab-archive": "^0.0.7",
     "wapmorgan/unified-archive": "dev-master"
   },
+  "provide": {
+    "psr/cache": "*",
+    "psr/clock": "*",
+    "psr/container": "*",
+    "psr/log": "*"
+  },
   "config": {
     "vendor-dir": "vendor-scoped",
     "optimize-autoloader": true,

@@ -39,8 +39,7 @@ return [
   'expose-global-classes' => false,
   'exclude-namespaces' => [
     '/^PHPUnit/',
-    'Psr\\Clock',
-    'Psr\\Log',
+    '/^Psr(\\\\|$)/',
     // 'Symfony\\Component\\Console',
   ],
   'finders' => [
