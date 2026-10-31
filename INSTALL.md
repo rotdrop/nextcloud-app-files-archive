@@ -77,6 +77,9 @@ So:
 - the PHP toolkit is installed by Composer and scoped under
   `vendor-scoped/rotdrop/nextcloud-app-toolkit`; no separate toolkit checkout
   or namespace-copying step is needed
+- `composer/autoload.php` registers the scoped toolkit during Nextcloud app
+  updates and keeps old toolkit namespace references working while earlier
+  app code is still loaded
 - install all needed dependencies
   - a recent version of `npm`
   - GNU make

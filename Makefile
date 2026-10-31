@@ -174,6 +174,7 @@ APPSTORE_FILES =\
  vendor\
  vendor-scoped\
  config\
+ composer\
  CHANGELOG.md\
  COPYING\
  README.md
