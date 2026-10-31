@@ -1,1 +1,1 @@
-../php-toolkit/config/README.md
+../vendor-scoped/rotdrop/nextcloud-app-toolkit/config/README.md

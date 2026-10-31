@@ -38,8 +38,11 @@ return [
   ],
   'expose-global-classes' => false,
   'exclude-namespaces' => [
+    '/^(OC|OCP|NCU)(\\\\|$)/',
+    '/^OCA\\\\(GroupFolders|RotDrop\\\\DevScripts)(\\\\|$)/',
     '/^PHPUnit/',
     '/^Psr(\\\\|$)/',
+    '/^Spatie\\\\TypeScriptTransformer(\\\\|$)/',
     // 'Symfony\\Component\\Console',
   ],
   'finders' => [

@@ -42,8 +42,8 @@ use OCP\Files\Storage\IStorage;
 
 use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Service\ArchiveServiceFactory;
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\ArchiveService;
 
 // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 
@@ -52,8 +52,8 @@ class ArchiveStorage extends AbstractStorage
 {
   use CopyDirectory;
   use StorageIdTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UtilTrait;
 
   public const PATH_SEPARATOR = Constants::PATH_SEPARATOR;
 

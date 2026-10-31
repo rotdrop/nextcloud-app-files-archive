@@ -49,7 +49,7 @@ use OCA\FilesArchive\Controller\DTO;
  */
 class DiagnosticsController extends Controller
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(

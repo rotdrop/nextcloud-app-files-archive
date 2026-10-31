@@ -41,7 +41,7 @@ use OCA\FilesArchive\Controller\MountController;
 use OCA\FilesArchive\Exceptions;
 use OCA\FilesArchive\Service\FileSystemWalker;
 use OCA\FilesArchive\Service\NotificationService;
-use OCA\FilesArchive\Toolkit\Service\UserScopeService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\UserScopeService;
 
 /**
  * Background PDF generator job in order to move time-consuming jobs out of
@@ -49,7 +49,7 @@ use OCA\FilesArchive\Toolkit\Service\UserScopeService;
  */
 class ArchiveJob extends QueuedJob
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   public const TARGET_MOUNT = 'mount';
   public const TARGET_EXTRACT = 'extract';

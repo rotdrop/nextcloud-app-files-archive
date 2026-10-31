@@ -74,6 +74,9 @@ So:
 - run `git submodule update --init --recursive` after switching branches or
   updating an existing checkout to initialize the pinned build helpers in
   `dev-scripts/lib`
+- the PHP toolkit is installed by Composer and scoped under
+  `vendor-scoped/rotdrop/nextcloud-app-toolkit`; no separate toolkit checkout
+  or namespace-copying step is needed
 - install all needed dependencies
   - a recent version of `npm`
   - GNU make

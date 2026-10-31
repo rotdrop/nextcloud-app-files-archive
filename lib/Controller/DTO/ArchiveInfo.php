@@ -22,7 +22,7 @@
 
 namespace OCA\FilesArchive\Controller\DTO;
 
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\ArchiveService;
 
 /** Response DTO for ArchiveController info end-point. */
 class ArchiveInfo extends ArchiveService\ArchiveInfo

@@ -26,8 +26,8 @@ use OCA\RotDrop\DevScripts\PhpToTypeScript\Attributes as TSAttributes;
 
 use OCP\Files\FileInfo;
 
-use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
-use OCA\FilesArchive\Toolkit\DTO\LegacyFileInfo;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\LegacyFileInfo;
 
 /** Response DTO for ArchiveController extract end-point. */
 class ArchiveExtractResponse extends AbstractResponseDTO

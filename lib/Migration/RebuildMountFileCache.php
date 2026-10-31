@@ -34,14 +34,14 @@ use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Mount\MountProvider;
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
 /**
  * Rebuild the file cache for all mounted archive files.
  */
 class RebuildMountFileCache implements IRepairStep
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
   use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing

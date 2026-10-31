@@ -24,7 +24,7 @@ namespace OCA\FilesArchive\BackgroundJob;
 
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
-use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO;
 
 /**
  * A DTO which models the archive job argument.

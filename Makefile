@@ -23,7 +23,8 @@ DOWNLOADS_DIR = ./downloads
 CONFIG_DIR = ./config
 TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
 TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
-TS_PHP_SOURCE_DIRS = lib
+TS_PHP_SOURCE_DIRS = lib vendor-scoped/rotdrop/nextcloud-app-toolkit/src
+WRAPPER_NAMESPACE_POSTFIX = $(SCOPED_NAMESPACE_POSTFIX)
 
 include $(DEV_LIB_DIR)/makefile/setup.mk
 
@@ -90,7 +91,7 @@ dev: dev-setup npm-dev
 .PHONY: dev
 
 #@private
-dev-setup: app-toolkit composer namespace-wrapper
+dev-setup: composer namespace-wrapper
 .PHONY: dev-setup
 
 include $(DEV_LIB_DIR)/makefile/composer.mk
@@ -130,12 +131,6 @@ vendor-scoped/autoload.php: vendor-scoped
 namespace-wrapper: php-scoper-install vendor-scoped/autoload.php
 .PHONY: namespace-wrapper
 
-APP_TOOLKIT_DIR = $(ABSSRCDIR)/php-toolkit
-APP_TOOLKIT_DEST = $(ABSSRCDIR)/lib/Toolkit
-APP_TOOLKIT_NS = FilesArchive
-APP_WRAPPER_NS = $(SCOPED_NAMESPACE_POSTFIX)
-
-include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-notification-api.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
@@ -187,7 +182,10 @@ APPSTORE_FILES =\
 APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
 #@@ Prepare appstore archive
-appstore: clean dev-setup npm-build
+appstore:
+	$(MAKE) clean
+	$(MAKE) dev-setup
+	$(MAKE) npm-build
 	$(COMPOSER) update --no-dev
 	mkdir -p $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	$(RSYNC) -a -L $(APPSTORE_BLACKLISTED:%=--exclude '%') $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
@@ -233,7 +231,6 @@ distclean: clean ## Clean even more, calls clean
 	rm -rf vendor-scoped
 	rm -rf vendor-bin/**/vendor
 	rm -rf node_modules
-	rm -rf lib/Toolkit/*
 .PHONY: distclean
 
 #@@ Almost everything but downloads

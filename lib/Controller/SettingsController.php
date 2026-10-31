@@ -36,16 +36,16 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 use OCA\FilesArchive\Constants;
-use OCA\FilesArchive\Toolkit\Exceptions\EnduserNotificationException;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions\EnduserNotificationException;
 
 /**
  * Settings-controller for both, personal and admin, settings.
  */
 class SettingsController extends Controller
 {
-  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
 

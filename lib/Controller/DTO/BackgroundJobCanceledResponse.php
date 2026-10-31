@@ -23,7 +23,7 @@
 namespace OCA\FilesArchive\Controller\DTO;
 
 use OCA\FilesArchive\BackgroundJob\ArchiveJobArgument;
-use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO;
 
 /** Response DTO for the BackgroundJobController schedule end-point. */
 class BackgroundJobCanceledResponse extends AbstractResponseDTO

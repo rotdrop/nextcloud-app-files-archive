@@ -17,7 +17,6 @@ css/**
 lib/Database/ORM/Proxies/**
 build-flavour
 .php-cs-fixer.cache
-lib/Toolkit/[A-Z]*
 *-build-hash
 /vendor-bin/**/vendor/
 /vendor-bin/**/composer.lock

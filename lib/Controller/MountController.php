@@ -51,7 +51,7 @@ use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 use OCP\Files\Events\InvalidateMountCacheEvent;
 
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
 use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Controller\DTO;
@@ -60,8 +60,8 @@ use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Service\ArchiveServiceFactory;
 use OCA\FilesArchive\Storage\ArchiveStorage;
-use OCA\FilesArchive\Toolkit\Exceptions\EnduserNotificationException;
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions\EnduserNotificationException;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\ArchiveService;
 
 /**
  * Manage user mount requests for archive files.
@@ -70,11 +70,11 @@ class MountController extends Controller
 {
   use ArchiveSizeLimitTrait;
   use TargetPathTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\NodeTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UserRootFolderTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UtilTrait;
   use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
   /** @var string */

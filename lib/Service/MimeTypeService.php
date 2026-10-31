@@ -25,7 +25,7 @@ namespace OCA\FilesArchive\Service;
 use Psr\Log\LoggerInterface;
 use OCP\Files\IMimeTypeDetector;
 
-use OCA\FilesArchive\Toolkit\Service\MimeTypeService as ToolkitService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\MimeTypeService as ToolkitService;
 
 /**
  * Just a wrapper around the toolkit service in order to get some specific

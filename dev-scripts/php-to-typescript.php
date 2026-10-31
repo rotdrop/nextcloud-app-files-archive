@@ -42,31 +42,17 @@ $autoloader->addPsr4(
   __DIR__ . '/../lib',
   true,
 );
-$autoloader->addPsr4(
-  \OCA\RotDrop\Toolkit::class . '\\',
-  $appDir . '/php-toolkit/',
-  true,
-);
-
 use OCA\RotDrop\DevScripts\PhpToTypeScript;
 use OCA\RotDrop\DevScripts\PhpToTypeScript\Collectors\DTOCollector;
-use Spatie\TypeScriptTransformer\TypeReflectors\ClassTypeReflector;
-
-// This app renames the toolkit namespace rather than nesting it under a scoped prefix.
-class AppDTOCollector extends DTOCollector
-{
-  protected function shouldCollect(ClassTypeReflector $reflector): bool
-  {
-    return $reflector->getReflectionClass()->isSubclassOf(\OCA\FilesArchive\Toolkit\DTO\AbstractDTO::class);
-  }
-}
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Collectors\DefaultCollector;
+use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
 
 $excludes = [
   'lib/Mount', // there is nothing to convert, and code diversion between NC versions triggers errors.
   'lib/Storage',
-  'lib/Toolkit/Common',
-  'lib/Toolkit/Doctrine',
-  'lib/Toolkit/Service/GroupFoldersService.php',
+  'vendor-scoped/rotdrop/nextcloud-app-toolkit/src/Common',
+  'vendor-scoped/rotdrop/nextcloud-app-toolkit/src/Doctrine',
+  'vendor-scoped/rotdrop/nextcloud-app-toolkit/src/Service/GroupFoldersService.php',
 ];
 
 $scopedNamespaces = [
@@ -75,11 +61,10 @@ $scopedNamespaces = [
   // \Ramsey\Uuid::class,
 ];
 
-use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
-
 $collectors = [
+  DTOCollector::class,
+  DefaultCollector::class,
   EnumCollector::class,
-  AppDTOCollector::class,
 ];
 
 $phpToTypeScript = new PhpToTypeScript\PhpToTypeScript(

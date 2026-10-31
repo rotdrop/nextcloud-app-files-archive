@@ -25,7 +25,7 @@ use OCA\FilesArchive\Db\ArchiveMountMapper;
 /** Simple helper for the table name. */
 trait TableNameTrait
 {
-  use \OCA\FilesArchive\Toolkit\Traits\AppNameTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\AppNameTrait;
 
   /** @return string */
   protected function getTableName(): string

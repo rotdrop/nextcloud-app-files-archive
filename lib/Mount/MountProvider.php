@@ -49,14 +49,14 @@ use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Service\ArchiveService;
 use OCA\FilesArchive\Service\NotificationService;
 use OCA\FilesArchive\Storage\ArchiveStorage;
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
 /**
  * Mount an archive file as virtual file system into the user-storage.
  */
 class MountProvider implements IMountProvider
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
   use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
   /** @var int */

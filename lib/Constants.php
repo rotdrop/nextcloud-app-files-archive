@@ -20,12 +20,12 @@
 
 namespace OCA\FilesArchive;
 
-use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Attributes as TSAttributes;
 
-use OCA\FilesArchive\Toolkit\Constants as ToolkitConstants;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Constants as ToolkitConstants;
 
 /** A couple of constants in order to avoid string literals. */
-#[TSAttributes\Typescript]
+#[TSAttributes\TypeScript]
 class Constants extends ToolkitConstants
 {
 }

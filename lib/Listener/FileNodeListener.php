@@ -57,7 +57,7 @@ use OCA\FilesArchive\Service\MimeTypeService;
  */
 class FileNodeListener implements IEventListener
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
   use \OCA\FilesArchive\Traits\GetArchiveFileTrait;
 
   const EVENT = [ BeforeNodeDeletedEvent::class, NodeDeletedEvent::class ];

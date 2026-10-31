@@ -26,7 +26,7 @@ use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
 use OCP\Files\FileInfo;
 
-use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO;
 
 /** Response DTO for MountController status end-point. */
 class MountStatusResponse extends AbstractResponseDTO

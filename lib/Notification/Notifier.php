@@ -45,9 +45,9 @@ use OCA\FilesArchive\Db\ArchiveMountMapper;
  */
 class Notifier implements INotifier
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\NodeTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UserRootFolderTrait;
 
   public const TYPE_ANY = 0;
   public const TYPE_MOUNT = (1 << 0);

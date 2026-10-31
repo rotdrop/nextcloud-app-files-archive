@@ -41,7 +41,7 @@ use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Mount\MountProvider;
 use OCA\FilesArchive\Service\ArchiveServiceFactory;
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
 
 /** Recreate the file-cache for mounted archives. */
 class RebuildMountFileCache extends Command
