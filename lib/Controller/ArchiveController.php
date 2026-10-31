@@ -49,9 +49,9 @@ use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Controller\DTO;
 use OCA\FilesArchive\Service\ArchiveServiceFactory;
 use OCA\FilesArchive\Storage\ArchiveStorage;
-use OCA\FilesArchive\Toolkit\Exceptions as ToolkitExceptions;
-use OCA\FilesArchive\Toolkit\Exceptions\EnduserNotificationException;
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions as ToolkitExceptions;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions\EnduserNotificationException;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\ArchiveService;
 
 /**
  * AJAX endpoint for archive operations and info.
@@ -59,10 +59,10 @@ use OCA\FilesArchive\Toolkit\Service\ArchiveService;
 #[TSAttributes\TypeScript]
 class ArchiveController extends Controller
 {
-  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\NodeTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\NodeTrait;
   use TargetPathTrait;
   use ArchiveSizeLimitTrait;
 

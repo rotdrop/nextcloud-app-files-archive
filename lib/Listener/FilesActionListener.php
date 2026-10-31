@@ -47,9 +47,9 @@ use OCA\FilesArchive\Constants;
  */
 class FilesActionListener implements IEventListener
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\CloudAdminTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\AssetTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\CloudAdminTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\AssetTrait;
 
   const EVENT = [
     LoadAdditionalScriptsEvent::class,

@@ -42,7 +42,7 @@ use OCA\FilesArchive\Storage\ArchiveStorage;
  */
 class ArchiveMountPoint extends MountPoint implements IMovableMount
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   /**
    * @param ArchiveStorage $storage

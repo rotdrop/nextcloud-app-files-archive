@@ -25,7 +25,7 @@ namespace OCA\FilesArchive\Controller\DTO;
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
 use OCA\FilesArchive\Controller\BackgroundJobController as Controller;
-use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO;
 
 /** Response DTO for the BackgroundJobController schedule end-point. */
 class BackgroundJobScheduledResponse extends AbstractResponseDTO

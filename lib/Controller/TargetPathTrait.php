@@ -22,7 +22,7 @@
 
 namespace OCA\FilesArchive\Controller;
 
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\ArchiveService;
 use OCA\FilesArchive\Constants;
 
 /** Trait class which provides the proposed target basenames. */

@@ -22,7 +22,7 @@
 
 namespace OCA\FilesArchive\Controller\DTO;
 
-use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO;
 use OCA\FilesArchive\Controller\DTO\DiagnosticsResponse\CSS;
 
 /** DTO for the two end-points of the DiagnosticsController. */

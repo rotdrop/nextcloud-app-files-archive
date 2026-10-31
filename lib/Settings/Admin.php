@@ -32,7 +32,7 @@ use OCA\FilesArchive\Constants;
  */
 class Admin implements IDelegatedSettings
 {
-  use \OCA\FilesArchive\Toolkit\Traits\AssetTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\AssetTrait;
 
   const TEMPLATE = "admin-settings";
 

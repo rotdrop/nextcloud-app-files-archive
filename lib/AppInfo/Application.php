@@ -36,9 +36,10 @@ use OCA\FilesArchive\Listener\Registration as ListenerRegistration;
 use OCA\FilesArchive\Mount\MountProvider as ArchiveMountProvider;
 use OCA\FilesArchive\Notification\Notifier;
 use OCA\FilesArchive\Service\MimeTypeService;
-use OCA\FilesArchive\Toolkit\AppInfo\AbstractApplication;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\AppInfo\AbstractApplication;
 
-include_once __DIR__ . '/../Toolkit/AppInfo/AbstractApplication.php';
+include_once __DIR__ . '/../../vendor/autoload.php';
+include_once __DIR__ . '/../../vendor-scoped/autoload.php';
 
 /**
  * App entry point.

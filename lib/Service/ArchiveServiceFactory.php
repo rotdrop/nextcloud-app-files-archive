@@ -26,7 +26,7 @@ use OCP\IL10N;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\Files\File;
 
-use OCA\FilesArchive\Toolkit\Service\ArchiveService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\ArchiveService;
 
 /** Used in order to construct a new instance of the ArchiveService class. */
 class ArchiveServiceFactory

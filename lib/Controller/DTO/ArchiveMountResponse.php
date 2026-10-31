@@ -22,12 +22,12 @@
 
 namespace OCA\FilesArchive\Controller\DTO;
 
-use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Attributes as TSAttributes;
 
 use OCP\Files\FileInfo;
 
-use OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO;
-use OCA\FilesArchive\Toolkit\DTO\LegacyFileInfo;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\LegacyFileInfo;
 use OCA\FilesArchive\Db\ArchiveMount;
 
 /** Response DTO for MountController mount end-point. */

@@ -48,7 +48,7 @@ use OCA\FilesArchive\Constants;
  */
 class NodeCopiedListener implements IEventListener
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const EVENT = NodeCopiedEvent::class;
 

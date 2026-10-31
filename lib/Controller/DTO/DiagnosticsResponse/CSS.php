@@ -24,7 +24,7 @@ namespace OCA\FilesArchive\Controller\DTO\DiagnosticsResponse;
 
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
-use OCA\FilesArchive\Toolkit\DTO\AbstractDTO;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractDTO;
 
 /** Helper DTO for the two end-points of the DiagnosticsController. */
 #[TSAttributes\InlineTypeScriptType]

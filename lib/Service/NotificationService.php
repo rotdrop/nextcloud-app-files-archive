@@ -40,7 +40,7 @@ use OCA\FilesArchive\Constants;
 /** Service class for notification management. */
 class NotificationService
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(

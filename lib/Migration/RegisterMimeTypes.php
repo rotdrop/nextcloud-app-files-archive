@@ -34,7 +34,7 @@ use OCA\FilesArchive\Service\MimeTypeService;
  * The extension to MIME-type mappings themselves are registered at runtime
  * with the MIME-type detector during the app bootstrap (see
  * \OCA\FilesArchive\AppInfo\Application and
- * \OCA\FilesArchive\Toolkit\Service\MimeTypeService::registerMimeTypeMappings()).
+ * \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\MimeTypeService::registerMimeTypeMappings()).
  * This repair step takes care of the two things which cannot be done at
  * runtime per request:
  *
@@ -50,7 +50,7 @@ use OCA\FilesArchive\Service\MimeTypeService;
  */
 class RegisterMimeTypes implements IRepairStep
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const MIMETYPE_ALIASES_FILE = 'mimetypealiases.json';
 

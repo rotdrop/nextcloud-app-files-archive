@@ -44,18 +44,18 @@ use OCA\FilesArchive\BackgroundJob\ArchiveJob;
 use OCA\FilesArchive\BackgroundJob\ArchiveJobArgument;
 use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Service\NotificationService;
-use OCA\FilesArchive\Toolkit\Exceptions\EnduserNotificationException;
-use OCA\FilesArchive\Toolkit\Service\UserScopeService;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Exceptions\EnduserNotificationException;
+use OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Service\UserScopeService;
 
 /**
  * Schedule background jobs for archive mounting or extraction.
  */
 class BackgroundJobController extends Controller
 {
-  use \OCA\FilesArchive\Toolkit\Traits\UtilTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\ResponseTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
-  use \OCA\FilesArchive\Toolkit\Traits\UserRootFolderTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UtilTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\Traits\UserRootFolderTrait;
   use TargetPathTrait;
 
   public const OPERATION_MOUNT = ArchiveJob::TARGET_MOUNT;

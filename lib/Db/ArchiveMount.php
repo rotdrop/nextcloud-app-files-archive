@@ -50,7 +50,7 @@ use OCP\AppFramework\Db\Entity;
  * @method public void setMountFlags(int $flags)
  */
 #[TSAttributes\TypeScript]
-#[TSAttributes\TypeScriptTransformer(\OCA\RotDrop\DevScripts\PhpToTypeScript\DatabaseEntityTransformer::class)]
+#[TSAttributes\TypeScriptTransformer(\OCA\RotDrop\DevScripts\PhpToTypeScript\Transformers\DatabaseEntityTransformer::class)]
 class ArchiveMount extends Entity implements JsonSerializable
 {
   public const MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX = (1 << 0);

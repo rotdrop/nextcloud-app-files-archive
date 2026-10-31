@@ -22,19 +22,21 @@
 
 namespace OCA\FilesArchive\Controller\DTO;
 
-use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Attributes as TSAttributes;
+use OCA\FilesArchive\Controller\ArchiveController;
 
 /** Response DTO for ArchiveController info end-point. */
-class ArchiveInfoResponse extends \OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO
+class ArchiveInfoResponse extends \OCA\FilesArchive\Scoped\OCA\RotDrop\Toolkit\DTO\AbstractResponseDTO
 {
   /** {@inheritdoc} */
   public function __construct(
     /** @var array<string> */
     public readonly array $messages,
     #[TSAttributes\LiteralTypeScriptType(
-      ArchiveService::class . '.ARCHIVE_STATUS_OK'
-        . '|' . ArchiveService::class . '.ARCHIVE_STATUS_TOO_LARGE'
-        . '|' . ArchiveService::class . '.ARCHIVE_STATUS_BOMB'
+      ArchiveController::ARCHIVE_STATUS_OK
+        . '|' . ArchiveController::ARCHIVE_STATUS_TOO_LARGE
+        . '|' . ArchiveController::ARCHIVE_STATUS_BOMB
+        . '|' . (ArchiveController::ARCHIVE_STATUS_TOO_LARGE | ArchiveController::ARCHIVE_STATUS_BOMB)
     )]
     public readonly int $archiveStatus,
     public readonly ?ArchiveInfo $archiveInfo,
