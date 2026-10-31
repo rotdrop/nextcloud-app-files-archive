@@ -22,7 +22,7 @@
 
 namespace OCA\FilesArchive\Controller\DTO;
 
-use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+use OCA\RotDrop\DevScripts\PhpToTypeScript\Attributes as TSAttributes;
 
 /** Response DTO for ArchiveController info end-point. */
 class ArchiveInfoResponse extends \OCA\FilesArchive\Toolkit\DTO\AbstractResponseDTO

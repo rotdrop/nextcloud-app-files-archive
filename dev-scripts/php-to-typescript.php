@@ -50,14 +50,23 @@ $autoloader->addPsr4(
 
 use OCA\RotDrop\DevScripts\PhpToTypeScript;
 use OCA\RotDrop\DevScripts\PhpToTypeScript\Collectors\DTOCollector;
+use Spatie\TypeScriptTransformer\TypeReflectors\ClassTypeReflector;
 
-// store output of different transformers in different files
+// This app renames the toolkit namespace rather than nesting it under a scoped prefix.
+class AppDTOCollector extends DTOCollector
+{
+  protected function shouldCollect(ClassTypeReflector $reflector): bool
+  {
+    return $reflector->getReflectionClass()->isSubclassOf(\OCA\FilesArchive\Toolkit\DTO\AbstractDTO::class);
+  }
+}
 
 $excludes = [
   'lib/Mount', // there is nothing to convert, and code diversion between NC versions triggers errors.
   'lib/Storage',
   'lib/Toolkit/Common',
   'lib/Toolkit/Doctrine',
+  'lib/Toolkit/Service/GroupFoldersService.php',
 ];
 
 $scopedNamespaces = [
@@ -70,7 +79,7 @@ use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
 
 $collectors = [
   EnumCollector::class,
-  DTOCollector::class,
+  AppDTOCollector::class,
 ];
 
 $phpToTypeScript = new PhpToTypeScript\PhpToTypeScript(
