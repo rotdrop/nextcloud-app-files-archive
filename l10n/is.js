@@ -1,11 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "User" : "Notandi",
-    "Password" : "Lykilorð",
-    "%1$s (renamed)" : "%1$s (endurnefnd)",
-    "renamed file" : "endurnefndi skrá",
-    "bytes" : "bæti",
     "Choose {file}" : "Veldu {file}",
     "Choose" : "Velja",
     "unknown" : "óþekkt",
@@ -14,6 +9,11 @@ OC.L10N.register(
     "Archive" : "Safn",
     "close" : "loka",
     "No" : "Nei",
-    "Yes" : "Já"
+    "Yes" : "Já",
+    "User" : "Notandi",
+    "Password" : "Lykilorð",
+    "%1$s (renamed)" : "%1$s (endurnefnd)",
+    "renamed file" : "endurnefndi skrá",
+    "bytes" : "bæti"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

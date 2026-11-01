@@ -1,11 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "User" : "Хэрэглэгч",
-    "Password" : "нууц үг",
-    "%1$s (renamed)" : "%1$s (нэр өөрчлөгдсөн)",
-    "renamed file" : "нэр өөрчлөгдсөн файл",
-    "bytes" : "байт",
     "submit" : "илгээх",
     "Choose {file}" : "{file} сонгох",
     "Choose" : "–°–æ–Ω–≥–æ—Ö",
@@ -15,6 +10,11 @@ OC.L10N.register(
     "Extract here" : "Энд задлах",
     "Archive" : "архив",
     "No" : "Үгүй",
-    "Yes" : "Тийм"
+    "Yes" : "Тийм",
+    "User" : "Хэрэглэгч",
+    "Password" : "нууц үг",
+    "%1$s (renamed)" : "%1$s (нэр өөрчлөгдсөн)",
+    "renamed file" : "нэр өөрчлөгдсөн файл",
+    "bytes" : "байт"
 },
 "nplurals=2; plural=(n != 1);");

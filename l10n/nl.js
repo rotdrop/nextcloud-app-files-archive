@@ -10,13 +10,6 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "De persoonlijke instelling \"%1$s\" is niet aanpasbaar",
     "Unknown personal setting: \"%s\"." : "Onbekende persoonlijke instelling: \"%s\"",
     "Unable to parse memory size limit \"%s\"" : "Kan geheugengrootelimitiet \"%s\" niet verwerken",
-    "not found" : "niet gevonden",
-    "Please install the \"%s\" program on the server." : "Gelieve het programma \"%s\" op de server te installeren.",
-    "User" : "Gebruiker",
-    "Password" : "Wachtwoord",
-    "%1$s (renamed)" : "%1$s (hernoemd)",
-    "renamed file" : "bestand hernoemd",
-    "bytes" : "bytes",
     "submit" : "versturen",
     "Choose {file}" : "Kies {file}",
     "Choose" : "Kies",
@@ -27,6 +20,13 @@ OC.L10N.register(
     "Archive" : "Archiveren",
     "close" : "sluiten",
     "No" : "Nee",
-    "Yes" : "Ja"
+    "Yes" : "Ja",
+    "not found" : "niet gevonden",
+    "Please install the \"%s\" program on the server." : "Gelieve het programma \"%s\" op de server te installeren.",
+    "User" : "Gebruiker",
+    "Password" : "Wachtwoord",
+    "%1$s (renamed)" : "%1$s (hernoemd)",
+    "renamed file" : "bestand hernoemd",
+    "bytes" : "bytes"
 },
 "nplurals=2; plural=(n != 1);");

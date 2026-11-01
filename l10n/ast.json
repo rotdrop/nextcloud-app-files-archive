@@ -1,11 +1,5 @@
 { "translations": {
     "File or folder could not be found." : "Nun se pudo atopar el ficheru o la carpeta",
-    "not found" : "nun s'atopó",
-    "User" : "Usuariu",
-    "Password" : "Contraseña",
-    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
-    "Login failed." : "L'aniciu de la sesión falló.",
-    "bytes" : "bytes",
     "open" : "abrir",
     "submit" : "unviar",
     "restore palette" : "restaurar la paleta",
@@ -17,6 +11,12 @@
     "Archive" : "Archivar",
     "No" : "Non",
     "Yes" : "Sí",
-    "true" : "true"
+    "true" : "true",
+    "not found" : "nun s'atopó",
+    "User" : "Usuariu",
+    "Password" : "Contraseña",
+    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
+    "Login failed." : "L'aniciu de la sesión falló.",
+    "bytes" : "bytes"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

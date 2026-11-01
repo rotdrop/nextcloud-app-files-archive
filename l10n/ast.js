@@ -2,12 +2,6 @@ OC.L10N.register(
     "files_archive",
     {
     "File or folder could not be found." : "Nun se pudo atopar el ficheru o la carpeta",
-    "not found" : "nun s'atopó",
-    "User" : "Usuariu",
-    "Password" : "Contraseña",
-    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
-    "Login failed." : "L'aniciu de la sesión falló.",
-    "bytes" : "bytes",
     "open" : "abrir",
     "submit" : "unviar",
     "restore palette" : "restaurar la paleta",
@@ -19,6 +13,12 @@ OC.L10N.register(
     "Archive" : "Archivar",
     "No" : "Non",
     "Yes" : "Sí",
-    "true" : "true"
+    "true" : "true",
+    "not found" : "nun s'atopó",
+    "User" : "Usuariu",
+    "Password" : "Contraseña",
+    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
+    "Login failed." : "L'aniciu de la sesión falló.",
+    "bytes" : "bytes"
 },
 "nplurals=2; plural=(n != 1);");

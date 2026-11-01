@@ -1,7 +1,4 @@
 { "translations": {
-    "User" : "משתמש",
-    "Password" : "ססמה",
-    "bytes" : "בתים",
     "Choose" : "בחר",
     "unknown" : "לא ידוע",
     "Disconnect storage" : "ניתוק אחסון",
@@ -9,6 +6,9 @@
     "Archive" : "לארכיון",
     "close" : "סגירה",
     "No" : "לא",
-    "Yes" : "כן"
+    "Yes" : "כן",
+    "User" : "משתמש",
+    "Password" : "ססמה",
+    "bytes" : "בתים"
 },"pluralForm" :"nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;"
 }

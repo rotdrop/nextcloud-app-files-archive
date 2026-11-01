@@ -1,8 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "User" : "Người dùng",
-    "Password" : "Mật khẩu",
     "Choose {file}" : "Chọn {file}",
     "Choose" : "Chọn",
     "unknown" : "không biết",
@@ -11,6 +9,8 @@ OC.L10N.register(
     "Archive" : "Lưu trữ",
     "close" : "đóng",
     "No" : "Không",
-    "Yes" : "Có"
+    "Yes" : "Có",
+    "User" : "Người dùng",
+    "Password" : "Mật khẩu"
 },
 "nplurals=1; plural=0;");

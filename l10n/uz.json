@@ -1,7 +1,5 @@
 { "translations": {
     "Error: %s" : "Xato: %s",
-    "User" : "Foydalanuvchi",
-    "Password" : "Password",
     "open" : "Ochish",
     "Choose {file}" : " {file}ta tanlash",
     "Choose" : "Tanlang",
@@ -9,6 +7,8 @@
     "Disconnect storage" : "Disconnect storage",
     "Archive" : "Arxiv",
     "No" : "No",
-    "Yes" : "Yes"
+    "Yes" : "Yes",
+    "User" : "Foydalanuvchi",
+    "Password" : "Password"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -1,7 +1,4 @@
 { "translations": {
-    "User" : "Utente",
-    "Password" : "Crae",
-    "bytes" : "bytes",
     "Choose {file}" : "Sèbera {file}",
     "Choose" : "Sèbera",
     "unknown" : "non connotu",
@@ -11,6 +8,9 @@
     "Archive" : "Cartella",
     "close" : "serra",
     "No" : "No",
-    "Yes" : "Si"
+    "Yes" : "Si",
+    "User" : "Utente",
+    "Password" : "Crae",
+    "bytes" : "bytes"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

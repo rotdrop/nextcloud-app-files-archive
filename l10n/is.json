@@ -1,9 +1,4 @@
 { "translations": {
-    "User" : "Notandi",
-    "Password" : "Lykilorð",
-    "%1$s (renamed)" : "%1$s (endurnefnd)",
-    "renamed file" : "endurnefndi skrá",
-    "bytes" : "bæti",
     "Choose {file}" : "Veldu {file}",
     "Choose" : "Velja",
     "unknown" : "óþekkt",
@@ -12,6 +7,11 @@
     "Archive" : "Safn",
     "close" : "loka",
     "No" : "Nei",
-    "Yes" : "Já"
+    "Yes" : "Já",
+    "User" : "Notandi",
+    "Password" : "Lykilorð",
+    "%1$s (renamed)" : "%1$s (endurnefnd)",
+    "renamed file" : "endurnefndi skrá",
+    "bytes" : "bæti"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }
