@@ -187,9 +187,13 @@ distclean: clean ## Clean even more, calls clean
 
 #@@ Almost everything but downloads
 mostlyclean: webpack-clean distclean
+	rm -rf .vite
+	rm -f $(BUILD_FLAVOUR_FILE)
 	rm -f composer*.lock
+	rm -f patches.lock.json
 	rm -f composer.json
 	rm -f vendor-bin/**/composer.lock
+	rm -f vendor-bin/**/patches.lock.json
 	rm -f stamp.composer-core-versions
 	rm -f package-lock.json
 	rm -f *.html
