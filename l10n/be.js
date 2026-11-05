@@ -2,12 +2,6 @@ OC.L10N.register(
     "files_archive",
     {
     "Error: %s" : "Памылка: %s",
-    "submit" : "адправіць",
-    "Choose a folder" : "Выберыце папку",
-    "Choose {file}" : "Выбраць {file}",
-    "Choose" : "Выбраць",
-    "Reset Changes" : "Скінуць змены",
-    "Clear Selection" : "Ачысціць выбар",
     "MIME type" : "Тып MIME",
     "Disconnect storage" : "Адлучыць сховішча",
     "Archive" : "Архіў",
@@ -19,6 +13,12 @@ OC.L10N.register(
     "User" : "Карыстальнік",
     "Password" : "Пароль",
     "%1$s (renamed)" : "%1$s (перайменаваны)",
-    "renamed file" : "перайменаваны файл"
+    "renamed file" : "перайменаваны файл",
+    "submit" : "адправіць",
+    "Choose a folder" : "Выберыце папку",
+    "Choose {file}" : "Выбраць {file}",
+    "Choose" : "Выбраць",
+    "Reset Changes" : "Скінуць змены",
+    "Clear Selection" : "Ачысціць выбар"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

@@ -24,13 +24,6 @@ OC.L10N.register(
     "Archive Manager" : "Menedżer archiwum",
     "Archive Explorer" : "Eksplorator archiwów",
     "Inspect, mount and extract archive files (zip, tar, etc.)" : "Sprawdź, zamontuj i rozpakuj pliki archiwów (zip, tar itp.)",
-    "pick a color" : "wybierz kolor",
-    "submit" : "zatwierdź",
-    "Choose a folder" : "Wybierz katalog",
-    "Choose {file}" : "Wybierz {file}",
-    "Choose" : "Wybierz",
-    "Click to submit your changes." : "Kliknij, aby przesłać zmiany.",
-    "Clear Selection" : "Wyczyść zaznaczenie",
     "Diagnostics" : "Diagnostyka",
     "Archive Formats" : "Formaty archiwów",
     "Supported Drivers" : "Obsługiwane sterowniki",
@@ -55,6 +48,13 @@ OC.L10N.register(
     "renamed file" : "zmieniona nazwa pliku",
     "Unable to sanitize filename \"%s\"." : "Nie można oczyścić nazwy pliku \"%s\".",
     "bytes" : "bajtów",
-    "The input color values are invalid." : "Wprowadzone wartości kolorów są nieprawidłowe."
+    "The input color values are invalid." : "Wprowadzone wartości kolorów są nieprawidłowe.",
+    "pick a color" : "wybierz kolor",
+    "submit" : "zatwierdź",
+    "Choose a folder" : "Wybierz katalog",
+    "Choose {file}" : "Wybierz {file}",
+    "Choose" : "Wybierz",
+    "Click to submit your changes." : "Kliknij, aby przesłać zmiany.",
+    "Clear Selection" : "Wyczyść zaznaczenie"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

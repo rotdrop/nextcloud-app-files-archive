@@ -1,8 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "Choose {file}" : "Elegir {file}",
-    "Choose" : "Elegir",
     "unknown" : "desconocido",
     "Disconnect storage" : "Desconectar almacenamiento",
     "Archive" : "Archivar",
@@ -11,6 +9,8 @@ OC.L10N.register(
     "Yes" : "Sí",
     "User" : "Usuario",
     "Password" : "Contraseña",
-    "bytes" : "bytes"
+    "bytes" : "bytes",
+    "Choose {file}" : "Elegir {file}",
+    "Choose" : "Elegir"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

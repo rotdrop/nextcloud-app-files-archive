@@ -1,6 +1,4 @@
 { "translations": {
-    "Choose {file}" : "Sèbera {file}",
-    "Choose" : "Sèbera",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",
     "Disconnect storage" : "Disconnete archiviatzione",
@@ -11,6 +9,8 @@
     "Yes" : "Si",
     "User" : "Utente",
     "Password" : "Crae",
-    "bytes" : "bytes"
+    "bytes" : "bytes",
+    "Choose {file}" : "Sèbera {file}",
+    "Choose" : "Sèbera"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

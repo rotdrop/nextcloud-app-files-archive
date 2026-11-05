@@ -1,7 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "Choose" : "בחר",
     "unknown" : "לא ידוע",
     "Disconnect storage" : "ניתוק אחסון",
     "Extract here" : "לחלץ לכאן",
@@ -11,6 +10,7 @@ OC.L10N.register(
     "Yes" : "כן",
     "User" : "משתמש",
     "Password" : "ססמה",
-    "bytes" : "בתים"
+    "bytes" : "בתים",
+    "Choose" : "בחר"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

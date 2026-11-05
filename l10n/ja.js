@@ -3,10 +3,6 @@ OC.L10N.register(
     {
     "Unknown admin setting: \"%1$s\"" : " 不明な管理者設定:\"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : " 管理者設定\"%1$s\"は読み取り専用です",
-    "submit" : "送信",
-    "Choose {file}" : "{file}を選択",
-    "Choose" : "選択",
-    "Clear Selection" : "セッションクリア",
     "ok" : "OK",
     "unknown" : "不明",
     "MIME type" : "MIMEタイプ",
@@ -21,6 +17,10 @@ OC.L10N.register(
     "Password" : "パスワード",
     "%1$s (renamed)" : "%1$s (リネーム済み)",
     "renamed file" : "リネーム済みファイル",
-    "bytes" : "バイト"
+    "bytes" : "バイト",
+    "submit" : "送信",
+    "Choose {file}" : "{file}を選択",
+    "Choose" : "選択",
+    "Clear Selection" : "セッションクリア"
 },
 "nplurals=1; plural=0;");

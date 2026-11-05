@@ -1,10 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "submit" : "илгээх",
-    "Choose {file}" : "{file} сонгох",
-    "Choose" : "–°–æ–Ω–≥–æ—Ö",
-    "Clear Selection" : "Сонголтыг арилгах",
     "unknown" : "үл мэдэх",
     "Disconnect storage" : "Хадгалах төхөөрөмж салгах",
     "Extract here" : "Энд задлах",
@@ -15,6 +11,10 @@ OC.L10N.register(
     "Password" : "нууц үг",
     "%1$s (renamed)" : "%1$s (нэр өөрчлөгдсөн)",
     "renamed file" : "нэр өөрчлөгдсөн файл",
-    "bytes" : "байт"
+    "bytes" : "байт",
+    "submit" : "илгээх",
+    "Choose {file}" : "{file} сонгох",
+    "Choose" : "–°–æ–Ω–≥–æ—Ö",
+    "Clear Selection" : "Сонголтыг арилгах"
 },
 "nplurals=2; plural=(n != 1);");

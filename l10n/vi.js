@@ -1,8 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "Choose {file}" : "Chọn {file}",
-    "Choose" : "Chọn",
     "unknown" : "không biết",
     "MIME type" : "MIME type",
     "Disconnect storage" : "Bộ lưu trữ đã ngắt kết nối",
@@ -11,6 +9,8 @@ OC.L10N.register(
     "No" : "Không",
     "Yes" : "Có",
     "User" : "Người dùng",
-    "Password" : "Mật khẩu"
+    "Password" : "Mật khẩu",
+    "Choose {file}" : "Chọn {file}",
+    "Choose" : "Chọn"
 },
 "nplurals=1; plural=0;");
