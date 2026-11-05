@@ -10,9 +10,6 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "De persoonlijke instelling \"%1$s\" is niet aanpasbaar",
     "Unknown personal setting: \"%s\"." : "Onbekende persoonlijke instelling: \"%s\"",
     "Unable to parse memory size limit \"%s\"" : "Kan geheugengrootelimitiet \"%s\" niet verwerken",
-    "submit" : "versturen",
-    "Choose {file}" : "Kies {file}",
-    "Choose" : "Kies",
     "unknown" : "onbekend",
     "MIME type" : "MIME type",
     "Disconnect storage" : "Verbinding met opslag verbreken",
@@ -27,6 +24,9 @@ OC.L10N.register(
     "Password" : "Wachtwoord",
     "%1$s (renamed)" : "%1$s (hernoemd)",
     "renamed file" : "bestand hernoemd",
-    "bytes" : "bytes"
+    "bytes" : "bytes",
+    "submit" : "versturen",
+    "Choose {file}" : "Kies {file}",
+    "Choose" : "Kies"
 },
 "nplurals=2; plural=(n != 1);");

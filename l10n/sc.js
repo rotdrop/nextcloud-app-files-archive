@@ -1,8 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "Choose {file}" : "Sèbera {file}",
-    "Choose" : "Sèbera",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",
     "Disconnect storage" : "Disconnete archiviatzione",
@@ -13,6 +11,8 @@ OC.L10N.register(
     "Yes" : "Si",
     "User" : "Utente",
     "Password" : "Crae",
-    "bytes" : "bytes"
+    "bytes" : "bytes",
+    "Choose {file}" : "Sèbera {file}",
+    "Choose" : "Sèbera"
 },
 "nplurals=2; plural=(n != 1);");

@@ -1,8 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "Choose {file}" : "Veldu {file}",
-    "Choose" : "Velja",
     "unknown" : "óþekkt",
     "Disconnect storage" : "Aftengja geymslu",
     "Extract here" : "Afþjappa hér",
@@ -14,6 +12,8 @@ OC.L10N.register(
     "Password" : "Lykilorð",
     "%1$s (renamed)" : "%1$s (endurnefnd)",
     "renamed file" : "endurnefndi skrá",
-    "bytes" : "bæti"
+    "bytes" : "bæti",
+    "Choose {file}" : "Veldu {file}",
+    "Choose" : "Velja"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
