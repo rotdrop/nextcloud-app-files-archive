@@ -1,11 +1,11 @@
 {
   "require-dev": {
-    "rotdrop/php-to-typescript": "^2.0.2"
+    "rotdrop/php-to-typescript": "*@dev"
   },
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/rotdrop/php-to-typescript"
+      "url": "https://github.com/rotdrop/php-to-typescript-"
     }
   ],
   "minimum-stability": "dev",

@@ -48,7 +48,7 @@ return [
       ->files()
       ->ignoreVCS(true)
       ->followLinks(true)
-      ->in('vendor-scoped'),
+      ->in('vendor-' . strtolower($scopedNameSpace)),
   ],
   'patchers' => [
     function(string $filePath, string $prefix, string $content): string {

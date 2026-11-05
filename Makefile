@@ -15,7 +15,6 @@ BUNDLER_CONFIG = vite.config.ts
 OPENSSL = $(shell which openssl 2> /dev/null)
 PHP = $(shell which php 2> /dev/null)
 PHPUNIT = ./vendor-bin/phpunit/vendor/bin/phpunit
-PHP_SCOPER = $(ABSSRCDIR)/vendor-bin/php-scoper/vendor/bin/php-scoper
 RSYNC = $(shell which rsync 2> /dev/null)
 WGET = $(shell which wget 2> /dev/null)
 
@@ -74,48 +73,17 @@ dev-setup: composer namespace-wrapper
 
 include $(DEV_LIB_DIR)/makefile/composer.mk
 
-#@private
-php-scoper-install: $(PHP_SCOPER)
-.PHONY: php-scoper-install
-
-$(PHP_SCOPER): composer.lock
-	if ! [ -x "$@" ]; then $(COMPOSER) bin php-scoper install; else touch "$@"; fi
-
-composer-scoped.lock: composer-scoped.json Makefile
-	rm -f composer-scoped.lock
-
-$(BUILDDIR)/vendor-scoped: composer-scoped.lock
-	mkdir -p $(BUILDDIR)
-	ln -fs ../vendor $(BUILDDIR)
-	rm -rf $(BUILDDIR)/vendor-scoped
-	ln -sfn ../dev-scripts/lib/patches $(BUILDDIR)/composer-patches
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) install $(COMPOSER_OPTIONS)
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) update $(COMPOSER_OPTIONS) --no-dev
-
-$(BUILDDIR)/vendor-scoped/autoload.php: $(BUILDDIR)/vendor-scoped composer-scoped.json $(MAKEFILE_DEP)
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) dump-autoload
-
-vendor-scoped: $(MAKEFILE_DEP) $(PHP_SCOPER) scoper.inc.php $(BUILDDIR)/vendor-scoped
-	$(PHP_SCOPER) add-prefix -d$(BUILDDIR) --config=$(ABSSRCDIR)/scoper.inc.php --output-dir=$(ABSSRCDIR)/vendor-scoped --force
-# scoper does not handle symlinks
-#	cp -a $(BUILDDIR)/vendor-scoped/bin $(ABSSRCDIR)/vendor-scoped/
-# scoper does not preserve executable bits
-#	find $(ABSSRCDIR)/vendor-scoped -name bin -a -type d -exec chmod -R gu+x {} \;
-
-vendor-scoped/autoload.php: vendor-scoped
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) dump-autoload
-	$(call apply-scoped-autoload-patch,vendor-scoped)
-
-namespace-wrapper: php-scoper-install vendor-scoped/autoload.php
-.PHONY: namespace-wrapper
+SCOPED_COMPOSER_UPDATE_OPTIONS = --no-dev
+include $(DEV_LIB_DIR)/makefile/namespace-wrapper.mk
 
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-notification-api.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
+include $(DEV_LIB_DIR)/makefile/l10n.mk
 
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name "*.ts")\
-  $(shell find $(ABSSRCDIR)/repositories/rotdrop/nextcloud-vue-components -name "*.js" -o -name "*.vue" -o -name "*.ts")
+  $(shell if [ -d "$(ABSSRCDIR)/node_modules/@rotdrop/nextcloud-vue-components" ]; then find $(ABSSRCDIR)/node_modules/@rotdrop/nextcloud-vue-components -name "*.js" -o -name "*.vue" -o -name "*.ts"; fi)
 IMG_FILES = $(shell find $(ABSSRCDIR)/img -name "*.svg")
 
 NPM_INIT_DEPS =\
