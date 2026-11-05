@@ -37,7 +37,7 @@
   },
   "repositories": [
     {
-      "type": "git",
+      "type": "vcs",
       "url": "https://github.com/rotdrop/alchemy-zippy.git"
     },
     {

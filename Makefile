@@ -81,6 +81,11 @@ include $(DEV_LIB_DIR)/makefile/ts-notification-api.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 include $(DEV_LIB_DIR)/makefile/l10n.mk
 
+L10N_VITE_CONFIG = vite.l10n.config.ts
+
+# The Vite config imports generated TypeScript sources.
+vue-components-l10n-ignore: $(TS_APP_CONFIG) ts-types-files $(TS_NOTIFICATION_API)
+
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name "*.ts")\
   $(shell if [ -d "$(ABSSRCDIR)/node_modules/@rotdrop/nextcloud-vue-components" ]; then find $(ABSSRCDIR)/node_modules/@rotdrop/nextcloud-vue-components -name "*.js" -o -name "*.vue" -o -name "*.ts"; fi)
