@@ -62,6 +62,44 @@ jobs:
       - name: Lint PHP files
         run: find lib appinfo templates composer -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
 
+  realclean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - name: Install xpath
+        run: sudo apt-get install -y libxml-xpath-perl
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Realclean on a bare checkout
+        run: |
+          make realclean
+          make realclean
+          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }
+
+      - name: Full build
+        run: make appstore APP_VERSION=$(php -r 'echo (string)simplexml_load_file("appinfo/info.xml")->version;')
+
+      - name: Realclean after a full build
+        run: |
+          make realclean
+          make realclean
+          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }
+
   build:
     uses: ./.github/workflows/build-appstore.yml
 
