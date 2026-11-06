@@ -1,10 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 #
-# Basic checks on pull requests and pushes to main: eslint over the
-# frontend sources, php -l over the PHP sources for every supported PHP
-# version, and a full production build of the app archive via the
-# reusable build-appstore.yml workflow (the same build the release
-# workflow ships, so regressions in it surface before tagging).
+# Basic checks on pull requests and pushes to main via the shared CI
+# workflow of the build system (eslint, php -l, realclean, archive build),
+# plus a build of the app archive via the shared build-appstore workflow.
 #
 # The built archive is then installed on fresh Nextcloud instances and
 # used to update from earlier releases, with a smoke test of the API and
@@ -26,82 +24,14 @@ permissions:
   contents: read
 
 jobs:
-  eslint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '24'
-
-      - name: Install dependencies
-        # package-lock.json is not tracked, so `npm ci` is not available.
-        run: npm install
-
-      - name: Run eslint
-        run: npm run lint
-
-  php-lint:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-versions: ['8.4', '8.5']
-    name: php-lint (${{ matrix.php-versions }})
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Set up PHP ${{ matrix.php-versions }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-versions }}
-
-      - name: Lint PHP files
-        run: find lib appinfo templates composer -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
-
-  realclean:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          submodules: recursive
-
-      - name: Install xpath
-        run: sudo apt-get install -y libxml-xpath-perl
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          tools: composer
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '24'
-
-      - name: Realclean on a bare checkout
-        run: |
-          make realclean
-          make realclean
-          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }
-
-      - name: Full build
-        run: make appstore APP_VERSION=$(php -r 'echo (string)simplexml_load_file("appinfo/info.xml")->version;')
-
-      - name: Realclean after a full build
-        run: |
-          make realclean
-          make realclean
-          test -z "$(git status --porcelain --ignored)" || { git status --porcelain --ignored; exit 1; }
+  ci:
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@main
+    with:
+      php-versions: '["8.4", "8.5"]'
+      php-lint-dirs: lib appinfo templates composer
 
   build:
-    uses: ./.github/workflows/build-appstore.yml
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/build-appstore.yml@main
 
   install:
     needs: build
