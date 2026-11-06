@@ -1,6 +1,11 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Password" : "Crae",
+    "User" : "Utente",
+    "bytes" : "bytes",
+    "Choose {file}" : "Sèbera {file}",
+    "Choose" : "Sèbera",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",
     "Disconnect storage" : "Disconnete archiviatzione",
@@ -8,11 +13,6 @@ OC.L10N.register(
     "Archive" : "Cartella",
     "close" : "serra",
     "No" : "No",
-    "Yes" : "Si",
-    "User" : "Utente",
-    "Password" : "Crae",
-    "bytes" : "bytes",
-    "Choose {file}" : "Sèbera {file}",
-    "Choose" : "Sèbera"
+    "Yes" : "Si"
 },
 "nplurals=2; plural=(n != 1);");
