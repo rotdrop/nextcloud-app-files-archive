@@ -1,6 +1,14 @@
 OC.L10N.register(
     "files_archive",
     {
+    "Login failed." : "L'aniciu de la sesión falló.",
+    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
+    "Password" : "Contraseña",
+    "User" : "Usuariu",
+    "bytes" : "bytes",
+    "not found" : "nun s'atopó",
+    "Choose {file}" : "Escoyer «{file}»",
+    "Choose" : "Escoyer",
     "File or folder could not be found." : "Nun se pudo atopar el ficheru o la carpeta",
     "MIME type" : "Tipu MIME",
     "Disconnect storage" : "Desconectar l'almacenamientu",
@@ -8,17 +16,9 @@ OC.L10N.register(
     "No" : "Non",
     "Yes" : "Sí",
     "true" : "true",
-    "not found" : "nun s'atopó",
-    "User" : "Usuariu",
-    "Password" : "Contraseña",
-    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
-    "Login failed." : "L'aniciu de la sesión falló.",
-    "bytes" : "bytes",
     "open" : "abrir",
     "submit" : "unviar",
     "restore palette" : "restaurar la paleta",
-    "Choose {file}" : "Escoyer «{file}»",
-    "Choose" : "Escoyer",
     "Please select an item!" : "¡Seleiciona un elementu!"
 },
 "nplurals=2; plural=(n != 1);");

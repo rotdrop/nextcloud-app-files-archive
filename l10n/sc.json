@@ -1,4 +1,9 @@
 { "translations": {
+    "Password" : "Crae",
+    "User" : "Utente",
+    "bytes" : "bytes",
+    "Choose {file}" : "Sèbera {file}",
+    "Choose" : "Sèbera",
     "unknown" : "non connotu",
     "MIME type" : "Genia de MIME",
     "Disconnect storage" : "Disconnete archiviatzione",
@@ -6,11 +11,6 @@
     "Archive" : "Cartella",
     "close" : "serra",
     "No" : "No",
-    "Yes" : "Si",
-    "User" : "Utente",
-    "Password" : "Crae",
-    "bytes" : "bytes",
-    "Choose {file}" : "Sèbera {file}",
-    "Choose" : "Sèbera"
+    "Yes" : "Si"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -1,6 +1,15 @@
 OC.L10N.register(
     "files_archive",
     {
+    "%1$s (renamed)" : "%1$s (hernoemd)",
+    "Password" : "Wachtwoord",
+    "Please install the \"%s\" program on the server." : "Gelieve het programma \"%s\" op de server te installeren.",
+    "User" : "Gebruiker",
+    "bytes" : "bytes",
+    "not found" : "niet gevonden",
+    "renamed file" : "bestand hernoemd",
+    "Choose {file}" : "Kies {file}",
+    "Choose" : "Kies",
     "File or folder could not be found." : "Bestand of map kon niet worden gevonden",
     "Error: %s" : "Fout: %s",
     "Unknown admin setting: \"%1$s\"" : "Onbekende adminstratorinstelling: \"%1$s\"",
@@ -18,15 +27,6 @@ OC.L10N.register(
     "close" : "sluiten",
     "No" : "Nee",
     "Yes" : "Ja",
-    "not found" : "niet gevonden",
-    "Please install the \"%s\" program on the server." : "Gelieve het programma \"%s\" op de server te installeren.",
-    "User" : "Gebruiker",
-    "Password" : "Wachtwoord",
-    "%1$s (renamed)" : "%1$s (hernoemd)",
-    "renamed file" : "bestand hernoemd",
-    "bytes" : "bytes",
-    "submit" : "versturen",
-    "Choose {file}" : "Kies {file}",
-    "Choose" : "Kies"
+    "submit" : "versturen"
 },
 "nplurals=2; plural=(n != 1);");
