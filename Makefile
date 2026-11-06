@@ -91,6 +91,9 @@ JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue" -o -name 
   $(shell if [ -d "$(ABSSRCDIR)/node_modules/@rotdrop/nextcloud-vue-components" ]; then find $(ABSSRCDIR)/node_modules/@rotdrop/nextcloud-vue-components -name "*.js" -o -name "*.vue" -o -name "*.ts"; fi)
 IMG_FILES = $(shell find $(ABSSRCDIR)/img -name "*.svg")
 
+l10n: l10n-sources l10n-ignore toolkit-l10n-ignore-candidates
+.PHONY: l10n
+
 NPM_INIT_DEPS =\
  Makefile package-lock.json package.json $(BUNDLER_CONFIG) eslint.config.mjs
 
