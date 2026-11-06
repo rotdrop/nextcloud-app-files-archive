@@ -25,13 +25,13 @@ permissions:
 
 jobs:
   ci:
-    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@main
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@v1
     with:
       php-versions: '["8.4", "8.5"]'
       php-lint-dirs: lib appinfo templates composer
 
   build:
-    uses: rotdrop/nextcloud-app-build-system/.github/workflows/build-appstore.yml@main
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/build-appstore.yml@v1
 
   install:
     needs: build
