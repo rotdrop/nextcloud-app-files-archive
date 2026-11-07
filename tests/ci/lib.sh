@@ -199,6 +199,30 @@ upload_zip() {
   expect_dav 201 PUT "$1" "/tmp/$1"
 }
 
+# The mount point is built as dirname + '/' + basename. Mounting an archive
+# that sits in the file-space root used to store a doubled leading slash
+# ("//name"), and callers that pass a path without a leading slash ended up
+# with "./name". Such a value still mounts, but list-mounts compares it with
+# the resolved node path and reports the mount as absent.
+smoke_test_mount_point_paths() {
+  step "smoke test: mount-point paths are stored normalized"
+  upload_zip normalized.zip
+
+  # no explicit mount point: the default used to be "./normalized"
+  local status
+  status=$(api POST /archive/mount/normalized.zip | cut -d' ' -f1)
+  [ "$status" = 200 ] || fail "mounting the archive failed with HTTP $status"
+
+  if occ "$APP_ID:list-mounts" --all | grep -q '| absent '; then
+    occ "$APP_ID:list-mounts" --all
+    fail "a healthy mount is reported as absent"
+  fi
+  occ "$APP_ID:list-mounts" --all | grep -q '| /normalized ' \
+    || fail "the mount-point path was not stored as an absolute path"
+
+  expect_api 200 POST /archive/unmount/normalized.zip
+}
+
 # Exercise the main features of the installed version through its API.
 smoke_test() {
   step "smoke test: info, mount, browse, extract, unmount, delete"
@@ -216,6 +240,8 @@ smoke_test() {
   if occ "$APP_ID:list-mounts" --all | grep -q smoke-mount-2; then
     fail "the mount of a deleted archive is still registered"
   fi
+
+  smoke_test_mount_point_paths
 
   step "occ commands"
   occ "$APP_ID:list-mounts" --all
