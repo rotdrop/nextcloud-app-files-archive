@@ -126,7 +126,8 @@ class ListMounts extends Command
       ];
 
       $userFolderPrefix = Constants::PATH_SEP . $userId . Constants::PATH_SEP . 'files';
-      $mountPointPath = $userFolderPrefix . $mountEntity->getMountPointPath();
+      $mountPointPath = $userFolderPrefix
+        . ArchiveMount::normalizeMountPointPath($mountEntity->getMountPointPath());
       if ($previousUserId != $userId) {
         $previousUserId = $userId;
         try {
