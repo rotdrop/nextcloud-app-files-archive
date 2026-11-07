@@ -45,6 +45,11 @@ trap cleanup EXIT
 
 occ() { docker exec -u www-data "$NC" php occ "$@"; }
 
+create_user() {
+  docker exec -e "OC_PASS=$2" -u www-data "$NC" \
+    php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
+}
+
 tarball_version() {
   tar -xzOf "$1" "$APP_ID/appinfo/info.xml" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | head -1
 }
@@ -199,6 +204,56 @@ upload_zip() {
   expect_dav 201 PUT "$1" "/tmp/$1"
 }
 
+# Call an app route, print "<http status> <start of the body>".
+# Like api(), but with an arbitrary user instead of admin.
+api_as() {
+  docker exec -u www-data "$NC" bash -c '
+    cd /tmp && rm -f cookies-as body-as
+    user=$3 pass=$4
+    token=$(curl -s -c cookies-as -u "$user:$pass" http://localhost/index.php/apps/files/ | grep -o "data-requesttoken=\"[^\"]*" | head -1 | cut -d\" -f2)
+    code=$(curl -s -b cookies-as -u "$user:$pass" -H "requesttoken: $token" -H "Accept: application/json" -o body-as -w "%{http_code}" -X "$1" "http://localhost/index.php/apps/files_archive$2")
+    echo "$code $(head -c 400 body-as)"' _ "$1" "$2" "${3%%:*}" "${3#*:}"
+}
+
+# WebDAV request on the given path below the given user's files.
+# Like expect_dav(), but the user is passed in as "user:password".
+expect_dav_as() {
+  local code who=$4
+  code=$(docker exec -u www-data "$NC" curl -s -o /dev/null -w "%{http_code}" -u "$who" -X "$2" "http://localhost/remote.php/dav/files/${who%%:*}/$3")
+  [ "$code" = "$1" ] || fail "WebDAV $2 $3 as ${who%%:*}: expected HTTP $1, got $code"
+  echo "  WebDAV $2 $3 as ${who%%:*} -> $1"
+}
+
+# A second user, plus a user-share of an archive file which stays in admin's
+# storage. This is the setup in which the mount provider used to skip the
+# mount: the archive file id is only reachable through the share, and at
+# mount-assembly time the share mounts are not registered yet.
+smoke_test_shared_archive() {
+  local rec="sharee:sharee-pass-1234"
+  step "smoke test: archive shared by another user"
+  create_user sharee sharee-pass-1234
+
+  upload_zip shared.zip
+  expect_api 200 POST /archive/info/shared.zip '"format":"zip"' >/dev/null
+  docker exec -u www-data "$NC" curl -s -o /dev/null -u admin:admin \
+    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
+    -X POST 'http://localhost/ocs/v2.php/apps/files_sharing/api/v1/shares' \
+    -d 'path=/shared.zip' -d 'shareType=0' -d 'shareWith=sharee'
+
+  # The sharee mounts the archive and must see it in the file list.
+  if [ "$(api_as POST /archive/mount/shared.zip "$rec" | cut -d' ' -f1)" != 200 ]; then
+    fail "the sharee could not mount the shared archive"
+  fi
+  expect_dav_as 200 GET shared/dir/a.txt "$rec"
+  expect_dav_as 200 GET shared/b.txt "$rec"
+
+  # The mount also has to survive a second, unrelated request: the provider is
+  # asked to build the mounts again and must still find the shared archive.
+  expect_dav_as 200 GET shared/dir/a.txt "$rec"
+
+  expect_dav 204 DELETE shared.zip
+}
+
 # Exercise the main features of the installed version through its API.
 smoke_test() {
   step "smoke test: info, mount, browse, extract, unmount, delete"
@@ -216,6 +271,8 @@ smoke_test() {
   if occ "$APP_ID:list-mounts" --all | grep -q smoke-mount-2; then
     fail "the mount of a deleted archive is still registered"
   fi
+
+  smoke_test_shared_archive
 
   step "occ commands"
   occ "$APP_ID:list-mounts" --all
