@@ -45,6 +45,11 @@ trap cleanup EXIT
 
 occ() { docker exec -u www-data "$NC" php occ "$@"; }
 
+create_user() {
+  docker exec -e "OC_PASS=$2" -u www-data "$NC" \
+    php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
+}
+
 tarball_version() {
   tar -xzOf "$1" "$APP_ID/appinfo/info.xml" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | head -1
 }
@@ -199,6 +204,49 @@ upload_zip() {
   expect_dav 201 PUT "$1" "/tmp/$1"
 }
 
+# Call an app route as the given user ("user:password"), print the HTTP status.
+api_status_as() {
+  local who=$3
+  docker exec -u www-data "$NC" bash -c '
+    cd /tmp && rm -f cookies-as body-as
+    user=$3 pass=$4
+    token=$(curl -s -c cookies-as -u "$user:$pass" http://localhost/index.php/apps/files/ | grep -o "data-requesttoken=\"[^\"]*" | head -1 | cut -d\" -f2)
+    curl -s -b cookies-as -u "$user:$pass" -H "requesttoken: $token" -H "Accept: application/json" -o body-as -w "%{http_code}" -X "$1" "http://localhost/index.php/apps/files_archive$2"' \
+    _ "$1" "$2" "${who%%:*}" "${who#*:}"
+}
+
+# An archive that is mounted by a *second* user and then deleted by its owner
+# has to be unmounted for that second user as well. The listener used to look
+# only at the mounts of the user who performed the deletion, so the other
+# user kept an empty mount point forever.
+smoke_test_shared_archive_cleanup() {
+  local rec sharee=sharee
+  step "smoke test: deleting an archive unmounts it for other users"
+  create_user "$sharee" sharee-pass-1234
+  rec="$sharee:sharee-pass-1234"
+
+  upload_zip shared-cleanup.zip
+  docker exec -u www-data "$NC" curl -s -o /dev/null -u admin:admin \
+    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
+    -X POST 'http://localhost/ocs/v2.php/apps/files_sharing/api/v1/shares' \
+    -d 'path=/shared-cleanup.zip' -d 'shareType=0' -d "shareWith=$sharee"
+
+  if [ "$(api_status_as POST /archive/mount/shared-cleanup.zip "$rec")" != 200 ]; then
+    fail "the sharee could not mount the shared archive"
+  fi
+  occ "$APP_ID:list-mounts" --all | grep -q "$sharee" \
+    || fail "the sharee's mount is not registered at all"
+
+  expect_dav 204 DELETE shared-cleanup.zip
+  if occ "$APP_ID:list-mounts" --all | grep -q "$sharee"; then
+    fail "the mount of the other user was not removed when the archive was deleted"
+  fi
+
+  # The reconciliation command has to agree: nothing left to clean up.
+  occ "$APP_ID:prune-mounts" --dry-run | grep -q 'would remove: 0' \
+    || fail "prune-mounts still sees orphaned mounts after the deletion"
+}
+
 # Exercise the main features of the installed version through its API.
 smoke_test() {
   step "smoke test: info, mount, browse, extract, unmount, delete"
@@ -216,6 +264,8 @@ smoke_test() {
   if occ "$APP_ID:list-mounts" --all | grep -q smoke-mount-2; then
     fail "the mount of a deleted archive is still registered"
   fi
+
+  smoke_test_shared_archive_cleanup
 
   step "occ commands"
   occ "$APP_ID:list-mounts" --all
