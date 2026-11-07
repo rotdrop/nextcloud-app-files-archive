@@ -1,11 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
-    "%1$s (renamed)" : "%1$s (перайменаваны)",
     "Installation instructions:" : "Інструкцыя па ўсталяванні:",
-    "Password" : "Пароль",
-    "User" : "Карыстальнік",
-    "renamed file" : "перайменаваны файл",
     "Choose a folder" : "Выберыце папку",
     "Choose {file}" : "Выбраць {file}",
     "Choose" : "Выбраць",
@@ -17,6 +13,10 @@ OC.L10N.register(
     "No" : "Не",
     "Yes" : "Так",
     "The quick brown fox jumps over the lazy dog." : "У рудога вераб'я ў сховішчы пад фатэлем ляжаць нейкія гаючыя зёлкі.",
+    "User" : "Карыстальнік",
+    "Password" : "Пароль",
+    "%1$s (renamed)" : "%1$s (перайменаваны)",
+    "renamed file" : "перайменаваны файл",
     "submit" : "адправіць",
     "Reset Changes" : "Скінуць змены",
     "Clear Selection" : "Ачысціць выбар"

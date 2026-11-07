@@ -1,11 +1,7 @@
 OC.L10N.register(
     "files_archive",
     {
-    "%1$s (renamed)" : "%1$s (преименувано)",
-    "Password" : "Лозинка",
-    "User" : "Корисник",
     "bytes" : "бајти",
-    "renamed file" : "преименувана датотека",
     "Choose a folder" : "Избери папка",
     "Choose {file}" : "Избери {file}",
     "Choose" : "Избери",
@@ -18,6 +14,10 @@ OC.L10N.register(
     "close" : "затвори",
     "No" : "Не",
     "Yes" : "Да",
+    "User" : "Корисник",
+    "Password" : "Лозинка",
+    "%1$s (renamed)" : "%1$s (преименувано)",
+    "renamed file" : "преименувана датотека",
     "open" : "отвори",
     "submit" : "испрати"
 },
