@@ -31,12 +31,14 @@ use OCP\Files\Events\InvalidateMountCacheEvent;
 use OCP\IUser;
 use Psr\Log\LoggerInterface;
 use OCP\IUserSession;
+use OCP\IUserManager;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\File;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\Files\Mount\IMountManager;
+use Throwable;
 use Psr\Container\ContainerInterface;
 
 use OCA\FilesArchive\Constants;
@@ -109,7 +111,6 @@ class FileNodeListener implements IEventListener
       return;
     }
 
-    $userId = $user->getUID();
     $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     // So what is next: we have a list of deletion candidates, but Nextcloud
@@ -125,16 +126,21 @@ class FileNodeListener implements IEventListener
     /** @var ArchiveMountMapper $mountMapper */
     $mountMapper = $this->appContainer->get(ArchiveMountMapper::class);
 
-    $userFolderPrefix = Constants::PATH_SEPARATOR . $userId . Constants::PATH_SEPARATOR . 'files';
+    /** @var IRootFolder $rootFolder */
+    $rootFolder = $this->appContainer->get(IRootFolder::class);
 
-    $userFolder = $this->appContainer->get(IRootFolder::class)->getUserFolder($userId);
+    /** @var IUserManager $userManager */
+    $userManager = $this->appContainer->get(IUserManager::class);
 
-    $mountsRemoved = false;
+    /** @var array<string,bool> $affectedUsers */
+    $affectedUsers = [];
 
     // iterate over the recorded candidates ...
     foreach ($this->removalCandidates as $key => $archiveFileId) {
 
-      $mounts = $mountMapper->findByArchiveFileId($userId, $archiveFileId);
+      // An archive file can be mounted by every user it is shared with, not
+      // only by the user who happens to delete it. Look up all mounts.
+      $mounts = $mountMapper->findByArchiveFileIdAllUsers($archiveFileId);
 
       if (empty($mounts)) {
         unset($this->removalCandidates[$key]);
@@ -143,20 +149,37 @@ class FileNodeListener implements IEventListener
 
       /** @var ArchiveMount $mountEntity */
       foreach ($mounts as $mountEntity) {
-        $archiveFile = $this->getArchiveFile($userFolder, $mountEntity);
+        $ownerId = $mountEntity->getUserId();
+        try {
+          $ownerFolder = $rootFolder->getUserFolder($ownerId);
+        } catch (Throwable $t) {
+          // Cannot inspect that user; keep the mount rather than deleting it
+          // based on incomplete information.
+          $this->logException($t, 'Unable to inspect mount #' . $mountEntity->getId()
+            . ' of user "' . $ownerId . '"');
+          continue;
+        }
+        $archiveFile = $this->getArchiveFile($ownerFolder, $mountEntity);
         if ($archiveFile === null) {
-          // This means that this user has no longer any readable copy of the
-          // archive file available. Hence the mount will here be deleted.
-          $mountManager->removeMount($userFolderPrefix . Constants::PATH_SEPARATOR . $mountEntity->getMountPointPath());
+          // This user has no readable copy of the archive file anymore.
+          $absoluteMountPoint = Constants::PATH_SEPARATOR . $ownerId . Constants::PATH_SEPARATOR . 'files'
+            . $mountEntity->getMountPointPath();
+          $mountManager->removeMount($absoluteMountPoint);
           $mountMapper->delete($mountEntity);
-          $mountsRemoved = true;
+          $affectedUsers[$ownerId] = true;
         }
       }
       unset($this->removalCandidates[$key]);
     }
 
-    if ($mountsRemoved) {
-      $this->appContainer->get(IEventDispatcher::class)->dispatchTyped(new InvalidateMountCacheEvent($user));
+    if (!empty($affectedUsers)) {
+      $dispatcher = $this->appContainer->get(IEventDispatcher::class);
+      foreach (array_keys($affectedUsers) as $affectedUid) {
+        $affectedUser = $userManager->get($affectedUid);
+        if ($affectedUser !== null) {
+          $dispatcher->dispatchTyped(new InvalidateMountCacheEvent($affectedUser));
+        }
+      }
     }
   }
 }
