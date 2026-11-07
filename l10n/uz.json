@@ -1,0 +1,14 @@
+{ "translations": {
+    "Choose {file}" : " {file}ta tanlash",
+    "Choose" : "Tanlang",
+    "Error: %s" : "Xato: %s",
+    "ok" : "Yaxshi",
+    "Disconnect storage" : "Disconnect storage",
+    "Archive" : "Arxiv",
+    "No" : "No",
+    "Yes" : "Yes",
+    "User" : "Foydalanuvchi",
+    "Password" : "Password",
+    "open" : "Ochish"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

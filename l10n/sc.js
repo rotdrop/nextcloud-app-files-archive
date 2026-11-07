@@ -1,8 +1,6 @@
 OC.L10N.register(
     "files_archive",
     {
-    "Password" : "Crae",
-    "User" : "Utente",
     "bytes" : "bytes",
     "Choose {file}" : "Sèbera {file}",
     "Choose" : "Sèbera",
@@ -13,6 +11,8 @@ OC.L10N.register(
     "Archive" : "Cartella",
     "close" : "serra",
     "No" : "No",
-    "Yes" : "Si"
+    "Yes" : "Si",
+    "User" : "Utente",
+    "Password" : "Crae"
 },
 "nplurals=2; plural=(n != 1);");
