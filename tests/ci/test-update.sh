@@ -24,7 +24,8 @@ TARBALL=$(realpath "$5")
 OLD_VERSION=$(tarball_version "$OLD_TARBALL")
 VERSION=$(tarball_version "$TARBALL")
 
-step "Nextcloud $FROM_NC with $DATABASE, $APP_ID $OLD_VERSION"
+step "Nextcloud $FROM_NC with $DATABASE, baseline $(basename "$OLD_TARBALL") ($OLD_VERSION)"
+step "candidate $(basename "$TARBALL") ($VERSION)"
 start_db "$DATABASE"
 start_nc "$FROM_NC"
 install_nc
@@ -39,7 +40,7 @@ expect_dav 200 GET old-mount/dir/a.txt
 if [ "$FROM_NC" != "$TO_NC" ]; then
   step "upgrade the server to Nextcloud $TO_NC"
   start_nc "$TO_NC"
-  occ status --output=json | grep -q '"needsDbUpgrade":false' || fail "the server upgrade did not complete"
+  expect_occ_output '"needsDbUpgrade":false' status --output=json
   # The updater has disabled the incompatible app. On a real upgrade it
   # replaces the app from the app store right away, in the process which
   # registered the previous version while it was still enabled; re-enabling

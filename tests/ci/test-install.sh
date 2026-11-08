@@ -15,6 +15,7 @@ TARBALL=$(realpath "$3")
 VERSION=$(tarball_version "$TARBALL")
 
 step "Nextcloud $NC_VERSION with $DATABASE"
+step "candidate $(basename "$TARBALL") ($VERSION)"
 start_db "$DATABASE"
 start_nc "$NC_VERSION"
 install_nc

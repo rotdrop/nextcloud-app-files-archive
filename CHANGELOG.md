@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.2-rc1] -- 2026-11-08
+
+### Fixed
+
+- normalize stored archive mount-point paths
+- resolve shared archives lazily during mount assembly
+- prevent SIGPIPE from causing false failures in CI smoke-test assertions
+
+### Changed
+
+- identify CI archives by app version and checkout SHA, with explicit build
+  provenance and upgrade-baseline information
+- limit CI install and update tests to supported Nextcloud versions 33-35
+
 ## [1.3.1] -- 2026-10-01
 
 ### Fixed
