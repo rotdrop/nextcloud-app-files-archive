@@ -53,7 +53,7 @@
     "js-md5": "^0.8.3",
     "prettier": "^3.9.9",
     "sass": "^1.99.0",
-    "stacktrace-gps": "github:stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a",
+    "stacktrace-gps": "3.1.2",
     "stacktrace-js": "^2.0.2",
     "typescript": "^6.0.3",
     "uuid": "^14.0.0",
