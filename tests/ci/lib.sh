@@ -45,16 +45,6 @@ trap cleanup EXIT
 
 occ() { docker exec -u www-data "$NC" php occ "$@"; }
 
-# Create a user unless it exists already: several test functions share the
-# instance and must not trip over each other when they run in sequence.
-create_user() {
-  if docker exec -u www-data "$NC" php occ user:info "$1" >/dev/null 2>&1; then
-    return 0
-  fi
-  docker exec -e "OC_PASS=$2" -u www-data "$NC" \
-    php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
-}
-
 tarball_version() {
   tar -xzOf "$1" "$APP_ID/appinfo/info.xml" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | head -1
 }
@@ -106,23 +96,6 @@ start_nc() {
     sleep 2
   done
   fail "the nextcloud:$1 container did not start"
-}
-
-# Restart the web server so that it runs the code of the replaced app.
-# The image ships opcache.revalidate_freq=60, so requests would otherwise be
-# answered from the previous version for up to a minute - which would make a
-# test that only runs over HTTP validate the old code.
-reload_nc() {
-  docker restart "$NC" >/dev/null
-  local _ code
-  for _ in $(seq 150); do
-    code=$(docker exec "$NC" curl -s -o /dev/null -w '%{http_code}' http://localhost/status.php 2>/dev/null || true)
-    if [ "$code" = 200 ]; then
-      return 0
-    fi
-    sleep 2
-  done
-  fail "the container did not come back after the restart"
 }
 
 install_nc() {
@@ -226,41 +199,94 @@ upload_zip() {
   expect_dav 201 PUT "$1" "/tmp/$1"
 }
 
-# Call an app route as the given user ("user:password"), print the HTTP status.
-api_status_as() {
-  local who=$3
+# Create a user unless it already exists: the smoke tests share one instance
+# and several of them need a second account.
+create_user() {
+  if docker exec -u www-data "$NC" php occ user:info "$1" >/dev/null 2>&1; then
+    return 0
+  fi
+  docker exec -e "OC_PASS=$2" -u www-data "$NC" \
+    php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
+}
+
+# Share a file of admin with a user. Fails if OCS does not accept the request.
+share_file() {
+  local out
+  out=$(docker exec -u www-data "$NC" curl -s -u admin:admin \
+    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
+    -X POST 'http://localhost/ocs/v2.php/apps/files_sharing/api/v1/shares' \
+    -d "path=/$1" -d 'shareType=0' -d "shareWith=$2")
+  [[ $out == *'"statuscode":200'* ]] || fail "sharing $1 with $2 failed: $out"
+  echo "  share $1 -> $2"
+}
+
+# Call an app route as "user:password", print "<http status> <start of the body>".
+api_as() {
   docker exec -u www-data "$NC" bash -c '
     cd /tmp && rm -f cookies-as body-as
     user=$3 pass=$4
     token=$(curl -s -c cookies-as -u "$user:$pass" http://localhost/index.php/apps/files/ | grep -o "data-requesttoken=\"[^\"]*" | head -1 | cut -d\" -f2)
-    curl -s -b cookies-as -u "$user:$pass" -H "requesttoken: $token" -H "Accept: application/json" -o body-as -w "%{http_code}" -X "$1" "http://localhost/index.php/apps/files_archive$2"' \
-    _ "$1" "$2" "${who%%:*}" "${who#*:}"
+    [ -n "$token" ] || exit 1
+    code=$(curl -s -b cookies-as -u "$user:$pass" -H "requesttoken: $token" -H "Accept: application/json" -o body-as -w "%{http_code}" -X "$1" "http://localhost/index.php/apps/files_archive$2")
+    echo "$code $(head -c 400 body-as)"' _ "$1" "$2" "${3%%:*}" "${3#*:}"
+}
+
+# Like expect_api(), but for another user; prints the body when it fails.
+expect_api_as() {
+  local out
+  out=$(api_as "$2" "$3" "$4" || true)
+  [ "${out%% *}" = "$1" ] || fail "$2 $3 as ${4%%:*}: expected HTTP $1, got: $out"
+  if [ -n "${5:-}" ]; then
+    [[ $out == *"$5"* ]] || fail "$2 $3 as ${4%%:*}: '$5' not in response: $out"
+  fi
+  echo "  $2 $3 as ${4%%:*} -> $1"
+}
+
+# WebDAV request on the given path below the given user's files.
+# Like expect_dav(), but the user is passed in as "user:password".
+expect_dav_as() {
+  local code who=$4
+  code=$(docker exec -u www-data "$NC" curl -s -o /dev/null -w "%{http_code}" -u "$who" -X "$2" "http://localhost/remote.php/dav/files/${who%%:*}/$3")
+  [ "$code" = "$1" ] || fail "WebDAV $2 $3 as ${who%%:*}: expected HTTP $1, got $code"
+  echo "  WebDAV $2 $3 as ${who%%:*} -> $1"
+}
+
+# Restart the web server so that it runs the code of the replaced app.
+# The image ships opcache.revalidate_freq=60, so requests would otherwise be
+# answered from the previous version for up to a minute - which would make a
+# test that only runs over HTTP validate the old code.
+reload_nc() {
+  docker restart "$NC" >/dev/null
+  local _ code
+  for _ in $(seq 150); do
+    if [ "$(docker inspect -f '{{.State.Running}}' "$NC")" != true ]; then
+      fail "the container exited during the restart"
+    fi
+    code=$(docker exec "$NC" curl -s -o /dev/null -w '%{http_code}' http://localhost/status.php 2>/dev/null || true)
+    [ "$code" = 200 ] && return 0
+    sleep 2
+  done
+  fail "the container did not come back after the restart"
 }
 
 # An archive that is mounted by a *second* user and then deleted by its owner
 # has to be unmounted for that second user as well. The listener used to look
-# only at the mounts of the user who performed the deletion, so the other
-# user kept an empty mount point forever.
+# only at the mounts of the user who performed the deletion, so the other user
+# kept an empty mount point forever.
 smoke_test_shared_archive_cleanup() {
-  local rec sharee=sharee2
+  local rec="sharee2:sharee-pass-1234"
   step "smoke test: deleting an archive unmounts it for other users"
-  create_user "$sharee" sharee-pass-1234
-  rec="$sharee:sharee-pass-1234"
+  create_user sharee2 sharee-pass-1234
 
   upload_zip shared-cleanup.zip
-  docker exec -u www-data "$NC" curl -s -o /dev/null -u admin:admin \
-    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
-    -X POST 'http://localhost/ocs/v2.php/apps/files_sharing/api/v1/shares' \
-    -d 'path=/shared-cleanup.zip' -d 'shareType=0' -d "shareWith=$sharee"
+  share_file shared-cleanup.zip sharee2
 
-  if [ "$(api_status_as POST /archive/mount/shared-cleanup.zip "$rec")" != 200 ]; then
-    fail "the sharee could not mount the shared archive"
-  fi
-  occ "$APP_ID:list-mounts" --all | grep -q "$sharee" \
-    || fail "the sharee's mount is not registered at all"
+  expect_api_as 200 POST /archive/mount/shared-cleanup.zip "$rec"
+  occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|' \
+    || fail "the mount of the second user is not registered at all"
 
   expect_dav 204 DELETE shared-cleanup.zip
-  if occ "$APP_ID:list-mounts" --all | grep -q "$sharee"; then
+  if occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|'; then
     fail "the mount of the other user was not removed when the archive was deleted"
   fi
 
