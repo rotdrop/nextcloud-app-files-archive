@@ -292,6 +292,30 @@ smoke_test_mount_point_paths() {
   expect_api 200 POST /archive/unmount/normalized.zip
   expect_dav 204 DELETE normalized.zip
 }
+  
+# A second user, plus a user-share of an archive file which stays in admin's
+# storage. This is the setup in which the mount provider used to skip the
+# mount: the archive file id is only reachable through the share, and at
+# mount-assembly time the share mounts are not registered yet.
+smoke_test_shared_archive() {
+  local rec="sharee:sharee-pass-1234"
+  step "smoke test: archive shared by another user"
+  create_user sharee sharee-pass-1234
+
+  upload_zip shared.zip
+  share_file shared.zip sharee
+
+  expect_api_as 200 POST /archive/mount/shared.zip "$rec"
+  expect_dav_as 200 GET shared/dir/a.txt "$rec"
+  expect_dav_as 200 GET shared/b.txt "$rec"
+  # The mount point also has to show up in a plain directory listing.
+  expect_dav_as 207 PROPFIND "" "$rec"
+
+  # Drop the mount before the archive goes away: unmounting the mounts of
+  # *other* users when the archive is deleted is a separate change.
+  expect_api_as 200 POST /archive/unmount/shared.zip "$rec"
+  expect_dav 204 DELETE shared.zip
+}
 
 # Exercise the main features of the installed version through its API.
 smoke_test() {
@@ -312,6 +336,8 @@ smoke_test() {
   fi
 
   smoke_test_mount_point_paths
+  
+  smoke_test_shared_archive
 
   step "occ commands"
   occ "$APP_ID:list-mounts" --all

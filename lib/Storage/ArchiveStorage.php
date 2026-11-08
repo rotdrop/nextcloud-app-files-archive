@@ -58,6 +58,8 @@ class ArchiveStorage extends AbstractStorage
   public const PATH_SEPARATOR = Constants::PATH_SEPARATOR;
 
   public const PARAMETER_ARCHIVE_FILE = 'archiveFile';
+  public const PARAMETER_ARCHIVE_FILE_ID = 'archiveFileId';
+  public const PARAMETER_ARCHIVE_FILE_OWNER = 'archiveFileOwner';
   public const PARAMETER_ARCHIVE_PASS_PHRASE = 'passPhrase';
   public const PARAMETER_APP_CONTAINER = 'appContainer';
   public const PARAMETER_ARCHIVE_SIZE_LIMIT = 'archiveSizeLimit';
@@ -66,11 +68,20 @@ class ArchiveStorage extends AbstractStorage
   /** @var string */
   protected string $appName;
 
-  /** @var ArchiveService */
-  protected ArchiveService $archiveService;
+  /** @var null|ArchiveService */
+  protected ?ArchiveService $archiveService = null;
 
-  /** @var File */
-  protected File $archiveFile;
+  /** @var null|File Lazily resolved; stays null when the archive is gone. */
+  protected ?File $archiveFile = null;
+
+  /** @var int */
+  protected int $archiveFileId;
+
+  /** @var null|string */
+  protected ?string $archiveFileOwner = null;
+
+  /** @var int */
+  protected int $archiveSizeLimit;
 
   /** @var string */
   protected ?string $commonPathPrefix = null;
@@ -126,19 +137,79 @@ class ArchiveStorage extends AbstractStorage
   public function __construct($parameters)
   {
     parent::__construct($parameters);
-    $this->archiveFile = $parameters[self::PARAMETER_ARCHIVE_FILE];
     $sizeLimit = $parameters[self::PARAMETER_ARCHIVE_SIZE_LIMIT] ?? Constants::DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT;
+    $this->archiveSizeLimit = $sizeLimit;
     $this->archivePassPhrase = $parameters[self::PARAMETER_ARCHIVE_PASS_PHRASE] ?? null;
     $this->appContainer = $parameters[self::PARAMETER_APP_CONTAINER];
     $this->stripCommonPathPrefix = $parameters[self::PARAMETER_STRIP_COMMON_PATH_PREFIX] ?? false;
 
+    $archiveFile = $parameters[self::PARAMETER_ARCHIVE_FILE] ?? null;
+    if ($archiveFile instanceof File) {
+      // Compatibility: some call sites still hand over a resolved File.
+      $this->archiveFile = $archiveFile;
+      $this->archiveFileId = $archiveFile->getId();
+    } else {
+      $this->archiveFileId = (int)($parameters[self::PARAMETER_ARCHIVE_FILE_ID] ?? 0);
+    }
+    $this->archiveFileOwner = $parameters[self::PARAMETER_ARCHIVE_FILE_OWNER] ?? null;
+
     $this->appName = $this->appContainer->get('appName');
-    $factory = $this->appContainer->get(ArchiveServiceFactory::class);
-    $this->archiveService = $factory->get($this->archiveFile);
-    $this->archiveService->setSizeLimit($sizeLimit);
     $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     $this->fileCacheCache = new CappedMemoryCache;
+  }
+
+  /**
+   * Resolve the associated archive file on demand.
+   *
+   * This must not run while the mount provider is assembling mounts: at that
+   * point shared mounts are not yet registered in the in-memory mount manager,
+   * so Folder::getById() cannot find an archive file that is only reachable
+   * through a share.
+   */
+  public function getArchiveFile(): ?File
+  {
+    if ($this->archiveFile === null) {
+      if ($this->archiveFileId <= 0 || empty($this->archiveFileOwner)) {
+        return null;
+      }
+      try {
+        $rootFolder = $this->appContainer->get(\OCP\Files\IRootFolder::class);
+        $userFolder = $rootFolder->getUserFolder($this->archiveFileOwner);
+        $candidates = array_filter(
+          $userFolder->getById($this->archiveFileId),
+          fn ($node) => $node instanceof File && $node->isReadable(),
+        );
+        if (count($candidates) > 0) {
+          $this->archiveFile = array_shift($candidates);
+        }
+      } catch (Throwable $t) {
+        $this->logException($t, 'Unable to resolve archive file ' . $this->archiveFileId);
+        return null;
+      }
+    }
+    return $this->archiveFile;
+  }
+
+  /** @return int The file-id of the associated archive file. */
+  public function getArchiveFileId(): int
+  {
+    return $this->archiveFileId;
+  }
+
+  /** @return null|ArchiveService */
+  protected function getArchiveService(): ?ArchiveService
+  {
+    if ($this->archiveService === null) {
+      $archiveFile = $this->getArchiveFile();
+      if ($archiveFile === null) {
+        return null;
+      }
+      $factory = $this->appContainer->get(ArchiveServiceFactory::class);
+      $this->archiveService = $factory->get($archiveFile);
+      $this->archiveService->setSizeLimit($this->archiveSizeLimit);
+    }
+    return $this->archiveService;
   }
 
   /**
@@ -208,12 +279,19 @@ class ArchiveStorage extends AbstractStorage
    */
   protected function openArchive():void
   {
-    if (!$this->archiveService->isOpen()) {
-      $this->archiveService->open($this->archiveFile, password: $this->archivePassPhrase);
+    $archiveService = $this->getArchiveService();
+    $archiveFile = $this->getArchiveFile();
+    if ($archiveService === null || $archiveFile === null) {
+      throw new ToolkitExceptions\ArchiveException(
+        'Archive file ' . $this->archiveFileId . ' is not available',
+      );
+    }
+    if (!$archiveService->isOpen()) {
+      $archiveService->open($archiveFile, password: $this->archivePassPhrase);
     }
     if ($this->commonPathPrefix === null) {
       $this->commonPathPrefix = $this->stripCommonPathPrefix
-        ? $this->archiveService->getCommonDirectoryPrefix()
+        ? $archiveService->getCommonDirectoryPrefix()
         : '';
     }
   }
@@ -232,7 +310,7 @@ class ArchiveStorage extends AbstractStorage
 
       $commonPrefixLen = strlen($this->commonPathPrefix);
 
-      $files = $this->archiveService->getFiles();
+      $files = $this->getArchiveService()?->getFiles() ?? [];
       $this->files = [];
       $this->dirNames = [];
       foreach ($files as $path => $fileInfo) {
@@ -258,7 +336,7 @@ class ArchiveStorage extends AbstractStorage
     } catch (ToolkitExceptions\ArchiveTooLargeException $e) {
       throw $e;
     } catch (Throwable $t) {
-      $this->logException($t, 'Unable to open archive file ' . $this->archiveFile->getPath());
+      $this->logException($t, 'Unable to open archive file ' . ($this->getArchiveFile()?->getPath() ?? ('#' . $this->archiveFileId)));
       $this->files = [];
       $this->dirNames = [];
     }
@@ -286,7 +364,7 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function getId()
   {
-    return $this->getStorageId($this->archiveFile->getId());
+    return $this->getStorageId($this->archiveFileId);
   }
 
   /**
@@ -372,7 +450,7 @@ class ArchiveStorage extends AbstractStorage
     $result = false;
     // $this->logInfo('PATH ' . $path);
     if ($this->is_dir($path)) {
-      $result = $this->archiveFile->getMTime();
+      $result = $this->getArchiveFile()?->getMTime() ?? 0;
     } elseif ($this->is_file($path)) {
       if ($this->rootId > 0) {
         /** @var ICacheEntry $cacheEntry */
@@ -403,9 +481,18 @@ class ArchiveStorage extends AbstractStorage
    */
   public function hasUpdated($path, $time): bool
   {
-    /** @var ICacheEntry $rootEntry */
+    $archiveFile = $this->getArchiveFile();
+    if ($archiveFile === null) {
+      // Archive is gone: never report an update so that listing the folder
+      // does not throw.
+      return false;
+    }
+    /** @var ICacheEntry|false $rootEntry */
     $rootEntry = $this->getCache()->get('');
-    $result = min($rootEntry->getStorageMTime(), $rootEntry->getMTime()) < $this->archiveFile->getMTime();
+    if (!$rootEntry instanceof ICacheEntry) {
+      return false;
+    }
+    $result = min($rootEntry->getStorageMTime(), $rootEntry->getMTime()) < $archiveFile->getMTime();
     // $result = $time < $this->archiveFile->getMTime();
     // $this->logInfo('REF TIME ' . $time . ' ARCH TIME ' .  $this->archiveFile->getMTime() . ' UPDATED ' . (int)$result);
     return $result;
@@ -440,7 +527,12 @@ class ArchiveStorage extends AbstractStorage
   /** {@inheritdoc} */
   public function test(): bool
   {
-    return $this->archiveService->canOpen($this->archiveFile);
+    $archiveService = $this->getArchiveService();
+    $archiveFile = $this->getArchiveFile();
+    if ($archiveService === null || $archiveFile === null) {
+      return false;
+    }
+    return $archiveService->canOpen($archiveFile);
   }
 
   /** {@inheritdoc} */
@@ -643,7 +735,12 @@ class ArchiveStorage extends AbstractStorage
 
     $this->openArchive();
 
-    return $this->archiveService->getFileStream($this->commonPathPrefix . $path);
+    $archiveService = $this->getArchiveService();
+    if ($archiveService === null) {
+      return false;
+    }
+
+    return $archiveService->getFileStream($this->commonPathPrefix . $path);
   }
 
   /** {@inheritdoc} */
