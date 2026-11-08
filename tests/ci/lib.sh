@@ -45,16 +45,6 @@ trap cleanup EXIT
 
 occ() { docker exec -u www-data "$NC" php occ "$@"; }
 
-# Create a user unless it exists already: several test functions share the
-# instance and must not trip over each other when they run in sequence.
-create_user() {
-  if docker exec -u www-data "$NC" php occ user:info "$1" >/dev/null 2>&1; then
-    return 0
-  fi
-  docker exec -e "OC_PASS=$2" -u www-data "$NC" \
-    php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
-}
-
 tarball_version() {
   tar -xzOf "$1" "$APP_ID/appinfo/info.xml" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | head -1
 }
@@ -106,23 +96,6 @@ start_nc() {
     sleep 2
   done
   fail "the nextcloud:$1 container did not start"
-}
-
-# Restart the web server so that it runs the code of the replaced app.
-# The image ships opcache.revalidate_freq=60, so requests would otherwise be
-# answered from the previous version for up to a minute - which would make a
-# test that only runs over HTTP validate the old code.
-reload_nc() {
-  docker restart "$NC" >/dev/null
-  local _ code
-  for _ in $(seq 150); do
-    code=$(docker exec "$NC" curl -s -o /dev/null -w '%{http_code}' http://localhost/status.php 2>/dev/null || true)
-    if [ "$code" = 200 ]; then
-      return 0
-    fi
-    sleep 2
-  done
-  fail "the container did not come back after the restart"
 }
 
 install_nc() {
@@ -226,15 +199,47 @@ upload_zip() {
   expect_dav 201 PUT "$1" "/tmp/$1"
 }
 
-# Call an app route, print "<http status> <start of the body>".
-# Like api(), but with an arbitrary user instead of admin.
+# Create a user unless it already exists: the smoke tests share one instance
+# and several of them need a second account.
+create_user() {
+  if docker exec -u www-data "$NC" php occ user:info "$1" >/dev/null 2>&1; then
+    return 0
+  fi
+  docker exec -e "OC_PASS=$2" -u www-data "$NC" \
+    php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
+}
+
+# Share a file of admin with a user. Fails if OCS does not accept the request.
+share_file() {
+  local out
+  out=$(docker exec -u www-data "$NC" curl -s -u admin:admin \
+    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
+    -X POST 'http://localhost/ocs/v2.php/apps/files_sharing/api/v1/shares' \
+    -d "path=/$1" -d 'shareType=0' -d "shareWith=$2")
+  [[ $out == *'"statuscode":200'* ]] || fail "sharing $1 with $2 failed: $out"
+  echo "  share $1 -> $2"
+}
+
+# Call an app route as "user:password", print "<http status> <start of the body>".
 api_as() {
   docker exec -u www-data "$NC" bash -c '
     cd /tmp && rm -f cookies-as body-as
     user=$3 pass=$4
     token=$(curl -s -c cookies-as -u "$user:$pass" http://localhost/index.php/apps/files/ | grep -o "data-requesttoken=\"[^\"]*" | head -1 | cut -d\" -f2)
+    [ -n "$token" ] || exit 1
     code=$(curl -s -b cookies-as -u "$user:$pass" -H "requesttoken: $token" -H "Accept: application/json" -o body-as -w "%{http_code}" -X "$1" "http://localhost/index.php/apps/files_archive$2")
     echo "$code $(head -c 400 body-as)"' _ "$1" "$2" "${3%%:*}" "${3#*:}"
+}
+
+# Like expect_api(), but for another user; prints the body when it fails.
+expect_api_as() {
+  local out
+  out=$(api_as "$2" "$3" "$4" || true)
+  [ "${out%% *}" = "$1" ] || fail "$2 $3 as ${4%%:*}: expected HTTP $1, got: $out"
+  if [ -n "${5:-}" ]; then
+    [[ $out == *"$5"* ]] || fail "$2 $3 as ${4%%:*}: '$5' not in response: $out"
+  fi
+  echo "  $2 $3 as ${4%%:*} -> $1"
 }
 
 # WebDAV request on the given path below the given user's files.
@@ -244,6 +249,24 @@ expect_dav_as() {
   code=$(docker exec -u www-data "$NC" curl -s -o /dev/null -w "%{http_code}" -u "$who" -X "$2" "http://localhost/remote.php/dav/files/${who%%:*}/$3")
   [ "$code" = "$1" ] || fail "WebDAV $2 $3 as ${who%%:*}: expected HTTP $1, got $code"
   echo "  WebDAV $2 $3 as ${who%%:*} -> $1"
+}
+
+# Restart the web server so that it runs the code of the replaced app.
+# The image ships opcache.revalidate_freq=60, so requests would otherwise be
+# answered from the previous version for up to a minute - which would make a
+# test that only runs over HTTP validate the old code.
+reload_nc() {
+  docker restart "$NC" >/dev/null
+  local _ code
+  for _ in $(seq 150); do
+    if [ "$(docker inspect -f '{{.State.Running}}' "$NC")" != true ]; then
+      fail "the container exited during the restart"
+    fi
+    code=$(docker exec "$NC" curl -s -o /dev/null -w '%{http_code}' http://localhost/status.php 2>/dev/null || true)
+    [ "$code" = 200 ] && return 0
+    sleep 2
+  done
+  fail "the container did not come back after the restart"
 }
 
 # A second user, plus a user-share of an archive file which stays in admin's
@@ -256,23 +279,17 @@ smoke_test_shared_archive() {
   create_user sharee sharee-pass-1234
 
   upload_zip shared.zip
-  expect_api 200 POST /archive/info/shared.zip '"format":"zip"' >/dev/null
-  docker exec -u www-data "$NC" curl -s -o /dev/null -u admin:admin \
-    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
-    -X POST 'http://localhost/ocs/v2.php/apps/files_sharing/api/v1/shares' \
-    -d 'path=/shared.zip' -d 'shareType=0' -d 'shareWith=sharee'
+  share_file shared.zip sharee
 
-  # The sharee mounts the archive and must see it in the file list.
-  if [ "$(api_as POST /archive/mount/shared.zip "$rec" | cut -d' ' -f1)" != 200 ]; then
-    fail "the sharee could not mount the shared archive"
-  fi
+  expect_api_as 200 POST /archive/mount/shared.zip "$rec"
   expect_dav_as 200 GET shared/dir/a.txt "$rec"
   expect_dav_as 200 GET shared/b.txt "$rec"
+  # The mount point also has to show up in a plain directory listing.
+  expect_dav_as 207 PROPFIND "" "$rec"
 
-  # The mount also has to survive a second, unrelated request: the provider is
-  # asked to build the mounts again and must still find the shared archive.
-  expect_dav_as 200 GET shared/dir/a.txt "$rec"
-
+  # Drop the mount before the archive goes away: unmounting the mounts of
+  # *other* users when the archive is deleted is a separate change.
+  expect_api_as 200 POST /archive/unmount/shared.zip "$rec"
   expect_dav 204 DELETE shared.zip
 }
 
