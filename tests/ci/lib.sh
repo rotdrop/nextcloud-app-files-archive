@@ -294,6 +294,54 @@ smoke_test_shared_archive_cleanup() {
   occ "$APP_ID:prune-mounts" --dry-run | grep -q 'would remove: 0' \
     || fail "prune-mounts still sees orphaned mounts after the deletion"
 }
+    
+# Mounting an archive that sits in the file-space root used to store "//name",
+# and a mount request without a leading slash stored "./name". Both values
+# still mount, but list-mounts compares them with the resolved node path and
+# reported every such mount as absent.
+smoke_test_mount_point_paths() {
+  step "smoke test: mount-point paths are stored normalized"
+  upload_zip normalized.zip
+
+  # no explicit mount point: the default used to be "./normalized"
+  local status
+  status=$(api POST /archive/mount/normalized.zip | cut -d' ' -f1)
+  [ "$status" = 200 ] || fail "mounting the archive failed with HTTP $status"
+
+  if occ "$APP_ID:list-mounts" --all | grep -q '| absent '; then
+    occ "$APP_ID:list-mounts" --all
+    fail "a healthy mount is reported as absent"
+  fi
+  occ "$APP_ID:list-mounts" --all | grep -Eq '\| /normalized +\|' \
+    || fail "the mount-point path was not stored as an absolute path"
+
+  expect_api 200 POST /archive/unmount/normalized.zip
+  expect_dav 204 DELETE normalized.zip
+}
+  
+# A second user, plus a user-share of an archive file which stays in admin's
+# storage. This is the setup in which the mount provider used to skip the
+# mount: the archive file id is only reachable through the share, and at
+# mount-assembly time the share mounts are not registered yet.
+smoke_test_shared_archive() {
+  local rec="sharee:sharee-pass-1234"
+  step "smoke test: archive shared by another user"
+  create_user sharee sharee-pass-1234
+
+  upload_zip shared.zip
+  share_file shared.zip sharee
+
+  expect_api_as 200 POST /archive/mount/shared.zip "$rec"
+  expect_dav_as 200 GET shared/dir/a.txt "$rec"
+  expect_dav_as 200 GET shared/b.txt "$rec"
+  # The mount point also has to show up in a plain directory listing.
+  expect_dav_as 207 PROPFIND "" "$rec"
+
+  # Drop the mount before the archive goes away: unmounting the mounts of
+  # *other* users when the archive is deleted is a separate change.
+  expect_api_as 200 POST /archive/unmount/shared.zip "$rec"
+  expect_dav 204 DELETE shared.zip
+}
 
 # Exercise the main features of the installed version through its API.
 smoke_test() {
@@ -314,6 +362,10 @@ smoke_test() {
   fi
 
   smoke_test_shared_archive_cleanup
+  
+  smoke_test_mount_point_paths
+  
+  smoke_test_shared_archive
 
   step "occ commands"
   occ "$APP_ID:list-mounts" --all

@@ -343,9 +343,18 @@ class MountController extends Controller
     $removedMountPoints = [];
     foreach ($mounts as $mount) {
       $mountPointPath = $mount->getMountPointPath();
+      // IMountManager works on absolute paths; the stored mount-point path is
+      // user-relative and may carry a doubled leading slash.
+      $absoluteMountPoint = $userFolder->getPath()
+        . ArchiveMount::normalizeMountPointPath($mountPointPath);
 
       /** @var IMountPoint $mountPoint */
-      $mountPoint = $this->mountManager->find($mountPointPath);
+      try {
+        $mountPoint = $this->mountManager->find($absoluteMountPoint);
+      } catch (Throwable $t) {
+        $this->logException($t);
+        $mountPoint = null;
+      }
       if (empty($mountPoint)) {
         $errorMessages[] = $this->l->t('Directory "%s" is not a mount point.', $mountPointPath);
         continue;
@@ -353,7 +362,7 @@ class MountController extends Controller
 
       $removedMountPoints[] = $this->formatMountEntity($mount);
 
-      $this->mountManager->removeMount($mountPointPath);
+      $this->mountManager->removeMount($absoluteMountPoint);
       $this->mountMapper->delete($mount);
 
       $messages[] = $this->l->t('Archive "%1$s" has been unmounted from "%2$s".', [

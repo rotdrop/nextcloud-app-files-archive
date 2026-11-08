@@ -25,6 +25,7 @@
     </install> -->
     <post-migration>
       <step>OCA\FilesArchive\Migration\RegisterMimeTypes</step>
+      <step>OCA\FilesArchive\Migration\NormalizeMountPointPaths</step>
       <step>OCA\FilesArchive\Migration\RebuildMountFileCache</step>
     </post-migration>
   </repair-steps>
