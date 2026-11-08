@@ -45,7 +45,12 @@ trap cleanup EXIT
 
 occ() { docker exec -u www-data "$NC" php occ "$@"; }
 
+# Create a user unless it exists already: several test functions share the
+# instance and must not trip over each other when they run in sequence.
 create_user() {
+  if docker exec -u www-data "$NC" php occ user:info "$1" >/dev/null 2>&1; then
+    return 0
+  fi
   docker exec -e "OC_PASS=$2" -u www-data "$NC" \
     php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
 }
