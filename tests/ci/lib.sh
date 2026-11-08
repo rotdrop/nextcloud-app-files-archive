@@ -242,7 +242,7 @@ api_status_as() {
 # only at the mounts of the user who performed the deletion, so the other
 # user kept an empty mount point forever.
 smoke_test_shared_archive_cleanup() {
-  local rec sharee=sharee
+  local rec sharee=sharee2
   step "smoke test: deleting an archive unmounts it for other users"
   create_user "$sharee" sharee-pass-1234
   rec="$sharee:sharee-pass-1234"
