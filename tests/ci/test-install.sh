@@ -26,4 +26,5 @@ check_installed "$VERSION"
 check_schema
 
 smoke_test
+smoke_test_mount_point_paths
 check_log

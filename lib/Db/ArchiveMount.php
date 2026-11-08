@@ -114,8 +114,32 @@ class ArchiveMount extends Entity implements JsonSerializable
    */
   public function setMountPointPath(string $path):void
   {
+    $path = self::normalizeMountPointPath($path);
     parent::setMountPointPath($path);
     parent::setMountPointPathHash(md5($path));
+  }
+
+  /**
+   * Normalize a user-relative mount-point path.
+   *
+   * @param string $path
+   *
+   * @return string
+   *
+   * @throws \InvalidArgumentException When the path contains "..".
+   */
+  public static function normalizeMountPointPath(string $path):string
+  {
+    foreach (explode('/', $path) as $segment) {
+      if ($segment === '..') {
+        throw new \InvalidArgumentException(
+          'Mount point path must not contain ".." segments: ' . $path,
+        );
+      }
+    }
+
+    $path = \OC\Files\Filesystem::normalizePath($path);
+    return '/' . ltrim($path, '/');
   }
 
   /** {@inheritdoc} */

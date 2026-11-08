@@ -217,7 +217,8 @@ class MountProvider implements IMountProvider
     $passPhrase = $mountEntity->getArchivePassPhrase();
 
     // The mount-path must be absolute
-    $mountDirectory = $userFolderPath . Constants::PATH_SEPARATOR . $mountEntity->getMountPointPath();
+    $mountDirectory = $userFolderPath
+      . ArchiveMount::normalizeMountPointPath($mountEntity->getMountPointPath());
 
     // Whether to strip a common path prefix
     $stripCommonPathPrefix = !!($mountEntity->getMountFlags() & ArchiveMount::MOUNT_FLAG_STRIP_COMMON_PATH_PREFIX);

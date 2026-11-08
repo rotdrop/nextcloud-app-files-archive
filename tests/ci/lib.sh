@@ -318,3 +318,15 @@ smoke_test() {
   occ "$APP_ID:rebuild-cache" --all
   occ maintenance:repair >/dev/null
 }
+
+smoke_test_mount_point_paths() {
+  step "smoke test: mount-point paths are stored normalized"
+  upload_zip normalized.zip
+
+  expect_api 200 POST /archive/mount/normalized.zip
+  occ "$APP_ID:list-mounts" --all | grep -Eq '\| /normalized +\|' \
+    || fail "the mount-point path was not stored as an absolute path"
+
+  expect_api 200 POST /archive/unmount/normalized.zip
+  expect_dav 204 DELETE normalized.zip
+}
