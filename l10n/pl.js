@@ -53,6 +53,7 @@ OC.L10N.register(
     "renamed file" : "zmieniona nazwa pliku",
     "Unable to sanitize filename \"%s\"." : "Nie można oczyścić nazwy pliku \"%s\".",
     "pick a color" : "wybierz kolor",
+    "open" : "otwórz",
     "submit" : "zatwierdź",
     "Click to submit your changes." : "Kliknij, aby przesłać zmiany.",
     "Clear Selection" : "Wyczyść zaznaczenie"
