@@ -203,10 +203,16 @@ class MountProvider implements IMountProvider
 
     $userFolderPath = $userFolder->getPath();
 
-    $archiveFile = $this->getArchiveFile($userFolder, $mountEntity);
-    if ($archiveFile === null) {
-      return null;
-    }
+    $archiveFileId = (int)$mountEntity->getArchiveFileId();
+
+    // Do NOT resolve the archive File here. This method runs while the mount
+    // provider is assembling mounts, i.e. before the share mount provider has
+    // registered its mounts in the in-memory mount manager (Core hard-codes the
+    // share provider to run last). Calling Folder::getById() at this point
+    // returns [] for any archive file that is only reachable through a share.
+    //
+    // ArchiveStorage resolves the File lazily on first real access instead, so
+    // stale rows simply degrade to an empty, read-only mount.
 
     $passPhrase = $mountEntity->getArchivePassPhrase();
 
@@ -218,14 +224,15 @@ class MountProvider implements IMountProvider
 
     try {
       $storage = new ArchiveStorage([
-        ArchiveStorage::PARAMETER_ARCHIVE_FILE => $archiveFile,
+        ArchiveStorage::PARAMETER_ARCHIVE_FILE_ID => $archiveFileId,
+        ArchiveStorage::PARAMETER_ARCHIVE_FILE_OWNER => $userId,
         ArchiveStorage::PARAMETER_ARCHIVE_PASS_PHRASE => $passPhrase,
         ArchiveStorage::PARAMETER_APP_CONTAINER => $this->appContainer,
         ArchiveStorage::PARAMETER_ARCHIVE_SIZE_LIMIT => $archiveSizeLimit,
         ArchiveStorage::PARAMETER_STRIP_COMMON_PATH_PREFIX => $stripCommonPathPrefix,
       ]);
     } catch (ToolkitExceptions\ArchiveException $e) {
-      $this->logException($e, 'Skipping archive mount of "' . $archiveFile->getPath() . '@' . $archiveFile->getId() . '".');
+      $this->logException($e, 'Skipping archive mount of archive file #' . $archiveFileId . '.');
       return null;
     }
 

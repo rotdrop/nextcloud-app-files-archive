@@ -55,6 +55,9 @@ docker exec -u www-data -w /var/www/html "$NC" php /tmp/in-process-update.php /t
 check_installed "$VERSION"
 check_schema
 
+step "reload the web server so that it runs the updated app"
+reload_nc
+
 step "the archive mounted with $OLD_VERSION is still there"
 expect_dav 200 GET old-mount/dir/a.txt
 expect_api 200 GET /archive/mount/old.zip '"mounted":true'
