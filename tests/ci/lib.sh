@@ -98,23 +98,6 @@ start_nc() {
   fail "the nextcloud:$1 container did not start"
 }
 
-# Restart the web server so that it runs the code of the replaced app.
-# The image ships opcache.revalidate_freq=60, so requests would otherwise be
-# answered from the previous version for up to a minute - which would make a
-# test that only runs over HTTP validate the old code.
-reload_nc() {
-  docker restart "$NC" >/dev/null
-  local _ code
-  for _ in $(seq 150); do
-    code=$(docker exec "$NC" curl -s -o /dev/null -w '%{http_code}' http://localhost/status.php 2>/dev/null || true)
-    if [ "$code" = 200 ]; then
-      return 0
-    fi
-    sleep 2
-  done
-  fail "the container did not come back after the restart"
-}
-
 install_nc() {
   local _
   for _ in $(seq 30); do
@@ -216,11 +199,80 @@ upload_zip() {
   expect_dav 201 PUT "$1" "/tmp/$1"
 }
 
-# The mount point is built as dirname + '/' + basename. Mounting an archive
-# that sits in the file-space root used to store a doubled leading slash
-# ("//name"), and callers that pass a path without a leading slash ended up
-# with "./name". Such a value still mounts, but list-mounts compares it with
-# the resolved node path and reports the mount as absent.
+# Create a user unless it already exists: the smoke tests share one instance
+# and several of them need a second account.
+create_user() {
+  if docker exec -u www-data "$NC" php occ user:info "$1" >/dev/null 2>&1; then
+    return 0
+  fi
+  docker exec -e "OC_PASS=$2" -u www-data "$NC" \
+    php occ user:add --password-from-env --display-name="$1" "$1" >/dev/null
+}
+
+# Share a file of admin with a user. Fails if OCS does not accept the request.
+share_file() {
+  local out
+  out=$(docker exec -u www-data "$NC" curl -s -u admin:admin \
+    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
+    -X POST 'http://localhost/ocs/v2.php/apps/files_sharing/api/v1/shares' \
+    -d "path=/$1" -d 'shareType=0' -d "shareWith=$2")
+  [[ $out == *'"statuscode":200'* ]] || fail "sharing $1 with $2 failed: $out"
+  echo "  share $1 -> $2"
+}
+
+# Call an app route as "user:password", print "<http status> <start of the body>".
+api_as() {
+  docker exec -u www-data "$NC" bash -c '
+    cd /tmp && rm -f cookies-as body-as
+    user=$3 pass=$4
+    token=$(curl -s -c cookies-as -u "$user:$pass" http://localhost/index.php/apps/files/ | grep -o "data-requesttoken=\"[^\"]*" | head -1 | cut -d\" -f2)
+    [ -n "$token" ] || exit 1
+    code=$(curl -s -b cookies-as -u "$user:$pass" -H "requesttoken: $token" -H "Accept: application/json" -o body-as -w "%{http_code}" -X "$1" "http://localhost/index.php/apps/files_archive$2")
+    echo "$code $(head -c 400 body-as)"' _ "$1" "$2" "${3%%:*}" "${3#*:}"
+}
+
+# Like expect_api(), but for another user; prints the body when it fails.
+expect_api_as() {
+  local out
+  out=$(api_as "$2" "$3" "$4" || true)
+  [ "${out%% *}" = "$1" ] || fail "$2 $3 as ${4%%:*}: expected HTTP $1, got: $out"
+  if [ -n "${5:-}" ]; then
+    [[ $out == *"$5"* ]] || fail "$2 $3 as ${4%%:*}: '$5' not in response: $out"
+  fi
+  echo "  $2 $3 as ${4%%:*} -> $1"
+}
+
+# WebDAV request on the given path below the given user's files.
+# Like expect_dav(), but the user is passed in as "user:password".
+expect_dav_as() {
+  local code who=$4
+  code=$(docker exec -u www-data "$NC" curl -s -o /dev/null -w "%{http_code}" -u "$who" -X "$2" "http://localhost/remote.php/dav/files/${who%%:*}/$3")
+  [ "$code" = "$1" ] || fail "WebDAV $2 $3 as ${who%%:*}: expected HTTP $1, got $code"
+  echo "  WebDAV $2 $3 as ${who%%:*} -> $1"
+}
+
+# Restart the web server so that it runs the code of the replaced app.
+# The image ships opcache.revalidate_freq=60, so requests would otherwise be
+# answered from the previous version for up to a minute - which would make a
+# test that only runs over HTTP validate the old code.
+reload_nc() {
+  docker restart "$NC" >/dev/null
+  local _ code
+  for _ in $(seq 150); do
+    if [ "$(docker inspect -f '{{.State.Running}}' "$NC")" != true ]; then
+      fail "the container exited during the restart"
+    fi
+    code=$(docker exec "$NC" curl -s -o /dev/null -w '%{http_code}' http://localhost/status.php 2>/dev/null || true)
+    [ "$code" = 200 ] && return 0
+    sleep 2
+  done
+  fail "the container did not come back after the restart"
+}
+
+# Mounting an archive that sits in the file-space root used to store "//name",
+# and a mount request without a leading slash stored "./name". Both values
+# still mount, but list-mounts compares them with the resolved node path and
+# reported every such mount as absent.
 smoke_test_mount_point_paths() {
   step "smoke test: mount-point paths are stored normalized"
   upload_zip normalized.zip
@@ -234,10 +286,11 @@ smoke_test_mount_point_paths() {
     occ "$APP_ID:list-mounts" --all
     fail "a healthy mount is reported as absent"
   fi
-  occ "$APP_ID:list-mounts" --all | grep -q '| /normalized ' \
+  occ "$APP_ID:list-mounts" --all | grep -Eq '\| /normalized +\|' \
     || fail "the mount-point path was not stored as an absolute path"
 
   expect_api 200 POST /archive/unmount/normalized.zip
+  expect_dav 204 DELETE normalized.zip
 }
 
 # Exercise the main features of the installed version through its API.
