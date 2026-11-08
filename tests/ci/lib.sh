@@ -45,8 +45,16 @@ trap cleanup EXIT
 
 occ() { docker exec -u www-data "$NC" php occ "$@"; }
 
+# Capture first: grep -q on a live pipe can give occ SIGPIPE under pipefail.
+expect_occ_output() {
+  local pattern=$1 out
+  shift
+  out=$(occ "$@") || fail "occ $* failed: $out"
+  grep -Eq "$pattern" <<< "$out" || fail "occ $*: expected '$pattern' in output: $out"
+}
+
 tarball_version() {
-  tar -xzOf "$1" "$APP_ID/appinfo/info.xml" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | head -1
+  tar -xzOf "$1" "$APP_ID/appinfo/info.xml" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | sed -n '1p'
 }
 
 # docker run would print the progress of the image download line by line.
@@ -85,9 +93,10 @@ start_nc() {
   docker rm -f "$NC" >/dev/null 2>&1 || true
   pull "nextcloud:$1-apache"
   docker run -d --name "$NC" --network "$NET" -v "$VOL:/var/www/html" "nextcloud:$1-apache" >/dev/null
-  local _
+  local _ logs
   for _ in $(seq 150); do
-    if docker logs "$NC" 2>&1 | grep -q 'resuming normal operations'; then
+    logs=$(docker logs "$NC" 2>&1) || fail "could not read container logs: $logs"
+    if grep -q 'resuming normal operations' <<< "$logs"; then
       return 0
     fi
     if [ "$(docker inspect -f '{{.State.Running}}' "$NC")" != true ]; then
@@ -145,15 +154,17 @@ check_installed() {
   installed=$(occ config:app:get "$APP_ID" installed_version)
   [ "$installed" = "$1" ] || fail "installed_version is '$installed', expected '$1'"
   [ "$(occ config:app:get "$APP_ID" enabled)" = yes ] || fail "the app is not enabled"
-  occ status --output=json | grep -q '"maintenance":false' || fail "the server is in maintenance mode"
-  occ status --output=json | grep -q '"needsDbUpgrade":false' || fail "the server still needs an upgrade"
+  expect_occ_output '"maintenance":false' status --output=json
+  expect_occ_output '"needsDbUpgrade":false' status --output=json
 }
 
 check_schema() {
   # db:schema:check (Nextcloud 35+) replays all migrations into an expected
   # schema and compares it with the live one, so it catches differences
   # between the fresh-install and the upgrade path of the migrations.
-  if occ list db 2>/dev/null | grep -q 'db:schema:check'; then
+  local commands
+  commands=$(occ list --raw) || fail "could not list occ commands: $commands"
+  if grep -Eq '^db:schema:check([[:space:]]|$)' <<< "$commands"; then
     step "database schema matches the migrations"
     occ db:schema:check "oc_${APP_ID}_mounts" || fail "db:schema:check reported differences"
   fi
@@ -278,16 +289,16 @@ smoke_test_mount_point_paths() {
   upload_zip normalized.zip
 
   # no explicit mount point: the default used to be "./normalized"
-  local status
+  local status mounts
   status=$(api POST /archive/mount/normalized.zip | cut -d' ' -f1)
   [ "$status" = 200 ] || fail "mounting the archive failed with HTTP $status"
 
-  if occ "$APP_ID:list-mounts" --all | grep -q '| absent '; then
-    occ "$APP_ID:list-mounts" --all
-    fail "a healthy mount is reported as absent"
+  mounts=$(occ "$APP_ID:list-mounts" --all) || fail "list-mounts failed: $mounts"
+  if grep -q '| absent ' <<< "$mounts"; then
+    fail "a healthy mount is reported as absent: $mounts"
   fi
-  occ "$APP_ID:list-mounts" --all | grep -Eq '\| /normalized +\|' \
-    || fail "the mount-point path was not stored as an absolute path"
+  grep -Eq '\| /normalized +\|' <<< "$mounts" \
+    || fail "the mount-point path was not stored as an absolute path: $mounts"
 
   expect_api 200 POST /archive/unmount/normalized.zip
   expect_dav 204 DELETE normalized.zip
@@ -319,6 +330,7 @@ smoke_test_shared_archive() {
 
 # Exercise the main features of the installed version through its API.
 smoke_test() {
+  local mounts
   step "smoke test: info, mount, browse, extract, unmount, delete"
   upload_zip smoke.zip
   expect_api 200 POST /archive/info/smoke.zip '"format":"zip"'
@@ -331,8 +343,9 @@ smoke_test() {
   expect_dav 404 GET smoke-mount/dir/a.txt
   expect_api 200 POST /archive/mount/smoke.zip/smoke-mount-2
   expect_dav 204 DELETE smoke.zip
-  if occ "$APP_ID:list-mounts" --all | grep -q smoke-mount-2; then
-    fail "the mount of a deleted archive is still registered"
+  mounts=$(occ "$APP_ID:list-mounts" --all) || fail "list-mounts failed: $mounts"
+  if grep -q smoke-mount-2 <<< "$mounts"; then
+    fail "the mount of a deleted archive is still registered: $mounts"
   fi
 
   smoke_test_mount_point_paths

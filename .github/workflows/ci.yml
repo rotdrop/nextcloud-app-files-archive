@@ -24,6 +24,13 @@ permissions:
   contents: read
 
 jobs:
+  shell-helpers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check smoke-test assertion helpers
+        run: bash tests/ci/test-shell-helpers.sh
+
   ci:
     uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@v1
     with:
@@ -53,8 +60,19 @@ jobs:
         with:
           name: ${{ needs.build.outputs.artifact }}
 
+      - name: Record candidate provenance
+        env:
+          ARCHIVE: ${{ needs.build.outputs.archive-filename }}
+          SOURCE_SHA: ${{ needs.build.outputs.source-sha }}
+          SOURCE_REF: ${{ needs.build.outputs.source-ref }}
+        run: |
+          sha256sum --check "$ARCHIVE.sha256"
+          printf 'CI candidate: `%s` (checkout `%s` at `%s`)\n' "$ARCHIVE" "$SOURCE_REF" "$SOURCE_SHA" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Fresh install and smoke test
-        run: tests/ci/test-install.sh ${{ matrix.nextcloud }} ${{ matrix.database }} files_archive-${{ needs.build.outputs.version }}.tar.gz
+        env:
+          ARCHIVE: ${{ needs.build.outputs.archive-filename }}
+        run: tests/ci/test-install.sh ${{ matrix.nextcloud }} ${{ matrix.database }} "$ARCHIVE"
 
   update:
     needs: build
@@ -68,9 +86,6 @@ jobs:
           - {from-release: latest, from-nextcloud: '33', nextcloud: '33', database: pgsql}
           - {from-release: latest, from-nextcloud: '34', nextcloud: '34', database: sqlite}
           - {from-release: latest, from-nextcloud: '35', nextcloud: '35', database: mysql}
-          # Servers upgraded from 32 still run 1.2.x when the updater
-          # replaces the app; drop this once that path is no longer relevant.
-          - {from-release: v1.2.8, from-nextcloud: '32', nextcloud: '33', database: pgsql}
     name: update (${{ matrix.from-release }} on NC ${{ matrix.from-nextcloud }} -> NC ${{ matrix.nextcloud }}, ${{ matrix.database }})
     steps:
       - name: Checkout
@@ -80,6 +95,15 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: ${{ needs.build.outputs.artifact }}
+
+      - name: Record candidate provenance
+        env:
+          ARCHIVE: ${{ needs.build.outputs.archive-filename }}
+          SOURCE_SHA: ${{ needs.build.outputs.source-sha }}
+          SOURCE_REF: ${{ needs.build.outputs.source-ref }}
+        run: |
+          sha256sum --check "$ARCHIVE.sha256"
+          printf 'CI candidate: `%s` (checkout `%s` at `%s`)\n' "$ARCHIVE" "$SOURCE_REF" "$SOURCE_SHA" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Download the previous release
         id: previous
@@ -93,11 +117,19 @@ jobs:
             TAG=$(gh release view --repo "$REPO" --json tagName --jq .tagName)
           fi
           gh release download "$TAG" --repo "$REPO" --pattern '*.tar.gz' --dir previous
-          echo "tarball=$(ls previous/*.tar.gz)" >> "$GITHUB_OUTPUT"
+          archives=(previous/*.tar.gz)
+          [ "${#archives[@]}" -eq 1 ] && [ -f "${archives[0]}" ] || {
+            echo "::error::Expected exactly one previous release archive"
+            exit 1
+          }
+          echo "tarball=${archives[0]}" >> "$GITHUB_OUTPUT"
+          printf 'Upgrade baseline: release `%s`, archive `%s`\n' "$TAG" "${archives[0]}" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Update and smoke test
+        env:
+          ARCHIVE: ${{ needs.build.outputs.archive-filename }}
+          BASELINE: ${{ steps.previous.outputs.tarball }}
         run: >-
           tests/ci/test-update.sh
           ${{ matrix.from-nextcloud }} ${{ matrix.nextcloud }} ${{ matrix.database }}
-          ${{ steps.previous.outputs.tarball }}
-          files_archive-${{ needs.build.outputs.version }}.tar.gz
+          "$BASELINE" "$ARCHIVE"

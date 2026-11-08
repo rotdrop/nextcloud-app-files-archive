@@ -53,6 +53,22 @@ Works for me.
 
 See ![file list](INSTALL.md).
 
+CI builds the workflow checkout, not the latest release: push runs use the
+triggering commit and pull-request runs use GitHub's merge commit. Install and
+update tests consume `files_archive-<version>-ci-<checkout-sha>.tar.gz` from the
+shared build artifact. Its checksum and `provenance.json`, together with the
+workflow summaries, identify the exact source revision. The version inside the
+app remains the value in `appinfo/info.xml`; release archive names are unchanged.
+Only the update-test baseline is downloaded from a published release, and its
+resolved tag is recorded in the summary.
+
+The Docker-based tests can also run locally:
+`tests/ci/test-install.sh 34 sqlite <candidate.tar.gz>` and
+`tests/ci/test-update.sh 34 34 sqlite <previous-release.tar.gz> <candidate.tar.gz>`.
+Run `bash tests/ci/test-shell-helpers.sh` for the assertion regression checks
+without Docker.
+CI install and update matrices cover only supported Nextcloud versions 33-35.
+
 ### Usage
 
 - The file-actions menu contains a menu-item "Mount Archive" which
