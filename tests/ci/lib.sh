@@ -98,6 +98,23 @@ start_nc() {
   fail "the nextcloud:$1 container did not start"
 }
 
+# Restart the web server so that it runs the code of the replaced app.
+# The image ships opcache.revalidate_freq=60, so requests would otherwise be
+# answered from the previous version for up to a minute - which would make a
+# test that only runs over HTTP validate the old code.
+reload_nc() {
+  docker restart "$NC" >/dev/null
+  local _ code
+  for _ in $(seq 150); do
+    code=$(docker exec "$NC" curl -s -o /dev/null -w '%{http_code}' http://localhost/status.php 2>/dev/null || true)
+    if [ "$code" = 200 ]; then
+      return 0
+    fi
+    sleep 2
+  done
+  fail "the container did not come back after the restart"
+}
+
 install_nc() {
   local _
   for _ in $(seq 30); do
