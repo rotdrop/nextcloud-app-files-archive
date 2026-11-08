@@ -157,6 +157,30 @@ class ArchiveMountMapper extends QBMapper
   }
 
   /**
+   * Find all mounts of the given archive file regardless of the user.
+   *
+   * Needed when an archive file is deleted: every user who mounted it has to
+   * be cleaned up, not only the user who performed the deletion.
+   *
+   * @param int|string $archiveFileId
+   *
+   * @return ArchiveMount[]
+   */
+  public function findByArchiveFileIdAllUsers(int|string $archiveFileId): array
+  {
+    $qb = $this->db->getQueryBuilder();
+
+    $qb->select('*')
+      ->from($this->getTableName())
+      ->where(
+        $qb->expr()->eq(
+          'archive_file_id',
+          $qb->createNamedParameter($archiveFileId)));
+
+    return $this->findEntities($qb);
+  }
+
+  /**
    * Find all mounts for the given archive file and user
    *
    * @param string $userId

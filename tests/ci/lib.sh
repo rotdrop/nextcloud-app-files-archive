@@ -280,6 +280,32 @@ reload_nc() {
   fail "the container did not come back after the restart"
 }
 
+# An archive that is mounted by a *second* user and then deleted by its owner
+# has to be unmounted for that second user as well. The listener used to look
+# only at the mounts of the user who performed the deletion, so the other user
+# kept an empty mount point forever.
+smoke_test_shared_archive_cleanup() {
+  local rec="sharee2:sharee-pass-1234"
+  step "smoke test: deleting an archive unmounts it for other users"
+  create_user sharee2 sharee-pass-1234
+
+  upload_zip shared-cleanup.zip
+  share_file shared-cleanup.zip sharee2
+
+  expect_api_as 200 POST /archive/mount/shared-cleanup.zip "$rec"
+  occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|' \
+    || fail "the mount of the second user is not registered at all"
+
+  expect_dav 204 DELETE shared-cleanup.zip
+  if occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|'; then
+    fail "the mount of the other user was not removed when the archive was deleted"
+  fi
+
+  # The reconciliation command has to agree: nothing left to clean up.
+  occ "$APP_ID:prune-mounts" --dry-run | grep -q 'would remove: 0' \
+    || fail "prune-mounts still sees orphaned mounts after the deletion"
+}
+    
 # Mounting an archive that sits in the file-space root used to store "//name",
 # and a mount request without a leading slash stored "./name". Both values
 # still mount, but list-mounts compares them with the resolved node path and
@@ -348,6 +374,8 @@ smoke_test() {
     fail "the mount of a deleted archive is still registered: $mounts"
   fi
 
+  smoke_test_shared_archive_cleanup
+  
   smoke_test_mount_point_paths
   
   smoke_test_shared_archive

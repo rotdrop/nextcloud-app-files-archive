@@ -32,6 +32,7 @@
   <commands>
     <command>OCA\FilesArchive\Command\RebuildMountFileCache</command>
     <command>OCA\FilesArchive\Command\ListMounts</command>
+    <command>OCA\FilesArchive\Command\PruneMounts</command>
   </commands>
   <settings>
     <admin>OCA\FilesArchive\Settings\Admin</admin>
