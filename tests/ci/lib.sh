@@ -269,6 +269,30 @@ reload_nc() {
   fail "the container did not come back after the restart"
 }
 
+# Mounting an archive that sits in the file-space root used to store "//name",
+# and a mount request without a leading slash stored "./name". Both values
+# still mount, but list-mounts compares them with the resolved node path and
+# reported every such mount as absent.
+smoke_test_mount_point_paths() {
+  step "smoke test: mount-point paths are stored normalized"
+  upload_zip normalized.zip
+
+  # no explicit mount point: the default used to be "./normalized"
+  local status
+  status=$(api POST /archive/mount/normalized.zip | cut -d' ' -f1)
+  [ "$status" = 200 ] || fail "mounting the archive failed with HTTP $status"
+
+  if occ "$APP_ID:list-mounts" --all | grep -q '| absent '; then
+    occ "$APP_ID:list-mounts" --all
+    fail "a healthy mount is reported as absent"
+  fi
+  occ "$APP_ID:list-mounts" --all | grep -Eq '\| /normalized +\|' \
+    || fail "the mount-point path was not stored as an absolute path"
+
+  expect_api 200 POST /archive/unmount/normalized.zip
+  expect_dav 204 DELETE normalized.zip
+}
+  
 # A second user, plus a user-share of an archive file which stays in admin's
 # storage. This is the setup in which the mount provider used to skip the
 # mount: the archive file id is only reachable through the share, and at
@@ -311,6 +335,8 @@ smoke_test() {
     fail "the mount of a deleted archive is still registered"
   fi
 
+  smoke_test_mount_point_paths
+  
   smoke_test_shared_archive
 
   step "occ commands"
