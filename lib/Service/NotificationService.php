@@ -26,6 +26,7 @@ namespace OCA\FilesArchive\Service;
 
 use DateTime;
 use InvalidArgumentException;
+use Throwable;
 
 use OCP\Files\Node;
 use OCP\Files\Folder;
@@ -306,6 +307,48 @@ class NotificationService
       target: ArchiveJob::TARGET_MOUNT,
       destinationId: $mountPointId,
     );
+  }
+
+  /**
+   * Tell a user that one of their archive mounts has been removed because the
+   * archive file is not reachable anymore.
+   *
+   * @param string $userId The user whose mount has been removed.
+   *
+   * @param int $mountPointFileId The file id of the vanished mount point.
+   *
+   * @param string $mountPointPath The user-relative mount-point path.
+   *
+   * @param int $sourceId File id of the archive file.
+   *
+   * @return void
+   */
+  public function sendNotificationOnRemoved(
+    string $userId,
+    int $mountPointFileId,
+    string $mountPointPath,
+    int $sourceId,
+  ):void {
+    $notification = $this->buildNotification(
+      Notifier::TYPE_REMOVED,
+      ArchiveJob::TARGET_MOUNT,
+      $userId,
+      // The path of the archive file is unknown here: the file is gone, and
+      // for mounts of other users we only know it through their own share,
+      // which vanished with it. The notification therefore only talks about
+      // the mount point.
+      sourcePath: '',
+      sourceId: $sourceId,
+      destinationPath: $mountPointPath,
+      destinationId: $mountPointFileId,
+    );
+
+    try {
+      $this->notificationManager->notify($notification);
+    } catch (Throwable $t) {
+      // Telling the user is a courtesy; it must never make the deletion fail.
+      $this->logException($t, 'Unable to notify user "' . $userId . '" about the removed mount');
+    }
   }
 
   /**
