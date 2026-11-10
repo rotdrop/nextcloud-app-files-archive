@@ -262,6 +262,14 @@ expect_dav_as() {
   echo "  WebDAV $2 $3 as ${who%%:*} -> $1"
 }
 
+# Print the subjects of the notifications of "user:password", one per line.
+notifications_as() {
+  local who=$1
+  docker exec -u www-data "$NC" curl -s -u "$who" \
+    -H 'OCS-APIRequest: true' -H 'Accept: application/json' \
+    "http://localhost/ocs/v2.php/apps/notifications/api/v2/notifications" \
+    | grep -o '"subject":"[^"]*"' | cut -d'"' -f4
+}
 # Restart the web server so that it runs the code of the replaced app.
 # The image ships opcache.revalidate_freq=60, so requests would otherwise be
 # answered from the previous version for up to a minute - which would make a
@@ -293,6 +301,10 @@ smoke_test_shared_archive_cleanup() {
   share_file shared-cleanup.zip sharee2
 
   expect_api_as 200 POST /archive/mount/shared-cleanup.zip "$rec"
+  # Mount it for the user who is going to delete the archive as well: they
+  # might expect the mount to survive the deletion of the source file, so they
+  # have to be told, too.
+  expect_api 200 POST /archive/mount/shared-cleanup.zip/cleaned-by-admin
   occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|' \
     || fail "the mount of the second user is not registered at all"
 
@@ -304,6 +316,13 @@ smoke_test_shared_archive_cleanup() {
   # The reconciliation command has to agree: nothing left to clean up.
   occ "$APP_ID:prune-mounts" --dry-run | grep -q 'would remove: 0' \
     || fail "prune-mounts still sees orphaned mounts after the deletion"
+
+  # Both users have to be told about the vanished folder: the one whose mount
+  # went away with the share, and the one who caused it.
+  notifications_as "$rec" | grep -q 'has been removed' \
+    || fail "the user whose mount was removed got no notification"
+  notifications_as admin:admin | grep -q 'cleaned-by-admin' \
+    || fail "the user who deleted the archive got no notification for their own mount"
 }
     
 # Mounting an archive that sits in the file-space root used to store "//name",
