@@ -118,6 +118,15 @@ class ArchiveStorage extends AbstractStorage
   protected $dirNames = null;
 
   /**
+   * @var null|ArchiveDirectoryIndex
+   *
+   * Hash-based directory index of the members. is_dir() is called several
+   * times for every archive member during a file-cache scan; answering it from
+   * a flat member list made the scan O(members x directories).
+   */
+  protected $directoryIndex = null;
+
+  /**
    * @var int
    *
    * The file-id of the mount-point. This is non-null after the initial
@@ -312,23 +321,13 @@ class ArchiveStorage extends AbstractStorage
 
       $files = $this->getArchiveService()?->getFiles() ?? [];
       $this->files = [];
-      $this->dirNames = [];
       foreach ($files as $path => $fileInfo) {
         $normalizedPath = trim($this->buildPath($path), Constants::PATH_SEPARATOR);
         $normalizedPath = substr($normalizedPath, $commonPrefixLen);
         $this->files[$normalizedPath] = $fileInfo;
-        $dirName = dirname($normalizedPath);
-        if (!empty($dirName)) {
-          $pathChain = explode(Constants::PATH_SEPARATOR, dirname($normalizedPath));
-          $dirPath = array_shift($pathChain);
-          $this->dirNames[$dirPath] = true;
-          foreach ($pathChain as $pathComponent) {
-            $dirPath .= Constants::PATH_SEPARATOR . $pathComponent;
-            $this->dirNames[$dirPath] = true;
-          }
-        }
       }
-      $this->dirNames = array_keys($this->dirNames);
+      $this->directoryIndex = new ArchiveDirectoryIndex(array_keys($this->files));
+      $this->dirNames = $this->directoryIndex->directories();
 
       // $this->logInfo('FILES ' . print_r($this->files, true));
       // $this->logInfo('DIRS ' . print_r($this->dirNames, true));
@@ -339,6 +338,7 @@ class ArchiveStorage extends AbstractStorage
       $this->logException($t, 'Unable to open archive file ' . ($this->getArchiveFile()?->getPath() ?? ('#' . $this->archiveFileId)));
       $this->files = [];
       $this->dirNames = [];
+      $this->directoryIndex = null;
     }
     $this->archiveHasBeenScanned = true;
   }
@@ -590,24 +590,10 @@ class ArchiveStorage extends AbstractStorage
 
     $path = ltrim($path, Constants::PATH_SEPARATOR);
 
-    $fileNames = array_map(
-      function(string $memberPath) use ($path) {
-        $memberPath = trim(
-          substr($memberPath, strlen($path)),
-          Constants::PATH_SEPARATOR,
-        );
-        $slashPos = strpos($memberPath, Constants::PATH_SEPARATOR);
-        if ($slashPos === false) {
-          return $memberPath;
-        }
-        return substr($memberPath, 0, $slashPos);
-      },
-      array_filter(
-        array_keys($this->getFiles()),
-        fn(string $memberPath) => str_starts_with($memberPath, $path),
-      )
-    );
-    $fileNames = array_unique($fileNames);
+    // Pre-computed in scanArchive(): filtering every member path per directory
+    // made this O(members x directories) for a full scan.
+    $this->getDirNames(); // make sure the archive has been scanned
+    $fileNames = $this->directoryIndex?->children($path) ?? [];
 
     // $this->logInfo('DIRLISTING ' . $path . ': ' . print_r($fileNames, true));
 
@@ -636,7 +622,8 @@ class ArchiveStorage extends AbstractStorage
     if ($path === '') {
       return true;
     }
-    $result = array_search($path, $this->getDirNames()) !== false;
+    $this->getDirNames(); // make sure the archive has been scanned
+    $result = $this->directoryIndex?->isDirectory($path) ?? false;
 
     // $this->logInfo('PATH ' . $path . '  ' . (int)$result);
 

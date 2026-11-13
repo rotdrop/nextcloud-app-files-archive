@@ -37,6 +37,23 @@ jobs:
       php-versions: '["8.4", "8.5"]'
       php-lint-dirs: lib appinfo templates composer
 
+  phpunit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+      - name: Install PHPUnit
+        working-directory: vendor-bin/phpunit
+        run: composer update --no-interaction --no-progress --prefer-dist
+      - name: Run unit tests
+        run: vendor-bin/phpunit/vendor/bin/phpunit -c phpunit.xml
+
   build:
     uses: rotdrop/nextcloud-app-build-system/.github/workflows/build-appstore.yml@v1
 
