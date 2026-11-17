@@ -91,7 +91,7 @@ class ListMounts extends Command
       return Command::INVALID;
     }
 
-    $outputTable = new Table($output)
+    $outputTable = (new Table($output))
       ->setHeaders([
         'UserId',
         'UserFolder',

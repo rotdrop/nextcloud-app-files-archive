@@ -65,9 +65,14 @@ resolved tag is recorded in the summary.
 The Docker-based tests can also run locally:
 `tests/ci/test-install.sh 34 sqlite <candidate.tar.gz>` and
 `tests/ci/test-update.sh 34 34 sqlite <previous-release.tar.gz> <candidate.tar.gz>`.
+Pass an optional PHP version to the install test, for example
+`tests/ci/test-install.sh 33 pgsql <candidate.tar.gz> 8.3`, to build a test
+image with that PHP version; otherwise it uses the official Nextcloud image.
 Run `bash tests/ci/test-shell-helpers.sh` for the assertion regression checks
 without Docker.
 CI install and update matrices cover only supported Nextcloud versions 33-35.
+Install tests cover PHP 8.3 and 8.5 on each version, plus the recommended
+PHP 8.4 on Nextcloud 33. Update tests use the official Nextcloud images.
 
 ### Usage
 

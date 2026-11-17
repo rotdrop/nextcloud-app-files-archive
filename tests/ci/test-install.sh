@@ -4,14 +4,15 @@
 # Fresh install of the app archive on a new Nextcloud instance, followed by
 # a smoke test of the API and the occ commands.
 #
-# Usage: tests/ci/test-install.sh <nextcloud major> <sqlite|pgsql|mysql> <app tarball>
+# Usage: tests/ci/test-install.sh <nextcloud major> <sqlite|pgsql|mysql> <app tarball> [php version]
 
 source "$(dirname "$0")/lib.sh"
 
-[ $# -eq 3 ] || fail "usage: $0 <nextcloud major> <sqlite|pgsql|mysql> <app tarball>"
+[ $# -ge 3 ] && [ $# -le 4 ] || fail "usage: $0 <nextcloud major> <sqlite|pgsql|mysql> <app tarball> [php version]"
 NC_VERSION=$1
 DATABASE=$2
 TARBALL=$(realpath "$3")
+TEST_PHP_VERSION=${4:-}
 VERSION=$(tarball_version "$TARBALL")
 
 step "Nextcloud $NC_VERSION with $DATABASE"

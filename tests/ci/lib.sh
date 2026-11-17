@@ -3,9 +3,10 @@
 #
 # Helpers shared by the install and update tests in this directory. They
 # only need docker and run the same way in CI and locally: Nextcloud comes
-# from the official nextcloud:<version>-apache images, the database (unless
-# SQLite) from a throw-away postgres or mariadb container, all on a private
-# docker network. Set KEEP=1 to keep the containers for inspection.
+# from official nextcloud:<version>-apache images or a test image with a
+# selected PHP version, the database (unless SQLite) from a throw-away
+# postgres or mariadb container, all on a private docker network. Set KEEP=1
+# to keep the containers for inspection.
 
 set -euo pipefail
 
@@ -38,6 +39,9 @@ cleanup() {
     docker rm -f -v "$NC" "$DBC" >/dev/null 2>&1 || true
     docker volume rm "$VOL" >/dev/null 2>&1 || true
     docker network rm "$NET" >/dev/null 2>&1 || true
+    if [ -n "${BUILT_NC_IMAGE:-}" ]; then
+      docker image rm "$BUILT_NC_IMAGE" >/dev/null 2>&1 || true
+    fi
   fi
   exit $rc
 }
@@ -91,12 +95,28 @@ start_db() {
 # older installed version, runs `occ upgrade`; apache only starts afterwards.
 start_nc() {
   docker rm -f "$NC" >/dev/null 2>&1 || true
-  pull "nextcloud:$1-apache"
-  docker run -d --name "$NC" --network "$NET" -v "$VOL:/var/www/html" "nextcloud:$1-apache" >/dev/null
+  local image="nextcloud:$1-apache"
+  if [ -n "${TEST_PHP_VERSION:-}" ]; then
+    BUILT_NC_IMAGE="$CI_ID-nextcloud"
+    docker build --pull --build-arg "NEXTCLOUD_VERSION=$1" \
+      --build-arg "PHP_VERSION=$TEST_PHP_VERSION" -t "$BUILT_NC_IMAGE" "$(dirname "${BASH_SOURCE[0]}")"
+    image=$BUILT_NC_IMAGE
+  else
+    pull "$image"
+  fi
+  docker run -d --name "$NC" --network "$NET" -v "$VOL:/var/www/html" "$image" >/dev/null
   local _ logs
   for _ in $(seq 150); do
     logs=$(docker logs "$NC" 2>&1) || fail "could not read container logs: $logs"
     if grep -q 'resuming normal operations' <<< "$logs"; then
+      if [ -n "${TEST_PHP_VERSION:-}" ]; then
+        local actual_php
+        actual_php=$(docker exec "$NC" php -r 'echo PHP_MAJOR_VERSION, ".", PHP_MINOR_VERSION;') \
+          || fail "could not determine the container PHP version"
+        [ "$actual_php" = "$TEST_PHP_VERSION" ] \
+          || fail "container PHP version is $actual_php, expected $TEST_PHP_VERSION"
+        step "PHP $actual_php"
+      fi
       return 0
     fi
     if [ "$(docker inspect -f '{{.State.Running}}' "$NC")" != true ]; then
