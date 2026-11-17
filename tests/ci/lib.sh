@@ -293,7 +293,7 @@ reload_nc() {
 # only at the mounts of the user who performed the deletion, so the other user
 # kept an empty mount point forever.
 smoke_test_shared_archive_cleanup() {
-  local rec="sharee2:sharee-pass-1234"
+  local rec="sharee2:sharee-pass-1234" mounts notifications
   step "smoke test: deleting an archive unmounts it for other users"
   create_user sharee2 sharee-pass-1234
 
@@ -305,23 +305,24 @@ smoke_test_shared_archive_cleanup() {
   # might expect the mount to survive the deletion of the source file, so they
   # have to be told, too.
   expect_api 200 POST /archive/mount/shared-cleanup.zip/cleaned-by-admin
-  occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|' \
-    || fail "the mount of the second user is not registered at all"
+  expect_occ_output '^\| sharee2 +\|' "$APP_ID:list-mounts" --all
 
   expect_dav 204 DELETE shared-cleanup.zip
-  if occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|'; then
+  mounts=$(occ "$APP_ID:list-mounts" --all) || fail "list-mounts failed: $mounts"
+  if grep -Eq '^\| sharee2 +\|' <<< "$mounts"; then
     fail "the mount of the other user was not removed when the archive was deleted"
   fi
 
   # The reconciliation command has to agree: nothing left to clean up.
-  occ "$APP_ID:prune-mounts" --dry-run | grep -q 'would remove: 0' \
-    || fail "prune-mounts still sees orphaned mounts after the deletion"
+  expect_occ_output 'would remove: 0' "$APP_ID:prune-mounts" --dry-run
 
   # Both users have to be told about the vanished folder: the one whose mount
   # went away with the share, and the one who caused it.
-  notifications_as "$rec" | grep -q 'has been removed' \
+  notifications=$(notifications_as "$rec") || fail "could not read notifications for ${rec%%:*}"
+  grep -q 'has been removed' <<< "$notifications" \
     || fail "the user whose mount was removed got no notification"
-  notifications_as admin:admin | grep -q 'cleaned-by-admin' \
+  notifications=$(notifications_as admin:admin) || fail "could not read notifications for admin"
+  grep -q 'cleaned-by-admin' <<< "$notifications" \
     || fail "the user who deleted the archive got no notification for their own mount"
 }
     
