@@ -129,7 +129,7 @@ OC.L10N.register(
     "Common prefix {prefix} is stripped." : "Gemeinsamer Präfix {prefix} wurde entfernt.",
     "Not mounted, create a new mount point:" : "Nicht eingehängt, einen neuen Einhänge-Punkt erzeugen:",
     "base name" : "Basisname",
-    "strip common path prefix" : "gemeinensamen Dateipfad-Präfix entfernen",
+    "strip common path prefix" : "Gemeinsamen Dateipfad-Präfix entfernen",
     "schedule as background job" : "Als Hintergrundaufgabe planen",
     "Extract Archive" : "Archiv extrahieren",
     "Choose a directory to extract the archive to:" : "Ordner wählen, in den das Archiv extrahiert wird:",
