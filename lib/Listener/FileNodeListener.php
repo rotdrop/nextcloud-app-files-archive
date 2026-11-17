@@ -45,6 +45,7 @@ use OCA\FilesArchive\Constants;
 use OCA\FilesArchive\Db\ArchiveMount;
 use OCA\FilesArchive\Db\ArchiveMountMapper;
 use OCA\FilesArchive\Service\MimeTypeService;
+use OCA\FilesArchive\Service\NotificationService;
 
 /**
  * This listeners has the task to look out for deleted archive files and
@@ -132,6 +133,9 @@ class FileNodeListener implements IEventListener
     /** @var IUserManager $userManager */
     $userManager = $this->appContainer->get(IUserManager::class);
 
+    /** @var NotificationService $notificationService */
+    $notificationService = $this->appContainer->get(NotificationService::class);
+
     /** @var array<string,bool> $affectedUsers */
     $affectedUsers = [];
 
@@ -167,6 +171,22 @@ class FileNodeListener implements IEventListener
           $mountManager->removeMount($absoluteMountPoint);
           $mountMapper->delete($mountEntity);
           $affectedUsers[$ownerId] = true;
+
+          // A notification about a successful mount would link to a folder
+          // which does not exist anymore, so drop it first.
+          $notificationService->deleteMountSuccessNotification(
+            $ownerId,
+            $mountEntity->getMountPointFileId(),
+          );
+          // Also tell the user why the folder disappeared. This includes the
+          // user who deleted the archive: they might expect the mount to
+          // survive the removal of the source file.
+          $notificationService->sendNotificationOnRemoved(
+            userId: $ownerId,
+            mountPointFileId: $mountEntity->getMountPointFileId(),
+            mountPointPath: $mountEntity->getMountPointPath(),
+            sourceId: $archiveFileId,
+          );
         }
       }
       unset($this->removalCandidates[$key]);

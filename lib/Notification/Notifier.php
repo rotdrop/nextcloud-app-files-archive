@@ -104,8 +104,12 @@ class Notifier implements INotifier
     $subjectType = (int)$notification->getSubject();
 
     $parameters = $notification->getSubjectParameters();
-    $richSubstitutions = [
-      'source' => [
+    $richSubstitutions = [];
+    // The source path is not known for every notification type: a mount can
+    // be removed because the archive file itself is gone, in which case there
+    // is no path to point at anymore.
+    if (!empty($parameters['sourcePath'])) {
+      $richSubstitutions['source'] = [
         'type' => 'file',
         'id' => (string)$parameters['sourceId'],
         'name' => $parameters['sourceBaseName'],
@@ -113,8 +117,8 @@ class Notifier implements INotifier
         'link' => $this->urlGenerator->linkToRouteAbsolute('files.viewcontroller.showFile', [
           'fileid' => $parameters['sourceId'],
         ]),
-      ],
-    ];
+      ];
+    }
 
     $messageTemplate = null; // default, no detailed message
 
@@ -196,6 +200,19 @@ class Notifier implements INotifier
           );
         }
 
+        break;
+      case self::TYPE_REMOVED:
+        $richSubstitutions['destination'] = [
+          'type' => 'highlight',
+          'id' => $notification->getObjectId(),
+          'name' => $parameters['destinationPath'],
+        ];
+        $subjectTemplate = $l->t('The virtual folder {destination} has been removed.');
+        $messageTemplate = $l->t(
+          'The archive file for {destination} is no longer available,'
+          . ' so the mount point has been removed.'
+          . ' This happens when the archive file is deleted.'
+        );
         break;
       case self::TYPE_FAILURE:
         $richSubstitutions['destination'] = [

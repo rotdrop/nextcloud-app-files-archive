@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.3.2-rc1] -- 2026-11-08
 
+### Added
+
+- notify users when a mount point is removed because the archive file is gone
+
 ### Fixed
 
 - normalize stored archive mount-point paths
