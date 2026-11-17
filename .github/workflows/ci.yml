@@ -39,13 +39,18 @@ jobs:
 
   phpunit:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.3', '8.4', '8.5']
+    name: PHPUnit (PHP ${{ matrix.php-version }})
     steps:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: ${{ matrix.php-version }}
           tools: composer:v2
           coverage: none
       - name: Install PHPUnit
