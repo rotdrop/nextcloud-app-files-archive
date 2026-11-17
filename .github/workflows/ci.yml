@@ -34,7 +34,7 @@ jobs:
   ci:
     uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@v1
     with:
-      php-versions: '["8.4", "8.5"]'
+      php-versions: '["8.3", "8.4", "8.5"]'
       php-lint-dirs: lib appinfo templates composer
 
   phpunit:
@@ -69,10 +69,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Keep in sync with the dependencies in appinfo/info.xml.
-        nextcloud: ['33', '34', '35']
+        # Lowest non-deprecated, recommended and highest PHP versions
+        # supported by both Nextcloud and appinfo/info.xml.
+        versions:
+          - {nextcloud: '33', php: '8.3'}
+          - {nextcloud: '33', php: '8.4'}
+          - {nextcloud: '33', php: '8.5'}
+          - {nextcloud: '34', php: '8.3'}
+          - {nextcloud: '34', php: '8.5'}
+          - {nextcloud: '35', php: '8.3'}
+          - {nextcloud: '35', php: '8.5'}
         database: [sqlite, pgsql, mysql]
-    name: install (NC ${{ matrix.nextcloud }}, ${{ matrix.database }})
+    name: install (NC ${{ matrix.versions.nextcloud }}, PHP ${{ matrix.versions.php }}, ${{ matrix.database }})
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -94,7 +102,7 @@ jobs:
       - name: Fresh install and smoke test
         env:
           ARCHIVE: ${{ needs.build.outputs.archive-filename }}
-        run: tests/ci/test-install.sh ${{ matrix.nextcloud }} ${{ matrix.database }} "$ARCHIVE"
+        run: tests/ci/test-install.sh ${{ matrix.versions.nextcloud }} ${{ matrix.database }} "$ARCHIVE" ${{ matrix.versions.php }}
 
   update:
     needs: build

@@ -56,4 +56,73 @@ if (
 ) >/dev/null; then
   fail "a failed command listing was accepted"
 fi
+
+create_user() { :; }
+share_file() { :; }
+expect_api_as() { :; }
+shared_cleanup_deleted=false
+expect_dav() { shared_cleanup_deleted=true; }
+occ() {
+  case $1 in
+    "$APP_ID:list-mounts")
+      if [ "$shared_cleanup_deleted" = false ]; then
+        printf '| sharee2 | /shared-cleanup |\n'
+      fi
+      ;;
+    "$APP_ID:prune-mounts")
+      printf 'would remove: 0\n'
+      ;;
+    *) return 1 ;;
+  esac
+  sleep 0.05
+  printf 'remaining table output\n'
+}
+notifications_as() {
+  printf 'The archive folder cleaned-by-admin has been removed\n'
+  sleep 0.05
+  printf 'another notification\n'
+}
+smoke_test_shared_archive_cleanup
+
+if (
+  shared_cleanup_deleted=false
+  occ() { printf 'no mounts\n'; }
+  smoke_test_shared_archive_cleanup
+) >/dev/null; then
+  fail "a missing second-user mount was accepted"
+fi
+if (
+  shared_cleanup_deleted=false
+  occ() {
+    printf '| sharee2 | /shared-cleanup |\n'
+    return 1
+  }
+  smoke_test_shared_archive_cleanup
+) >/dev/null; then
+  fail "a failed shared-mount registration check was accepted"
+fi
+if (
+  shared_cleanup_deleted=false
+  occ() {
+    printf '| sharee2 | /shared-cleanup |\n'
+    sleep 0.05
+    printf 'remaining table output\n'
+  }
+  smoke_test_shared_archive_cleanup
+) >/dev/null; then
+  fail "a surviving second-user mount was accepted"
+fi
+if (
+  shared_cleanup_deleted=false
+  occ() {
+    if [ "$shared_cleanup_deleted" = false ]; then
+      printf '| sharee2 | /shared-cleanup |\n'
+    else
+      return 1
+    fi
+  }
+  smoke_test_shared_archive_cleanup
+) >/dev/null; then
+  fail "a failed shared-mount deletion check was accepted"
+fi
 echo "Shell helper regression checks passed."

@@ -305,7 +305,7 @@ class MountController extends Controller
 
     $result = $this->formatMountEntity($mountEntity, throwOnError: true);
 
-    return new DTO\ArchiveMountResponse(mount: $result->mount, mountPoint: $result->mountPoint)->response();
+    return (new DTO\ArchiveMountResponse(mount: $result->mount, mountPoint: $result->mountPoint))->response();
   }
 
   /**
@@ -375,12 +375,12 @@ class MountController extends Controller
       $this->invalidateMountCache();
     }
 
-    return new DTO\ArchiveUnmountResponse(
+    return (new DTO\ArchiveUnmountResponse(
       errorMessages: $errorMessages,
       messages: $messages,
       count: $unMountCount,
       mounts: $removedMountPoints,
-    )->response(count($errorMessages) > 0 ? Http::STATUS_BAD_REQUEST : Http::STATUS_OK);
+    ))->response(count($errorMessages) > 0 ? Http::STATUS_BAD_REQUEST : Http::STATUS_OK);
   }
 
   /**
@@ -463,11 +463,11 @@ class MountController extends Controller
       fn(DTO\MountPoint $mountPoint) => $mountPoint->mountPoint !== null,
     );
 
-    return new DTO\MountStatusResponse(
+    return (new DTO\MountStatusResponse(
       messages: [],
       mounted: !empty($mountsWithMountPoint),
       mounts: $mountsWithMountPoint,
-    )->response(count($mountsWithMountPoint) === count($mounts) ? HTTP::STATUS_OK : HTTP::STATUS_INTERNAL_SERVER_ERROR);
+    ))->response(count($mountsWithMountPoint) === count($mounts) ? HTTP::STATUS_OK : HTTP::STATUS_INTERNAL_SERVER_ERROR);
   }
 
   /**
@@ -492,9 +492,9 @@ class MountController extends Controller
   public function patch(string $archivePath, #[SensitiveParameter] array $changeSet = []): DataResponse|JSONResponse
   {
     if (empty($changeSet)) {
-      return new DTO\MountPatchResponse(
+      return (new DTO\MountPatchResponse(
         changeSet: [],
-      )->response();
+      ))->response();
     }
     if (count($changeSet) != 1 || !array_key_exists('archivePassPhrase', $changeSet)) {
       throw new EnduserNotificationException($this->l->t('Only the passphrase may be changed for an existing mount.'));
@@ -529,8 +529,8 @@ class MountController extends Controller
       $this->mountMapper->update($mount);
     }
 
-    return new DTO\MountPatchResponse(
+    return (new DTO\MountPatchResponse(
       changeSet: $changeSet,
-    )->response();
+    ))->response();
   }
 }

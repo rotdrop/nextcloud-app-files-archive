@@ -3,9 +3,10 @@
 #
 # Helpers shared by the install and update tests in this directory. They
 # only need docker and run the same way in CI and locally: Nextcloud comes
-# from the official nextcloud:<version>-apache images, the database (unless
-# SQLite) from a throw-away postgres or mariadb container, all on a private
-# docker network. Set KEEP=1 to keep the containers for inspection.
+# from official nextcloud:<version>-apache images or a test image with a
+# selected PHP version, the database (unless SQLite) from a throw-away
+# postgres or mariadb container, all on a private docker network. Set KEEP=1
+# to keep the containers for inspection.
 
 set -euo pipefail
 
@@ -38,6 +39,9 @@ cleanup() {
     docker rm -f -v "$NC" "$DBC" >/dev/null 2>&1 || true
     docker volume rm "$VOL" >/dev/null 2>&1 || true
     docker network rm "$NET" >/dev/null 2>&1 || true
+    if [ -n "${BUILT_NC_IMAGE:-}" ]; then
+      docker image rm "$BUILT_NC_IMAGE" >/dev/null 2>&1 || true
+    fi
   fi
   exit $rc
 }
@@ -91,12 +95,28 @@ start_db() {
 # older installed version, runs `occ upgrade`; apache only starts afterwards.
 start_nc() {
   docker rm -f "$NC" >/dev/null 2>&1 || true
-  pull "nextcloud:$1-apache"
-  docker run -d --name "$NC" --network "$NET" -v "$VOL:/var/www/html" "nextcloud:$1-apache" >/dev/null
+  local image="nextcloud:$1-apache"
+  if [ -n "${TEST_PHP_VERSION:-}" ]; then
+    BUILT_NC_IMAGE="$CI_ID-nextcloud"
+    docker build --pull --build-arg "NEXTCLOUD_VERSION=$1" \
+      --build-arg "PHP_VERSION=$TEST_PHP_VERSION" -t "$BUILT_NC_IMAGE" "$(dirname "${BASH_SOURCE[0]}")"
+    image=$BUILT_NC_IMAGE
+  else
+    pull "$image"
+  fi
+  docker run -d --name "$NC" --network "$NET" -v "$VOL:/var/www/html" "$image" >/dev/null
   local _ logs
   for _ in $(seq 150); do
     logs=$(docker logs "$NC" 2>&1) || fail "could not read container logs: $logs"
     if grep -q 'resuming normal operations' <<< "$logs"; then
+      if [ -n "${TEST_PHP_VERSION:-}" ]; then
+        local actual_php
+        actual_php=$(docker exec "$NC" php -r 'echo PHP_MAJOR_VERSION, ".", PHP_MINOR_VERSION;') \
+          || fail "could not determine the container PHP version"
+        [ "$actual_php" = "$TEST_PHP_VERSION" ] \
+          || fail "container PHP version is $actual_php, expected $TEST_PHP_VERSION"
+        step "PHP $actual_php"
+      fi
       return 0
     fi
     if [ "$(docker inspect -f '{{.State.Running}}' "$NC")" != true ]; then
@@ -293,7 +313,7 @@ reload_nc() {
 # only at the mounts of the user who performed the deletion, so the other user
 # kept an empty mount point forever.
 smoke_test_shared_archive_cleanup() {
-  local rec="sharee2:sharee-pass-1234"
+  local rec="sharee2:sharee-pass-1234" mounts notifications
   step "smoke test: deleting an archive unmounts it for other users"
   create_user sharee2 sharee-pass-1234
 
@@ -305,23 +325,24 @@ smoke_test_shared_archive_cleanup() {
   # might expect the mount to survive the deletion of the source file, so they
   # have to be told, too.
   expect_api 200 POST /archive/mount/shared-cleanup.zip/cleaned-by-admin
-  occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|' \
-    || fail "the mount of the second user is not registered at all"
+  expect_occ_output '^\| sharee2 +\|' "$APP_ID:list-mounts" --all
 
   expect_dav 204 DELETE shared-cleanup.zip
-  if occ "$APP_ID:list-mounts" --all | grep -Eq '^\| sharee2 +\|'; then
+  mounts=$(occ "$APP_ID:list-mounts" --all) || fail "list-mounts failed: $mounts"
+  if grep -Eq '^\| sharee2 +\|' <<< "$mounts"; then
     fail "the mount of the other user was not removed when the archive was deleted"
   fi
 
   # The reconciliation command has to agree: nothing left to clean up.
-  occ "$APP_ID:prune-mounts" --dry-run | grep -q 'would remove: 0' \
-    || fail "prune-mounts still sees orphaned mounts after the deletion"
+  expect_occ_output 'would remove: 0' "$APP_ID:prune-mounts" --dry-run
 
   # Both users have to be told about the vanished folder: the one whose mount
   # went away with the share, and the one who caused it.
-  notifications_as "$rec" | grep -q 'has been removed' \
+  notifications=$(notifications_as "$rec") || fail "could not read notifications for ${rec%%:*}"
+  grep -q 'has been removed' <<< "$notifications" \
     || fail "the user whose mount was removed got no notification"
-  notifications_as admin:admin | grep -q 'cleaned-by-admin' \
+  notifications=$(notifications_as admin:admin) || fail "could not read notifications for admin"
+  grep -q 'cleaned-by-admin' <<< "$notifications" \
     || fail "the user who deleted the archive got no notification for their own mount"
 }
     

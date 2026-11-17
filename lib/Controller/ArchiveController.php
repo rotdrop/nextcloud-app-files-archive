@@ -199,11 +199,11 @@ class ArchiveController extends Controller
       }
     }
 
-    return new DTO\ArchiveInfoResponse(
+    return (new DTO\ArchiveInfoResponse(
       messages: $messages,
       archiveStatus: $archiveStatus,
       archiveInfo: $archiveInfo,
-    )->response($httpStatus);
+    ))->response($httpStatus);
   }
 
   /**
