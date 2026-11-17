@@ -14,7 +14,7 @@
   <bugs>https://github.com/rotdrop/nextcloud-app-files-archive.git</bugs>
   <dependencies>
     <nextcloud min-version="33" max-version="35"/>
-    <php min-version="8.4" max-version="8.6" />
+    <php min-version="8.3" max-version="8.5" />
   </dependencies>
   <types>
     <filesystem/><!-- required for catching dav events, otherwise app is not loaded -->
