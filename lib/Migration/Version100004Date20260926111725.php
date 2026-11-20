@@ -26,6 +26,15 @@ use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 use Override;
 
+// Nextcloud >= 35 replays the migrations of *disabled* apps during an upgrade
+// (OC\DB\SchemaChecker::applyDisabledMigrations()). It includes the migration
+// files directly and does not register the class loader of the disabled app.
+// PHP binds traits when the class is declared, so a trait that cannot be
+// autoloaded is a fatal error which cannot be caught and aborts "occ upgrade".
+// Make sure the class loader of this app is available before the class below
+// is declared.
+include_once dirname(__DIR__, 2) . '/composer/autoload.php';
+
 /**
  * Remove the archive_file_path[_hash] columns as we now only work with the
  * file-id.
