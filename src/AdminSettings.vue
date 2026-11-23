@@ -109,7 +109,7 @@ import {
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
-import { showError /* , showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT */ } from './toolkit/util/toasts.ts'
+import { showError /* , showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT */ } from '@nextcloud/dialogs'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
 const loading = ref(true)

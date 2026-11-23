@@ -361,7 +361,7 @@ import { setFileNodeBusy } from '../toolkit/util/file-node-busy-indicator.ts'
 import { fileInfoToNode } from '../toolkit/util/file-node-helper.ts'
 import generateAppUrl from '../toolkit/util/generate-url.ts'
 import getInitialState from '../toolkit/util/initial-state.ts'
-import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '../toolkit/util/toasts.ts'
+import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 
 type ArchiveMount = ArchiveMountEntity & {
   mountPoint: IFolder

@@ -34,7 +34,7 @@ import { clearFileNodeBusy, setFileNodeBusy } from '../toolkit/util/file-node-bu
 import { fileInfoToNode } from '../toolkit/util/file-node-helper.ts';
 import generateAppUrl from '../toolkit/util/generate-url.ts';
 import getInitialState from '../toolkit/util/initial-state.ts';
-import { showError, showInfo, showSuccess, TOAST_PERMANENT_TIMEOUT } from '../toolkit/util/toasts.ts';
+import { showError, showInfo, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
 
 const initialState = getInitialState<InitialState>();
 
