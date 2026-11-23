@@ -30,11 +30,13 @@ jobs:
       - uses: actions/checkout@v5
       - name: Check smoke-test assertion helpers
         run: bash tests/ci/test-shell-helpers.sh
+      - name: Check archive lint exclusions
+        run: bash tests/ci/test-lint-archive.sh
 
   ci:
     uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@v1
     with:
-      php-versions: '["8.3", "8.4", "8.5"]'
+      php-versions: '["8.2", "8.3", "8.4", "8.5"]'
       php-lint-dirs: lib appinfo templates composer
 
   phpunit:
@@ -42,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.3', '8.4', '8.5']
+        php-version: ['8.2', '8.3', '8.4', '8.5']
     name: PHPUnit (PHP ${{ matrix.php-version }})
     steps:
       - uses: actions/checkout@v5
@@ -62,6 +64,30 @@ jobs:
   build:
     uses: rotdrop/nextcloud-app-build-system/.github/workflows/build-appstore.yml@v1
 
+  archive-php-lint:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.2', '8.3', '8.4', '8.5']
+    name: Archive PHP lint (PHP ${{ matrix.php-version }})
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+      - name: Lint packaged PHP files
+        env:
+          ARCHIVE: ${{ needs.build.outputs.archive-filename }}
+        run: |
+          sha256sum --check "$ARCHIVE.sha256"
+          bash tests/ci/lint-archive.sh "$ARCHIVE"
+
   install:
     needs: build
     runs-on: ubuntu-latest
@@ -69,9 +95,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Lowest non-deprecated, recommended and highest PHP versions
-        # supported by both Nextcloud and appinfo/info.xml.
+        # Lowest, recommended and highest PHP versions supported by both
+        # Nextcloud and appinfo/info.xml.
         versions:
+          - {nextcloud: '33', php: '8.2'}
           - {nextcloud: '33', php: '8.3'}
           - {nextcloud: '33', php: '8.4'}
           - {nextcloud: '33', php: '8.5'}
@@ -116,7 +143,9 @@ jobs:
           - {from-release: latest, from-nextcloud: '33', nextcloud: '33', database: pgsql}
           - {from-release: latest, from-nextcloud: '34', nextcloud: '34', database: sqlite}
           - {from-release: latest, from-nextcloud: '35', nextcloud: '35', database: mysql}
-    name: update (${{ matrix.from-release }} on NC ${{ matrix.from-nextcloud }} -> NC ${{ matrix.nextcloud }}, ${{ matrix.database }})
+          # Servers upgrading from NC 32 may still have the 1.2.x release.
+          - {from-release: v1.2.8, from-nextcloud: '32', nextcloud: '33', database: pgsql, php: '8.2'}
+    name: update (${{ matrix.from-release }} on NC ${{ matrix.from-nextcloud }} -> NC ${{ matrix.nextcloud }}, PHP ${{ matrix.php || 'image default' }}, ${{ matrix.database }})
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -159,6 +188,7 @@ jobs:
         env:
           ARCHIVE: ${{ needs.build.outputs.archive-filename }}
           BASELINE: ${{ steps.previous.outputs.tarball }}
+          TEST_PHP_VERSION: ${{ matrix.php || '' }}
         run: >-
           tests/ci/test-update.sh
           ${{ matrix.from-nextcloud }} ${{ matrix.nextcloud }} ${{ matrix.database }}
