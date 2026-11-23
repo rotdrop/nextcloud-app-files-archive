@@ -90,6 +90,7 @@
 import type { DiagnosticsResponse } from '../build/ts-types/php-modules/Controller/DTO.ts'
 
 import axios from '@nextcloud/axios'
+import { showError /* , showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT */ } from '@nextcloud/dialogs'
 import { translate as t } from '@nextcloud/l10n'
 import {
   NcSettingsSection,
@@ -109,7 +110,6 @@ import {
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
-import { showError /* , showSuccess, showInfo, TOAST_PERMANENT_TIMEOUT */ } from '@nextcloud/dialogs'
 
 const cloudVersionClasses = computed<string[]>(() => cloudVersionClassesImport)
 const loading = ref(true)
