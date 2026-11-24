@@ -70,9 +70,17 @@ Pass an optional PHP version to the install test, for example
 image with that PHP version; otherwise it uses the official Nextcloud image.
 Run `bash tests/ci/test-shell-helpers.sh` for the assertion regression checks
 without Docker.
-CI install and update matrices cover only supported Nextcloud versions 33-35.
-Install tests cover PHP 8.3 and 8.5 on each version, plus the recommended
-PHP 8.4 on Nextcloud 33. Update tests use the official Nextcloud images.
+CI install tests cover supported Nextcloud versions 33-35. They cover PHP
+8.3 and 8.5 on each version, plus PHP 8.2 and the recommended PHP 8.4 on
+Nextcloud 33. The update matrix also covers the
+historical upgrade from app 1.2.8 on Nextcloud 32 to the candidate on
+Nextcloud 33 with PHP 8.2; other update tests use official Nextcloud images.
+Set `TEST_PHP_VERSION=8.2` when running the update test locally to use that
+PHP version for both server versions.
+
+CI checks the built archive's PHP syntax on PHP 8.2-8.5. On PHP 8.2 it
+excludes three unused toolkit files that use or depend on newer syntax;
+they are checked on the other PHP versions. The app does not load them.
 
 ### Usage
 
