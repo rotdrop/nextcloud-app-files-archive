@@ -99,10 +99,9 @@ jobs:
         # Nextcloud and appinfo/info.xml.
         versions:
           - {nextcloud: '33', php: '8.2'}
-          - {nextcloud: '33', php: '8.3'}
           - {nextcloud: '33', php: '8.4'}
           - {nextcloud: '33', php: '8.5'}
-          - {nextcloud: '34', php: '8.3'}
+          - {nextcloud: '34', php: '8.2'}
           - {nextcloud: '34', php: '8.5'}
           - {nextcloud: '35', php: '8.3'}
           - {nextcloud: '35', php: '8.5'}
