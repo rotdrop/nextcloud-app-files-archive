@@ -161,8 +161,6 @@ class SettingsController extends Controller
    * @param bool $force
    *
    * @return DataResponse
-   *
-   * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/settings/admin/{setting}')]
