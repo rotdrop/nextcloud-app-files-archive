@@ -29,6 +29,7 @@ use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\Config\IUserConfig;
+use OCP\IAppConfig;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
@@ -142,6 +143,7 @@ class SettingsController extends Controller
     IRequest $request,
     private $userId,
     private IConfig $config,
+    private IAppConfig $appConfig,
     private IUserConfig $userConfig,
     protected ContainerInterface $appContainer,
     protected IL10N $l,
@@ -159,8 +161,6 @@ class SettingsController extends Controller
    * @param bool $force
    *
    * @return DataResponse
-   *
-   * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
    */
   #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\FilesArchive\Settings\Admin::class)]
   #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/settings/admin/{setting}')]
@@ -188,6 +188,7 @@ class SettingsController extends Controller
       case self::EXTRACT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
       case self::MOUNT_DISABLED:
       case self::MOUNT_STRIP_COMMON_PATH_PREFIX_DEFAULT:
+        $oldValue = filter_var($oldValue, FILTER_VALIDATE_BOOLEAN);
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
           throw new EnduserNotificationException(
@@ -197,8 +198,6 @@ class SettingsController extends Controller
         }
         if ($newValue === (self::ADMIN_SETTINGS[$setting]['default'] ?? false)) {
           $newValue = null;
-        } else {
-          $newValue = (int)$newValue;
         }
         break;
       default:
@@ -209,7 +208,12 @@ class SettingsController extends Controller
       $this->config->deleteAppValue($this->appName, $setting);
       $newValue = self::ADMIN_SETTINGS[$setting]['default'] ?? null;
     } else {
-      $this->config->setAppValue($this->appName, $setting, $newValue);
+      if (is_bool($newValue)) {
+        // bool is not accepted by the deprecated setAppValue()
+        $this->appConfig->setValueBool($this->appName, $setting, $newValue);
+      } else {
+        $this->config->setAppValue($this->appName, $setting, $newValue);
+      }
     }
 
     switch ($setting) {
